@@ -1,0 +1,58 @@
+(= gulp   (require "gulp")
+   plug   ((require "gulp-load-plugins"))
+   brsync (require "browser-sync")
+   reload brsync.reload
+   marked (require "marked"))
+
+; configure markdown converter
+(marked.setOptions
+  (gfm:         yes
+   tables:      yes
+   breaks:      yes
+   sanitize:    no
+   smartypants: yes))
+
+(def handle stream
+  (stream.on "error" (fn err (do
+    (plug.util.log err)
+    (plug.util.log "\x07\x07\x07\x07\x07")
+    (stream.end)))))
+
+(mac task name pre ...args (do
+  (if (and (not (Array.isArray pre)) (? pre))
+    (do (args.unshift pre)
+        (= pre ``())))
+  (if (is args.length 0)
+    (= pipeline `())
+    (do (= pipeline `(do (handle (,(args.shift) ,(args.shift)))))
+        (while (> args.length 0) (do
+          (= left  (args.shift)
+             right (args.shift))
+          (pipeline.push `(.pipe (handle (,left ,right))))))))
+  `(gulp.task ,name ,pre (fn ,pipeline))))
+
+; less
+(task         "less"
+  gulp.src    "src/less/app.less"
+  plug.less   ()
+  gulp.dest   "css/"
+  reload      (stream: yes))
+
+; jade
+(task         "jade"
+  gulp.src    "src/jade/index.jade"
+  plug.jade   (pretty: yes)
+  gulp.dest   "./"
+  reload      (stream: yes))
+
+; static server
+(gulp.task "browser-sync" (fn
+  (brsync (server: (baseDir: "./") port: 3600 online: no))))
+
+; watch files for changes
+(gulp.task "watch" (fn (do
+  (gulp.watch "src/less/*.less" `("less"))
+  (gulp.watch "src/jade/*.jade" `("jade")))))
+
+; default
+(task "default" `("less" "jade" "watch" "browser-sync"))

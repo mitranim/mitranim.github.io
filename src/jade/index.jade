@@ -1,0 +1,32 @@
+extends layout
+
+block title
+  title= appName
+
+block content
+  .wrapper-site
+    .content
+      img.photo.pull-right(src='/img/photo-small.jpg')
+      h3.text-muted Who
+      p Iaroslav Bogucharskii
+      p Moscow, Russia
+      h3.text-muted Handiwork
+      p
+        span.fa.fa-code &nbsp;
+        a(href='http://jisp.io') http://jisp.io
+      h3.text-muted Links
+      p.small
+        span.fa.fa-github &nbsp;
+        a(href='https://github.com/Mitranim') github
+        | &nbsp;&nbsp;
+        span.fa.fa-skype &nbsp;
+        a(href='skype:mitranim.web?chat') skype
+        | &nbsp;&nbsp;
+        span.fa.fa-envelope-o &nbsp;
+        a(href='mailto:me@mitranim.com') email
+        | &nbsp;&nbsp;
+        span.fa.fa-linkedin &nbsp;
+        a(href='http://www.linkedin.com/in/mitranim') linkedin
+        | &nbsp;&nbsp;
+        span.fa.fa-twitter &nbsp;
+        a(href='http://twitter.com/mitranim') twitter

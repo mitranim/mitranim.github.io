@@ -1,0 +1,27 @@
+{
+  "name": "mitranim.github.io",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Mitranim",
+  "homepage": "http://mitranim.com",
+  "scripts": {
+    "start": "gulp"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "devDependencies": {
+    "bower": "latest",
+    "gulp-concat": "latest",
+    "gulp-jisp": "latest",
+    "gulp-util": "latest",
+    "gulp-uglify": "latest",
+    "gulp": "latest",
+    "gulp-less": "latest",
+    "gulp-jade": "latest",
+    "marked": "latest",
+    "jisp": "latest",
+    "gulp-load-plugins": "latest",
+    "browser-sync": "latest"
+  }
+}
