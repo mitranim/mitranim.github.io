@@ -6181,7 +6181,7 @@ body {
 }
 .content {
   background-color: black;
-  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 12px 0px;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 10px 0px;
   padding: 2em;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
