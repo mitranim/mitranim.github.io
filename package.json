@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "bower": "latest",
+    "bootstrap": "latest",
     "gulp-concat": "latest",
     "gulp-jisp": "latest",
     "gulp-util": "latest",
