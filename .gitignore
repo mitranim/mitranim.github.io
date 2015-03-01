@@ -24,18 +24,9 @@ nbproject
 *.sublime-workspace
 .idea
 
-# grunt-html-validation
-validation-status.json
-validation-report.json
-
 # Folders to ignore
 node_modules
 bower_components
 
-# Logs
-logs
-
-# Runtime data
-pids
-*.pid
-*.seed
+# Ignore gh-pages symlink
+mitranim-master

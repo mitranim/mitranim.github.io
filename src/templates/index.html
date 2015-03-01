@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= $title || 'about:mitranim' %></title>
+    <meta name="author" content="mitranim">
+    <meta name="description" content="homepage">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+  </head>
+
+  <body>
+
+    <!-- Navbar -->
+    <%= $include('partials/navbar', $) %>
+
+    <!-- Site wrapper and content -->
+    <%= $content || $include('partials/wrapper', $) %>
+
+    <!-- Footer -->
+    <%= $include('partials/footer', $) %>
+
+  </body>
+
+</html>

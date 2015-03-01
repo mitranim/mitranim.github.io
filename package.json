@@ -2,27 +2,35 @@
   "name": "mitranim.github.io",
   "version": "0.0.0",
   "private": true,
-  "author": "Mitranim",
-  "homepage": "http://mitranim.com",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp server",
+    "build": "gulp build",
+    "gulp": "gulp",
+    "img": "gulp images"
   },
-  "engines": {
-    "node": ">=0.8.0"
+  "authors": [
+    "Mitranim <me@mitranim.com>"
+  ],
+  "homepage": "http://mitranim.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mitranim/mitranim.github.io.git"
   },
   "devDependencies": {
-    "bower": "latest",
-    "bootstrap": "latest",
-    "gulp-concat": "latest",
-    "gulp-jisp": "latest",
-    "gulp-util": "latest",
-    "gulp-uglify": "latest",
-    "gulp": "latest",
-    "gulp-less": "latest",
-    "gulp-jade": "latest",
-    "marked": "latest",
-    "jisp": "latest",
-    "gulp-load-plugins": "latest",
-    "browser-sync": "latest"
+    "browser-sync": "^2.2.1",
+    "gulp": "git://github.com/gulpjs/gulp#4.0",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-filter": "^2.0.2",
+    "gulp-image-resize": "^0.6.0",
+    "gulp-less": "^3.0.0",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-marked": "^1.0.0",
+    "gulp-minify-css": "^0.4.6",
+    "gulp-plumber": "^0.6.6",
+    "gulp-rimraf": "^0.1.1",
+    "gulp-statil": "latest",
+    "gulp-watch": "^4.1.1",
+    "highlight.js": "^8.4.0",
+    "lodash": "^3.3.1"
   }
 }
