@@ -1,0 +1,14 @@
+<sf-tabset>
+  <label ng-repeat-start="lang in self.langs" active-switch>{{lang.title}}</label>
+  <sf-tab ng-repeat-end>
+    <form class="form-spaced" ng-submit="self.submit(lang)">
+      <h3>Source words</h3>
+      <input class="info" ng-model="lang.source">
+      <button class="success" type="submit">Submit</button>
+
+      <sf-grid>
+        <sf-grid-item ng-repeat="record in lang.records">{{record.Value}}</sf-grid-item>
+      </sf-grid>
+    </form>
+  </sf-tab>
+</sf-tabset>
