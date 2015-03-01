@@ -14,6 +14,21 @@
   ],
   "devDependencies": {
     "stylific": "latest",
-    "font-awesome-svg-png": "~1.1.2"
+    "font-awesome-svg-png": "~1.1.2",
+    "angular": "~1.3.14",
+    "datacore": "~0.1.4",
+    "lodash": "~3.3.1",
+    "angular-sanitize": "~1.3.14"
+  },
+  "overrides": {
+    "font-awesome": {
+      "main": []
+    },
+    "stylific": {
+      "main": []
+    },
+    "font-awesome-svg-png": {
+      "main": []
+    }
   }
 }

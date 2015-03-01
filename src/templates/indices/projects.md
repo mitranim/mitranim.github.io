@@ -9,7 +9,7 @@ Poi community website. It's something we run with friends. We have our own
 
 The free software I make for myself and other developers.
 
-[stylific](http://mitranim.com/stylific/) <span class="fade">(LESS / CSS)</span>
+[stylific](http://mitranim.com/stylific/) <span class="fade">(LESS)</span>
 
 A CSS library to help web developers make better websites. Somewhat similar to
 [Bootstrap](http://getbootstrap.com), but with a different, and dare I say,

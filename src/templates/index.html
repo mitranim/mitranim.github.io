@@ -15,11 +15,14 @@
     <!-- Navbar -->
     <%= $include('partials/navbar', $) %>
 
-    <!-- Site wrapper and content -->
+    <!-- Site content -->
     <%= $content || $include('partials/wrapper', $) %>
 
     <!-- Footer -->
     <%= $include('partials/footer', $) %>
+
+    <!-- JS -->
+    <script type="text/javascript" src="/js/app.js"></script>
 
   </body>
 
