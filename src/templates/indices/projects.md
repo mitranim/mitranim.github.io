@@ -1,6 +1,6 @@
 # Hobby Projects
 
-[ProstoPoi](http://prostopoi.ru)
+[ProstoPoi](http://prostopoi.ru) <span class="fade">(Go / JavaScript / LESS)</span>
 
 Poi community website. It's something we run with friends. We have our own
 [video lessons](http://prostopoi.ru/how/spinning/forward), go check us out!
@@ -25,9 +25,22 @@ JavaScript. I'm somewhat embarrassed about it, but people seem to like it.
 Generator of synthetic words or names. You won't believe your eyes when you see
 what it can make.
 
+[gotools](https://github.com/Mitranim/gotools) <span class="fade">(Go)</span>
+
+Collection of utilities for writing Go web servers: rendering tools, middleware,
+database adapter.
+
 [datacore](https://github.com/Mitranim/datacore) <span class="fade">(JavaScript)</span>
 
 An abstract library for clientside (in the browser) data modeling and ajax.
 Somewhat similar to Backbone.Model and analogs, but with a different foundation.
 
 ... lots of [other things!](https://github.com/Mitranim?tab=repositories)
+
+# Non-open Source
+
+Electronic education system for Russian schools (closed beta). SPA frontend,
+part of team. <span class="fade">(JavaScript)</span>
+
+Call centre monitoring system: realtime analysis of call centre load, forecast,
+and call management. Node.js backend / frontend. <span class="fade">(JavaScript)</span>
