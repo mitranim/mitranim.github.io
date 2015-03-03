@@ -30,6 +30,11 @@ what it can make.
 Collection of utilities for writing Go web servers: rendering tools, middleware,
 database adapter.
 
+[statil](https://github.com/Mitranim/statil) <span class="fade">(JavaScript)</span>
+
+World's lightest, and possibly fastest, generator of static websites like this
+one.
+
 [datacore](https://github.com/Mitranim/datacore) <span class="fade">(JavaScript)</span>
 
 An abstract library for clientside (in the browser) data modeling and ajax.

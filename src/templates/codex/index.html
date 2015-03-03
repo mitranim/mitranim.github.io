@@ -2,9 +2,12 @@
 
 <sf-jumbo style="background-image: url(/img/script.jpg)">
   <h1>codex</h1>
-  <p>Generator of synthetic words</p>
+  <p class="flex justify-between">
+    Generator of synthetic words
+    <a href="https://github.com/Mitranim/codex" target="_blank">
+      <sf-icon class="code-white pop"></sf-icon>
+    </a>
+  </p>
 </sf-jumbo>
 
-<sf-article class="pad" ng-app="astil">
-  <app-words></app-words>
-</sf-article>
+<app-words ng-app="astil"></app-words>

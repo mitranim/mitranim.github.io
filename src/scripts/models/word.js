@@ -3,7 +3,7 @@
  */
 
 angular.module('astil.models.Word', ['Datacore'])
-.factory('Word', function($q, Record) {
+.factory('Word', function(Record) {
 
   return Record.derive({
 
@@ -15,6 +15,14 @@ angular.module('astil.models.Word', ['Datacore'])
 
     $schema: {
       Value: ''
+    },
+
+    /**
+     * Validates the word.
+     * @returns Boolean
+     */
+    $valid: function() {
+      return typeof this.Value === 'string' && /^[a-zа-я]{2,}$/.test(this.Value)
     }
 
   })

@@ -1,21 +1,16 @@
 app-words {
 
-  /**
-   * Inner input styling.
-   */
-  input {
-    text-transform: capitalize;
+  // Remove tabset shadow.
+  sf-tabset, sf-tab {
+    box-shadow: none;
   }
 
   /**
    * Inner sf-grid-item styling.
    */
-  @{sf-prefix}-grid-item {
+  sf-grid-item {
     // Whitespace.
     padding: @sf-common-padding;
-
-    // Typography.
-    text-transform: capitalize;
 
     /**
      * Decorative colouring.

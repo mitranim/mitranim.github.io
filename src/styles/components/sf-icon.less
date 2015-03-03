@@ -1,4 +1,12 @@
+// Expose as global class.
+.sf-icon {.sf-icon()}
+
 .sf-icon() {
+
+  &.sf-icon {
+    width: auto;
+    height: auto;
+  }
 
   /**
    * Register SVG icons.
@@ -9,14 +17,19 @@
   .svg-black(mobile);
   .svg-black(at);
 
-  // Social media related.
+  // Link related.
   .svg-colored(twitter);
   .svg-colored(linkedin);
   .svg-colored(facebook);
   .svg-colored(github);
+  .svg-colored(github-light);
 
   // Utility.
+  .svg-black(arrow-left);
   .svg-black(arrow-up);
-  .svg-black(code);
+  .svg-white(code);
+  .svg-black(plus);
+  .svg-black(refresh);
+  .svg-black(times);
 
 }

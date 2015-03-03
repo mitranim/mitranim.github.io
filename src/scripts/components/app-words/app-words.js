@@ -6,20 +6,26 @@
 angular.module('astil.components.appWords', [
   'astil.attributes',
   'astil.mixins.generic',
-  'astil.models.Word'
+  'astil.models.Lang',
+  'astil.models.Mode',
+  'astil.models.Word',
+  'astil.stores.Langs',
 ])
-.directive('appWords', function(mixinGeneric, Word) {
 
+.directive('appWords', function(appWordsCtrl) {
   return {
     restrict: 'E',
     scope: {},
     templateUrl: 'components/app-words/app-words.html',
     controllerAs: 'self',
     bindToController: true,
-    controller: [Controller]
+    controller: appWordsCtrl
   }
+})
 
-  function Controller() {
+.factory('appWordsCtrl', function(mixinGeneric, Lang, Mode, Word, Langs) {
+
+  return function() {
     var self = this
 
     // Use generic controller mixin.
@@ -27,74 +33,40 @@ angular.module('astil.components.appWords', [
 
     /**
      * Available languages.
-     * @type [Hash]
+     * @type Langs
      */
-    self.langs = [
-      {
-        /** @type String */
-        title: 'English',
-
-        /** @type String */
-        soundset: 'eng',
-
-        /** @type String */
-        source: [
-          'jasmine', 'katie', 'nariko', 'nebula', 'aurora', 'theron',
-          'quasar', 'graphene', 'nanite', 'orchestra', 'eridium',
-        ].join(' '),
-
-        /** @type [Word] */
-        records: null,
-      },
-      // {
-      //   /** @type String */
-      //   title: 'Russian',
-
-      //   /** @type String */
-      //   soundset: 'cyr',
-
-      //   /** @type String */
-      //   source: [
-      //     'дмитрий', 'владимир', 'степан', 'перун', 'хорс',
-      //     'род', 'симаргл', 'велес', 'сварог',
-      //   ].join(' '),
-
-      //   /** @type [Word] */
-      //   records: null,
-      // },
-    ]
+    self.langs = Langs
 
     /**
-     * Generates request parameters for the given language.
-     * @param   Hash
+     * Generates request parameters.
+     * @param   Mode
      * @returns Hash
      */
-    self.params = function(lang) {
-      if (!_.isObject(lang)) return null
-      if (typeof lang.source !== 'string') return null
-      var words = _.invoke(lang.source.split(/\s+|,/), 'trim')
+    self.params = function(mode) {
       return {
-        words:    words,
-        soundset: lang.soundset || null
+        words:    mode.words(),
+        soundset: mode.soundset || null
       }
     }
 
     /**
-     * Loads words from server using the given source.
-     * @returns Promise
+     * Loads words for the given mode.
      */
-    self.submit = function(lang) {
-      self.loading = true
-      return Word.readAll({params: self.params(lang)}).then(function(records) {
-        // console.log("-- records:", self.records);
-        // console.log("-- words:", _.map(self.records, 'Value'));
-        lang.records = records
+    self.submit = function(mode) {
+      // Ignore if we're already making a request.
+      if (self.loading) return
+
+      self.loadTo(mode, {
+        generated: Word.readAll({params: self.params(mode)})
       }).finally(self.ready)
     }
 
     /**
-     * Run first submit on page load.
+     * Submit first request on page load. This makes an assumption that the
+     * view logic (see template) also selects the first lang and the first
+     * mode.
      */
-    self.submit(self.langs[0])
+    self.submit(self.langs[0].modes[0])
   }
+
 })
