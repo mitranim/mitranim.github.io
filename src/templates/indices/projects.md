@@ -20,10 +20,11 @@ better foundation.
 A "programmable language". Basically a custom dialect of Lisp that compiles to
 JavaScript. I'm somewhat embarrassed about it, but people seem to like it.
 
-[codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span>
+[codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span> |
+[demo](/codex/)
 
-Generator of synthetic words or names. You won't believe your eyes when you see
-what it can make.
+Generator of synthetic words or names. Check out the demo, you won't believe
+the variety of combinations!
 
 [gotools](https://github.com/Mitranim/gotools) <span class="fade">(Go)</span>
 

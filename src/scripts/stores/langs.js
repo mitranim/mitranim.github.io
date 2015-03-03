@@ -22,7 +22,7 @@ angular.module('astil.stores.Langs', [
         modes: [
           {
             title:  'Words',
-            source: ['nebula', 'aurora', 'quasar', 'graphene', 'nanite', 'orchestra', 'eridium'],
+            source: ['nebula', 'aurora', 'quasar', 'nanite', 'eridium'],
           },
           {
             title:  'Names',
