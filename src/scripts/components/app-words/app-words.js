@@ -6,8 +6,6 @@
 angular.module('astil.components.appWords', [
   'astil.attributes',
   'astil.mixins.generic',
-  'astil.models.Lang',
-  'astil.models.Mode',
   'astil.models.Word',
   'astil.stores.Langs',
 ])
@@ -23,7 +21,7 @@ angular.module('astil.components.appWords', [
   }
 })
 
-.factory('appWordsCtrl', function(mixinGeneric, Lang, Mode, Word, Langs) {
+.factory('appWordsCtrl', function(mixinGeneric, Word, Langs) {
 
   return function() {
     var self = this

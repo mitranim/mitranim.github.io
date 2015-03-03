@@ -105,6 +105,11 @@ angular.module('astil.models.Mode', [
 
       var word = Word({Value: value})
 
+      if (word.Value.length < 2) {
+        this.error = 'The word is too short.'
+        return
+      }
+
       if (!word.$valid()) {
         this.error = 'Some of these characters are not allowed in a word.'
         return
