@@ -7,7 +7,7 @@ angular.module('astil.models.Mode', [
 ])
 .factory('Mode', function(Record, Word) {
 
-  return Record.derive({
+  var Mode = Record.derive({
 
     path: 'modes'
 
@@ -23,9 +23,8 @@ angular.module('astil.models.Mode', [
 
       /**
        * Polymorphic adapter. ToDo split into monomorphic.
-       * @type Words
        */
-      source: function(words) {
+      source: function(words: Word[]): Word.collection {
         if (_.some(words, _.isString)) {
           return Word.collection(_.map(words, function(value) {
             return Word({Value: value})
@@ -54,7 +53,7 @@ angular.module('astil.models.Mode', [
       /**
        * @type String
        */
-      textMode: function() {
+      textMode: function(): string {
         if (this.title === 'Names') return 'text-capitalise'
         return 'text-lowercase'
       },
@@ -69,26 +68,23 @@ angular.module('astil.models.Mode', [
 
     /**
      * Returns the values of own source words as an array of strings.
-     * @returns String
      */
-    words: function() {
+    words: function(): string {
       return _.invoke(_.map(this.source, 'Value'), 'toLowerCase')
     },
 
     /**
      * Removes the given word from source and generated.
-     * @param Word
      */
-    drop: function(word) {
+    drop: function(word: Word) {
       _.pull(this.source, word)
       _.pull(this.generated, word)
     },
 
     /**
      * Moves the given word from generated to source.
-     * @param Word
      */
-    pick: function(word) {
+    pick: function(word: Word) {
       _.pull(this.generated, word)
       this.source.push(word)
     },
@@ -96,7 +92,7 @@ angular.module('astil.models.Mode', [
     /**
      * Converts the given string to a word and adds it to source.
      */
-    add: function(string) {
+    add: function(string: string) {
       var value = string.toLowerCase().trim()
       if (!value) {
         this.error = 'Please input a word.'
@@ -126,4 +122,7 @@ angular.module('astil.models.Mode', [
     },
 
   })
+
+  return Mode
+
 })

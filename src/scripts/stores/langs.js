@@ -7,6 +7,8 @@ angular.module('astil.stores.Langs', [
 ])
 .factory('Langs', function($rootScope, Lang) {
 
+  /********************************** Store **********************************/
+
   var Langs = new Lang.collection()
 
   // Try to read from localStorage.
@@ -43,8 +45,6 @@ angular.module('astil.stores.Langs', [
     Langs.$lsSet()
   }), true)
 
-  return Langs
-
   /******************************** Utilities ********************************/
 
   function flatten(value) {
@@ -56,5 +56,9 @@ angular.module('astil.stores.Langs', [
     })
     return buffer
   }
+
+  /********************************* Export **********************************/
+
+  return Langs
 
 })

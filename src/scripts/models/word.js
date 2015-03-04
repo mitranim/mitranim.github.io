@@ -5,7 +5,10 @@
 angular.module('astil.models.Word', ['Datacore'])
 .factory('Word', function(Record) {
 
-  return Record.derive({
+  /**
+   * Class.
+   */
+  var Word = Record.derive({
 
     path: 'words'
 
@@ -21,10 +24,15 @@ angular.module('astil.models.Word', ['Datacore'])
      * Validates the word.
      * @returns Boolean
      */
-    $valid: function() {
+    $valid: function(): boolean {
       return typeof this.Value === 'string' && /^[a-zа-я]{2,}$/.test(this.Value)
     }
 
   })
+
+  /**
+   * Export.
+   */
+  return Word
 
 })

@@ -6,6 +6,7 @@
 angular.module('astil.components.appWords', [
   'astil.attributes',
   'astil.mixins.generic',
+  'astil.models.Mode',
   'astil.models.Word',
   'astil.stores.Langs',
 ])
@@ -21,7 +22,7 @@ angular.module('astil.components.appWords', [
   }
 })
 
-.factory('appWordsCtrl', function(mixinGeneric, Word, Langs) {
+.factory('appWordsCtrl', function(mixinGeneric, Mode, Word, Langs) {
 
   return function() {
     var self = this
@@ -37,10 +38,8 @@ angular.module('astil.components.appWords', [
 
     /**
      * Generates request parameters.
-     * @param   Mode
-     * @returns Hash
      */
-    self.params = function(mode) {
+    self.params = function(mode: Mode): {} {
       return {
         words:    mode.words(),
         soundset: mode.soundset || null
@@ -50,7 +49,7 @@ angular.module('astil.components.appWords', [
     /**
      * Loads words for the given mode.
      */
-    self.submit = function(mode) {
+    self.submit = function(mode: Mode) {
       // Ignore if we're already making a request.
       if (self.loading) return
 

@@ -13,6 +13,7 @@ var gulp   = require('gulp')
 var hjs    = require('highlight.js')
 var marked = require('gulp-marked/node_modules/marked')
 var mbf    = require('main-bower-files')
+var shell  = require('shelljs')
 var ss     = require('stream-series')
 
 /********************************** Globals **********************************/
@@ -26,12 +27,16 @@ var src = {
   less:      srcBase + 'styles/**/*.less',
   img:       srcBase + 'img/**/*',
   templates: srcBase + 'templates/',
-  js:       [
+  js: [
     srcBase + 'scripts/**/*.js',
     '!' + srcBase + 'scripts/**/*.spec.js',
     '!' + srcBase + 'scripts/env.js'
   ],
+  // Environment config.
   jsEnv: srcBase + 'scripts/env.js',
+  // Type declarations.
+  jsDec: srcBase + 'declarations/*.js',
+  // Angular templates.
   ngHtml: srcBase + 'scripts/**/*.html'
 }
 
@@ -41,16 +46,20 @@ var destBase = './mitranim-master/'
 
 // Destination paths per type
 var dest = {
-  css:   destBase + 'css/',
-  img:   destBase + 'img/',
-  html:  destBase,
-  js:    destBase + 'js/',
+  css:  destBase + 'css/',
+  img:  destBase + 'img/',
+  html: destBase,
+  js:   destBase + 'js/',
 }
 
 /********************************* Utilities *********************************/
 
 function prod() {
   return process.env.GULP_BUILD_TYPE === 'production'
+}
+
+function flow() {
+  shell.exec('(cd src/scripts && flow check --all --strip-root)')
 }
 
 /********************************** Config ***********************************/
@@ -221,22 +230,25 @@ gulp.task('scripts:all', function() {
   var streams = []
 
   // Dependencies.
-  streams.push(gulp.src(mbf({
+  var deps = gulp.src(mbf({
       filter: '**/*.js',
       includeDev: true
-    })))
+    }))
+  streams.push(deps)
 
   // Development env settings.
   if (!prod()) streams.push(gulp.src(src.jsEnv))
 
   // App scripts.
-  streams.push(gulp.src(src.js)
+  var own = gulp.src(src.js)
     .pipe($.plumber())
+    .pipe($.babel())
+    .pipe($.wrap("(function(angular, _) {'use strict';\n<%= contents %>\n})(window.angular, window._);\n"))
     .pipe($.ngAnnotate())
-    .pipe($.wrap("(function(angular, _) {'use strict';\n<%= contents %>\n})(window.angular, window._);\n")))
+  streams.push(own)
 
   // Angular templates.
-  streams.push(gulp.src(src.ngHtml)
+  var templates = gulp.src(src.ngHtml)
     .pipe($.plumber())
     .pipe($.minifyHtml({
       // Needed to keep attributes like [contenteditable]
@@ -244,7 +256,8 @@ gulp.task('scripts:all', function() {
     }))
     .pipe($.ngHtml2js({
       moduleName: 'astil.templates'
-    })))
+    }))
+  streams.push(templates)
 
   // Merge in order -> concat -> uglify -> write to disk
   return ss(streams)
@@ -255,8 +268,15 @@ gulp.task('scripts:all', function() {
     .pipe(bsync.reload({stream: true}))
 })
 
+gulp.task('scripts:flow', function() {
+  flow()
+  return gulp.src('./null')
+})
+
 // All script tasks.
-gulp.task('scripts', gulp.series('scripts:clear', 'scripts:all'))
+gulp.task('scripts',
+  gulp.parallel('scripts:flow',
+    gulp.series('scripts:clear', 'scripts:all')))
 
 /*--------------------------------- Server ----------------------------------*/
 
@@ -275,6 +295,8 @@ gulp.task('bsync', function() {
     ghostMode: false,
     // Don't show the notification.
     // notify: false
+    // Don't open the window.
+    // open: false,
   })
 })
 
@@ -288,6 +310,7 @@ gulp.task('watch', function() {
   $.watch(src.templates + '**/*', gulp.series('templates'))
   // Watch scripts and angular templates
   $.watch(src.js, gulp.series('scripts'))
+  $.watch(src.jsDec, gulp.series('scripts'))
   $.watch(src.ngHtml, gulp.series('scripts'))
 
   // Watch stylific's .less files
