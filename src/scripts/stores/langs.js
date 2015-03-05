@@ -1,60 +1,48 @@
-/**
- * Locally saved group of langs and mods.
- */
-
-angular.module('astil.stores.Langs', [
-  'astil.models.Lang'
+angular.module('astil.stores.Lang', [
+  'astil.models.Lang', 'astil.stores.Mode'
 ])
-.factory('Langs', function($rootScope, Lang) {
-
-  var Langs = new Lang.collection()
-
-  // Try to read from localStorage.
-  Langs.$lsGet()
+.factory('Langs', function(Lang, Modes) {
 
   /**
-   * Default values.
+   * Class.
    */
-  if (!Langs.length) {
-    Langs = new Lang.collection([
-      {
-        title: 'English',
-        modes: [
-          {
-            title:  'Words',
-            source: ['nebula', 'aurora', 'quasar', 'nanite', 'eridium', 'collapse', 'source'],
-          },
-          {
-            title:  'Names',
-            source: ['jasmine', 'katie', 'nariko'],
-          },
-        ]
-      }
-    ])
+  class LangStore extends Lang {
+    constructor(attrs?) {super(attrs)}
+    records: Lang[];
   }
 
-  $rootScope.$watch(function() {
-    return [
-      Langs.length,
-      _.flatten(_.map(Langs, 'modes')).length,
-      flatten(_.map(flatten(_.map(Langs, 'modes')), 'source')).length
+  /**
+   * Prototype.
+   */
+  LangStore.prototype.$schema = {
+    records: [Lang]
+  }
+
+  /**
+   * Read from localStorage.
+   */
+  var langStore = new LangStore()
+  langStore.$readLS()
+
+  /**
+   * Default populate.
+   */
+  if (!langStore.records.length) {
+    langStore.records = [
+      new Lang({
+        Id: 'Lang1',
+        Title: 'English'
+      })
     ]
-  }, _.after(2, function() {
-    Langs.$lsSet()
-  }), true)
-
-  return Langs
-
-  /******************************** Utilities ********************************/
-
-  function flatten(value) {
-    var buffer = []
-    if (!(value instanceof Array)) return buffer
-    _.each(value, function(item) {
-      if (item instanceof Array) buffer.push.apply(buffer, flatten(item))
-      else buffer.push(item)
-    })
-    return buffer
   }
+
+  /**
+   * Assign modes.
+   */
+  _.each(langStore.records, lang => {
+    lang.$modes = _.filter(Modes.records, {LangId: lang.Id})
+  })
+
+  return langStore
 
 })

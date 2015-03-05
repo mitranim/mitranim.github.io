@@ -1,0 +1,10 @@
+[ignore]
+.*.spec.js
+.*.html
+
+[include]
+
+[libs]
+../declarations/
+
+[options]

@@ -4,13 +4,13 @@
 
 angular.module('astil.mixins.form', [])
 .factory('mixinForm', function($q) {
+
   return function(self) {
 
     /**
      * Submits the record associated with the form. If this fails, displays errors.
-     * @returns Promise
      */
-    self.submit = function(event) {
+    self.submit = function(event): Promise {
       // Pre-validate.
       var errors = self.record.$validate()
       if (!_.isEmpty(errors)) {
@@ -52,4 +52,5 @@ angular.module('astil.mixins.form', [])
     }
 
   }
+
 })

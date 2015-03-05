@@ -1,5 +1,5 @@
 /**
- * @class Lang
+ * @class
  */
 
 angular.module('astil.models.Lang', [
@@ -7,30 +7,40 @@ angular.module('astil.models.Lang', [
 ])
 .factory('Lang', function(Record, Mode) {
 
-  return Record.derive({
+  /**
+   * Class.
+   */
+  class Lang extends Record {
 
-    path: 'langs'
+    constructor(attrs?) {super(attrs)}
 
-  }, {
+    /**
+     * Attributes.
+     */
 
-    $name: 'Lang',
+    Id:     string;
+    Title:  string;
+    $modes: Mode[];
 
-    $schema: {
-      /**
-       * @type String
-       */
-      title: '',
+    /**
+     * Methods.
+     */
 
-      /**
-       * @type Words
-       */
-      modes: function(modes) {
-        modes = Mode.collection(modes)
-        _.invoke(modes, '$castExtend')
-        return modes
-      },
-    },
+    $path(): string {return super.$path() + '/langs'}
+  }
 
-  })
+  /**
+   * Schema.
+   */
+  Lang.prototype.$schema = {
+    Id:     '',
+    Title:  '',
+    $modes: [Mode]
+  }
+
+  /**
+   * Export.
+   */
+  return Lang
 
 })

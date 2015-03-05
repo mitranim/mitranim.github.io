@@ -6,8 +6,13 @@
 angular.module('astil.components.appWords', [
   'astil.attributes',
   'astil.mixins.generic',
+
+  'astil.models.Mode',
   'astil.models.Word',
-  'astil.stores.Langs',
+
+  'astil.stores.Lang',
+  'astil.stores.Mode',
+  'astil.stores.Word',
 ])
 
 .directive('appWords', function(appWordsCtrl) {
@@ -21,7 +26,7 @@ angular.module('astil.components.appWords', [
   }
 })
 
-.factory('appWordsCtrl', function(mixinGeneric, Word, Langs) {
+.factory('appWordsCtrl', function(mixinGeneric, Mode, Word, Langs, Modes, Words) {
 
   return function() {
     var self = this
@@ -33,14 +38,62 @@ angular.module('astil.components.appWords', [
      * Available languages.
      * @type Langs
      */
-    self.langs = Langs
+    self.langs = Langs.records
+
+    // Removes the given word from the given mode and from the word store.
+    self.drop = function(mode: Mode, word: Word): void {
+      _.pull(mode.$source, word)
+      _.pull(mode.$generated, word)
+      _.pull(Words.records, word)
+      Words.$saveLS()
+    }
+
+    // Moves the given word from a mode's $generated to $source.
+    self.pick = function(mode: Mode, word: Word): void {
+      _.pull(mode.$generated, word)
+      self.add(mode, word.Value)
+    }
+
+    // Converts the given string to a word and adds it to the given mode's
+    // $source, as well as to the word store.
+    self.add = function(mode: Mode, string: string): void {
+      var value = string.toLowerCase().trim()
+      if (!value) {
+        mode.$error = 'Please input a word.'
+        return
+      }
+
+      var word = new Word({Value: value, ModeId: mode.Id})
+
+      if (word.Value.length < 2) {
+        mode.$error = 'The word is too short.'
+        return
+      }
+
+      if (!word.$valid()) {
+        mode.$error = 'Some of these characters are not allowed in a word.'
+        return
+      }
+
+      if (_.some(mode.$source, {Value: word.Value})) {
+        mode.$error = 'This word is already in the set.'
+        return
+      }
+
+      // Add to mode.
+      delete mode.$error
+      mode.$source.push(word)
+      mode.$word = ''
+
+      // Add to store.
+      Words.records.push(word)
+      Words.$saveLS()
+    }
 
     /**
      * Generates request parameters.
-     * @param   Mode
-     * @returns Hash
      */
-    self.params = function(mode) {
+    self.params = function(mode: Mode): {} {
       return {
         words:    mode.words(),
         soundset: mode.soundset || null
@@ -50,12 +103,12 @@ angular.module('astil.components.appWords', [
     /**
      * Loads words for the given mode.
      */
-    self.submit = function(mode) {
+    self.submit = function(mode: Mode) {
       // Ignore if we're already making a request.
       if (self.loading) return
 
       self.loadTo(mode, {
-        generated: Word.readAll({params: self.params(mode)})
+        $generated: Word.readAll({params: self.params(mode)})
       }).finally(self.ready)
     }
 
@@ -64,7 +117,7 @@ angular.module('astil.components.appWords', [
      * view logic (see template) also selects the first lang and the first
      * mode.
      */
-    self.submit(self.langs[0].modes[0])
+    self.submit(self.langs[0].$modes[0])
   }
 
 })

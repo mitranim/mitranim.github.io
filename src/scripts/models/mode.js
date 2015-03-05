@@ -1,5 +1,5 @@
 /**
- * @class Mode
+ * @class
  */
 
 angular.module('astil.models.Mode', [
@@ -7,123 +7,72 @@ angular.module('astil.models.Mode', [
 ])
 .factory('Mode', function(Record, Word) {
 
-  return Record.derive({
+  /**
+   * Class.
+   */
+  class Mode extends Record {
 
-    path: 'modes'
-
-  }, {
-
-    $name: 'Mode',
-
-    $schema: {
-      /**
-       * @type String
-       */
-      title: '',
-
-      /**
-       * Polymorphic adapter. ToDo split into monomorphic.
-       * @type Words
-       */
-      source: function(words) {
-        if (_.some(words, _.isString)) {
-          return Word.collection(_.map(words, function(value) {
-            return Word({Value: value})
-          }))
-        }
-        return Word.collection(words)
-      },
-
-      /**
-       * @type String
-       */
-      soundset: '',
-
-      /**
-       * @type String
-       */
-      LangId: '',
-    },
-
-    $extendedSchema: {
-      /**
-       * @type Words
-       */
-      generated: null,
-
-      /**
-       * @type String
-       */
-      textMode: function() {
-        if (this.title === 'Names') return 'text-capitalise'
-        return 'text-lowercase'
-      },
-
-      /**
-       * @type String
-       */
-      word: '',
-    },
-
-    /******************************** Methods ********************************/
+    constructor(attrs?) {super(attrs)}
 
     /**
-     * Returns the values of own source words as an array of strings.
-     * @returns String
+     * Attributes.
      */
-    words: function() {
-      return _.invoke(_.map(this.source, 'Value'), 'toLowerCase')
-    },
+
+    // Strict.
+    Id:       string;
+    Title:    string;
+    Soundset: string;
+    LangId:   string;
+
+    // Extended.
+    $source:    Word[];
+    $generated: Word[];
+    $textMode:  string;
+    $word:      string;
+    $error:     string;
 
     /**
-     * Removes the given word from source and generated.
-     * @param Word
+     * Methods.
      */
-    drop: function(word) {
-      _.pull(this.source, word)
-      _.pull(this.generated, word)
+
+    $id(): string {return this.Id}
+
+    $path(): string {return super.$path() + '/modes'}
+
+    // Maps own source words to an array of lowercase strings.
+    words(): string[] {
+      return _.invoke(_.map(this.$source, 'Value'), 'toLowerCase')
+    }
+
+  }
+
+  /**
+   * Schema.
+   */
+  Mode.prototype.$schema = {
+    Id: '',
+
+    Title: '',
+
+    Soundset: '',
+
+    LangId: '',
+
+    $source: [Word],
+
+    $generated: [Word],
+
+    $textMode: function(): string {
+      if (this.Title === 'Names') return 'text-capitalise'
+      return 'text-lowercase'
     },
 
-    /**
-     * Moves the given word from generated to source.
-     * @param Word
-     */
-    pick: function(word) {
-      _.pull(this.generated, word)
-      this.source.push(word)
-    },
+    $word: ''
+  }
 
-    /**
-     * Converts the given string to a word and adds it to source.
-     */
-    add: function(string) {
-      var value = string.toLowerCase().trim()
-      if (!value) {
-        this.error = 'Please input a word.'
-        return
-      }
+  /**
+   * Export.
+   */
+  return Mode
 
-      var word = Word({Value: value})
-
-      if (word.Value.length < 2) {
-        this.error = 'The word is too short.'
-        return
-      }
-
-      if (!word.$valid()) {
-        this.error = 'Some of these characters are not allowed in a word.'
-        return
-      }
-
-      if (_.some(this.source, {Value: word.Value})) {
-        this.error = 'This word is already in the set.'
-        return
-      }
-
-      delete this.error
-      this.source.push(word)
-      this.word = ''
-    },
-
-  })
 })

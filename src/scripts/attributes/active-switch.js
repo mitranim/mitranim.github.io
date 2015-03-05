@@ -9,9 +9,9 @@ angular.module('astil.attributes.activeSwitch', [])
   return {
     restrict: 'A',
     scope: false,
-    link: function(scope, elem) {
+    link: function(scope, $elem) {
       // Use the native DOM element.
-      elem = elem[0]
+      var elem = $elem[0]
 
       // Register a listener to remove the .active class from self.
       scope.$on('$active-switch', function() {
