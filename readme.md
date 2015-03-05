@@ -3,4 +3,5 @@
 * Clone the repo
 * `npm i`
 * `bower i`
+* run private API server locally
 * `npm start`

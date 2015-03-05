@@ -14,13 +14,13 @@ module.constant('config', {
  */
 module.run(function(Record, config) {
 
-  if (config.dev && window.recordBaseUrl) {
-    Record.baseUrl = window.recordBaseUrl
-  } else {
-    Record.baseUrl = 'http://api.mitranim.com'
+  var baseUrl: string = 'http://api.mitranim.com'
+  if (config.dev && typeof window.recordBaseUrl === 'string') {
+    baseUrl = window.recordBaseUrl
   }
 
-  // Match backend id key style.
-  Record.prototype.$idKey = 'Id'
+  Record.prototype.$id = function() {return this.Id}
+
+  Record.prototype.$path = function() {return baseUrl}
 
 })

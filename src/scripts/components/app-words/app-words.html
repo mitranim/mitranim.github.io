@@ -1,39 +1,39 @@
 <sf-tabset ng-init="lang = self.langs[0]">
   <!-- Tab header -->
-  <label ng-repeat-start="mode in lang.modes" active-switch
-         ng-click="!mode.generated.length ? self.submit(mode) : null">
-    <h3>{{mode.title}}</h3>
+  <label ng-repeat-start="mode in lang.$modes" active-switch
+         ng-click="!mode.$generated.length ? self.submit(mode) : null">
+    <h3>{{mode.Title}}</h3>
   </label>
 
   <!-- Tab body -->
   <sf-tab ng-repeat-end class="flex">
     <!-- Left column: source words -->
     <div class="pad flex-1 pad-ch-v-05">
-      <h3>Source {{mode.title}}</h3>
-      <form ng-submit="mode.add(mode.word)" class="flex flex-row" sf-tooltip="{{mode.error}}" sf-trigger="{{!!mode.error}}">
-        <input autofocus class="flex-11 info" ng-class="mode.textMode" ng-model="mode.word">
+      <h3>Source {{mode.Title}}</h3>
+      <form ng-submit="self.add(mode, mode.$word)" class="flex flex-row" sf-tooltip="{{mode.$error}}" sf-trigger="{{!!mode.$error}}">
+        <input autofocus class="flex-11 info" ng-class="mode.$textMode" ng-model="mode.$word">
         <button class="flex-1 success sf-icon plus fade" tabindex="-1"></button>
       </form>
       <sf-grid class="narrow">
-        <sf-grid-item ng-repeat="record in mode.source" class="flex justify-between" ng-class="mode.textMode">
+        <sf-grid-item ng-repeat="record in mode.$source" class="flex justify-between" ng-class="mode.$textMode">
           {{record.Value}}
-          <sf-icon class="times fade interactive" ng-click="mode.drop(record)"></sf-icon>
+          <sf-icon class="times fade interactive" ng-click="self.drop(mode, record)"></sf-icon>
         </sf-grid-item>
       </sf-grid>
     </div>
 
     <!-- Right column: generated results -->
     <div class="pad flex-1 pad-ch-v-05">
-      <h3>Generated {{mode.title}}</h3>
+      <h3>Generated {{mode.Title}}</h3>
       <form ng-submit="self.submit(mode)" class="flex flex-row">
         <button class="flex-1 success sf-icon refresh fade" tabindex="-1"></button>
         <button class="success flex-11">Generate</button>
       </form>
       <sf-grid class="narrow">
-        <sf-grid-item ng-repeat="record in mode.generated" class="flex justify-between" ng-class="mode.textMode">
-          <sf-icon class="arrow-left fade interactive" ng-click="mode.pick(record)"></sf-icon>
+        <sf-grid-item ng-repeat="record in mode.$generated" class="flex justify-between" ng-class="mode.$textMode">
+          <sf-icon class="arrow-left fade interactive" ng-click="self.pick(mode, record)"></sf-icon>
           {{record.Value}}
-          <sf-icon class="times fade interactive" ng-click="mode.drop(record)"></sf-icon>
+          <sf-icon class="times fade interactive" ng-click="self.drop(mode, record)"></sf-icon>
         </sf-grid-item>
       </sf-grid>
     </div>
