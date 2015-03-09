@@ -1,0 +1,7 @@
+files:
+- name: codex
+  echo:
+  - name: codex/index
+- name: projects
+  echo:
+  - name: projects/index

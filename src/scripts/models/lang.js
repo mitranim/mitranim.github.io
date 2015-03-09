@@ -1,7 +1,3 @@
-/**
- * @class
- */
-
 angular.module('astil.models.Lang', [
   'Datacore', 'astil.models.Mode'
 ])
@@ -12,30 +8,27 @@ angular.module('astil.models.Lang', [
    */
   class Lang extends Record {
 
-    constructor(attrs?) {super(attrs)}
-
     /**
-     * Attributes.
+     * Type annotations.
      */
-
     Id:     string;
     Title:  string;
     $modes: Mode[];
 
     /**
+     * Schema.
+     */
+    get $schema() {return {
+      Id:     '',
+      Title:  '',
+      $modes: [Mode]
+    }}
+
+    /**
      * Methods.
      */
-
     $path(): string {return super.$path() + '/langs'}
-  }
 
-  /**
-   * Schema.
-   */
-  Lang.prototype.$schema = {
-    Id:     '',
-    Title:  '',
-    $modes: [Mode]
   }
 
   /**

@@ -7,15 +7,17 @@ angular.module('astil.stores.Mode', [
    * Class.
    */
   class ModeStore extends Mode {
-    constructor(attrs?) {super(attrs)}
+    /**
+     * Type annotations.
+     */
     records: Mode[];
-  }
 
-  /**
-   * Prototype.
-   */
-  ModeStore.prototype.$schema = {
-    records: [Mode]
+    /**
+     * Schema.
+     */
+    get $schema() {return {
+      records: [Mode]
+    }}
   }
 
   /**

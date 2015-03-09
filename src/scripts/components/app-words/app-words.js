@@ -81,7 +81,7 @@ angular.module('astil.components.appWords', [
       }
 
       // Add to mode.
-      delete mode.$error
+      mode.$error = ''
       mode.$source.push(word)
       mode.$word = ''
 
@@ -114,8 +114,7 @@ angular.module('astil.components.appWords', [
 
     /**
      * Submit first request on page load. This makes an assumption that the
-     * view logic (see template) also selects the first lang and the first
-     * mode.
+     * view logic also selects the first lang and the first mode.
      */
     self.submit(self.langs[0].$modes[0])
   }

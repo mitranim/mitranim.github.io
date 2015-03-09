@@ -13,17 +13,14 @@
     "**/*"
   ],
   "devDependencies": {
-    "stylific": "~0.0.4",
-    "font-awesome-svg-png": "~1.1.2",
     "angular": "*",
+    "angular-sanitize": "~1.3.14",
     "datacore": "~0.2.0",
+    "font-awesome-svg-png": "~1.1.2",
     "lodash": "*",
-    "angular-sanitize": "~1.3.14"
+    "stylific": "~0.0.4"
   },
   "overrides": {
-    "font-awesome": {
-      "main": []
-    },
     "stylific": {
       "main": []
     },

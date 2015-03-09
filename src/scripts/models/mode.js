@@ -1,7 +1,3 @@
-/**
- * @class
- */
-
 angular.module('astil.models.Mode', [
   'Datacore', 'astil.models.Word'
 ])
@@ -12,10 +8,8 @@ angular.module('astil.models.Mode', [
    */
   class Mode extends Record {
 
-    constructor(attrs?) {super(attrs)}
-
     /**
-     * Attributes.
+     * Type annotations.
      */
 
     // Strict.
@@ -32,10 +26,28 @@ angular.module('astil.models.Mode', [
     $error:     string;
 
     /**
+     * Schema.
+     */
+    get $schema() {return {
+      // Strict.
+      Id:       '',
+      Title:    '',
+      Soundset: '',
+      LangId:   '',
+
+      // Extended.
+      $source:    [Word],
+      $generated: [Word],
+      $textMode: function(): string {
+        return this.Title === 'Names' ? 'text-capitalise' : 'text-lowercase'
+      },
+      $word:  '',
+      $error: ''
+    }}
+
+    /**
      * Methods.
      */
-
-    $id(): string {return this.Id}
 
     $path(): string {return super.$path() + '/modes'}
 
@@ -44,30 +56,6 @@ angular.module('astil.models.Mode', [
       return _.invoke(_.map(this.$source, 'Value'), 'toLowerCase')
     }
 
-  }
-
-  /**
-   * Schema.
-   */
-  Mode.prototype.$schema = {
-    Id: '',
-
-    Title: '',
-
-    Soundset: '',
-
-    LangId: '',
-
-    $source: [Word],
-
-    $generated: [Word],
-
-    $textMode: function(): string {
-      if (this.Title === 'Names') return 'text-capitalise'
-      return 'text-lowercase'
-    },
-
-    $word: ''
   }
 
   /**

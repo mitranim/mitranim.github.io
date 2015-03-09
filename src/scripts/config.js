@@ -19,7 +19,7 @@ module.run(function(Record, config) {
     baseUrl = window.recordBaseUrl
   }
 
-  Record.prototype.$id = function() {return this.Id}
+  Record.prototype.$id = function() {return this.Id || ''}
 
   Record.prototype.$path = function() {return baseUrl}
 

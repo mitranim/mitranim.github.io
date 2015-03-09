@@ -1,7 +1,3 @@
-/**
- * @class
- */
-
 angular.module('astil.models.Word', ['Datacore'])
 .factory('Word', function(Record) {
 
@@ -10,14 +6,19 @@ angular.module('astil.models.Word', ['Datacore'])
    */
   class Word extends Record {
 
-    constructor(attrs?) {super(attrs)}
-
     /**
-     * Attributes.
+     * Type annotations.
      */
-
     Value:  string;
     ModeId: string;
+
+    /**
+     * Schema.
+     */
+    get $schema() {return {
+      Value:  '',
+      ModeId: ''
+    }}
 
     /**
      * Methods.
@@ -31,14 +32,6 @@ angular.module('astil.models.Word', ['Datacore'])
       return typeof this.Value === 'string' && /^[a-zа-я]{2,}$/.test(this.Value)
     }
 
-  }
-
-  /**
-   * Schema.
-   */
-  Word.prototype.$schema = {
-    Value:  '',
-    ModeId: ''
   }
 
   /**

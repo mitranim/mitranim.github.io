@@ -7,15 +7,17 @@ angular.module('astil.stores.Lang', [
    * Class.
    */
   class LangStore extends Lang {
-    constructor(attrs?) {super(attrs)}
+    /**
+     * Type annotations.
+     */
     records: Lang[];
-  }
 
-  /**
-   * Prototype.
-   */
-  LangStore.prototype.$schema = {
-    records: [Lang]
+    /**
+     * Schema.
+     */
+    get $schema() {return {
+      records: [Lang]
+    }}
   }
 
   /**

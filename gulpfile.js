@@ -209,8 +209,6 @@ gulp.task('templates:compile', function() {
     .pipe($.statil({
       relativeDir: src.templates
     }))
-    // Remove the partials.
-    .pipe($.filter(['**/*.html', '!**/partials/**/*', '!**/indices/**/*']))
     // Write to disk.
     .pipe(gulp.dest(dest.html))
     // Reload the browser.
@@ -306,11 +304,13 @@ gulp.task('bsync', function() {
 gulp.task('watch', function() {
   // Watch .less files
   $.watch(src.less, gulp.series('styles'))
+
   // Watch templates
   $.watch(src.templates + '**/*', gulp.series('templates'))
+
   // Watch scripts and angular templates
-  $.watch(src.js, gulp.series('scripts'))
-  $.watch(src.jsDec, gulp.series('scripts'))
+  $.watch(src.js,     gulp.series('scripts'))
+  $.watch(src.jsDec,  gulp.series('scripts'))
   $.watch(src.ngHtml, gulp.series('scripts'))
 
   // Watch stylific's .less files

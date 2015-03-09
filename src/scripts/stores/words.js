@@ -7,15 +7,17 @@ angular.module('astil.stores.Word', [
    * Class.
    */
   class WordStore extends Word {
-    constructor(attrs?) {super(attrs)}
+    /**
+     * Type annotations.
+     */
     records: Word[];
-  }
 
-  /**
-   * Prototype.
-   */
-  WordStore.prototype.$schema = {
-    records: [Word]
+    /**
+     * Schema.
+     */
+    get $schema() {return {
+      records: [Word]
+    }}
   }
 
   /**
