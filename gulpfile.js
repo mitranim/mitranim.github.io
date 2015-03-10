@@ -163,6 +163,17 @@ gulp.task('images:normal', function() {
     .pipe(gulp.dest(dest.img))
 })
 
+// Moderately shrink and copy images
+gulp.task('images:medium', function() {
+  return gulp.src(src.img)
+    .pipe($.imageResize({
+      quality: 1,
+      width: 1024,    // max width
+      upscale: false
+    }))
+    .pipe(gulp.dest(dest.img + 'medium'))
+})
+
 // Minify and copy images.
 gulp.task('images:small', function() {
   return gulp.src(src.img)
@@ -192,7 +203,11 @@ gulp.task('images:square', function() {
 gulp.task('images',
   gulp.series(
     'images:clear',
-    gulp.parallel('images:normal', 'images:small', 'images:square')))
+    gulp.parallel(
+      'images:normal',
+      // 'images:medium',
+      'images:small',
+      'images:square')))
 
 /*-------------------------------- Templates --------------------------------*/
 
@@ -266,7 +281,7 @@ gulp.task('scripts:all', function() {
   var own = gulp.src(src.js)
     .pipe($.plumber())
     .pipe($.babel())
-    .pipe($.wrap("(function(angular, _) {'use strict';\n<%= contents %>\n})(window.angular, window._);\n"))
+    .pipe($.wrap("(function(angular, _) {\n<%= contents %>\n})(window.angular, window._);\n"))
     .pipe($.ngAnnotate())
   streams.push(own)
 

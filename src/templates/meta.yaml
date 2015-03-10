@@ -1,11 +1,14 @@
 files:
+
 - name: codex
   js:   true
   echo:
   - name: codex/index
+
 - name: projects
   echo:
   - name: projects/index
+
 - name: thoughts
   echo:
   - name: thoughts/index
