@@ -1,0 +1,19 @@
+ignore: index|making-faster-websites
+
+files:
+
+# # Still scribbling
+# - name:     making-faster-websites
+#   skip:     true
+#   title:    Making Faster Websites
+#   image:    hexa.jpg
+#   date:     2015-03-n/a
+#   echo:
+#   - name: making-faster-websites/index
+
+- name:     keeping-things-simple
+  title:    Keeping Things Simple
+  image:    purple.jpg
+  date:     2015-03-10
+  echo:
+  - name: keeping-things-simple/index

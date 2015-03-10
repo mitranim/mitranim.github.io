@@ -8,6 +8,16 @@
     height: auto;
   }
 
+  &.inline {
+    vertical-align: middle;
+    &:not(:first-child) {
+      margin-left: @sf-common-margin / 5;
+    }
+    &:not(:last-child) {
+      margin-right: @sf-common-margin / 5;
+    }
+  }
+
   /**
    * Register SVG icons.
    */
