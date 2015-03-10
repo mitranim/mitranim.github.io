@@ -7,14 +7,15 @@
 
 /******************************* Dependencies ********************************/
 
-var $      = require('gulp-load-plugins')()
-var bsync  = require('browser-sync')
-var gulp   = require('gulp')
-var hjs    = require('highlight.js')
-var marked = require('gulp-marked/node_modules/marked')
-var mbf    = require('main-bower-files')
-var shell  = require('shelljs')
-var ss     = require('stream-series')
+var $       = require('gulp-load-plugins')()
+var bsync   = require('browser-sync')
+var cheerio = require('cheerio')
+var gulp    = require('gulp')
+var hjs     = require('highlight.js')
+var marked  = require('gulp-marked/node_modules/marked')
+var mbf     = require('main-bower-files')
+var shell   = require('shelljs')
+var ss      = require('stream-series')
 
 /********************************** Globals **********************************/
 
@@ -52,6 +53,10 @@ var dest = {
   js:   destBase + 'js/',
 }
 
+// Whether to minify HTML. I keep flip-flopping on that. Purely aesthetical
+// choice.
+var minifyHtml = false
+
 /********************************* Utilities *********************************/
 
 function prod() {
@@ -60,6 +65,20 @@ function prod() {
 
 function flow() {
   shell.exec('(cd src/scripts && flow check --all --strip-root)')
+}
+
+/***************************** Template Imports ******************************/
+
+var imports = Object.create(null)
+
+imports.bgImg = function(path) {
+  return 'style="background-image: url(/img/' + path + ')"'
+}
+
+imports.truncate = function(html, num) {
+  var part = cheerio(html).text().slice(0, num)
+  if (part.length === num) part += ' ...'
+  return part
 }
 
 /********************************** Config ***********************************/
@@ -207,8 +226,14 @@ gulp.task('templates:compile', function() {
     .pipe(filterMd.restore())
     // Render all the templates.
     .pipe($.statil({
-      relativeDir: src.templates
+      relativeDir: src.templates,
+      imports:     imports
     }))
+    // Minify HTML.
+    .pipe($.if(minifyHtml, $.minifyHtml({
+      // Needed to keep attributes like [contenteditable]
+      empty: true
+    })))
     // Write to disk.
     .pipe(gulp.dest(dest.html))
     // Reload the browser.

@@ -31,12 +31,11 @@ angular.module('astil.stores.Word', [
    */
   if (!wordStore.records.length) {
     var first = [
-      'nebula', 'aurora', 'quasar', 'nanite',
-      'eridium', 'collapse', 'source'
+      'aurora', 'quasar', 'nanite', 'eridium', 'collapse', 'source'
     ].map(value => new Word({Value: value, ModeId: 'Mode1'}))
 
     var second = [
-      'jasmine', 'katie', 'nariko'
+      'jasmine', 'katie', 'nariko', 'karen', 'miranda'
     ].map(value => new Word({Value: value, ModeId: 'Mode2'}))
 
     wordStore.records = [...first, ...second]

@@ -1,0 +1,25 @@
+ignore: index
+
+files:
+
+- name:     cheating-for-website-performance
+  title:    Cheating For Website Performance
+  image:    hexa.jpg
+  date:     2015-03-11
+  echo:
+  - name: cheating-for-website-performance/index
+
+- name:     keeping-things-simple
+  title:    Keeping Things Simple
+  image:    purple.jpg
+  date:     2015-03-10
+  echo:
+  - name: keeping-things-simple/index
+
+- name:     old-posts
+  title:    Old Posts
+  subtitle: some old stuff from around the net
+  image:    typesets.jpg
+  date:     really old
+  echo:
+  - name: old-posts/index

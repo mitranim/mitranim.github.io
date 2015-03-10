@@ -5,7 +5,7 @@
 Full-stack web developer. Employed at [Paragon Software](http://paragon-
 software.com), working as a front-end JavaScript dev.
 
-Favourite pastime: writing [free software](/projects).
+Favourite pastime: writing [free software](/projects/).
 
 Aspires to: be paid for writing free software.
 
@@ -15,11 +15,11 @@ aka: Iaroslav Bogucharskii
 
 # Contacts
 
-<sf-icon class="skype"></sf-icon> skype [mitranim.web](skype:mitranim.web?chat)
+<sf-icon class="skype inline"></sf-icon> skype [mitranim.web](skype:mitranim.web?chat)
 
-<sf-icon class="mobile"></sf-icon> phone +7-926-044-00-49
+<sf-icon class="mobile inline"></sf-icon> <span>phone +7-926-044-00-49</span>
 
-<sf-icon class="at"></sf-icon> email [me@mitranim.com](mailto:me@mitranim.com)
+<sf-icon class="at inline"></sf-icon> email [me@mitranim.com](mailto:me@mitranim.com)
 
 # Links
 

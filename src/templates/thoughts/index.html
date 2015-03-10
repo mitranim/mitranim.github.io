@@ -1,0 +1,19 @@
+<% $entitle(title, $) %>
+
+<sf-jumbo <%= typeof image !== 'undefined' && image ? bgImg(image) : '' %>>
+  <h2><%= title %></h2>
+  <div class="flex items-end justify-between">
+    <% if (typeof subtitle !== 'undefined') { %>
+      <p class="text-lowercase"><%= subtitle %></p>
+    <% } %>
+    <% if (typeof date !== 'undefined') { %>
+      <p class="fade" style="font-size: 0.8em">
+        <%= date instanceof Date ? date.toDateString() : date %>
+      </p>
+    <% } %>
+  </div>
+</sf-jumbo>
+
+<sf-article class="pad">
+  <%= $content %>
+</sf-article>
