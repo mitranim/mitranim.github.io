@@ -5,7 +5,7 @@
 Full-stack web developer. Employed at [Paragon Software](http://paragon-
 software.com), working as a front-end JavaScript dev.
 
-Favourite pastime: writing [free software](/projects).
+Favourite pastime: writing [free software](/projects/).
 
 Aspires to: be paid for writing free software.
 

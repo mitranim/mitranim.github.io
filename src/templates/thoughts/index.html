@@ -1,6 +1,6 @@
 <% $entitle(title, $) %>
 
-<sf-jumbo <%= image ? bgImg(image) : '' %>>
+<sf-jumbo <%= typeof image !== 'undefined' && image ? bgImg(image) : '' %>>
   <h2><%= title %></h2>
   <div class="flex items-end justify-between">
     <% if (typeof subtitle !== 'undefined') { %>

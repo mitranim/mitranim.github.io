@@ -53,6 +53,10 @@ var dest = {
   js:   destBase + 'js/',
 }
 
+// Whether to minify HTML. I keep flip-flopping on that. Purely aesthetical
+// choice.
+var minifyHtml = false
+
 /********************************* Utilities *********************************/
 
 function prod() {
@@ -225,11 +229,11 @@ gulp.task('templates:compile', function() {
       relativeDir: src.templates,
       imports:     imports
     }))
-    // // Minify HTML.
-    // .pipe($.minifyHtml({
-    //   // Needed to keep attributes like [contenteditable]
-    //   empty: true
-    // }))
+    // Minify HTML.
+    .pipe($.if(minifyHtml, $.minifyHtml({
+      // Needed to keep attributes like [contenteditable]
+      empty: true
+    })))
     // Write to disk.
     .pipe(gulp.dest(dest.html))
     // Reload the browser.

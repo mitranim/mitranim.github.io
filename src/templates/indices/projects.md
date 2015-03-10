@@ -15,21 +15,11 @@ A CSS library to help web developers make better websites. Somewhat similar to
 [Bootstrap](http://getbootstrap.com), but with a different, and dare I say,
 better foundation.
 
-[jisp](http://jisp.io) <span class="fade">(JavaScript / jisp)</span>
-
-A "programmable language". Basically a custom dialect of Lisp that compiles to
-JavaScript. I'm somewhat embarrassed about it, but people seem to like it.
-
 [codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span> |
 [demo](/codex/)
 
 Generator of synthetic words or names. Check out the demo, you won't believe
 the variety of combinations!
-
-[gotools](https://github.com/Mitranim/gotools) <span class="fade">(Go)</span>
-
-Collection of utilities for writing Go web servers: rendering tools, middleware,
-database adapter.
 
 [statil](https://github.com/Mitranim/statil) <span class="fade">(JavaScript)</span>
 
@@ -40,6 +30,16 @@ one.
 
 An abstract library for clientside (in the browser) data modeling and ajax.
 Somewhat similar to Backbone.Model and analogs, but with a different foundation.
+
+[jisp](http://jisp.io) <span class="fade">(JavaScript / jisp)</span>
+
+A "programmable language". Basically a custom dialect of Lisp that compiles to
+JavaScript. I'm somewhat embarrassed about it, but people seem to like it.
+
+[gotools](https://github.com/Mitranim/gotools) <span class="fade">(Go)</span>
+
+Collection of utilities for writing Go web servers: rendering tools, middleware,
+database adapter.
 
 ... lots of [other things!](https://github.com/Mitranim?tab=repositories)
 

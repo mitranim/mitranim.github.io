@@ -11,10 +11,14 @@
 
     <sf-grid-item class="shadow pad">
       <a href="/<%= path %>/"><h2><%= post.title %></h2></a>
-      <p>
-        <%= truncate($include(path, $), 127) %>
-        <a href="/<%= path %>/">→</a>
-      </p>
+      <% if (post.subtitle) { %>
+        <h3 class="fade"><%= post.subtitle %></h3>
+      <% } else { %>
+        <p>
+          <%= truncate($include(path, $), 127) %>
+          <a href="/<%= path %>/">→</a>
+        </p>
+      <% } %>
       <p class="fade" style="font-size: 0.8em"><%= post.date instanceof Date ? post.date.toDateString() : post.date %></p>
     </sf-grid-item>
   <% }) %>
