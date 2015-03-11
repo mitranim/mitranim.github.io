@@ -128,18 +128,19 @@ your audience is all over the world, pick a server with good average latency.
 
 One of the biggest cheats in the book is making the _document itself_ a static
 file. This is usually not possible for dynamically rendered websites that
-incorporate user-created content, like wikis or forums. However, it's easily
-doable for a one-sided site, like a company presentation site, a personal blog,
-or even a [company blog](http://facebook.github.io/react/blog/). Even websites
-with backend-reliant features can cheat by being mostly static and
+incorporate user-created content, like wikis or forums. However, it's perfectly
+feasible for a one-sided site, like a company presentation site, a personal
+blog, or even a [company blog](http://facebook.github.io/react/blog/). Even
+websites with backend-reliant features can cheat by being mostly static and
 [offloading](/codex/) backend interaction to an XHR API.
 
 When even the base document is cached, it's no longer subject to latency. Some
 browsers (at the time of writing, Chrome and Safari) may serve the entire page
-from cache without waiting for network. Zero latency. Instant load. On top of
-that, static content may be duplicated to many servers all over the world,
-ensuring low latency for your visitors wherever they are. (One of the benefits
-of [GitHub Pages](https://pages.github.com), apparently.)
+from cache without waiting for network. Zero latency, instant load.
+
+To top it off, static content may be duplicated to several servers all over the
+world to route your visitors to the nearest. And with no backend engine
+dependency, you can deploy to _any_ server.
 
 Static site generators are [plentiful](https://www.staticgen.com), and if they
 don't rock your boat, you can actually write your own in an afternoon. Like
