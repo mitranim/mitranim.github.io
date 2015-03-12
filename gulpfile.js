@@ -163,15 +163,18 @@ gulp.task('images:normal', function() {
     .pipe(gulp.dest(dest.img))
 })
 
-// Moderately shrink and copy images
-gulp.task('images:medium', function() {
+// Make short cover images.
+gulp.task('images:short', function() {
   return gulp.src(src.img)
     .pipe($.imageResize({
       quality: 1,
-      width: 1024,    // max width
+      gravity: 'Center',  // crop relative to the center
+      crop: true,         // allow to crop to fit
+      width: 1920,        // max width
+      height: 512,        // max height
       upscale: false
     }))
-    .pipe(gulp.dest(dest.img + 'medium'))
+    .pipe(gulp.dest(dest.img + 'short'))
 })
 
 // Minify and copy images.
@@ -205,7 +208,7 @@ gulp.task('images',
     'images:clear',
     gulp.parallel(
       'images:normal',
-      // 'images:medium',
+      'images:short',
       'images:small',
       'images:square')))
 

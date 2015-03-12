@@ -3,7 +3,7 @@
   <head>
     <title><%= $title.toLowerCase() || 'about:mitranim' %></title>
     <meta name="author" content="mitranim">
-    <meta name="description" content="homepage">
+    <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'about me: projects, blog, demos' %>">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes">

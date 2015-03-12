@@ -1,14 +1,18 @@
 files:
 
 - name: codex
-  js:   true
+  description: "demo of codex, a generator of random synthetic words"
+  js: true
+  image: script.jpg
   echo:
   - name: codex/index
 
 - name: projects
+  description: software projects I'm running or have participated in
   echo:
   - name: projects/index
 
 - name: thoughts
+  description: "blog: random thoughts scribbled hastily"
   echo:
   - name: thoughts/index
