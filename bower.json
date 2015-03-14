@@ -16,6 +16,7 @@
     "angular": "*",
     "angular-sanitize": "~1.3.14",
     "datacore": "~0.2.0",
+    "foliant": "*",
     "font-awesome-svg-png": "~1.1.2",
     "lodash": "*",
     "stylific": "~0.0.4"

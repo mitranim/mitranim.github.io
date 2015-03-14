@@ -15,8 +15,7 @@ A CSS library to help web developers make better websites. Somewhat similar to
 [Bootstrap](http://getbootstrap.com), but with a different, and dare I say,
 better foundation.
 
-[codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span> |
-[demo](/codex/)
+[codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span> as [foliant](https://github.com/Mitranim/foliant) <span class="fade">(JavaScript)</span> | [demo](/foliant/)
 
 Generator of synthetic words or names. Check out the demo, you won't believe
 the variety of combinations!

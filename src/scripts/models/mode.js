@@ -1,5 +1,5 @@
 angular.module('astil.models.Mode', [
-  'Datacore', 'astil.models.Word'
+  'astil.models.Record', 'astil.models.Word'
 ])
 .factory('Mode', function(Record, Word) {
 

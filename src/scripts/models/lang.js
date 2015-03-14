@@ -1,5 +1,5 @@
 angular.module('astil.models.Lang', [
-  'Datacore', 'astil.models.Mode'
+  'astil.models.Record', 'astil.models.Mode'
 ])
 .factory('Lang', function(Record, Mode) {
 
