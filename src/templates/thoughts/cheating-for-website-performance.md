@@ -132,7 +132,7 @@ incorporate user-created content, like wikis or forums. However, it's perfectly
 feasible for a one-sided site, like a company presentation site, a personal
 blog, or even a [company blog](http://facebook.github.io/react/blog/). Even
 websites with backend-reliant features can cheat by being mostly static and
-[offloading](/codex/) backend interaction to an XHR API.
+[offloading](/foliant/) backend interaction to an XHR API.
 
 When even the base document is cached, it's no longer subject to latency. Some
 browsers (at the time of writing, Chrome and Safari) may serve the entire page

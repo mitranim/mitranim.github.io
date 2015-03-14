@@ -1,11 +1,11 @@
 files:
 
-- name: codex
-  description: "demo of codex, a generator of random synthetic words"
+- name: foliant
+  description: "demo of foliant, a generator of random synthetic words"
   js: true
   image: script.jpg
   echo:
-  - name: codex/index
+  - name: foliant/index
 
 - name: projects
   description: software projects I'm running or have participated in
