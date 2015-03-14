@@ -34,7 +34,7 @@ angular.module('astil.models.Word', [
       return typeof this.Value === 'string' && /^[a-zа-я]{2,}$/.test(this.Value)
     }
 
-    static readAll(options: ?{}): Promise {
+    static readAll(options): Promise {
       if (options == null || typeof options !== 'object') return $q.reject()
       var params = options.params
       if (params == null || typeof params !== 'object') return $q.reject()

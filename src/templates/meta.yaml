@@ -1,7 +1,7 @@
 files:
 
 - name: foliant
-  description: "demo of foliant, a generator of random synthetic words"
+  description: "demo of foliant, generator of random synthetic words"
   js: true
   image: script.jpg
   echo:
@@ -13,6 +13,6 @@ files:
   - name: projects/index
 
 - name: thoughts
-  description: "blog: random thoughts scribbled hastily"
+  description: "weblog: random thoughts scribbled hastily"
   echo:
   - name: thoughts/index
