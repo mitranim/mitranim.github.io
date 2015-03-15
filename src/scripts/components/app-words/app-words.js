@@ -1,122 +1,185 @@
-/**
- * Lets the user input sample words and loads derived synthetic words from the
- * server.
- */
-
-angular.module('astil.components.appWords', [
+var module = angular.module('astil.components.appWords', [
+  'foliant',
   'astil.attributes',
   'astil.mixins.generic',
 
-  'astil.models.Mode',
-  'astil.models.Word',
-
-  'astil.stores.Lang',
-  'astil.stores.Mode',
-  'astil.stores.Word',
+  'astil.models.Lang',
+  'astil.models.NamesExample',
+  'astil.models.WordsExample'
 ])
 
-.directive('appWords', function(appWordsCtrl) {
+module.directive('appWords', function(appWordsCtrl) {
   return {
     restrict: 'E',
     scope: {},
     templateUrl: 'components/app-words/app-words.html',
     controllerAs: 'self',
     bindToController: true,
-    controller: appWordsCtrl
+    controller: ['$scope', appWordsCtrl]
   }
 })
 
-.factory('appWordsCtrl', function(mixinGeneric, Mode, Word, Langs, Modes, Words) {
+module.factory('appWordsCtrl', function(mixinGeneric, Traits, Lang, NamesExample, WordsExample) {
 
-  return function() {
-    var self = this
-
+  return function Controller($scope) {
     // Use generic controller mixin.
-    mixinGeneric(self)
+    mixinGeneric(this)
 
     /**
-     * Available languages.
-     * @type Langs
+     * Word count limit.
+     * @type Number
      */
-    self.langs = Langs.records
+    this.limit = 12
 
-    // Removes the given word from the given mode and from the word store.
-    self.drop = function(mode: Mode, word: Word): void {
-      _.pull(mode.$source, word)
-      _.pull(mode.$generated, word)
-      _.pull(Words.records, word)
-      Words.$saveLS()
-    }
+    /**
+     * Languages.
+     * @type Lang[]
+     */
+    this.langs = null
 
-    // Moves the given word from a mode's $generated to $source.
-    self.pick = function(mode: Mode, word: Word): void {
-      _.pull(mode.$generated, word)
-      self.add(mode, word.Value)
-    }
+    /**
+     * Selected lang.
+     * @type Lang
+     */
+    this.lang = null
 
-    // Converts the given string to a word and adds it to the given mode's
-    // $source, as well as to the word store.
-    self.add = function(mode: Mode, string: string): void {
-      var value = string.toLowerCase().trim()
-      if (!value) {
-        mode.$error = 'Please input a word.'
-        return
-      }
+    /**
+     * Example names.
+     * @type NamesExample[]
+     */
+    this.nameExamples = null
 
-      var word = new Word({Value: value, ModeId: mode.Id})
+    /**
+     * Example words.
+     * @type WordsExample[]
+     */
+    this.wordExamples = null
 
-      if (word.Value.length < 2) {
-        mode.$error = 'The word is too short.'
-        return
-      }
+    /******************************** Methods ********************************/
 
-      if (!word.$valid()) {
-        mode.$error = 'Some of these characters are not allowed in a word.'
-        return
-      }
-
-      if (_.some(mode.$source, {Value: word.Value})) {
-        mode.$error = 'This word is already in the set.'
-        return
-      }
-
-      // Add to mode.
-      mode.$error = ''
-      mode.$source.push(word)
-      mode.$word = ''
-
-      // Add to store.
-      Words.records.push(word)
-      Words.$saveLS()
+    /**
+     * Takes a store object and produces a traits object based on its lang
+     * and with its words.
+     */
+    this.getTraits = function(store) {
+      var lang = _.find(this.langs, {Id: store.LangId})
+      var traits = lang.$traits()
+      traits.examine(store.Words)
+      return traits
     }
 
     /**
-     * Generates request parameters.
+     * Adds the given word to the given example store or displays an error
+     * message.
      */
-    self.params = function(mode: Mode): {} {
-      return {
-        words:    mode.words(),
-        soundset: mode.soundset || null
+    this.add = function(store, word) {
+      if (typeof word !== 'string') word = ''
+      word = word.toLowerCase().trim()
+
+      if (!word) {
+        store.$error = 'Please input a word.'
+        return
       }
+
+      if (word.length < 2) {
+        store.$error = 'The word is too short.'
+        return
+      }
+
+      if (~store.Words.indexOf(word)) {
+        store.$error = 'This word is already in the set.'
+        return
+      }
+
+      try {
+        this.getTraits(store).examine([word])
+      } catch (err) {
+        console.error('-- word parsing error:', err)
+        store.$error = 'Some of these characters are not allowed in a word.'
+        return
+      }
+
+      store.$error = ''
+      store.$input = ''
+      store.Words.push(word)
+      store.$gen = this.getTraits(store).generator()
     }
 
     /**
-     * Loads words for the given mode.
+     * Generates a group of words for the given example store.
      */
-    self.submit = function(mode: Mode) {
-      // Ignore if we're already making a request.
-      if (self.loading) return
+    this.generate = function(store) {
+      if (!store.$gen) store.$gen = this.getTraits(store).generator()
+      var words = []
 
-      self.loadTo(mode, {
-        $generated: Word.readAll({params: self.params(mode)})
-      }).finally(self.ready)
+      while (words.length < this.limit) {
+        var word = store.$gen()
+        if (!word) break
+        if (~store.Words.indexOf(word)) continue
+        words.push(word)
+      }
+
+      if (words.length < this.limit) store.$depleted = true
+      else delete store.$depleted
+
+      store.$results = words
     }
 
     /**
-     * Submit first request on page load. This makes an assumption that the
-     * view logic also selects the first lang and the first mode.
+     * Adds the given word to the given example store, removing it from the
+     * generated results.
      */
-    self.submit(self.langs[0].$modes[0])
+    this.pick = function(store, word) {
+      if (~store.Words.indexOf(word)) return
+      store.Words.push(word)
+      _.pull(store.$results, word)
+      store.$gen = this.getTraits(store).generator()
+    }
+
+    /**
+     * Removes the given word from the given example store.
+     */
+    this.drop = function(store, word) {
+      _.pull(store.Words, word)
+      store.$gen = this.getTraits(store).generator()
+    }
+
+    /**
+     * Returns the appropriate text class for the given example store.
+     */
+    this.textClass = function(store) {
+      return store.Title === 'Names' ? 'text-capitalise' : 'text-lowercase'
+    }
+
+    /********************************* Load **********************************/
+
+    /**
+     * Data load.
+     */
+    this.load({
+      langs: Lang.readAll(),
+      nameExamples: NamesExample.readAll(),
+      wordExamples: WordsExample.readAll()
+    })
+    // Sort out examples.
+    .then(() => {
+      _.each(this.langs, lang => {
+        lang.$names = _.find(this.nameExamples, {LangId: lang.Id})
+        lang.$words = _.find(this.wordExamples, {LangId: lang.Id})
+      })
+    })
+    // Stick to the first lang for now.
+    .then(() => {this.lang = this.langs[0]})
+    // Watch words in each example and save on change.
+    .then(() => {
+      _.each(this.nameExamples, record => {
+        $scope.$watch(() => record.Words, () => record.$saveLS(), true)
+      })
+      _.each(this.wordExamples, record => {
+        $scope.$watch(() => record.Words, () => record.$saveLS(), true)
+      })
+    })
+    .then(this.ready)
   }
 
 })

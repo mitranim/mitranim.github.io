@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes">
     <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <!-- JS (only on pages that require it) -->
+    <% if (typeof js !== 'undefined' && js) { %><script type="text/javascript" src="/js/app.js"></script><% } %>
   </head>
 
   <body>
@@ -20,11 +22,6 @@
 
     <!-- Footer -->
     <%= $include('partials/footer', $) %>
-
-    <!-- JS (contextual) -->
-    <% if (typeof js !== 'undefined' && js) { %>
-      <script type="text/javascript" src="/js/app.js"></script>
-    <% } %>
 
   </body>
 

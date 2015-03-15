@@ -7,7 +7,7 @@ angular.module('astil.models.Record', [
 .factory('Record', function(Datacore, config) {
 
   class Record extends Datacore {
-    $id() {return this.Id || ''}
+    $id()   {return this.Id || ''}
     $path() {return config.baseUrl}
   }
 

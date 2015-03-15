@@ -1,4 +1,4 @@
-<div style="margin-bottom: 0"><img src="/img/face.jpg" class="right"></div>
+<div style="margin-bottom: 0"><img src="/img/small/face.jpg" class="right"></div>
 
 # About
 

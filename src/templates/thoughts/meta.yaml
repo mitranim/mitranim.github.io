@@ -1,4 +1,4 @@
-ignore: index
+ignore: index|gist
 
 files:
 
@@ -23,3 +23,9 @@ files:
   date:     really old
   echo:
   - name: old-posts/index
+
+# - name:     gist
+#   title:    gist
+#   date:     n/a
+#   echo:
+#   - name: gist/index
