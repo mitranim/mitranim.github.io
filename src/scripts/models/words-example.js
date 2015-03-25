@@ -27,7 +27,8 @@ angular.module('astil.models.WordsExample', [
     get $schema() {return {
       LangId: '',
       Title:  '',
-      Words:  ['']
+      Words:  [''],
+      filter: ''
     }}
 
     $path(): string {return super.$path() + '/words-example'}

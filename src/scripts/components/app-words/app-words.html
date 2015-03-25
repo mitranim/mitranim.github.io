@@ -28,6 +28,10 @@
         <button class="flex-1 success sf-icon refresh fade" tabindex="-1"></button>
         <button class="success flex-11">Generate</button>
       </form>
+      <!-- <p class="flex items-center">
+        <label style="padding-right: 0.5em">Exclude</label>
+        <input class="flex-1 text-monospace" ng-model="store.filter">
+      </p> -->
       <sf-grid class="narrow">
         <sf-grid-item ng-repeat="word in store.$results" class="flex justify-between" ng-class="self.textClass(store)">
           <sf-icon class="arrow-left fade interactive" ng-click="self.pick(store, word)"></sf-icon>
