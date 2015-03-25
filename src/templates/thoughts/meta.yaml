@@ -1,6 +1,13 @@
-ignore: index|gist
+ignore: index|shadow-dom-issues
 
 files:
+
+# - name:     shadow-dom-issues
+#   title:    Shadow DOM Issues
+#   image:    kenmainr-in-praise-of-shadows.jpg
+#   date:     2015-03-n/a
+#   echo:
+#   - name: shadow-dom-issues/index
 
 - name:     cheating-for-website-performance
   title:    Cheating For Website Performance
@@ -23,9 +30,3 @@ files:
   date:     really old
   echo:
   - name: old-posts/index
-
-# - name:     gist
-#   title:    gist
-#   date:     n/a
-#   echo:
-#   - name: gist/index
