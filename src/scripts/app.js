@@ -8,6 +8,12 @@ angular.module('astil.attributes', [
   'astil.attributes.disableAll',
 ])
 
+angular.module('astil.firebase', [
+  'firebase',
+  'astil.config',
+  'foliant'
+])
+
 angular.module('astil', [
   // Templates
   'astil.templates',

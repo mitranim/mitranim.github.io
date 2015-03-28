@@ -1,8 +1,8 @@
 var module = angular.module('astil.components.appWords', [
   'foliant',
-  'astil.firebase',
   'astil.attributes',
-  'astil.controllers.generic'
+  'astil.controllers.generic',
+  'astil.firebase'
 ])
 
 module.directive('appWords', function(appWordsCtrl) {
@@ -16,7 +16,7 @@ module.directive('appWords', function(appWordsCtrl) {
   }
 })
 
-module.factory('appWordsCtrl', function(Traits, CtrlGeneric, lang, names, words) {
+module.factory('appWordsCtrl', function($q, Traits, CtrlGeneric, auth, defaultLang, namesPromise, wordsPromise) {
 
   return class Controller extends CtrlGeneric {
 
@@ -24,22 +24,35 @@ module.factory('appWordsCtrl', function(Traits, CtrlGeneric, lang, names, words)
       super()
 
       /**
+       * Loading status.
+       * @type Boolean
+       */
+      this.loading = true
+
+      /**
+       * Lang configuration.
        * @type Lang
        */
-      this.lang = lang
+      this.lang = defaultLang
 
       /**
-       * @type string[][]
+       * Load all datasets, generate names, and mark readiness.
        */
-      this.stores = [names, words]
+      $q.all({
+        names: namesPromise,
+        words: wordsPromise
+      }).then(data => {
+        /**
+         * @type string[][]
+         */
+        this.stores = [data.names, data.words]
 
-      /**
-       * After each store has loaded, generate words and mark readiness status.
-       */
-      this.stores.forEach(store => {
-        store.$loaded().then(() => {
-          store.$ready = true
-          this.generate(store)
+        /**
+         * After each store has loaded, generate words and mark readiness status.
+         */
+        $q.all(_.invoke(this.stores, '$loaded')).then(() => {
+          this.stores.forEach(this.generate, this)
+          this.ready()
         })
       })
     }
@@ -60,49 +73,53 @@ module.factory('appWordsCtrl', function(Traits, CtrlGeneric, lang, names, words)
       return traits
     }
 
-    // /**
-    //  * Adds the given word to the given example store or displays an error
-    //  * message.
-    //  */
-    // add(store, word) {
-    //   if (typeof word !== 'string') word = ''
-    //   word = word.toLowerCase().trim()
+    /**
+     * Adds the given word to the given example store or displays an error
+     * message.
+     */
+    add(store, word) {
+      if (typeof word !== 'string') word = ''
+      word = word.toLowerCase().trim()
 
-    //   if (!word) {
-    //     store.$error = 'Please input a word.'
-    //     return
-    //   }
+      if (!word) {
+        store.$error = 'Please input a word.'
+        return
+      }
 
-    //   if (word.length < 2) {
-    //     store.$error = 'The word is too short.'
-    //     return
-    //   }
+      if (word.length < 2) {
+        store.$error = 'The word is too short.'
+        return
+      }
 
-    //   if (~store.Words.indexOf(word)) {
-    //     store.$error = 'This word is already in the set.'
-    //     return
-    //   }
+      if (store.$has(word)) {
+        store.$error = 'This word is already in the set.'
+        return
+      }
 
-    //   try {
-    //     this.getTraits(store).examine([word])
-    //   } catch (err) {
-    //     console.error('-- word parsing error:', err)
-    //     store.$error = 'Some of these characters are not allowed in a word.'
-    //     return
-    //   }
+      try {
+        this.getTraits(store).examine([word])
+      } catch (err) {
+        console.error('-- word parsing error:', err)
+        store.$error = 'Some of these characters are not allowed in a word.'
+        return
+      }
 
-    //   store.$error = ''
-    //   store.$input = ''
-    //   store.Words.push(word)
+      store.$error = ''
+      store.$input = ''
+      store.$add(word)
 
-    //   // Refresh the generator.
-    //   store.$gen = this.getTraits(store).generator()
-    // }
+      // Refresh the generator.
+      store.$gen = this.getTraits(store).generator()
+    }
 
     /**
      * Generates a group of words for the given example store.
      */
     generate(store) {
+      // Remove error, if any.
+      delete store.$error
+
+      // Regenerate the generator, if necessary.
       if (!store.$gen) store.$gen = this.getTraits(store).generator()
       var words = []
 
