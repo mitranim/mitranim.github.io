@@ -16,5 +16,5 @@ angular.module('astil', [
   'astil.config',
 
   // Components
-  'astil.components.appWords',
+  'astil.components.appWords'
 ])

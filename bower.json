@@ -19,7 +19,9 @@
     "foliant": "*",
     "font-awesome-svg-png": "~1.1.2",
     "lodash": "*",
-    "stylific": "~0.0.4"
+    "stylific": "~0.0.4",
+    "firebase": "~2.2.3",
+    "angularfire": "~1.0.0"
   },
   "overrides": {
     "stylific": {
