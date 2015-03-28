@@ -15,6 +15,11 @@ angular.module('astil.controllers.generic', [])
        * Marks end of loading.
        */
       this.ready = () => {this.loading = false}
+
+      /**
+       * Refer self.
+       */
+      this.refer()
     }
 
     /**
@@ -36,6 +41,15 @@ angular.module('astil.controllers.generic', [])
       }
       this.loading = true
       return $q.all(qHash).then(_.curry(_.assign, 2)(destination))
+    }
+
+    /**
+     * Sets the self-reference.
+     */
+    refer() {
+      if (this.element && this.element.hasAttribute('reference')) {
+        this.reference = this
+      }
     }
 
   }

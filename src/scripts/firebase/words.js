@@ -2,9 +2,17 @@
  * Personal words array.
  */
 
-angular.module('astil.firebase')
-.factory('wordsPromise', function(fbRoot, auth, FBArray, defaultWords) {
-  return auth.$waitForAuth().then(function recur(authData) {
+var module = angular.module('astil.firebase')
+
+/**
+ * Returns a function that generates a new words array reference for the
+ * current user, sets up a $firebaseArray object, and returns it. If the user
+ * is not logged in, this returns null.
+ */
+module.factory('wordsFactory', function(fbRoot, auth, FBArray, defaultWords) {
+  return function() {
+    var authData = auth.$getAuth()
+    if (!authData) return null
 
     var ref = fbRoot.child(`/personal/${authData.uid}/words/eng`)
 
@@ -21,6 +29,5 @@ angular.module('astil.firebase')
     words.$title = 'Words'
 
     return words
-
-  })
+  }
 })

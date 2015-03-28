@@ -2,9 +2,17 @@
  * Personal names array.
  */
 
-angular.module('astil.firebase')
-.factory('namesPromise', function(fbRoot, auth, FBArray, defaultNames) {
-  return auth.$waitForAuth().then(function recur(authData) {
+var module = angular.module('astil.firebase')
+
+/**
+ * Returns a function that generates a new names array reference for the
+ * current user, sets up a $firebaseArray object, and returns it. If the user
+ * is not logged in, this returns null.
+ */
+module.factory('namesFactory', function(fbRoot, auth, FBArray, defaultNames) {
+  return function() {
+    var authData = auth.$getAuth()
+    if (!authData) return null
 
     var ref = fbRoot.child(`/personal/${authData.uid}/names/eng`)
 
@@ -21,6 +29,5 @@ angular.module('astil.firebase')
     names.$title = 'Names'
 
     return names
-
-  })
+  }
 })

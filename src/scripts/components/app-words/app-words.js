@@ -1,26 +1,37 @@
 var module = angular.module('astil.components.appWords', [
-  'foliant',
   'astil.attributes',
-  'astil.controllers.generic',
-  'astil.firebase'
+  'astil.controllers.generic'
 ])
 
 module.directive('appWords', function(appWordsCtrl) {
   return {
     restrict: 'E',
-    scope: {},
+    scope: {
+      lang: '=',
+      names: '=',
+      words: '=',
+      reference: '='
+    },
     templateUrl: 'components/app-words/app-words.html',
     controllerAs: 'self',
     bindToController: true,
-    controller: ['$scope', appWordsCtrl]
+    controller: ['$element', appWordsCtrl]
   }
 })
 
-module.factory('appWordsCtrl', function($q, Traits, CtrlGeneric, auth, defaultLang, namesPromise, wordsPromise) {
+module.factory('appWordsCtrl', function($q, CtrlGeneric) {
 
-  return class Controller extends CtrlGeneric {
+  return class extends CtrlGeneric {
 
-    constructor(scope) {
+    constructor($element) {
+      /**
+       * Element.
+       */
+      this.element = $element[0]
+
+      /**
+       * Use base constructor.
+       */
       super()
 
       /**
@@ -30,30 +41,16 @@ module.factory('appWordsCtrl', function($q, Traits, CtrlGeneric, auth, defaultLa
       this.loading = true
 
       /**
-       * Lang configuration.
-       * @type Lang
+       * @type string[][]
        */
-      this.lang = defaultLang
+      this.stores = [this.names, this.words]
 
       /**
        * Load all datasets, generate names, and mark readiness.
        */
-      $q.all({
-        names: namesPromise,
-        words: wordsPromise
-      }).then(data => {
-        /**
-         * @type string[][]
-         */
-        this.stores = [data.names, data.words]
-
-        /**
-         * After each store has loaded, generate words and mark readiness status.
-         */
-        $q.all(_.invoke(this.stores, '$loaded')).then(() => {
-          this.stores.forEach(this.generate, this)
-          this.ready()
-        })
+      $q.all(_.invoke(this.stores, '$loaded')).then(() => {
+        this.stores.forEach(this.generate, this)
+        this.loading = false
       })
     }
 
