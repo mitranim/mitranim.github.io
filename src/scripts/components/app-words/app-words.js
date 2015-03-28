@@ -34,10 +34,13 @@ module.factory('appWordsCtrl', function(Traits, CtrlGeneric, lang, names, words)
       this.stores = [names, words]
 
       /**
-       * Generate words for each store after it's loaded.
+       * After each store has loaded, generate words and mark readiness status.
        */
       this.stores.forEach(store => {
-        store.$loaded().then(() => {this.generate(store)})
+        store.$loaded().then(() => {
+          store.$ready = true
+          this.generate(store)
+        })
       })
     }
 
