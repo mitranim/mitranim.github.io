@@ -10,7 +10,7 @@
     "build-prod": "env GULP_BUILD_TYPE=production gulp build",
     "test": "karma start",
     "flow": "(cd src/scripts && flow check --all --strip-root)",
-    "push": "npm run flow && npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)"
+    "push": "npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)"
   },
   "authors": [
     "Mitranim <me@mitranim.com>"
