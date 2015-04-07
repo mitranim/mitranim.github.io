@@ -316,8 +316,9 @@ gulp.task('scripts:flow', function() {
 
 // All script tasks.
 gulp.task('scripts',
-  gulp.parallel('scripts:flow',
-    gulp.series('scripts:clear', 'scripts:all')))
+  // gulp.parallel('scripts:flow',
+    gulp.series('scripts:clear', 'scripts:all'))
+  // )
 
 /*--------------------------------- Server ----------------------------------*/
 

@@ -10,7 +10,7 @@ module.directive('appWords', function(appWordsCtrl) {
       lang: '=',
       names: '=',
       words: '=',
-      reference: '='
+      reference: '=?'
     },
     templateUrl: 'components/app-words/app-words.html',
     controllerAs: 'self',
@@ -24,15 +24,14 @@ module.factory('appWordsCtrl', function($q, CtrlGeneric) {
   return class extends CtrlGeneric {
 
     constructor($element) {
+      super()
+
+      this.reference = this
+
       /**
        * Element.
        */
       this.element = $element[0]
-
-      /**
-       * Use base constructor.
-       */
-      super()
 
       /**
        * Loading status.
