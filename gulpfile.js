@@ -28,6 +28,7 @@ var src = {
   less:      srcBase + 'styles/**/*.less',
   img:       srcBase + 'img/**/*',
   templates: srcBase + 'templates/',
+  robots:    srcBase + 'robots.txt',
   js: [
     srcBase + 'scripts/**/*.js',
     '!' + srcBase + 'scripts/**/*.spec.js',
@@ -258,8 +259,13 @@ gulp.task('templates:compile', function() {
     .pipe(bsync.reload({stream: true}))
 })
 
+// Copy robots.txt.
+gulp.task('templates:robots', function() {
+  return gulp.src(src.robots).pipe(gulp.dest(dest.html))
+})
+
 // All template tasks
-gulp.task('templates', gulp.series('templates:clear', 'templates:compile'))
+gulp.task('templates', gulp.series('templates:clear', 'templates:compile', 'templates:robots'))
 
 /*--------------------------------- Scripts ---------------------------------*/
 
