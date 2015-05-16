@@ -15,5 +15,12 @@
 </sf-jumbo>
 
 <sf-article class="pad">
+  <!-- Post -->
   <%= $content %>
+  <!-- Disqus thread -->
+  <% if (prod()) { %>
+    <br>
+    <%= $include('partials/disqus', $) %>
+  <% } %>
 </sf-article>
+
