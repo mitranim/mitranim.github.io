@@ -7,9 +7,9 @@
     "gulp": "gulp",
     "img": "gulp images",
     "bundle": "jspm bundle angular + lodash + firebase + fireproof",
-    "bundle-prod": "jspm bundle boot --minify --no-mangle",
+    "bundle-prod": "jspm bundle boot --minify",
     "bundle-sfx": "jspm bundle-sfx boot",
-    "bundle-sfx-prod": "jspm bundle-sfx boot --minify --no-mangle",
+    "bundle-sfx-prod": "jspm bundle-sfx boot --minify",
     "build-prod": "env GULP_BUILD_TYPE=production gulp build && npm run bundle-sfx-prod",
     "serve-prod": "npm run build-prod && gulp bsync",
     "push": "npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)"
