@@ -1,0 +1,20 @@
+<!-- Render app-words after loading auth data -->
+<app-words lang="self.lang" names="self.names" words="self.words" ng-if="!self.loading" on-ready="self.$ready = true"></app-words>
+
+<!-- Display authentication status after loading auth data and rendering app-words -->
+<div class="pad" style="text-align: right" ng-if="!self.loading && self.$ready">
+  <!-- Anonymous -->
+  <p ng-if="self.authData.provider === 'anonymous'">
+    Anonymous session.
+    <a href ng-click="self.authWithTwitter()">
+      <span>Sign in with Twitter.</span>
+      <sf-icon class="twitter inline"></sf-icon></a>
+  </p>
+  <!-- Twitter -->
+  <p ng-if="self.authData.provider === 'twitter'">
+    Signed in as {{self.authData.twitter.displayName}}.
+    <a href ng-click="self.authData.unauth()">
+      <span>Sign out.</span>
+      <sf-icon class="sign-out inline"></sf-icon></a>
+  </p>
+</div>

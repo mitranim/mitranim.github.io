@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= $title.toLowerCase() || 'about:mitranim' %></title>
+    <meta name="author" content="mitranim">
+    <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'about me: projects, blog, demos' %>">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+  </head>
+
+  <body>
+
+    <!-- Navbar -->
+    <%= $include('partials/navbar', $) %>
+
+    <!-- Site content -->
+    <%= $content || $include('partials/wrapper', $) %>
+
+    <!-- Footer -->
+    <%= $include('partials/footer', $) %>
+
+    <!-- JS (only on pages that require it) -->
+    <% if (typeof js !== 'undefined' && js) { %>
+      <% if (prod()) { %>
+        <script src="/build.js"></script>
+      <% } else { %>
+        <script src="/jspm_packages/es6-module-loader.js"></script>
+        <script src="/jspm_packages/system.js"></script>
+        <script src="/system.config.js"></script>
+        <script src="/build.js"></script>
+        <script src="/app/env.js"></script>
+        <script>
+          System.import('boot')
+        </script>
+      <% } %>
+    <% } %>
+  </body>
+
+</html>

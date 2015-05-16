@@ -7,3 +7,12 @@
   &.orange@{prefix}@{affix}         {.sf-colormix-base(@color-orange, @perc)}
   &.orange-inverse@{prefix}@{affix} {.sf-colormix-base-inverse(@color-orange, @perc)}
 }
+
+// Disable background for icon links.
+.sf-link-color() {
+  &.icon {
+    &:hover, &:focus, &.active, &[disabled] {
+      background-color: transparent;
+    }
+  }
+}

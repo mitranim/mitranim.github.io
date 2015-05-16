@@ -8,38 +8,31 @@
 /******************************* Dependencies ********************************/
 
 var $       = require('gulp-load-plugins')()
-var bsync   = require('browser-sync')
+var bsync   = require('browser-sync').create()
 var cheerio = require('cheerio')
 var gulp    = require('gulp')
 var hjs     = require('highlight.js')
 var marked  = require('gulp-marked/node_modules/marked')
-var mbf     = require('main-bower-files')
-var shell   = require('shelljs')
-var ss      = require('stream-series')
 
 /********************************** Globals **********************************/
 
 // Base source directory.
 var srcBase = './src/'
 
+// jspm_packages path.
+var jspmPath = destBase + '/jspm_packages/'
+
 // Source paths with masks per type
 var src = {
-  lessCore:  srcBase + 'styles/app.less',
-  less:      srcBase + 'styles/**/*.less',
-  img:       srcBase + 'img/**/*',
-  templates: srcBase + 'templates/',
-  robots:    srcBase + 'robots.txt',
-  js: [
-    srcBase + 'scripts/**/*.js',
-    '!' + srcBase + 'scripts/**/*.spec.js',
-    '!' + srcBase + 'scripts/env.js'
-  ],
-  // Environment config.
-  jsEnv: srcBase + 'scripts/env.js',
-  // Type declarations.
-  jsDec: srcBase + 'declarations/*.js',
-  // Angular templates.
-  ngHtml: srcBase + 'scripts/**/*.html'
+  lessCore: srcBase + 'styles/app.less',
+  less:     srcBase + 'styles/**/*.less',
+  img:      srcBase + 'img/**/*',
+  html:     srcBase + 'html/',
+  robots:   srcBase + 'robots.txt',
+  js:       srcBase + 'app/**/*.ts',
+  jsEnv:    srcBase + 'app/env.js',
+  views:    srcBase + 'app/**/*.html',
+  system:   './system.config.js'
 }
 
 // Base destination directory. Expected to be symlinked as another branch's
@@ -51,12 +44,8 @@ var dest = {
   css:  destBase + 'css/',
   img:  destBase + 'img/',
   html: destBase,
-  js:   destBase + 'js/',
+  app:  destBase + 'app/',
 }
-
-// Whether to minify HTML. I keep flip-flopping on that. Purely aesthetical
-// choice.
-var minifyHtml = false
 
 /********************************* Utilities *********************************/
 
@@ -64,22 +53,33 @@ function prod() {
   return process.env.GULP_BUILD_TYPE === 'production'
 }
 
-function flow() {
-  shell.exec('(cd src/scripts && flow check --all --strip-root)')
+// Usable in task flows.
+function reload(done) {
+  bsync.reload()
+  done()
 }
 
 /***************************** Template Imports ******************************/
 
-var imports = Object.create(null)
+/**
+ * Utility methods for templates.
+ */
+var imports = {
+  lastId: 0,
+  uniqId: function() {return 'static-id-' + ++imports.lastId},
+  lastUniqId: function() {return 'static-id-' + imports.lastId},
 
-imports.bgImg = function(path) {
-  return 'style="background-image: url(/img/' + path + ')"'
-}
+  bgImg: function(path) {
+    return 'style="background-image: url(/img/' + path + ')"'
+  },
 
-imports.truncate = function(html, num) {
-  var part = cheerio(html).text().slice(0, num)
-  if (part.length === num) part += ' ...'
-  return part
+  truncate: function(html, num) {
+    var part = cheerio(html).text().slice(0, num)
+    if (part.length === num) part += ' ...'
+    return part
+  },
+
+  prod: prod
 }
 
 /********************************** Config ***********************************/
@@ -122,7 +122,7 @@ marked.Renderer.prototype.link = function(href, title, text) {
 /*--------------------------------- Styles ----------------------------------*/
 
 gulp.task('styles:clear', function() {
-  return gulp.src(dest.css, {read: false}).pipe($.rimraf())
+  return gulp.src(dest.css, {read: false, allowEmpty: true}).pipe($.rimraf())
 })
 
 gulp.task('styles:less', function() {
@@ -130,13 +130,20 @@ gulp.task('styles:less', function() {
     .pipe($.plumber())
     .pipe($.less())
     .pipe($.autoprefixer())
-    .pipe($.minifyCss({
+    .pipe($.if(prod(), $.minifyCss({
       keepSpecialComments: 0,
       aggressiveMerging: false,
       advanced: false
-    }))
+    })))
     .pipe(gulp.dest(dest.css))
     .pipe(bsync.reload({stream: true}))
+})
+
+gulp.task('styles:watch', function() {
+  // Watch our .less files.
+  $.watch(src.less, gulp.series('styles'))
+  // Watch stylific's .less files.
+  $.watch('./bower_components/stylific/**/*.less', gulp.series('styles'))
 })
 
 gulp.task('styles', gulp.series('styles:clear', 'styles:less'))
@@ -145,7 +152,7 @@ gulp.task('styles', gulp.series('styles:clear', 'styles:less'))
 
 // Clear images
 gulp.task('images:clear', function() {
-  return gulp.src(dest.img, {read: false}).pipe($.rimraf())
+  return gulp.src(dest.img, {read: false, allowEmpty: true}).pipe($.rimraf())
 })
 
 // Resize and copy images
@@ -213,19 +220,22 @@ gulp.task('images',
       'images:small',
       'images:square')))
 
-/*-------------------------------- Templates --------------------------------*/
+/*---------------------------------- HTML -----------------------------------*/
 
-// Clear templates
-gulp.task('templates:clear', function() {
-  return gulp.src(dest.html + '**/*.html', {read: false}).pipe($.rimraf())
+// Clear html
+gulp.task('html:clear', function() {
+  return gulp.src([
+    dest.html + '**/*.html',
+    '!' + jspmPath
+  ], {read: false, allowEmpty: true}).pipe($.rimraf())
 })
 
-// Compile templates
-gulp.task('templates:compile', function() {
+// Compile html
+gulp.task('html:compile', function() {
   var filterMd = $.filter('**/*.md')
 
-  return gulp.src(src.templates + '**/*')
-    .pipe($.plumber())
+  return gulp.src(src.html + '**/*')
+    // .pipe($.plumber())
     // Pre-process the markdown files.
     .pipe(filterMd)
     .pipe($.marked({
@@ -243,13 +253,21 @@ gulp.task('templates:compile', function() {
     }))
     // Return the other files.
     .pipe(filterMd.restore())
-    // Render all the templates.
+    // Render all html.
     .pipe($.statil({
-      relativeDir: src.templates,
+      relativeDir: src.html,
       imports:     imports
     }))
-    // Minify HTML.
-    .pipe($.if(minifyHtml, $.minifyHtml({
+    // Change each `<filename>` into `<filename>/index.html`.
+    .pipe($.rename(function(path) {
+      switch (path.basename + path.extname) {
+        case 'index.html': case '404.html': return
+      }
+      path.dirname = pt.join(path.dirname, path.basename)
+      path.basename = 'index'
+    }))
+    // Minify when building for production.
+    .pipe($.if(prod(), $.minifyHtml({
       // Needed to keep attributes like [contenteditable]
       empty: true
     })))
@@ -260,76 +278,72 @@ gulp.task('templates:compile', function() {
 })
 
 // Copy robots.txt.
-gulp.task('templates:robots', function() {
+gulp.task('html:robots', function() {
   return gulp.src(src.robots).pipe(gulp.dest(dest.html))
 })
 
-// All template tasks
-gulp.task('templates', gulp.series('templates:clear', 'templates:compile', 'templates:robots'))
+gulp.task('html:watch', function() {
+  $.watch(src.html + '**/*', gulp.series('html'))
+})
+
+// All html tasks
+gulp.task('html', gulp.series('html:clear', 'html:compile', 'html:robots'))
 
 /*--------------------------------- Scripts ---------------------------------*/
 
 gulp.task('scripts:clear', function() {
-  return gulp.src(dest.js, {read: false}).pipe($.rimraf())
+  return gulp.src(dest.app, {read: false, allowEmpty: true}).pipe($.rimraf())
 })
 
-gulp.task('scripts:all', function() {
-  var streams = []
+gulp.task('scripts:system', function() {
+  return gulp.src(src.system)
+    .pipe(gulp.dest(dest.html))
+})
 
-  // Dependencies.
-  var deps = gulp.src(mbf({
-      filter: '**/*.js',
-      includeDev: true
+gulp.task('scripts:app', function() {
+  return gulp.src(src.js)
+    .pipe($.plumber()) // intentionally dumb error printing
+    .pipe($.typescript({
+      noExternalResolve: true,
+      typescript: require('typescript'),
+      target: 'ES5',
+      module: 'system'
     }))
-  streams.push(deps)
+    .pipe(gulp.dest(dest.app))
+})
 
-  // Development env settings.
-  if (!prod()) streams.push(gulp.src(src.jsEnv))
-
-  // App scripts.
-  var own = gulp.src(src.js)
+gulp.task('scripts:views', function() {
+  return gulp.src(src.views)
     .pipe($.plumber())
-    .pipe($.babel())
-    .pipe($.wrap("(function(angular, _) {\n<%= contents %>\n})(window.angular, window._);\n"))
-    .pipe($.ngAnnotate())
-  streams.push(own)
-
-  // Angular templates.
-  var templates = gulp.src(src.ngHtml)
-    .pipe($.plumber())
-    .pipe($.minifyHtml({
-      // Needed to keep attributes like [contenteditable]
-      empty: true
-    }))
+    .pipe($.if(prod(), $.minifyHtml({empty: true})))
     .pipe($.ngHtml2js({
-      moduleName: 'astil.templates'
+      moduleName: 'app'
     }))
-  streams.push(templates)
-
-  // Merge in order -> concat -> uglify -> write to disk
-  return ss(streams)
-    .pipe($.plumber())
-    .pipe($.concat('app.js'))
-    .pipe($.if(prod(), $.uglify()))
-    .pipe(gulp.dest(dest.js))
-    .pipe(bsync.reload({stream: true}))
+    .pipe($.concat('views.js'))
+    .pipe($.babel({modules: 'system'}))
+    .pipe(gulp.dest(dest.app))
 })
 
-gulp.task('scripts:flow', function() {
-  flow()
-  return gulp.src('./null')
+gulp.task('scripts:env', function() {
+  return gulp.src(src.jsEnv)
+    .pipe($.if(!prod(), gulp.dest(dest.app)))
 })
 
-// All script tasks.
-gulp.task('scripts',
-  // gulp.parallel('scripts:flow',
-    gulp.series('scripts:clear', 'scripts:all'))
-  // )
+gulp.task('scripts:watch', function() {
+  // Watch scripts.
+  $.watch(src.js, gulp.series('scripts', reload))
+  $.watch(src.system, gulp.series('scripts', reload))
+  $.watch(src.jsEnv, gulp.series('scripts', reload))
+  // Watch views.
+  $.watch(src.views, gulp.series('scripts', reload))
+})
+
+gulp.task('scripts', gulp.series('scripts:clear', gulp.parallel('scripts:system', 'scripts:app', 'scripts:views', 'scripts:env')))
 
 /*--------------------------------- Server ----------------------------------*/
 
 gulp.task('bsync', function() {
-  return bsync({
+  return bsync.init({
     server: {
       baseDir: destBase
     },
@@ -350,25 +364,13 @@ gulp.task('bsync', function() {
 
 /*--------------------------------- Config ----------------------------------*/
 
-// Watch
-gulp.task('watch', function() {
-  // Watch .less files
-  $.watch(src.less, gulp.series('styles'))
-
-  // Watch templates
-  $.watch(src.templates + '**/*', gulp.series('templates'))
-
-  // Watch scripts and angular templates
-  $.watch(src.js,     gulp.series('scripts'))
-  $.watch(src.jsDec,  gulp.series('scripts'))
-  $.watch(src.ngHtml, gulp.series('scripts'))
-
-  // Watch stylific's .less files
-  $.watch('./bower_components/stylific/**/*.less', gulp.series('styles'))
-})
-
 // Build
-gulp.task('build', gulp.parallel('styles', 'templates', 'scripts'))
+gulp.task('build', gulp.parallel('styles', 'scripts', 'html'))
+
+// Watch
+gulp.task('watch', gulp.parallel(
+  'styles:watch', 'scripts:watch', 'html:watch'
+))
 
 // Default
 gulp.task('default', gulp.series('build', 'watch'))
