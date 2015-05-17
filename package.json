@@ -10,7 +10,7 @@
     "bundle-prod": "jspm bundle boot --minify",
     "bundle-sfx": "jspm bundle-sfx boot",
     "bundle-sfx-prod": "jspm bundle-sfx boot --minify",
-    "build-prod": "env GULP_BUILD_TYPE=production gulp build && npm run bundle-sfx-prod",
+    "build-prod": "gulp build --prod && npm run bundle-sfx-prod",
     "serve-prod": "npm run build-prod && gulp bsync",
     "push": "npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)"
   },
@@ -48,7 +48,8 @@
     "jspm": "^0.15.6",
     "lodash": "^3.8.0",
     "tsd": "^0.6.0",
-    "typescript": "Microsoft/TypeScript#681954bc59a58da949de42272333b3b33f72bce9"
+    "typescript": "git://github.com/microsoft/TypeScript.git",
+    "yargs": "^3.9.0"
   },
   "jspm": {
     "directories": {

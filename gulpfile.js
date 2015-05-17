@@ -13,6 +13,8 @@ var cheerio = require('cheerio')
 var gulp    = require('gulp')
 var hjs     = require('highlight.js')
 var marked  = require('gulp-marked/node_modules/marked')
+var fs      = require('fs')
+var flags   = require('yargs').argv
 
 /********************************** Globals **********************************/
 
@@ -50,7 +52,7 @@ var dest = {
 /********************************* Utilities *********************************/
 
 function prod() {
-  return process.env.GULP_BUILD_TYPE === 'production'
+  return flags.prod === true || flags.prod === 'true'
 }
 
 // Usable in task flows.
@@ -85,11 +87,11 @@ var imports = {
 /********************************** Config ***********************************/
 
 /**
- * Change how marked compiles links to add target="_blank" to links to other sites.
+ * marked rendering enhancements.
  */
 
 // Default link renderer func.
-var linkDef = marked.Renderer.prototype.link
+var renderLink = marked.Renderer.prototype.link
 
 // Custom link renderer func that adds target="_blank" to links to other sites.
 // Mostly copied from the marked source.
@@ -115,6 +117,43 @@ marked.Renderer.prototype.link = function(href, title, text) {
   }
   out += '>' + text + '</a>'
   return out
+}
+
+// Default code renderer.
+var renderCode = marked.Renderer.prototype.code
+
+// Custom code renderer that understands a few custom directives.
+marked.Renderer.prototype.code = function(code, lang, escaped) {
+  var regexInclude = /#include (.*)(?:\n|$)/g
+  var regexCollapse = /#collapse (.*)(?:\n|$)/g
+
+  if (regexInclude.test(code)) {
+    code = code.replace(regexInclude, function(match, path) {
+      return fs.readFileSync(path, 'utf8').trim()
+    })
+  }
+
+  // Remove collapse directives and remember if there were any.
+  var collapse = regexCollapse.exec(code)
+  if (collapse) {
+    var label = collapse[1]
+    code = code.replace(regexCollapse, '').trim()
+  }
+
+  // Default render with highlighting.
+  code = renderCode.call(this, code, lang, escaped).trim()
+
+  // Optionally wrap in collapse.
+  if (label) {
+    code =
+      '<sf-collapse class="code-collapse pad-ch">\n' +
+      '  <input type="checkbox" id="' + imports.uniqId() + '"></input>\n' +
+      '  <label for="' + imports.lastUniqId() + '">' + label + '</label>\n' +
+         code + '\n' +
+      '</sf-collapse>'
+  }
+
+  return code
 }
 
 /*********************************** Tasks ***********************************/

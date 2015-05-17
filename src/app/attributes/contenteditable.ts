@@ -6,7 +6,6 @@ import {Attribute} from 'ng-decorate'
 import {BaseVM} from 'utils/all'
 
 @Attribute({
-  moduleName: 'app',
   selector: '[contenteditable]',
   require: '?ngModel',
   // inject: ['$sce']

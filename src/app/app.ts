@@ -1,10 +1,16 @@
 import 'angular'
 import 'angular-sanitize'
+import {defaults} from 'ng-decorate'
 
 /**
  * Application module.
  */
 export var app = angular.module('app', ['ng', 'ngSanitize'])
+
+/**
+ * Use this module for all decorations.
+ */
+defaults.module = app
 
 /**
  * Digest hack.

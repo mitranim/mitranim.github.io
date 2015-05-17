@@ -7,7 +7,6 @@ import {Service} from 'ng-decorate'
 import {digest} from 'app'
 
 @Service({
-  moduleName: 'app',
   inject: ['$q'],
   serviceName: 'BaseVM'
 })

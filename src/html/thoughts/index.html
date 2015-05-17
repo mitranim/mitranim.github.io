@@ -4,7 +4,7 @@
   <h2><%= title %></h2>
   <div class="flex items-end justify-between">
     <% if (typeof subtitle !== 'undefined') { %>
-      <p class="text-lowercase"><%= subtitle %></p>
+      <p><%= subtitle %></p>
     <% } %>
     <% if (typeof date !== 'undefined') { %>
       <p class="fade" style="font-size: 0.8em">
@@ -14,13 +14,14 @@
   </div>
 </sf-jumbo>
 
-<sf-article class="pad">
-  <!-- Post -->
-  <%= $content %>
-  <!-- Disqus thread -->
-  <% if (prod()) { %>
-    <br>
-    <%= $include('partials/disqus', $) %>
-  <% } %>
-</sf-article>
-
+<div class="pad">
+  <sf-article class="shadow pad">
+    <!-- Post -->
+    <%= $content %>
+    <!-- Disqus thread -->
+    <% if (prod()) { %>
+      <br>
+      <%= $include('partials/disqus', $) %>
+    <% } %>
+  </sf-article>
+</div>

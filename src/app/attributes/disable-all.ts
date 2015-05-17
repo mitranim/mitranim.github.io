@@ -22,7 +22,6 @@ import _ from 'lodash'
 import {Attribute} from 'ng-decorate'
 
 @Attribute({
-  moduleName: 'app',
   selector: '[disable-all]'
 })
 class VM {

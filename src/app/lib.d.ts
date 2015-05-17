@@ -31,9 +31,16 @@ declare module 'foliant' {
 }
 
 declare module 'ng-decorate' {
-  export var Attribute;
-  export var Component;
-  export var Service;
+  export function Attribute(config);
+  export function Ambient(config);
+  export function Component(config);
+  export function Service(config);
+  export var defaults: {
+    module?: ng.IModule;
+    moduleName?: string;
+    controllerAs: string;
+    makeTemplateUrl: (selector: string) => string;
+  };
 }
 
 declare module _ {

@@ -3,7 +3,6 @@ import {BaseVM} from 'utils/all'
 import {root, authData, defaultLang, makeNames, makeWords} from 'models/all'
 
 @Component({
-  moduleName: 'app',
   selector: 'app-words-page',
   inject: ['$timeout']
 })

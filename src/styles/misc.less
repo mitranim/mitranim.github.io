@@ -17,3 +17,17 @@ hr {
   border: none;
   border-top: 1px solid lightgrey;
 }
+
+/**
+ * Code styling.
+ */
+sf-collapse.code-collapse {
+  > input[type=checkbox] + label {
+    .sf-color(@sf-color-info, false, true);
+  }
+  > input[type=checkbox]:checked + label {
+    &, &:hover, &:focus, &:active {
+      background-color: fade(@sf-color-info, 30%);
+    }
+  }
+}

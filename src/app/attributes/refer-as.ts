@@ -7,7 +7,6 @@
 import {Attribute} from 'ng-decorate'
 
 @Attribute({
-  moduleName: 'app',
   selector: '[refer-as]',
   inject: ['$parse']
 })

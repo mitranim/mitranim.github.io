@@ -4,7 +4,6 @@ import {Component} from 'ng-decorate'
 import {BaseVM} from 'utils/all'
 
 @Component({
-  moduleName: 'app',
   selector: 'app-words-tab',
   scope: {
     title: '@',

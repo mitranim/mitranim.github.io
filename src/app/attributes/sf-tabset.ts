@@ -6,7 +6,6 @@ import _ from 'lodash'
 import {Attribute} from 'ng-decorate'
 
 @Attribute({
-  moduleName: 'app',
   selector: 'sf-tabset',
   restrict: 'E'
 })

@@ -1,13 +1,14 @@
-ignore: index|shadow-dom-issues
+ignore: index
 
 files:
 
-# - name:     shadow-dom-issues
-#   title:    Shadow DOM Issues
-#   image:    kenmainr-in-praise-of-shadows.jpg
-#   date:     2015-03-n/a
-#   echo:
-#   - name: shadow-dom-issues/index
+- name:     next-generation-today
+  title:    Next Generation Today
+  subtitle: Next-gen workflow with current web frameworks
+  image:    cloud-city.jpg
+  date:     2015-05-n/a
+  echo:
+  - name: next-generation-today/index
 
 - name:     cheating-for-website-performance
   title:    Cheating For Website Performance
