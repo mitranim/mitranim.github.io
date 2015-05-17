@@ -48,6 +48,9 @@ System.config({
     },
     "npm:ng-decorate@0.0.7": {
       "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:ng-decorate@0.0.8": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
     }
   }
 });
