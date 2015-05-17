@@ -2,8 +2,8 @@
 
 [ProstoPoi](http://prostopoi.ru) <span class="fade">(Go / JavaScript / LESS)</span>
 
-Poi community website. It's something we run with friends. We have our own
-[video lessons](http://prostopoi.ru/how/spinning/forward), go check us out!
+Poi community website. We have our own [video
+lessons](http://prostopoi.ru/how/spinning/forward), go check us out!
 
 # Open Source
 
