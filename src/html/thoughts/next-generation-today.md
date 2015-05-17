@@ -60,11 +60,12 @@ Create an empty directory and navigate there. Create the following structure:
 ```sh
 ./═╦═ dist
    ╚═ src
-      ╚═ app
+      ╠═ app
+      ╚═ html
 ```
 
-To keep it simple, our sample app won't have HTML or style compilation, but if
-it did, those files would go into `src` under separate folders.
+For simplicity, our sample app won't have style or image compilation, but if it
+did, those files would go into `src` under separate folders.
 
 Run `npm init` to create a `package.json` file. We'll need it later.
 
@@ -84,8 +85,8 @@ Install the transpiler:
 npm i --save-dev Microsoft/TypeScript gulp-typescript
 ```
 
-We need the master branch from the repository for the SystemJS format support.
-Once 1.5.0 is released on `npm`, you can install it from there.
+We need `typescript` from the repository for its support for the SystemJS module
+format. Once version 1.5.0 is released on `npm`, you can install it from there.
 
 All three transpilers support TypeScript type annotations, so even if you're
 using e.g. Babel, you can copy and paste the code from this page, and it will
