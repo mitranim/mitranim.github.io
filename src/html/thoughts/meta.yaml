@@ -1,6 +1,14 @@
-ignore: index
+ignore: index|next-gen-component-pattern
 
 files:
+
+# - name:     next-gen-component-pattern
+#   title:    'Next-gen Today Part 2: Component Pattern'
+#   subtitle: 'Interoperating custom elements through properties and DOM events'
+#   image:    schema.jpg
+#   date:     2015-05-n/a
+#   echo:
+#   - name: next-gen-component-pattern/index
 
 - name:     next-generation-today
   title:    Next Generation Today

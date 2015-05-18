@@ -5,6 +5,7 @@
 
 import _ from 'lodash'
 import {app} from 'app'
+import {defaults} from 'ng-decorate'
 
 ;['ready', 'select'].forEach(eventName => {
   app.directive(`on${_.capitalize(eventName)}`, ['$parse', function($parse) {
@@ -21,7 +22,7 @@ import {app} from 'app'
          */
         var isolatedScope = $elem.isolateScope()
         if (isolatedScope) {
-          var ctrl = isolatedScope.self
+          var ctrl = isolatedScope[defaults.controllerAs]
           if (ctrl) ctrl.element = elem
         }
 

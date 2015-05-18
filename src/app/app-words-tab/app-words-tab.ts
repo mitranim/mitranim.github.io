@@ -44,14 +44,15 @@ class VM extends BaseVM {
       wordsVal: this.words,
       defaultWordsVal: this.defaultWords
     }))
-    // First generation. Produces nothing if the words set is empty.
-    .then(this.generate.bind(this))
     .then(() => this.words.on('value', snap => {
       // When the stored words are depleted, refresh from the default collection.
       if (_.isEmpty(snap.val())) {
-        return this.words.set(this.defaultWordsVal).then(this.generate.bind(this))
+        this.words.set(this.defaultWordsVal)
+        this.wordsVal = this.defaultWordsVal
       }
     }))
+    // First generation. Produces nothing if the words set is empty.
+    .then(this.generate.bind(this))
     .then(this.ready)
     .catch(console.warn.bind(console))
   }

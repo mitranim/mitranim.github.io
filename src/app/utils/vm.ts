@@ -22,7 +22,7 @@ export class BaseVM {
     this.dispatch('ready')
   }
   // Wrapped element.
-  $element: ng.IAugmentedJQueryStatic
+  $element: ng.IAugmentedJQuery
   // DOM element.
   element: HTMLElement
 
@@ -68,5 +68,16 @@ export class BaseVM {
     return this.$q.all(hash).then(data => {
       _.assign(this, data)
     }).finally(this.ready)
+  }
+
+  /**
+   * Always magically assign the element for dispatching.
+   */
+  static link(scope: ng.IScope, $element: ng.IAugmentedJQuery, $attrs, controllers): void {
+    var ctrl: BaseVM = (<any>scope).self
+    if (ctrl instanceof BaseVM) {
+      ctrl.$element = $element
+      ctrl.element = $element[0]
+    }
   }
 }

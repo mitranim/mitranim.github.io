@@ -1,4 +1,5 @@
 import {Component} from 'ng-decorate'
+import {BaseVM} from 'utils/all'
 import {defaultLang, defaultNames, defaultWords} from 'models/all'
 
 @Component({
@@ -8,7 +9,7 @@ import {defaultLang, defaultNames, defaultWords} from 'models/all'
     words: '='
   }
 })
-class VM {
+class VM extends BaseVM {
   // Bindable
   names: Fireproof
   words: Fireproof

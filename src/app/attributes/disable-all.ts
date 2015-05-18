@@ -25,7 +25,7 @@ import {Attribute} from 'ng-decorate'
   selector: '[disable-all]'
 })
 class VM {
-  static compile($elem: ng.IAugmentedJQueryStatic) {
+  static compile($elem: ng.IAugmentedJQuery) {
     // Use the native element.
     var elem: HTMLElement = $elem[0]
 
