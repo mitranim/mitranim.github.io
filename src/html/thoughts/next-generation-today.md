@@ -208,7 +208,7 @@ with the following:
 
     <script src="jspm_packages/es6-module-loader.js"></script>
     <script src="jspm_packages/system.js"></script>
-    <script src="config.js"></script>
+    <script src="system.config.js"></script>
     <script>
       System.import('boot')
     </script>
@@ -344,12 +344,14 @@ You could try `injector.get`:
 
 ```typescript
 var $q = angular.injector(['ng']).get('$q')
+// or
+var $q = angular.injector(['app', 'ng']).get('$q')
 ```
 
-But angular re-creates all services during the bootstrap phase. Our old instance
-of `$q` won't be able to automatically invoke the digest phase. We also can't
-synchronously get services from our own application, if we happen to still have
-code that is only available through DI.
+But apparently angular re-creates all services during the bootstrap phase. Our
+old instance of `$q` won't be able to automatically invoke the digest phase. We
+also can't synchronously get services from our own application, if we happen to
+still have code that is only available through DI.
 
 Bottom line, you can only get hold of angular services during or after the
 bootstrap phase by using `module.run`, `module.factory` or other methods that
@@ -497,11 +499,11 @@ static readAll() {
 ```
 
 We're using the injected `$http` service to grab some example words from the
-backend for a [demo](/foliant/) on which this component is based. `this` refers
-to the class, and the arrow function transforms the response, converting it into
-a new instance of this data model. This is a typical pattern. In a real app, you
-would have a root model class that encapsulates ajax, validation and
-transformation logic.
+backend for the [demo](http://mitranim.com/foliant/) on which this component is
+based. `this` refers to the class, and the arrow function transforms the
+response, converting it into a new instance of this data model. This is a
+typical pattern. In a real app, you would have a root model class that
+encapsulates ajax, validation and transformation logic.
 
 Another typical pattern is to have aggregator modules that re-export everything
 from their folder. Create `src/app/models/all.ts`:
