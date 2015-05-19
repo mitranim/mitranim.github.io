@@ -348,8 +348,9 @@ var $q = angular.injector(['ng']).get('$q')
 var $q = angular.injector(['app', 'ng']).get('$q')
 ```
 
-But apparently angular re-creates all services during the bootstrap phase. Our
-old instance of `$q` won't be able to automatically invoke the digest phase. We
+But will give us the wrong instance of the injector. Angular will create another
+one during the bootstrap phase, which will produce a different `$q`. Our old
+instance of `$q` won't be able to automatically invoke digests in our app. We
 also can't synchronously get services from our own application, if we happen to
 still have code that is only available through DI.
 
