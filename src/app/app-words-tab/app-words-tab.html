@@ -6,7 +6,7 @@
     <h3>Source {{self.title}}</h3>
     <form ng-submit="self.add()" class="flex flex-row" sf-tooltip="{{self.error}}" sf-trigger="{{!!self.error}}">
       <input autofocus class="flex-11 info" ng-class="self.textStyle" ng-model="self.word">
-      <button class="flex-1 success sf-icon plus fade" tabindex="-1"></button>
+      <button svg-icon="plus" class="flex-1 success" tabindex="-1"></button>
     </form>
     <sf-grid class="narrow">
       <sf-grid-item ng-repeat="(key, word) in self.wordsVal" class="flex justify-between" ng-class="self.textStyle">
@@ -20,7 +20,7 @@
   <div class="pad flex-1 pad-ch-v-05">
     <h3>Generated {{self.title}}</h3>
     <form ng-submit="self.generate()" class="flex flex-row">
-      <button class="flex-1 success sf-icon refresh fade" tabindex="-1"></button>
+      <button svg-icon="refresh" class="flex-1 success" tabindex="-1"></button>
       <button class="success flex-11">Generate</button>
     </form>
     <sf-grid class="narrow">

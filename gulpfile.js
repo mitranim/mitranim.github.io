@@ -33,7 +33,10 @@ var src = {
   robots:   srcBase + 'robots.txt',
   js:       srcBase + 'app/**/*.ts',
   jsEnv:    srcBase + 'app/env.js',
-  views:    srcBase + 'app/**/*.html',
+  views: [
+    srcBase + 'app/**/*.html',
+    srcBase + 'app/**/*.svg'
+  ],
   system:   './system.config.js'
 }
 

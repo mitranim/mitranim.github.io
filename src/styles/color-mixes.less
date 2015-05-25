@@ -16,3 +16,19 @@
     }
   }
 }
+
+// Extend the base color macro to support SVG fill.
+.sf-colormix-base(@color, @perc) {
+  & when not (@color = @sf-base-text-color) {
+    @c: hsl(hue(@color), saturation(@color), 75% - luma(contrast(@sf-base-text-color)) / 2);
+    .sf-shift-color(fill, @c, @perc);
+    // Disable background for svg-icons.
+    &.svg-icon {background: none}
+  }
+}
+
+// Extend the inverse color macro to support SVG fill.
+.sf-colormix-base-inverse(@color, @perc) {
+  @c: hsl(hue(@color), saturation(@color), 75% - luma(contrast(contrast(@sf-base-text-color))) / 2);
+  .sf-shift-color(fill, @c, @perc);
+}

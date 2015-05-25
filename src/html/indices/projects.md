@@ -5,9 +5,13 @@
 Poi community website. We have our own [video
 lessons](http://prostopoi.ru/how/spinning/forward), go check us out!
 
+[Gorod Detstva](http://goroddeti.ru) <span class="fade">(JavaScript / LESS)</span>
+
+Website for a private kindergarten in the Moscow region.
+
 # Open Source
 
-The free software I make for myself and other developers.
+Free software libraries I make for myself and other developers.
 
 [stylific](http://mitranim.com/stylific/) <span class="fade">(LESS)</span>
 
@@ -25,10 +29,15 @@ the variety of combinations!
 World's lightest, and possibly fastest, generator of static websites like this
 one.
 
+[ng-decorate](https://github.com/Mitranim/ng-decorate) <span class="fade">(TypeScript)</span>
+
+Bridge between Angular 1.x and next-generation technologies, such as ES6 modules
+and application design patterns from Angular 2.
+
 [datacore](https://github.com/Mitranim/datacore) <span class="fade">(JavaScript)</span>
 
-An abstract library for clientside (in the browser) data modeling and ajax.
-Somewhat similar to Backbone.Model and analogs, but with a different foundation.
+Abstract library for clientside data modeling and ajax. Somewhat similar to
+Backbone.Model and analogs, but with a different foundation.
 
 [jisp](http://jisp.io) <span class="fade">(JavaScript / jisp)</span>
 
