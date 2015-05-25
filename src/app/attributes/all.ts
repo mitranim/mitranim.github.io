@@ -1,5 +1,5 @@
 import './contenteditable'
 import './disable-all'
-import './on-dispatch'
+import './on-event'
 import './refer-as'
 import './sf-tabset'

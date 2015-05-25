@@ -30,19 +30,6 @@ declare module 'foliant' {
   export default Traits;
 }
 
-declare module 'ng-decorate' {
-  export function Attribute(config);
-  export function Ambient(config);
-  export function Component(config);
-  export function Service(config);
-  export var defaults: {
-    module?: ng.IModule;
-    moduleName?: string;
-    controllerAs: string;
-    makeTemplateUrl: (selector: string) => string;
-  };
-}
-
 declare module _ {
   interface LoDashStatic {
     matches(pattern: {}): (object: {}) => boolean;
@@ -52,12 +39,6 @@ declare module _ {
 }
 
 /******************************** Third Party ********************************/
-
-interface Promise {
-  constructor(handler: (resolve: Function, reject: Function) => void);
-  then(callback: Function): Promise;
-  catch(callback: Function): Promise;
-}
 
 interface FireproofStatic extends FirebaseStatic {
   /**

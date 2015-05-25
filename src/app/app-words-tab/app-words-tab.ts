@@ -1,25 +1,16 @@
 import _ from 'lodash'
 import Traits from 'foliant'
-import {Component} from 'ng-decorate'
+import {Component, bindString, bindOneWay} from 'ng-decorate'
 import {BaseVM} from 'utils/all'
 
 @Component({
-  selector: 'app-words-tab',
-  scope: {
-    title: '@',
-    lang: '=',
-    words: '=',
-    defaultWords: '='
-  }
+  selector: 'app-words-tab'
 })
 class VM extends BaseVM {
-  /**
-   * Bindable
-   */
-  title: string
-  lang: Fireproof
-  words: Fireproof
-  defaultWords: Fireproof
+  @bindString() title: string
+  @bindOneWay() lang: Fireproof
+  @bindOneWay() words: Fireproof
+  @bindOneWay() defaultWords: Fireproof
 
   /**
    * Fields

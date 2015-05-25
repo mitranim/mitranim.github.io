@@ -343,7 +343,7 @@ gulp.task('scripts:app', function() {
   return gulp.src(src.js)
     .pipe($.plumber()) // intentionally dumb error printing
     .pipe($.typescript({
-      noExternalResolve: true,
+      noExternalResolve: false,
       typescript: require('typescript'),
       target: 'ES5',
       module: 'system'

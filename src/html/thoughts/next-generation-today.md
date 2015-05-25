@@ -1,8 +1,8 @@
 Next generation web frameworks are around the corner.
 [Angular2](https://angular.io) and [Aurelia](http://aurelia.io) go beta in a few
-months. They codify custom elements and MVVM as the dominant patterns, and put
+months. They codify custom elements as the dominant design pattern, and put
 spotlight on some future and exotic JavaScript features: ES6 modules, decorated
-classes, TypeScript annotations, and others.
+classes, TypeScript annotations, and other.
 
 This post will guide you through steps to using these features today, in
 production, with a tried and tested current generation framework. I'll use
@@ -10,14 +10,14 @@ Angular 1.x as an example. By the end of the guide, your production-ready
 Angular code may look like this:
 
 ```typescript
-import {Component} from 'ng-decorate'
+import {Component} from 'ng-decorate';
 
 @Component({
   selector: 'app-tabset'
 })
 export class AppTabset {
   constructor() {
-    this.activeTab = this.tabs[0]
+    this.activeTab = this.tabs[0];
   }
 }
 ```
@@ -51,7 +51,7 @@ and [git](http://git-scm.com) installed. Install other tools with `npm`:
 ```sh
 npm install -g jspm gulp tsd
 
-# If you get an EACCESS error, use admin privileges
+# If you get an EACCESS error, fix permissions or use admin privileges:
 sudo npm install -g jspm gulp tsd
 ```
 
@@ -104,9 +104,9 @@ puts an end to the dark age of globals, AMD/CommonJS wars, and the Angular1 DI
 monstrosity. This is what the syntax looks like:
 
 ```typescript
-import _ from 'lodash'                 // default import
-import {Attribute} from 'ng-decorate'  // named import
-export class MyViewModel {/* ... */}   // named export
+import _ from 'lodash';                 // default import
+import {Attribute} from 'ng-decorate';  // named import
+export class MyViewModel {/* ... */};   // named export
 ```
 
 To use ES6 modules, you need two pieces:
@@ -125,7 +125,8 @@ for free. SystemJS also consumes the AMD and CommonJS formats, so you can import
 any existing libraries.
 
 In addition, we'll use [`jspm`](http://jspm.io). It's the real package manager
-for the web that replaces `bower`. It will automatically install SystemJS.
+for the web that replaces `bower`. It will automatically install SystemJS for
+us.
 
 Run `jspm init` to create the configuration. When asked about baseUrl (public
 server path), answer `dist`. When asked about the `config.js` file, answer
@@ -133,7 +134,7 @@ server path), answer `dist`. When asked about the `config.js` file, answer
 questions. Don't worry about it installing `traceur` — we'll pretranspile our
 files, so it will never be invoked.
 
-Open `dist/config.js`, find `"paths"`, and change the import path for
+Open `system.config.js`, find `"paths"`, and change the import path for
 application files:
 
 `"*": "*.js"` → `"*": "app/*.js"`
@@ -165,7 +166,7 @@ the automatically created `./typings` folder.
 
 Install the definitions (this command requires `tsd` 0.6+):
 ```sh
-tsd install angular jquery -s
+tsd install angular -r -s
 ```
 
 Create an `src/app/lib.d.ts` with the following:
@@ -198,11 +199,10 @@ with the following:
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="jspm_packages/npm/stylific@0.0.9/css/stylific.css">
+    <link rel="stylesheet" href="jspm_packages/npm/stylific@0.0.10/css/stylific.css">
   </head>
   <body>
-    <sf-article class="pad">
-      <h3 class="info pad">Hello world!</h3>
+    <sf-article>
       <word-generator></word-generator>
     </sf-article>
 
@@ -230,23 +230,23 @@ the entire app.
 Create `src/app/app.ts`:
 
 ```typescript
-import 'angular'
+import 'angular';
 
 // Our one and only angular module.
-export var app = angular.module('app', ['ng'])
+export var app = angular.module('app', ['ng']);
 ```
 
 Create `src/app/boot.ts`:
 
 ```typescript
-import {app} from 'app'
+import {app} from 'app';
 
 // Bootstrap the app.
 angular.element(document).ready(() => {
   angular.bootstrap(document.body, [app.name], {
     strictDi: true
-  })
-})
+  });
+});
 ```
 
 Why manual bootstrap instead of `ng-app`? This is unavoidable due to the async
@@ -266,7 +266,7 @@ necessary tools in the form of directives. Here's a custom element defined with
 the raw Angular 1.x API:
 
 ```typescript
-import {app} from 'app'
+import {app} from 'app';
 
 app.directive('wordGenerator', function() {
   return {
@@ -276,8 +276,8 @@ app.directive('wordGenerator', function() {
     controllerAs: 'self',
     bindToController: true,
     controller: ViewModel
-  }
-})
+  };
+});
 
 class ViewModel {}
 ```
@@ -290,7 +290,7 @@ installed it with `jspm`. Create `src/app/words-generator/words-generator.ts`
 with:
 
 ```typescript
-import {Component} from 'ng-decorate'
+import {Component} from 'ng-decorate';
 
 @Component({
   selector: 'word-generator'
@@ -312,14 +312,14 @@ configure the decorator library to use our main module for everything. Modify
 your `src/app/app.ts`:
 
 ```diff
-import 'angular'
-+ import {defaults} from 'ng-decorate'
+import 'angular';
++ import {defaults} from 'ng-decorate';
 
 // Our one and only angular module.
-export var app = angular.module('app', ['ng'])
+export var app = angular.module('app', ['ng']);
 
 + // Use this module in all directive and service declarations.
-+ defaults.module = app
++ defaults.module = app;
 ```
 
 Let's add a view to this element. This is going to be a heavily simplified
@@ -328,8 +328,38 @@ version of the [foliant demo](http://mitranim.com/foliant/) because I'm lazy.
 Create a file `src/app/word-generator/word-generator.html` with:
 
 ```html
-#include ng-next-gen/src/app/word-generator/word-generator.html
 #collapse src/app/word-generator/word-generator.html
+
+<div class="flex pad-ch">
+  <!-- Left column: source words -->
+  <div class="flex-1 space-out-v">
+    <h3 class="info pad">Source Words</h3>
+    <form ng-submit="self.add()" class="flex flex-row pad-ch"
+          sf-tooltip="{{self.error}}" sf-trigger="{{!!self.error}}">
+      <input autofocus class="sf-input flex-11" tabindex="1" ng-model="self.word">
+      <button class="sf-btn flex-1 success" tabindex="1">Add</button>
+    </form>
+    <div ng-repeat="word in self.words" class="flex justify-between pad-ch">
+      <span class="flex-11 info pad" style="margin-right: 1rem">{{word}}</span>
+      <button class="sf-btn flex-1" ng-click="self.remove(word)">✕</button>
+    </div>
+  </div>
+
+  <!-- Right column: generated results -->
+  <div class="flex-1 space-out-v">
+    <h3 class="success pad">Generated Words</h3>
+    <form ng-submit="self.generate()" class="flex flex-row">
+      <button class="sf-btn pad success flex-1" tabindex="1">Generate</button>
+    </form>
+    <div ng-repeat="word in self.results" class="flex justify-between pad-ch">
+      <button class="sf-btn flex-1" ng-click="self.pick(word)">←</button>
+      <span class="flex-11 success" style="margin-left: 1rem">{{word}}</span>
+    </div>
+    <div ng-if="self.depleted" class="flex justify-between">
+      <span class="error pad">(depleted)</span>
+    </div>
+  </div>
+</div>
 ```
 
 It won't have any functionality yet. We'll need to grab some data over ajax,
@@ -343,16 +373,16 @@ hold of angular services that are only available through dependency injection?
 You could try `injector.get`:
 
 ```typescript
-var $q = angular.injector(['ng']).get('$q')
+var $q = angular.injector(['ng']).get('$q');
 // or
-var $q = angular.injector(['app', 'ng']).get('$q')
+var $q = angular.injector(['app', 'ng']).get('$q');
 ```
 
-But will give us the wrong instance of the injector. Angular will create another
-one during the bootstrap phase, which will produce a different `$q`. Our old
-instance of `$q` won't be able to automatically invoke digests in our app. We
-also can't synchronously get services from our own application, if we happen to
-still have code that is only available through DI.
+But this will give us the wrong instance of the injector. Angular will create
+another one during the bootstrap phase, which will produce a different `$q`. Our
+old instance of `$q` won't be able to automatically invoke digests in our app.
+We also can't synchronously get services from our own application, if we happen
+to still have code that is only available through DI.
 
 Bottom line, you can only get hold of angular services during or after the
 bootstrap phase by using `module.run`, `module.factory` or other methods that
@@ -361,7 +391,7 @@ capturing injected services as static or prototype properties of the decorated
 class. Example:
 
 ```typescript
-import {Ambient} from 'ng-decorate'
+import {Ambient} from 'ng-decorate';
 
 @Ambient({
   inject: ['$q'],          // <-- will be assigned to Record.prototype
@@ -377,8 +407,8 @@ export class Record {
   static $http: ng.IHttpService;
 
   constructor() {
-    console.log(this.$q)
-    console.log(Record.$http)
+    console.log(this.$q);
+    console.log(Record.$http);
   }
 }
 ```
@@ -392,18 +422,18 @@ you'll use a stock Angular feature: annotating the controller class with an
 `$inject` property.
 
 ```typescript
-import {Component} from 'ng-decorate'
+import {Component} from 'ng-decorate';
 
 @Component({
   selector: 'custom-element'
 })
 class ViewModel {
   // Compile-time type information.
-  element: HTMLElement
+  element: HTMLElement;
 
-  static $inject = ['$element'] // stock Angular feature
+  static $inject = ['$element']; // stock Angular feature
   constructor($element) {
-    this.element = $element[0]
+    this.element = $element[0];
   }
 }
 ```
@@ -424,7 +454,7 @@ Whoah what's going on in here? Let's take this slow.
 ### 1. Service decorator
 
 ```
-import {Service} from 'ng-decorate'
+import {Service} from 'ng-decorate';
 
 @Service({
   injectStatic: ['$http'],
@@ -436,12 +466,12 @@ export class Words {}
 This is a shortcut to:
 
 ```typescript
-import {app} from 'app'
+import {app} from 'app';
 
 app.factory('Words', ['$http', function($http) {
-  Words.$http = $http
-  return Words
-}])
+  Words.$http = $http;
+  return Words;
+}]);
 export class Words {}
 ```
 
@@ -460,8 +490,8 @@ publish your class to Angular's DI system. Automatic dependency injection will
 still work.
 
 ```diff
-- import {Service} from 'ng-decorate'
-+ import {Ambient} from 'ng-decorate'
+- import {Service} from 'ng-decorate';
++ import {Ambient} from 'ng-decorate';
 
 - @Service({
 -   injectStatic: ['$http'],
@@ -476,11 +506,11 @@ export class Words {
 ### 2. Even weirder type annotations... this is not my grandfather's JavaScript!
 
 ```typescript
-[key: string]: string
+[key: string]: string;
 
 /* ... */
 
-<StringMap>response.data
+<StringMap>response.data;
 ```
 
 This is also a part of TypeScript. Simply disregard this if you're using Babel.
@@ -495,7 +525,7 @@ static readAll() {
     url: url,
     method: 'GET'
   })
-  .then(response => new Words(<StringMap>response.data))
+  .then(response => new Words(<StringMap>response.data));
 }
 ```
 
@@ -510,7 +540,7 @@ Another typical pattern is to have aggregator modules that re-export everything
 from their folder. Create `src/app/models/all.ts`:
 
 ```typescript
-export * from './words'
+export * from './words';
 ```
 
 This is handy for maintenance reasons.
@@ -522,17 +552,30 @@ Now let's wrap this up by adding real functionality to the element.
 Modify your `src/app/boot.ts`:
 
 ```typescript
-#include ng-next-gen/src/app/boot.ts
 #collapse src/app/boot.ts
+
+import {app} from 'app';
+
+// Pull the application together.
+import 'views';
+import 'models/all';
+import 'word-generator/word-generator';
+
+// Bootstrap the app.
+angular.element(document).ready(() => {
+  angular.bootstrap(document.body, [app.name], {
+    strictDi: true
+  });
+});
 ```
 
 ```diff
-import {app} from 'app'
+import {app} from 'app';
 
 + // Pull the application together.
-+ import 'views'
-+ import 'models/all'
-+ import 'word-generator/word-generator'
++ import 'views';
++ import 'models/all';
++ import 'word-generator/word-generator';
 ```
 
 Replace the contents of `src/app/word-generator/word-generator.ts` with this:
@@ -602,10 +645,10 @@ setup in development mode.
 
 ----
 
-That's it! Now you can build modern web applications using future technologies,
+That's it! You can now build modern web applications using future technologies,
 with no drawbacks or compromises. Grab the complete demo over at GitHub:
 [https://github.com/Mitranim/ng-next-gen](https://github.com/Mitranim/ng-next-gen)
 and start playing around.
 
-If you have any questions, grab me over on [gitter](https://gitter.im/Mitranim)
+If you have any questions, grab me over at [Gitter](https://gitter.im/Mitranim)
 or [Skype](skype:mitranim.web?chat).

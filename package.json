@@ -12,7 +12,8 @@
     "bundle-sfx-prod": "jspm bundle-sfx boot --minify",
     "build-prod": "gulp build --prod && npm run bundle-sfx-prod",
     "serve-prod": "npm run build-prod && gulp bsync",
-    "push": "npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)"
+    "push": "npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)",
+    "pregulp": "cp -r mitranim-master/jspm_packages/npm/ng-decorate@0.0.9/typings/ng-decorate src/app/typings/"
   },
   "authors": [
     "Mitranim <me@mitranim.com>"

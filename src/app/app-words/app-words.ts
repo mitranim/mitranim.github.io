@@ -1,18 +1,13 @@
-import {Component} from 'ng-decorate'
+import {Component, bindOneWay} from 'ng-decorate'
 import {BaseVM} from 'utils/all'
 import {defaultLang, defaultNames, defaultWords} from 'models/all'
 
 @Component({
-  selector: 'app-words',
-  scope: {
-    names: '=',
-    words: '='
-  }
+  selector: 'app-words'
 })
 class VM extends BaseVM {
-  // Bindable
-  names: Fireproof
-  words: Fireproof
+  @bindOneWay() names: Fireproof
+  @bindOneWay() words: Fireproof
 
   // Fields
   lang = defaultLang

@@ -4,7 +4,7 @@
   <h2>random thoughts</h2>
 </sf-jumbo>
 
-<sf-article class="pad">
+<article class="pad">
   <% for (var post of this.meta.thoughts.files) { %>
     <% if (post.skip) return %>
     <% path = 'thoughts/' + post.name %>
@@ -22,4 +22,4 @@
       <p class="fade" style="font-size: 0.8em"><%= post.date instanceof Date ? post.date.toDateString() : post.date %></p>
     </sf-grid-item>
   <% } %>
-</sf-article>
+</article>
