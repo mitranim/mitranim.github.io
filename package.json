@@ -64,7 +64,7 @@
       "fireproof": "npm:fireproof@^2.5.2",
       "foliant": "npm:foliant@^0.0.1",
       "lodash": "npm:lodash@^3.8.0",
-      "ng-decorate": "npm:ng-decorate@^0.0.7"
+      "ng-decorate": "npm:ng-decorate@^0.0.10"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.1.13",

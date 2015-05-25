@@ -21,8 +21,7 @@ mouseleave keydown keyup keypress submit focus blur copy cut paste`;
 /**
  * Additional events.
  */
-`
-ready select
+`ready select
 change
 dragstart drag dragenter dragleave dragover drop dragend
 input wheel scroll`.split(/\s+/).forEach(eventName => {
