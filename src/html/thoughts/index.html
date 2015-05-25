@@ -3,8 +3,8 @@
 <sf-jumbo <%= typeof image !== 'undefined' && image ? bgImg('short/' + image) : '' %>>
   <h2><%= title %></h2>
   <div class="flex items-end justify-between">
-    <% if (typeof subtitle !== 'undefined') { %>
-      <p><%= subtitle %></p>
+    <% if (typeof description !== 'undefined') { %>
+      <p><%= description %></p>
     <% } %>
     <% if (typeof date !== 'undefined') { %>
       <p class="fade" style="font-size: 0.8em">

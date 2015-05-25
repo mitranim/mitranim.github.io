@@ -15,6 +15,7 @@ var hjs     = require('highlight.js')
 var marked  = require('gulp-marked/node_modules/marked')
 var fs      = require('fs')
 var flags   = require('yargs').argv
+var pt      = require('path')
 
 /********************************** Globals **********************************/
 

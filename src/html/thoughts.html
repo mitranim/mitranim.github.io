@@ -11,8 +11,8 @@
 
     <sf-grid-item class="shadow pad">
       <a href="/<%= path %>/"><h2><%= post.title %></h2></a>
-      <% if (post.subtitle) { %>
-        <h3 class="fade"><%= post.subtitle %></h3>
+      <% if (post.description) { %>
+        <h3 class="fade"><%= post.description %></h3>
       <% } else { %>
         <p>
           <%= truncate($include(path, $), 127) %>

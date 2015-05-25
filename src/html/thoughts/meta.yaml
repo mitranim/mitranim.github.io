@@ -4,7 +4,7 @@ files:
 
 # - name:     next-gen-custom-elements
 #   title:    'Next-gen Today Part 2: Custom Elements'
-#   subtitle: 'Borrowing component ideas from Angular 2, Aurelia, and Polymer'
+#   description: 'Borrowing component ideas from Angular 2, Aurelia, and Polymer'
 #   image:    schema.jpg
 #   date:     2015-05-n/a
 #   echo:
@@ -12,7 +12,7 @@ files:
 
 - name:     next-generation-today
   title:    Next Generation Today
-  subtitle: Next-gen workflow with current web frameworks
+  description: Next-gen workflow with current web frameworks
   image:    cloud-city.jpg
   date:     2015-05-18
   echo:
@@ -34,7 +34,7 @@ files:
 
 - name:     old-posts
   title:    Old Posts
-  subtitle: some old stuff from around the net
+  description: some old stuff from around the net
   image:    typesets.jpg
   date:     really old
   echo:
