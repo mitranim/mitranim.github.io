@@ -22,6 +22,8 @@ Location: Moscow, Russia (wants to move out).
 
 <sf-icon class="at inline"></sf-icon>email [me@mitranim.com](mailto:me@mitranim.com)
 
+<sf-icon class="paper-plane-o inline"></sf-icon>telegram [Mitranim](https://telegram.me/Mitranim)
+
 # Links
 
 <p style="font-size: 2em">

@@ -9,7 +9,7 @@
     <% if (post.skip) return %>
     <% path = 'thoughts/' + post.name %>
 
-    <sf-grid-item class="shadow pad">
+    <sf-grid-item class="outline pad">
       <a href="/<%= path %>/"><h2><%= post.title %></h2></a>
       <% if (post.description) { %>
         <h3 class="fade"><%= post.description %></h3>
