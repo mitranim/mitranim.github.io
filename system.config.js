@@ -24,7 +24,7 @@ System.config({
     "fireproof": "npm:fireproof@2.5.2",
     "foliant": "npm:foliant@0.0.1",
     "lodash": "npm:lodash@3.8.0",
-    "ng-decorate": "npm:ng-decorate@0.0.10",
+    "ng-decorate": "npm:ng-decorate@0.0.11",
     "github:angular/bower-angular-sanitize@1.3.15": {
       "angular": "github:angular/bower-angular@1.3.15"
     },
@@ -46,7 +46,7 @@ System.config({
     "npm:lodash@3.8.0": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
-    "npm:ng-decorate@0.0.10": {
+    "npm:ng-decorate@0.0.11": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     }
   }

@@ -3,16 +3,13 @@
  */
 
 import _ from 'lodash'
-import {Service} from 'ng-decorate'
+import {Ambient, autoinject} from 'ng-decorate'
 import {digest} from 'app'
 
-@Service({
-  inject: ['$q'],
-  serviceName: 'BaseVM'
-})
+@Ambient
 export class BaseVM {
   // Angular services.
-  $q: ng.IQService
+  @autoinject $q: ng.IQService
 
   // Loading status.
   loading: boolean = false

@@ -2,14 +2,13 @@
  * Semantic shortcut to including an SVG template with ng-include.
  */
 
-import {Attribute} from 'ng-decorate'
+import {Attribute, autoinject} from 'ng-decorate'
 
 @Attribute({
-  selector: '[svg-icon]',
-  injectStatic: ['$templateCache']
+  selector: '[svg-icon]'
 })
 class VM {
-  static $templateCache: ng.ITemplateCacheService
+  @autoinject static $templateCache: ng.ITemplateCacheService
 
   static template($element: ng.IAugmentedJQuery) {
     var element: HTMLElement = $element[0]

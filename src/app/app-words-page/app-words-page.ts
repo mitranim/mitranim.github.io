@@ -1,13 +1,12 @@
-import {Component} from 'ng-decorate'
+import {Component, autoinject} from 'ng-decorate'
 import {BaseVM} from 'utils/all'
 import {root, authData, defaultLang, makeNames, makeWords} from 'models/all'
 
 @Component({
-  selector: 'app-words-page',
-  inject: ['$timeout']
+  selector: 'app-words-page'
 })
 class VM extends BaseVM {
-  $timeout: ng.ITimeoutService
+  @autoinject $timeout: ng.ITimeoutService
 
   loading: boolean = true
   $ready: boolean = false

@@ -7,12 +7,9 @@ import {BaseVM} from 'utils/all'
 
 @Attribute({
   selector: '[contenteditable]',
-  require: '?ngModel',
-  // inject: ['$sce']
+  require: '?ngModel'
 })
 class VM extends BaseVM {
-  // $sce: ng.ISCEService
-
   static link(scope: ng.IScope, $element, a, ngModel: ng.INgModelController) {
     if (!ngModel) return
     var element: HTMLElement = $element[0]

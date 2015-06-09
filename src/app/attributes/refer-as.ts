@@ -4,14 +4,13 @@
  * </my-outer-component>
  */
 
-import {Attribute} from 'ng-decorate'
+import {Attribute, autoinject} from 'ng-decorate'
 
 @Attribute({
-  selector: '[refer-as]',
-  inject: ['$parse']
+  selector: '[refer-as]'
 })
 class VM {
-  $parse: ng.IParseService
+  @autoinject $parse: ng.IParseService
 
   static $inject = ['$scope', '$element']
   constructor($scope: ng.IScope, $element: ng.IAugmentedJQuery) {

@@ -6,8 +6,8 @@ import {defaultLang, defaultNames, defaultWords} from 'models/all'
   selector: 'app-words'
 })
 class VM extends BaseVM {
-  @bindOneWay() names: Fireproof
-  @bindOneWay() words: Fireproof
+  @bindOneWay names: Fireproof
+  @bindOneWay words: Fireproof
 
   // Fields
   lang = defaultLang

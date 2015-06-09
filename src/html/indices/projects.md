@@ -1,4 +1,4 @@
-# Hobby Projects
+# Websites
 
 [ProstoPoi](http://prostopoi.ru) <span class="fade">(Go / JavaScript / LESS)</span>
 
@@ -11,7 +11,10 @@ Website for a private kindergarten in the Moscow region.
 
 # Open Source
 
-Free software libraries I make for myself and other developers.
+[atril](http://mitranim.com/atril/) <span class="fade">(TypeScript)</span>
+
+Next-generation UI framework. Distilled from best ideas in ReactJS, Angular 2,
+Aurelia, and Polymer, condensed into pure awesome.
 
 [stylific](http://mitranim.com/stylific/) <span class="fade">(LESS)</span>
 

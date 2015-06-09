@@ -395,20 +395,17 @@ capturing injected services as static or prototype properties of the decorated
 class. Example:
 
 ```typescript
-import {Ambient} from 'ng-decorate';
+import {Ambient, autoinject} from 'ng-decorate';
 
-@Ambient({
-  inject: ['$q'],          // <-- will be assigned to Record.prototype
-  injectStatic: ['$http']  // <-- will be assigned to Record
-})
+@Ambient
 export class Record {
   /**
    * Compile-time type information.
    */
   // Prototype property.
-  $q: ng.IQService;
+  @autoinject $q: ng.IQService;
   // Static property.
-  static $http: ng.IHttpService;
+  @autoinject static $http: ng.IHttpService;
 
   constructor() {
     console.log(this.$q);
