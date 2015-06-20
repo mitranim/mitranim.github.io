@@ -455,13 +455,14 @@ Whoah what's going on in here? Let's take this slow.
 ### 1. Service decorator
 
 ```
-import {Service} from 'ng-decorate';
+import {Service, autoinject} from 'ng-decorate';
 
 @Service({
-  injectStatic: ['$http'],
   serviceName: 'Words'
 })
-export class Words {}
+export class Words {
+  @autoinject static $http;
+}
 ```
 
 This is a shortcut to:
@@ -491,17 +492,15 @@ publish your class to Angular's DI system. Automatic dependency injection will
 still work.
 
 ```diff
-- import {Service} from 'ng-decorate';
-+ import {Ambient} from 'ng-decorate';
+- import {Service, autoinject} from 'ng-decorate';
++ import {Ambient, autoinject} from 'ng-decorate';
 
 - @Service({
--   injectStatic: ['$http'],
 -   serviceName: 'Words'
 - })
-+ @Ambient({
-+   injectStatic: ['$http']
-+ })
++ @Ambient
 export class Words {
+-   @autoinject static $http;
 ```
 
 ### 2. Even weirder type annotations... this is not my grandfather's JavaScript!

@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /kindergarten
 Disallow: /propoi
+Disallow: /diaspora
