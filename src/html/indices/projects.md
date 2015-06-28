@@ -16,7 +16,7 @@ Website for a private kindergarten in the Moscow region.
 Next-generation UI framework. Distilled from best ideas in ReactJS, Angular 2,
 Aurelia, and Polymer, condensed into pure awesome.
 
-[stylific](http://mitranim.com/stylific/) <span class="fade">(LESS)</span>
+[stylific](http://mitranim.com/stylific/) <span class="fade">(Sass)</span>
 
 A CSS library to help web developers make better websites. Somewhat similar to
 [Bootstrap](http://getbootstrap.com), but with a different, and dare I say,

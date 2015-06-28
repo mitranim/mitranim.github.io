@@ -298,8 +298,8 @@ gulp.task('html:compile', function() {
     .pipe(filterMd.restore())
     // Render all html.
     .pipe($.statil({
-      relativeDir: src.html,
-      imports:     imports
+      stripPrefix: src.html,
+      imports: imports
     }))
     // Change each `<filename>` into `<filename>/index.html`.
     .pipe($.rename(function(path) {
@@ -350,7 +350,8 @@ gulp.task('scripts:app', function() {
       noExternalResolve: false,
       typescript: require('typescript'),
       target: 'ES5',
-      module: 'system'
+      module: 'system',
+      experimentalDecorators: true
     }))
     .pipe(gulp.dest(dest.app))
 })

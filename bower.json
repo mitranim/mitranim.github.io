@@ -22,6 +22,9 @@
   },
   "devDependencies": {
     "font-awesome-svg-png": "~1.1.2",
-    "stylific": "~0.0.8"
+    "stylific": "0.0.12"
+  },
+  "resolutions": {
+    "stylific": "0.0.12"
   }
 }
