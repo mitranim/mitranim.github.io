@@ -1,36 +1,36 @@
-<app-spinner size="large" class="flex items-center" style="min-height: 3em;" ng-if="self.loading"></app-spinner>
+<app-spinner size="large" layout="cross-center" style="min-height: 3em;" ng-if="self.loading"></app-spinner>
 
-<div class="flex" ng-init="self.textStyle = self.title === 'Names' ? 'text-capitalise' : 'text-lowercase'" ng-if="!self.loading">
+<div layout="row" ng-init="self.textStyle = self.title === 'Names' ? 'text-capitalise' : 'text-lowercase'" ng-if="!self.loading">
   <!-- Left column: source words -->
-  <div class="pad flex-1 pad-ch-v-05">
+  <div flex="1" class="pad space-out">
     <h3>Source {{self.title}}</h3>
-    <form ng-submit="self.add()" class="flex flex-row" sf-tooltip="{{self.error}}" sf-trigger="{{!!self.error}}">
-      <input autofocus class="flex-11 info" ng-class="self.textStyle" ng-model="self.word">
-      <button svg-icon="plus" class="flex-1 success" tabindex="-1"></button>
+    <form ng-submit="self.add()" sf-label="row dense" sf-tooltip="{{self.error}}" sf-trigger="{{!!self.error}}">
+      <input autofocus flex="11" theme="text-primary" ng-class="self.textStyle" ng-model="self.word">
+      <button flex="1" theme="primary" tabindex="-1" sf-icon="plus-white"></button>
     </form>
     <sf-grid class="narrow">
-      <sf-grid-item ng-repeat="(key, word) in self.wordsVal" class="flex justify-between" ng-class="self.textStyle">
+      <div ng-repeat="(key, word) in self.wordsVal" layout="space-between" class="word" ng-class="self.textStyle">
         {{word}}
-        <sf-icon class="times fade interactive" ng-click="self.drop(key)"></sf-icon>
-      </sf-grid-item>
+        <sf-icon sf-icon="times" class="fade interactive" ng-click="self.drop(key)"></sf-icon>
+      </div>
     </sf-grid>
   </div>
 
   <!-- Right column: generated results -->
-  <div class="pad flex-1 pad-ch-v-05">
+  <div flex="1" class="pad space-out">
     <h3>Generated {{self.title}}</h3>
-    <form ng-submit="self.generate()" class="flex flex-row">
-      <button svg-icon="refresh" class="flex-1 success" tabindex="-1"></button>
-      <button class="success flex-11">Generate</button>
+    <form ng-submit="self.generate()" sf-label="row dense">
+      <button flex="1" theme="accent" tabindex="-1" sf-icon="refresh"></button>
+      <button flex="11" theme="accent" layout="center">Generate</button>
     </form>
     <sf-grid class="narrow">
-      <sf-grid-item ng-repeat="word in self.results" class="flex justify-between" ng-class="self.textStyle">
-        <sf-icon class="arrow-left fade interactive" ng-click="self.pick(word)"></sf-icon>
-        <span class="flex-1 text-center" style="padding: 0">{{word}}</span>
-      </sf-grid-item>
-      <sf-grid-item ng-if="self.depleted" class="flex justify-between">
-        <span class="flex-1 text-center fade" style="padding: 0">(depleted)</span>
-      </sf-grid-item>
+      <div ng-repeat="word in self.results" layout="space-between" class="word" ng-class="self.textStyle">
+        <sf-icon sf-icon="arrow-left" class="fade interactive" ng-click="self.pick(word)"></sf-icon>
+        <span flex="1" class="text-center" style="padding: 0">{{word}}</span>
+      </div>
+      <div ng-if="self.depleted" layout="space-between" class="word">
+        <span flex="1" class="text-center fade" style="padding: 0">(depleted)</span>
+      </div>
     </sf-grid>
   </div>
 </div>

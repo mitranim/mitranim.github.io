@@ -1,0 +1,78 @@
+@import './node_modules/stylific/scss/_variables';
+
+@mixin sm {
+  @media (max-width: $sf-layout-breakpoint-sm - 1) {
+    @content;
+  }
+}
+
+@mixin gt-sm {
+  @media (min-width: $sf-layout-breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin gt-md {
+  @media (min-width: $sf-layout-breakpoint-md) {
+    @content;
+  }
+}
+
+/**
+ * Scales the given rule by different percentages depending on display width.
+ */
+@mixin media-mix($rule, $value) {
+  @include sm {#{$rule}: $value * 0.8}
+  @include gt-sm {#{$rule}: $value * 0.9}
+  @include gt-md {#{$rule}: $value}
+}
+
+/**
+ * Scales the given rule inversely by different percentages depending on
+ * display width.
+ */
+@mixin media-mix-inverse($rule, $value) {
+  @include sm {#{$rule}: $value}
+  @include gt-sm {#{$rule}: $value * 0.9}
+  @include gt-md {#{$rule}: $value * 0.8}
+}
+
+// Pre-override default link mixin.
+@mixin sf-link-decorations {
+  border-bottom: 1px dotted;
+  border-color: inherit;
+  background-color: rgba($sf-color-link, 0.03);
+  color: $color-link;
+  &:visited {
+    color: lighten($color-link, 10%);
+  }
+}
+
+/************************************ SVG ************************************/
+
+@mixin svg-black($name) {
+  &[sf-icon=#{$name}] {@include bg-svg-black($name);}
+}
+
+@mixin svg-custom($name) {
+  &[sf-icon=#{$name}] {@include bg-svg-custom($name);}
+}
+
+@mixin svg-white($name) {
+  &[sf-icon=#{$name}-white] {@include bg-svg-white($name);}
+}
+
+@mixin bg-svg-black($name) {
+  $path: '#{$svg-black}#{$name}.svg';
+  background-image: url($path);
+}
+
+@mixin bg-svg-custom($name) {
+  $path: '#{$svg-custom}#{$name}.svg';
+  background-image: url($path);
+}
+
+@mixin bg-svg-white($name) {
+  $path: '#{$svg-white}#{$name}.svg';
+  background-image: url($path);
+}

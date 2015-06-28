@@ -1,9 +1,15 @@
 <sf-footer>
   <sf-footer-body>
-    <span>
-      <%= ((new Date()).getFullYear() > 2015 ? '2015—' + (new Date()).getFullYear() : '2015') %> ©
-    </span>
-    <a href="/#contacts">get in touch</a>
-    <sf-icon class="arrow-up pointer fade" onclick="scrollTo(0, 0)"></sf-icon>
+    <div flex="1" layout="start">
+      <span>
+        <%= ((new Date()).getFullYear() > 2015 ? 'y2015—' + (new Date()).getFullYear() : 'y2015') %>
+      </span>
+    </div>
+    <div flex="1" layout="center">
+      <a href="/#contacts">get in touch</a>
+    </div>
+    <div flex="1" layout="end">
+      <sf-icon sf-icon="arrow-up" class="interactive fade" onclick="scrollTo(0, 0)"></sf-icon>
+    </div>
   </sf-footer-body>
 </sf-footer>

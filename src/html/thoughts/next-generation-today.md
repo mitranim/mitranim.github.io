@@ -23,9 +23,7 @@ export class AppTabset {
 ```
 
 This guide is _massive_. I couldn't fit everything I wanted in here. You'll
-probably want to read it in chunks, taking breaks. I also plan another post on
-custom attributes and the DOM event pattern as the way of inter-component
-communication.
+probably want to read it in chunks, taking breaks.
 
 ## Quicklinks
 
@@ -41,6 +39,7 @@ communication.
 
 You can start from scratch or grab a complete demo at GitHub:
 [https://github.com/Mitranim/ng-next-gen](https://github.com/Mitranim/ng-next-gen).
+The demo may have slightly diverged with the guide by the time you're reading this.
 
 You can also check your progress against the
 [live demo](http://mitranim.com/ng-next-gen/).
@@ -183,7 +182,7 @@ Create an `src/app/lib.d.ts` with the following:
 
 Install additional tools:
 ```sh
-npm i --save-dev gulp gulp-load-plugins gulp-rimraf gulp-plumber gulp-ng-html2js gulp-concat gulp-babel gulp-statil gulp-watch browser-sync yargs
+npm i --save-dev browser-sync gulp gulp-concat gulp-load-plugins gulp-ng-html2js gulp-plumber gulp-replace gulp-rimraf gulp-sourcemaps gulp-statil gulp-watch jspm stylific tsd yargs
 ```
 
 Create a `gulpfile.js` with the following:
@@ -214,7 +213,7 @@ with the following:
     <script src="jspm_packages/system.js"></script>
     <script src="system.config.js"></script>
     <script>
-      System.import('boot')
+      System.import('boot');
     </script>
   </body>
 </html>
@@ -334,33 +333,36 @@ Create a file `src/app/word-generator/word-generator.html` with:
 ```html
 #collapse src/app/word-generator/word-generator.html
 
-<div class="flex pad-ch">
+<div layout="space-out">
   <!-- Left column: source words -->
-  <div class="flex-1 space-out-v">
-    <h3 class="info pad">Source Words</h3>
-    <form ng-submit="self.add()" class="flex flex-row pad-ch"
+  <div flex="1" class="space-out">
+    <h3 theme="text-primary" layout="space-between">
+      <span>Source Words</span>
+      <span id="indicator"></span>
+    </h3>
+    <form ng-submit="self.add()" layout="space-out"
           sf-tooltip="{{self.error}}" sf-trigger="{{!!self.error}}">
-      <input autofocus class="sf-input flex-11" tabindex="1" ng-model="self.word">
-      <button class="sf-btn flex-1 success" tabindex="1">Add</button>
+      <input flex="11" tabindex="1" ng-model="self.word">
+      <button flex="1" theme="primary" tabindex="1">Add</button>
     </form>
-    <div ng-repeat="word in self.words" class="flex justify-between pad-ch">
-      <span class="flex-11 info pad" style="margin-right: 1rem">{{word}}</span>
-      <button class="sf-btn flex-1" ng-click="self.remove(word)">✕</button>
+    <div ng-repeat="word in self.words" layout="space-between space-out">
+      <span flex="11" layout="cross-center" class="pad" style="margin-right: 1rem">{{word}}</span>
+      <button flex="1" ng-click="self.remove(word)">✕</button>
     </div>
   </div>
 
   <!-- Right column: generated results -->
-  <div class="flex-1 space-out-v">
-    <h3 class="success pad">Generated Words</h3>
-    <form ng-submit="self.generate()" class="flex flex-row">
-      <button class="sf-btn pad success flex-1" tabindex="1">Generate</button>
+  <div flex="1" class="space-out">
+    <h3 theme="text-accent">Generated Words</h3>
+    <form ng-submit="self.generate()" layout>
+      <button flex="1" theme="accent" tabindex="1">Generate</button>
     </form>
-    <div ng-repeat="word in self.results" class="flex justify-between pad-ch">
-      <button class="sf-btn flex-1" ng-click="self.pick(word)">←</button>
-      <span class="flex-11 success" style="margin-left: 1rem">{{word}}</span>
+    <div ng-repeat="word in self.results" layout="space-between">
+      <button flex="1" ng-click="self.pick(word)">←</button>
+      <span flex="11" layout="cross-center" class="pad" style="margin-left: 1rem">{{word}}</span>
     </div>
-    <div ng-if="self.depleted" class="flex justify-between">
-      <span class="error pad">(depleted)</span>
+    <div ng-if="self.depleted" layout="cross-center">
+      <span theme="text-warn" class="pad">(depleted)</span>
     </div>
   </div>
 </div>

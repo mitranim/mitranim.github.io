@@ -4,15 +4,15 @@
   <h2>random thoughts</h2>
 </sf-jumbo>
 
-<article class="pad">
+<article>
   <% for (var post of this.meta.thoughts.files) { %>
-    <% if (post.skip) return %>
+    <% if (post.skip) return; %>
     <% path = 'thoughts/' + post.name %>
 
-    <sf-grid-item class="outline pad">
-      <a href="/<%= path %>/"><h2><%= post.title %></h2></a>
+    <div layout="column space-out" class="outline pad">
+      <a href="/<%= path %>/" class="nobg"><h2><%= post.title %></h2></a>
       <% if (post.description) { %>
-        <h3 class="fade"><%= post.description %></h3>
+        <p><%= post.description %></p>
       <% } else { %>
         <p>
           <%= truncate($include(path, $), 127) %>
@@ -20,6 +20,6 @@
         </p>
       <% } %>
       <p class="fade" style="font-size: 0.8em"><%= post.date instanceof Date ? post.date.toDateString() : post.date %></p>
-    </sf-grid-item>
+    </div>
   <% } %>
 </article>

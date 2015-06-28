@@ -1,0 +1,36 @@
+sf-article, [sf-article] {
+
+  a[sf-icon] {
+    border: none;
+    background-color: transparent;
+  }
+
+  // Indicate _blank links.
+  a[target~=_blank]:not([sf-icon])::after {
+    content: '';
+    /**
+     * Layout.
+     */
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.8em;
+    min-height: 1em;
+    min-width: 1em;
+
+    /**
+     * Background icon: image and styling.
+     */
+    @include bg-svg-black(external-link);
+    background-position: 100% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    /**
+     * Cosmetic.
+     */
+    margin-left: 0.3em;
+    opacity: 0.5;
+  }
+}
+
+article {@extend sf-article;}

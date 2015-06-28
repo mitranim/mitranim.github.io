@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes">
-    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/styles/app.css">
 
     <% if (typeof title !== 'undefined') { %>
       <meta property="og:type" content="article">
@@ -19,14 +19,12 @@
     <% if (typeof image !== 'undefined') { %>
       <meta property="og:image" content="<%= image %>">
     <% } %>
-
     <% if (typeof title !== 'undefined') { %>
       <meta property="og:site_name" content="about:mitranim">
     <% } %>
   </head>
 
   <body>
-
     <!-- Navbar -->
     <%= $include('partials/navbar', $) %>
 
@@ -47,10 +45,9 @@
         <script src="/build.js"></script>
         <script src="/app/env.js"></script>
         <script>
-          System.import('boot')
+          System.import('boot');
         </script>
       <% } %>
     <% } %>
   </body>
-
 </html>

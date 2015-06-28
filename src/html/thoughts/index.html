@@ -2,7 +2,7 @@
 
 <sf-jumbo <%= typeof image !== 'undefined' && image ? bgImg('short/' + image) : '' %>>
   <h2><%= title %></h2>
-  <div class="flex items-end justify-between">
+  <div layout="space-between cross-end">
     <% if (typeof description !== 'undefined') { %>
       <p><%= description %></p>
     <% } %>
@@ -15,7 +15,7 @@
 </sf-jumbo>
 
 <div class="pad">
-  <article class="outline pad">
+  <article class="outline">
     <!-- Post -->
     <%= $content %>
     <!-- Disqus thread -->

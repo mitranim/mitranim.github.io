@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /**
  * Requires gulp 4.0:
@@ -7,62 +7,57 @@
 
 /******************************* Dependencies ********************************/
 
-var $       = require('gulp-load-plugins')()
-var bsync   = require('browser-sync').create()
-var cheerio = require('cheerio')
-var gulp    = require('gulp')
+var $       = require('gulp-load-plugins')();
+var bsync   = require('browser-sync').create();
+var cheerio = require('cheerio');
+var gulp    = require('gulp');
 var hjs     = require('highlight.js')
-var marked  = require('gulp-marked/node_modules/marked')
-var fs      = require('fs')
-var flags   = require('yargs').argv
-var pt      = require('path')
+var marked  = require('gulp-marked/node_modules/marked');
+var fs      = require('fs');
+var flags   = require('yargs').argv;
+var pt      = require('path');
 
 /********************************** Globals **********************************/
 
-// Base source directory.
-var srcBase = './src/'
-
-// jspm_packages path.
-var jspmPath = destBase + '/jspm_packages/'
-
-// Source paths with masks per type
 var src = {
-  lessCore: srcBase + 'styles/app.less',
-  less:     srcBase + 'styles/**/*.less',
-  img:      srcBase + 'img/**/*',
-  html:     srcBase + 'html/',
-  robots:   srcBase + 'robots.txt',
-  js:       srcBase + 'app/**/*.ts',
-  jsEnv:    srcBase + 'app/env.js',
-  views: [
-    srcBase + 'app/**/*.html',
-    srcBase + 'app/**/*.svg'
+  html: [
+    'src/html/**/*',
+    'bower_components/font-awesome-svg-png/black/svg/**/*'
   ],
-  system:   './system.config.js'
-}
+  robots: 'src/robots.txt',
+  scripts: 'src/app/**/*.ts',
+  scriptsEnv: 'src/app/env.js',
+  views: [
+    'src/app/**/*.html',
+    'src/app/**/*.svg'
+  ],
+  stylesCore: 'src/app/app.scss',
+  styles: 'src/app/**/*.scss',
+  images: 'src/images/**/*',
+  system: './system.config.js'
+};
 
-// Base destination directory. Expected to be symlinked as another branch's
-// directory.
-var destBase = './mitranim-master/'
-
-// Destination paths per type
 var dest = {
-  css:  destBase + 'css/',
-  img:  destBase + 'img/',
-  html: destBase,
-  app:  destBase + 'app/',
-}
+  html: 'mitranim-master',
+  scripts: [
+    'mitranim-master/app/**/*.js',
+    '!mitranim-master/app/views.js'
+  ],
+  views: 'mitranim-master/app/views.js',
+  styles: 'mitranim-master/styles',
+  images: 'mitranim-master/images',
+  app: 'mitranim-master/app'
+};
 
-/********************************* Utilities *********************************/
+var jspmPath = dest.html + '/jspm_packages';
 
 function prod() {
-  return flags.prod === true || flags.prod === 'true'
+  return flags.prod === true || flags.prod === 'true';
 }
 
-// Usable in task flows.
 function reload(done) {
-  bsync.reload()
-  done()
+  bsync.reload();
+  done();
 }
 
 /***************************** Template Imports ******************************/
@@ -71,22 +66,19 @@ function reload(done) {
  * Utility methods for templates.
  */
 var imports = {
+  prod: prod,
   lastId: 0,
-  uniqId: function() {return 'static-id-' + ++imports.lastId},
-  lastUniqId: function() {return 'static-id-' + imports.lastId},
-
+  uniqId: function() {return 'uniq-id-' + ++imports.lastId},
+  lastUniqId: function() {return 'uniq-id-' + imports.lastId},
   bgImg: function(path) {
     return 'style="background-image: url(/img/' + path + ')"'
   },
-
   truncate: function(html, num) {
     var part = cheerio(html).text().slice(0, num)
     if (part.length === num) part += ' ...'
     return part
-  },
-
-  prod: prod
-}
+  }
+};
 
 /********************************** Config ***********************************/
 
@@ -95,7 +87,7 @@ var imports = {
  */
 
 // Default link renderer func.
-var renderLink = marked.Renderer.prototype.link
+var renderLink = marked.Renderer.prototype.link;
 
 // Custom link renderer func that adds target="_blank" to links to other sites.
 // Mostly copied from the marked source.
@@ -104,181 +96,188 @@ marked.Renderer.prototype.link = function(href, title, text) {
     try {
       var prot = decodeURIComponent(unescape(href))
         .replace(/[^\w:]/g, '')
-        .toLowerCase()
+        .toLowerCase();
     } catch (e) {
-      return ''
+      return '';
     }
     if (prot.indexOf('javascript:') === 0 || prot.indexOf('vbscript:') === 0) {
-      return ''
+      return '';
     }
   }
-  var out = '<a href="' + href + '"'
+  var out = '<a href="' + href + '"';
   if (title) {
-    out += ' title="' + title + '"'
+    out += ' title="' + title + '"';
   }
   if (/^[a-z]+:\/\//.test(href)) {
-    out += ' target="_blank"'
+    out += ' target="_blank"';
   }
-  out += '>' + text + '</a>'
-  return out
+  out += '>' + text + '</a>';
+  return out;
 }
 
 // Default code renderer.
-var renderCode = marked.Renderer.prototype.code
+var renderCode = marked.Renderer.prototype.code;
 
 // Custom code renderer that understands a few custom directives.
 marked.Renderer.prototype.code = function(code, lang, escaped) {
-  var regexInclude = /#include (.*)(?:\n|$)/g
-  var regexCollapse = /#collapse (.*)(?:\n|$)/g
+  var regexInclude = /#include (.*)(?:\n|$)/g;
+  var regexCollapse = /#collapse (.*)(?:\n|$)/g;
 
   if (regexInclude.test(code)) {
     code = code.replace(regexInclude, function(match, path) {
-      return fs.readFileSync(path, 'utf8').trim()
-    })
+      return fs.readFileSync(path, 'utf8').trim();
+    });
   }
 
   // Remove collapse directives and remember if there were any.
-  var collapse = regexCollapse.exec(code)
+  var collapse = regexCollapse.exec(code);
   if (collapse) {
-    var label = collapse[1]
-    code = code.replace(regexCollapse, '').trim()
+    var label = collapse[1];
+    code = code.replace(regexCollapse, '').trim();
   }
 
   // Default render with highlighting.
-  code = renderCode.call(this, code, lang, escaped).trim()
+  code = renderCode.call(this, code, lang, escaped).trim();
 
   // Optionally wrap in collapse.
   if (label) {
     code =
-      '<sf-collapse class="code-collapse pad-ch">\n' +
+      '<sf-collapse>\n' +
       '  <input type="checkbox" id="' + imports.uniqId() + '"></input>\n' +
-      '  <label for="' + imports.lastUniqId() + '">' + label + '</label>\n' +
+      '  <label for="' + imports.lastUniqId() + '" theme="primary">' + label + '</label>\n' +
          code + '\n' +
-      '</sf-collapse>'
+      '</sf-collapse>';
   }
 
-  return code
+  return code;
 }
 
 /*********************************** Tasks ***********************************/
 
+/*--------------------------------- Scripts ---------------------------------*/
+
+gulp.task('scripts:clear', function() {
+  return gulp.src(dest.scripts, {read: false, allowEmpty: true})
+    .pipe($.plumber())
+    .pipe($.rimraf());
+});
+
+gulp.task('scripts:compile', function() {
+  return gulp.src(src.scripts)
+    .pipe($.plumber())
+    .pipe($.sourcemaps.init())
+    .pipe($.typescript({
+      noExternalResolve: true,
+      typescript: require('typescript'),
+      target: 'ES5',
+      module: 'system',
+      experimentalDecorators: true
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest(dest.app));
+});
+
+gulp.task('scripts:env', function() {
+  return gulp.src(src.scriptsEnv).pipe($.if(!prod(), gulp.dest(dest.app)));
+});
+
+gulp.task('scripts:build', gulp.series('scripts:clear', 'scripts:compile', 'scripts:env'));
+
+gulp.task('scripts:watch', function() {
+  $.watch(src.scripts, gulp.series('scripts:build', reload));
+  $.watch(src.scriptsEnv, gulp.series('scripts:build', reload));
+});
+
+/*---------------------------------- Views ----------------------------------*/
+
+gulp.task('views:clear', function() {
+  return gulp.src(dest.views, {read: false, allowEmpty: true})
+    .pipe($.plumber())
+    .pipe($.rimraf());
+});
+
+gulp.task('views:compile', function() {
+  return gulp.src(src.views)
+    .pipe($.plumber())
+    .pipe($.if(prod(), $.minifyHtml({empty: true})))
+    // .pipe(html2js({
+    //   stripPrefix: 'src/app',
+    //   concat: 'views.js'
+    // }))
+    .pipe($.ngHtml2js({
+      moduleName: 'app'
+    }))
+    .pipe($.concat('views.js'))
+    .pipe($.replace(/^([^]*)$/,
+      'System.register([], function() {\n' +
+      '  return {\n' +
+      '    setters: [],\n' +
+      '    execute: function() {\n' +
+      '      $1\n' +
+      '    }\n' +
+      '  };\n' +
+      '});\n'))
+    .pipe(gulp.dest(dest.app));
+});
+
+gulp.task('views:build',
+  gulp.series('views:clear', 'views:compile'));
+
+gulp.task('views:watch', function() {
+  $.watch(src.views, gulp.series('views:build', reload));
+});
+
 /*--------------------------------- Styles ----------------------------------*/
 
 gulp.task('styles:clear', function() {
-  return gulp.src(dest.css, {read: false, allowEmpty: true}).pipe($.rimraf())
-})
-
-gulp.task('styles:less', function() {
-  return gulp.src(src.lessCore)
+  return gulp.src(dest.styles, {read: false, allowEmpty: true})
     .pipe($.plumber())
-    .pipe($.less())
+    .pipe($.rimraf());
+});
+
+gulp.task('styles:compile', function() {
+  return gulp.src(src.stylesCore)
+    .pipe($.plumber())
+    .pipe($.sass())
     .pipe($.autoprefixer())
+    .pipe($.base64({
+      baseDir: '.',
+      extensions: ['svg']
+    }))
     .pipe($.if(prod(), $.minifyCss({
       keepSpecialComments: 0,
       aggressiveMerging: false,
       advanced: false
     })))
-    .pipe(gulp.dest(dest.css))
-    .pipe(bsync.reload({stream: true}))
-})
+    .pipe(gulp.dest(dest.styles))
+    .pipe(bsync.reload({stream: true}));
+});
+
+gulp.task('styles:build',
+  gulp.series('styles:clear', 'styles:compile'));
 
 gulp.task('styles:watch', function() {
-  // Watch our .less files.
-  $.watch(src.less, gulp.series('styles'))
-  // Watch stylific's .less files.
-  $.watch('./bower_components/stylific/**/*.less', gulp.series('styles'))
-})
-
-gulp.task('styles', gulp.series('styles:clear', 'styles:less'))
-
-/*--------------------------------- Images ----------------------------------*/
-
-// Clear images
-gulp.task('images:clear', function() {
-  return gulp.src(dest.img, {read: false, allowEmpty: true}).pipe($.rimraf())
-})
-
-// Resize and copy images
-gulp.task('images:normal', function() {
-  return gulp.src(src.img)
-    /**
-    * Experience so far.
-    * {quality: 1} -> reduces size by ≈66% with no resolution change and no visible quality change
-    * {quality: 1, width: 1920} -> reduces size by ≈10 times for hi-res images
-    */
-    .pipe($.imageResize({
-      quality: 1,
-      width: 1920,    // max width
-      upscale: false
-    }))
-    .pipe(gulp.dest(dest.img))
-})
-
-// Make short cover images.
-gulp.task('images:short', function() {
-  return gulp.src(src.img)
-    .pipe($.imageResize({
-      quality: 1,
-      gravity: 'Center',  // crop relative to the center
-      crop: true,         // allow to crop to fit
-      width: 1920,        // max width
-      height: 512,        // max height
-      upscale: false
-    }))
-    .pipe(gulp.dest(dest.img + 'short'))
-})
-
-// Minify and copy images.
-gulp.task('images:small', function() {
-  return gulp.src(src.img)
-    .pipe($.imageResize({
-      quality: 1,
-      width: 640,    // max width
-      upscale: false
-    }))
-    .pipe(gulp.dest(dest.img + 'small'))
-})
-
-// Crop images to small squares
-gulp.task('images:square', function() {
-  return gulp.src(src.img)
-    .pipe($.imageResize({
-      quality: 1,
-      gravity: 'Center',  // crop relative to the center
-      crop: true,
-      width: 640,
-      height: 640,
-      upscale: false
-    }))
-    .pipe(gulp.dest(dest.img + 'square'))
-})
-
-// All image tasks.
-gulp.task('images',
-  gulp.series(
-    'images:clear',
-    gulp.parallel(
-      'images:normal',
-      'images:short',
-      'images:small',
-      'images:square')))
+  $.watch(src.styles, gulp.series('styles:build'));
+  $.watch('./node_modules/stylific/scss/**/*.scss', gulp.series('styles:build'));
+});
 
 /*---------------------------------- HTML -----------------------------------*/
 
-// Clear html
 gulp.task('html:clear', function() {
   return gulp.src([
-    dest.html + '**/*.html',
-    '!' + jspmPath
-  ], {read: false, allowEmpty: true}).pipe($.rimraf())
-})
+      dest.html + '/**/*.html',
+      '!' + dest.app + '/**/*',
+      '!' + jspmPath + '/**/*'
+    ], {read: false, allowEmpty: true})
+    .pipe($.plumber())
+    .pipe($.rimraf());
+});
 
-// Compile html
 gulp.task('html:compile', function() {
-  var filterMd = $.filter('**/*.md')
+  var filterMd = $.filter('**/*.md');
 
-  return gulp.src(src.html + '**/*')
-    // .pipe($.plumber())
+  return gulp.src(src.html)
+    .pipe($.plumber())
     // Pre-process the markdown files.
     .pipe(filterMd)
     .pipe($.marked({
@@ -290,134 +289,138 @@ gulp.task('html:compile', function() {
       pedantic:    false,
       // Code highlighter.
       highlight: function(code, lang) {
-        if (lang) return hjs.highlight(lang, code).value
-        return hjs.highlightAuto(code).value
+        if (lang) return hjs.highlight(lang, code).value;
+        return hjs.highlightAuto(code).value;
       }
     }))
+    // Add the hljs code class.
+    .pipe($.replace(/<pre><code class="(.*)">|<pre><code>/g,
+                    '<pre><code class="hljs $1">'))
     // Return the other files.
     .pipe(filterMd.restore())
     // Render all html.
     .pipe($.statil({
-      stripPrefix: src.html,
+      stripPrefix: {
+        'src/html': 'src/html',
+        'bower_components/font-awesome-svg-png/black/svg': 'bower_components/font-awesome-svg-png/black'
+      },
       imports: imports
     }))
     // Change each `<filename>` into `<filename>/index.html`.
     .pipe($.rename(function(path) {
       switch (path.basename + path.extname) {
-        case 'index.html': case '404.html': return
+        case 'index.html': case '404.html': return;
       }
-      path.dirname = pt.join(path.dirname, path.basename)
-      path.basename = 'index'
+      path.dirname = pt.join(path.dirname, path.basename);
+      path.basename = 'index';
     }))
-    // Minify when building for production.
-    .pipe($.if(prod(), $.minifyHtml({
-      // Needed to keep attributes like [contenteditable]
-      empty: true
-    })))
     // Write to disk.
-    .pipe(gulp.dest(dest.html))
-    // Reload the browser.
-    .pipe(bsync.reload({stream: true}))
-})
+    .pipe(gulp.dest(dest.html));
+});
 
 // Copy robots.txt.
 gulp.task('html:robots', function() {
-  return gulp.src(src.robots).pipe(gulp.dest(dest.html))
-})
+  return gulp.src(src.robots).pipe(gulp.dest(dest.html));
+});
+
+gulp.task('html:build', gulp.series('html:clear', 'html:compile', 'html:robots'));
 
 gulp.task('html:watch', function() {
-  $.watch(src.html + '**/*', gulp.series('html'))
-})
+  $.watch(src.html, gulp.series('html:build', reload));
+});
 
-// All html tasks
-gulp.task('html', gulp.series('html:clear', 'html:compile', 'html:robots'))
+/*--------------------------------- Images ----------------------------------*/
 
-/*--------------------------------- Scripts ---------------------------------*/
+gulp.task('images:clear', function() {
+  return gulp.src(dest.images, {read: false, allowEmpty: true}).pipe($.rimraf());
+});
 
-gulp.task('scripts:clear', function() {
-  return gulp.src(dest.app, {read: false, allowEmpty: true}).pipe($.rimraf())
-})
-
-gulp.task('scripts:system', function() {
-  return gulp.src(src.system)
-    .pipe(gulp.dest(dest.html))
-})
-
-gulp.task('scripts:app', function() {
-  return gulp.src(src.js)
-    .pipe($.plumber()) // intentionally dumb error printing
-    .pipe($.typescript({
-      noExternalResolve: false,
-      typescript: require('typescript'),
-      target: 'ES5',
-      module: 'system',
-      experimentalDecorators: true
+// Resize and copy images
+gulp.task('images:normal', function() {
+  return gulp.src(src.images)
+    /**
+    * Experience so far.
+    * {quality: 1} -> reduces size by ≈66% with no resolution change and no visible quality change
+    * {quality: 1, width: 1920} -> reduces size by ≈10 times for hi-res images
+    */
+    .pipe($.imageResize({
+      quality: 1,
+      width: 1920,    // max width
+      upscale: false
     }))
-    .pipe(gulp.dest(dest.app))
-})
+    .pipe(gulp.dest(dest.images));
+});
 
-gulp.task('scripts:views', function() {
-  return gulp.src(src.views)
-    .pipe($.plumber())
-    .pipe($.if(prod(), $.minifyHtml({empty: true})))
-    .pipe($.ngHtml2js({
-      moduleName: 'app'
+// Minify and copy images.
+gulp.task('images:small', function() {
+  return gulp.src(src.images)
+    .pipe($.imageResize({
+      quality: 1,
+      width: 640,    // max width
+      upscale: false
     }))
-    .pipe($.concat('views.js'))
-    .pipe($.babel({modules: 'system'}))
-    .pipe(gulp.dest(dest.app))
-})
+    .pipe(gulp.dest(dest.images + '/small'));
+});
 
-gulp.task('scripts:env', function() {
-  return gulp.src(src.jsEnv)
-    .pipe($.if(!prod(), gulp.dest(dest.app)))
-})
+// Crop images to small squares
+gulp.task('images:square', function() {
+  return gulp.src(src.images)
+    .pipe($.imageResize({
+      quality: 1,
+      gravity: 'Center',  // crop relative to center
+      crop: true,
+      width: 640,
+      height: 640,
+      upscale: false
+    }))
+    .pipe(gulp.dest(dest.images + '/square'));
+});
 
-gulp.task('scripts:watch', function() {
-  // Watch scripts.
-  $.watch(src.js, gulp.series('scripts', reload))
-  $.watch(src.system, gulp.series('scripts', reload))
-  $.watch(src.jsEnv, gulp.series('scripts', reload))
-  // Watch views.
-  $.watch(src.views, gulp.series('scripts', reload))
-})
+gulp.task('images:build',
+  gulp.series('images:clear',
+    gulp.parallel('images:normal', 'images:small', 'images:square')));
 
-gulp.task('scripts', gulp.series('scripts:clear', gulp.parallel('scripts:system', 'scripts:app', 'scripts:views', 'scripts:env')))
+gulp.task('images:watch', function() {
+  $.watch(src.images, gulp.series('images:build', reload));
+});
+
+/*--------------------------------- System ----------------------------------*/
+
+gulp.task('system:copy', function() {
+  return gulp.src(src.system).pipe(gulp.dest(dest.html));
+});
+
+gulp.task('system:build', gulp.series('system:copy'));
+
+gulp.task('system:watch', function() {
+  $.watch(src.system, gulp.series('system:build', reload));
+});
 
 /*--------------------------------- Server ----------------------------------*/
 
-gulp.task('bsync', function() {
+gulp.task('server', function() {
   return bsync.init({
+    startPath: '/',
     server: {
-      baseDir: destBase
+      baseDir: dest.html
     },
     port: 11204,
     online: false,
-    // Don't enable the UI.
     ui: false,
-    // Don't watch files (default false, just making sure)
     files: false,
-    // Don't sync anything across devices.
     ghostMode: false,
-    // Don't show the notification.
-    // notify: false
-    // Don't open the window.
-    // open: false,
-  })
-})
+    notify: true
+  });
+});
 
-/*--------------------------------- Config ----------------------------------*/
+/*--------------------------------- Default ---------------------------------*/
 
-// Build
-gulp.task('build', gulp.parallel('styles', 'scripts', 'html'))
+gulp.task('build', gulp.parallel(
+  'scripts:build', 'views:build', 'styles:build', 'html:build', 'system:build'
+));
 
-// Watch
 gulp.task('watch', gulp.parallel(
-  'styles:watch', 'scripts:watch', 'html:watch'
-))
+  'scripts:watch', 'views:watch', 'styles:watch', 'html:watch', 'system:watch'
+));
 
-// Default
-gulp.task('default', gulp.series('build', 'watch'))
-
-// Serve files
-gulp.task('server', gulp.series('build', gulp.parallel('watch', 'bsync')))
+gulp.task('default', gulp.series('build', gulp.parallel('watch', 'server')));

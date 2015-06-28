@@ -14,9 +14,6 @@ app-spinner {
   align-items: center;
   justify-content: space-around;
 
-  // Default font-size.
-  font-size: @sf-font-size-base;
-
   // Use a pseudoelement for the background.
   &::before {
     content: '';
@@ -31,8 +28,7 @@ app-spinner {
     width: 1em;
     height: 1em;
 
-    // Use ProstoPoi icon as background.
-    background-image: data-uri(~'@{svg-black}/spinner.svg');
+    background-image: svg-url-black(spinner);
     background-repeat: no-repeat;
     background-size: contain;
 
@@ -41,9 +37,13 @@ app-spinner {
     animation: spin 3s linear infinite;
   }
 
+  // Use white icon with inverse themes.
+  [theme]:not([theme|=text]) &::before {
+    background-image: svg-url-white(spinner);
+  }
+
   // Larger sizes.
   &[size=medium] {font-size: 2em}
   &[size=large]  {font-size: 4em}
   &[size=huge]   {font-size: 6em}
-
 }

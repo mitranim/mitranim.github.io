@@ -28,10 +28,8 @@ the source size, with the expectation of being minified for production use. With
 massive frameworks like Angular, React, or Polymer, the total size easily
 rockets past a megabyte. Minification gets it down to manageable size.
 
-Minifying CSS is a very minor optimisation because there isn't much to compress.
-Preprocessors like [LESS](http://lesscss.org) ignore comments, and CSS rules
-can't be shortened like JS variable names. Still, it might shave off a few tens
-of kilobytes.
+Minifying CSS is usually less important, but like everything else, it's a useful
+optimisation and there's no excuse for not doing it.
 
 ## Concatenate Everything
 

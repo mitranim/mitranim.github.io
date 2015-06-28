@@ -1,0 +1,71 @@
+/********************************** Global ***********************************/
+
+.fade {
+  opacity: 0.5;
+}
+
+body {
+  @include sf-shadow-thin;
+}
+
+hr {
+  margin-top: 2 * $sf-space;
+  margin-bottom: 2 * $sf-space;
+  border: none;
+  border-top: 1px solid lightgrey;
+}
+
+.text-capitalise {
+  text-transform: capitalize;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+// Default to circle bullets.
+ul {
+  list-style-type: circle;
+}
+
+.outline {
+  @include sf-outline-weak;
+}
+
+.nobg:not(:root):not(:root):not(:root):not(:root) {
+  background-color: transparent;
+}
+
+// Fix missing diff styles in the ir_black highlight.js definition.
+.hljs-addition {color: lighten(#2b91af, 30%)}
+.hljs-deletion {color: lighten(#a31515, 30%)}
+
+sf-collapse pre {padding: 0}
+
+/******************************** Components *********************************/
+
+/********************************* Overrides *********************************/
+
+sf-jumbo, [sf-jumbo] {
+  &.auto {
+    height: auto;
+  }
+}
+
+sf-grid, [sf-grid] {
+  // Under consideration: narrow version that only goes up to two columns.
+  &.narrow > * {
+    @include sf-eq-sm {flex-basis: 100%}
+    @include sf-gt-sm {flex-basis: 50%}
+    @include sf-gt-md {flex-basis: 50%}
+  }
+  &.strict > * {
+    @include sf-eq-sm {flex-basis: 100%}
+    @include sf-gt-sm {flex-basis: 100%}
+    @include sf-gt-md {flex-basis: 100%}
+  }
+}
+
+sf-navbar, [sf-navbar] {
+  > sf-dropdown {padding: 0}
+}

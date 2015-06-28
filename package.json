@@ -1,9 +1,8 @@
 {
   "name": "mitranim.github.io",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run bundle && gulp server",
+    "start": "npm run bundle && gulp",
     "gulp": "gulp",
     "img": "gulp images",
     "bundle": "jspm bundle angular + lodash + firebase + fireproof",
@@ -11,9 +10,8 @@
     "bundle-sfx": "jspm bundle-sfx boot",
     "bundle-sfx-prod": "jspm bundle-sfx boot --minify",
     "build-prod": "gulp build --prod && npm run bundle-sfx-prod",
-    "serve-prod": "npm run build-prod && gulp bsync",
-    "push": "npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)",
-    "pregulp": "cp -r mitranim-master/jspm_packages/npm/ng-decorate@0.0.9/typings/ng-decorate src/app/typings/"
+    "serve-prod": "npm run build-prod && gulp server",
+    "push": "npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)"
   },
   "authors": [
     "Mitranim <me@mitranim.com>"
@@ -24,33 +22,36 @@
     "url": "https://github.com/Mitranim/mitranim.github.io.git"
   },
   "devDependencies": {
-    "browser-sync": "^2.7.1",
+    "browser-sync": "^2.7.12",
     "cheerio": "^0.19.0",
     "gulp": "git://github.com/gulpjs/gulp#4.0",
-    "gulp-autoprefixer": "^2.2.0",
-    "gulp-babel": "^5.1.0",
-    "gulp-concat": "^2.5.2",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-base64": "^0.1.3",
+    "gulp-concat": "^2.6.0",
     "gulp-filter": "^2.0.2",
     "gulp-if": "^1.2.5",
     "gulp-image-resize": "^0.6.0",
-    "gulp-less": "^3.0.3",
-    "gulp-load-plugins": "^0.10.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-marked": "^1.0.0",
-    "gulp-minify-css": "^1.1.1",
-    "gulp-minify-html": "^1.0.2",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-minify-html": "^1.0.3",
     "gulp-ng-html2js": "^0.2.0",
-    "gulp-plumber": "^1.0.0",
+    "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.3",
     "gulp-rimraf": "^0.1.1",
-    "gulp-statil": "^0.0.3",
-    "gulp-typescript": "^2.7.3",
+    "gulp-sass": "^2.0.3",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-statil": "0.0.3",
+    "gulp-typescript": "^2.7.7",
     "gulp-watch": "^4.2.4",
-    "highlight.js": "^8.5.0",
-    "jspm": "^0.15.6",
-    "lodash": "^3.8.0",
-    "tsd": "^0.6.0",
-    "typescript": "git://github.com/microsoft/TypeScript.git",
-    "yargs": "^3.9.0"
+    "highlight.js": "^8.6.0",
+    "jspm": "^0.15.7",
+    "lodash": "^3.9.3",
+    "stylific": "0.2.1",
+    "tsd": "^0.6.3",
+    "typescript": "microsoft/TypeScript",
+    "yargs": "^3.13.0"
   },
   "jspm": {
     "directories": {
@@ -58,18 +59,17 @@
     },
     "configFile": "system.config.js",
     "dependencies": {
-      "angular": "github:angular/bower-angular@^1.3.15",
-      "angular-sanitize": "github:angular/bower-angular-sanitize@^1.3.15",
-      "firebase": "github:firebase/firebase-bower@^2.2.4",
+      "angular": "github:angular/bower-angular@^1.4.1",
+      "angular-sanitize": "github:angular/bower-angular-sanitize@^1.4.1",
+      "firebase": "github:firebase/firebase-bower@^2.2.7",
       "fireproof": "npm:fireproof@^2.5.2",
       "foliant": "npm:foliant@^0.0.1",
-      "lodash": "npm:lodash@^3.8.0",
-      "ng-decorate": "npm:ng-decorate@^0.0.10"
+      "lodash": "npm:lodash@^3.9.3",
+      "ng-decorate": "npm:ng-decorate@^0.0.15"
     },
     "devDependencies": {
-      "babel": "npm:babel-core@^5.1.13",
-      "babel-runtime": "npm:babel-runtime@^5.1.13",
-      "core-js": "npm:core-js@^0.9.4"
+      "traceur": "github:jmcriffey/bower-traceur@0.0.88",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
     }
   }
 }

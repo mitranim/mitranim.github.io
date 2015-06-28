@@ -15,7 +15,7 @@ class VM {
 
     var src = 'svg/' + element.getAttribute('svg-icon') + '.svg'
     element.removeAttribute('svg-icon')
-    element.classList.add('sf-icon')
+    element.setAttribute('sf-icon', '')
 
     return VM.$templateCache.get(src)
   }

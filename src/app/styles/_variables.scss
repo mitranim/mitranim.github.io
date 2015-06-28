@@ -1,0 +1,62 @@
+/**
+ * Global variables and/or overrides for imported variables.
+ */
+
+/*********************************** Misc ************************************/
+
+// SVG icon paths.
+$svg-black: './bower_components/font-awesome-svg-png/black/svg/';
+$svg-white: './bower_components/font-awesome-svg-png/white/svg/';
+$svg-custom: './src/svg/';
+
+// Make the layout super narrow.
+$sf-screen-lg: 768px;
+
+/********************************** Colours **********************************/
+
+// $color-link: darken(#5cb85c, 30%);
+$color-link: darken(red, 10%);
+// $color-red: darken(red, 10%);
+
+// Brand-specific colours. Source: http://brandcolors.net.
+$color-skype:     #00aff0;  // unverified
+$color-github-0:  #4183c4;  // unverified
+$color-github-1:  #666666;  // unverified
+$color-twitter:   #55acee;  // verified
+$color-linkedin:  #0976b4;  // unverified
+$color-facebook:  #3b5998;  // unverified
+$color-youtube:   #e52d27;  // partly verified
+$color-instagram: #3f729b;  // unverified
+
+// $color-email: $sf-gray;
+
+// http://clrs.cc
+$color-navy:    #001f3f;
+$color-blue:    #0074d9;
+$color-aqua:    #7fdbff;
+$color-teal:    #39cccc;
+$color-olive:   #3d9970;
+$color-green:   #2ecc40;
+$color-lime:    #01ff70;
+$color-yellow:  #ffdc00;
+$color-orange:  #ff851b;
+$color-red:     #ff4136;
+$color-maroon:  #85144b;
+$color-fuchsia: #f012be;
+$color-purple:  #b10dc9;
+$color-black:   #111111;
+$color-gray:    #aaaaaa;
+$color-silver:  #dddddd;
+
+/******************************** Typography *********************************/
+
+// Font families.
+$sf-font-family-sans-serif: PT Sans, Tahoma, Verdana, sans-serif;
+$sf-font-family-monospace: Menlo, Andale Mono, Monaco, Consolas, monospace;
+
+// Font size.
+// $sf-rem: 10pt;
+
+/******************************* sf-jumbo.scss *******************************/
+
+$sf-jumbo-height: 8em;
