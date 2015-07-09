@@ -1,11 +1,11 @@
 System.config({
   "baseURL": "/",
+  "transpiler": "traceur",
   "paths": {
     "*": "app/*.js",
     "github:*": "jspm_packages/github/*.js",
     "npm:*": "jspm_packages/npm/*.js"
-  },
-  "transpiler": "traceur"
+  }
 });
 
 System.config({

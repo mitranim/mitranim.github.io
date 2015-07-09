@@ -1,6 +1,4 @@
-/**
- * Definitions.
- */
+// Definitions.
 @import './styles/_variables';
 @import './styles/_functions';
 @import './styles/_mixins';
@@ -12,19 +10,13 @@
 // Other nice options: `vs`, `solarized_light`.
 @import './node_modules/highlight.js/styles/ir_black';
 
-/**
- * Components.
- */
+// Components.
 @import './styles/components/app-spinner';
 @import './styles/components/app-words';
 
-/**
- * Overrides.
- */
+// Overrides.
 @import './styles/overrides/sf-article';
 @import './styles/overrides/sf-icon';
 
-/**
- * Other global defaults.
- */
+// Other global defaults.
 @import './styles/misc';
