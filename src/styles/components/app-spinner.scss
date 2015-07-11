@@ -1,4 +1,4 @@
-app-spinner {
+.app-spinner {
 
   /**
    * Layout.
@@ -38,12 +38,12 @@ app-spinner {
   }
 
   // Use white icon with inverse themes.
-  [theme]:not([theme|=text]) &::before {
+  [class*=theme]:not([class*=theme-text-]) &::before {
     background-image: svg-url-white(spinner);
   }
 
   // Larger sizes.
-  &[size=medium] {font-size: 2em}
-  &[size=large]  {font-size: 4em}
-  &[size=huge]   {font-size: 6em}
+  &.size-medium {font-size: 2em}
+  &.size-large  {font-size: 4em}
+  &.size-huge   {font-size: 6em}
 }

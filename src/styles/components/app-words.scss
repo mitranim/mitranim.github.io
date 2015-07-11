@@ -1,17 +1,25 @@
-app-words {
-
-  // Layout.
-  display: block;
+.app-words {
 
   // Cosmetic.
-  sf-tabset, sf-tab {
+  .sf-tabset, .sf-tab {
     box-shadow: none;
     outline: none;
+    border: none;
   }
 
   .word {
-    // Whitespace.
-    padding: $sf-space;
+    // Layout.
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    > span {
+      padding: $sf-space;
+    }
+
+    > button {
+      min-width: $sf-space * 3;
+    }
 
     /**
      * Decorative colouring.

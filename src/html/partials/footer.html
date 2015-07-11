@@ -1,15 +1,15 @@
-<sf-footer>
-  <sf-footer-body>
-    <div flex="1" layout="start">
+<div class="sf-footer">
+  <div class="sf-footer-body">
+    <div class="flex-1 layout-column layout-cross-start">
       <span>
         <%= ((new Date()).getFullYear() > 2015 ? 'y2015—' + (new Date()).getFullYear() : 'y2015') %>
       </span>
     </div>
-    <div flex="1" layout="center">
+    <div class="flex-1 layout-column layout-cross-center">
       <a href="/#contacts">get in touch</a>
     </div>
-    <div flex="1" layout="end">
-      <sf-icon sf-icon="arrow-up" class="interactive fade" onclick="scrollTo(0, 0)"></sf-icon>
+    <div class="flex-1 layout-column layout-cross-end">
+      <button class="sf-icon-arrow-up pad" onclick="scrollTo(0, 0)"></button>
     </div>
-  </sf-footer-body>
-</sf-footer>
+  </div>
+</div>

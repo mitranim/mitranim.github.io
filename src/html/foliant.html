@@ -1,13 +1,13 @@
 <% $entitle('foliant', $) %>
 
-<sf-jumbo style="background-image: url(/img/short/<%= image %>)">
-  <div layout="row space-between">
-    <div flex="1">
+<div class="sf-jumbo" style="background-image: url(/images/<%= image %>)">
+  <div class="layout-space-between">
+    <div class="flex-1">
       <h1>foliant</h1>
       <p>Generator of synthetic words (demo)</p>
     </div>
-    <a href="https://github.com/Mitranim/foliant" target="_blank" sf-icon="code-white" class="pop medium"></a>
+    <a href="https://github.com/Mitranim/foliant" target="_blank" class="sf-icon-code-white pop medium"></a>
   </div>
-</sf-jumbo>
+</div>
 
-<app-words-page></app-words-page>
+<div id="foliantComponent"></div>

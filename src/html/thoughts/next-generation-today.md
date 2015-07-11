@@ -154,8 +154,17 @@ some setup.
 
 First, create an `src/app/tsconfig.json` with the following:
 
+<!-- #include ng-next-gen/src/app/tsconfig.json -->
 ```json
-#include ng-next-gen/src/app/tsconfig.json
+{
+  "version": "1.5.0",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "experimentalDecorators": true
+  }
+}
 ```
 
 `tsconfig.json` is a new feature in TypeScript 1.5. It hints your code editor
@@ -173,9 +182,129 @@ tsd install angular -r -s
 
 Create an `src/app/lib.d.ts` with the following:
 
+<!-- #include ng-next-gen/src/app/lib.d.ts -->
 ```typescript
-#include ng-next-gen/src/app/lib.d.ts
 #collapse src/app/lib.d.ts
+declare module 'ng-decorate' {
+  export var Attribute: typeof ngDecorate.Attribute;
+  export var Ambient: typeof ngDecorate.Ambient;
+  export var Component: typeof ngDecorate.Component;
+  export var Service: typeof ngDecorate.Service;
+  export var Controller: typeof ngDecorate.Controller;
+  export var autoinject: typeof ngDecorate.autoinject;
+  export var bindTwoWay: typeof ngDecorate.bindTwoWay;
+  export var bindOneWay: typeof ngDecorate.bindOneWay;
+  export var bindString: typeof ngDecorate.bindString;
+  export var bindExpression: typeof ngDecorate.bindExpression;
+  export var defaults: typeof ngDecorate.defaults;
+}
+
+declare module ngDecorate {
+  // Class decorators.
+  export function Attribute(config: DirectiveConfig): ClassDecorator;
+  export function Ambient(config: BaseConfig): ClassDecorator;
+  export function Ambient(target: Function): void;
+  export function Component(config: DirectiveConfig): ClassDecorator;
+  export function Service(config: ServiceConfig): ClassDecorator;
+  export function Controller(config: ControllerConfig): ClassDecorator;
+
+  // Property decorators.
+  export function autoinject(target: any, key: string);
+  export function bindTwoWay(options: BindTwoWayOptions): PropertyDecorator;
+  export function bindTwoWay(target: any, key: string): void;
+  export function bindOneWay(key: string): PropertyDecorator;
+  export function bindOneWay(target: any, key: string): void;
+  export function bindString(key: string): PropertyDecorator;
+  export function bindString(target: any, key: string): void;
+  export function bindExpression(key: string): PropertyDecorator;
+  export function bindExpression(target: any, key: string): void;
+
+  // Mutable configuration.
+  export const defaults: {
+    module?: ng.IModule;
+    moduleName?: string;
+    controllerAs: string;
+    makeTemplateUrl: (selector: string) => string;
+  };
+
+  // Abstract interface shared by configuration objects.
+  interface BaseConfig {
+    // Angular module object. If provided, other module options are ignored, and
+    // no new module is declared.
+    module?: ng.IModule;
+
+    // Optional name for the new module created for this service or directive.
+    // If omitted, the service or directive name is used.
+    moduleName?: string;
+
+    // Names of other angular modules this module depends on.
+    dependencies?: string[];
+
+    // DEPRECATED in favour of @autoinject.
+    // Angular services that will be assigned to the class prototype.
+    inject?: string[];
+
+    // DEPRECATED in favour of @autoinject.
+    // Angular services that will be assigned to the class as static properties.
+    injectStatic?: string[];
+  }
+
+  interface DirectiveConfig extends BaseConfig, ng.IDirective {
+    // The name of the custom element or attribute. Used to derive module name,
+    // directive name, and template url.
+    selector: string;
+  }
+
+  interface ServiceConfig extends BaseConfig {
+    // The name of the service in the angular module system. Mandatory
+    // due to minification woes.
+    serviceName: string;
+  }
+
+  interface ControllerConfig extends BaseConfig {
+    // Mandatory controller name.
+    controllerName: string;
+    // Optional service name. If included, the controller is published to
+    // angular's DI as a service under this name.
+    serviceName?: string;
+  }
+
+  interface ControllerClass extends Function {
+    template?: string|Function;
+    templateUrl?: string|Function;
+    link?: Function;
+    compile?: any;
+  }
+
+  interface BindTwoWayOptions {
+    // Adds `*` to the property descriptor, marking it for `$watchCollection`.
+    collection?: boolean;
+    // Adds `?` to the property descriptor, marking it optional.
+    optional?: boolean;
+    // Adds an external property name to the binding.
+    key?: string;
+  }
+}
+
+declare module 'foliant' {
+  class StringSet {
+    constructor(strings?: string[]);
+    add(string: string): void;
+    del(string: string): void;
+    has(string: string): boolean;
+  }
+  class Traits {
+    constructor(words?: string[]);
+    static StringSet: typeof StringSet;
+    examine(words: string[]): void;
+    generator(): () => string;
+    knownSounds: StringSet;
+    knownVowels: StringSet;
+  }
+  export default Traits;
+}
+
+declare type StringMap = {[key: string]: string};
 ```
 
 ### Build Configuration
@@ -187,9 +316,138 @@ npm i --save-dev browser-sync gulp gulp-concat gulp-load-plugins gulp-ng-html2js
 
 Create a `gulpfile.js` with the following:
 
+<!-- #include ng-next-gen/gulpfile.js -->
 ```javascript
-#include ng-next-gen/gulpfile.js
 #collapse gulpfile.js
+'use strict';
+
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
+var bsync = require('browser-sync').create();
+var flags = require('yargs').argv;
+var pt = require('path');
+
+function prod() {
+  return flags.prod === true || flags.prod === 'true';
+}
+
+/*--------------------------------- Scripts ---------------------------------*/
+
+gulp.task('scripts:clear', function() {
+  return gulp.src('dist/app/**/*.js', {read: false, allowEmpty: true})
+    .pipe($.plumber())
+    .pipe($.rimraf());
+});
+
+gulp.task('scripts:views', ['scripts:clear'], function() {
+  return gulp.src('src/app/**/*.html')
+    .pipe($.plumber())
+    .pipe($.ngHtml2js({moduleName: 'app'}))
+    .pipe($.concat('views.js'))
+    .pipe($.replace(/^([^]*)$/,
+      'System.register([], function() {\n' +
+      '  return {\n' +
+      '    setters: [],\n' +
+      '    execute: function() {\n' +
+      '      $1\n' +
+      '    }\n' +
+      '  };\n' +
+      '});\n'))
+    .pipe(gulp.dest('dist/app'));
+});
+
+gulp.task('scripts:ts', ['scripts:views'], function() {
+  return gulp.src('src/app/**/*.ts')
+    .pipe($.plumber())
+    .pipe($.sourcemaps.init())
+    .pipe($.typescript({
+      noExternalResolve: true,
+      typescript: require('typescript'),
+      target: 'ES5',
+      module: 'system',
+      experimentalDecorators: true
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('dist/app'))
+    .pipe(bsync.reload({stream: true}));
+});
+
+gulp.task('scripts:watch', function() {
+  $.watch('src/app/**/*', function() {return gulp.start('scripts:ts')});
+});
+
+/*---------------------------------- HTML -----------------------------------*/
+
+gulp.task('html:clear', function() {
+  return gulp.src([
+      'dist/**/*.html',
+      '!dist/app/**/*',
+      '!dist/jspm_packages/**/*'
+    ], {read: false, allowEmpty: true})
+    .pipe($.plumber())
+    .pipe($.rimraf());
+});
+
+gulp.task('html:compile', ['html:clear'], function() {
+  return gulp.src('src/html/**/*')
+    .pipe($.plumber())
+    .pipe($.statil({
+      stripPrefix: 'src/html',
+      imports: {prod: prod}
+    }))
+    .pipe(gulp.dest('dist'))
+    .pipe(bsync.reload({stream: true}));
+});
+
+gulp.task('html:watch', function() {
+  $.watch('src/html/**/*', function() {return gulp.start('html:compile')});
+});
+
+/*--------------------------------- Styles ----------------------------------*/
+
+gulp.task('styles:copy', function() {
+  return gulp.src('node_modules/stylific/lib/stylific.css')
+    .pipe(gulp.dest('dist/css'));
+});
+
+gulp.task('styles:watch', function() {
+  $.watch('node_modules/stylific/lib/stylific.css', function() {return gulp.start('styles:copy')});
+});
+
+/*--------------------------------- System ----------------------------------*/
+
+gulp.task('system:copy', function() {
+  return gulp.src('system.config.js').pipe(gulp.dest('dist'));
+});
+
+gulp.task('system:watch', function() {
+  $.watch('system.config.js', function() {return gulp.start('system:copy')});
+});
+
+/*--------------------------------- Server ----------------------------------*/
+
+gulp.task('server', function() {
+  return bsync.init({
+    startPath: '/ng-next-gen/',
+    server: {
+      baseDir: 'dist',
+      middleware: function(req, res, next) {
+        req.url = req.url.replace(/^\/ng-next-gen/, '/')
+        next()
+      }
+    },
+    port: 9238,
+    online: false
+  });
+});
+
+/*--------------------------------- Default ---------------------------------*/
+
+gulp.task('build', ['scripts:ts', 'html:compile', 'styles:copy', 'system:copy']);
+
+gulp.task('default', ['build', 'scripts:watch', 'html:watch', 'styles:watch', 'system:watch'], function() {
+  return gulp.start('server');
+});
 ```
 
 ### HTML
@@ -448,8 +706,31 @@ Now that we know how to get hold of angular services, let's take advantage of
 
 Create `src/models/words.ts`:
 
+<!-- #include ng-next-gen/src/app/models/words.ts -->
 ```typescript
-#include ng-next-gen/src/app/models/words.ts
+import {Service, autoinject} from 'ng-decorate';
+
+export const wordsUrl = 'https://incandescent-torch-3438.firebaseio.com/foliant/defaults/words/eng.json';
+
+@Service({
+  serviceName: 'Words'
+})
+export class Words {
+  @autoinject static $http: ng.IHttpService;
+  [key: string]: string;
+
+  constructor(fields?: StringMap) {
+    if (fields) for (let key in fields) this[key] = fields[key];
+  }
+
+  static readAll() {
+    return this.$http({
+      url: wordsUrl,
+      method: 'GET'
+    })
+    .then(response => new Words(<StringMap>response.data));
+  }
+}
 ```
 
 Whoah what's going on in here? Let's take this slow.
@@ -731,9 +1012,32 @@ when building for production.
 
 Modify your `src/html/index.html`:
 
+<!-- #include ng-next-gen/src/html/index.html -->
 ```html
-#include ng-next-gen/src/html/index.html
 #collapse src/html/index.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/ng-next-gen/css/stylific.css">
+    <base href="/ng-next-gen/"></base>
+  </head>
+  <body>
+    <sf-article>
+      <word-generator></word-generator>
+    </sf-article>
+
+    <% if (prod()) { %>
+      <script src="build.js"></script>
+    <% } else { %>
+      <script src="jspm_packages/es6-module-loader.js"></script>
+      <script src="jspm_packages/system.js"></script>
+      <script src="system.config.js"></script>
+      <script>
+        System.import('boot');
+      </script>
+    <% } %>
+  </body>
+</html>
 ```
 
 ```diff

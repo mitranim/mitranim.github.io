@@ -2,7 +2,6 @@ files:
 
 - name: foliant
   description: "demo of foliant, generator of random synthetic words"
-  js: true
   image: script.jpg
   echo:
   - name: foliant/index

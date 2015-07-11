@@ -34,20 +34,16 @@
     <!-- Footer -->
     <%= $include('partials/footer', $) %>
 
-    <!-- JS (only on pages that require it) -->
-    <% if (typeof js !== 'undefined' && js) { %>
-      <% if (prod()) { %>
-        <script src="/build.js"></script>
-      <% } else { %>
-        <script src="/jspm_packages/es6-module-loader.js"></script>
-        <script src="/jspm_packages/system.js"></script>
-        <script src="/system.config.js"></script>
-        <script src="/build.js"></script>
-        <script src="/app/env.js"></script>
-        <script>
-          System.import('boot');
-        </script>
-      <% } %>
+    <!-- JS -->
+    <% if (prod()) { %>
+      <script src="/app.js"></script>
+    <% } else { %>
+      <script src="/node_modules/systemjs/dist/system.js"></script>
+      <script src="/system.config.js"></script>
+      <script src="/env.js"></script>
+      <script>
+        System.import('app');
+      </script>
     <% } %>
   </body>
 </html>

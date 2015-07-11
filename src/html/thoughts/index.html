@@ -1,8 +1,8 @@
 <% $entitle(title, $) %>
 
-<sf-jumbo <%= typeof image !== 'undefined' && image ? bgImg('short/' + image) : '' %>>
+<div class="sf-jumbo" <%= typeof image !== 'undefined' && image ? bgImg(image) : '' %>>
   <h2><%= title %></h2>
-  <div layout="space-between cross-end">
+  <div class="layout-space-between layout-cross-end">
     <% if (typeof description !== 'undefined') { %>
       <p><%= description %></p>
     <% } %>
@@ -12,10 +12,10 @@
       </p>
     <% } %>
   </div>
-</sf-jumbo>
+</div>
 
 <div class="pad">
-  <article class="outline">
+  <article class="shadow">
     <!-- Post -->
     <%= $content %>
     <!-- Disqus thread -->

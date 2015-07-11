@@ -25,14 +25,12 @@ var src = {
     'bower_components/font-awesome-svg-png/black/svg/**/*'
   ],
   robots: 'src/robots.txt',
-  scripts: 'src/app/**/*.ts',
-  scriptsEnv: 'src/app/env.js',
-  views: [
-    'src/app/**/*.html',
-    'src/app/**/*.svg'
+  scripts: [
+    'src/app/**/*.js',
+    'node_modules/stylific/lib/stylific.js'
   ],
-  stylesCore: 'src/app/app.scss',
-  styles: 'src/app/**/*.scss',
+  stylesCore: 'src/styles/app.scss',
+  styles: 'src/styles/**/*.scss',
   images: 'src/images/**/*',
   system: './system.config.js'
 };
@@ -43,13 +41,10 @@ var dest = {
     'mitranim-master/app/**/*.js',
     '!mitranim-master/app/views.js'
   ],
-  views: 'mitranim-master/app/views.js',
   styles: 'mitranim-master/styles',
   images: 'mitranim-master/images',
   app: 'mitranim-master/app'
 };
-
-var jspmPath = dest.html + '/jspm_packages';
 
 function prod() {
   return flags.prod === true || flags.prod === 'true';
@@ -71,7 +66,7 @@ var imports = {
   uniqId: function() {return 'uniq-id-' + ++imports.lastId},
   lastUniqId: function() {return 'uniq-id-' + imports.lastId},
   bgImg: function(path) {
-    return 'style="background-image: url(/img/' + path + ')"'
+    return 'style="background-image: url(/images/' + path + ')"'
   },
   truncate: function(html, num) {
     var part = cheerio(html).text().slice(0, num)
@@ -120,14 +115,14 @@ var renderCode = marked.Renderer.prototype.code;
 
 // Custom code renderer that understands a few custom directives.
 marked.Renderer.prototype.code = function(code, lang, escaped) {
-  var regexInclude = /#include (.*)(?:\n|$)/g;
+  // var regexInclude = /#include (.*)(?:\n|$)/g;
   var regexCollapse = /#collapse (.*)(?:\n|$)/g;
 
-  if (regexInclude.test(code)) {
-    code = code.replace(regexInclude, function(match, path) {
-      return fs.readFileSync(path, 'utf8').trim();
-    });
-  }
+  // if (regexInclude.test(code)) {
+  //   code = code.replace(regexInclude, function(match, path) {
+  //     return fs.readFileSync(path, 'utf8').trim();
+  //   });
+  // }
 
   // Remove collapse directives and remember if there were any.
   var collapse = regexCollapse.exec(code);
@@ -142,11 +137,12 @@ marked.Renderer.prototype.code = function(code, lang, escaped) {
   // Optionally wrap in collapse.
   if (label) {
     code =
-      '<sf-collapse>\n' +
-      '  <input type="checkbox" id="' + imports.uniqId() + '"></input>\n' +
-      '  <label for="' + imports.lastUniqId() + '" theme="primary">' + label + '</label>\n' +
-         code + '\n' +
-      '</sf-collapse>';
+      '<div sf-collapse>\n' +
+      '  <label theme="primary">' + label + '</label>\n' +
+      '  <div sf-collapse-body>\n' +
+           code + '\n' +
+      '  </div>\n' +
+      '</div>';
   }
 
   return code;
@@ -165,66 +161,29 @@ gulp.task('scripts:clear', function() {
 gulp.task('scripts:compile', function() {
   return gulp.src(src.scripts)
     .pipe($.plumber())
-    .pipe($.sourcemaps.init())
-    .pipe($.typescript({
-      noExternalResolve: true,
-      typescript: require('typescript'),
-      target: 'ES5',
-      module: 'system',
-      experimentalDecorators: true
+    // .pipe($.sourcemaps.init())
+    .pipe($.babel({
+      // externalHelpers: true,
+      modules: 'system',
+      optional: [
+        'spec.protoToAssign',
+        'es7.classProperties',
+        'es7.decorators',
+        'es7.functionBind',
+        'validation.undeclaredVariableCheck'
+      ]
     }))
-    .pipe($.sourcemaps.write())
+    // .pipe($.sourcemaps.write())
     .pipe(gulp.dest(dest.app));
 });
+// });
 
-gulp.task('scripts:env', function() {
-  return gulp.src(src.scriptsEnv).pipe($.if(!prod(), gulp.dest(dest.app)));
-});
-
-gulp.task('scripts:build', gulp.series('scripts:clear', 'scripts:compile', 'scripts:env'));
+// gulp.task('scripts:build', gulp.series('scripts:clear', 'scripts:compile', 'scripts:env'));
+gulp.task('scripts:build', gulp.series('scripts:clear', 'scripts:compile'));
 
 gulp.task('scripts:watch', function() {
   $.watch(src.scripts, gulp.series('scripts:build', reload));
-  $.watch(src.scriptsEnv, gulp.series('scripts:build', reload));
-});
-
-/*---------------------------------- Views ----------------------------------*/
-
-gulp.task('views:clear', function() {
-  return gulp.src(dest.views, {read: false, allowEmpty: true})
-    .pipe($.plumber())
-    .pipe($.rimraf());
-});
-
-gulp.task('views:compile', function() {
-  return gulp.src(src.views)
-    .pipe($.plumber())
-    .pipe($.if(prod(), $.minifyHtml({empty: true})))
-    // .pipe(html2js({
-    //   stripPrefix: 'src/app',
-    //   concat: 'views.js'
-    // }))
-    .pipe($.ngHtml2js({
-      moduleName: 'app'
-    }))
-    .pipe($.concat('views.js'))
-    .pipe($.replace(/^([^]*)$/,
-      'System.register([], function() {\n' +
-      '  return {\n' +
-      '    setters: [],\n' +
-      '    execute: function() {\n' +
-      '      $1\n' +
-      '    }\n' +
-      '  };\n' +
-      '});\n'))
-    .pipe(gulp.dest(dest.app));
-});
-
-gulp.task('views:build',
-  gulp.series('views:clear', 'views:compile'));
-
-gulp.task('views:watch', function() {
-  $.watch(src.views, gulp.series('views:build', reload));
+  // $.watch(src.scriptsEnv, gulp.series('scripts:build', reload));
 });
 
 /*--------------------------------- Styles ----------------------------------*/
@@ -266,8 +225,7 @@ gulp.task('styles:watch', function() {
 gulp.task('html:clear', function() {
   return gulp.src([
       dest.html + '/**/*.html',
-      '!' + dest.app + '/**/*',
-      '!' + jspmPath + '/**/*'
+      '!' + dest.app + '/**/*'
     ], {read: false, allowEmpty: true})
     .pipe($.plumber())
     .pipe($.rimraf());
@@ -314,6 +272,9 @@ gulp.task('html:compile', function() {
       path.dirname = pt.join(path.dirname, path.basename);
       path.basename = 'index';
     }))
+    .pipe($.if(prod(), $.minifyHtml({
+      empty: true
+    })))
     // Write to disk.
     .pipe(gulp.dest(dest.html));
 });
@@ -384,25 +345,28 @@ gulp.task('images:watch', function() {
   $.watch(src.images, gulp.series('images:build', reload));
 });
 
-/*--------------------------------- System ----------------------------------*/
-
-gulp.task('system:copy', function() {
-  return gulp.src(src.system).pipe(gulp.dest(dest.html));
-});
-
-gulp.task('system:build', gulp.series('system:copy'));
-
-gulp.task('system:watch', function() {
-  $.watch(src.system, gulp.series('system:build', reload));
-});
-
 /*--------------------------------- Server ----------------------------------*/
 
 gulp.task('server', function() {
   return bsync.init({
     startPath: '/',
     server: {
-      baseDir: dest.html
+      baseDir: './',
+      middleware: function(req, res, next) {
+        if (req.url[0] !== '/') req.url = '/'  + req.url;
+
+        if (/node_modules/.test(req.url) || /mitranim-master/.test(req.url) ||
+            /system\.config\.js/.test(req.url) ||
+            /env\.js/.test(req.url)) {
+          next();
+          return;
+        }
+
+        if (req.url === '/') req.url = '/' + dest.html + '/index.html';
+        else req.url = '/' + dest.html + req.url;
+
+        next();
+      }
     },
     port: 11204,
     online: false,
@@ -416,11 +380,11 @@ gulp.task('server', function() {
 /*--------------------------------- Default ---------------------------------*/
 
 gulp.task('build', gulp.parallel(
-  'scripts:build', 'views:build', 'styles:build', 'html:build', 'system:build'
+  'scripts:build', 'styles:build', 'html:build'
 ));
 
 gulp.task('watch', gulp.parallel(
-  'scripts:watch', 'views:watch', 'styles:watch', 'html:watch', 'system:watch'
+  'scripts:watch', 'styles:watch', 'html:watch'
 ));
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'server')));

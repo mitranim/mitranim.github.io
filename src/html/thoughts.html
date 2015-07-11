@@ -1,15 +1,15 @@
 <% $entitle('thoughts', $) %>
 
-<sf-jumbo style="background-image: url(/img/short/aite.jpg)">
+<div class="sf-jumbo" style="background-image: url(/images/aite.jpg)">
   <h2>random thoughts</h2>
-</sf-jumbo>
+</div>
 
 <article>
   <% for (var post of this.meta.thoughts.files) { %>
     <% if (post.skip) return; %>
     <% path = 'thoughts/' + post.name %>
 
-    <div layout="column space-out" class="outline pad">
+    <div class="layout-column space-out shadow pad">
       <a href="/<%= path %>/" class="nobg"><h2><%= post.title %></h2></a>
       <% if (post.description) { %>
         <p><%= post.description %></p>

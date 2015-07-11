@@ -1,7 +1,7 @@
 // Definitions.
-@import './styles/_variables';
-@import './styles/_functions';
-@import './styles/_mixins';
+@import './_variables';
+@import './_functions';
+@import './_mixins';
 
 // Core stylific styles.
 @import './node_modules/stylific/scss/stylific';
@@ -11,12 +11,12 @@
 @import './node_modules/highlight.js/styles/ir_black';
 
 // Components.
-@import './styles/components/app-spinner';
-@import './styles/components/app-words';
+@import './components/app-spinner';
+@import './components/app-words';
 
 // Overrides.
-@import './styles/overrides/sf-article';
-@import './styles/overrides/sf-icon';
+@import './overrides/sf-article';
+@import './overrides/sf-icon';
 
 // Other global defaults.
-@import './styles/misc';
+@import './misc';

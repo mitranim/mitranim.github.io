@@ -1,4 +1,4 @@
-<div style="margin-bottom: 0"><img src="/img/small/face.jpg" class="right"></div>
+<div style="margin-bottom: 0"><img src="/images/small/face.jpg" class="right"></div>
 
 # About
 
@@ -16,16 +16,19 @@ Location: Moscow, Russia (wants to move out).
 
 # Contacts
 
-<sf-icon sf-icon="skype" class="inline"></sf-icon>skype [mitranim.web](skype:mitranim.web?chat)
-<sf-icon sf-icon="mobile" class="inline"></sf-icon><span>phone +7-926-044-00-49</span>
-<sf-icon sf-icon="at" class="inline"></sf-icon>email [me@mitranim.com](mailto:me@mitranim.com)
-<sf-icon sf-icon="paper-plane-o" class="inline"></sf-icon>telegram [Mitranim](https://telegram.me/Mitranim)
+<span class="sf-icon-skype inline"></span>skype [mitranim.web](skype:mitranim.web?chat)
+
+<span class="sf-icon-mobile inline"></span><span>phone +7-926-044-00-49</span>
+
+<span class="sf-icon-at inline"></span>email [me@mitranim.com](mailto:me@mitranim.com)
+
+<span class="sf-icon-paper-plane-o inline"></span>telegram [Mitranim](https://telegram.me/Mitranim)
 
 # Links
 
 <p style="font-size: 2em">
-  <a href="https://github.com/Mitranim" target="_blank" sf-icon="github" class="dark pop"></a>
-  <a href="http://twitter.com/mitranim" target="_blank" sf-icon="twitter" class="dark pop"></a>
-  <a href="http://linkedin.com/in/mitranim" target="_blank" sf-icon="linkedin" class="dark pop"></a>
-  <a href="http://facebook.com/mitranim" target="_blank" sf-icon="facebook" class="dark pop"></a>
+  <a href="https://github.com/Mitranim" target="_blank" class="sf-icon-github dark pop"></a>
+  <a href="http://twitter.com/mitranim" target="_blank" class="sf-icon-twitter dark pop"></a>
+  <a href="http://linkedin.com/in/mitranim" target="_blank" class="sf-icon-linkedin dark pop"></a>
+  <a href="http://facebook.com/mitranim" target="_blank" class="sf-icon-facebook dark pop"></a>
 </p>

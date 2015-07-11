@@ -1,12 +1,13 @@
-sf-article, [sf-article] {
+article, .sf-article {
 
-  a[sf-icon] {
-    border: none;
-    background-color: transparent;
+  a[class*=sf-icon] {
+    &, &:hover, &:active {
+      border: none;
+      background-color: transparent;
+    }
   }
 
-  // Indicate _blank links.
-  a[target~=_blank]:not([sf-icon])::after {
+  a[target~=_blank]:not([class*=sf-icon])::after {
     content: '';
     /**
      * Layout.
@@ -32,5 +33,3 @@ sf-article, [sf-article] {
     opacity: 0.5;
   }
 }
-
-article {@extend sf-article;}

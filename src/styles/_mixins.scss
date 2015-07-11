@@ -51,15 +51,15 @@
 /************************************ SVG ************************************/
 
 @mixin svg-black($name) {
-  &[sf-icon=#{$name}] {@include bg-svg-black($name);}
+  &.sf-icon-#{$name} {@include bg-svg-black($name);}
 }
 
 @mixin svg-custom($name) {
-  &[sf-icon=#{$name}] {@include bg-svg-custom($name);}
+  &.sf-icon-#{$name} {@include bg-svg-custom($name);}
 }
 
 @mixin svg-white($name) {
-  &[sf-icon=#{$name}-white] {@include bg-svg-white($name);}
+  &.sf-icon-#{$name}-white {@include bg-svg-white($name);}
 }
 
 @mixin bg-svg-black($name) {

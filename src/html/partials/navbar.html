@@ -1,13 +1,12 @@
-<sf-navbar>
+<div class="sf-navbar">
   <a <%= $act('index', $) %> href="/">about</a>
   <a <%= $act('projects', $) %> href="/projects/">projects</a>
   <a <%= $act('thoughts', $) %> href="/thoughts/">thoughts</a>
-  <sf-dropdown>
-    <input id="navbar-dropdown-toggle" type="checkbox">
-    <label for="navbar-dropdown-toggle" layout="center">demos</label>
-    <sf-dropdown-list style="width: 100%">
+  <div class="sf-dropdown">
+    <label class="layout-center">demos</label>
+    <div class="sf-dropdown-list" style="width: 100%">
       <a <%= $act('foliant', $) %> href="/foliant/">foliant</a>
       <a <%= $act('ng-next-gen-demo', $) %> href="/ng-next-gen-demo/">ng-next-gen</a>
-    </sf-dropdown-list>
-  </sf-dropdown>
-</sf-navbar>
+    </div>
+  </div>
+</div>

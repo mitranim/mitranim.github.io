@@ -28,8 +28,8 @@ ul {
   list-style-type: circle;
 }
 
-.outline {
-  @include sf-outline-weak;
+.shadow {
+  @include sf-shadow-weak;
 }
 
 .nobg:not(:root):not(:root):not(:root):not(:root) {
@@ -40,19 +40,28 @@ ul {
 .hljs-addition {color: lighten(#2b91af, 30%)}
 .hljs-deletion {color: lighten(#a31515, 30%)}
 
-sf-collapse pre {padding: 0}
+.sf-collapse {
+  .sf-collapse-body {padding: 0}
+}
+
+// Cosmetic.
+.sf-tabset, .sf-tab {
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
 
 /******************************** Components *********************************/
 
 /********************************* Overrides *********************************/
 
-sf-jumbo, [sf-jumbo] {
+.sf-jumbo {
   &.auto {
     height: auto;
   }
 }
 
-sf-grid, [sf-grid] {
+[class*=grid] {
   // Under consideration: narrow version that only goes up to two columns.
   &.narrow > * {
     @include sf-eq-sm {flex-basis: 100%}
@@ -66,6 +75,6 @@ sf-grid, [sf-grid] {
   }
 }
 
-sf-navbar, [sf-navbar] {
-  > sf-dropdown {padding: 0}
+.sf-navbar {
+  > .sf-dropdown {padding: 0}
 }

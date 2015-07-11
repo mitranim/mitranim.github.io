@@ -1,6 +1,0 @@
-import './contenteditable'
-import './disable-all'
-import './on-event'
-import './refer-as'
-import './sf-tabset'
-import './svg-icon'
