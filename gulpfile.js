@@ -22,7 +22,7 @@ var pt      = require('path');
 var src = {
   html: [
     'src/html/**/*',
-    'bower_components/font-awesome-svg-png/black/svg/**/*'
+    'bower_components/font-awesome-svg-png/black/**/*.svg'
   ],
   robots: 'src/robots.txt',
   scripts: [
@@ -257,13 +257,7 @@ gulp.task('html:compile', function() {
     // Return the other files.
     .pipe(filterMd.restore())
     // Render all html.
-    .pipe($.statil({
-      stripPrefix: {
-        'src/html': 'src/html',
-        'bower_components/font-awesome-svg-png/black/svg': 'bower_components/font-awesome-svg-png/black'
-      },
-      imports: imports
-    }))
+    .pipe($.statil({imports: imports}))
     // Change each `<filename>` into `<filename>/index.html`.
     .pipe($.rename(function(path) {
       switch (path.basename + path.extname) {
