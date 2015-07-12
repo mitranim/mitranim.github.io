@@ -2,19 +2,25 @@ import React from 'react';
 import _ from 'lodash';
 import Traits from 'foliant';
 import {LoginButton} from 'login';
-import {Component, Refs} from 'data';
+import {Component, Refs, Values} from 'data';
 
 export class Words extends Component {
-  get subscriptions() {return {
-    defaultLang: Refs.defaultLang,
-    defaultNames: Refs.defaultNames,
-    defaultWords: Refs.defaultWords,
-    names: Refs.names,
-    words: Refs.words
-  }};
+  getState() {
+    return {
+      defaultLang: Values.defaultLang.get(),
+      defaultNames: Values.defaultNames.get(),
+      defaultWords: Values.defaultWords.get(),
+      names: Values.names.get(),
+      words: Values.words.get()
+    };
+  }
+
+  isReady() {
+    return !_.any(this.state, _.isEmpty);
+  }
 
   render() {
-    if (!this.isReady) return (
+    if (!this.isReady()) return (
       <div className='app-spinner size-large' style={{minHeight: '3em'}} />
     );
 
@@ -58,43 +64,49 @@ class WordsTab extends React.Component {
   generator = null;
   lastCurrent = null;
 
-  render() {
+  componentWillReceiveProps(props) {
+    this.props = props;
     this.refresh();
-    return (
-      <div className='layout-row app-words'>
-        {/* Left column: source words */}
-        <div className='flex-1 pad space-out'>
-          <h3>Source {this.props.title}</h3>
-          <form onSubmit={this.add} className='sf-label-row sf-label-dense'
-                data-sf-tooltip={this.state.error} data-sf-trigger='focus'>
-            <input name='word' autofocus className={'flex-11 theme-text-primary ' + this.textStyle} />
-            <button className='flex-1 theme-primary sf-icon-plus-white' tabIndex='-1'></button>
-          </form>
-          <div className={'grid-4 narrow ' + this.textStyle}>
-            {_.map(this.props.current, (word, key) => (
-              <SourceWord text={word} handler={() => this.drop(key)} key={key} />
-            ))}
-          </div>
-        </div>
+  }
 
-        {/* Right column: generated results */}
-        <div className='flex-1 pad space-out'>
-          <h3>Generated {this.props.title}</h3>
-          <form onSubmit={this.generate} className='sf-label-row sf-label-dense'>
-            <button className='flex-1 theme-accent sf-icon-refresh' tabIndex='-1'></button>
-            <button className='flex-11 theme-accent layout-center'>Generate</button>
-          </form>
-          <div className={'grid narrow ' + this.textStyle}>
-            {_.map(this.state.results, word => (
-              <GeneratedWord text={word} handler={() => this.pick(word)} key={word} />
-            ))}
-            {this.state.depleted ?
-              <GeneratedWord text='(depleted)'/> : null}
-          </div>
+  componentWillMount() {
+    this.refresh();
+  }
+
+  render() {return (
+    <div className='layout-row app-words'>
+      {/* Left column: source words */}
+      <div className='flex-1 pad space-out'>
+        <h3>Source {this.props.title}</h3>
+        <form onSubmit={::this.add} className='sf-label-row sf-label-dense'
+              data-sf-tooltip={this.state.error} data-sf-trigger='focus'>
+          <input name='word' autofocus className={'flex-11 theme-text-primary ' + this.textStyle} />
+          <button className='flex-1 theme-primary sf-icon-plus-white' tabIndex='-1'></button>
+        </form>
+        <div className={'grid-4 narrow ' + this.textStyle}>
+          {_.map(this.props.current, (word, key) => (
+            <SourceWord text={word} handler={() => this.drop(key)} key={key} />
+          ))}
         </div>
       </div>
-    )
-  }
+
+      {/* Right column: generated results */}
+      <div className='flex-1 pad space-out'>
+        <h3>Generated {this.props.title}</h3>
+        <form onSubmit={::this.generate} className='sf-label-row sf-label-dense'>
+          <button className='flex-1 theme-accent sf-icon-refresh' tabIndex='-1'></button>
+          <button className='flex-11 theme-accent layout-center'>Generate</button>
+        </form>
+        <div className={'grid narrow ' + this.textStyle}>
+          {_.map(this.state.results, word => (
+            <GeneratedWord text={word} handler={() => this.pick(word)} key={word} />
+          ))}
+          {this.state.depleted ?
+            <GeneratedWord text='(depleted)'/> : null}
+        </div>
+      </div>
+    </div>
+  )}
 
   refresh() {
     if (_.isEqual(this.props.current, this.lastCurrent)) return;
@@ -104,7 +116,7 @@ class WordsTab extends React.Component {
     this.lastCurrent = this.props.current;
   }
 
-  generate = event => {
+  generate(event) {
     event.preventDefault();
     let results = this.generator();
     this.setState({
@@ -114,7 +126,7 @@ class WordsTab extends React.Component {
   }
 
   // Adds the word or displays an error message.
-  add = event => {
+  add(event) {
     event.preventDefault();
     let word = event.target.word.value;
     word = word.toLowerCase();
@@ -177,7 +189,7 @@ class WordsTab extends React.Component {
   }
 
   get textStyle() {return this.props.title === 'Names' ? 'text-capitalise' : 'text-lowercase'}
-  get ref() {return Refs[this.props.title.toLowerCase()]()}
+  get ref() {return Refs[this.props.title.toLowerCase()].get()}
 }
 
 class SourceWord extends React.Component {
