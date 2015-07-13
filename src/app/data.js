@@ -25,27 +25,34 @@ const RefMappers = {
  * Reactive values.
  */
 
-export const authDataVal = new ReactiveVar(null);
-export const Refs = _.mapValues(RefMappers, () => new ReactiveVar(null));
-export const Values = _.mapValues(RefMappers, () => new ReactiveVar(null));
+function reactiveFunc(value) {
+  let val = new ReactiveVar(value);
+  let func = () => val.get();
+  func.set = ::val.set;
+  return func;
+}
+
+export const authData = reactiveFunc(null);
+export const Refs = _.mapValues(RefMappers, () => reactiveFunc(null));
+export const Values = _.mapValues(RefMappers, () => reactiveFunc(null));
+
+window.authData = authData;
 
 /**
  * Auth handlers.
  */
 
-root.onAuth(authData => {
+root.onAuth(newAuthData => {
   // When deauthed, auth anonymously.
-  if (!authData) root.authAnonymously(err => {if (err) throw err});
+  if (!newAuthData) root.authAnonymously(err => {if (err) throw err});
 
-  /**
-   * Refresh all reactive variables.
-   */
+  // Refresh all reactive variables.
 
-  authDataVal.set(authData);
+  authData.set(newAuthData);
 
   for (let key in Refs) {
     // Refresh ref.
-    let ref = RefMappers[key](authData);
+    let ref = RefMappers[key](newAuthData);
     Refs[key].set(ref);
 
     // Refresh value.
@@ -61,11 +68,11 @@ root.onAuth(authData => {
 
 // Reactively refresh names and words.
 Tracker.autorun(function() {
-  let namesRef = Refs.names.get();
+  let namesRef = Refs.names();
   if (namesRef) {
     namesRef.on('value', snap => {
       if (!snap.val()) {
-        let defNamesRef = Refs.defaultNames.get();
+        let defNamesRef = Refs.defaultNames();
         let handler = defNamesRef.once('value', snap => {
           namesRef.set(snap.val());
         }, () => {
@@ -75,11 +82,11 @@ Tracker.autorun(function() {
     });
   }
 
-  let wordsRef = Refs.words.get();
+  let wordsRef = Refs.words();
   if (wordsRef) {
     wordsRef.on('value', snap => {
       if (!snap.val()) {
-        let defWordsRef = Refs.defaultWords.get();
+        let defWordsRef = Refs.defaultWords();
         let handler = defWordsRef.once('value', snap => {
           wordsRef.set(snap.val());
         }, () => {
@@ -98,12 +105,14 @@ export class Component extends React.Component {
   componentWillMount() {
     if (typeof this.getState === 'function') {
       Tracker.autorun(() => {
+        // Assuming this.getState() calls some functions that return
+        // reactive data sources
         this.setState(this.getState());
       });
     }
   }
 
   componentWillUnmount() {
-    // ... TODO cleanup
+    // ... TODO cleanup?
   }
 }

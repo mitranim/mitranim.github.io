@@ -7,11 +7,11 @@ import {Component, Refs, Values} from 'data';
 export class Words extends Component {
   getState() {
     return {
-      defaultLang: Values.defaultLang.get(),
-      defaultNames: Values.defaultNames.get(),
-      defaultWords: Values.defaultWords.get(),
-      names: Values.names.get(),
-      words: Values.words.get()
+      defaultLang: Values.defaultLang(),
+      defaultNames: Values.defaultNames(),
+      defaultWords: Values.defaultWords(),
+      names: Values.names(),
+      words: Values.words()
     };
   }
 
@@ -80,10 +80,10 @@ class WordsTab extends React.Component {
         <h3>Source {this.props.title}</h3>
         <form onSubmit={::this.add} className='sf-label-row sf-label-dense'
               data-sf-tooltip={this.state.error} data-sf-trigger='focus'>
-          <input name='word' autofocus className={'flex-11 theme-text-primary ' + this.textStyle} />
+          <input name='word' autofocus className={`flex-11 theme-text-primary ${this.textStyle}`} />
           <button className='flex-1 theme-primary sf-icon-plus-white' tabIndex='-1'></button>
         </form>
-        <div className={'grid-4 narrow ' + this.textStyle}>
+        <div className={`grid-4 narrow ${this.textStyle}`}>
           {_.map(this.props.current, (word, key) => (
             <SourceWord text={word} handler={() => this.drop(key)} key={key} />
           ))}
@@ -97,7 +97,7 @@ class WordsTab extends React.Component {
           <button className='flex-1 theme-accent sf-icon-refresh' tabIndex='-1'></button>
           <button className='flex-11 theme-accent layout-center'>Generate</button>
         </form>
-        <div className={'grid narrow ' + this.textStyle}>
+        <div className={`grid narrow ${this.textStyle}`}>
           {_.map(this.state.results, word => (
             <GeneratedWord text={word} handler={() => this.pick(word)} key={word} />
           ))}
@@ -189,7 +189,7 @@ class WordsTab extends React.Component {
   }
 
   get textStyle() {return this.props.title === 'Names' ? 'text-capitalise' : 'text-lowercase'}
-  get ref() {return Refs[this.props.title.toLowerCase()].get()}
+  get ref() {return Refs[this.props.title.toLowerCase()]()}
 }
 
 class SourceWord extends React.Component {

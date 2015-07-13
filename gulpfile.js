@@ -137,9 +137,9 @@ marked.Renderer.prototype.code = function(code, lang, escaped) {
   // Optionally wrap in collapse.
   if (label) {
     code =
-      '<div sf-collapse>\n' +
-      '  <label theme="primary">' + label + '</label>\n' +
-      '  <div sf-collapse-body>\n' +
+      '<div class="sf-collapse">\n' +
+      '  <label class="theme-primary">' + label + '</label>\n' +
+      '  <div class="sf-collapse-body">\n' +
            code + '\n' +
       '  </div>\n' +
       '</div>';
