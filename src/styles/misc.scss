@@ -53,6 +53,44 @@ ul {
 
 /******************************** Components *********************************/
 
+.pjax-loader::before {
+  content: '';
+
+  display: block;
+  position: fixed;
+  z-index: 100000;
+
+  width: 0%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+
+  background: gray;
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: progress-bar linear infinite 2s;
+}
+
+/**
+ * http://getmdl.io
+ */
+@keyframes progress-bar {
+  0% {
+    left: 0%;
+    width: 0;
+  }
+
+  33% {
+    left: 25%;
+    width: 50%;
+  }
+
+  66% {
+    left: 100%;
+    width: 0;
+  }
+}
+
 /********************************* Overrides *********************************/
 
 .sf-jumbo {

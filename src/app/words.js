@@ -3,8 +3,10 @@ import _ from 'lodash';
 import Traits from 'foliant';
 import {LoginButton} from 'login';
 import {Component, Refs, Values} from 'data';
+import {renderTo} from 'utils';
 
-export class Words extends Component {
+@renderTo('[foliant-component]')
+class Words extends Component {
   getState() {
     return {
       defaultLang: Values.defaultLang(),

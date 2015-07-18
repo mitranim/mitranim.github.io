@@ -50,7 +50,7 @@ root.onAuth(newAuthData => {
 
   authData.set(newAuthData);
 
-  for (let key in Refs) {
+  Object.keys(Refs).forEach(key => {
     // Refresh ref.
     let ref = RefMappers[key](newAuthData);
     Refs[key].set(ref);
@@ -63,7 +63,7 @@ root.onAuth(newAuthData => {
         ref.off('value', handler);
       });
     }
-  }
+  });
 });
 
 // Reactively refresh names and words.

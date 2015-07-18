@@ -36,7 +36,7 @@
 
     <!-- JS -->
     <% if (prod()) { %>
-      <script src="/app.js"></script>
+      <script src="/app.js" async></script>
     <% } else { %>
       <script src="/node_modules/systemjs/dist/system.js"></script>
       <script src="/system.config.js"></script>

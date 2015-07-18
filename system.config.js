@@ -12,6 +12,7 @@ System.config({
     'firebase': 'npm:firebase/lib/firebase-web',
     'foliant': 'npm:foliant/dist/index',
     'lodash': 'npm:lodash/index',
-    'stylific': 'npm:stylific/lib/stylific'
+    'stylific': 'npm:stylific/lib/stylific',
+    'simple-pjax': 'npm:simple-pjax/simple-pjax'
   }
 });

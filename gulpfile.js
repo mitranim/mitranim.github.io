@@ -27,7 +27,8 @@ var src = {
   robots: 'src/robots.txt',
   scripts: [
     'src/app/**/*.js',
-    'node_modules/stylific/lib/stylific.js'
+    'node_modules/stylific/lib/stylific.js',
+    'node_modules/simple-pjax/simple-pjax.js'
   ],
   stylesCore: 'src/styles/app.scss',
   styles: 'src/styles/**/*.scss',
@@ -171,12 +172,16 @@ gulp.task('scripts:compile', function() {
         'es7.decorators',
         'es7.functionBind',
         'validation.undeclaredVariableCheck'
+      ],
+      loose: [
+        'es6.classes',
+        'es6.properties.computed',
+        'es6.forOf'
       ]
     }))
     // .pipe($.sourcemaps.write())
     .pipe(gulp.dest(dest.app));
 });
-// });
 
 // gulp.task('scripts:build', gulp.series('scripts:clear', 'scripts:compile', 'scripts:env'));
 gulp.task('scripts:build', gulp.series('scripts:clear', 'scripts:compile'));
