@@ -1,22 +1,20 @@
 // Definitions.
 @import './_variables';
-@import './_functions';
 @import './_mixins';
 
-// Core stylific styles.
+// Third party.
 @import './node_modules/stylific/scss/stylific';
+@import './node_modules/font-awesome/scss/font-awesome';
 
 // Styles used by highlight.js tags generated as a part of markdown compilation.
 // Other nice options: `vs`, `solarized_light`.
 @import './node_modules/highlight.js/styles/ir_black';
 
 // Components.
-@import './components/app-spinner';
-@import './components/app-words';
-
-// Overrides.
-@import './overrides/sf-article';
-@import './overrides/sf-icon';
+@import './components/fa';
+@import './components/sf-article';
+@import './components/spinner';
+@import './components/words';
 
 // Other global defaults.
 @import './misc';

@@ -16,14 +16,12 @@ var marked  = require('gulp-marked/node_modules/marked');
 var fs      = require('fs');
 var flags   = require('yargs').argv;
 var pt      = require('path');
+var _       = require('lodash');
 
 /********************************** Globals **********************************/
 
 var src = {
-  html: [
-    'src/html/**/*',
-    'bower_components/font-awesome-svg-png/black/**/*.svg'
-  ],
+  html: 'src/html/**/*',
   robots: 'src/robots.txt',
   scripts: [
     'src/app/**/*.js',
@@ -33,7 +31,9 @@ var src = {
   stylesCore: 'src/styles/app.scss',
   styles: 'src/styles/**/*.scss',
   images: 'src/images/**/*',
-  system: './system.config.js'
+  fonts: [
+    'node_modules/font-awesome/fonts/**/*'
+  ]
 };
 
 var dest = {
@@ -44,6 +44,7 @@ var dest = {
   ],
   styles: 'mitranim-master/styles',
   images: 'mitranim-master/images',
+  fonts: 'mitranim-master/fonts',
   app: 'mitranim-master/app'
 };
 
@@ -63,9 +64,6 @@ function reload(done) {
  */
 var imports = {
   prod: prod,
-  lastId: 0,
-  uniqId: function() {return 'uniq-id-' + ++imports.lastId},
-  lastUniqId: function() {return 'uniq-id-' + imports.lastId},
   bgImg: function(path) {
     return 'style="background-image: url(/images/' + path + ')"'
   },
@@ -183,12 +181,10 @@ gulp.task('scripts:compile', function() {
     .pipe(gulp.dest(dest.app));
 });
 
-// gulp.task('scripts:build', gulp.series('scripts:clear', 'scripts:compile', 'scripts:env'));
 gulp.task('scripts:build', gulp.series('scripts:clear', 'scripts:compile'));
 
 gulp.task('scripts:watch', function() {
   $.watch(src.scripts, gulp.series('scripts:build', reload));
-  // $.watch(src.scriptsEnv, gulp.series('scripts:build', reload));
 });
 
 /*--------------------------------- Styles ----------------------------------*/
@@ -344,6 +340,22 @@ gulp.task('images:watch', function() {
   $.watch(src.images, gulp.series('images:build', reload));
 });
 
+/*---------------------------------- Fonts ----------------------------------*/
+
+gulp.task('fonts:clear', function() {
+  return gulp.src(dest.fonts, {read: false, allowEmpty: true}).pipe($.rimraf());
+});
+
+gulp.task('fonts:copy', function() {
+  return gulp.src(src.fonts).pipe(gulp.dest(dest.fonts));
+});
+
+gulp.task('fonts:build', gulp.series('fonts:copy'));
+
+gulp.task('fonts:watch', function() {
+  $.watch(src.fonts, gulp.series('fonts:build', reload));
+});
+
 /*--------------------------------- Server ----------------------------------*/
 
 gulp.task('server', function() {
@@ -354,9 +366,10 @@ gulp.task('server', function() {
       middleware: function(req, res, next) {
         if (req.url[0] !== '/') req.url = '/'  + req.url;
 
-        if (/node_modules/.test(req.url) || /mitranim-master/.test(req.url) ||
-            /system\.config\.js/.test(req.url) ||
-            /env\.js/.test(req.url)) {
+        if (_.any([
+            /node_modules/, /bower_components/, /mitranim-master/,
+            /system\.config\.js/, /env\.js/
+          ], function(reg) {return reg.test(req.url)})) {
           next();
           return;
         }
@@ -379,11 +392,11 @@ gulp.task('server', function() {
 /*--------------------------------- Default ---------------------------------*/
 
 gulp.task('build', gulp.parallel(
-  'scripts:build', 'styles:build', 'html:build'
+  'scripts:build', 'styles:build', 'html:build', 'fonts:build'
 ));
 
 gulp.task('watch', gulp.parallel(
-  'scripts:watch', 'styles:watch', 'html:watch'
+  'scripts:watch', 'styles:watch', 'html:watch', 'fonts:watch'
 ));
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'server')));

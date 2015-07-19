@@ -12,7 +12,7 @@ function prod() {
 builder.loadConfig('./system.config.js')
   .then(function() {
     builder.config({
-      baseURL: '.'
+      defaultJSExtensions: true
     });
 
     if (prod()) {

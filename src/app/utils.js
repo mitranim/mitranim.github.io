@@ -23,3 +23,12 @@ function onload(callback: () => void): void {
   document.addEventListener('DOMContentLoaded', callback);
   if (/loaded|complete|interactive/.test(document.readyState)) callback();
 }
+
+export class Spinner extends React.Component {
+  render() {return (
+    <div className={`spinner-container ${this.props.size ? `size-${this.props.size}` : ''}`}
+         style={this.props.style || null}>
+      <div className='spinner' />
+    </div>
+  )}
+}

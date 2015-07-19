@@ -1,8 +1,9 @@
+System.defaultJSExtensions = true;
+
 System.config({
-  'baseURL': '/',
   'paths': {
-    '*': 'mitranim-master/app/*.js',
-    'npm:*': 'node_modules/*.js'
+    '*': 'mitranim-master/app/*',
+    'npm:*': 'node_modules/*'
   }
 });
 

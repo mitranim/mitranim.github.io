@@ -1,0 +1,22 @@
+article, .sf-article {
+
+  a.fa {
+    &, &:hover, &:active {
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+  a[target~=_blank]:not(.fa)::after {
+    // Icon.
+    content: $fa-var-external-link;
+
+    // Base icon styles.
+    @extend .fa;
+
+    // Cosmetic.
+    margin-left: 0.3em;
+    opacity: 0.5;
+    font-size: 0.8em;
+  }
+}

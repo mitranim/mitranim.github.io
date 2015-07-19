@@ -47,32 +47,3 @@
     color: lighten($color-link, 10%);
   }
 }
-
-/************************************ SVG ************************************/
-
-@mixin svg-black($name) {
-  &.sf-icon-#{$name} {@include bg-svg-black($name);}
-}
-
-@mixin svg-custom($name) {
-  &.sf-icon-#{$name} {@include bg-svg-custom($name);}
-}
-
-@mixin svg-white($name) {
-  &.sf-icon-#{$name}-white {@include bg-svg-white($name);}
-}
-
-@mixin bg-svg-black($name) {
-  $path: '#{$svg-black}#{$name}.svg';
-  background-image: url($path);
-}
-
-@mixin bg-svg-custom($name) {
-  $path: '#{$svg-custom}#{$name}.svg';
-  background-image: url($path);
-}
-
-@mixin bg-svg-white($name) {
-  $path: '#{$svg-white}#{$name}.svg';
-  background-image: url($path);
-}

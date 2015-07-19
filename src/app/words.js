@@ -3,9 +3,9 @@ import _ from 'lodash';
 import Traits from 'foliant';
 import {LoginButton} from 'login';
 import {Component, Refs, Values} from 'data';
-import {renderTo} from 'utils';
+import {renderTo, Spinner} from 'utils';
 
-@renderTo('[foliant-component]')
+@renderTo('[is=foliantComponent]')
 class Words extends Component {
   getState() {
     return {
@@ -23,7 +23,7 @@ class Words extends Component {
 
   render() {
     if (!this.isReady()) return (
-      <div className='app-spinner size-large' style={{minHeight: '3em'}} />
+      <Spinner size='large' style={{minHeight: '3em'}} />
     );
 
     return (
@@ -83,7 +83,7 @@ class WordsTab extends React.Component {
         <form onSubmit={::this.add} className='sf-label-row sf-label-dense'
               data-sf-tooltip={this.state.error} data-sf-trigger='focus'>
           <input name='word' autofocus className={`flex-11 theme-text-primary ${this.textStyle}`} />
-          <button className='flex-1 theme-primary sf-icon-plus-white' tabIndex='-1'></button>
+          <button className='flex-1 fa fa-plus theme-primary' tabIndex='-1'></button>
         </form>
         <div className={`grid-4 narrow ${this.textStyle}`}>
           {_.map(this.props.current, (word, key) => (
@@ -96,8 +96,8 @@ class WordsTab extends React.Component {
       <div className='flex-1 pad space-out'>
         <h3>Generated {this.props.title}</h3>
         <form onSubmit={::this.generate} className='sf-label-row sf-label-dense'>
-          <button className='flex-1 theme-accent sf-icon-refresh' tabIndex='-1'></button>
-          <button className='flex-11 theme-accent layout-center'>Generate</button>
+          <button className='flex-1 theme-accent fa fa-refresh' tabIndex='-1'></button>
+          <button className='flex-11 theme-accent layout-row layout-center'>Generate</button>
         </form>
         <div className={`grid narrow ${this.textStyle}`}>
           {_.map(this.state.results, word => (
@@ -198,7 +198,7 @@ class SourceWord extends React.Component {
   render() {return (
     <div className='word'>
       <span>{this.props.text}</span>
-      <button className='sf-icon-times sf-button-flat fade interactive'
+      <button className='fa fa-times sf-button-flat fade interactive'
               onClick={this.props.handler} type='button'></button>
     </div>
   )}
@@ -208,7 +208,7 @@ class GeneratedWord extends React.Component {
   render() {return (
     <div className='word'>
       {this.props.handler ?
-      <button className='sf-icon-arrow-left sf-button-flat fade interactive'
+      <button className='fa fa-arrow-left sf-button-flat fade interactive'
               onClick={this.props.handler} type='button'></button> : null}
       <span className='flex-1 text-center'>{this.props.text}</span>
     </div>
