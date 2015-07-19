@@ -47,7 +47,7 @@
     "lodash": "^3.10.0",
     "node-libs-browser": "^0.5.2",
     "react": "^0.13.3",
-    "simple-pjax": "0.0.2",
+    "simple-pjax": "^0.0.4",
     "stylific": "0.8.0",
     "systemjs": "^0.18.4",
     "systemjs-builder": "^0.12.2",
