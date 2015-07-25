@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes">
-    <base href="/">
     <link rel="stylesheet" type="text/css" href="/styles/app.css">
 
     <% if (typeof title !== 'undefined') { %>
@@ -30,7 +29,11 @@
     <%= $include('partials/navbar', $) %>
 
     <!-- Site content -->
-    <%= $content || $include('partials/wrapper', $) %>
+    <% if ($path === 'index') { %>
+      <%= $include('$index', $) %>
+    <% } else { %>
+      <%= $content %>
+    <% } %>
 
     <!-- Footer -->
     <%= $include('partials/footer', $) %>

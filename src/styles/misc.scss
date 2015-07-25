@@ -4,9 +4,13 @@
   opacity: 0.5;
 }
 
-body {
-  @include sf-shadow-thin;
+html {
+  background-color: darken($sf-color-background, 3%);
 }
+
+// body {
+//   @include sf-shadow-thin;
+// }
 
 hr {
   margin-top: 2 * $sf-space;
@@ -55,6 +59,35 @@ ul {
   color: white;
 }
 
+// Heading anchor icon.
+h1, h2, h3, h4, h5, h6 {
+  .heading-anchor {
+    margin-left: $sf-space / 2;
+    visibility: hidden;
+    opacity: 0;
+    @include sf-transitions(all);
+    color: inherit;
+  }
+  &:hover .heading-anchor, .heading-anchor:hover {
+    visibility: visible;
+    opacity: inherit;
+  }
+}
+
+.sm-space-out {
+  @include sf-eq-sm {@include sf-space-out-vertical;}
+}
+
+.pad-half {padding: $sf-space / 2}
+
+pre.whitebox {
+  padding: $sf-space / 2;
+  .hljs {
+    background: transparent;
+    color: inherit;
+  }
+}
+
 /******************************** Components *********************************/
 
 .pjax-loader::before {
@@ -98,6 +131,10 @@ ul {
 /********************************* Overrides *********************************/
 
 .sf-jumbo {
+  &:not(.auto) {
+    height: auto;
+    min-height: $sf-jumbo-height;
+  }
   &.auto {
     height: auto;
   }
@@ -119,4 +156,10 @@ ul {
 
 .sf-navbar {
   > .sf-dropdown {padding: 0}
+  a {
+    @include sf-transitions(all);
+    &:hover, &:focus, &.active {
+      box-shadow: inset 0 -4px 0 0 map-get($sf-color-map-primary, default);
+    }
+  }
 }

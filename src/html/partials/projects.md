@@ -13,19 +13,22 @@ Website for a private kindergarten in the Moscow region.
 
 [atril](http://mitranim.com/atril/) <span class="fade">(TypeScript)</span>
 
-Next-generation UI framework. Distilled from best ideas in ReactJS, Angular 2,
-Aurelia, and Polymer, condensed into pure awesome.
+Experimental JavaScript rendering library. Distilled from best ideas in ReactJS,
+Angular 2, Aurelia, and Polymer, condensed into pure awesome.
 
 [stylific](http://mitranim.com/stylific/) <span class="fade">(Sass)</span>
 
-A CSS library to help web developers make better websites. Somewhat similar to
-[Bootstrap](http://getbootstrap.com), but with a different, and dare I say,
-better foundation.
+A CSS library to help web developers make better websites. Similar to
+[Bootstrap](http://getbootstrap.com), built on different principles.
+
+[simple-pjax](https://github.com/Mitranim/simple-pjax) <span class="fade">(TypeScript)</span>
+
+Zero-configuration library that dramatically speeds up navigation between pages
+on classic (multi-page) websites.
 
 [codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span> as [foliant](https://github.com/Mitranim/foliant) <span class="fade">(JavaScript)</span> | [demo](/foliant/)
 
-Generator of synthetic words or names. Check out the demo, you won't believe
-the variety of combinations!
+Generator of synthetic words or names. Check out the demo.
 
 [statil](https://github.com/Mitranim/statil) <span class="fade">(JavaScript)</span>
 
@@ -36,11 +39,6 @@ one.
 
 Bridge between Angular 1.x and next-generation technologies, such as ES6 modules
 and application design patterns from Angular 2.
-
-[datacore](https://github.com/Mitranim/datacore) <span class="fade">(JavaScript)</span>
-
-Abstract library for clientside data modeling and ajax. Somewhat similar to
-Backbone.Model and analogs, but with a different foundation.
 
 [jisp](http://jisp.io) <span class="fade">(JavaScript / jisp)</span>
 
@@ -56,8 +54,9 @@ database adapter.
 
 # Non-open Source
 
-Electronic education system for Russian schools (closed beta). SPA frontend,
-part of team. <span class="fade">(JavaScript)</span>
+Electronic education system for Russian schools ([closed
+beta](http://uchebnik.mos.ru)). SPA frontend, part of team. <span
+class="fade">(JavaScript)</span>
 
 Call centre monitoring system: realtime analysis of call centre load, forecast,
-and call management. Node.js backend / frontend. <span class="fade">(JavaScript)</span>
+and call management. Node.js backend / JS frontend. <span class="fade">(JavaScript)</span>

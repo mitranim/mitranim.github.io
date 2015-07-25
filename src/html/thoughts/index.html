@@ -1,21 +1,28 @@
 <% $entitle(title, $) %>
 
 <div class="sf-jumbo" <%= typeof image !== 'undefined' && image ? bgImg(image) : '' %>>
-  <h2><%= title %></h2>
-  <div class="layout-row layout-space-between layout-cross-end">
-    <% if (typeof description !== 'undefined') { %>
-      <p><%= description %></p>
-    <% } %>
-    <% if (typeof date !== 'undefined') { %>
-      <p class="fade" style="font-size: 0.8em">
-        <%= date instanceof Date ? date.toDateString() : date %>
-      </p>
-    <% } %>
+  <div class="layout-sm-column layout-sm-cross-start sm-space-out layout-row layout-space-between layout-cross-end">
+    <div class="space-out">
+      <h2><%= title %></h2>
+      <% if (typeof description !== 'undefined') { %>
+        <p><%= description %></p>
+      <% } %>
+    </div>
+    <div class="layout-column layout-md-cross-end space-out">
+      <div>
+        <%= $include('partials/feed-links', $) %>
+      </div>
+      <% if (typeof date !== 'undefined') { %>
+        <p class="fade" style="font-size: 0.8em">
+          <%= date instanceof Date ? date.toDateString() : date %>
+        </p>
+      <% } %>
+    </div>
   </div>
 </div>
 
 <div class="pad">
-  <article class="shadow">
+  <article>
     <!-- Post -->
     <%= $content %>
     <!-- Disqus thread -->

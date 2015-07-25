@@ -19,4 +19,8 @@ article, .sf-article {
     opacity: 0.5;
     font-size: 0.8em;
   }
+
+  > .clamp {
+    margin-bottom: 0;
+  }
 }

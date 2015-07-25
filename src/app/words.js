@@ -97,7 +97,7 @@ class WordsTab extends React.Component {
         <h3>Generated {this.props.title}</h3>
         <form onSubmit={::this.generate} className='sf-label-row sf-label-dense'>
           <button className='flex-1 theme-accent fa fa-refresh' tabIndex='-1'></button>
-          <button className='flex-11 theme-accent layout-row layout-center'>Generate</button>
+          <button className='flex-11 theme-accent layout-row layout-center text-center'>Generate</button>
         </form>
         <div className={`grid narrow ${this.textStyle}`}>
           {_.map(this.state.results, word => (

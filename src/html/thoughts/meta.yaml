@@ -1,3 +1,4 @@
+# ignore: index|next-gen-custom-elements|cheating-for-performance-pjax
 ignore: index|next-gen-custom-elements
 
 files:
@@ -6,9 +7,17 @@ files:
 #   title:    'Next-gen Today Part 2: Custom Elements'
 #   description: 'Borrowing component ideas from Angular 2, Aurelia, and Polymer'
 #   image:    schema.jpg
-#   date:     2015-05-n/a
+#   date:     n/a
 #   echo:
 #   - name: next-gen-custom-elements/index
+
+- name:     cheating-for-performance-pjax
+  title:    "Cheating for Performance: Pjax"
+  description: "Faster page transitions, for free"
+  image:    strato.jpg
+  date:     2015-07-25
+  echo:
+  - name: cheating-for-performance-pjax/index
 
 - name:     next-generation-today
   title:    Next Generation Today

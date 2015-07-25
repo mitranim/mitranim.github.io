@@ -5,10 +5,10 @@ found useful for speeding up websites.
 
 * [Minify Everything](#minify-everything)
 * [Concatenate Everything](#concatenate-everything)
+* [Use Pjax](#use-pjax)
+* [Make Your JavaScript Lazy](#make-your-javascript-lazy)
+* [Use Font Icons or Inline SVG](#use-font-icons-or-inline-svg)
 * [Serve Static Assets](#serve-static-assets)
-* [Use a Lazy Module System](#use-a-lazy-module-system)
-* [Avoid JS Where Possible](#avoid-js-where-possible)
-* [Use Inline Svg](#use-inline-svg)
 * [Reduce Latency](#reduce-latency)
 * [Consider a Static Website](#consider-a-static-website)
 
@@ -47,60 +47,86 @@ still has to wait longer before rendering the entirety of the page.
 That's bad. To avoid that, make sure to concatenate assets used on each page,
 like stylesheets, scripts, and icons (see below on that).
 
-## Serve Static Assets
+## Use Pjax
 
-Double check to make sure your server is properly configured for static files
-like images, stylesheets, and scripts. It should include headers that tell the
-browser to cache the file, and respond with 304 for unchanged assets. This
-eliminates a lot of redownloading, reducing latency+download time to latency+0.
+**Update**: see this [in-depth post](/thoughts/cheating-for-performance-pjax) on pjax.
 
-## Use a Lazy Module System
+Pjax is a cheap trick that combines `history.pushState` and `ajax` to mimic page
+transitions without actually reloading the page.
 
-For your JavaScript, you want a module system with either lazy loading, or lazy
-execution. The ES6 module system supports both, and you can use it today with
-[SystemJS](https://github.com/systemjs/systemjs) and [jspm](http://jspm.io). If
-you're using AngularJS 1.x without an external module system, you get lazy
-execution (not lazy loading) for free.
+The basic idea is dead simple and can be implemented in a few lines of code.
+Attach a document-level event listener to intercept clicks on `<a>` elements. If
+the clicked link leads to an internal page, fetch the page by ajax, replace the
+contents of the current page, and replace the URL using `pushState`. For
+browsers that don't support this API, you simply fall back to normal page
+transitions.
+
+Despite the simplicity, the benefits are stunning. It gives you most of the
+advantages enjoyed by SPA (single page applications). The browser gets to keep
+the same JavaScript runtime and all downloaded assets, including images, fonts,
+stylesheets, etc. This dramatically improves page load times, particularly on
+poor connections such as mobile networks. This also lets you maintain a
+persistent WebSocket connection while the user navigates your server-rendered
+multi-page app!
+
+There are a few [implementations](https://github.com/defunkt/jquery-pjax) in the
+wild, but they require clientside _and_ server-side configuration. If you're
+like me, this will seem like a waste of time. The biggest benefit of pjax is
+keeping the browsing session. Micromanaging partial templates is probably not
+worth your time, but everyone's needs are different.
+
+I wrote a [simple pjax library](https://github.com/Mitranim/simple-pjax) that
+works with zero config. Check the
+[gotchas](https://github.com/Mitranim/simple-pjax#gotchas) to see if it's usable
+for your site, then give it a spin or roll your own! The library is also used
+on this very site. Inspect the network console to observe the effects.
+
+## Use Server Rendering
+
+There's a trend towards single page applications (SPA) with clientside routing
+and rendering. They tend to skip server-side rendering in favour of being
+data-driven, usually through a RESTful API. As a result, they tend to have slow
+initial page loads. This is bad, particularly on slow connections, which is
+typical for mobile.
+
+Practice has shown that for consumer-facing websites, initial load time matters.
+On top of that, lack of prerendering costs you SEO. Don't fall into this trap;
+server rendering is a sacrifice you don't have to make. Some JavaScript UI
+libraries, like React, already support isomorphic routing and rendering, and
+other frameworks, like Angular 2 and Ember, are planning to support it. Make
+sure to research this feature for your stack of choice.
+
+## Make Your JavaScript Lazy
+
+If your application is JavaScript-heavy, you should use a module system with
+lazy loading or lazy execution. The ES6 module system supports both, and you can
+use it today with [SystemJS](https://github.com/systemjs/systemjs) and
+[jspm](http://jspm.io). You can also achieve a similar effect with AMD.
 
 The core parts of the application should be bundled into a single file, and big
 but optional parts may be imported asynchronously when needed. If your app is
 small, you can skip lazy loading and bundle the entire app.
 
-With SystemJS, you can also take advantage of lazy execution even when bundling
-the entire application by using the asynchronous `System.import` API. This means
-not running code until necessary. This can be a boon for MPAs (multi-page
-applications), where page rendering time matters a lot.
+## Use Font Icons or Inline SVG
 
-## Avoid JS Where Possible
+Most sites need icons. In the past, we had to use raster images. However, in the
+days of widespread retina displays, `@font-face`, and SVG, that's a poor option.
+Hopefully you have switched to the vector alternatives: icon fonts and SVG
+icons. They scale to any display sharpness and are easy to style with CSS.
 
-What's even faster than smart JavaScript? No JavaScript!
+SVGs can be embedded into the document or base64-encoded directly into your CSS,
+eliminating icon flicker on page load. They can also be directly manipulated
+with JavaScript for cool visual effects. On the other hand, icon fonts are
+easier to set up and use, and cost less bandwidth than embedded SVGs. For most
+sites, a mix of both solutions will probably be optimal.
 
-Don't rely on JavaScript for UI components that [don't need
-it](http://mitranim.com/stylific/components/). If a page doesn't require
-JavaScript for its functionality, exclude it from the page completely. Running
-an extremely complicated program on each page load is ridiculous. By skipping
-it, you can significantly speed up page rendering. This doesn't preclude you
-from using analytics scripts, but you shouldn't need everything at all times.
+## Serve Static Assets
 
-## Use Inline Svg
-
-There are basically three options for an icon system: sprites, icon fonts, and
-SVG icons. Raster images concatenated into one file used to be an option, but
-they require pixel-perfect positioning, don't scale, look bad on retina
-displays, and so on. Hopefully you've moved on to one of the other options. Icon
-fonts like the aptly named [Font Awesome](http://fontawesome.io) offer a very
-fine system, but still have limitations. For instance, they can't be inlined
-into your stylesheet or document and have to be downloaded on page load,
-flickering in. They may also be overridden by user agent rules, if the user
-likes to enforce the font of their choosing.
-
-SVG doesn't have these limitations. SVG icons can be inlined directly into your
-HTML or, even better, into CSS. The LESS preprocessor even has this feature
-[built-in](http://lesscss.org/functions/#misc-functions-data-uri), so all you
-need is point it to an SVG file. The result is icons that are built into your
-page, display instantly, don't delay other assets, and scale to any display
-sharpness. (And there's FA for that,
-[too](https://github.com/encharm/Font-Awesome-SVG-PNG).)
+This goes without saying, but you should double check to make sure your server
+is properly configured for static files like images, stylesheets, and scripts.
+It should include headers that tell the browser to cache the file, and respond
+with 304 for unchanged assets. This eliminates a lot of redownloading, reducing
+latency+download time to latency+0.
 
 ## Reduce Latency
 
@@ -121,23 +147,16 @@ use a caching proxy like CloudFlare to reduce latency for static content.
 
 ## Consider a Static Website
 
-One of the biggest cheats in the book is serving the HTML documents as static
-files. This is often not possible for dynamically rendered websites that
-incorporate user-created content, like wikis or forums. However, it's perfectly
-feasible for a one-sided site, like a company presentation site, a personal
-blog, or even a [company blog](http://facebook.github.io/react/blog/). Even
-websites with backend-reliant features can cheat by being mostly static and
-offloading backend interaction to an XHR or WebSocket API.
+Simple websites with one maintainer, like a personal page or a blog, don't need
+a scripting engine with a database. You can prerender them into HTML files, then
+serve with nginx or on a service like GitHub Pages. Minor dynamic functionality
+can be offloaded to an Ajax or Websocket API.
 
-When even the base document is cached, it's no longer subject to latency. Some
-browsers (at the time of writing, Chrome and Safari) may serve the entire page
-from cache without waiting for network. Zero latency, instant load.
-
-To top it off, static content is easy to duplicate over caching proxies and CDNs
-like CloudFlare. This lets you ensure low latency for visitors anywhere in the
-world. And with no backend engine dependency, you can deploy to any static
-server.
+Serving static files is naturally more performant than rendering templates on
+each request. They're also automatically subject to caching. When the base
+document is cached, some browsers may serve the entire page, including assets,
+from the cache, rendering it with zero latency.
 
 Static site generators are [plentiful](https://www.staticgen.com), and if they
-don't rock your boat, you can actually write your own in an afternoon. Like
-[`statil`](https://github.com/Mitranim/statil) that generates this website.
+don't float your boat, you can write your
+[own](https://github.com/Mitranim/statil) in an afternoon.

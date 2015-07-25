@@ -21,12 +21,20 @@ var _       = require('lodash');
 /********************************** Globals **********************************/
 
 var src = {
-  html: 'src/html/**/*',
+  html: [
+    'src/html/**/*'
+  ],
+  xml: [
+    'src/html/**/*.yaml',
+    'src/html/thoughts/**/*',
+    '!src/html/thoughts/index.html',
+    'src/xml/**/*'
+  ],
   robots: 'src/robots.txt',
   scripts: [
     'src/app/**/*.js',
-    'node_modules/stylific/lib/stylific.js',
-    'node_modules/simple-pjax/simple-pjax.js'
+    'node_modules/stylific/lib/stylific.min.js',
+    'node_modules/simple-pjax/lib/simple-pjax.min.js'
   ],
   stylesCore: 'src/styles/app.scss',
   styles: 'src/styles/**/*.scss',
@@ -38,6 +46,7 @@ var src = {
 
 var dest = {
   html: 'mitranim-master',
+  xml: 'mitranim-master/**/*.xml',
   scripts: [
     'mitranim-master/app/**/*.js',
     '!mitranim-master/app/views.js'
@@ -79,6 +88,15 @@ var imports = {
 /**
  * marked rendering enhancements.
  */
+
+// Custom heading renderer func that adds an anchor.
+marked.Renderer.prototype.heading = function(text, level, raw) {
+  var id = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-');
+  return '<h' + level + '>'
+    + '<span>' + text + '</span>'
+    + '<a class="heading-anchor fa fa-link" href="#' + id + '" id="' + id + '"></a>'
+    + '</h' + level + '>\n';
+};
 
 // Default link renderer func.
 var renderLink = marked.Renderer.prototype.link;
@@ -237,7 +255,7 @@ gulp.task('html:compile', function() {
 
   return gulp.src(src.html)
     .pipe($.plumber())
-    // Pre-process the markdown files.
+    // Pre-process markdown files.
     .pipe(filterMd)
     .pipe($.marked({
       gfm:         true,
@@ -252,11 +270,13 @@ gulp.task('html:compile', function() {
         return hjs.highlightAuto(code).value;
       }
     }))
-    // Add the hljs code class.
+    // Add hljs code class.
     .pipe($.replace(/<pre><code class="(.*)">|<pre><code>/g,
                     '<pre><code class="hljs $1">'))
-    // Return the other files.
+    // Restore other files.
     .pipe(filterMd.restore())
+    // Unpack commented HTML parts.
+    .pipe($.replace(/<!--\s*:((?:[^:]|:(?!\s*-->))*):\s*-->/g, '$1'))
     // Render all html.
     .pipe($.statil({imports: imports}))
     // Change each `<filename>` into `<filename>/index.html`.
@@ -283,6 +303,42 @@ gulp.task('html:build', gulp.series('html:clear', 'html:compile', 'html:robots')
 
 gulp.task('html:watch', function() {
   $.watch(src.html, gulp.series('html:build', reload));
+});
+
+/*----------------------------------- XML -----------------------------------*/
+
+gulp.task('xml:clear', function() {
+  return gulp.src(dest.xml, {read: false, allowEmpty: true}).pipe($.rimraf());
+});
+
+gulp.task('xml:compile', function() {
+  var filterMd = $.filter('**/*.md');
+
+  return gulp.src(src.xml)
+    .pipe($.plumber())
+    // Pre-process markdown files.
+    .pipe(filterMd)
+    .pipe($.marked({
+      gfm:         true,
+      tables:      true,
+      breaks:      false,
+      sanitize:    false,
+      smartypants: true,
+      pedantic:    false
+    }))
+    // Restore other files.
+    .pipe(filterMd.restore())
+    .pipe($.statil({imports: imports}))
+    .pipe($.filter('*feed*'))
+    .pipe($.rename('feed.xml'))
+    .pipe(gulp.dest(dest.html));
+});
+
+gulp.task('xml:build', gulp.series('xml:compile'));
+
+gulp.task('xml:watch', function() {
+  $.watch(src.html, gulp.series('xml:build'));
+  $.watch(src.xml, gulp.series('xml:build'));
 });
 
 /*--------------------------------- Images ----------------------------------*/
@@ -392,11 +448,11 @@ gulp.task('server', function() {
 /*--------------------------------- Default ---------------------------------*/
 
 gulp.task('build', gulp.parallel(
-  'scripts:build', 'styles:build', 'html:build', 'fonts:build'
+  'scripts:build', 'styles:build', 'html:build', 'xml:build', 'fonts:build'
 ));
 
 gulp.task('watch', gulp.parallel(
-  'scripts:watch', 'styles:watch', 'html:watch', 'fonts:watch'
+  'scripts:watch', 'styles:watch', 'html:watch', 'xml:watch', 'fonts:watch'
 ));
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'server')));

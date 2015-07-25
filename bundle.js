@@ -17,6 +17,10 @@ builder.loadConfig('./system.config.js')
 
     if (prod()) {
       builder.config({
+        'paths': {
+          '*': 'mitranim-master/app/*',
+          'npm:*': 'node_modules/*'
+        },
         map: {
           'react': 'npm:react/dist/react.min'
         }

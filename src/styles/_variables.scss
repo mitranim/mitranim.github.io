@@ -45,6 +45,13 @@ $color-black:   #111111;
 $color-gray:    #aaaaaa;
 $color-silver:  #dddddd;
 
+// $sf-color-map-primary: (
+//   name: 'primary',
+//   default: darken($color-aqua, 40%),
+//   active: darken($color-aqua, 45%),
+//   selected: darken($color-aqua, 50%)
+// );
+
 /******************************** Typography *********************************/
 
 // Font families.
@@ -56,4 +63,4 @@ $sf-font-family-monospace: Menlo, Andale Mono, Monaco, Consolas, monospace;
 
 /******************************* sf-jumbo.scss *******************************/
 
-$sf-jumbo-height: 8em;
+$sf-jumbo-height: 10em;

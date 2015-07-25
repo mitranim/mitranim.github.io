@@ -4,11 +4,9 @@
 
 Name: Nelo Mitranim.
 
-Full-stack web developer. Employed at
-[Paragon Software](http://paragon-software.com), working on frontend stuff.
+Freelance web developer. Mostly frontend.
 
-Favourite pastime: writing [free software](/projects/), particularly
-developer tools [](http://mitranim.com/atril/).
+Favourite pastime: writing [free software](/projects/).
 
 Aspires to: be paid for writing free software.
 

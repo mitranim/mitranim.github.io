@@ -1,7 +1,12 @@
 <% $entitle('thoughts', $) %>
 
 <div class="sf-jumbo" style="background-image: url(/images/aite.jpg)">
-  <h2>random thoughts</h2>
+  <div class="layout-row layout-space-between layout-cross-end">
+    <div class="flex-1">
+      <h2>random thoughts</h2>
+    </div>
+    <%= $include('partials/feed-links', $) %>
+  </div>
 </div>
 
 <article>
