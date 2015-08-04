@@ -17,9 +17,12 @@ the contemporary blogosphere?
 </p>
 
 What kinds of applications this applies to?
-* <span class="fa fa-check inline theme-text-primary"></span> typical server-rendered sites
-* <span class="fa fa-check inline theme-text-primary"></span> statically generated sites
-* <span class="fa fa-times inline theme-text-warn"></span> SPA (they already enjoy clientside routing)
+
+<div style="margin-left: 1rem">
+  <p><span class="fa fa-check inline theme-text-primary"></span> typical server-rendered sites</p>
+  <p><span class="fa fa-check inline theme-text-primary"></span> statically generated sites</p>
+  <p><span class="fa fa-times inline theme-text-warn"></span> SPA (they already enjoy clientside routing)</p>
+</div>
 
 As you might have guessed, we're going to exploit clientside routing with
 `history.pushState`. It's usually considered a domain of client-rendered SPA,
@@ -145,7 +148,7 @@ problem.)
 
 Pjax has been around for a few years. There are a few implementations floating
 around, like the eponymous jQuery [plugin](https://github.com/defunkt/jquery-pjax).
-It's baked into Ruby on Rails and YUI. Many sites use it in one form or another.
+Pjax is baked into Ruby on Rails and YUI. Many sites use it in one form or another.
 
 Why isn't pjax more popular? Maybe because people overengineer it. The libraries
 I've seen tend to focus on downloading partials (HTML snippets). They require

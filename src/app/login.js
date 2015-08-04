@@ -1,5 +1,5 @@
 import React from 'react';
-import {Component, authData, root, Values} from 'data';
+import {Component, authData, root, Values} from './data';
 
 export class LoginButton extends Component {
   getState() {

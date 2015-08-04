@@ -1,9 +1,9 @@
 import Firebase from 'firebase';
 import React from 'react';
 import _ from 'lodash';
-import {Tracker} from 'tracker';
-import {ReactiveVar} from 'reactive-var';
-import {ReactiveDict} from 'reactive-dict';
+import {Tracker} from './tracker';
+import {ReactiveVar} from './reactive-var';
+import {ReactiveDict} from './reactive-dict';
 
 const fbRootUrl = 'https://incandescent-torch-3438.firebaseio.com';
 

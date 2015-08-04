@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import Traits from 'foliant';
-import {LoginButton} from 'login';
-import {Component, Refs, Values} from 'data';
-import {renderTo, Spinner} from 'utils';
+import {LoginButton} from './login';
+import {Component, Refs, Values} from './data';
+import {renderTo, Spinner} from './utils';
 
 @renderTo('[is=foliantComponent]')
 class Words extends Component {

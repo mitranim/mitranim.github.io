@@ -5,7 +5,7 @@
  * TODO port EJSON
  */
 
-import {Tracker} from 'tracker';
+import {Tracker} from './tracker';
 import _ from 'lodash';
 
 // Mock

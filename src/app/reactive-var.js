@@ -3,7 +3,7 @@
  * https://github.com/meteor/meteor/blob/devel/packages/reactive-var/reactive-var.js
  */
 
-import {Tracker} from 'tracker';
+import {Tracker} from './tracker';
 
 /*
  * ## [new] ReactiveVar(initialValue, [equalsFunc])
