@@ -1,11 +1,10 @@
 # Websites
 
-[ProstoPoi](http://prostopoi.ru) <span class="fade">(Go / JavaScript / LESS)</span>
+[ProstoPoi](http://prostopoi.ru) <span class="fade">(Python / Django / Sass)</span>
 
-Poi community website. We have our own [video
-lessons](http://prostopoi.ru/how/spinning/forward), go check us out!
+Poi community website. We have our own video lessons, go check us out!
 
-[Gorod Detstva](http://goroddeti.ru) <span class="fade">(JavaScript / LESS)</span>
+[Gorod Detstva](http://goroddeti.ru) <span class="fade">(Sass / JavaScript)</span>
 
 Website for a private kindergarten in the Moscow region.
 

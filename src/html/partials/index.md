@@ -6,6 +6,8 @@ Name: Nelo Mitranim.
 
 Freelance web developer. Mostly frontend.
 
+Familiar with: Python (Django), JavaScript / TypeScript (Node.js, React, Angular), Go, CSS (Sass).
+
 Favourite pastime: writing [free software](/projects/).
 
 Aspires to: be paid for writing free software.

@@ -6,7 +6,7 @@
     "gulp": "gulp",
     "build-prod": "gulp build --prod",
     "serve-prod": "npm run build-prod && gulp server",
-    "push": "npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)"
+    "deploy": "npm run build-prod && (cd mitranim-master && git add -A . && git commit -a -m autocommit && git push origin master)"
   },
   "authors": [
     "Mitranim <me@mitranim.com>"
