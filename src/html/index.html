@@ -30,7 +30,7 @@
 
     <!-- Site content -->
     <% if ($path === 'index') { %>
-      <%= $include('$index', $) %>
+      <%= $include('partials/$index', $) %>
     <% } else { %>
       <%= $content %>
     <% } %>

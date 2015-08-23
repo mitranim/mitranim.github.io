@@ -4,7 +4,7 @@ import {Component, authData, root, Values} from './data';
 export class LoginButton extends Component {
   getState() {
     return {
-      authData: authData()
+      authData: authData.get()
     };
   }
 

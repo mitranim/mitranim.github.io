@@ -14,8 +14,8 @@
     <% if (post.skip) return; %>
     <% path = 'thoughts/' + post.name %>
 
-    <div class="layout-column space-out shadow pad">
-      <a href="/<%= path %>/" class="nobg"><h2><%= post.title %></h2></a>
+    <div class="layout-column shadow pad">
+      <h2><a href="/<%= path %>/"><%= post.title %></a></h2>
       <% if (post.description) { %>
         <p><%= post.description %></p>
       <% } else { %>

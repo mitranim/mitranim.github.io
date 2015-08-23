@@ -12,13 +12,6 @@ html {
 //   @include sf-shadow-thin;
 // }
 
-hr {
-  margin-top: 2 * $sf-space;
-  margin-bottom: 2 * $sf-space;
-  border: none;
-  border-top: 1px solid lightgrey;
-}
-
 .text-capitalise {
   text-transform: capitalize;
 }
@@ -36,27 +29,17 @@ ul {
   @include sf-shadow-weak;
 }
 
-.nobg:not(:root):not(:root):not(:root):not(:root) {
-  background-color: transparent;
-}
-
 // Fix missing diff styles in the ir_black highlight.js definition.
 .hljs-addition {color: lighten(#2b91af, 30%)}
 .hljs-deletion {color: lighten(#a31515, 30%)}
 
-.sf-collapse {
-  .sf-collapse-body {padding: 0}
-}
+.sf-collapse .sf-collapse-body {padding: 0}
 
 // Cosmetic.
 .sf-tabset, .sf-tab {
   box-shadow: none;
   outline: none;
   border: none;
-}
-
-.text-white {
-  color: white;
 }
 
 // Heading anchor icon.

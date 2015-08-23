@@ -29,6 +29,7 @@ files:
 
 - name:     cheating-for-website-performance
   title:    Cheating For Website Performance
+  description: Frontend tips for speeding up websites
   image:    hexa.jpg
   date:     2015-03-11
   echo:

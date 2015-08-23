@@ -2,16 +2,16 @@
 
 <div class="sf-jumbo" <%= typeof image !== 'undefined' && image ? bgImg(image) : '' %>>
   <div class="layout-sm-column layout-sm-cross-start sm-space-out layout-row layout-space-between layout-cross-end">
-    <div class="space-out">
+    <div>
       <h2><%= title %></h2>
       <% if (typeof description !== 'undefined') { %>
         <p><%= description %></p>
       <% } %>
     </div>
-    <div class="layout-column layout-md-cross-end space-out">
-      <div>
+    <div class="layout-column layout-md-cross-end">
+      <p>
         <%= $include('partials/feed-links', $) %>
-      </div>
+      </p>
       <% if (typeof date !== 'undefined') { %>
         <p class="fade" style="font-size: 0.8em">
           <%= date instanceof Date ? date.toDateString() : date %>

@@ -256,7 +256,7 @@ gulp.task('styles:compile', function () {
       advanced: false
     })))
     .pipe(gulp.dest(dest.styles))
-    .pipe(bsync.reload({stream: true}))
+    .pipe(bsync.stream())
 })
 
 gulp.task('styles:build',
@@ -447,7 +447,7 @@ gulp.task('server', function () {
     server: {
       baseDir: './',
       middleware: function (req, res, next) {
-        if (req.url[0] !== '/') req.url = '/'  + req.url
+        if (req.url[0] !== '/') req.url = '/' + req.url
 
         if (_.any([
             /node_modules/, /bower_components/, /mitranim-master/, /env\.js/
@@ -467,7 +467,7 @@ gulp.task('server', function () {
     ui: false,
     files: false,
     ghostMode: false,
-    notify: true
+    notify: false
   })
 })
 

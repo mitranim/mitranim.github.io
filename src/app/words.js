@@ -9,11 +9,11 @@ import {renderTo, Spinner} from './utils';
 class Words extends Component {
   getState() {
     return {
-      defaultLang: Values.defaultLang(),
-      defaultNames: Values.defaultNames(),
-      defaultWords: Values.defaultWords(),
-      names: Values.names(),
-      words: Values.words()
+      defaultLang: Values.defaultLang.get(),
+      defaultNames: Values.defaultNames.get(),
+      defaultWords: Values.defaultWords.get(),
+      names: Values.names.get(),
+      words: Values.words.get()
     };
   }
 

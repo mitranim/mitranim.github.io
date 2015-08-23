@@ -25,18 +25,9 @@ const RefMappers = {
  * Reactive values.
  */
 
-function reactiveFunc(value) {
-  let val = new ReactiveVar(value);
-  let func = () => val.get();
-  func.set = ::val.set;
-  return func;
-}
-
-export const authData = reactiveFunc(null);
-export const Refs = _.mapValues(RefMappers, () => reactiveFunc(null));
-export const Values = _.mapValues(RefMappers, () => reactiveFunc(null));
-
-window.authData = authData;
+export const authData = new ReactiveVar(null);
+export const Refs = _.mapValues(RefMappers, () => new ReactiveVar(null));
+export const Values = _.mapValues(RefMappers, () => new ReactiveVar(null));
 
 /**
  * Auth handlers.
@@ -68,11 +59,11 @@ root.onAuth(newAuthData => {
 
 // Reactively refresh names and words.
 Tracker.autorun(function() {
-  let namesRef = Refs.names();
+  let namesRef = Refs.names.get();
   if (namesRef) {
     namesRef.on('value', snap => {
       if (!snap.val()) {
-        let defNamesRef = Refs.defaultNames();
+        let defNamesRef = Refs.defaultNames.get();
         let handler = defNamesRef.once('value', snap => {
           namesRef.set(snap.val());
         }, () => {
@@ -82,11 +73,11 @@ Tracker.autorun(function() {
     });
   }
 
-  let wordsRef = Refs.words();
+  let wordsRef = Refs.words.get();
   if (wordsRef) {
     wordsRef.on('value', snap => {
       if (!snap.val()) {
-        let defWordsRef = Refs.defaultWords();
+        let defWordsRef = Refs.defaultWords.get();
         let handler = defWordsRef.once('value', snap => {
           wordsRef.set(snap.val());
         }, () => {
