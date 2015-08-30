@@ -1,4 +1,3 @@
-# ignore: index|next-gen-custom-elements|cheating-for-performance-pjax
 ignore: index|next-gen-custom-elements
 
 files:
@@ -21,7 +20,7 @@ files:
 
 - name:     next-generation-today
   title:    Next Generation Today
-  description: Next-gen workflow with current web frameworks
+  description: EcmaScript 2015/2016 workflow with current web frameworks
   image:    cloud-city.jpg
   date:     2015-05-18
   echo:

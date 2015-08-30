@@ -1,8 +1,8 @@
 Lately I've been trying to figure out how to write shorter programs. Or, more
 generally, how to design simple solutions.
 
-Everyone is quick to tell you that "less is more", that you should
-[KISS](http://en.wikipedia.org/wiki/KISS_principle) and
+I often hear that "less is more", that you should
+[KISS](http://en.wikipedia.org/wiki/KISS_principle) and follow
 [YAGNI](http://en.wikipedia.org/wiki/YAGNI), yada yada. A small program is easy
 to understand and cover with tests. A simple API is pleasant to use. But that's
 still abstract. What's a practical recipe for keeping things small? We might

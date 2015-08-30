@@ -4,13 +4,27 @@
   opacity: 0.5;
 }
 
-html {
-  background-color: darken($sf-color-background, 3%);
+body {
+  background-color: transparent;
+  > :not(.sf-footer) {
+    margin-bottom: $sf-space;
+  }
+  > :not(.sf-navbar):not(.sf-footer) {
+    @include sf-shadow-thin;
+  }
+  > * {
+    @extend .bg;
+    &.sf-footer {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
 }
 
-// body {
-//   @include sf-shadow-thin;
-// }
+.bg, .sf-footer .sf-footer-body {
+  background-color: $sf-color-background;
+  @include sf-shadow-thin;
+}
 
 .text-capitalise {
   text-transform: capitalize;
@@ -34,6 +48,7 @@ ul {
 .hljs-deletion {color: lighten(#a31515, 30%)}
 
 .sf-collapse .sf-collapse-body {padding: 0}
+.sf-collapse .sf-collapse-body pre {margin: 0}
 
 // Cosmetic.
 .sf-tabset, .sf-tab {
@@ -142,7 +157,23 @@ pre.whitebox {
   a {
     @include sf-transitions(all);
     &:hover, &:focus, &.active {
-      box-shadow: inset 0 -4px 0 0 map-get($sf-color-map-primary, default);
+      box-shadow: inset 0 -4px 0 0;
     }
+  }
+}
+
+.sf-footer {
+  height: $sf-footer-height;
+
+  .footer-button-up {
+    @extend .sf-button;
+    @extend .sf-button.sf-button-flat;
+    @extend .fa;
+    @extend .fa-arrow-up;
+
+    display: block;
+    width: $sf-footer-height;
+    height: $sf-footer-height;
+    margin: (-$sf-space) (-$sf-space) (-$sf-space) 0;
   }
 }

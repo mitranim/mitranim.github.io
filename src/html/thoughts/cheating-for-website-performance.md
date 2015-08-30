@@ -1,5 +1,6 @@
 Have been turning into a bit of a performance nut lately. This is what I've
-found useful for speeding up websites.
+found useful for speeding up websites. These are mostly frontend optimisations;
+I'm not going to delve into server performance here.
 
 ## TL:DR
 
@@ -20,7 +21,8 @@ automatically compress images without visible quality loss, rescale to
 different dimensions, crop, etc. They can be a
 [part](https://github.com/scalableminds/gulp-image-resize) of your standard
 build chain, so there's absolutely no excuse for not using them. See
-[example](https://github.com/Mitranim/stylific/blob/master/gulpfile.js).
+[example](https://github.com/Mitranim/stylific/blob/master/gulpfile.js) (scroll
+down to image processing).
 
 Another important thing to compress is JavaScript. Modern JavaScript libraries
 (and hopefully your application's code) tend to be richly commented, bloating
@@ -35,7 +37,7 @@ optimisation and there's no excuse for not doing it.
 
 Network latency is a huge deal. I can't stress this enough. Depending on the
 connectivity between your servers and your users, latency could range from 50ms
-to as much as a second (yes, there are areas with networks _that_ bad).
+to as much as a second.
 
 If you serve assets as multiple independent files, the browser has to make
 separate network requests for each. Browsers only download a few assets at a
@@ -99,8 +101,8 @@ sure to research this feature for your stack of choice.
 ## Make Your JavaScript Lazy
 
 If your application is JavaScript-heavy, you should use a module system with
-lazy loading or lazy execution. The ES6 module system supports both, and you can
-use it today with [SystemJS](https://github.com/systemjs/systemjs) and
+lazy loading. This is supported by the ES6 module system, and you can use it
+today with [SystemJS](https://github.com/systemjs/systemjs) and, optionally,
 [jspm](http://jspm.io). You can also achieve a similar effect with AMD.
 
 The core parts of the application should be bundled into a single file, and big

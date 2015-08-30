@@ -32,10 +32,10 @@ When you think about it, the status quo of content delivery on the web is
 _insane_. We're forcing visitors to make dozens of network connections and
 execute massive amounts of JavaScript on _each page load_ on the same site.
 
-<h3 class="pad-half clamp theme-primary">
+<div class="pad-half clamp theme-primary">
   <span class="fa fa-thumbs-o-down inline"></span>
   <span>Typical page transition</span>
-</h3>
+</div>
 
 <pre class="whitebox">
 click link =>  ✅ download new document            =>  😫 create new JS runtime
@@ -49,10 +49,10 @@ click link =>  ✅ download new document            =>  😫 create new JS runti
 
 With pushstate routing, we can do better.
 
-<h3 class="pad-half clamp theme-primary">
+<div class="pad-half clamp theme-primary">
   <span class="fa fa-thumbs-o-up inline"></span>
   <span>Page transition with pjax</span>
-</h3>
+</div>
 
 <pre class="whitebox">
 click link =>  ✅ download new document          => 🎂 display new document 🎉
@@ -120,7 +120,7 @@ multi-page app!
 
 Also, I can't overstate how wasteful it is to execute all scripts on each new
 page load, which is typical for most websites. I just checked
-[wired.com](http://wired.com) and the total time to execute all scripts was
+[wired.com](http://wired.com) and the total execution time of all scripts was
 **480 ms** _before_ ads kicked in. Each new page reruns all scripts. Using pjax,
 you can eliminate this waste, keeping your website more responsive and saving
 the visitors' CPU cycles and battery life.
@@ -154,8 +154,8 @@ Why isn't pjax more popular? Maybe because people overengineer it. The libraries
 I've seen tend to focus on downloading partials (HTML snippets). They require
 you to micromanage the markup, and some need a special server configuration. I
 think these people have missed the point. The biggest benefit is keeping the
-browsing session alive, and this can be achieved with zero configuration and
-zero thought. For most sites, this is enough, and additional effort is usually
+browsing session alive, and this can be achieved with zero configuration or
+thought. For most sites, this is enough, and additional effort is usually
 not worth it. Is this wrong? You tell me!
 
-Let's use this technique to make the web a better place. Start today!
+Let's use this technique to improve the web. Start with your next website!

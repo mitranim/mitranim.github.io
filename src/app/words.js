@@ -76,12 +76,12 @@ class WordsTab extends React.Component {
   }
 
   render() {return (
-    <div className='layout-row app-words'>
+    <div className='widget-words'>
       {/* Left column: source words */}
-      <div className='flex-1 pad space-out'>
+      <div className='flex-1 container'>
         <h3>Source {this.props.title}</h3>
         <form onSubmit={::this.add} className='sf-label-row sf-label-dense'
-              data-sf-tooltip={this.state.error} data-sf-trigger='focus'>
+              data-sf-tooltip={this.state.error} data-sf-trigger='focus' style={{height: '2.5rem'}}>
           <input name='word' autofocus className={`flex-11 theme-text-primary ${this.textStyle}`} />
           <button className='flex-1 fa fa-plus theme-primary' tabIndex='-1'></button>
         </form>
@@ -93,9 +93,9 @@ class WordsTab extends React.Component {
       </div>
 
       {/* Right column: generated results */}
-      <div className='flex-1 pad space-out'>
+      <div className='flex-1 container'>
         <h3>Generated {this.props.title}</h3>
-        <form onSubmit={::this.generate} className='sf-label-row sf-label-dense'>
+        <form onSubmit={::this.generate} className='sf-label-row sf-label-dense' style={{height: '2.5rem'}}>
           <button className='flex-1 theme-accent fa fa-refresh' tabIndex='-1'></button>
           <button className='flex-11 theme-accent layout-row layout-center text-center'>Generate</button>
         </form>
@@ -191,7 +191,7 @@ class WordsTab extends React.Component {
   }
 
   get textStyle() {return this.props.title === 'Names' ? 'text-capitalise' : 'text-lowercase'}
-  get ref() {return Refs[this.props.title.toLowerCase()]()}
+  get ref() {return Refs[this.props.title.toLowerCase()].get()}
 }
 
 class SourceWord extends React.Component {

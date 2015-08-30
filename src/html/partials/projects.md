@@ -15,7 +15,7 @@ Website for a private kindergarten in the Moscow region.
 Experimental JavaScript rendering library. Distilled from best ideas in ReactJS,
 Angular 2, Aurelia, and Polymer, condensed into pure awesome.
 
-[stylific](http://mitranim.com/stylific/) <span class="fade">(Sass)</span>
+[stylific](http://mitranim.com/stylific/) <span class="fade">(Sass / JavaScript)</span>
 
 A CSS library to help web developers make better websites. Similar to
 [Bootstrap](http://getbootstrap.com), built on different principles.
@@ -25,9 +25,9 @@ A CSS library to help web developers make better websites. Similar to
 Zero-configuration library that dramatically speeds up navigation between pages
 on classic (multi-page) websites.
 
-[codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span> as [foliant](https://github.com/Mitranim/foliant) <span class="fade">(JavaScript)</span> | [demo](/foliant/)
+[codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span>, [foliant](https://github.com/Mitranim/foliant) <span class="fade">(JavaScript)</span> | [demo](/foliant/)
 
-Generator of synthetic words or names. Check out the demo.
+Generator of synthetic words or names.
 
 [statil](https://github.com/Mitranim/statil) <span class="fade">(JavaScript)</span>
 

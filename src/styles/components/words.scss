@@ -1,4 +1,8 @@
-.app-words {
+.widget-words {
+
+  // Layout.
+  display: flex;
+  flex-direction: row;
 
   // Cosmetic.
   .sf-tabset, .sf-tab {

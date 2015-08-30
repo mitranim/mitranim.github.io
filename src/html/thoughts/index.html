@@ -1,34 +1,32 @@
 <% $entitle(title, $) %>
 
 <div class="sf-jumbo" <%= typeof image !== 'undefined' && image ? bgImg(image) : '' %>>
-  <div class="layout-sm-column layout-sm-cross-start sm-space-out layout-row layout-space-between layout-cross-end">
-    <div>
+  <div class="layout-sm-column layout-sm-cross-start sm-space-out layout-row layout-space-between layout-cross-stretch">
+    <div class="layout-column layout-space-between space-out">
       <h2><%= title %></h2>
       <% if (typeof description !== 'undefined') { %>
         <p><%= description %></p>
       <% } %>
     </div>
-    <div class="layout-column layout-md-cross-end">
-      <p>
+    <div class="layout-column layout-space-between layout-md-cross-end space-out">
+      <div>
         <%= $include('partials/feed-links', $) %>
-      </p>
+      </div>
       <% if (typeof date !== 'undefined') { %>
-        <p class="fade" style="font-size: 0.8em">
+        <div class="fade" style="font-size: 0.8em">
           <%= date instanceof Date ? date.toDateString() : date %>
-        </p>
+        </div>
       <% } %>
     </div>
   </div>
 </div>
 
-<div class="pad">
-  <article>
-    <!-- Post -->
-    <%= $content %>
-    <!-- Disqus thread -->
-    <% if (prod()) { %>
-      <br>
-      <%= $include('partials/disqus', $) %>
-    <% } %>
-  </article>
-</div>
+<article>
+  <!-- Post -->
+  <%= $content %>
+  <!-- Disqus thread -->
+  <% if (prod()) { %>
+    <br>
+    <%= $include('partials/disqus', $) %>
+  <% } %>
+</article>

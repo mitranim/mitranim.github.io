@@ -10,6 +10,7 @@
 var $ = require('gulp-load-plugins')()
 var bsync = require('browser-sync').create()
 var cheerio = require('cheerio')
+var del = require('del')
 var gulp = require('gulp')
 var hjs = require('highlight.js')
 var marked = require('gulp-marked/node_modules/marked')
@@ -235,10 +236,8 @@ gulp.task('scripts:watch', function () {
 
 /* -------------------------------- Styles ----------------------------------*/
 
-gulp.task('styles:clear', function () {
-  return gulp.src(dest.styles, {read: false, allowEmpty: true})
-    .pipe($.plumber())
-    .pipe($.rimraf())
+gulp.task('styles:clear', function (done) {
+  del(dest.styles, function (_) {done()})
 })
 
 gulp.task('styles:compile', function () {
@@ -268,13 +267,11 @@ gulp.task('styles:watch', function () {
 
 /* --------------------------------- HTML -----------------------------------*/
 
-gulp.task('html:clear', function () {
-  return gulp.src([
-      dest.html + '/**/*.html',
-      '!' + dest.app + '/**/*'
-    ], {read: false, allowEmpty: true})
-    .pipe($.plumber())
-    .pipe($.rimraf())
+gulp.task('html:clear', function (done) {
+  del([
+    dest.html + '/**/*.html',
+    '!' + dest.app + '/**/*'
+  ], function (_) {done()})
 })
 
 gulp.task('html:compile', function () {
@@ -334,8 +331,8 @@ gulp.task('html:watch', function () {
 
 /* ---------------------------------- XML -----------------------------------*/
 
-gulp.task('xml:clear', function () {
-  return gulp.src(dest.xml, {read: false, allowEmpty: true}).pipe($.rimraf())
+gulp.task('xml:clear', function (done) {
+  del(dest.xml, function (_) {done()})
 })
 
 gulp.task('xml:compile', function () {
@@ -370,8 +367,8 @@ gulp.task('xml:watch', function () {
 
 /* -------------------------------- Images ----------------------------------*/
 
-gulp.task('images:clear', function () {
-  return gulp.src(dest.images, {read: false, allowEmpty: true}).pipe($.rimraf())
+gulp.task('images:clear', function (done) {
+  del(dest.images, function (_) {done()})
 })
 
 // Resize and copy images
@@ -425,8 +422,8 @@ gulp.task('images:watch', function () {
 
 /* --------------------------------- Fonts ----------------------------------*/
 
-gulp.task('fonts:clear', function () {
-  return gulp.src(dest.fonts, {read: false, allowEmpty: true}).pipe($.rimraf())
+gulp.task('fonts:clear', function (done) {
+  del(dest.fonts, function (_) {done()})
 })
 
 gulp.task('fonts:copy', function () {

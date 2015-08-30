@@ -9,25 +9,29 @@ export class LoginButton extends Component {
   }
 
   render() {return (
-    <div style={{textAlign: 'right', marginRight: '1rem'}}>
+    <div className='container text-right'>
       {/* Anonymous */}
       {this.state.authData && this.state.authData.provider === 'anonymous' ?
       <div>
         <p>Anonymous session.</p>
-        <button className='sf-button-flat' onClick={::this.loginWithTwitter}>
-          <span>Sign in with Twitter.</span>
-          <span className='fa fa-twitter inline'></span>
-        </button>
+        <p>
+          <button className='sf-button-flat' onClick={::this.loginWithTwitter}>
+            <span>Sign in with Twitter.</span>
+            <span className='fa fa-twitter inline'></span>
+          </button>
+        </p>
       </div> : null}
 
       {/* Twitter */}
       {this.state.authData && this.state.authData.twitter ?
       <div>
         <p>Signed in as {this.state.authData.twitter.displayName}.</p>
-        <button className='sf-button-flat' onClick={::this.logout}>
-          <span>Sign out</span>
-          <span className='fa fa-sign-out inline'></span>
-        </button>
+        <p>
+          <button className='sf-button-flat' onClick={::this.logout}>
+            <span>Sign out</span>
+            <span className='fa fa-sign-out inline'></span>
+          </button>
+        </p>
       </div> : null}
     </div>
   )}

@@ -1,10 +1,12 @@
-<div style="margin-bottom: 0"><img src="/images/face-square.jpg" class="right"></div>
+<div class="float-right">
+  <img src="/images/face-square.jpg">
+</div>
 
 # About
 
 Name: Nelo Mitranim.
 
-Freelance web developer (full-stack).
+Freelance web developer (full stack).
 
 Tech:
 * Backend: Python (Django), JavaScript (Node.js, Express), Go.
@@ -12,8 +14,6 @@ Tech:
 * Linux administration.
 
 Favourite pastime: writing [free software](/projects/).
-
-Aspires to: be paid for writing free software.
 
 Location: Moscow, Russia (wants to move out).
 

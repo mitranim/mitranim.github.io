@@ -5,17 +5,21 @@
     <div class="flex-1">
       <h2>random thoughts</h2>
     </div>
-    <%= $include('partials/feed-links', $) %>
+    <div>
+      <%= $include('partials/feed-links', $) %>
+    </div>
   </div>
 </div>
 
-<article>
-  <% for (var post of this.meta.thoughts.files) { %>
-    <% if (post.skip) return; %>
-    <% path = 'thoughts/' + post.name %>
+<% for (var post of this.meta.thoughts.files) { %>
+  <% if (post.skip) return; %>
+  <% path = 'thoughts/' + post.name %>
 
-    <div class="layout-column shadow pad">
-      <h2><a href="/<%= path %>/"><%= post.title %></a></h2>
+  <div>
+    <h2 style="border-bottom: 1px dotted lightgray">
+      <a href="/<%= path %>/" class="block pad"><%= post.title %></a>
+    </h2>
+    <div class="container">
       <% if (post.description) { %>
         <p><%= post.description %></p>
       <% } else { %>
@@ -26,5 +30,5 @@
       <% } %>
       <p class="fade" style="font-size: 0.8em"><%= post.date instanceof Date ? post.date.toDateString() : post.date %></p>
     </div>
-  <% } %>
-</article>
+  </div>
+<% } %>
