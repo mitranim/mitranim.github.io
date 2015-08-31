@@ -1,10 +1,12 @@
 import React from 'react';
+import {setUpDataLoad} from './data';
 
 export function renderTo(selector: string) {
   return (Component: typeof React.Component) => {
     onload(() => {
       let elements = document.querySelectorAll(selector);
       for (let i = 0; i < elements.length; ++i) {
+        setUpDataLoad();
         React.render(<Component/>, elements[i]);
       }
     });

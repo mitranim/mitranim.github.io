@@ -30,62 +30,69 @@ export const Refs = _.mapValues(RefMappers, () => new ReactiveVar(null));
 export const Values = _.mapValues(RefMappers, () => new ReactiveVar(null));
 
 /**
- * Auth handlers.
+ * Set up lazy data load. This function should be run when the data is
+ * required for the first time.
  */
+export const setUpDataLoad = _.once(() => {
 
-root.onAuth(newAuthData => {
-  // When deauthed, auth anonymously.
-  if (!newAuthData) root.authAnonymously(err => {if (err) throw err});
+  /**
+   * Auth handlers.
+   */
 
-  // Refresh all reactive variables.
+  root.onAuth(newAuthData => {
+    // When deauthed, auth anonymously.
+    if (!newAuthData) root.authAnonymously(err => {if (err) throw err});
 
-  authData.set(newAuthData);
+    // Refresh all reactive variables.
 
-  Object.keys(Refs).forEach(key => {
-    // Refresh ref.
-    let ref = RefMappers[key](newAuthData);
-    Refs[key].set(ref);
+    authData.set(newAuthData);
 
-    // Refresh value.
-    if (ref) {
-      let handler = ref.on('value', snap => {
-        Values[key].set(snap.val());
-      }, () => {
-        ref.off('value', handler);
+    Object.keys(Refs).forEach(key => {
+      // Refresh ref.
+      let ref = RefMappers[key](newAuthData);
+      Refs[key].set(ref);
+
+      // Refresh value.
+      if (ref) {
+        let handler = ref.on('value', snap => {
+          Values[key].set(snap.val());
+        }, () => {
+          ref.off('value', handler);
+        });
+      }
+    });
+  });
+
+  // Reactively refresh names and words.
+  Tracker.autorun(function() {
+    let namesRef = Refs.names.get();
+    if (namesRef) {
+      namesRef.on('value', snap => {
+        if (!snap.val()) {
+          let defNamesRef = Refs.defaultNames.get();
+          let handler = defNamesRef.once('value', snap => {
+            namesRef.set(snap.val());
+          }, () => {
+            namesRef.off('value', handler);
+          });
+        }
+      });
+    }
+
+    let wordsRef = Refs.words.get();
+    if (wordsRef) {
+      wordsRef.on('value', snap => {
+        if (!snap.val()) {
+          let defWordsRef = Refs.defaultWords.get();
+          let handler = defWordsRef.once('value', snap => {
+            wordsRef.set(snap.val());
+          }, () => {
+            wordsRef.off('value', handler);
+          });
+        }
       });
     }
   });
-});
-
-// Reactively refresh names and words.
-Tracker.autorun(function() {
-  let namesRef = Refs.names.get();
-  if (namesRef) {
-    namesRef.on('value', snap => {
-      if (!snap.val()) {
-        let defNamesRef = Refs.defaultNames.get();
-        let handler = defNamesRef.once('value', snap => {
-          namesRef.set(snap.val());
-        }, () => {
-          namesRef.off('value', handler);
-        });
-      }
-    });
-  }
-
-  let wordsRef = Refs.words.get();
-  if (wordsRef) {
-    wordsRef.on('value', snap => {
-      if (!snap.val()) {
-        let defWordsRef = Refs.defaultWords.get();
-        let handler = defWordsRef.once('value', snap => {
-          wordsRef.set(snap.val());
-        }, () => {
-          wordsRef.off('value', handler);
-        });
-      }
-    });
-  }
 });
 
 /**

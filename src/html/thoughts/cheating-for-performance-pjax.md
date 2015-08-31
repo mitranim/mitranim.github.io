@@ -1,9 +1,9 @@
 ## Overview
 
 Optimising website performance is tricky. There's plenty of articles delving
-deep into technical detail, like [this great
-guide](https://developers.google.com/web/fundamentals/performance/critical-
-rendering-path/analyzing-crp?hl=en) by Google. Naturally, when you make it that
+deep into technical detail, like
+[this great guide](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=en)
+by Google. Naturally, when you make it that
 hard, most people aren't going to bother.
 
 What if I told you there's a way to dramatically speed up page transitions
@@ -65,8 +65,7 @@ The idea is dead simple. Say a user navigates from page A to page B on your site
 Instead of a full page reload, fetch B by ajax, replace A, and update the URL
 using `history.pushState`. This technique has been termed _`pjax`_.
 
-Here's a super naive example to illustrate the point. This code is _wildly_
-incomplete, so please don't copy it.
+Here's a super naive example to illustrate the point.
 
 ```javascript
 document.addEventListener('click', function(event) {
@@ -103,7 +102,7 @@ document.addEventListener('click', function(event) {
 });
 ```
 
-I fashioned this into a simple, fully automatic
+I have fashioned this into a simple, fully automatic
 [library](https://github.com/Mitranim/simple-pjax). Just drop it into your site
 and enjoy the benefits. Feedback and contributions are welcome! If you happen to
 find a better implementation, I'd be happy to hear about it.
