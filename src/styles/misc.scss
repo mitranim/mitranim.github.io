@@ -86,6 +86,10 @@ pre.whitebox {
   }
 }
 
+.space-out-half {
+  @include sf-space-out-vertical($sf-space / 2);
+}
+
 /******************************** Components *********************************/
 
 .pjax-loader::before {

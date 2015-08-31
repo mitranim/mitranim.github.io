@@ -33,6 +33,7 @@
 
   // Sizes.
   &.size-medium {font-size: 1.5em}
+  &.size-midlarge {font-size: 2em}
   &.size-large {font-size: 3em}
 
   @include sf-transitions(all);
