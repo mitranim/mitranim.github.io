@@ -8,16 +8,16 @@
 /* ***************************** Dependencies ********************************/
 
 var $ = require('gulp-load-plugins')()
+var _ = require('lodash')
 var bsync = require('browser-sync').create()
 var cheerio = require('cheerio')
 var del = require('del')
+var flags = require('yargs').argv
 var gulp = require('gulp')
 var hjs = require('highlight.js')
 var marked = require('gulp-marked/node_modules/marked')
-var flags = require('yargs').argv
-var webpack = require('webpack')
 var pt = require('path')
-var _ = require('lodash')
+var webpack = require('webpack')
 
 /* ******************************** Globals **********************************/
 
@@ -168,13 +168,9 @@ marked.Renderer.prototype.code = function (code, lang, escaped) {
 
 /* -------------------------------- Scripts ---------------------------------*/
 
-gulp.task('scripts:build', function (done) {
+function scripts (done) {
   var alias = {
-    'firebase': 'firebase/lib/firebase-web',
-    'foliant': 'foliant/dist/index',
-    'lodash': 'lodash/index',
-    'stylific': 'stylific/lib/stylific.min',
-    'simple-pjax': 'simple-pjax/lib/simple-pjax.min'
+    /* ... */
   }
   if (prod()) alias.react = 'react/dist/react.min'
 
@@ -200,6 +196,7 @@ gulp.task('scripts:build', function (done) {
               'es7.classProperties',
               'es7.decorators',
               'es7.functionBind',
+              'es7.objectRestSpread',
               'validation.undeclaredVariableCheck'
             ],
             loose: [
@@ -211,7 +208,8 @@ gulp.task('scripts:build', function (done) {
         }
       ]
     },
-    plugins: prod() ? [new webpack.optimize.UglifyJsPlugin()] : []
+    plugins: prod() ? [new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})] : [],
+    watch: typeof done !== 'function'
   }, function (err, stats) {
     if (err) {
       throw new Error(err)
@@ -226,18 +224,19 @@ gulp.task('scripts:build', function (done) {
       })
       if (report) console.log(report)
     }
-    done()
+    if (typeof done === 'function') done()
+    else bsync.reload()
   })
-})
+}
 
-gulp.task('scripts:watch', function () {
-  $.watch(src.scripts, gulp.series('scripts:build', reload))
-})
+gulp.task('scripts:build', scripts)
+
+gulp.task('scripts:build:watch', (_) => {scripts()})
 
 /* -------------------------------- Styles ----------------------------------*/
 
 gulp.task('styles:clear', function (done) {
-  del(dest.styles, function (_) {done()})
+  del(dest.styles).then((_) => {done()})
 })
 
 gulp.task('styles:compile', function () {
@@ -271,7 +270,7 @@ gulp.task('html:clear', function (done) {
   del([
     dest.html + '/**/*.html',
     '!' + dest.app + '/**/*'
-  ], function (_) {done()})
+  ]).then((_) => {done()})
 })
 
 gulp.task('html:compile', function () {
@@ -332,7 +331,7 @@ gulp.task('html:watch', function () {
 /* ---------------------------------- XML -----------------------------------*/
 
 gulp.task('xml:clear', function (done) {
-  del(dest.xml, function (_) {done()})
+  del(dest.xml).then((_) => {done()})
 })
 
 gulp.task('xml:compile', function () {
@@ -368,7 +367,7 @@ gulp.task('xml:watch', function () {
 /* -------------------------------- Images ----------------------------------*/
 
 gulp.task('images:clear', function (done) {
-  del(dest.images, function (_) {done()})
+  del(dest.images).then((_) => {done()})
 })
 
 // Resize and copy images
@@ -423,7 +422,7 @@ gulp.task('images:watch', function () {
 /* --------------------------------- Fonts ----------------------------------*/
 
 gulp.task('fonts:clear', function (done) {
-  del(dest.fonts, function (_) {done()})
+  del(dest.fonts).then((_) => {done()})
 })
 
 gulp.task('fonts:copy', function () {
@@ -470,12 +469,18 @@ gulp.task('server', function () {
 
 /* -------------------------------- Default ---------------------------------*/
 
-gulp.task('build', gulp.parallel(
-  'scripts:build', 'styles:build', 'html:build', 'xml:build', 'fonts:build'
-))
+if (prod()) {
+  gulp.task('build', gulp.parallel(
+    'scripts:build', 'styles:build', 'html:build', 'xml:build', 'fonts:build'
+  ))
+} else {
+  gulp.task('build', gulp.parallel(
+    'styles:build', 'html:build', 'xml:build', 'fonts:build'
+  ))
+}
 
 gulp.task('watch', gulp.parallel(
-  'scripts:watch', 'styles:watch', 'html:watch', 'xml:watch', 'fonts:watch'
+  'scripts:build:watch', 'styles:watch', 'html:watch', 'xml:watch', 'fonts:watch'
 ))
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'server')))

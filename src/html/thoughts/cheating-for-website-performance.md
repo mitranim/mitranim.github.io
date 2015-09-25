@@ -7,6 +7,7 @@ I'm not going to delve into server performance here.
 * [Minify Everything](#minify-everything)
 * [Concatenate Everything](#concatenate-everything)
 * [Use Pjax](#use-pjax)
+* [Use Server Rendering](#use-server-rendering)
 * [Make Your JavaScript Lazy](#make-your-javascript-lazy)
 * [Use Font Icons or Inline SVG](#use-font-icons-or-inline-svg)
 * [Serve Static Assets](#serve-static-assets)

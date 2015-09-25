@@ -23,7 +23,7 @@ A CSS library to help web developers make better websites. Similar to
 [simple-pjax](https://github.com/Mitranim/simple-pjax) <span class="fade">(TypeScript)</span>
 
 Zero-configuration library that dramatically speeds up navigation between pages
-on classic (multi-page) websites.
+on classic (multi-page) websites. See explanatory [blog post](/thoughts/cheating-for-performance-pjax/).
 
 [codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span>, [foliant](https://github.com/Mitranim/foliant) <span class="fade">(JavaScript)</span> | [demo](/foliant/)
 
