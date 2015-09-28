@@ -2,10 +2,12 @@
   <a <%= $act('index', $) %> href="/">about</a>
   <a <%= $act('projects', $) %> href="/projects/">projects</a>
   <a <%= $act('thoughts', $) %> href="/thoughts/">thoughts</a>
-  <label></label>
+
+  <div class="sf-navbar-toggle"></div>
+
   <div class="sf-dropdown">
-    <label class="layout-row layout-center">demos</label>
-    <div class="sf-dropdown-list" style="width: 100%">
+    <div class="sf-dropdown-head layout-row layout-center">demos</div>
+    <div class="sf-dropdown-body" style="width: 100%">
       <a <%= $act('simple-pjax', $) %> href="http://mitranim.com/simple-pjax/" target="_blank">simple-pjax</a>
       <a <%= $act('foliant', $) %> href="/foliant/">foliant</a>
       <a <%= $act('ng-next-gen-demo', $) %> href="/ng-next-gen-demo/">ng-next-gen</a>

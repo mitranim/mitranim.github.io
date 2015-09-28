@@ -7,21 +7,21 @@
 
 /* ***************************** Dependencies ********************************/
 
-var $ = require('gulp-load-plugins')()
-var _ = require('lodash')
-var bsync = require('browser-sync').create()
-var cheerio = require('cheerio')
-var del = require('del')
-var flags = require('yargs').argv
-var gulp = require('gulp')
-var hjs = require('highlight.js')
-var marked = require('gulp-marked/node_modules/marked')
-var pt = require('path')
-var webpack = require('webpack')
+const $ = require('gulp-load-plugins')()
+const _ = require('lodash')
+const bsync = require('browser-sync').create()
+const cheerio = require('cheerio')
+const del = require('del')
+const flags = require('yargs').argv
+const gulp = require('gulp')
+const hjs = require('highlight.js')
+const marked = require('gulp-marked/node_modules/marked')
+const pt = require('path')
+const webpack = require('webpack')
 
 /* ******************************** Globals **********************************/
 
-var src = {
+const src = {
   html: [
     'src/html/**/*'
   ],
@@ -49,7 +49,7 @@ var src = {
   ]
 }
 
-var dest = {
+const dest = {
   html: 'mitranim-master',
   xml: 'mitranim-master/**/*.xml',
   scripts: 'mitranim-master/app/**/*.js',
@@ -73,13 +73,13 @@ function reload (done) {
 /**
  * Utility methods for templates.
  */
-var imports = {
+const imports = {
   prod: prod,
   bgImg: function (path) {
     return 'style="background-image: url(/images/' + path + ')"'
   },
   truncate: function (html, num) {
-    var part = cheerio(html).text().slice(0, num)
+    let part = cheerio(html).text().slice(0, num)
     if (part.length === num) part += ' ...'
     return part
   }
@@ -93,19 +93,22 @@ var imports = {
 
 // Custom heading renderer func that adds an anchor.
 marked.Renderer.prototype.heading = function (text, level, raw) {
-  var id = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-')
-  return '<h' + level + '>' +
-    '<span>' + text + '</span>' +
-    '<a class="heading-anchor fa fa-link" href="#' + id + '" id="' + id + '"></a>' +
-    '</h' + level + '>\n'
+  const id = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-')
+  return (
+`<h${level}>
+  <span>${text}</span>
+  <a class="heading-anchor fa fa-link" href="#${id}" id="${id}"></a>
+</h${level}>\n`
+  )
 }
 
 // Custom link renderer func that adds target="_blank" to links to other sites.
 // Mostly copied from the marked source.
 marked.Renderer.prototype.link = function (href, title, text) {
   if (this.options.sanitize) {
+    let prot = ''
     try {
-      var prot = decodeURIComponent(unescape(href))
+      prot = decodeURIComponent(unescape(href))
         .replace(/[^\w:]/g, '')
         .toLowerCase()
     } catch (e) {
@@ -115,7 +118,7 @@ marked.Renderer.prototype.link = function (href, title, text) {
       return ''
     }
   }
-  var out = '<a href="' + href + '"'
+  let out = '<a href="' + href + '"'
   if (title) {
     out += ' title="' + title + '"'
   }
@@ -127,12 +130,12 @@ marked.Renderer.prototype.link = function (href, title, text) {
 }
 
 // Default code renderer.
-var renderCode = marked.Renderer.prototype.code
+const renderCode = marked.Renderer.prototype.code
 
 // Custom code renderer that understands a few custom directives.
 marked.Renderer.prototype.code = function (code, lang, escaped) {
-  // var regexInclude = /#include (.*)(?:\n|$)/g
-  var regexCollapse = /#collapse (.*)(?:\n|$)/g
+  // const regexInclude = /#include (.*)(?:\n|$)/g
+  const regexCollapse = /#collapse (.*)(?:\n|$)/g
 
   // if (regexInclude.test(code)) {
   //   code = code.replace(regexInclude, function (match, path) {
@@ -141,9 +144,10 @@ marked.Renderer.prototype.code = function (code, lang, escaped) {
   // }
 
   // Remove collapse directives and remember if there were any.
-  var collapse = regexCollapse.exec(code)
+  const collapse = regexCollapse.exec(code)
+  let head = ''
   if (collapse) {
-    var label = collapse[1]
+    head = collapse[1]
     code = code.replace(regexCollapse, '').trim()
   }
 
@@ -151,10 +155,10 @@ marked.Renderer.prototype.code = function (code, lang, escaped) {
   code = renderCode.call(this, code, lang, escaped).trim()
 
   // Optionally wrap in collapse.
-  if (label) {
+  if (head) {
     code =
       '<div class="sf-collapse">\n' +
-      '  <label class="theme-primary">' + label + '</label>\n' +
+      '  <div class="sf-collapse-head theme-primary">' + head + '</div>\n' +
       '  <div class="sf-collapse-body">\n' +
            code + '\n' +
       '  </div>\n' +
@@ -169,7 +173,7 @@ marked.Renderer.prototype.code = function (code, lang, escaped) {
 /* -------------------------------- Scripts ---------------------------------*/
 
 function scripts (done) {
-  var alias = {
+  const alias = {
     /* ... */
   }
   if (prod()) alias.react = 'react/dist/react.min'
@@ -214,10 +218,10 @@ function scripts (done) {
     if (err) {
       throw new Error(err)
     } else {
-      var report = stats.toString({
+      const report = stats.toString({
         colors: true,
         chunks: false,
-        timings: false,
+        timings: true,
         version: false,
         hash: false,
         assets: false
@@ -274,7 +278,7 @@ gulp.task('html:clear', function (done) {
 })
 
 gulp.task('html:compile', function () {
-  var filterMd = $.filter('**/*.md')
+  const filterMd = $.filter('**/*.md')
 
   return gulp.src(src.html)
     .pipe($.plumber())
@@ -335,7 +339,7 @@ gulp.task('xml:clear', function (done) {
 })
 
 gulp.task('xml:compile', function () {
-  var filterMd = $.filter('**/*.md')
+  const filterMd = $.filter('**/*.md')
 
   return gulp.src(src.xml)
     .pipe($.plumber())
