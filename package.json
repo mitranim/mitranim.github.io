@@ -40,7 +40,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.3",
     "gulp-sass": "^2.0.3",
-    "gulp-sourcemaps": "^1.5.2",
     "gulp-statil": "0.0.4",
     "gulp-watch": "^4.2.4",
     "highlight.js": "^8.6.0",

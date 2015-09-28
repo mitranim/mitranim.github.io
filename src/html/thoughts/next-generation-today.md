@@ -37,9 +37,9 @@ probably want to read it in chunks, taking breaks.
 
 ## Setup
 
-You can start from scratch or grab a complete demo at GitHub:
+You can start from scratch or grab the finished demo at GitHub:
 [https://github.com/Mitranim/ng-next-gen](https://github.com/Mitranim/ng-next-gen).
-The demo may have slightly diverged with the guide by the time you're reading this.
+**Note**: the demo has _significantly_ diverged from the guide by the time you're reading this.
 
 You can also check your progress against the
 [live demo](http://mitranim.com/ng-next-gen/).
@@ -147,6 +147,8 @@ Install our runtime dependencies:
 jspm install angular npm:ng-decorate npm:foliant npm:stylific
 ```
 
+**Note**: the finished demo now uses Webpack instead of SystemJS and jspm.
+
 ### Prerequisites For: TypeScript
 
 If you chose to use Babel, skip this. If you're using TypeScript, you'll want
@@ -154,7 +156,7 @@ some setup.
 
 First, create an `src/app/tsconfig.json` with the following:
 
-<!-- #include ng-next-gen/src/app/tsconfig.json -->
+<!-- src/app/tsconfig.json -->
 ```json
 {
   "version": "1.5.0",
@@ -182,7 +184,7 @@ tsd install angular -r -s
 
 Create an `src/app/lib.d.ts` with the following:
 
-<!-- #include ng-next-gen/src/app/lib.d.ts -->
+<!-- src/app/lib.d.ts -->
 ```typescript
 #collapse src/app/lib.d.ts
 declare module 'ng-decorate' {
@@ -316,7 +318,7 @@ npm i --save-dev browser-sync gulp gulp-concat gulp-load-plugins gulp-ng-html2js
 
 Create a `gulpfile.js` with the following:
 
-<!-- #include ng-next-gen/gulpfile.js -->
+<!-- gulpfile.js -->
 ```javascript
 #collapse gulpfile.js
 'use strict';
@@ -706,7 +708,7 @@ Now that we know how to get hold of angular services, let's take advantage of
 
 Create `src/models/words.ts`:
 
-<!-- #include ng-next-gen/src/app/models/words.ts -->
+<!-- src/app/models/words.ts -->
 ```typescript
 import {Service, autoinject} from 'ng-decorate';
 
@@ -1012,7 +1014,7 @@ when building for production.
 
 Modify your `src/html/index.html`:
 
-<!-- #include ng-next-gen/src/html/index.html -->
+<!-- src/html/index.html -->
 ```html
 #collapse src/html/index.html
 <!DOCTYPE html>

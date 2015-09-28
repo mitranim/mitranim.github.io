@@ -134,14 +134,7 @@ const renderCode = marked.Renderer.prototype.code
 
 // Custom code renderer that understands a few custom directives.
 marked.Renderer.prototype.code = function (code, lang, escaped) {
-  // const regexInclude = /#include (.*)(?:\n|$)/g
   const regexCollapse = /#collapse (.*)(?:\n|$)/g
-
-  // if (regexInclude.test(code)) {
-  //   code = code.replace(regexInclude, function (match, path) {
-  //     return fs.readFileSync(path, 'utf8').trim()
-  //   })
-  // }
 
   // Remove collapse directives and remember if there were any.
   const collapse = regexCollapse.exec(code)
@@ -213,6 +206,7 @@ function scripts (done) {
       ]
     },
     plugins: prod() ? [new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})] : [],
+    // devtool: !prod() && typeof done !== 'function' ? 'inline-source-map' : null,
     watch: typeof done !== 'function'
   }, function (err, stats) {
     if (err) {

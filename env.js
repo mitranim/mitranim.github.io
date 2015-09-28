@@ -1,4 +1,4 @@
 !function() {
   'use strict';
-  window.astilEnvironment = 'development';
+  window.developmentMode = true;
 }();

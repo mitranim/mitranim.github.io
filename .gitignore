@@ -30,5 +30,5 @@ bower_components
 jspm_packages
 typings
 
-# Ignore gh-pages symlink
+# Symlinks to ignore
 mitranim-master
