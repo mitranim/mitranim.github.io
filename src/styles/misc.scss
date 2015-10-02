@@ -142,20 +142,6 @@ pre.whitebox {
   }
 }
 
-[class*=grid] {
-  // Under consideration: narrow version that only goes up to two columns.
-  &.narrow > * {
-    @include sf-eq-sm {flex-basis: 100%}
-    @include sf-gt-sm {flex-basis: 50%}
-    @include sf-gt-md {flex-basis: 50%}
-  }
-  &.strict > * {
-    @include sf-eq-sm {flex-basis: 100%}
-    @include sf-gt-sm {flex-basis: 100%}
-    @include sf-gt-md {flex-basis: 100%}
-  }
-}
-
 .sf-navbar {
   > .sf-dropdown {padding: 0}
   a {

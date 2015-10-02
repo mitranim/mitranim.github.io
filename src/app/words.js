@@ -86,7 +86,7 @@ class WordsTab extends React.Component {
             <input name='word' autofocus className={`flex-11 theme-text-primary ${this.textStyle}`} />
             <button className='flex-1 fa fa-plus theme-primary' tabIndex='-1'></button>
           </form>
-          <div className={`grid-4 narrow ${this.textStyle}`}>
+          <div className={`sm-grid-1 md-grid-2 ${this.textStyle}`}>
             {_.map(this.props.current, (word, key) => (
               <SourceWord text={word} handler={() => this.drop(key)} key={key} />
             ))}
@@ -98,9 +98,9 @@ class WordsTab extends React.Component {
           <h3>Generated {this.props.title}</h3>
           <form onSubmit={::this.generate} className='sf-label-row sf-label-dense' style={{height: '2.5rem'}}>
             <button className='flex-1 theme-accent fa fa-refresh' tabIndex='-1'></button>
-            <button className='flex-11 theme-accent layout-row layout-center text-center'>Generate</button>
+            <button className='flex-11 theme-accent row-center-center'>Generate</button>
           </form>
-          <div className={`grid narrow ${this.textStyle}`}>
+          <div className={`sm-grid-1 md-grid-2 ${this.textStyle}`}>
             {_.map(this.state.results, word => (
               <GeneratedWord text={word} handler={() => this.pick(word)} key={word} />
             ))}

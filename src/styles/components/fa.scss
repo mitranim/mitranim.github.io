@@ -6,7 +6,7 @@
     margin-left: auto;
     margin-right: auto;
     // IE compat.
-    @include sf-flex-host-center;
+    @extend .row-center-center;
   }
 
   &.inline {

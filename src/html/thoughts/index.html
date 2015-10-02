@@ -1,14 +1,14 @@
 <% $entitle(title, $) %>
 
 <div class="sf-jumbo" <%= typeof image !== 'undefined' && image ? bgImg(image) : '' %>>
-  <div class="layout-sm-column layout-sm-cross-start sm-space-out layout-row layout-space-between layout-cross-stretch">
-    <div class="layout-column layout-space-between space-out">
+  <div class="sm-col-between-start sm-space-out md-row-between-stretch">
+    <div class="col-between-stretch space-out">
       <h2><%= title %></h2>
       <% if (typeof description !== 'undefined') { %>
         <p><%= description %></p>
       <% } %>
     </div>
-    <div class="layout-column layout-space-between layout-md-cross-end space-out">
+    <div class="sm-col-between-stretch md-col-between-end space-out">
       <div>
         <%= $include('partials/feed-links', $) %>
       </div>

@@ -9,7 +9,7 @@
   height: 1em;
 
   // Inner layout.
-  @include sf-flex-host-center;
+  @extend .row-center-center;
 
   .spinner {
     @extend .fa;

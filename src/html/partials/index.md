@@ -15,7 +15,7 @@ Tech:
 
 Favourite pastime: writing [free software](/projects/).
 
-Location: Moscow, Russia (wants to move out).
+Location: Moscow, Russia (planning to move out).
 
 # Contacts
 
@@ -29,20 +29,20 @@ Location: Moscow, Russia (wants to move out).
 
 # Social Links
 
-<div class="layout-row space-out-h">
-  <div class="layout-column space-out-half">
+<div class="row-start-center space-out-h">
+  <div class="col-center-center space-out-half">
     <a href="https://github.com/Mitranim" target="_blank" class="fa fa-github size-midlarge dark pop"></a>
     <span>Github</span>
   </div>
-  <div class="layout-column space-out-half">
+  <div class="col-center-center space-out-half">
     <a href="http://twitter.com/mitranim" target="_blank" class="fa fa-twitter size-midlarge dark pop"></a>
     <span>Twitter</span>
   </div>
-  <div class="layout-column space-out-half">
+  <div class="col-center-center space-out-half">
     <a href="http://linkedin.com/in/mitranim" target="_blank" class="fa fa-linkedin size-midlarge dark pop"></a>
     <span>Linkedin</span>
   </div>
-  <div class="layout-column space-out-half">
+  <div class="col-center-center space-out-half">
     <a href="http://facebook.com/mitranim" target="_blank" class="fa fa-facebook size-midlarge dark pop"></a>
     <span>Facebook</span>
   </div>

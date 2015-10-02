@@ -1,19 +1,19 @@
 @import './node_modules/stylific/scss/_variables';
 
 @mixin sm {
-  @media (max-width: $sf-layout-breakpoint-sm - 1) {
+  @media (max-width: $sf-breakpoint-sm - 1) {
     @content;
   }
 }
 
 @mixin gt-sm {
-  @media (min-width: $sf-layout-breakpoint-sm) {
+  @media (min-width: $sf-breakpoint-sm) {
     @content;
   }
 }
 
 @mixin gt-md {
-  @media (min-width: $sf-layout-breakpoint-md) {
+  @media (min-width: $sf-breakpoint-md) {
     @content;
   }
 }
