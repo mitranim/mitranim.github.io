@@ -22,9 +22,7 @@ const webpack = require('webpack')
 /* ******************************** Globals **********************************/
 
 const src = {
-  html: [
-    'src/html/**/*'
-  ],
+  html: 'src/html/**/*',
   xml: [
     'src/html/**/*.yaml',
     'src/html/thoughts/**/*',
@@ -44,19 +42,17 @@ const src = {
     'node_modules/stylific/scss/**/*.scss'
   ],
   images: 'src/images/**/*',
-  fonts: [
-    'node_modules/font-awesome/fonts/**/*'
-  ]
+  fonts: 'node_modules/font-awesome/fonts/**/*'
 }
 
 const dest = {
-  html: 'mitranim-master',
-  xml: 'mitranim-master/**/*.xml',
-  scripts: 'mitranim-master/app/**/*.js',
-  styles: 'mitranim-master/styles',
-  images: 'mitranim-master/images',
-  fonts: 'mitranim-master/fonts',
-  app: 'mitranim-master/app'
+  html: 'dist',
+  xml: 'dist/**/*.xml',
+  scripts: 'dist/app/**/*.js',
+  styles: 'dist/styles',
+  images: 'dist/images',
+  fonts: 'dist/fonts',
+  app: 'dist/app'
 }
 
 function prod () {
@@ -265,10 +261,7 @@ gulp.task('styles:watch', function () {
 /* --------------------------------- HTML -----------------------------------*/
 
 gulp.task('html:clear', function (done) {
-  del([
-    dest.html + '/**/*.html',
-    '!' + dest.app + '/**/*'
-  ]).then((_) => {done()})
+  del(dest.html + '/**/*.html').then((_) => {done()})
 })
 
 gulp.task('html:compile', function () {
@@ -444,8 +437,8 @@ gulp.task('server', function () {
         if (req.url[0] !== '/') req.url = '/' + req.url
 
         if (_.any([
-            /node_modules/, /bower_components/, /mitranim-master/, /env\.js/
-          ], function (reg) {return reg.test(req.url)})) {
+            /node_modules/, /bower_components/, /dist/, /env\.js/
+          ], reg => reg.test(req.url))) {
           next()
           return
         }

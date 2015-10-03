@@ -31,4 +31,4 @@ jspm_packages
 typings
 
 # Symlinks to ignore
-mitranim-master
+dist
