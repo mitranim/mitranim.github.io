@@ -2,7 +2,11 @@
 
 /**
  * Requires gulp 4.0:
- *   "gulp": "git://github.com/gulpjs/gulp#4.0"
+ *   "gulp": "gulpjs/gulp#4.0"
+ *
+ * Requires Node.js 4.0+
+ *
+ * Style per http://standardjs.com
  */
 
 /* ***************************** Dependencies ********************************/
@@ -12,7 +16,7 @@ const _ = require('lodash')
 const bsync = require('browser-sync').create()
 const cheerio = require('cheerio')
 const del = require('del')
-const flags = require('yargs').argv
+const flags = require('yargs').boolean('prod').argv
 const gulp = require('gulp')
 const hjs = require('highlight.js')
 const marked = require('gulp-marked/node_modules/marked')
@@ -55,10 +59,6 @@ const dest = {
   app: 'dist/app'
 }
 
-function prod () {
-  return flags.prod === true || flags.prod === 'true'
-}
-
 function reload (done) {
   bsync.reload()
   done()
@@ -70,7 +70,7 @@ function reload (done) {
  * Utility methods for templates.
  */
 const imports = {
-  prod: prod,
+  prod: flags.prod,
   bgImg: function (path) {
     return 'style="background-image: url(/images/' + path + ')"'
   },
@@ -164,8 +164,12 @@ marked.Renderer.prototype.code = function (code, lang, escaped) {
 function scripts (done) {
   const alias = {
     /* ... */
+    'simple-pjax': 'simple-pjax/dist/simple-pjax'
   }
-  if (prod()) alias.react = 'react/dist/react.min'
+  if (flags.prod) {
+    alias.react = 'react/dist/react.min'
+    alias['react-dom'] = 'react-dom/dist/react-dom.min'
+  }
 
   webpack({
     entry: './' + src.scriptsCore,
@@ -201,8 +205,8 @@ function scripts (done) {
         }
       ]
     },
-    plugins: prod() ? [new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})] : [],
-    // devtool: !prod() && typeof done !== 'function' ? 'inline-source-map' : null,
+    plugins: flags.prod ? [new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})] : [],
+    // devtool: !flags.prod && typeof done !== 'function' ? 'inline-source-map' : null,
     watch: typeof done !== 'function'
   }, function (err, stats) {
     if (err) {
@@ -242,7 +246,7 @@ gulp.task('styles:compile', function () {
       baseDir: '.',
       extensions: ['svg']
     }))
-    .pipe($.if(prod(), $.minifyCss({
+    .pipe($.if(flags.prod, $.minifyCss({
       keepSpecialComments: 0,
       aggressiveMerging: false,
       advanced: false
@@ -265,7 +269,7 @@ gulp.task('html:clear', function (done) {
 })
 
 gulp.task('html:compile', function () {
-  const filterMd = $.filter('**/*.md')
+  const filterMd = $.filter('**/*.md', {restore: true})
 
   return gulp.src(src.html)
     .pipe($.plumber())
@@ -288,7 +292,7 @@ gulp.task('html:compile', function () {
     .pipe($.replace(/<pre><code class="(.*)">|<pre><code>/g,
                     '<pre><code class="hljs $1">'))
     // Restore other files.
-    .pipe(filterMd.restore())
+    .pipe(filterMd.restore)
     // Unpack commented HTML parts.
     .pipe($.replace(/<!--\s*:((?:[^:]|:(?!\s*-->))*):\s*-->/g, '$1'))
     // Render all html.
@@ -301,7 +305,7 @@ gulp.task('html:compile', function () {
       path.dirname = pt.join(path.dirname, path.basename)
       path.basename = 'index'
     }))
-    .pipe($.if(prod(), $.minifyHtml({
+    .pipe($.if(flags.prod, $.minifyHtml({
       empty: true
     })))
     // Write to disk.
@@ -326,7 +330,7 @@ gulp.task('xml:clear', function (done) {
 })
 
 gulp.task('xml:compile', function () {
-  const filterMd = $.filter('**/*.md')
+  const filterMd = $.filter('**/*.md', {restore: true})
 
   return gulp.src(src.xml)
     .pipe($.plumber())
@@ -341,7 +345,7 @@ gulp.task('xml:compile', function () {
       pedantic: false
     }))
     // Restore other files.
-    .pipe(filterMd.restore())
+    .pipe(filterMd.restore)
     .pipe($.statil({imports: imports}))
     .pipe($.filter('*feed*'))
     .pipe($.rename('feed.xml'))
@@ -460,7 +464,7 @@ gulp.task('server', function () {
 
 /* -------------------------------- Default ---------------------------------*/
 
-if (prod()) {
+if (flags.prod) {
   gulp.task('build', gulp.parallel(
     'scripts:build', 'styles:build', 'html:build', 'xml:build', 'fonts:build'
   ))

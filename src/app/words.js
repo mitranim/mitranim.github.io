@@ -83,7 +83,7 @@ class WordsTab extends React.Component {
           <h3>Source {this.props.title}</h3>
           <form onSubmit={::this.add} className='sf-label-row sf-label-dense'
                 data-sf-tooltip={this.state.error} data-sf-trigger='focus' style={{height: '2.5rem'}}>
-            <input name='word' autofocus className={`flex-11 theme-text-primary ${this.textStyle}`} />
+            <input name='word' autofocus className={`flex-11 theme-text-primary ${this.textStyle}`} placeholder='add...' />
             <button className='flex-1 fa fa-plus theme-primary' tabIndex='-1'></button>
           </form>
           <div className={`sm-grid-1 md-grid-2 ${this.textStyle}`}>
@@ -98,7 +98,7 @@ class WordsTab extends React.Component {
           <h3>Generated {this.props.title}</h3>
           <form onSubmit={::this.generate} className='sf-label-row sf-label-dense' style={{height: '2.5rem'}}>
             <button className='flex-1 theme-accent fa fa-refresh' tabIndex='-1'></button>
-            <button className='flex-11 theme-accent row-center-center'>Generate</button>
+            <button className='flex-11 theme-accent row-center-center text-center'>Generate</button>
           </form>
           <div className={`sm-grid-1 md-grid-2 ${this.textStyle}`}>
             {_.map(this.state.results, word => (

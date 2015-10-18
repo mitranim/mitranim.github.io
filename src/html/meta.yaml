@@ -3,15 +3,9 @@ files:
 - name: foliant
   description: "demo of foliant, generator of random synthetic words"
   image: script.jpg
-  echo:
-  - name: foliant/index
 
 - name: projects
   description: software projects I'm running or have participated in
-  echo:
-  - name: projects/index
 
 - name: thoughts
   description: "weblog: random thoughts scribbled hastily"
-  echo:
-  - name: thoughts/index

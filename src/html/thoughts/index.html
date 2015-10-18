@@ -25,7 +25,7 @@
   <!-- Post -->
   <%= $content %>
   <!-- Disqus thread -->
-  <% if (prod()) { %>
+  <% if (prod) { %>
     <br>
     <%= $include('partials/disqus', $) %>
   <% } %>

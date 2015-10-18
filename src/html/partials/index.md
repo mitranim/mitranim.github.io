@@ -9,8 +9,8 @@ Name: Nelo Mitranim.
 Freelance web developer (full stack).
 
 Tech:
-* Backend: Python (Django), JavaScript (Node.js, Express), Go.
-* Frontend: JavaScript (React, Angular), CSS (Sass, LESS).
+* Backend: Python (Django), JavaScript (Node.js: Koa, Express, Meteor), Go.
+* Frontend: JavaScript (React, Angular), CSS (Sass, Less).
 * Linux administration.
 
 Favourite pastime: writing [free software](/projects/).

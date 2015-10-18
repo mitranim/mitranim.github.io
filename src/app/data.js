@@ -14,11 +14,11 @@ const fbRootUrl = 'https://incandescent-torch-3438.firebaseio.com'
 export const root = new Firebase(fbRootUrl)
 
 const RefMappers = {
-  defaultLang (authData) {return root.child('foliant/defaults/langs/eng')},
-  defaultNames (authData) {return root.child('foliant/defaults/names/eng')},
-  defaultWords (authData) {return root.child('foliant/defaults/words/eng')},
-  names (authData) {return authData ? root.child(`foliant/personal/${authData.uid}/names/eng`) : null},
-  words (authData) {return authData ? root.child(`foliant/personal/${authData.uid}/words/eng`) : null}
+  defaultLang: authData => root.child('foliant/defaults/langs/eng'),
+  defaultNames: authData => root.child('foliant/defaults/names/eng'),
+  defaultWords: authData => root.child('foliant/defaults/words/eng'),
+  names: authData => authData ? root.child(`foliant/personal/${authData.uid}/names/eng`) : null,
+  words: authData => authData ? root.child(`foliant/personal/${authData.uid}/words/eng`) : null
 }
 
 /**
@@ -33,7 +33,7 @@ export const Values = _.mapValues(RefMappers, () => new ReactiveVar(null))
  * Set up lazy data load. This function should be run when the data is
  * required for the first time.
  */
-export const setUpDataLoad = _.once(() => {
+export const setUpDataLoad = _.once(function () {
 
   /**
    * Auth handlers.
@@ -41,16 +41,18 @@ export const setUpDataLoad = _.once(() => {
 
   root.onAuth(newAuthData => {
     // When deauthed, auth anonymously.
-    if (!newAuthData) root.authAnonymously(err => {if (err) throw err})
+    if (!newAuthData) root.authAnonymously(::console.error)
 
-    // Refresh all reactive variables.
+    /**
+     * Refresh all reactive variables.
+     */
 
     authData.set(newAuthData)
 
-    Object.keys(Refs).forEach(key => {
+    _.each(Refs, (refVar, key) => {
       // Refresh ref.
       const ref = RefMappers[key](newAuthData)
-      Refs[key].set(ref)
+      refVar.set(ref)
 
       // Refresh value.
       if (ref) {
@@ -103,8 +105,7 @@ export class Component extends React.Component {
   componentWillMount () {
     if (typeof this.getState === 'function') {
       Tracker.autorun(() => {
-        // Assuming this.getState() calls some functions that return
-        // reactive data sources
+        // Assuming `this.getState()` accesses reactive data sources.
         this.setState(this.getState())
       })
     }
