@@ -1,9 +1,6 @@
 import Firebase from 'firebase'
-import React from 'react'
 import _ from 'lodash'
-import {Tracker} from './tracker'
-import {ReactiveVar} from './reactive-var'
-// import {ReactiveDict} from './reactive-dict'
+import {autorun, Source} from 'rapt'
 
 const fbRootUrl = 'https://incandescent-torch-3438.firebaseio.com'
 
@@ -13,7 +10,7 @@ const fbRootUrl = 'https://incandescent-torch-3438.firebaseio.com'
 
 export const root = new Firebase(fbRootUrl)
 
-const RefMappers = {
+const refMappers = {
   defaultLang: authData => root.child('foliant/defaults/langs/eng'),
   defaultNames: authData => root.child('foliant/defaults/names/eng'),
   defaultWords: authData => root.child('foliant/defaults/words/eng'),
@@ -25,12 +22,30 @@ const RefMappers = {
  * Reactive values.
  */
 
-export const authData = new ReactiveVar(null)
-export const Refs = _.mapValues(RefMappers, () => new ReactiveVar(null))
-export const Values = _.mapValues(RefMappers, () => new ReactiveVar(null))
+export const authData = new Source(null)
+
+export const refs = Object.create(null)
+export const store = Object.create(null)
+
+Object.keys(refMappers).forEach(key => {
+  ;[refs, store].forEach(object => {
+    const source = new Source(null)
+
+    Object.defineProperty(object, key, {
+      get () {
+        return source.read()
+      },
+      set (value) {
+        source.write(value)
+      },
+      enumerable: true,
+      configurable: false
+    })
+  })
+})
 
 /**
- * Set up lazy data load. This function should be run when the data is
+ * Lazily set up data loading. This function should be run when the data is
  * required for the first time.
  */
 export const setUpDataLoad = _.once(function () {
@@ -47,17 +62,16 @@ export const setUpDataLoad = _.once(function () {
      * Refresh all reactive variables.
      */
 
-    authData.set(newAuthData)
+    authData.write(newAuthData)
 
-    _.each(Refs, (refVar, key) => {
+    _.each(refMappers, (mapper, key) => {
       // Refresh ref.
-      const ref = RefMappers[key](newAuthData)
-      refVar.set(ref)
+      const ref = refs[key] = mapper(newAuthData)
 
       // Refresh value.
       if (ref) {
         const handler = ref.on('value', snap => {
-          Values[key].set(snap.val())
+          store[key] = snap.val()
         }, () => {
           ref.off('value', handler)
         })
@@ -66,12 +80,12 @@ export const setUpDataLoad = _.once(function () {
   })
 
   // Reactively refresh names and words.
-  Tracker.autorun(function () {
-    const namesRef = Refs.names.get()
+  autorun(function () {
+    const namesRef = refs.names
     if (namesRef) {
       namesRef.on('value', snap => {
         if (!snap.val()) {
-          const defNamesRef = Refs.defaultNames.get()
+          const defNamesRef = refs.defaultNames
           const handler = defNamesRef.once('value', snap => {
             namesRef.set(snap.val())
           }, () => {
@@ -81,11 +95,11 @@ export const setUpDataLoad = _.once(function () {
       })
     }
 
-    const wordsRef = Refs.words.get()
+    const wordsRef = refs.words
     if (wordsRef) {
       wordsRef.on('value', snap => {
         if (!snap.val()) {
-          const defWordsRef = Refs.defaultWords.get()
+          const defWordsRef = refs.defaultWords
           const handler = defWordsRef.once('value', snap => {
             wordsRef.set(snap.val())
           }, () => {
@@ -96,22 +110,3 @@ export const setUpDataLoad = _.once(function () {
     }
   })
 })
-
-/**
- * Component extension.
- */
-
-export class Component extends React.Component {
-  componentWillMount () {
-    if (typeof this.getState === 'function') {
-      Tracker.autorun(() => {
-        // Assuming `this.getState()` accesses reactive data sources.
-        this.setState(this.getState())
-      })
-    }
-  }
-
-  componentWillUnmount () {
-    // ... TODO cleanup?
-  }
-}

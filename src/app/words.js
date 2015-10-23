@@ -2,19 +2,20 @@ import React from 'react'
 import _ from 'lodash'
 import Traits from 'foliant'
 import {LoginButton} from './login'
-import {Component, Refs, Values} from './data'
-import {renderTo, Spinner} from './utils'
+import {refs, store} from './data'
+import {renderTo, reactive, Spinner} from './utils'
 
-@renderTo('[is=foliantComponent]')
-class Words extends Component {
-  getState () {
-    return {
-      defaultLang: Values.defaultLang.get(),
-      defaultNames: Values.defaultNames.get(),
-      defaultWords: Values.defaultWords.get(),
-      names: Values.names.get(),
-      words: Values.words.get()
-    }
+@renderTo('[data-render-foliant]')
+export class Words extends React.Component {
+  @reactive
+  updateState () {
+    this.setState({
+      defaultLang: store.defaultLang,
+      defaultNames: store.defaultNames,
+      defaultWords: store.defaultWords,
+      names: store.names,
+      words: store.words
+    })
   }
 
   isReady () {
@@ -22,9 +23,11 @@ class Words extends Component {
   }
 
   render () {
-    if (!this.isReady()) return (
-      <Spinner size='large' style={{minHeight: '3em'}} />
-    )
+    if (!this.isReady()) {
+      return (
+        <Spinner size='large' style={{minHeight: '3em'}} />
+      )
+    }
 
     return (
       <div>
@@ -83,7 +86,7 @@ class WordsTab extends React.Component {
           <h3>Source {this.props.title}</h3>
           <form onSubmit={::this.add} className='sf-label-row sf-label-dense'
                 data-sf-tooltip={this.state.error} data-sf-trigger='focus' style={{height: '2.5rem'}}>
-            <input name='word' autofocus className={`flex-11 theme-text-primary ${this.textStyle}`} placeholder='add...' />
+            <input name='word' autoFocus className={`flex-11 theme-text-primary ${this.textStyle}`} placeholder='add...' />
             <button className='flex-1 fa fa-plus theme-primary' tabIndex='-1'></button>
           </form>
           <div className={`sm-grid-1 md-grid-2 ${this.textStyle}`}>
@@ -192,7 +195,7 @@ class WordsTab extends React.Component {
   }
 
   get textStyle () {return this.props.title === 'Names' ? 'text-capitalise' : 'text-lowercase'}
-  get ref () {return Refs[this.props.title.toLowerCase()].get()}
+  get ref () {return refs[this.props.title.toLowerCase()]}
 }
 
 class SourceWord extends React.Component {

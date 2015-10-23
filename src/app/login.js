@@ -1,11 +1,13 @@
 import React from 'react'
-import {Component, authData, root} from './data'
+import {authData, root} from './data'
+import {reactive} from './utils'
 
-export class LoginButton extends Component {
-  getState () {
-    return {
-      authData: authData.get()
-    }
+export class LoginButton extends React.Component {
+  @reactive
+  updateState () {
+    this.setState({
+      authData: authData.read()
+    })
   }
 
   render () {
