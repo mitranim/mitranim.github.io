@@ -44,17 +44,18 @@ function onload (callback: () => void): void {
  *     }
  *   }
  */
-export function reactive (prototype, name, {value: reactiveFunc}) {
+export function reactive (target, name, {value: reactiveFunc}) {
   if (typeof reactiveFunc !== 'function') return
-  const {componentWillMount: pre, componentWillUnmount: post} = prototype
+  const {componentWillMount: pre, componentWillUnmount: post} = target
 
-  prototype.componentWillMount = function () {
+  target.componentWillMount = function () {
     if (typeof pre === 'function') pre.call(this)
-    this[name] = reactiveFunc.bind(this)
+    // Bind once. Bound functions have no prototype.
+    if (this[name].prototype) this[name] = reactiveFunc.bind(this)
     autorun(this[name])
   }
 
-  prototype.componentWillUnmount = function () {
+  target.componentWillUnmount = function () {
     stop(this[name])
     if (typeof post === 'function') post.call(this)
   }
