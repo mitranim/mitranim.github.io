@@ -35,11 +35,11 @@ const src = {
   ],
   robots: 'src/robots.txt',
   scripts: [
-    'src/app/**/*.js',
+    'src/scripts/**/*.js',
     'node_modules/stylific/lib/stylific.min.js',
     'node_modules/simple-pjax/lib/simple-pjax.min.js'
   ],
-  scriptsCore: 'src/app/app.js',
+  scriptsCore: 'src/scripts/app.js',
   stylesCore: 'src/styles/app.scss',
   styles: [
     'src/styles/**/*.scss',
@@ -52,11 +52,10 @@ const src = {
 const dest = {
   html: 'dist',
   xml: 'dist/**/*.xml',
-  scripts: 'dist/app/**/*.js',
+  scripts: 'dist/scripts',
   styles: 'dist/styles',
   images: 'dist/images',
-  fonts: 'dist/fonts',
-  app: 'dist/app'
+  fonts: 'dist/fonts'
 }
 
 function reload (done) {
@@ -174,7 +173,7 @@ function scripts (done) {
   webpack({
     entry: './' + src.scriptsCore,
     output: {
-      path: pt.join(process.cwd(), dest.html),
+      path: pt.join(process.cwd(), dest.scripts),
       filename: 'app.js'
     },
     resolve: {

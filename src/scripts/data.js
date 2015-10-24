@@ -56,7 +56,11 @@ export const setUpDataLoad = _.once(function () {
 
   root.onAuth(newAuthData => {
     // When deauthed, auth anonymously.
-    if (!newAuthData) root.authAnonymously(::console.error)
+    if (!newAuthData) {
+      root.authAnonymously(err => {
+        if (err) console.error(err)
+      })
+    }
 
     /**
      * Refresh all reactive variables.
