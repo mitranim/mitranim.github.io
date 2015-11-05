@@ -107,7 +107,10 @@ const limit = 12
       dispatch(err(null))
       signals.didAdd()
       ref.push(word, err => {
-        if (!err) sig.generate()
+        if (!err) {
+          generator = null
+          sig.generate()
+        }
       })
     }
   })
@@ -159,6 +162,7 @@ const limit = 12
           reject(err)
         } else {
           out(checkForEmpty(type))
+          out(() => {generator = null})
           out(sig.generate)
           resolve()
         }
