@@ -39,10 +39,13 @@
     <!-- Footer -->
     <%= $include('partials/footer', $) %>
 
+    <% if (!prod) { %>
+      <script>
+        window.developmentMode = true;
+      </script>
+    <% } %>
+
     <!-- JS -->
     <script src="/scripts/app.js" async></script>
-    <% if (!prod) { %>
-      <script src="/env.js"></script>
-    <% } %>
   </body>
 </html>

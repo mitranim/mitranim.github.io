@@ -1,22 +1,27 @@
+import _ from 'lodash'
 import React from 'react'
 import {render, unmountComponentAtNode} from 'react-dom'
-import _ from 'lodash'
-import {autorun, stop} from 'rapt'
-import {setUpDataLoad} from './data'
+import {createPure, deepEqual} from 'symphony'
+import {signals} from './flow'
+
+export const pure = createPure(React.Component)
 
 const unmountQueue = []
 
-export function renderTo (selector: string) {
-  return (Component: typeof React.Component) => {
+export function renderTo (selector: string, renderFunc: ?Function) {
+  function init (Component: typeof React.Component) {
     onload(() => {
       const mountPoints = document.querySelectorAll(selector)
-      if (mountPoints.length) setUpDataLoad()
+      if (mountPoints.length) signals.init()
       _.each(mountPoints, element => {
         unmountQueue.push(element)
         render(<Component />, element)
       })
     })
   }
+
+  if (typeof renderFunc === 'function') init(pure(renderFunc))
+  else return init
 }
 
 document.addEventListener('simple-pjax:before-transition', () => {
@@ -35,35 +40,24 @@ function onload (callback: () => void): void {
   document.addEventListener('simple-pjax:after-transition', callback)
 }
 
-/**
- * Component method decorator for reactive updates. Usage:
- *   class X extends React.Component {
- *     @reactive
- *     updateMe () {
- *       ...
- *     }
- *   }
- */
-export function reactive (target, name, {value: reactiveFunc}) {
-  if (typeof reactiveFunc !== 'function') return
-  const {componentWillMount: pre, componentWillUnmount: post} = target
-
-  target.componentWillMount = function () {
-    if (typeof pre === 'function') pre.call(this)
-    // Bind once. Bound functions have no prototype.
-    if (this[name].prototype) this[name] = reactiveFunc.bind(this)
-    autorun(this[name])
-  }
-
-  target.componentWillUnmount = function () {
-    stop(this[name])
-    if (typeof post === 'function') post.call(this)
+export function pureRender (Component) {
+  return class extends Component {
+    shouldComponentUpdate (newProps, newState) {
+      if (typeof super.shouldComponentUpdate === 'function') {
+        return super.shouldComponentUpdate(newProps, newState)
+      }
+      return !deepEqual(this.props, newProps) || !deepEqual(this.state, newState)
+    }
   }
 }
 
-export const Spinner = props => (
-  <div className={`spinner-container ${props.size ? `size-${props.size}` : ''}`}
-       style={props.style || null}>
-    <div className='spinner' />
-  </div>
-)
+// Loading indicator.
+export const Spinner = props => {
+  const {size, ...other} = props
+
+  return (
+    <div className={`spinner-container ${size ? `size-${size}` : ''}`} {...other}>
+      <div className='spinner' />
+    </div>
+  )
+}

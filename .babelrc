@@ -1,0 +1,16 @@
+{
+  modules: 'common',
+  optional: [
+    'spec.protoToAssign',
+    'es7.classProperties',
+    'es7.decorators',
+    'es7.functionBind',
+    'es7.objectRestSpread',
+    'validation.undeclaredVariableCheck'
+  ],
+  loose: [
+    'es6.classes',
+    'es6.properties.computed',
+    'es6.forOf'
+  ]
+}

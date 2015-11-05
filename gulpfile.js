@@ -5,14 +5,11 @@
  *   "gulp": "gulpjs/gulp#4.0"
  *
  * Requires Node.js 4.0+
- *
- * Style per http://standardjs.com
  */
 
 /* ***************************** Dependencies ********************************/
 
 const $ = require('gulp-load-plugins')()
-const _ = require('lodash')
 const bsync = require('browser-sync').create()
 const cheerio = require('cheerio')
 const del = require('del')
@@ -162,7 +159,6 @@ marked.Renderer.prototype.code = function (code, lang, escaped) {
 
 function scripts (done) {
   const alias = {
-    /* ... */
     'simple-pjax': 'simple-pjax/dist/simple-pjax'
   }
   if (flags.prod) {
@@ -182,25 +178,9 @@ function scripts (done) {
     module: {
       loaders: [
         {
-          test: /\.jsx?$/,
-          exclude: /(node_modules|bower_components)/,
+          test: /\.js$/,
           loader: 'babel',
-          query: {
-            modules: 'common',
-            optional: [
-              'spec.protoToAssign',
-              'es7.classProperties',
-              'es7.decorators',
-              'es7.functionBind',
-              'es7.objectRestSpread',
-              'validation.undeclaredVariableCheck'
-            ],
-            loose: [
-              'es6.classes',
-              'es6.properties.computed',
-              'es6.forOf'
-            ]
-          }
+          include: pt.join(process.cwd(), 'src/scripts')
         }
       ]
     },
@@ -435,22 +415,7 @@ gulp.task('server', function () {
   return bsync.init({
     startPath: '/',
     server: {
-      baseDir: './',
-      middleware: function (req, res, next) {
-        if (req.url[0] !== '/') req.url = '/' + req.url
-
-        if (_.any([
-            /node_modules/, /bower_components/, /dist/, /env\.js/
-          ], reg => reg.test(req.url))) {
-          next()
-          return
-        }
-
-        if (req.url === '/') req.url = '/' + dest.html + '/index.html'
-        else req.url = '/' + dest.html + req.url
-
-        next()
-      }
+      baseDir: dest.html
     },
     port: 11204,
     online: false,

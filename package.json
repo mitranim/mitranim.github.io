@@ -42,11 +42,12 @@
     "gulp-watch": "^4.3.5",
     "highlight.js": "^8.8.0",
     "lodash": "^3.10.1",
-    "rapt": "Mitranim/rapt",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
+    "redux": "^3.0.4",
     "simple-pjax": "^0.3.0",
     "stylific": "^0.13.0",
+    "symphony": "0.0.3",
     "webpack": "^1.12.2",
     "yargs": "^3.27.0"
   },
