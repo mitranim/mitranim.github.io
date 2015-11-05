@@ -8,7 +8,7 @@ export * from './store'
  * Signals
  */
 
-export const signals = createSignals(dispatch, {  // eslint-disable-line
+export const signals = createSignals(dispatch, {
   init: {},
   login: {twitter: {}, facebook: {}},
   logout: {},
