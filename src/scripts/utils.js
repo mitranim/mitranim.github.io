@@ -28,7 +28,7 @@ export function renderTo (selector: string, renderFunc: ?Function) {
   else return init
 }
 
-document.addEventListener('simple-pjax:before-transition', () => {
+document.addEventListener('simple-pjax-before-transition', () => {
   unmountQueue.splice(0).forEach(unmountComponentAtNode)
 })
 
@@ -41,7 +41,7 @@ function onload (callback: () => void): void {
       callback()
     })
   }
-  document.addEventListener('simple-pjax:after-transition', callback)
+  document.addEventListener('simple-pjax-after-transition', callback)
 }
 
 // Loading indicator.
