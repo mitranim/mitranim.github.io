@@ -1,23 +1,33 @@
-import {createStore} from 'redux'
-import {immute, replaceAtPath, mergeAtRoot, createReader} from 'symphony'
+import _ from 'lodash'
+import {createStore, applyMiddleware} from 'redux'
+import {createMiddleware, immute, replaceAtPath, mergeAtRoot, createReader} from 'symphony'
+import {emit} from './utils'
+
+/**
+ * Transducing middleware
+ */
+
+import {transducer as auth} from './auth'
+import {transducer as generate} from './generate'
+
+const create = applyMiddleware(createMiddleware(auth, generate))(createStore)
 
 /**
  * Store
  */
 
-const store = createStore((state, action) => {
-  switch (action.type) {
+const store = create((state, {type, value, path}) => {
+  switch (type) {
     case 'set': {
-      state = replaceAtPath(state, action.value, action.path)
-      break
+      return replaceAtPath(state, value, path)
     }
     case 'patch': {
-      state = mergeAtRoot(state, action.value)
-      break
+      return mergeAtRoot(state, value)
     }
   }
   return state
-}, immute({
+},
+immute({
   refPaths: {
     names: null,
     words: null
@@ -49,6 +59,8 @@ const store = createStore((state, action) => {
 
 export const dispatch = store.dispatch
 export const read = createReader(store)
+
+emit.on('init', _.once(() => {dispatch({type: 'init'})}))
 
 /**
  * Utils

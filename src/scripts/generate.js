@@ -1,189 +1,191 @@
 import _ from 'lodash'
 import Traits from 'foliant'
-import {read, signals, dispatch} from './flow'
+import {emit} from './utils'
 
 // Used for lazily exported Firebase refs.
-const flow = require('./flow')
+const auth = require('./auth')
 
 const limit = 12
+const kinds = ['names', 'words']
+let generators = {}
+const flush = []
 
-;['names', 'words'].forEach(type => {
-  const sig = signals[type]
-  let generator = null
+export function transducer (action, dispatch, read) {
+  if (action.type === 'logout') {
+    generators = {}
+    while (flush.length) flush.shift()()
+    return action
+  }
 
-  signals.logout.subscribe(() => {
-    generator = null
-  })
+  const kind = action.kind
+  if (!kind || !~kinds.indexOf(kind)) return action
 
-  sig.init.subscribe((__, out) => {
-    const inited = read(type, 'inited')
-    if (inited) return
+  switch (action.type) {
+    case 'genInit': {
+      if (read(kind, 'inited') || !read('auth')) return
 
-    // Create a subscription for personal selected words, if it doesn't exist
-    // yet.
-    const ref = flow.getRef(read('refPaths', type))
-    if (!ref) return
-
-    out(new Promise(resolve => {
-      const handler = ref.on('value', snap => {
-        dispatch({
-          type: 'set',
-          path: [type, 'selected'],
-          value: snap.val()
-        })
-        resolve()
-      }, () => {
-        resolve()
-        ref.off('value', handler)
-      })
-
-      // Completely paranoid cleanup.
-      const off = signals.logout.subscribe(() => {
-        ref.off('value', handler)
-        off()
-      })
-    }))
-
-    out({
-      type: 'set',
-      path: [type, 'inited'],
-      value: true
-    })
-
-    out(() => checkForEmpty(type))
-
-    out(() => {
-      if (!read(type, 'generated')) sig.generate()
-    })
-  })
-
-  sig.generate.subscribe(() => {
-    const selected = read(type, 'selected')
-    if (!selected) return
-
-    if (!generator) {
-      generator = getGenerator(selected, limit)
+      return [
+        {type: 'genLoadSelected', kind},
+        {type: 'patch', value: {[kind]: {inited: true}}},
+        {type: 'genCheckEmpty', kind},
+        {type: 'genGenerate', kind, onlyEmpty: true}
+      ]
     }
-    const generated = generator()
 
-    dispatch({
-      type: 'patch',
-      value: {
-        [type]: {
-          generated,
-          depleted: generated.length < limit
+    case 'genLoadSelected': {
+      const ref = auth.getRef(read('refPaths', kind))
+      if (!ref) return Promise.reject(`ref not found for path: ${read('refPaths', kind)}`)
+      return loadSelected(kind, dispatch, ref)
+    }
+
+    case 'genCheckEmpty': {
+      return checkForEmpty(kind, dispatch, read)
+    }
+
+    case 'genGenerate': {
+      if (action.onlyEmpty && read(kind, 'generated')) return
+
+      const selected = read(kind, 'selected')
+      if (!selected) return
+
+      if (!generators[kind]) {
+        generators[kind] = getGenerator(selected, limit)
+      }
+      const generated = generators[kind]()
+
+      return {
+        type: 'patch',
+        value: {
+          [kind]: {
+            generated,
+            depleted: generated.length < limit
+          }
         }
       }
-    })
-  })
-
-  sig.add.subscribe(word => {
-    word = word.toLowerCase()
-
-    if (!word) {
-      dispatch(err(type, 'Please input a word'))
-      return
     }
 
-    if (word.length < 2) {
-      dispatch(err(type, 'The word is too short'))
-      return
+    case 'genAdd': {
+      let word = action.value
+
+      if (typeof word !== 'string') {
+        return err(kind, 'The word must be a string')
+      }
+
+      word = word.toLowerCase().trim()
+
+      if (!word) {
+        return err(kind, 'Please input a word')
+      }
+
+      if (word.length < 2) {
+        return err(kind, 'The word is too short')
+      }
+
+      const selected = read(kind, 'selected')
+
+      if (_.contains(selected, word)) {
+        return err(kind, 'This word is already in the set')
+      }
+
+      if (!isWordValid(word)) {
+        return err(kind, 'Some of these characters are not allowed in a word')
+      }
+
+      const ref = auth.getRef(read('refPaths', kind))
+
+      if (ref) {
+        dispatch(err(null))
+        emit('genAddSuccess')
+
+        ref.push(word, err => {
+          if (!err) {
+            generators[kind] = null
+            dispatch({type: 'genGenerate', kind})
+          }
+        })
+      }
+
+      break
     }
 
-    const selected = read(type, 'selected')
+    // Adds the given word to the store, removing it from the generated results.
+    // We don't need to refresh the generator and the generated words, because
+    // adding a previously generated word to the same source set has no effect
+    // on the total output from this sample.
+    case 'genPick': {
+      const word = action.value
+      const selected = read(kind, 'selected')
+      if (_.contains(selected, word)) return
 
-    if (_.contains(selected, word)) {
-      dispatch(err(type, 'This word is already in the set'))
-      return
-    }
+      const ref = auth.getRef(read('refPaths', kind))
+      if (!ref) {
+        throw Error(`no ref found at path: ${read('refPaths', kind)}`)
+      }
 
-    if (!isWordValid(word)) {
-      dispatch(err(type, 'Some of these characters are not allowed in a word'))
-      return
-    }
+      // Optimistically remove from results.
+      const prevGenerated = read(kind, 'generated')
+      const generated = _.without(prevGenerated, word)
 
-    const ref = flow.getRef(read('refPaths', type))
-    if (ref) {
-      dispatch(err(null))
-      signals.didAdd()
-      ref.push(word, err => {
-        if (!err) {
-          generator = null
-          sig.generate()
-        }
+      dispatch({
+        type: 'set',
+        path: [kind, 'generated'],
+        value: generated
       })
-    }
-  })
 
-  // Adds the given word to the store, removing it from the generated results.
-  // We don't need to refresh the generator and the generated words, because
-  // adding a previously generated word to the same source set has no effect on
-  // the total output from this sample.
-  sig.pick.subscribe((word, out) => {
-    const selected = read(type, 'selected')
-    if (_.contains(selected, word)) return
-
-    const ref = flow.getRef(read('refPaths', type))
-    if (!ref) {
-      throw Error(`no ref found at path: ${read('refPaths', type)}`)
-    }
-
-    // Optimistically remove from results.
-    const prevGenerated = read(type, 'generated')
-    const generated = _.without(prevGenerated, word)
-    out({
-      type: 'set',
-      path: [type, 'generated'],
-      value: generated
-    })
-
-    out(new Promise((resolve, reject) => {
       ref.push(word, err => {
         if (err) {
           // Roll back the optimistic change.
           dispatch({
             type: 'set',
-            path: [type, 'generated'],
+            path: [kind, 'generated'],
             value: prevGenerated
           })
-          reject(err)
-        } else {
-          resolve()
         }
       })
-    }))
-  })
 
-  // Removes the given word from the selected group.
-  sig.drop.subscribe((key, out) => {
-    out(new Promise((resolve, reject) => {
-      flow.getRef(read('refPaths', type)).child(key).remove(err => {
+      // Babel gets confused by its own generated code if I use `break` here.
+      return
+    }
+
+    // Removes the given word from the selected group.
+    case 'genDrop': {
+      auth.getRef(read('refPaths', kind)).child(action.value).remove(err => {
         if (err) {
-          reject(err)
+          console.error(err)
         } else {
-          out(checkForEmpty(type))
-          out(() => {generator = null})
-          out(sig.generate)
-          resolve()
+          dispatch([
+            {type: 'genCheckEmpty', kind},
+            {type: 'genResetGenerator', kind},
+            {type: 'genGenerate', kind}
+          ])
         }
       })
-    }))
-  })
-})
+
+      break
+    }
+
+    case 'genResetGenerator': {
+      generators[kind] = null
+      break
+    }
+  }
+
+  return action
+}
 
 /**
  * Utils
  */
 
 // If the selected words are empty, fills them with the defaults.
-function checkForEmpty (type) {
-  const selected = read(type, 'selected')
-  const ref = flow.getRef(read('refPaths', type))
-  const def = flow.defaultRefs[type]
+function checkForEmpty (kind, dispatch, read) {
+  const selected = read(kind, 'selected')
+  const ref = auth.getRef(read('refPaths', kind))
+  const def = auth.defaultRefs[kind]
   if (selected || !ref || !def) return Promise.resolve()
 
   return new Promise(resolve => {
-    const defaults = read('defaults', type)
+    const defaults = read('defaults', kind)
 
     if (defaults) {
       ref.set(defaults)
@@ -193,12 +195,31 @@ function checkForEmpty (type) {
         ref.set(snap.val())
         dispatch({
           type: 'set',
-          path: ['defaults', type],
+          path: ['defaults', kind],
           value: snap.val()
         })
         resolve()
       }, () => {resolve()})
     }
+  })
+}
+
+function loadSelected (kind, dispatch, ref) {
+  return new Promise(resolve => {
+    const handler = ref.on('value', snap => {
+      dispatch({
+        type: 'set',
+        path: [kind, 'selected'],
+        value: snap.val()
+      })
+      resolve()
+    }, () => {
+      resolve()
+      ref.off('value', handler)
+    })
+
+    // Completely paranoid cleanup.
+    flush.push(() => {ref.off('value', handler)})
   })
 }
 
@@ -228,6 +249,6 @@ function isWordValid (word) {
   }
 }
 
-function err (type, value) {
-  return {type: 'set', path: [type, 'error'], value}
+function err (kind, value) {
+  return {type: 'set', path: [kind, 'error'], value}
 }

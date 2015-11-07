@@ -2,8 +2,8 @@ import React, {PropTypes} from 'react'
 import _ from 'lodash'
 import {reactiveRender} from 'symphony'
 import {LoginButton} from './login'
-import {renderTo, Spinner, pure} from './utils'
-import {read, signals, on} from './flow'
+import {renderTo, Spinner, pure, on} from './utils'
+import {read, dispatch} from './store'
 
 const SourceWord = pure(props => (
   <div className='word'>
@@ -26,13 +26,15 @@ const GeneratedWord = pure(props => (
 @reactiveRender
 class WordsTab extends React.Component {
   static propTypes = {
-    type: PropTypes.string
+    kind: PropTypes.string
   }
 
-  @on.login
+  @on('loginSuccess')
   init () {
-    this.sig = signals[this.props.type]
-    if (this.sig) this.sig.init()
+    dispatch({
+      type: 'genInit',
+      kind: this.props.kind
+    })
   }
 
   componentWillMount () {
@@ -40,16 +42,16 @@ class WordsTab extends React.Component {
   }
 
   componentDidUpdate (props) {
-    if (this.props.type !== props.type) this.init()
+    if (this.props.kind !== props.kind) this.init()
   }
 
   render () {
     const auth = read('auth')
-    const selected = read(this.props.type, 'selected')
-    const inited = read(this.props.type, 'inited')
-    const generated = read(this.props.type, 'generated')
-    const depleted = read(this.props.type, 'depleted')
-    const error = read(this.props.type, 'error')
+    const selected = read(this.props.kind, 'selected')
+    const inited = read(this.props.kind, 'inited')
+    const generated = read(this.props.kind, 'generated')
+    const depleted = read(this.props.kind, 'depleted')
+    const error = read(this.props.kind, 'error')
 
     if (!auth || !inited) {
       return (
@@ -61,7 +63,7 @@ class WordsTab extends React.Component {
       <div className='widget-words'>
         {/* Left column: source words */}
         <div className='flex-1 container'>
-          <h3>Source {_.capitalize(this.props.type)}</h3>
+          <h3>Source {_.capitalize(this.props.kind)}</h3>
           <form onSubmit={::this.add} className='sf-label-row sf-label-dense'
                 data-sf-tooltip={error} data-sf-trigger='focus' style={{height: '2.5rem'}}>
             <input name='word' ref='input' autoFocus className={`flex-11 theme-text-primary ${this.textStyle}`} placeholder='add...' />
@@ -69,21 +71,21 @@ class WordsTab extends React.Component {
           </form>
           <div className={`sm-grid-1 md-grid-2 ${this.textStyle}`}>
             {_.map(selected, (word, key) => (
-              <SourceWord text={word} handler={() => this.sig.drop(key)} key={key} />
+              <SourceWord text={word} handler={() => {this.drop(key)}} key={key} />
             ))}
           </div>
         </div>
 
         {/* Right column: generated results */}
         <div className='flex-1 container'>
-          <h3>Generated {_.capitalize(this.props.type)}</h3>
+          <h3>Generated {_.capitalize(this.props.kind)}</h3>
           <form onSubmit={::this.generate} className='sf-label-row sf-label-dense' style={{height: '2.5rem'}}>
             <button className='flex-1 theme-accent fa fa-refresh' tabIndex='-1' />
             <button className='flex-11 theme-accent row-center-center text-center'>Generate</button>
           </form>
           <div className={`sm-grid-1 md-grid-2 ${this.textStyle}`}>
             {_.map(generated, word => (
-              <GeneratedWord text={word} handler={() => {this.sig.pick(word)}} key={word} />
+              <GeneratedWord text={word} handler={() => {this.pick(word)}} key={word} />
             ))}
 
             {depleted ?
@@ -94,23 +96,46 @@ class WordsTab extends React.Component {
     )
   }
 
+  generate (event) {
+    event.preventDefault()
+    dispatch({
+      type: 'genGenerate',
+      kind: this.props.kind
+    })
+  }
+
   add (event) {
     event.preventDefault()
     const value = this.refs.input.value.trim()
-    this.sig.add(value)
+    dispatch({
+      type: 'genAdd',
+      kind: this.props.kind,
+      value
+    })
   }
 
-  @on.didAdd
+  @on('genAddSuccess')
   onAdd () {
     this.refs.input.value = ''
   }
 
-  generate (event) {
-    event.preventDefault()
-    this.sig.generate()
+  pick (word) {
+    dispatch({
+      type: 'genPick',
+      kind: this.props.kind,
+      value: word
+    })
   }
 
-  get textStyle () {return this.props.type === 'names' ? 'text-capitalise' : 'text-lowercase'}
+  drop (key) {
+    dispatch({
+      type: 'genDrop',
+      kind: this.props.kind,
+      value: key
+    })
+  }
+
+  get textStyle () {return this.props.kind === 'names' ? 'text-capitalise' : 'text-lowercase'}
 }
 
 @renderTo('[data-render-foliant]')
@@ -130,7 +155,7 @@ export class WordsPage extends React.Component {
           ))}
         </div>
 
-        <WordsTab type={this.state.tab} />
+        <WordsTab kind={this.state.tab} />
 
         <br />
 

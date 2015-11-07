@@ -1,10 +1,14 @@
 import _ from 'lodash'
 import React from 'react'
 import {render, unmountComponentAtNode} from 'react-dom'
-import {createPure, deepEqual} from 'symphony'
-import {signals} from './flow'
+import {createPure, createEmitter} from 'symphony'
 
+// Creates a reactively updating component from a pure function.
 export const pure = createPure(React.Component)
+
+// Application-wide event emitter.
+export const emit = createEmitter('init', 'loginSuccess', 'genAddSuccess')
+export const on = emit.decorator
 
 const unmountQueue = []
 
@@ -12,7 +16,7 @@ export function renderTo (selector: string, renderFunc: ?Function) {
   function init (Component: typeof React.Component) {
     onload(() => {
       const mountPoints = document.querySelectorAll(selector)
-      if (mountPoints.length) signals.init()
+      if (mountPoints.length) emit('init')
       _.each(mountPoints, element => {
         unmountQueue.push(element)
         render(<Component />, element)
@@ -38,17 +42,6 @@ function onload (callback: () => void): void {
     })
   }
   document.addEventListener('simple-pjax:after-transition', callback)
-}
-
-export function pureRender (Component) {
-  return class extends Component {
-    shouldComponentUpdate (newProps, newState) {
-      if (typeof super.shouldComponentUpdate === 'function') {
-        return super.shouldComponentUpdate(newProps, newState)
-      }
-      return !deepEqual(this.props, newProps) || !deepEqual(this.state, newState)
-    }
-  }
 }
 
 // Loading indicator.

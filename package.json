@@ -47,7 +47,7 @@
     "redux": "^3.0.4",
     "simple-pjax": "^0.3.0",
     "stylific": "^0.13.0",
-    "symphony": "0.0.3",
+    "symphony": "0.0.4",
     "webpack": "^1.12.2",
     "yargs": "^3.27.0"
   },
