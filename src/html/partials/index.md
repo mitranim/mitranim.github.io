@@ -6,11 +6,11 @@
 
 Name: Nelo Mitranim.
 
-Freelance web developer (full stack).
+Frontend web developer at [ToBox](http://tobox.com). Full-stack generalist.
 
 Tech:
-* Backend: Python (Django), JavaScript (Node.js: Koa, Express, Meteor), Go.
-* Frontend: JavaScript (React, Angular), CSS (Sass, Less).
+* Backend: Python (Django), JavaScript (Node.js: Koa, ~~Express~~, ~~Meteor~~), Go.
+* Frontend: JavaScript (React, ~~Angular~~), CSS (Sass, ~~Less~~).
 * Linux administration.
 
 Favourite pastime: writing [free software](/projects/).
