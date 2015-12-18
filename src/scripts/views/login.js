@@ -1,32 +1,32 @@
 import React from 'react'
-import {pure} from './utils'
-import {read, dispatch} from './store'
+import {read, send, auto} from '../core'
 
-export const LoginButton = pure(() => {
+export const LoginButton = auto(() => {
   const auth = read('auth')
+  if (!auth) return null
 
   return (
     <div className='container text-right'>
       {/* Anonymous */}
-      {auth && auth.provider === 'anonymous' ?
+      {auth.provider === 'anonymous' ?
       <div>
         <p>Anonymous session.</p>
         <p>
-          <button className='sf-button-flat' onClick={() => {dispatch({type: 'loginTwitter'})}}>
+          <button className='sf-button-flat' onClick={() => {send('auth/loginTwitter')}}>
             <span>Sign in with Twitter.</span>
-            <span className='fa fa-twitter inline'></span>
+            <span className='fa fa-twitter inline' />
           </button>
         </p>
       </div> : null}
 
       {/* Twitter */}
-      {auth && auth.twitter ?
+      {auth.twitter ?
       <div>
         <p>Signed in as {auth.twitter.displayName}.</p>
         <p>
-          <button className='sf-button-flat' onClick={() => {dispatch({type: 'logout'})}}>
+          <button className='sf-button-flat' onClick={() => {send('auth/logout')}}>
             <span>Sign out</span>
-            <span className='fa fa-sign-out inline'></span>
+            <span className='fa fa-sign-out inline' />
           </button>
         </p>
       </div> : null}

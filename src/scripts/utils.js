@@ -1,22 +1,17 @@
-import _ from 'lodash'
 import React from 'react'
+import _ from 'lodash'
 import {render, unmountComponentAtNode} from 'react-dom'
-import {createPure, createEmitter} from 'symphony'
+import {send, auto} from './core'
 
-// Creates a reactively updating component from a pure function.
-export const pure = createPure(React.Component)
-
-// Application-wide event emitter.
-export const emit = createEmitter('init', 'loginSuccess', 'genAddSuccess')
-export const on = emit.decorator
+const initOnce = _.once(() => {send('init')})
 
 const unmountQueue = []
 
 export function renderTo (selector: string, renderFunc: ?Function) {
-  function init (Component: typeof React.Component) {
+  function init (Component) {
     onload(() => {
       const mountPoints = document.querySelectorAll(selector)
-      if (mountPoints.length) emit('init')
+      if (mountPoints.length) initOnce()
       _.each(mountPoints, element => {
         unmountQueue.push(element)
         render(<Component />, element)
@@ -24,7 +19,7 @@ export function renderTo (selector: string, renderFunc: ?Function) {
     })
   }
 
-  if (typeof renderFunc === 'function') init(pure(renderFunc))
+  if (typeof renderFunc === 'function') init(auto(renderFunc))
   else return init
 }
 
@@ -37,7 +32,7 @@ function onload (callback: () => void): void {
     callback()
   } else {
     document.addEventListener('DOMContentLoaded', function cb () {
-      document.removeEventListener(cb)
+      document.removeEventListener('DOMContentLoaded', cb)
       callback()
     })
   }

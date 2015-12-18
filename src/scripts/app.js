@@ -1,3 +1,3 @@
 import 'stylific'
 import 'simple-pjax'
-import './words'
+import './views/words-page'
