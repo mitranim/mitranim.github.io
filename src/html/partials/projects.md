@@ -2,11 +2,11 @@
 
 [ToBox](http://tobox.com) <span class="fade">(JavaScript / React)</span>
 
-Stylish, visual platform for creating online shops.
+Stylish, visual platform for creating online shops. (Part of web frontend team.)
 
 # Hobby / Freelance
 
-[ProstoPoi](http://prostopoi.ru) <span class="fade">(Python / Django / Sass)</span>
+[ProstoPoi](http://prostopoi.ru) <span class="fade">(Python / Django / Sass / React)</span>
 
 Poi community website. We have our own video lessons, go check us out!
 
@@ -18,9 +18,10 @@ Website for a private kindergarten in the Moscow region.
 
 [Prax](https://github.com/Mitranim/prax) <span class="fade">(JavaScript)</span>
 
-[WIP] Supercharger for React / Alder apps. Immutable unistate, change detection
-for extremely precise view updates, application events as messages, pattern
-matching for message handlers, implicit data subscriptions in React views.
+[WIP] Supercharger for React / Alder apps. Helps you manage application state
+and events using message-passing semantics with pattern matching. Includes
+optional immutability with efficient deep merging. Provides implicit data
+subscriptions and change detection for extremely precise view updates.
 Undocumented.
 
 [Emerge](https://github.com/Mitranim/emerge) <span class="fade">(JavaScript)</span>
@@ -30,43 +31,44 @@ than the popular alternatives.
 
 [Alder](https://github.com/Mitranim/alder) <span class="fade">(JavaScript)</span>
 
-[WIP] Experimental rendering library inspired by React, Reagent, Om. Components
-are functions. DOM is represented with plain JavaScript data structures. Work
-in progress, undocumented.
-
-[atril](http://mitranim.com/atril/) <span class="fade">(TypeScript)</span>
-
-Experimental rendering library inspired by Polymer / Angular2. Deprecated in
-favour of Alder.
+[WIP] Experimental rendering library inspired by React, Reagent, Om. Represents
+view components with plain functions and DOM with plain JavaScript data
+structures. Work in progress, undocumented.
 
 [stylific](http://mitranim.com/stylific/) <span class="fade">(Sass / JavaScript)</span>
 
-A CSS library to help web developers make better websites. Similar to
+CSS (Sass) library to serve as a website foundation. Similar to
 [Bootstrap](http://getbootstrap.com), built on different principles.
 
 [simple-pjax](https://github.com/Mitranim/simple-pjax) <span class="fade">(TypeScript)</span>
 
 Zero-configuration library that dramatically speeds up navigation between pages
-on classic (multi-page) websites. See explanatory [blog post](/thoughts/cheating-for-performance-pjax/).
-
-[codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span>, [foliant](https://github.com/Mitranim/foliant) <span class="fade">(JavaScript)</span> | [demo](/foliant/)
-
-Generator of synthetic words or names.
+on classic (multi-page) websites. See explanatory
+[blog post](/thoughts/cheating-for-performance-pjax/).
 
 [statil](https://github.com/Mitranim/statil) <span class="fade">(JavaScript)</span>
 
 World's lightest, and possibly fastest, generator of static websites like this
 one.
 
+[codex](https://github.com/Mitranim/codex) <span class="fade">(Go)</span>, [foliant](https://github.com/Mitranim/foliant) <span class="fade">(JavaScript)</span> | [demo](/foliant/)
+
+Generator of synthetic words or names.
+
 [ng-decorate](https://github.com/Mitranim/ng-decorate) <span class="fade">(TypeScript)</span>
 
-Bridge between Angular 1.x and next-generation technologies, such as ES6 modules
-and application design patterns from Angular 2.
+Bridge between Angular 1.x and newer stuff such as ES6 modules and application
+design patterns from Angular 2.
+
+[atril](http://mitranim.com/atril/) <span class="fade">(TypeScript)</span>
+
+Experimental rendering library inspired by Polymer / Angular2. Deprecated in
+favour of Alder.
 
 [jisp](http://jisp.io) <span class="fade">(JavaScript / jisp)</span>
 
 A "programmable language". Basically a custom dialect of Lisp that compiles to
-JavaScript. I'm somewhat embarrassed about it, but people seem to like it.
+JavaScript. Currently on hold; should revisit it someday.
 
 [gotools](https://github.com/Mitranim/gotools) <span class="fade">(Go)</span>
 
