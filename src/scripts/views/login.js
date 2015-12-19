@@ -9,7 +9,7 @@ export const login = auto(function login () {
       // Anonymous
       auth.provider === 'anonymous' ?
       ['div', null,
-        ['p', null, 'Anonymous session.'],
+        ['p', null, 'Anonymous session'],
         ['p', null,
           ['button', {className: 'sf-button-flat', onclick () {send('auth/loginTwitter')}},
             'Sign in with Twitter',
@@ -18,7 +18,7 @@ export const login = auto(function login () {
       // Twitter
       auth.twitter ?
       ['div', null,
-        ['p', null, `Signed in as ${auth.twitter.displayName}.`],
+        ['p', null, `Signed in as ${auth.twitter.displayName}`],
         ['p', null,
           ['button', {className: 'sf-button-flat', onclick () {send('auth/logout')}},
             'Sign out',

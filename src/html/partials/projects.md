@@ -16,15 +16,28 @@ Website for a private kindergarten in the Moscow region.
 
 # Open Source
 
-[emerge](https://github.com/Mitranim/emerge) <span class="fade">(JavaScript)</span>
+[Prax](https://github.com/Mitranim/prax) <span class="fade">(JavaScript)</span>
+
+[WIP] Supercharger for React / Alder apps. Immutable unistate, change detection
+for extremely precise view updates, application events as messages, pattern
+matching for message handlers, implicit data subscriptions in React views.
+Undocumented.
+
+[Emerge](https://github.com/Mitranim/emerge) <span class="fade">(JavaScript)</span>
 
 Utilities for immutable data in JavaScript. Non-OOP, much lighter and simpler
 than the popular alternatives.
 
+[Alder](https://github.com/Mitranim/alder) <span class="fade">(JavaScript)</span>
+
+[WIP] Experimental rendering library inspired by React, Reagent, Om. Components
+are functions. DOM is represented with plain JavaScript data structures. Work
+in progress, undocumented.
+
 [atril](http://mitranim.com/atril/) <span class="fade">(TypeScript)</span>
 
-Experimental JavaScript rendering library. Distilled from best ideas in ReactJS,
-Angular 2, Aurelia, and Polymer, condensed into pure awesome.
+Experimental rendering library inspired by Polymer / Angular2. Deprecated in
+favour of Alder.
 
 [stylific](http://mitranim.com/stylific/) <span class="fade">(Sass / JavaScript)</span>
 

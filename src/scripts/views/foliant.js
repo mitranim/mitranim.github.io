@@ -3,6 +3,7 @@ import {renderTo} from '../utils'
 import {read, send} from '../core'
 import {login} from './login'
 import {words} from './words'
+import {footnote} from './footnote'
 
 renderTo('[data-render-foliant]', function foliant () {
   const kinds = read('kinds')
@@ -22,7 +23,9 @@ renderTo('[data-render-foliant]', function foliant () {
 
       ['br'],
 
-      [login]]
+      [login],
+
+      [footnote]]
   )
 })
 
