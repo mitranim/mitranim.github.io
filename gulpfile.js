@@ -158,21 +158,12 @@ marked.Renderer.prototype.code = function (code, lang, escaped) {
 /* -------------------------------- Scripts ---------------------------------*/
 
 function scripts (done) {
-  const alias = {
-    'simple-pjax': 'simple-pjax/dist/simple-pjax'
-  }
-  if (flags.prod) {
-    alias['react'] = 'react/dist/react.min'
-    alias['react-dom'] = 'react-dom/dist/react-dom.min'
-  }
-
   webpack({
     entry: './' + src.scriptsCore,
     output: {
       path: pt.join(process.cwd(), dest.scripts),
       filename: 'app.js'
     },
-    resolve: {alias},
     module: {
       loaders: [
         {
@@ -183,7 +174,7 @@ function scripts (done) {
       ]
     },
     plugins: flags.prod ? [new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})] : [],
-    // devtool: !flags.prod && typeof done !== 'function' ? 'inline-source-map' : null,
+    devtool: !flags.prod && typeof done !== 'function' ? 'source-map' : null,
     watch: typeof done !== 'function'
   }, function (err, stats) {
     if (err) {

@@ -1,35 +1,27 @@
-import React from 'react'
 import {read, send, auto} from '../core'
 
-export const LoginButton = auto(() => {
+export const login = auto(function login () {
   const auth = read('auth')
   if (!auth) return null
 
   return (
-    <div className='container text-right'>
-      {/* Anonymous */}
-      {auth.provider === 'anonymous' ?
-      <div>
-        <p>Anonymous session.</p>
-        <p>
-          <button className='sf-button-flat' onClick={() => {send('auth/loginTwitter')}}>
-            <span>Sign in with Twitter.</span>
-            <span className='fa fa-twitter inline' />
-          </button>
-        </p>
-      </div> : null}
+    ['div', {className: 'container text-right'},
+      // Anonymous
+      auth.provider === 'anonymous' ?
+      ['div', null,
+        ['p', null, 'Anonymous session.'],
+        ['p', null,
+          ['button', {className: 'sf-button-flat', onclick () {send('auth/loginTwitter')}},
+            'Sign in with Twitter',
+            ['span', {className: 'fa fa-twitter inline'}]]]] : null,
 
-      {/* Twitter */}
-      {auth.twitter ?
-      <div>
-        <p>Signed in as {auth.twitter.displayName}.</p>
-        <p>
-          <button className='sf-button-flat' onClick={() => {send('auth/logout')}}>
-            <span>Sign out</span>
-            <span className='fa fa-sign-out inline' />
-          </button>
-        </p>
-      </div> : null}
-    </div>
+      // Twitter
+      auth.twitter ?
+      ['div', null,
+        ['p', null, `Signed in as ${auth.twitter.displayName}.`],
+        ['p', null,
+          ['button', {className: 'sf-button-flat', onclick () {send('auth/logout')}},
+            'Sign out',
+            ['span', {className: 'fa fa-sign-out inline'}]]]] : null]
   )
 })

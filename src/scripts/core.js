@@ -46,7 +46,7 @@ export const atom = createAtom(immute({
   }
 }))
 
-export const {read} = atom
+export const {read, watch, stop} = atom
 
 /**
  * FQ
@@ -77,19 +77,17 @@ const fqSend = fq(atom.read, atom.write)
 
 // Hack to make `send` safe to use during a `watch` call.
 export function send (msg) {
-  atom.watch(_.once(() => {fqSend(msg)}))
+  watch(_.once(() => {fqSend(msg)}))
 }
 
 /**
  * Rendering
  */
 
-import {createAuto, createReactiveRender, createReactiveMethod} from 'prax/react'
-import {Component} from 'react'
-
-export const auto = createAuto(Component, atom)
-export const reactiveRender = createReactiveRender(atom)
-export const reactiveMethod = createReactiveMethod(atom)
+export const auto = view => (render, props) => {
+  const update = watch(() => {render(view(props))})
+  return () => {stop(update)}
+}
 
 /**
  * Utils

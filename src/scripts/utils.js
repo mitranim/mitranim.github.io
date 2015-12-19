@@ -1,33 +1,26 @@
-import React from 'react'
 import _ from 'lodash'
-import {render, unmountComponentAtNode} from 'react-dom'
+import {renderAt, unlink} from 'alder'
 import {send, auto} from './core'
 
 const initOnce = _.once(() => {send('init')})
 
-const unmountQueue = []
+export function renderTo (selector: string, view: Function) {
+  const component = auto(view)
 
-export function renderTo (selector: string, renderFunc: ?Function) {
-  function init (Component) {
-    onload(() => {
-      const mountPoints = document.querySelectorAll(selector)
-      if (mountPoints.length) initOnce()
-      _.each(mountPoints, element => {
-        unmountQueue.push(element)
-        render(<Component />, element)
-      })
+  onload(() => {
+    const mountPoints = document.querySelectorAll(selector)
+    if (mountPoints.length) initOnce()
+    _.each(mountPoints, element => {
+      renderAt(element, component)
     })
-  }
-
-  if (typeof renderFunc === 'function') init(auto(renderFunc))
-  else return init
+  })
 }
 
 document.addEventListener('simple-pjax-before-transition', () => {
-  unmountQueue.splice(0).forEach(unmountComponentAtNode)
+  unlink(document.body)
 })
 
-function onload (callback: () => void): void {
+function onload (callback) {
   if (/loaded|complete|interactive/.test(document.readyState)) {
     callback()
   } else {
@@ -40,12 +33,11 @@ function onload (callback: () => void): void {
 }
 
 // Loading indicator.
-export const Spinner = props => {
+export const spinner = auto(function spinner (props) {
   const {size, ...other} = props
 
   return (
-    <div className={`spinner-container ${size ? `size-${size}` : ''}`} {...other}>
-      <div className='spinner' />
-    </div>
+    ['div', {className: `spinner-container ${size ? `size-${size}` : ''}`, ...other},
+      ['div', {className: 'spinner'}]]
   )
-}
+})

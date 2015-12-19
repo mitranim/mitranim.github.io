@@ -2,7 +2,7 @@ import _ from 'lodash'
 import Traits from 'foliant'
 import {match, multimatch, pipe} from 'prax'
 // Circular dependency, TODO reconsider.
-import {read, send} from '../core'
+import {read, send, watch} from '../core'
 import {getRef, defaultRefs} from './auth'
 
 const limit = 12
@@ -10,6 +10,14 @@ let generators = {}
 const unsubs = []
 
 export default () => pipe(
+  multimatch('init', next => msg => {
+    next(msg)
+    watch(() => {
+      const kind = read('state', 'kind')
+      if (read('auth')) send({type: 'gen/init', kind})
+    })
+  }),
+
   multimatch('auth/logout', next => msg => {
     generators = {}
     while (unsubs.length) unsubs.shift()()
@@ -82,7 +90,7 @@ export default () => pipe(
     const ref = getRef(read('refPaths', kind))
 
     if (ref) {
-      send(err(null))
+      send(err(kind, null))
 
       ref.push(word, err => {
         if (!err) {
