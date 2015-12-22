@@ -1,14 +1,15 @@
 import _ from 'lodash'
 // Core utilities.
-import {createAtom, createFq} from 'prax'
+import {createAtom, createMb} from 'prax'
 // Immutability utilities.
 import {immute, replaceAtPath, mergeAtPath} from 'prax'
+import {toAsync} from 'prax/async'
 
 /**
  * State
  */
 
-export const atom = createAtom(immute({
+export const atom = toAsync(createAtom(immute({
   refPaths: {
     names: null,
     words: null
@@ -44,41 +45,43 @@ export const atom = createAtom(immute({
     kind: 'names',
     word: ''
   }
-}))
+})))
 
 export const {read, watch, stop} = atom
 
 /**
- * FQ
+ * Message Bus
  */
 
-import auth from './factors/auth'
-import generate from './factors/generate'
+const mb = createMb(
+  // {type: 'set', path: x => x instanceof Array}, ({value, path}) => {
+  //   atom.write(replaceAtPath(read(), value, path))
+  // },
 
-const writer = read => next => msg => {
-  if (msg === 'init' || msg === 'auth/logout') return
-  const {type, value, path} = msg
+  // {type: 'patch'}, ({value, path}) => {
+  //   atom.write(mergeAtPath(read(), value, path || []))
+  // }
+)
 
-  switch (type) {
-    case 'set':
-      next(replaceAtPath(read(), value, path))
-      break
-    case 'patch':
-      next(mergeAtPath(read(), value, path || []))
-      break
-    default:
-      console.warn('Discarding unrecognised message:', msg)
-  }
-}
-
-const fq = createFq(auth, generate, writer)
-
-const fqSend = fq(atom.read, atom.write)
+export const {match} = mb
 
 // Hack to make `send` safe to use during a `watch` call.
 export function send (msg) {
-  watch(_.once(() => {fqSend(msg)}))
+  watch(_.once(() => {mb.send(msg)}))
 }
+
+export function set (...path) {
+  // send({type: 'set', path, value: path.pop()})
+  atom.write(replaceAtPath(read(), path.pop(), path))
+}
+
+export function patch (...path) {
+  // send({type: 'patch', path, value: path.pop()})
+  atom.write(mergeAtPath(read(), path.pop(), path))
+}
+
+require('./factors/auth')
+require('./factors/generate')
 
 /**
  * Rendering
@@ -94,6 +97,7 @@ export const auto = view => (render, props) => {
  */
 
 if (window.developmentMode) {
+  window.atom = atom
   window.read = read
   window.send = send
 }

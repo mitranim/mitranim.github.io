@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import {spinner} from '../utils'
-import {read, send, auto} from '../core'
+import {read, send, auto, set} from '../core'
 
 /**
  * Misc
@@ -81,7 +81,8 @@ export const words = auto(function words () {
  */
 
 function changeWord ({target: {value}}) {
-  send({type: 'set', path: ['state', 'word'], value: value.trim()})
+  // send({type: 'set', path: ['state', 'word'], value: value.trim()})
+  set('state', 'word', value.trim())
 }
 
 function addWord (event) {
@@ -109,5 +110,6 @@ function pickWord (word) {
 
 function clearError () {
   const kind = read('state', 'kind')
-  send({type: 'set', path: [kind, 'error'], value: null})
+  // send({type: 'set', path: [kind, 'error'], value: null})
+  set(kind, 'error', null)
 }

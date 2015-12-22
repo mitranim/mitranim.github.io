@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import {renderTo} from '../utils'
-import {read, send} from '../core'
+import {read, set} from '../core'
 import {login} from './login'
 import {words} from './words'
 import {footnote} from './footnote'
@@ -14,7 +14,7 @@ renderTo('[data-render-foliant]', function foliant () {
       ['div', {className: 'sf-navbar sf-navbar-tabs'},
         kinds.map(kind => (
           ['a', {className: `interactive ${kind === current ? 'active' : ''}`,
-                 onclick () {select(kind)},
+                 onclick () {set('state', 'kind', kind)},
                  key: kind},
             ['h3', null, _.capitalize(kind)]]
         ))],
@@ -28,7 +28,3 @@ renderTo('[data-render-foliant]', function foliant () {
       [footnote]]
   )
 })
-
-function select (kind) {
-  send({type: 'patch', value: {state: {kind}}})
-}

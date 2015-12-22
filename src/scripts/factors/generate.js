@@ -1,163 +1,133 @@
 import _ from 'lodash'
 import Traits from 'foliant'
-import {match, multimatch, pipe} from 'prax'
-// Circular dependency, TODO reconsider.
-import {read, send, watch} from '../core'
+import {read, send, match, watch, set, patch} from '../core'
 import {getRef, defaultRefs} from './auth'
 
 const limit = 12
 let generators = {}
 const unsubs = []
 
-export default () => pipe(
-  multimatch('init', next => msg => {
-    next(msg)
-    watch(() => {
-      const kind = read('state', 'kind')
-      if (read('auth')) send({type: 'gen/init', kind})
+match('init', () => {
+  watch(() => {
+    const kind = read('state', 'kind')
+    if (read('auth')) send({type: 'gen/init', kind})
+  })
+})
+
+match('auth/logout', () => {
+  generators = {}
+  while (unsubs.length) unsubs.shift()()
+})
+
+match({type: 'gen/init', kind: Boolean}, ({kind}) => {
+  if (read(kind, 'inited') || !read('auth')) return
+
+  const ref = getRef(read('refPaths', kind))
+  if (!ref) throw Error(`ref not found for path: ${read('refPaths', kind)}`)
+
+  loadSelected(kind, ref)
+    .then(() => {
+      set(kind, 'inited', true)
     })
-  }),
-
-  multimatch('auth/logout', next => msg => {
-    generators = {}
-    while (unsubs.length) unsubs.shift()()
-    next(msg)
-  }),
-
-  match({type: 'gen/init', kind: Boolean}, ({kind}) => {
-    if (read(kind, 'inited') || !read('auth')) return
-
-    const ref = getRef(read('refPaths', kind))
-    if (!ref) throw Error(`ref not found for path: ${read('refPaths', kind)}`)
-
-    loadSelected(kind, ref)
-      .then(() => {
-        send({type: 'patch', value: {[kind]: {inited: true}}})
-      })
-      .then(() => checkEmpty(kind))
-      .then(() => {
-        send({type: 'gen/generate', kind, onlyEmpty: true})
-      })
-  }),
-
-  match({type: 'gen/generate', kind: Boolean}, ({kind, onlyEmpty}) => {
-    if (onlyEmpty && read(kind, 'generated')) return
-
-    const selected = read(kind, 'selected')
-    if (!selected) return
-
-    if (!generators[kind]) {
-      generators[kind] = getGenerator(selected)
-    }
-    const generated = generators[kind]()
-
-    send({
-      type: 'patch',
-      value: {
-        [kind]: {
-          generated,
-          depleted: generated.length < limit
-        }
-      }
+    .then(() => checkEmpty(kind))
+    .then(() => {
+      send({type: 'gen/generate', kind, onlyEmpty: true})
     })
-  }),
+})
 
-  match({type: 'gen/add', kind: Boolean, word: _.isString}, ({kind, word}) => {
-    if (typeof word !== 'string') {
-      return send(err(kind, 'The word must be a string'))
-    }
+match({type: 'gen/generate', kind: Boolean}, ({kind, onlyEmpty}) => {
+  if (onlyEmpty && read(kind, 'generated')) return
 
-    word = word.toLowerCase().trim()
+  const selected = read(kind, 'selected')
+  if (!selected) return
 
-    if (!word) {
-      return send(err(kind, 'Please input a word'))
-    }
+  if (!generators[kind]) {
+    generators[kind] = getGenerator(selected)
+  }
+  const generated = generators[kind]()
 
-    if (word.length < 2) {
-      return send(err(kind, 'The word is too short'))
-    }
+  patch(kind, {generated, depleted: generated.length < limit})
+})
 
-    const selected = read(kind, 'selected')
+match({type: 'gen/add', kind: Boolean, word: _.isString}, ({kind, word}) => {
+  if (typeof word !== 'string') {
+    return set(kind, 'error', 'The word must be a string')
+  }
 
-    if (_.contains(selected, word)) {
-      return send(err(kind, 'This word is already in the set'))
-    }
+  word = word.toLowerCase().trim()
 
-    if (!isWordValid(word)) {
-      return send(err(kind, 'Some of these characters are not allowed in a word'))
-    }
+  if (!word) {
+    return set(kind, 'error', 'Please input a word')
+  }
 
-    const ref = getRef(read('refPaths', kind))
+  if (word.length < 2) {
+    return set(kind, 'error', 'The word is too short')
+  }
 
-    if (ref) {
-      send(err(kind, null))
+  const selected = read(kind, 'selected')
 
-      ref.push(word, err => {
-        if (!err) {
-          send('gen/clearWord')
-          send({type: 'gen/resetGenerator', kind})
-          send({type: 'gen/generate', kind})
-        }
-      })
-    }
-  }),
+  if (_.contains(selected, word)) {
+    return set(kind, 'error', 'This word is already in the set')
+  }
 
-  // Adds the given word to the store, removing it from the generated results.
-  // We don't need to refresh the generator and the generated words, because
-  // adding a previously generated word to the same source set has no effect
-  // on the total output from this sample.
-  match({type: 'gen/pick', kind: Boolean, word: Boolean}, ({kind, word}) => {
-    const selected = read(kind, 'selected')
-    if (_.contains(selected, word)) return
+  if (!isWordValid(word)) {
+    return set(kind, 'error', 'Some of these characters are not allowed in a word')
+  }
 
-    const ref = getRef(read('refPaths', kind))
-    if (!ref) {
-      throw Error(`no ref found at path: ${read('refPaths', kind)}`)
-    }
+  const ref = getRef(read('refPaths', kind))
 
-    // Optimistically remove from results.
-    const prevGenerated = read(kind, 'generated')
-    const generated = _.without(prevGenerated, word)
-
-    send({
-      type: 'set',
-      path: [kind, 'generated'],
-      value: generated
-    })
+  if (ref) {
+    set(kind, 'error', null)
 
     ref.push(word, err => {
-      if (err) {
-        // Roll back the optimistic change.
-        send({
-          type: 'set',
-          path: [kind, 'generated'],
-          value: prevGenerated
-        })
+      if (!err) {
+        set('state', 'word', '')
+        generators[kind] = null
+        send({type: 'gen/generate', kind})
       }
     })
-  }),
+  }
+})
 
-  match({type: 'gen/drop', kind: Boolean, key: Boolean}, ({kind, key}) => {
-    getRef(read('refPaths', kind)).child(key).remove(err => {
-      if (err) {
-        console.error(err)
-      } else {
-        checkEmpty(kind).then(() => {
-          send({type: 'gen/resetGenerator', kind})
-          send({type: 'gen/generate', kind})
-        })
-      }
-    })
-  }),
+// Adds the given word to the store, removing it from the generated results.
+// We don't need to refresh the generator and the generated words, because
+// adding a previously generated word to the same source set has no effect
+// on the total output from this sample.
+match({type: 'gen/pick', kind: Boolean, word: Boolean}, ({kind, word}) => {
+  const selected = read(kind, 'selected')
+  if (_.contains(selected, word)) return
 
-  match('gen/clearWord', () => {
-    send({type: 'patch', value: {state: {word: ''}}})
-  }),
+  const ref = getRef(read('refPaths', kind))
+  if (!ref) {
+    throw Error(`no ref found at path: ${read('refPaths', kind)}`)
+  }
 
-  match({type: 'gen/resetGenerator', kind: Boolean}, ({kind}) => {
-    generators[kind] = null
+  // Optimistically remove from results.
+  const prevGenerated = read(kind, 'generated')
+  const generated = _.without(prevGenerated, word)
+
+  set(kind, 'generated', generated)
+
+  ref.push(word, err => {
+    if (err) {
+      // Roll back the optimistic change.
+      set(kind, 'generated', prevGenerated)
+    }
   })
-)
+})
+
+match({type: 'gen/drop', kind: Boolean, key: Boolean}, ({kind, key}) => {
+  getRef(read('refPaths', kind)).child(key).remove(err => {
+    if (err) {
+      console.error(err)
+    } else {
+      checkEmpty(kind).then(() => {
+        generators[kind] = null
+        send({type: 'gen/generate', kind})
+      })
+    }
+  })
+})
 
 /**
  * Utils
@@ -179,11 +149,7 @@ function checkEmpty (kind) {
     } else {
       def.once('value', snap => {
         ref.set(snap.val())
-        send({
-          type: 'set',
-          path: ['defaults', kind],
-          value: snap.val()
-        })
+        set('defaults', kind, snap.val())
         resolve()
       }, () => {resolve()})
     }
@@ -193,11 +159,7 @@ function checkEmpty (kind) {
 function loadSelected (kind, ref) {
   return new Promise(resolve => {
     const handler = ref.on('value', snap => {
-      send({
-        type: 'set',
-        path: [kind, 'selected'],
-        value: snap.val()
-      })
+      set(kind, 'selected', snap.val())
       resolve()
     }, () => {
       resolve()
@@ -233,8 +195,4 @@ function isWordValid (word) {
     console.warn(err)
     return false
   }
-}
-
-function err (kind, value) {
-  return {type: 'set', path: [kind, 'error'], value}
 }
