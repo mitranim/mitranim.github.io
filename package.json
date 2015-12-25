@@ -43,7 +43,7 @@
     "gulp-watch": "^4.3.5",
     "highlight.js": "^8.8.0",
     "lodash": "^3.10.1",
-    "prax": "0.0.15",
+    "prax": "0.0.16",
     "simple-pjax": "^0.3.0",
     "stylific": "^0.13.1",
     "webpack": "^1.12.2",

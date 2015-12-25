@@ -1,5 +1,5 @@
 import Firebase from 'firebase'
-import {send, match, set, patch} from '../core'
+import {match, set, patch} from '../core'
 
 let rootRef
 let foliantRef
@@ -21,30 +21,20 @@ match('init', () => {
   rootRef.onAuth(authData => {
     if (authData) {
       // Establish personal data refs.
-      // send({
-      //   type: 'set',
-      //   path: ['refPaths'],
-      //   value: {
-      //     names: `personal/${authData.uid}/names/eng`,
-      //     words: `personal/${authData.uid}/words/eng`
-      //   }
-      // })
-      set('refPaths', {
+      set(['refPaths'], {
         names: `personal/${authData.uid}/names/eng`,
         words: `personal/${authData.uid}/words/eng`
       })
     } else {
       // Clear personal data.
-      // send({type: 'patch', value: {refPaths: null, words: null, names: null}})
-      patch({refPaths: null, words: null, names: null})
+      patch([], {refPaths: null, words: null, names: null})
       // When deauthed, auth anonymously.
       rootRef.authAnonymously(err => {
         if (err) console.error(err)
       })
     }
 
-    // send({type: 'set', path: ['auth'], value: authData})
-    set('auth', authData)
+    set(['auth'], authData)
   })
 })
 

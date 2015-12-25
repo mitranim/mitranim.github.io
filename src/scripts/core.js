@@ -1,15 +1,11 @@
-import _ from 'lodash'
-// Core utilities.
 import {createAtom, createMb} from 'prax'
-// Immutability utilities.
-import {immute, replaceAtPath, mergeAtPath} from 'prax'
-import {toAsync} from 'prax/async'
+import {asyncStrategy} from 'prax/async'
 
 /**
  * State
  */
 
-export const atom = toAsync(createAtom(immute({
+export const atom = createAtom({
   refPaths: {
     names: null,
     words: null
@@ -45,40 +41,21 @@ export const atom = toAsync(createAtom(immute({
     kind: 'names',
     word: ''
   }
-})))
+}, asyncStrategy)
 
-export const {read, watch, stop} = atom
+export const {read, set, patch, watch, stop} = atom
 
 /**
  * Message Bus
  */
 
-const mb = createMb(
-  // {type: 'set', path: x => x instanceof Array}, ({value, path}) => {
-  //   atom.write(replaceAtPath(read(), value, path))
-  // },
+const mb = createMb()
 
-  // {type: 'patch'}, ({value, path}) => {
-  //   atom.write(mergeAtPath(read(), value, path || []))
-  // }
-)
+export const {send, match} = mb
 
-export const {match} = mb
-
-// Hack to make `send` safe to use during a `watch` call.
-export function send (msg) {
-  watch(_.once(() => {mb.send(msg)}))
-}
-
-export function set (...path) {
-  // send({type: 'set', path, value: path.pop()})
-  atom.write(replaceAtPath(read(), path.pop(), path))
-}
-
-export function patch (...path) {
-  // send({type: 'patch', path, value: path.pop()})
-  atom.write(mergeAtPath(read(), path.pop(), path))
-}
+/**
+ * App Logic
+ */
 
 require('./factors/auth')
 require('./factors/generate')
@@ -87,9 +64,12 @@ require('./factors/generate')
  * Rendering
  */
 
-export const auto = view => (render, props) => {
-  const update = watch(() => {render(view(props))})
-  return () => {stop(update)}
+export function auto (view) {
+  return function component (render, props) {
+    function update (read) {render(view(props, read))}
+    watch(update)
+    return function unsub () {stop(update)}
+  }
 }
 
 /**

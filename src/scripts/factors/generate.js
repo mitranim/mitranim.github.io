@@ -8,7 +8,7 @@ let generators = {}
 const unsubs = []
 
 match('init', () => {
-  watch(() => {
+  watch(read => {
     const kind = read('state', 'kind')
     if (read('auth')) send({type: 'gen/init', kind})
   })
@@ -27,7 +27,7 @@ match({type: 'gen/init', kind: Boolean}, ({kind}) => {
 
   loadSelected(kind, ref)
     .then(() => {
-      set(kind, 'inited', true)
+      set([kind, 'inited'], true)
     })
     .then(() => checkEmpty(kind))
     .then(() => {
@@ -46,42 +46,42 @@ match({type: 'gen/generate', kind: Boolean}, ({kind, onlyEmpty}) => {
   }
   const generated = generators[kind]()
 
-  patch(kind, {generated, depleted: generated.length < limit})
+  patch([kind], {generated, depleted: generated.length < limit})
 })
 
 match({type: 'gen/add', kind: Boolean, word: _.isString}, ({kind, word}) => {
   if (typeof word !== 'string') {
-    return set(kind, 'error', 'The word must be a string')
+    return set([kind, 'error'], 'The word must be a string')
   }
 
   word = word.toLowerCase().trim()
 
   if (!word) {
-    return set(kind, 'error', 'Please input a word')
+    return set([kind, 'error'], 'Please input a word')
   }
 
   if (word.length < 2) {
-    return set(kind, 'error', 'The word is too short')
+    return set([kind, 'error'], 'The word is too short')
   }
 
   const selected = read(kind, 'selected')
 
   if (_.contains(selected, word)) {
-    return set(kind, 'error', 'This word is already in the set')
+    return set([kind, 'error'], 'This word is already in the set')
   }
 
   if (!isWordValid(word)) {
-    return set(kind, 'error', 'Some of these characters are not allowed in a word')
+    return set([kind, 'error'], 'Some of these characters are not allowed in a word')
   }
 
   const ref = getRef(read('refPaths', kind))
 
   if (ref) {
-    set(kind, 'error', null)
+    set([kind, 'error'], null)
 
     ref.push(word, err => {
       if (!err) {
-        set('state', 'word', '')
+        set(['state', 'word'], '')
         generators[kind] = null
         send({type: 'gen/generate', kind})
       }
@@ -106,12 +106,12 @@ match({type: 'gen/pick', kind: Boolean, word: Boolean}, ({kind, word}) => {
   const prevGenerated = read(kind, 'generated')
   const generated = _.without(prevGenerated, word)
 
-  set(kind, 'generated', generated)
+  set([kind, 'generated'], generated)
 
   ref.push(word, err => {
     if (err) {
       // Roll back the optimistic change.
-      set(kind, 'generated', prevGenerated)
+      set([kind, 'generated'], prevGenerated)
     }
   })
 })
@@ -149,7 +149,7 @@ function checkEmpty (kind) {
     } else {
       def.once('value', snap => {
         ref.set(snap.val())
-        set('defaults', kind, snap.val())
+        set(['defaults', kind], snap.val())
         resolve()
       }, () => {resolve()})
     }
@@ -159,7 +159,7 @@ function checkEmpty (kind) {
 function loadSelected (kind, ref) {
   return new Promise(resolve => {
     const handler = ref.on('value', snap => {
-      set(kind, 'selected', snap.val())
+      set([kind, 'selected'], snap.val())
       resolve()
     }, () => {
       resolve()

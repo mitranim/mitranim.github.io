@@ -25,7 +25,7 @@ const generatedWord = auto(({text, action}) => (
  * words
  */
 
-export const words = auto(function words () {
+export const words = auto(function words (props, read) {
   const auth = read('auth')
   const kind = read('state', 'kind')
   const inited = read(kind, 'inited')
@@ -52,7 +52,7 @@ export const words = auto(function words () {
           ['input', {className: `flex-11 theme-text-primary ${textStyle}`,
                      placeholder: 'add...',
                      value: word,
-                     onchange: changeWord,
+                     oninput: changeWord,
                      onblur: clearError}],
           ['button', {className: 'flex-1 fa fa-plus theme-primary', tabindex: -1}]],
         ['div', {className: `sm-grid-1 md-grid-2 ${textStyle}`},
@@ -80,9 +80,12 @@ export const words = auto(function words () {
  * Utils
  */
 
-function changeWord ({target: {value}}) {
-  // send({type: 'set', path: ['state', 'word'], value: value.trim()})
-  set('state', 'word', value.trim())
+function changeWord (event) {
+  event.preventDefault()
+  const input = event.target
+  const value = input.value.trim()
+  if (input.value !== value) input.value = value
+  set(['state', 'word'], value)
 }
 
 function addWord (event) {
@@ -110,6 +113,5 @@ function pickWord (word) {
 
 function clearError () {
   const kind = read('state', 'kind')
-  // send({type: 'set', path: [kind, 'error'], value: null})
-  set(kind, 'error', null)
+  set([kind, 'error'], null)
 }

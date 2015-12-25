@@ -1,6 +1,6 @@
-import {read, send, auto} from '../core'
+import {send, auto} from '../core'
 
-export const login = auto(function login () {
+export const login = auto(function login (props, read) {
   const auth = read('auth')
   if (!auth) return null
 
