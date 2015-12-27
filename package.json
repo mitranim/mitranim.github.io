@@ -45,7 +45,7 @@
     "lodash": "^3.10.1",
     "prax": "0.0.16",
     "simple-pjax": "^0.3.0",
-    "stylific": "^0.13.1",
+    "stylific": "^0.13.2",
     "webpack": "^1.12.2",
     "yargs": "^3.27.0"
   },

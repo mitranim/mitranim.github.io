@@ -9,15 +9,17 @@ import {read, send, auto, set} from '../core'
 const sourceWord = auto(({text, action}) => (
   ['div', {className: 'word'}, text,
     action ?
-    ['button', {className: 'fa fa-times sf-button-flat fade interactive',
-                onclick: action, type: 'button'}] : null]
+    ['button', {type: 'button',
+                className: 'fa fa-times sf-button-flat text-gray interactive',
+                onclick: action}] : null]
 ))
 
 const generatedWord = auto(({text, action}) => (
   ['div', {className: 'word'},
     action ?
-    ['button', {className: 'fa fa-arrow-left sf-button-flat fade interactive',
-                onclick: action, type: 'button'}] : null,
+    ['button', {type: 'button',
+                className: 'fa fa-arrow-left sf-button-flat text-gray interactive',
+                onclick: action}] : null,
     ['span', {className: 'flex-1 text-center'}, text]]
 ))
 

@@ -1,9 +1,5 @@
 /********************************** Global ***********************************/
 
-.fade {
-  opacity: 0.5;
-}
-
 body {
   background-color: transparent;
   > :not(.sf-footer) {
@@ -50,6 +46,10 @@ body {
 
 .text-lowercase {
   text-transform: lowercase;
+}
+
+.text-gray {
+  color: gray;
 }
 
 // Default to circle bullets.
@@ -200,6 +200,9 @@ a[target~=_blank] {
     &:hover, &:focus, &.active {
       box-shadow: inset 0 -4px 0 0;
       border-radius: 0;
+    }
+    &:focus {
+      @include sf-focus-indicator('inset 0 -4px 0 0');
     }
   }
 }

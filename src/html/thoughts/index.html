@@ -13,7 +13,7 @@
         <%= $include('partials/feed-links', $) %>
       </div>
       <% if (typeof date !== 'undefined') { %>
-        <div class="fade" style="font-size: 0.8em">
+        <div class="text-gray" style="font-size: 0.8em">
           <%= date instanceof Date ? date.toDateString() : date %>
         </div>
       <% } %>
