@@ -1,14 +1,14 @@
 <div class="sf-navbar">
-  <a <%= $act('index', $) %> href="/">about</a>
-  <a <%= $act('projects', $) %> href="/projects/">projects</a>
-  <a <%= $act('thoughts', $) %> href="/thoughts/">thoughts</a>
+  <a {{active('index')}} href="/">about</a>
+  <a {{active('projects')}} href="/projects/">projects</a>
+  <a {{active('thoughts')}} href="/thoughts/">thoughts</a>
 
   <div class="sf-navbar-toggle"></div>
 
   <div class="sf-dropdown">
     <div class="sf-dropdown-head row-center-center" data-sf-toggle>demos</div>
     <div class="sf-dropdown-body">
-      <a <%= $act('foliant', $) %> href="/foliant/">foliant</a>
+      <a {{active('foliant')}} href="/foliant/">foliant</a>
       <a href="http://mitranim.com/simple-pjax/" target="_blank" class="indicate-blank">simple-pjax</a>
       <a href="http://mitranim.com/chat/" target="_blank" class="indicate-blank">chat</a>
     </div>

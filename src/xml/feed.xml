@@ -7,25 +7,25 @@
   <docs>http://www.rssboard.org/rss-specification</docs>
   <link>http://mitranim.com</link>
 
-  <% for (var post of this.meta.thoughts.files) { %>
-    <% if (post.skip) return; %>
-    <% link = 'http://mitranim.com/thoughts/' + post.name + '/' %>
-
+  {%
+  _.each(sortPosts(posts), post => {
+    const link = `http://mitranim.com/thoughts/${post.name}/`
+  %}
     <item>
-      <title><%= post.title %></title>
-      <link><%= link %></link>
-      <guid isPermaLink="true"><%= link %></guid>
-      <pubDate><%= post.date instanceof Date ? post.date.toISOString() : post.date %></pubDate>
+      <title>{{post.title}}</title>
+      <link>{{link}}</link>
+      <guid isPermaLink="true">{{link}}</guid>
+      <pubDate>{{post.date instanceof Date ? post.date.toISOString() : post.date}}</pubDate>
       <author>Nelo Mitranim</author>
-      <% if (post.description) { %>
-        <description><%= post.description %></description>
-      <% } else { %>
+      {% if (post.description) { %}
+        <description>{{post.description}}</description>
+      {% } else { %}
         <description>
-          <%= truncate($include(post.name, $), 127) %>
+          {{truncate(include(`thoughts/${post.name}.html`, {extend: _.noop}), 127)}}
         </description>
-      <% } %>
+      {% } %}
     </item>
-  <% } %>
+  {% }) %}
 
   </channel>
 </rss>

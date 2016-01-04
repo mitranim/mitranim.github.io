@@ -1,3 +1,5 @@
+<!-- {% extend('thoughts/index.html') %} -->
+
 Lately I've been trying to figure out how to write shorter programs. Or, more
 generally, how to design simple solutions.
 

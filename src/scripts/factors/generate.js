@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import Traits from 'foliant'
 import {read, send, match, watch, set, patch} from '../core'
-import {getRef, defaultRefs} from './auth'
+import {getRef, defaultRef} from './auth'
 
 const limit = 12
 let generators = {}
@@ -137,7 +137,7 @@ match({type: 'gen/drop', kind: Boolean, key: Boolean}, ({kind, key}) => {
 function checkEmpty (kind) {
   const selected = read(kind, 'selected')
   const ref = getRef(read('refPaths', kind))
-  const def = defaultRefs[kind]
+  const def = defaultRef(kind)
   if (selected || !ref || !def) return Promise.resolve()
 
   return new Promise(resolve => {
@@ -151,7 +151,7 @@ function checkEmpty (kind) {
         ref.set(snap.val())
         set(['defaults', kind], snap.val())
         resolve()
-      }, () => {resolve()})
+      }, () => { resolve() })
     }
   })
 }
@@ -167,7 +167,7 @@ function loadSelected (kind, ref) {
     })
 
     // Completely paranoid cleanup.
-    unsubs.push(() => {ref.off('value', handler)})
+    unsubs.push(() => { ref.off('value', handler) })
   })
 }
 

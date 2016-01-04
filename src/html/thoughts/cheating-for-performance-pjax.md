@@ -1,3 +1,5 @@
+<!-- {% extend('thoughts/index.html') %} -->
+
 ## Overview
 
 Optimising website performance is tricky. There's plenty of articles delving

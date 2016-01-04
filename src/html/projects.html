@@ -1,9 +1,14 @@
-<% $entitle('projects', $) %>
+{%
+const title = 'projects'
+const description = 'software I helped write'
+%}
+
+{% extend('index.html', {title, description}) %}
 
 <div class="sf-jumbo auto">
   <h2>things I do</h2>
 </div>
 
 <article>
-  <%= $include('partials/projects', $) %>
+  {{include('partials/projects.html')}}
 </article>

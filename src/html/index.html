@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= $title.toLowerCase() || 'about:mitranim' %></title>
+    <title>{{typeof title !== 'undefined' ? title : 'about:mitranim'}}</title>
     <meta name="author" content="mitranim">
-    <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'about me: projects, blog, demos' %>">
+    <meta name="description" content="{{typeof description !== 'undefined' ? description : 'about me: projects, blog, demos'}}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes">
     <link rel="stylesheet" type="text/css" href="/styles/app.css">
     <link rel="icon" href="data:;base64,=">
 
-    <% if (typeof title !== 'undefined') { %>
+    {% if (typeof title !== 'undefined') { %}
       <meta property="og:type" content="article">
-      <meta property="og:title" content="<%= title %>">
-    <% } %>
-    <% if (typeof description !== 'undefined') { %>
-      <meta property="og:description" content="<%= description %>">
-    <% } %>
-    <% if (typeof image !== 'undefined') { %>
-      <meta property="og:image" content="<%= image %>">
-    <% } %>
-    <% if (typeof title !== 'undefined') { %>
+      <meta property="og:title" content="{{title}}">
+    {% } %}
+    {% if (typeof description !== 'undefined') { %}
+      <meta property="og:description" content="{{description}}">
+    {% } %}
+    {% if (typeof image !== 'undefined') { %}
+      <meta property="og:image" content="{{image}}">
+    {% } %}
+    {% if (typeof title !== 'undefined') { %}
       <meta property="og:site_name" content="about:mitranim">
-    <% } %>
+    {% } %}
   </head>
 
   <body>
     <!-- Navbar -->
-    <%= $include('partials/navbar', $) %>
+    {{include('partials/navbar.html')}}
 
     <!-- Site content -->
-    <% if ($path === 'index') { %>
-      <%= $include('partials/$index', $) %>
-    <% } else { %>
-      <%= $content %>
-    <% } %>
+    {% if (path === 'index.html') { %}
+      {{include('partials/$index.html')}}
+    {% } else { %}
+      {{content}}
+    {% } %}
 
     <!-- Footer -->
-    <%= $include('partials/footer', $) %>
+    {{include('partials/footer.html')}}
 
-    <% if (!prod) { %>
+    {% if (!prod) { %}
       <script>
         window.developmentMode = true;
       </script>
-    <% } %>
+    {% } %}
 
     <!-- JS -->
     <script src="/scripts/app.js" async></script>

@@ -8,10 +8,8 @@ export function getRef (path) {
   return path ? foliantRef.child(path) : null
 }
 
-export const defaultRefs = {
-  get lang () {return foliantRef.child('defaults/langs/eng')},
-  get names () {return foliantRef.child('defaults/names/eng')},
-  get words () {return foliantRef.child('defaults/words/eng')}
+export function defaultRef (type) {
+  return foliantRef.child(`defaults/${type}/eng`)
 }
 
 match('init', () => {

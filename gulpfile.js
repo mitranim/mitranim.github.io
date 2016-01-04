@@ -10,6 +10,7 @@
 /* ***************************** Dependencies ********************************/
 
 const $ = require('gulp-load-plugins')()
+const _ = require('lodash')
 const bsync = require('browser-sync').create()
 const cheerio = require('cheerio')
 const del = require('del')
@@ -25,9 +26,7 @@ const webpack = require('webpack')
 const src = {
   html: 'src/html/**/*',
   xml: [
-    'src/html/**/*.yaml',
-    'src/html/thoughts/**/*',
-    '!src/html/thoughts/index.html',
+    'src/html/**/*',
     'src/xml/**/*'
   ],
   robots: 'src/robots.txt',
@@ -60,28 +59,36 @@ function reload (done) {
   done()
 }
 
-/* *************************** Template Imports ******************************/
+/* ***************************** Statil Config *******************************/
 
-/**
- * Utility methods for templates.
- */
-const imports = {
-  prod: flags.prod,
-  bgImg: function (path) {
-    return 'style="background-image: url(/images/' + path + ')"'
-  },
-  truncate: function (html, num) {
-    let part = cheerio(html).text().slice(0, num)
-    if (part.length === num) part += ' ...'
-    return part
+function statilData () {
+  const path = _.find(_.keys(require.cache), path => (
+    /html-meta/.test(path)
+  ))
+  if (path) delete require.cache[path]
+  return require('./html-meta')
+}
+
+function statilOptions () {
+  return {
+    data: statilData(),
+    imports: {
+      prod: flags.prod,
+      truncate (html, length) {
+        return _.trunc(cheerio(html).text(), length)
+      },
+      sortPosts: posts => _.sortBy(posts, post => (
+        post.date instanceof Date ? post.date : -Infinity
+      )).reverse()
+    },
+    ignorePaths: path => (
+      path === 'thoughts/index.html' ||
+      /^partials/.test(path)
+    )
   }
 }
 
-/* ******************************** Config ***********************************/
-
-/**
- * marked rendering enhancements.
- */
+/* ***************************** Marked Config *******************************/
 
 // Custom heading renderer func that adds an anchor.
 marked.Renderer.prototype.heading = function (text, level, raw) {
@@ -197,12 +204,12 @@ function scripts (done) {
 
 gulp.task('scripts:build', scripts)
 
-gulp.task('scripts:build:watch', (_) => {scripts()})
+gulp.task('scripts:build:watch', () => { scripts() })
 
 /* -------------------------------- Styles ----------------------------------*/
 
 gulp.task('styles:clear', function (done) {
-  del(dest.styles).then((_) => {done()})
+  del(dest.styles).then(() => { done() })
 })
 
 gulp.task('styles:compile', function () {
@@ -233,7 +240,7 @@ gulp.task('styles:watch', function () {
 /* --------------------------------- HTML -----------------------------------*/
 
 gulp.task('html:clear', function (done) {
-  del(dest.html + '/**/*.html').then((_) => {done()})
+  del(dest.html + '/**/*.html').then(() => { done() })
 })
 
 gulp.task('html:compile', function () {
@@ -250,7 +257,6 @@ gulp.task('html:compile', function () {
       sanitize: false,
       smartypants: true,
       pedantic: false,
-      // Code highlighter.
       highlight: function (code, lang) {
         if (lang) return hjs.highlight(lang, code).value
         return hjs.highlightAuto(code).value
@@ -259,12 +265,10 @@ gulp.task('html:compile', function () {
     // Add hljs code class.
     .pipe($.replace(/<pre><code class="(.*)">|<pre><code>/g,
                     '<pre><code class="hljs $1">'))
-    // Restore other files.
     .pipe(filterMd.restore)
     // Unpack commented HTML parts.
     .pipe($.replace(/<!--\s*:((?:[^:]|:(?!\s*-->))*):\s*-->/g, '$1'))
-    // Render all html.
-    .pipe($.statil({imports: imports}))
+    .pipe($.statil(statilOptions()))
     // Change each `<filename>` into `<filename>/index.html`.
     .pipe($.rename(function (path) {
       switch (path.basename + path.extname) {
@@ -277,7 +281,6 @@ gulp.task('html:compile', function () {
       empty: true,
       loose: true
     })))
-    // Write to disk.
     .pipe(gulp.dest(dest.html))
 })
 
@@ -295,7 +298,7 @@ gulp.task('html:watch', function () {
 /* ---------------------------------- XML -----------------------------------*/
 
 gulp.task('xml:clear', function (done) {
-  del(dest.xml).then((_) => {done()})
+  del(dest.xml).then(() => { done() })
 })
 
 gulp.task('xml:compile', function () {
@@ -315,7 +318,7 @@ gulp.task('xml:compile', function () {
     }))
     // Restore other files.
     .pipe(filterMd.restore)
-    .pipe($.statil({imports: imports}))
+    .pipe($.statil(statilOptions()))
     .pipe($.filter('*feed*'))
     .pipe($.rename('feed.xml'))
     .pipe(gulp.dest(dest.html))
@@ -331,7 +334,7 @@ gulp.task('xml:watch', function () {
 /* -------------------------------- Images ----------------------------------*/
 
 gulp.task('images:clear', function (done) {
-  del(dest.images).then((_) => {done()})
+  del(dest.images).then(() => { done() })
 })
 
 // Resize and copy images
@@ -386,7 +389,7 @@ gulp.task('images:watch', function () {
 /* --------------------------------- Fonts ----------------------------------*/
 
 gulp.task('fonts:clear', function (done) {
-  del(dest.fonts).then((_) => {done()})
+  del(dest.fonts).then(() => { done() })
 })
 
 gulp.task('fonts:copy', function () {

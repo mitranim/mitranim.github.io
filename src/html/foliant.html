@@ -1,9 +1,15 @@
-<% $entitle('foliant', $) %>
+{%
+const title = 'foliant'
+const image = 'script.jpg'
+const description = 'demo of foliant, generator of random synthetic words'
+%}
 
-<div class="sf-jumbo" style="background-image: url(/images/<%= image %>)">
+{% extend('index.html', {title, image, description}) %}
+
+<div class="sf-jumbo" style="background-image: url(/images/{{image}})">
   <div class="row-between-stretch">
     <div class="flex-1 space-out">
-      <h2>foliant</h2>
+      <h2>{{title}}</h2>
       <p>Generator of synthetic words (demo)</p>
     </div>
     <div class="row-center-start">

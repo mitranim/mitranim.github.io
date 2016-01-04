@@ -1,34 +1,42 @@
-<% $entitle('thoughts', $) %>
+{%
+const title = 'thoughts'
+const image = 'aite.jpg'
+const description = 'weblog, random thoughts'
+%}
 
-<div class="sf-jumbo" style="background-image: url(/images/aite.jpg)">
+{% extend('index.html', {title, image, description}) %}
+
+<div class="sf-jumbo" style="background-image: url(/images/{{image}})">
   <div class="row-between-end">
     <div class="flex-1">
       <h2>random thoughts</h2>
     </div>
     <div>
-      <%= $include('partials/feed-links', $) %>
+      {{include('partials/feed-links.html')}}
     </div>
   </div>
 </div>
 
-<% for (var post of this.meta.thoughts.files) { %>
-  <% if (post.skip) return; %>
-  <% path = 'thoughts/' + post.name %>
-
+{%
+_.each(sortPosts(posts), post => {
+  const path = 'thoughts/' + post.name
+%}
   <div>
     <h2 style="border-bottom: 1px dotted lightgray">
-      <a href="/<%= path %>/" class="block pad"><%= post.title %></a>
+      <a href="/{{path}}/" class="block pad">{{post.title}}</a>
     </h2>
     <div class="container">
-      <% if (post.description) { %>
-        <p><%= post.description %></p>
-      <% } else { %>
+      {% if (post.description) { %}
+        <p>{{post.description}}</p>
+      {% } else { %}
         <p>
-          <%= truncate($include(path, $), 127) %>
-          <a href="/<%= path %>/">→</a>
+          {{truncate(include(`${path}.html`, {extend: _.noop}), 127)}}
+          <a href="/{{path}}/">→</a>
         </p>
-      <% } %>
-      <p class="text-gray text-smaller"><%= post.date instanceof Date ? post.date.toDateString() : post.date %></p>
+      {% } %}
+      <p class="text-gray text-smaller">
+        {{post.date instanceof Date ? post.date.toDateString() : post.date}}
+      </p>
     </div>
   </div>
-<% } %>
+{% }) %}
