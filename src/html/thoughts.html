@@ -30,7 +30,7 @@ _.each(sortPosts(posts), post => {
         <p>{{post.description}}</p>
       {% } else { %}
         <p>
-          {{truncate(include(`${path}.html`, {extend: _.noop}), 127)}}
+          {{truncate(include(`${path}.md`, {extend: _.noop}), 127)}}
           <a href="/{{path}}/">→</a>
         </p>
       {% } %}

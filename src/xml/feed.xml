@@ -21,7 +21,7 @@
         <description>{{post.description}}</description>
       {% } else { %}
         <description>
-          {{truncate(include(`thoughts/${post.name}.html`, {extend: _.noop}), 127)}}
+          {{truncate(include(`thoughts/${post.name}.md`, {extend: _.noop}), 127)}}
         </description>
       {% } %}
     </item>

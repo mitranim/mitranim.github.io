@@ -10,16 +10,13 @@
 /* ***************************** Dependencies ********************************/
 
 const $ = require('gulp-load-plugins')()
-const _ = require('lodash')
 const bsync = require('browser-sync').create()
-const cheerio = require('cheerio')
 const del = require('del')
 const flags = require('yargs').boolean('prod').argv
 const gulp = require('gulp')
-const hjs = require('highlight.js')
-const marked = require('gulp-marked/node_modules/marked')
 const pt = require('path')
 const webpack = require('webpack')
+const statilOptions = require('./statil')
 
 /* ******************************** Globals **********************************/
 
@@ -57,107 +54,6 @@ const dest = {
 function reload (done) {
   bsync.reload()
   done()
-}
-
-/* ***************************** Statil Config *******************************/
-
-function statilData () {
-  const path = _.find(_.keys(require.cache), path => (
-    /html-meta/.test(path)
-  ))
-  if (path) delete require.cache[path]
-  return require('./html-meta')
-}
-
-function statilOptions () {
-  return {
-    data: statilData(),
-    imports: {
-      prod: flags.prod,
-      truncate (html, length) {
-        return _.trunc(cheerio(html).text(), length)
-      },
-      sortPosts: posts => _.sortBy(posts, post => (
-        post.date instanceof Date ? post.date : -Infinity
-      )).reverse()
-    },
-    ignorePaths: path => (
-      path === 'thoughts/index.html' ||
-      /^partials/.test(path)
-    )
-  }
-}
-
-/* ***************************** Marked Config *******************************/
-
-// Custom heading renderer func that adds an anchor.
-marked.Renderer.prototype.heading = function (text, level, raw) {
-  const id = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-')
-  return (
-`<h${level}>
-  <span>${text}</span>
-  <a class="heading-anchor fa fa-link" href="#${id}" id="${id}"></a>
-</h${level}>\n`
-  )
-}
-
-// Custom link renderer func that adds target="_blank" to links to other sites.
-// Mostly copied from the marked source.
-marked.Renderer.prototype.link = function (href, title, text) {
-  if (this.options.sanitize) {
-    let prot = ''
-    try {
-      prot = decodeURIComponent(unescape(href))
-        .replace(/[^\w:]/g, '')
-        .toLowerCase()
-    } catch (e) {
-      return ''
-    }
-    if (prot.indexOf('javascript:') === 0 || prot.indexOf('vbscript:') === 0) {
-      return ''
-    }
-  }
-  let out = '<a href="' + href + '"'
-  if (title) {
-    out += ' title="' + title + '"'
-  }
-  if (/^[a-z]+:\/\//.test(href)) {
-    out += ' target="_blank"'
-  }
-  out += '>' + text + '</a>'
-  return out
-}
-
-// Default code renderer.
-const renderCode = marked.Renderer.prototype.code
-
-// Custom code renderer that understands a few custom directives.
-marked.Renderer.prototype.code = function (code, lang, escaped) {
-  const regexCollapse = /#collapse (.*)(?:\n|$)/g
-
-  // Remove collapse directives and remember if there were any.
-  const collapse = regexCollapse.exec(code)
-  let head = ''
-  if (collapse) {
-    head = collapse[1]
-    code = code.replace(regexCollapse, '').trim()
-  }
-
-  // Default render with highlighting.
-  code = renderCode.call(this, code, lang, escaped).trim()
-
-  // Optionally wrap in collapse.
-  if (head) {
-    code =
-      '<div class="sf-collapse">\n' +
-      '  <div class="sf-collapse-head theme-primary">' + head + '</div>\n' +
-      '  <div class="sf-collapse-body">\n' +
-           code + '\n' +
-      '  </div>\n' +
-      '</div>'
-  }
-
-  return code
 }
 
 /* ********************************* Tasks ***********************************/
@@ -244,39 +140,8 @@ gulp.task('html:clear', function (done) {
 })
 
 gulp.task('html:compile', function () {
-  const filterMd = $.filter('**/*.md', {restore: true})
-
   return gulp.src(src.html)
-    .pipe($.plumber())
-    // Pre-process markdown files.
-    .pipe(filterMd)
-    .pipe($.marked({
-      gfm: true,
-      tables: true,
-      breaks: false,
-      sanitize: false,
-      smartypants: true,
-      pedantic: false,
-      highlight: function (code, lang) {
-        if (lang) return hjs.highlight(lang, code).value
-        return hjs.highlightAuto(code).value
-      }
-    }))
-    // Add hljs code class.
-    .pipe($.replace(/<pre><code class="(.*)">|<pre><code>/g,
-                    '<pre><code class="hljs $1">'))
-    .pipe(filterMd.restore)
-    // Unpack commented HTML parts.
-    .pipe($.replace(/<!--\s*:((?:[^:]|:(?!\s*-->))*):\s*-->/g, '$1'))
     .pipe($.statil(statilOptions()))
-    // Change each `<filename>` into `<filename>/index.html`.
-    .pipe($.rename(function (path) {
-      switch (path.basename + path.extname) {
-        case 'index.html': case '404.html': return
-      }
-      path.dirname = pt.join(path.dirname, path.basename)
-      path.basename = 'index'
-    }))
     .pipe($.if(flags.prod, $.minifyHtml({
       empty: true,
       loose: true
@@ -302,22 +167,8 @@ gulp.task('xml:clear', function (done) {
 })
 
 gulp.task('xml:compile', function () {
-  const filterMd = $.filter('**/*.md', {restore: true})
-
   return gulp.src(src.xml)
     .pipe($.plumber())
-    // Pre-process markdown files.
-    .pipe(filterMd)
-    .pipe($.marked({
-      gfm: true,
-      tables: true,
-      breaks: false,
-      sanitize: false,
-      smartypants: true,
-      pedantic: false
-    }))
-    // Restore other files.
-    .pipe(filterMd.restore)
     .pipe($.statil(statilOptions()))
     .pipe($.filter('*feed*'))
     .pipe($.rename('feed.xml'))

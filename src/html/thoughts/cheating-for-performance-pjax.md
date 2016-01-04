@@ -1,4 +1,4 @@
-<!-- {% extend('thoughts/index.html') %} -->
+{% extend('thoughts/index.html') %}
 
 ## Overview
 

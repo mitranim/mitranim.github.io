@@ -61,9 +61,9 @@ ul {
   @include sf-shadow-weak;
 }
 
-// Fix missing diff styles in the ir_black highlight.js definition.
-.hljs-addition {color: lighten(#2b91af, 30%)}
-.hljs-deletion {color: lighten(#a31515, 30%)}
+// Fix missing diff styles.
+.hljs-addition {color: lighten(blue, 20%)}
+.hljs-deletion {color: lighten(red, 10%)}
 
 .sf-collapse .sf-collapse-body {padding: 0}
 .sf-collapse .sf-collapse-body pre {margin: 0}
@@ -131,12 +131,14 @@ a[target~=_blank] {
       opacity: 0.5;
       font-size: 0.8em;
     }
+  }
+}
 
-    > .clamp {
-      margin-bottom: 0;
-      + * {
-        margin-top: 0;
-      }
+.clamp {
+  &, article &, .sf-article & {
+    margin-bottom: 0;
+    + * {
+      margin-top: 0;
     }
   }
 }

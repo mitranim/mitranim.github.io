@@ -1,4 +1,4 @@
-<!-- {% extend('thoughts/index.html') %} -->
+{% extend('thoughts/index.html') %}
 
 Have been turning into a bit of a performance nut lately. This is what I've
 found useful for speeding up websites. These are mostly frontend optimisations;

@@ -1,4 +1,4 @@
-<!-- {% extend('thoughts/index.html') %} -->
+{% extend('thoughts/index.html') %}
 
 Next generation web frameworks are around the corner.
 [Angular2](https://angular.io) and [Aurelia](http://aurelia.io) go beta in a few

@@ -1,4 +1,4 @@
-<!-- {% extend('thoughts/index.html') %} -->
+{% extend('thoughts/index.html') %}
 
 [Better MtG Online](https://medium.com/@mitranim/better-mtg-online-82ac42d79970)
 
