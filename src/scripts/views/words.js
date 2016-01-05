@@ -56,7 +56,7 @@ export const words = auto(function words (props, read) {
                      value: word,
                      oninput: changeWord,
                      onblur: clearError}],
-          ['button', {className: 'flex-1 fa fa-plus', tabindex: -1}]],
+          ['button', {className: 'flex-1 fa fa-plus'}]],
         ['div', {className: `sm-grid-1 md-grid-2 ${textStyle}`},
           _.map(selected, (word, key) => (
             [sourceWord, {text: word, action () { dropWord(key) }, key}]

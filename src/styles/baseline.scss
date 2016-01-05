@@ -45,8 +45,10 @@ ul, ol {
   $color: rgba(map-get($sf-color-map-primary, default), 0.4);
   box-shadow: 0 0 0 2px $color;
 }
+// FF
+::-moz-focus-inner {border: none}
 
-// Negate the custom focus indicator, use the default if possible.
+// Negate the custom indicator on <select>.
 select:focus {
   box-shadow: none;
   outline: -webkit-focus-ring-color auto;
