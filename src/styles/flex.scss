@@ -35,9 +35,9 @@
 }
 
 .sm-grid-1 > * {
-  flex-basis: 100%;
+  @media (max-width: $sf-breakpoint-sm) {flex-basis: 100%}
 }
 
 .md-grid-2 > * {
-  flex-basis: 50%;
+  @media (min-width: $sf-breakpoint-sm) {flex-basis: 50%}
 }
