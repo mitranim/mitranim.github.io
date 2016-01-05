@@ -1,79 +1,20 @@
-/********************************** Global ***********************************/
-
 body {
-  background-color: transparent;
-  > :not(.sf-footer) {
-    margin-bottom: $sf-space;
-  }
-  > :not(.sf-navbar):not(.sf-footer) {
-    @include sf-shadow-thin;
-    border-radius: $sf-border-radius;
-    &.sf-jumbo {
-      overflow: hidden;
-    }
-  }
-  > .sf-navbar {
-    border-bottom-left-radius: $sf-border-radius;
-    border-bottom-right-radius: $sf-border-radius;
-    > :first-child {
-      border-bottom-left-radius: $sf-border-radius;
-    }
-    > :last-child {
-      border-bottom-right-radius: $sf-border-radius;
-    }
-  }
-  > .sf-footer .sf-footer-body {
-    border-top-left-radius: $sf-border-radius;
-    border-top-right-radius: $sf-border-radius;
-  }
-  > * {
-    @extend .bg;
-    &.sf-footer {
-      background-color: transparent;
-      box-shadow: none;
-    }
-  }
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.bg, .sf-footer .sf-footer-body {
-  background-color: $sf-color-background;
-  @include sf-shadow-thin;
-}
-
-.text-capitalise {
-  text-transform: capitalize;
-}
-
-.text-lowercase {
-  text-transform: lowercase;
-}
-
-.text-gray {
-  color: gray;
-}
-
-// Default to circle bullets.
 ul {
   list-style-type: circle;
 }
 
-.shadow {
-  @include sf-shadow-weak;
+.list-unstyled {
+  list-style-type: none;
 }
 
 // Fix missing diff styles.
-.hljs-addition {color: lighten(blue, 20%)}
-.hljs-deletion {color: lighten(red, 10%)}
-
-.sf-collapse .sf-collapse-body {padding: 0}
-.sf-collapse .sf-collapse-body pre {margin: 0}
-
-// // Cosmetic.
-// .sf-tabset, .sf-tab-body {
-//   box-shadow: none;
-//   outline: none;
-//   border: none;
-// }
+.hljs-addition {@extend .text-blue;}
+.hljs-deletion {@extend .text-red;}
 
 // Heading anchor icon.
 h1, h2, h3, h4, h5, h6 {
@@ -81,7 +22,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: $sf-space / 2;
     visibility: hidden;
     opacity: 0;
-    @include sf-transitions(all);
     color: inherit;
   }
   &:hover .heading-anchor, .heading-anchor:hover {
@@ -90,40 +30,11 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.sm-space-out {
-  @include sf-eq-sm {@include sf-space-out-vertical;}
-}
-
-.pad-half {padding: $sf-space / 2}
-
-pre.whitebox {
-  padding: $sf-space / 2;
-  .hljs {
-    background: transparent;
-    color: inherit;
-  }
-}
-
-.space-out-half {
-  @include sf-space-out-vertical($sf-space / 2);
-}
-
-// Anchor decorations.
-a.fa {
-  &, &:hover, &:active {
-    border: none;
-    box-shadow: none;
-    background-color: transparent;
-  }
-}
-
 a[target~=_blank] {
-  article &, .sf-article &, &.indicate-blank {
+  article &, &.indicate-blank {
     &:not(.fa)::after {
       // Icon.
       content: $fa-var-external-link;
-
-      // Base icon styles.
       @extend .fa;
 
       // Cosmetic.
@@ -134,93 +45,56 @@ a[target~=_blank] {
   }
 }
 
-.clamp {
-  &, article &, .sf-article & {
-    margin-bottom: 0;
-    + * {
-      margin-top: 0;
-    }
-  }
+.flat {
+  box-shadow: none;
+  &:focus {@extend :focus;}
 }
 
-/******************************** Components *********************************/
+.inline {display: inline}
 
-.pjax-loader::before {
-  content: '';
-
-  display: block;
-  position: fixed;
-  z-index: 100000;
-
-  width: 0%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-
-  background: gray;
-  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: progress-bar linear infinite 2s;
+code, pre {
+  background-color: rgba(map-get($sf-color-map-primary, default), 0.05);
 }
 
 /**
- * http://getmdl.io
+ * Whitespace.
  */
-@keyframes progress-bar {
-  0% {
-    left: 0%;
-    width: 0;
-  }
 
-  33% {
-    left: 25%;
-    width: 50%;
-  }
+.pad {padding: $sf-space}
+.space-out > :not(:last-child) {margin-bottom: $sf-space}
+.space-out-h > :not(:last-child) {margin-right: $sf-space}
 
-  66% {
-    left: 100%;
-    width: 0;
-  }
-}
+// // Clears floats and prevents vertical margin collapse.
+// .clear-both {
+//   &::before, &::after {
+//     content: '';
+//     display: table;
+//     clear: both;
+//   }
+// }
 
-/********************************* Overrides *********************************/
+/**
+ * Colours
+ */
 
-.sf-jumbo {
-  &:not(.auto) {
-    height: auto;
-    min-height: $sf-jumbo-height;
-  }
-  &.auto {
-    height: auto;
-  }
-}
+.text-center     {text-align: center}
+// .text-justify    {text-align: justify}
+// .text-left       {text-align: left}
+.text-right      {text-align: right}
+// .text-small      {font-size: $sf-font-size-small}
+// .text-large      {font-size: $sf-font-size-large}
+.text-smaller    {font-size: $sf-font-size-smaller}
+.text-larger     {font-size: $sf-font-size-larger}
+.text-capitalize {text-transform: capitalize}
+.text-lowercase  {text-transform: lowercase}
+// .text-underline  {text-decoration: underline}
+.text-gray       {color: gray}
+.text-lightgray  {color: lightgray}
+.text-blue       {color: mediumslateblue}
+.text-red        {color: orangered}
 
-.sf-navbar {
-  > .sf-dropdown {padding: 0}
-  a {
-    @include sf-transitions(all);
-    &:hover, &:focus, &.active {
-      box-shadow: inset 0 -4px 0 0;
-      border-radius: 0;
-    }
-    &:focus {
-      @include sf-focus-indicator('inset 0 -4px 0 0');
-    }
-  }
-}
-
-.sf-footer {
-  height: $sf-footer-height;
-
-  .footer-button-up {
-    @extend .sf-button;
-    @extend .sf-button-flat;
-    @extend .fa;
-    @extend .fa-arrow-up;
-
-    display: block;
-    width: $sf-footer-height;
-    height: $sf-footer-height;
-    margin: (-$sf-space) (-$sf-space) (-$sf-space) 0;
-  }
+.bg-smoke {background-color: aliceblue}
+.bg-red {
+  background-color: tomato;
+  color: white;
 }

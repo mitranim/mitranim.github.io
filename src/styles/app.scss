@@ -1,18 +1,17 @@
-// Definitions.
-@import './_variables';
-@import './_mixins';
-
-// Third party.
-@import './node_modules/stylific/scss/stylific';
-@import './node_modules/font-awesome/scss/font-awesome';
-
 // @import './node_modules/highlight.js/styles/atelier-dune-light';
 @import './node_modules/highlight.js/styles/atelier-seaside-light';
 
-// Components.
-@import './components/fa';
-@import './components/spinner';
-@import './components/words';
+@import './_variables';
 
-// Other global defaults.
+@import './node_modules/font-awesome/scss/variables';
+@import './node_modules/font-awesome/scss/path';
+@import './node_modules/font-awesome/scss/core';
+@import './node_modules/font-awesome/scss/animated';
+@import './fa';
+
+@import './article';
+@import './baseline';
+@import './components';
+@import './flex';
+@import './foliant';
 @import './misc';

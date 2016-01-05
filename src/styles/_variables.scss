@@ -1,31 +1,11 @@
-/**
- * Global variables and/or overrides for imported variables.
- */
-
-/*********************************** Misc ************************************/
-
-// Make the layout super narrow.
-$sf-screen-lg: 768px;
-
 $fa-font-path: '/fonts';
-
-/********************************** Colours **********************************/
-
-// $color-link: darken(#5cb85c, 30%);
-$color-link: darken(red, 10%);
-// $color-red: darken(red, 10%);
 
 // Brand-specific colours. Source: http://brandcolors.net.
 $color-skype:     #00aff0;  // unverified
-$color-github-0:  #4183c4;  // unverified
-$color-github-1:  #666666;  // unverified
+$color-github:    #4183c4;  // unverified
 $color-twitter:   #55acee;  // verified
 $color-linkedin:  #0976b4;  // unverified
 $color-facebook:  #3b5998;  // unverified
-$color-youtube:   #e52d27;  // partly verified
-$color-instagram: #3f729b;  // unverified
-
-// $color-email: $sf-gray;
 
 // http://clrs.cc
 $color-navy:    #001f3f;
@@ -45,21 +25,51 @@ $color-black:   #111111;
 $color-gray:    #aaaaaa;
 $color-silver:  #dddddd;
 
-// $sf-color-map-primary: (
-//   name: 'primary',
-//   default: darken($color-aqua, 40%),
-//   active: darken($color-aqua, 45%),
-//   selected: darken($color-aqua, 50%)
-// );
-
-/******************************** Typography *********************************/
+/**
+ * TODO cleanup
+ */
 
 $sf-font-weight: 300;
 
-/******************************* sf-jumbo.scss *******************************/
+$sf-breakpoint-sm: 600px !default;
+$sf-breakpoint-md: 960px !default;
 
-$sf-jumbo-height: 10em;
+$sf-color-map-primary: (
+  name: 'primary',
+  default: #4646a0,
+  active: lighten(#4646a0, 5%),
+  selected: lighten(#4646a0, 10%)
+) !default;
 
-/****************************** sf-footer.scss *******************************/
+// Default system fonts on various platforms.
+$sf-font-family-sans-serif: Helvetica Neue, Roboto, Segoe UI, Verdana, sans-serif !default;
+// Default OS X monospace > old OS X monospace > Windows monospace > fallback.
+$sf-font-family-monospace: Menlo, Monaco, Consolas, monospace !default;
 
-$sf-footer-offset: 1rem;
+// rem sizing for the <html> element. The common baseline is 12pt = 16px = 1em.
+// Must be an absolute unit like `px` or `pt`.
+$sf-rem: 12pt !default;
+
+// Relative font size variants.
+$sf-font-size-smaller: 0.8em;
+$sf-font-size-larger: 1.25em;
+
+// Common whitespace size. Must NOT be `em`, `%`, or unitless. Needs to be
+// independent of the inherited font size.
+$sf-space: 1rem !default;
+
+// By default, we slightly space out lines.
+$sf-line-height: 1.4 !default;
+
+// By default, we use normal font weight.
+$sf-font-weight: normal !default;
+
+// The proportion of the standard dimensions to use in tooltips. Must be a
+// unitless fractional number.
+$sf-tooltip-proportion: 0.8 !default;
+
+// By how much to offset the tooltip from the parent. em or rem is recommended.
+$sf-tooltip-offset: 0.5em !default;
+
+// Standard border radius.
+$sf-border-radius: 0.2rem !default;

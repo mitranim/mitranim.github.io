@@ -1,17 +1,7 @@
-<div class="sf-footer">
-  <div class="sf-footer-body">
-    <div class="flex-1 row-start-center">
-      <span>
-        {{((new Date()).getFullYear() > 2015 ? 'y2015—' + (new Date()).getFullYear() : 'y2015')}}
-      </span>
-    </div>
-    <div class="flex-1 row-center-center">
-      <p>
-        <a href="/#contacts">get in touch</a>
-      </p>
-    </div>
-    <div class="flex-1 row-end-center theme-text-primary">
-      <button class="footer-button-up" onclick="window.scrollTo(0, 0)"></button>
-    </div>
-  </div>
-</div>
+<footer>
+  <span>
+    {{((new Date()).getFullYear() > 2015 ? 'y2015—' + (new Date()).getFullYear() : 'y2015')}}
+  </span>
+  <a href="/#contacts" class="decorated">get in touch</a>
+  <button class="fa fa-arrow-up text-gray" onclick="window.scrollTo(0, 0)"></button>
+</footer>

@@ -7,19 +7,19 @@ import {read, send, auto, set} from '../core'
  */
 
 const sourceWord = auto(({text, action}) => (
-  ['div', {className: 'word'}, text,
-    action ?
-    ['button', {type: 'button',
-                className: 'fa fa-times sf-button-flat text-gray interactive',
-                onclick: action}] : null]
+  ['div', {className: 'foliant--word'}, text,
+    action
+    ? ['button', {type: 'button',
+                  className: 'fa fa-times flat text-gray',
+                  onclick: action}] : null]
 ))
 
 const generatedWord = auto(({text, action}) => (
-  ['div', {className: 'word'},
-    action ?
-    ['button', {type: 'button',
-                className: 'fa fa-arrow-left sf-button-flat text-gray interactive',
-                onclick: action}] : null,
+  ['div', {className: 'foliant--word'},
+    action
+    ? ['button', {type: 'button',
+                  className: 'fa fa-arrow-left flat text-gray',
+                  onclick: action}] : null,
     ['span', {className: 'flex-1 text-center'}, text]]
 ))
 
@@ -40,41 +40,40 @@ export const words = auto(function words (props, read) {
 
   const {selected, generated, depleted, error} = read(kind)
   const word = read('state', 'word')
-  const textStyle = kind === 'names' ? 'text-capitalise' : 'text-lowercase'
+  const textStyle = kind === 'names' ? 'text-capitalize' : 'text-lowercase'
 
   return (
-    ['div', {className: 'widget-words'},
+    ['div', {className: 'foliant'},
       // Left column: source words
-      ['div', {className: 'flex-1 container'},
+      ['div', {className: 'flex-1 space-out', style: 'padding-right: 0.5rem'},
         ['h3', null, `Source ${_.capitalize(kind)}`],
         ['form', {onsubmit: addWord,
-                  className: `sf-label-row sf-label-dense ${error ? 'sf-tooltip-visible' : ''}`,
-                  'data-sf-tooltip': error,
+                  className: `layout-row`,
+                  'data-tooltip': error,
                   style: 'height: 2.5rem'},
-          ['input', {className: `flex-11 theme-text-primary ${textStyle}`,
+          ['input', {className: `flex-11 ${textStyle}`,
                      placeholder: 'add...',
                      value: word,
                      oninput: changeWord,
                      onblur: clearError}],
-          ['button', {className: 'flex-1 fa fa-plus theme-primary', tabindex: -1}]],
+          ['button', {className: 'flex-1 fa fa-plus', tabindex: -1}]],
         ['div', {className: `sm-grid-1 md-grid-2 ${textStyle}`},
           _.map(selected, (word, key) => (
-            [sourceWord, {text: word, action () {dropWord(key)}, key}]
+            [sourceWord, {text: word, action () { dropWord(key) }, key}]
           ))]],
 
       // Right column: generated results
-      ['div', {className: 'flex-1 container'},
+      ['div', {className: 'flex-1 space-out', style: 'padding-left: 0.5rem'},
         ['h3', null, `Generated ${_.capitalize(kind)}`],
-        ['form', {onsubmit: generate, className: 'sf-label-row sf-label-dense',
-                  style: 'height: 2.5rem'},
-          ['button', {className: 'flex-1 theme-accent fa fa-refresh', tabindex: -1}],
-          ['button', {className: 'flex-11 theme-accent row-center-center text-center'}, 'Generate']],
+        ['button', {onclick: generate, className: 'text-center', style: 'height: 2.5rem; width: 100%'},
+          ['span', {className: 'fa fa-refresh inline', style: 'float: left'}],
+          'Generate'],
         ['div', {className: `sm-grid-1 md-grid-2 ${textStyle}`},
           _.map(generated, word => (
-            [generatedWord, {text: word, action () {pickWord(word)}, key: word}]
+            [generatedWord, {text: word, action () { pickWord(word) }, key: word}]
           )),
-          depleted ?
-          [generatedWord, {text: '(depleted)'}] : null]]]
+          depleted
+          ? [generatedWord, {text: '(depleted)'}] : null]]]
   )
 })
 
@@ -102,8 +101,7 @@ function dropWord (key) {
   send({type: 'gen/drop', kind, key})
 }
 
-function generate (event) {
-  event.preventDefault()
+function generate () {
   const kind = read('state', 'kind')
   send({type: 'gen/generate', kind})
 }

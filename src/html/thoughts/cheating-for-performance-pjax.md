@@ -12,19 +12,19 @@ What if I told you there's a way to dramatically speed up page transitions
 just by adding a library? With zero or few code changes? And it's overlooked by
 the contemporary blogosphere?
 
-<p class="pad shadow" style="font-size: 1.2em">
+<p class="text-larger">
   <span>Demo time!</span>
   <a href="http://mitranim.com/simple-pjax/" target="_blank">http://mitranim.com/simple-pjax/</a>
   <a href="https://github.com/Mitranim/simple-pjax" target="_blank" class="fa fa-github inline"></a>
 </p>
 
-What kinds of applications this applies to?
+Who can use this?
 
-<div style="margin-left: 1rem">
-  <p><span class="fa fa-check inline theme-text-primary"></span> typical server-rendered sites</p>
-  <p><span class="fa fa-check inline theme-text-primary"></span> statically generated sites</p>
-  <p><span class="fa fa-times inline theme-text-warn"></span> SPA (they already enjoy clientside routing)</p>
-</div>
+<ul class="list-unstyled">
+  <li><span class="fa fa-check text-blue"></span> typical server-rendered sites</li>
+  <li><span class="fa fa-check text-blue"></span> statically generated sites</li>
+  <li><span class="fa fa-times text-red"></span> SPA (they already enjoy clientside routing)</li>
+</ul>
 
 As you might have guessed, we're going to exploit clientside routing with
 `history.pushState`. It's usually considered a domain of client-rendered SPA,
@@ -34,32 +34,48 @@ When you think about it, the status quo of content delivery on the web is
 _insane_. We're forcing visitors to make dozens of network connections and
 execute massive amounts of JavaScript on _each page load_ on the same site.
 
-<div class="pad-half clamp theme-primary">
-  <span class="fa fa-thumbs-o-down inline"></span>
+<h3>
+  <span class="fa fa-thumbs-o-down"></span>
   <span>Typical page transition</span>
-</div>
+</h3>
 
-<pre class="whitebox">
-click link =>  ✅ download new document            =>  😫 create new JS runtime
-               💀 throw away JS runtime                😫 re-execute all scripts
-               💀 throw away websocket connections     🎂 display new document
-               💩 304 requests for stylesheets         😫 negotiate new websocket connections
-               💩 304 requests for scripts
-               💩 304 requests for old images / download new images
-               💩 304 requests for fonts
-</pre>
+<ol>
+  <li>Link clicked</li>
+
+  <ul class="list-unstyled">
+    <li>✅ download new document
+    <li>💀 throw away JS runtime
+    <li>💀 throw away websocket connections
+    <li>💩 304 requests for stylesheets, scripts, old images, fonts</li>
+    <li>✅ download new images if needed</li>
+  </ul>
+
+  <li>More work!</li>
+  <ul class="list-unstyled">
+    <li>💀 create new JS runtime</li>
+    <li>💀 rerun all scripts</li>
+    <li>🎂 display new document, with images and fonts flickering in</li>
+    <li>💀 negotiate new websocket connections</li>
+  </ul>
+</ol>
 
 With pushstate routing, we can do better.
 
-<div class="pad-half clamp theme-primary">
-  <span class="fa fa-thumbs-o-up inline"></span>
+<h3>
+  <span class="fa fa-thumbs-o-up"></span>
   <span>Page transition with pjax</span>
-</div>
+</h3>
 
-<pre class="whitebox">
-click link =>  ✅ download new document          => 🎂 display new document 🎉
-                  download new images if needed
-</pre>
+<ol>
+  <li>Link clicked</li>
+
+  <ul class="list-unstyled">
+    <li>✅ download new document</li>
+    <li>✅ download new images if needed</li>
+  </ul>
+
+  <li>🎂 display new document 🎉</li>
+</ol>
 
 ## Implementation
 
@@ -141,9 +157,9 @@ event as a signal for the code that needs to be rerun. So far, this worked for
 me. You'll need to examine your code and decide which approach fits it best.
 
 You'll also need to take special care of widget libraries with a fragile DOM
-lifecycle, like Angular or Polymer. When replacing the document body, you'll
-need to run their bootstrap process again. (Notably, React doesn't have this
-problem.)
+lifecycle, like Angular or Polymer. They break when document body is replaced.
+Notably, React is perfectly compatible; just make sure to unmount all components
+before replacing the body.
 
 ## Prior Art
 
@@ -159,4 +175,4 @@ browsing session alive, and this can be achieved with zero configuration or
 thought. For most sites, this is enough, and additional effort is usually
 not worth it. Is this wrong? You tell me!
 
-Let's use this technique to improve the web. Start with your next website!
+Let's use this technique to improve the web!

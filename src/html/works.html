@@ -1,14 +1,10 @@
 {%
-const title = 'projects'
+const title = 'works'
 const description = 'software I helped write'
 %}
 
 {% extend('index.html', {title, description}) %}
 
-<div class="sf-jumbo auto">
-  <h2>things I do</h2>
-</div>
-
 <article>
-  {{include('partials/projects.md')}}
+  {{include('partials/works.md')}}
 </article>

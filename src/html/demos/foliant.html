@@ -1,0 +1,16 @@
+{%
+const title = 'foliant'
+const description = 'demo of foliant, generator of random synthetic words'
+%}
+
+{% extend('index.html', {title, description}) %}
+
+<header>
+  <h1>{{title}}</h1>
+  <h3>
+    Generator of synthetic words (demo)
+    <a href="https://github.com/Mitranim/foliant" target="_blank" class="fa fa-code text-larger" style="float: right"></a>
+  </h3>
+</header>
+
+<div data-render-foliant></div>

@@ -22,22 +22,12 @@ const statilOptions = require('./statil')
 
 const src = {
   html: 'src/html/**/*',
-  xml: [
-    'src/html/**/*',
-    'src/xml/**/*'
-  ],
+  xml: 'src/xml/**/*',
   robots: 'src/robots.txt',
-  scripts: [
-    'src/scripts/**/*.js',
-    'node_modules/stylific/lib/stylific.min.js',
-    'node_modules/simple-pjax/lib/simple-pjax.min.js'
-  ],
+  scripts: 'src/scripts/**/*.js',
   scriptsCore: 'src/scripts/app.js',
   stylesCore: 'src/styles/app.scss',
-  styles: [
-    'src/styles/**/*.scss',
-    'node_modules/stylific/scss/**/*.scss'
-  ],
+  styles: 'src/styles/**/*.scss',
   images: 'src/images/**/*',
   fonts: 'node_modules/font-awesome/fonts/**/*'
 }
@@ -117,11 +107,11 @@ gulp.task('styles:compile', function () {
       baseDir: '.',
       extensions: ['svg']
     }))
-    .pipe($.if(flags.prod, $.minifyCss({
+    .pipe($.minifyCss({
       keepSpecialComments: 0,
       aggressiveMerging: false,
       advanced: false
-    })))
+    }))
     .pipe(gulp.dest(dest.styles))
     .pipe(bsync.stream())
 })
@@ -167,7 +157,7 @@ gulp.task('xml:clear', function (done) {
 })
 
 gulp.task('xml:compile', function () {
-  return gulp.src(src.xml)
+  return gulp.src([src.html, src.xml])
     .pipe($.plumber())
     .pipe($.statil(statilOptions()))
     .pipe($.filter('*feed*'))
@@ -274,16 +264,16 @@ gulp.task('server', function () {
 
 if (flags.prod) {
   gulp.task('build', gulp.parallel(
-    'scripts:build', 'styles:build', 'html:build', 'xml:build', 'fonts:build'
+    'scripts:build', 'styles:build', 'html:build', 'xml:build', 'fonts:build', 'images:build'
   ))
 } else {
   gulp.task('build', gulp.parallel(
-    'styles:build', 'html:build', 'xml:build', 'fonts:build'
+    'styles:build', 'html:build', 'xml:build', 'fonts:build', 'images:build'
   ))
 }
 
 gulp.task('watch', gulp.parallel(
-  'scripts:build:watch', 'styles:watch', 'html:watch', 'xml:watch', 'fonts:watch'
+  'scripts:build:watch', 'styles:watch', 'html:watch', 'xml:watch', 'fonts:watch', 'images:watch'
 ))
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'server')))

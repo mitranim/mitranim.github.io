@@ -37,7 +37,7 @@ export const spinner = auto(function spinner (props) {
   const {size, ...other} = props
 
   return (
-    ['div', {className: `spinner-container ${size ? `size-${size}` : ''}`, ...other},
-      ['div', {className: 'spinner'}]]
+    ['div', {className: `spinner ${size ? `size-${size}` : ''}`, ...other},
+      ['div', {className: 'spinner--spin'}]]
   )
 })

@@ -1,5 +1,11 @@
 {% extend('thoughts/index.html') %}
 
+<p class="bg-red pad">
+  **Update (late 2015)**. I've come to consider Angular and much of
+  the tech covered in this post to be garbage. What's actually
+  good? I'll try to cover that in due time.
+</p>
+
 Next generation web frameworks are around the corner.
 [Angular2](https://angular.io) and [Aurelia](http://aurelia.io) go beta in a few
 months. They codify custom elements as the dominant design pattern, and put
@@ -588,7 +594,7 @@ export var app = angular.module('app', ['ng']);
 ```
 
 Let's add a view to this element. This is going to be a heavily simplified
-version of the [foliant demo](http://mitranim.com/foliant/) because I'm lazy.
+version of the [foliant demo](http://mitranim.com/demos/foliant/) because I'm lazy.
 
 Create a file `src/app/word-generator/word-generator.html` with:
 
@@ -784,7 +790,7 @@ static readAll() {
 ```
 
 We're using the injected `$http` service to grab some example words from the
-backend for the [demo](http://mitranim.com/foliant/) on which this component is
+backend for the [demo](http://mitranim.com/demos/foliant/) on which this component is
 based. `this` refers to the class, and the arrow function transforms the
 response, converting it into a new instance of this data model. This is a
 typical pattern. In a real app, you would have a root model class that
@@ -1054,9 +1060,9 @@ See the live demo deployed in "prod mode": [demo](http://mitranim.com/ng-next-ge
 ----
 
 That's it! You can now build modern web applications using future technologies,
-with no drawbacks or compromises. Grab the complete demo over at GitHub:
+with no drawbacks or compromises. Grab the complete demo on GitHub:
 [https://github.com/Mitranim/ng-next-gen](https://github.com/Mitranim/ng-next-gen)
 and start playing around.
 
-If you have any questions, grab me over at [Gitter](https://gitter.im/Mitranim)
+If you have any questions, grab me over on [Gitter](https://gitter.im/Mitranim)
 or [Skype](skype:mitranim.web?chat).

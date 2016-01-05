@@ -1,0 +1,43 @@
+%layout {
+  display: flex;
+}
+
+%row {
+  @extend %layout;
+  flex-direction: row;
+}
+
+%column {
+  @extend %layout;
+  flex-direction: column;
+}
+
+%row-between {
+  @extend %row;
+  justify-content: space-between;
+}
+
+.layout-row {
+  @extend %row;
+}
+
+.flex-1 {flex: 1}
+
+.flex-11 {flex: 11}
+
+.sm-grid-1, .md-grid-2 {
+  @extend %layout;
+  flex-wrap: wrap;
+  > * {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}
+
+.sm-grid-1 > * {
+  flex-basis: 100%;
+}
+
+.md-grid-2 > * {
+  flex-basis: 50%;
+}

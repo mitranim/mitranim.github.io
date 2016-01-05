@@ -11,10 +11,10 @@ renderTo('[data-render-foliant]', function foliant (props, read) {
 
   return (
     ['div', null,
-      ['div', {className: 'sf-navbar sf-navbar-tabs'},
+      ['nav', {className: 'nav-h'},
         kinds.map(kind => (
-          ['a', {className: `interactive ${kind === current ? 'active' : ''}`,
-                 onclick () {set(['state', 'kind'], kind)},
+          ['button', {className: `flat ${kind === current ? 'active' : ''}`,
+                 onclick () { set(['state', 'kind'], kind) },
                  key: kind},
             ['h3', null, _.capitalize(kind)]]
         ))],

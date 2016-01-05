@@ -2,48 +2,48 @@
   <img src="/images/face-square.jpg">
 </div>
 
-# About
+## About
 
 Name: Nelo Mitranim.
 
 Frontend web developer at [ToBox](http://tobox.com). Full-stack generalist.
 
 Tech:
-* Backend: Python (Django), Node.js (Koa, ~~Express~~, ~~Meteor~~), Go, Clojure.
 * Frontend: JavaScript (React, Alder, ~~Angular~~), CSS (Sass, ~~Less~~).
-* Elementary VPS administration.
+* Backend: Python (Django), Clojure, Node.js (Koa, ~~Express~~, ~~Meteor~~), ~~Go~~.
 
-Favourite pastime: writing [free software](/projects/).
+Favourite pastime: writing [free software](/works/).
 
 Location: Moscow, Russia (planning to move out).
 
-# Contacts
+## Contacts
 
-<span class="fa fa-skype inline"></span>skype [mitranim.web](skype:mitranim.web?chat)
+<span class="fa fa-skype inline"></span><span>skype [mitranim.web](skype:mitranim.web?chat)</span>
 
 <span class="fa fa-mobile inline"></span><span>phone +7-926-044-00-49</span>
 
-<span class="fa fa-at inline"></span>email [me@mitranim.com](mailto:me@mitranim.com)
+<span class="fa fa-at inline"></span><span>email [me@mitranim.com](mailto:me@mitranim.com)</span>
 
-<span class="fa fa-paper-plane-o inline"></span>telegram [Mitranim](https://telegram.me/Mitranim)
+<span class="fa fa-paper-plane-o inline"></span><span>telegram [Mitranim](https://telegram.me/Mitranim)</span>
 
-# Social Links
+## Social Links
 
-<div class="row-start-center space-out-h">
-  <div class="col-center-center space-out-half">
-    <a href="https://github.com/Mitranim" target="_blank" class="fa fa-github size-midlarge dark pop"></a>
-    <span>Github</span>
-  </div>
-  <div class="col-center-center space-out-half">
-    <a href="http://twitter.com/mitranim" target="_blank" class="fa fa-twitter size-midlarge dark pop"></a>
-    <span>Twitter</span>
-  </div>
-  <div class="col-center-center space-out-half">
-    <a href="http://linkedin.com/in/mitranim" target="_blank" class="fa fa-linkedin size-midlarge dark pop"></a>
-    <span>Linkedin</span>
-  </div>
-  <div class="col-center-center space-out-half">
-    <a href="http://facebook.com/mitranim" target="_blank" class="fa fa-facebook size-midlarge dark pop"></a>
-    <span>Facebook</span>
-  </div>
-</div>
+<a href="https://github.com/Mitranim" target="_blank">
+  <span class="fa fa-github"></span>
+  <span>GitHub</span>
+</a>
+
+<a href="http://twitter.com/mitranim" target="_blank">
+  <span class="fa fa-twitter"></span>
+  <span>Twitter</span>
+</a>
+
+<a href="http://linkedin.com/in/mitranim" target="_blank">
+  <span class="fa fa-linkedin"></span>
+  <span>LinkedIn</span>
+</a>
+
+<a href="http://facebook.com/mitranim" target="_blank">
+  <span class="fa fa-facebook"></span>
+  <span>Facebook</span>
+</a>

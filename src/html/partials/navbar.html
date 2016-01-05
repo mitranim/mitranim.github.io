@@ -1,16 +1,6 @@
-<div class="sf-navbar">
-  <a {{active('index')}} href="/">about</a>
-  <a {{active('projects')}} href="/projects/">projects</a>
+<nav class="nav-h text-larger" style="margin-bottom: 1rem">
+  <a {{active('index')}} href="/">home</a>
+  <a {{active('works')}} href="/works/">works</a>
   <a {{active('thoughts')}} href="/thoughts/">thoughts</a>
-
-  <div class="sf-navbar-toggle"></div>
-
-  <div class="sf-dropdown">
-    <div class="sf-dropdown-head row-center-center" data-sf-toggle>demos</div>
-    <div class="sf-dropdown-body">
-      <a {{active('foliant')}} href="/foliant/">foliant</a>
-      <a href="http://mitranim.com/simple-pjax/" target="_blank" class="indicate-blank">simple-pjax</a>
-      <a href="http://mitranim.com/chat/" target="_blank" class="indicate-blank">chat</a>
-    </div>
-  </div>
-</div>
+  <a {{active('demos')}} href="/demos/">demos</a>
+</nav>

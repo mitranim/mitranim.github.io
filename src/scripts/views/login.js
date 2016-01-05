@@ -7,20 +7,20 @@ export const login = auto(function login (props, read) {
   return (
     ['div', {className: 'container text-right'},
       // Anonymous
-      auth.provider === 'anonymous' ?
-      ['div', null,
+      auth.provider === 'anonymous'
+      ? ['div', null,
         ['p', null, 'Anonymous session'],
         ['p', null,
-          ['button', {className: 'sf-button-flat', onclick () {send('auth/loginTwitter')}},
+          ['button', {onclick () { send('auth/loginTwitter') }},
             'Sign in with Twitter',
             ['span', {className: 'fa fa-twitter inline'}]]]] : null,
 
       // Twitter
-      auth.twitter ?
-      ['div', null,
+      auth.twitter
+      ? ['div', null,
         ['p', null, `Signed in as ${auth.twitter.displayName}`],
         ['p', null,
-          ['button', {className: 'sf-button-flat', onclick () {send('auth/logout')}},
+          ['button', {onclick () { send('auth/logout') }},
             'Sign out',
             ['span', {className: 'fa fa-sign-out inline'}]]]] : null]
   )

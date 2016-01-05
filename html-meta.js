@@ -6,35 +6,29 @@ module.exports = {
       name: 'cheating-for-performance-pjax',
       title: 'Cheating for Performance: Pjax',
       description: 'Faster page transitions, for free',
-      image: 'strato.jpg',
       date: new Date('2015-07-25T00:00:00.000Z')
     },
     'thoughts/next-generation-today.md': {
       name: 'next-generation-today',
       title: 'Next Generation Today',
       description: 'EcmaScript 2015/2016 workflow with current web frameworks',
-      image: 'cloud-city.jpg',
       date: new Date('2015-05-18T00:00:00.000Z')
     },
     'thoughts/cheating-for-website-performance.md': {
       name: 'cheating-for-website-performance',
       title: 'Cheating For Website Performance',
       description: 'Frontend tips for speeding up websites',
-      image: 'hexa.jpg',
       date: new Date('2015-03-11T00:00:00.000Z')
     },
     'thoughts/keeping-things-simple.md': {
       name: 'keeping-things-simple',
       title: 'Keeping Things Simple',
-      image: 'purple.jpg',
       date: new Date('2015-03-10T00:00:00.000Z')
     },
     'thoughts/old-posts.md': {
       name: 'old-posts',
       title: 'Old Posts',
-      description: 'some old stuff from around the net',
-      image: 'typesets.jpg',
-      date: 'really old'
+      description: 'some old stuff from around the net'
     }
   },
 

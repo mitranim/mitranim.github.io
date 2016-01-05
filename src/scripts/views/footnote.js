@@ -1,6 +1,6 @@
 export function footnote (render) {
   render(
-    ['div', {className: 'text-right container'},
+    ['div', {className: 'text-right'},
       ['p', null,
         'Made with ',
         ['a', {href: 'https://github.com/Mitranim/prax', target: '_blank'}, 'Prax'],

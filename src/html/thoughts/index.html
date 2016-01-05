@@ -1,33 +1,20 @@
 {%
 const post = posts[path]
-const title = post.title
-const description = post.description
-const image = post.image
-const date = post.date
 %}
 
-{% extend('index.html', post) %}
+{% extend('index.html', _.assign({}, post, {type: 'article'})) %}
 
-<div class="sf-jumbo" {{image ? `style="background-image: url(/images/${image})"` : ''}}>
-  <div class="sm-col-between-start sm-space-out md-row-between-stretch">
-    <div class="col-between-stretch space-out">
-      <h2>{{title}}</h2>
-      {% if (description) { %}
-        <p>{{description}}</p>
-      {% } %}
-    </div>
-    <div class="sm-col-between-stretch md-col-between-end space-out">
-      <div>
-        {{include('partials/feed-links.html')}}
-      </div>
-      {% if (date) { %}
-        <div class="text-gray" style="font-size: 0.8em">
-          {{date instanceof Date ? date.toDateString() : date}}
-        </div>
-      {% } %}
-    </div>
-  </div>
-</div>
+<header>
+  <h1>{{post.title}}</h1>
+  {% if (post.description) { %}
+    <h3>{{post.description}}</h3>
+  {% } %}
+  {% if (post.date) { %}
+    <p class="text-gray">
+      {{post.date instanceof Date ? post.date.toDateString() : post.date}}
+    </p>
+  {% } %}
+</header>
 
 <article>
   <!-- Post -->

@@ -1,0 +1,48 @@
+.fa-arrow-left::before    {content: $fa-var-arrow-left}
+.fa-arrow-up::before      {content: $fa-var-arrow-up}
+.fa-at::before            {content: $fa-var-at}
+.fa-check::before         {content: $fa-var-check}
+.fa-code::before          {content: $fa-var-code}
+.fa-facebook::before      {content: $fa-var-facebook}
+.fa-github::before        {content: $fa-var-github}
+.fa-link::before          {content: $fa-var-link}
+.fa-linkedin::before      {content: $fa-var-linkedin}
+.fa-mobile::before        {content: $fa-var-mobile}
+.fa-paper-plane-o::before {content: $fa-var-paper-plane-o}
+.fa-plus::before          {content: $fa-var-plus}
+.fa-refresh::before       {content: $fa-var-refresh}
+.fa-rss::before           {content: $fa-var-rss}
+.fa-rss-square::before    {content: $fa-var-rss-square}
+.fa-sign-out::before      {content: $fa-var-sign-out}
+.fa-skype::before         {content: $fa-var-skype}
+.fa-thumbs-o-down::before {content: $fa-var-thumbs-o-down}
+.fa-thumbs-o-up::before   {content: $fa-var-thumbs-o-up}
+.fa-times::before         {content: $fa-var-times}
+.fa-twitter::before       {content: $fa-var-twitter}
+
+.fa::before {
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+}
+
+.fa.inline {
+  margin-right: $sf-space / 2;
+  &:last-child {margin-right: 0}
+}
+
+// wtf
+:not(:empty) .fa.inline:not(:first-child) {
+  margin-left: $sf-space / 2;
+}
+
+a.fa {
+  border: none;
+}
+
+// Brand colours.
+.fa-facebook {color: $color-facebook}
+.fa-github   {color: $color-github}
+.fa-linkedin {color: $color-linkedin}
+.fa-skype    {color: $color-skype}
+.fa-twitter  {color: $color-twitter}

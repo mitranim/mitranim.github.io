@@ -148,14 +148,14 @@ access. This absolutely needs to be fast, but this work is usually done once per
 page load. The rest comes from network latency for the document and assets. Make
 sure to use a web hosting with low latency times for your target audience. If
 your audience is all over the world, pick a server with good average latency and
-use a caching proxy like CloudFlare to reduce latency for static content.
+use a caching proxy / CDN like CloudFlare to reduce latency for static content.
 
 ## Consider a Static Website
 
 Simple websites with one maintainer, like a personal page or a blog, don't need
 a scripting engine with a database. You can prerender them into HTML files, then
-serve with nginx or on a service like GitHub Pages. Minor dynamic functionality
-can be offloaded to an Ajax or Websocket API.
+serve with nginx or on a service like GitHub Pages. Dynamic functionality can be
+implemented with ajax.
 
 Serving static files is naturally more performant than rendering templates on
 each request. They're also automatically subject to caching. When the base
