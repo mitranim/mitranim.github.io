@@ -13,6 +13,10 @@ button {
   border: none;
   box-shadow: 0 0 1px 0 lightgray;
   &:focus {@extend :focus;}
+
+  // FF
+  &:active {@extend :focus;}
+  &::-moz-focus-inner {border: none}
 }
 
 /**

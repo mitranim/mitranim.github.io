@@ -67,7 +67,7 @@ function scripts (done) {
       ]
     },
     plugins: flags.prod ? [new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})] : [],
-    devtool: !flags.prod && typeof done !== 'function' ? 'source-map' : null,
+    devtool: !flags.prod && typeof done !== 'function' ? 'source-map-inline' : null,
     watch: typeof done !== 'function'
   }, function (err, stats) {
     if (err) {
