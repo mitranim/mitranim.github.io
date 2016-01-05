@@ -65,7 +65,8 @@ export const words = auto(function words (props, read) {
       // Right column: generated results
       ['div', {className: 'flex-1 space-out', style: 'padding-left: 0.5rem'},
         ['h3', null, `Generated ${_.capitalize(kind)}`],
-        ['button', {onclick: generate, className: 'text-center', style: 'height: 2.5rem; width: 100%'},
+        ['button', {onclick: generate, className: 'text-center',
+                    style: 'height: 2.5rem; width: 100%'},
           ['span', {className: 'fa fa-refresh inline', style: 'float: left'}],
           'Generate'],
         ['div', {className: `sm-grid-1 md-grid-2 ${textStyle}`},
