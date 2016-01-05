@@ -29,8 +29,6 @@ $color-silver:  #dddddd;
  * TODO cleanup
  */
 
-$sf-font-weight: 300;
-
 $sf-breakpoint-sm: 600px !default;
 $sf-breakpoint-md: 960px !default;
 
@@ -41,10 +39,9 @@ $sf-color-map-primary: (
   selected: lighten(#4646a0, 10%)
 ) !default;
 
-// Default system fonts on various platforms.
-$sf-font-family-sans-serif: Helvetica Neue, Roboto, Segoe UI, Verdana, sans-serif !default;
-// Default OS X monospace > old OS X monospace > Windows monospace > fallback.
-$sf-font-family-monospace: Menlo, Monaco, Consolas, monospace !default;
+$sf-font-family-sans-serif: Open Sans, Helvetica Neue, Roboto, Segoe UI, Verdana, sans-serif;
+// Default OS X monospace > Windows monospace > fallback.
+$sf-font-family-monospace: Menlo, Consolas, monospace;
 
 // rem sizing for the <html> element. The common baseline is 12pt = 16px = 1em.
 // Must be an absolute unit like `px` or `pt`.

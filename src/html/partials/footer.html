@@ -2,6 +2,8 @@
   <span>
     {{((new Date()).getFullYear() > 2015 ? 'y2015—' + (new Date()).getFullYear() : 'y2015')}}
   </span>
-  <a href="/#contacts" class="decorated">get in touch</a>
+  {% if (path !== 'index.html') { %}
+    <a href="/" class="decorated">touch me</a>
+  {% } %}
   <button class="fa fa-arrow-up text-gray" onclick="window.scrollTo(0, 0)"></button>
 </footer>

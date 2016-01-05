@@ -78,6 +78,7 @@ input, textarea {
  */
 
 footer {
+  min-height: 1em;
   margin: ($sf-space * 2) 0;
   text-align: center;
   > :first-child {float: left}

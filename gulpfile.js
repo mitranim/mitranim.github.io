@@ -103,10 +103,6 @@ gulp.task('styles:compile', function () {
     .pipe($.plumber())
     .pipe($.sass())
     .pipe($.autoprefixer())
-    .pipe($.base64({
-      baseDir: '.',
-      extensions: ['svg']
-    }))
     .pipe($.minifyCss({
       keepSpecialComments: 0,
       aggressiveMerging: false,

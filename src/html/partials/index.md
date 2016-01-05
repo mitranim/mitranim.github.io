@@ -2,7 +2,7 @@
   <img src="/images/face-square.jpg">
 </div>
 
-## About
+<h2>About</h2>
 
 Name: Nelo Mitranim.
 
@@ -16,34 +16,48 @@ Favourite pastime: writing [free software](/works/).
 
 Location: Moscow, Russia (planning to move out).
 
-## Contacts
+<div class="layout-row space-out-h">
+  <div class="flex-1">
+    <h2>Contacts</h2>
 
-<span class="fa fa-skype inline"></span><span>skype [mitranim.web](skype:mitranim.web?chat)</span>
+    <p><span class="fa fa-skype inline"></span><span>skype [mitranim.web](skype:mitranim.web?chat)</span></p>
 
-<span class="fa fa-mobile inline"></span><span>phone +7-926-044-00-49</span>
+    <p><span class="fa fa-mobile inline"></span><span>phone +7-926-044-00-49</span></p>
 
-<span class="fa fa-at inline"></span><span>email [me@mitranim.com](mailto:me@mitranim.com)</span>
+    <p><span class="fa fa-at inline"></span><span>email [me@mitranim.com](mailto:me@mitranim.com)</span></p>
 
-<span class="fa fa-paper-plane-o inline"></span><span>telegram [Mitranim](https://telegram.me/Mitranim)</span>
+    <p><span class="fa fa-paper-plane-o inline"></span><span>telegram [Mitranim](https://telegram.me/Mitranim)</span></p>
+  </div>
 
-## Social Links
+  <div class="flex-1">
+    <h2>Social Links</h2>
 
-<a href="https://github.com/Mitranim" target="_blank">
-  <span class="fa fa-github"></span>
-  <span>GitHub</span>
-</a>
+    <p>
+      <a href="https://github.com/Mitranim" target="_blank">
+        <span class="fa fa-github"></span>
+        <span>GitHub</span>
+      </a>
+    </p>
 
-<a href="http://twitter.com/mitranim" target="_blank">
-  <span class="fa fa-twitter"></span>
-  <span>Twitter</span>
-</a>
+    <p>
+      <a href="http://twitter.com/mitranim" target="_blank">
+        <span class="fa fa-twitter"></span>
+        <span>Twitter</span>
+      </a>
+    </p>
 
-<a href="http://linkedin.com/in/mitranim" target="_blank">
-  <span class="fa fa-linkedin"></span>
-  <span>LinkedIn</span>
-</a>
+    <p>
+      <a href="http://linkedin.com/in/mitranim" target="_blank">
+        <span class="fa fa-linkedin"></span>
+        <span>LinkedIn</span>
+      </a>
+    </p>
 
-<a href="http://facebook.com/mitranim" target="_blank">
-  <span class="fa fa-facebook"></span>
-  <span>Facebook</span>
-</a>
+    <p>
+      <a href="http://facebook.com/mitranim" target="_blank">
+        <span class="fa fa-facebook"></span>
+        <span>Facebook</span>
+      </a>
+    </p>
+  </div>
+</div>
