@@ -25,48 +25,7 @@ $color-black:   #111111;
 $color-gray:    #aaaaaa;
 $color-silver:  #dddddd;
 
-/**
- * TODO cleanup
- */
-
 $sf-breakpoint-sm: 600px !default;
 $sf-breakpoint-md: 960px !default;
-
-$sf-color-map-primary: (
-  name: 'primary',
-  default: #4646a0,
-  active: lighten(#4646a0, 5%),
-  selected: lighten(#4646a0, 10%)
-) !default;
-
 $sf-font-family-sans-serif: Open Sans, Helvetica Neue, Roboto, Segoe UI, Verdana, sans-serif;
-// Default OS X monospace > Windows monospace > fallback.
-$sf-font-family-monospace: Menlo, Consolas, monospace;
-
-// rem sizing for the <html> element. The common baseline is 12pt = 16px = 1em.
-// Must be an absolute unit like `px` or `pt`.
-$sf-rem: 12pt !default;
-
-// Relative font size variants.
-$sf-font-size-smaller: 0.8em;
-$sf-font-size-larger: 1.25em;
-
-// Common whitespace size. Must NOT be `em`, `%`, or unitless. Needs to be
-// independent of the inherited font size.
-$sf-space: 1rem !default;
-
-// By default, we slightly space out lines.
-$sf-line-height: 1.4 !default;
-
-// By default, we use normal font weight.
-$sf-font-weight: normal !default;
-
-// The proportion of the standard dimensions to use in tooltips. Must be a
-// unitless fractional number.
-$sf-tooltip-proportion: 0.8 !default;
-
-// By how much to offset the tooltip from the parent. em or rem is recommended.
-$sf-tooltip-offset: 0.5em !default;
-
-// Standard border radius.
-$sf-border-radius: 0.2rem !default;
+$sf-body-max-width: 768px;

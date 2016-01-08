@@ -38,7 +38,8 @@ structures. Work in progress, undocumented.
 [stylific](http://mitranim.com/stylific/) <span class="text-gray">(Sass / JavaScript)</span>
 
 CSS (Sass) library to serve as a website foundation. Similar to
-[Bootstrap](http://getbootstrap.com), built on different principles.
+[Bootstrap](http://getbootstrap.com), built on different principles. Accompanied
+by [stylific-lite](http://mitranim.com/stylific-lite/).
 
 [simple-pjax](https://github.com/Mitranim/simple-pjax) <span class="text-gray">(TypeScript)</span>
 

@@ -1,55 +1,47 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{{typeof title !== 'undefined' ? title : 'about:mitranim'}}</title>
-    <meta name="author" content="mitranim">
-    <meta name="description" content="{{typeof description !== 'undefined' ? description : 'about me: works, blog, demos'}}">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes">
-    {% if (prod) { %}
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,300italic,400italic&subset=latin" type="text/css">
-    {% } %}
-    <link rel="stylesheet" type="text/css" href="/styles/app.css">
-    <link rel="icon" href="data:;base64,=">
+<!doctype html>
 
-    {% if (typeof type !== 'undefined') { %}
-      <meta property="og:site_name" content="about:mitranim">
-      <meta property="og:type" content="{{type}}">
-    {% } %}
-    {% if (typeof title !== 'undefined') { %}
-      <meta property="og:title" content="{{title}}">
-    {% } %}
-    {% if (typeof description !== 'undefined') { %}
-      <meta property="og:description" content="{{description}}">
-    {% } %}
-    {% if (typeof image !== 'undefined') { %}
-      <meta property="og:image" content="/images/{{image}}">
-    {% } %}
-  </head>
+<title>{{typeof title !== 'undefined' ? title : 'about:mitranim'}}</title>
+<meta name="author" content="mitranim">
+<meta name="description" content="{{typeof description !== 'undefined' ? description : 'about me: works, blog, demos'}}">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,300italic,400italic&subset=latin" type="text/css">
+<link rel="stylesheet" type="text/css" href="/styles/app.css">
+<link rel="icon" href="data:;base64,=">
 
-  <body>
-    <!-- Navbar -->
-    {{include('partials/navbar.html')}}
+{% if (typeof type !== 'undefined') { %}
+  <meta property="og:site_name" content="about:mitranim">
+  <meta property="og:type" content="{{type}}">
+{% } %}
+{% if (typeof title !== 'undefined') { %}
+  <meta property="og:title" content="{{title}}">
+{% } %}
+{% if (typeof description !== 'undefined') { %}
+  <meta property="og:description" content="{{description}}">
+{% } %}
+{% if (typeof image !== 'undefined') { %}
+  <meta property="og:image" content="/images/{{image}}">
+{% } %}
 
-    <!-- Site content -->
-    {% if (path === 'index.html') { %}
-      <article>
-        {{include('partials/index.md')}}
-      </article>
-    {% } else { %}
-      {{content}}
-    {% } %}
+<body></body>
 
-    <!-- Footer -->
-    {{include('partials/footer.html')}}
+{{include('partials/navbar.html')}}
 
-    {% if (!prod) { %}
-      <script>
-        window.developmentMode = true;
-      </script>
-    {% } %}
+{% if (path === 'index.html') { %}
+  <article>
+    {{include('partials/index.md')}}
+  </article>
+{% } else { %}
+  {{content}}
+{% } %}
 
-    <script src="/scripts/app.js" async></script>
-  </body>
-</html>
+{{include('partials/footer.html')}}
+
+{% if (!prod) { %}
+  <script>
+    window.developmentMode = true;
+  </script>
+{% } %}
+
+<script src="/scripts/app.js" async></script>

@@ -16,8 +16,8 @@ Favourite pastime: writing [free software](/works/).
 
 Location: Moscow, Russia (planning to move out).
 
-<div class="layout-row space-out-h">
-  <div class="flex-1">
+<div class="md-layout-row">
+  <div class="md-flex-1">
     <h2>Contacts</h2>
 
     <p><span class="fa fa-skype inline"></span><span>skype [mitranim.web](skype:mitranim.web?chat)</span></p>
@@ -29,7 +29,7 @@ Location: Moscow, Russia (planning to move out).
     <p><span class="fa fa-paper-plane-o inline"></span><span>telegram [Mitranim](https://telegram.me/Mitranim)</span></p>
   </div>
 
-  <div class="flex-1">
+  <div class="md-flex-1">
     <h2>Social Links</h2>
 
     <p>

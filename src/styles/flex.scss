@@ -21,7 +21,20 @@
   @extend %row;
 }
 
+@media (min-width: $sf-breakpoint-md) {
+  .md-layout-row {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
 .flex-1 {flex: 1}
+
+@media (min-width: $sf-breakpoint-md) {
+  .md-flex-1 {
+    flex: 1;
+  }
+}
 
 .flex-11 {flex: 11}
 

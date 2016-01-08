@@ -1,3 +1,8 @@
+@import './node_modules/font-awesome/scss/variables';
+@import './node_modules/font-awesome/scss/path';
+@import './node_modules/font-awesome/scss/core';
+@import './node_modules/font-awesome/scss/animated';
+
 .fa-arrow-left::before    {content: $fa-var-arrow-left}
 .fa-arrow-up::before      {content: $fa-var-arrow-up}
 .fa-at::before            {content: $fa-var-at}
@@ -41,8 +46,8 @@ a.fa {
 }
 
 // Brand colours.
-.fa-facebook {color: $color-facebook}
-.fa-github   {color: $color-github}
-.fa-linkedin {color: $color-linkedin}
-.fa-skype    {color: $color-skype}
-.fa-twitter  {color: $color-twitter}
+.fa-facebook, a.fa-facebook {color: $color-facebook}
+.fa-github, a.fa-github     {color: $color-github}
+.fa-linkedin, a.fa-linkedin {color: $color-linkedin}
+.fa-skype, a.fa-skype       {color: $color-skype}
+.fa-twitter, a.fa-twitter   {color: $color-twitter}

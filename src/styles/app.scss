@@ -3,15 +3,12 @@
 
 @import './_variables';
 
-@import './node_modules/font-awesome/scss/variables';
-@import './node_modules/font-awesome/scss/path';
-@import './node_modules/font-awesome/scss/core';
-@import './node_modules/font-awesome/scss/animated';
-@import './fa';
+@import './node_modules/stylific-lite/scss/stylific-lite';
+@import './node_modules/stylific-lite/scss/classes';
 
-@import './article';
-@import './baseline';
+@import './fa';
 @import './components';
 @import './flex';
 @import './foliant';
 @import './misc';
+@import './tooltip';

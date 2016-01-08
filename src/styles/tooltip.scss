@@ -1,0 +1,125 @@
+/**
+ * TODO cleanup
+ */
+
+// The proportion of the standard dimensions to use in tooltips. Must be a
+// unitless fractional number.
+$sf-tooltip-proportion: 0.8 !default;
+
+// By how much to offset the tooltip from the parent. em or rem is recommended.
+$sf-tooltip-offset: 0.5em !default;
+
+// Standard border radius.
+$sf-border-radius: 0.2rem !default;
+
+[data-tooltip] {
+  $z-index: 10;
+  position: relative;
+
+  /**
+   * Shared style for tooltip content and triangle.
+   */
+  &::after, &::before {
+    // Layout.
+    display: none;
+    position: absolute;
+    z-index: $z-index;
+
+    // Use a constant small font size.
+    font-size: unquote('#{$sf-tooltip-proportion}rem');
+
+    // Counteract inherited font styles, if any.
+    font-style: normal;
+    font-weight: $sf-font-weight;
+  }
+
+  /**
+   * Content-specific styles.
+   */
+  &::after {
+    content: attr(data-tooltip);
+
+    // Prevent from shrinking to the width or height of the parent.
+    white-space: pre;
+
+    // Use a fraction of the standard padding. We scale it down twice as much as
+    // other dimensions.
+    padding: $sf-space * $sf-tooltip-proportion / 2;
+
+    // Use a fraction of the standard border radius.
+    border-radius: $sf-border-radius * $sf-tooltip-proportion;
+
+    // Colours.
+    background-color: tomato;
+    color: white;
+  }
+
+  /**
+   * Triangle-specific styles.
+   */
+  &::before {
+    content: '';
+    // Cosmetic.
+    border: $sf-tooltip-offset solid transparent;
+  }
+
+  // Never display empty tooltips.
+  &[data-tooltip='']::after {content: none}
+  &[data-tooltip='']::before {content: none}
+
+  /**
+   * Tooltip content and triangle positioning.
+   */
+
+  @mixin tooltip-position($main, $cross) {
+    $translate: if($main == top or $main == bottom, translateX, translateY);
+    $border-side: map-get((
+      bottom: top,
+      top: bottom,
+      left: right,
+      right: left
+    ), $main);
+
+    &::after {
+      #{$main}: 100%;
+      margin-#{$main}: $sf-tooltip-offset * 2;
+      #{$cross}: 50%;
+      transform: unquote('#{$translate}(-50%)');
+    }
+    &::before {
+      // Layout.
+      #{$main}: 100%;
+      margin-#{$main}: 1px; // Fix for a 1px interval that appears in some browsers.
+      #{$cross}: 50%;
+      margin-#{$cross}: -$sf-tooltip-offset;
+      // Border.
+      border-#{$border-side}: $sf-tooltip-offset solid tomato;
+    }
+  }
+
+  // Top (default).
+  &:not([class*=sf-position]), &.sf-position-top {
+    @include tooltip-position(bottom, left);
+  }
+
+  // // Right.
+  // &.sf-position-right {
+  //   @include tooltip-position(left, top);
+  // }
+
+  // // Bottom.
+  // &.sf-position-bottom {
+  //   @include tooltip-position(top, left);
+  // }
+
+  // // Left.
+  // &.sf-position-left {
+  //   @include tooltip-position(right, top);
+  // }
+
+  &:not([data-tooltip='']) {
+    &::after, &::before {
+      display: block;
+    }
+  }
+}

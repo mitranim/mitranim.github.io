@@ -1,12 +1,5 @@
 'use strict'
 
-/**
- * Requires gulp 4.0:
- *   "gulp": "gulpjs/gulp#4.0"
- *
- * Requires Node.js 4.0+
- */
-
 /* ***************************** Dependencies ********************************/
 
 const $ = require('gulp-load-plugins')()
@@ -106,7 +99,8 @@ gulp.task('styles:compile', function () {
     .pipe($.minifyCss({
       keepSpecialComments: 0,
       aggressiveMerging: false,
-      advanced: false
+      advanced: false,
+      compatibility: {properties: {colors: false}}
     }))
     .pipe(gulp.dest(dest.styles))
     .pipe(bsync.stream())

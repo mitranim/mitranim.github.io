@@ -148,13 +148,15 @@ You need to watch out for code that modifies the DOM on page load. Most websites
 have this in the form of analytics and UI widgets. When transitioning to a new
 page, that code must be re-executed to modify the new document body.
 
-Existing pjax libraries tend to emit a custom event when transitioning to a new
-location, and expect you to register a listener to rerun any DOM-related code.
+Before a transition, you'll need to perform teardown like unmounting React
+components or destroying jQuery plugins. Do that in a document-level
+`simple-pjax-before-transition` event listener.
 
-With `simple-pjax`, I opted for something more automatic: it reruns any inline
-scripts found in the new document body, and emits the native `DOMContentLoaded`
-event as a signal for the code that needs to be rerun. So far, this worked for
-me. You'll need to examine your code and decide which approach fits it best.
+After a transition, you'll need to run the same setup as on the first page load.
+Do that in a document-level `simple-pjax-after-transition` event listener.
+
+`simple-pjax` also reruns any inline scripts found in the new document body,
+which makes it compatible out-of-the-box with common analytics snippets.
 
 You'll also need to take special care of widget libraries with a fragile DOM
 lifecycle, like Angular or Polymer. They break when document body is replaced.
