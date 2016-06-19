@@ -1,5 +1,6 @@
 <!doctype html>
 
+<base href="/"></base>
 <title>{{typeof title !== 'undefined' ? title : 'about:mitranim'}}</title>
 <meta name="author" content="mitranim">
 <meta name="description" content="{{typeof description !== 'undefined' ? description : 'about me: works, blog, demos'}}">
@@ -38,10 +39,4 @@
 
 {{include('partials/footer.html')}}
 
-{% if (!prod) { %}
-  <script>
-    window.developmentMode = true;
-  </script>
-{% } %}
-
-<script src="/scripts/app.js" async></script>
+<script src="app.js"></script>

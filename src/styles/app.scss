@@ -1,5 +1,6 @@
 // @import './node_modules/highlight.js/styles/atelier-dune-light';
-@import './node_modules/highlight.js/styles/atelier-seaside-light';
+// @import './node_modules/highlight.js/styles/atelier-seaside-light';
+@import './node_modules/highlight.js/styles/tomorrow';
 
 @import './_variables';
 
@@ -9,6 +10,6 @@
 @import './fa';
 @import './components';
 @import './flex';
-@import './foliant';
+// // @import './foliant';
 @import './misc';
-@import './tooltip';
+// // @import './tooltip';

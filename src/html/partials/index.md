@@ -6,11 +6,24 @@
 
 Name: Nelo Mitranim.
 
-Frontend web developer at [ToBox](http://tobox.com). Full-stack generalist.
+Self-taught software developer. Generalist. Current occupation: senior web
+developer at [ToBox](http://tobox.com).
+
+See [works](/works/).
 
 Tech:
-* Frontend: JavaScript (React, Alder, ~~Angular~~), CSS (Sass, ~~Less~~).
-* Backend: Python (Django), Clojure, Node.js (Koa, ~~Express~~, ~~Meteor~~), ~~Go~~.
+* Web frontend: JavaScript (Prax + React), ClojureScript
+* Backend:
+  * Tentative: Clojure, Node.js
+  * Obsolete: Python (Django), Node.js (Express, Meteor), Go
+
+Also familiar with Erlang, Haskell, Common Lisp, Scheme.
+
+Preferences:
+
+* Functional programming
+* FP-oriented architectures
+* Dynamic languages
 
 Favourite pastime: writing [free software](/works/).
 

@@ -1,15 +1,26 @@
-import 'simple-pjax'
-import './views/foliant'
+require('simple-pjax')
 
-document.addEventListener('click', event => {
-  let elem = event.target
-  do {
-    if (elem.classList.contains('collapse--head')) break
-  } while ((elem = elem.parentElement))
+function onclick ({target}) {
+  const collapse = findParent(
+    elem => elem.classList.contains('collapse'),
+    findParent(elem => elem.classList.contains('collapse--head'), target)
+  )
+  if (collapse) collapse.classList.toggle('active')
+}
 
-  if (!elem) return
+function findParent (test, elem) {
+  return !(elem instanceof window.HTMLElement)
+    ? null
+    : test(elem)
+    ? elem
+    : findParent(test, elem.parentElement)
+}
 
-  if ((elem = elem.parentElement) && elem.classList.contains('collapse')) {
-    elem.classList.toggle('active')
-  }
-})
+document.addEventListener('click', onclick)
+
+if (module.hot) {
+  module.hot.accept()
+  module.hot.dispose(() => {
+    document.removeEventListener('click', onclick)
+  })
+}

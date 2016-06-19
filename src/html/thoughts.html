@@ -12,7 +12,7 @@ const description = 'weblog, random thoughts'
 
 {%
 _.each(sortPosts(posts), post => {
-  const path = 'thoughts/' + post.name
+  const path = 'thoughts/' + post.slug
 %}
 
   <h2>

@@ -9,7 +9,7 @@
 
   {%
   _.each(sortPosts(posts), post => {
-    const link = `http://mitranim.com/thoughts/${post.name}/`
+    const link = `http://mitranim.com/thoughts/${post.slug}/`
   %}
     <item>
       <title>{{post.title}}</title>
@@ -21,7 +21,7 @@
         <description>{{post.description}}</description>
       {% } else { %}
         <description>
-          {{truncate(include(`thoughts/${post.name}.md`, {extend: _.noop}), 127)}}
+          {{truncate(include(`thoughts/${post.slug}.md`, {extend: _.noop}), 127)}}
         </description>
       {% } %}
     </item>

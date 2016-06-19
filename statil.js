@@ -5,7 +5,7 @@ const marked = require('marked')
 const _ = require('lodash')
 const pt = require('path')
 const cheerio = require('cheerio')
-const flags = require('yargs').boolean('prod').argv
+const prod = process.env.NODE_ENV === 'production'
 
 /*
  * Markdown config
@@ -111,9 +111,9 @@ module.exports = function statilOptions () {
     rename: '$&/index.html',
     renameExcept: ['index.html', '404.html'],
     imports: {
-      prod: flags.prod,
+      prod,
       truncate (html, length) {
-        return _.trunc(cheerio(html).text(), length)
+        return _.truncate(cheerio(html).text(), length)
       },
       sortPosts: posts => _.sortBy(posts, post => (
         post.date instanceof Date ? post.date : -Infinity
