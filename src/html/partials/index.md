@@ -6,8 +6,8 @@
 
 Name: Nelo Mitranim.
 
-Self-taught software developer. Generalist. Current occupation: senior web
-developer at [ToBox](http://tobox.com).
+Self-taught software developer. Current occupation: senior web developer at
+[ToBox](https://tobox.com).
 
 See [works](/works/).
 

@@ -1,12 +1,12 @@
 ## Current
 
-[ToBox](http://tobox.com) <span class="text-gray">(JavaScript / React)</span>
+[ToBox](https://tobox.com) <span class="text-gray">(2015—2016, JavaScript / React)</span>
 
 Stylish, visual platform for creating online shops. (Part of web frontend team.)
 
 ## Hobby / Freelance
 
-[ProstoPoi](http://prostopoi.ru) <span class="text-gray">(Python / Django / Sass / React)</span>
+[ProstoPoi](http://prostopoi.ru) <span class="text-gray">(2014 — 2016, Python / Django / Sass / React)</span>
 
 Poi community website. We have our own video lessons, go check us out!
 
@@ -15,7 +15,7 @@ Poi community website. We have our own video lessons, go check us out!
 [Prax](http://mitranim.com/prax/) <span class="text-gray">(JavaScript)</span>
 
 [WIP] Pure-functional architecture for realtime web apps. Pairs with React. Work
-in progress, partly undocumented.
+in progress, partly documented.
 
 [emerge](https://github.com/Mitranim/emerge) <span class="text-gray">(JavaScript)</span>
 
@@ -56,7 +56,7 @@ one.
 ## Closed Source
 
 Electronic education system for Russian schools ([closed
-beta](http://uchebnik.mos.ru)). SPA frontend, part of team. <span class="text-gray">(JavaScript)</span>
+beta](http://uchebnik.mos.ru)). SPA frontend, part of team. <span class="text-gray">(2014—2015, JavaScript)</span>
 
 Call centre monitoring system: realtime analysis of call centre load, forecast,
-and call management. Node.js backend / React frontend. <span class="text-gray">(JavaScript)</span>
+and call management. Node.js backend / React frontend. <span class="text-gray">(2014, JavaScript)</span>
