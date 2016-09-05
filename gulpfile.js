@@ -23,7 +23,7 @@ const src = {
   fonts: 'node_modules/font-awesome/fonts/**/*'
 }
 
-const dest = {
+const out = {
   html: 'dist',
   xml: 'dist/**/*.xml',
   styles: 'dist/styles',
@@ -53,7 +53,7 @@ gulp.task('scripts:build', done => {
 /* -------------------------------- Styles ----------------------------------*/
 
 gulp.task('styles:clear', () => (
-  del(dest.styles).catch(noop)
+  del(out.styles).catch(noop)
 ))
 
 gulp.task('styles:compile', () => (
@@ -66,7 +66,7 @@ gulp.task('styles:compile', () => (
       advanced: false,
       compatibility: {properties: {colors: false}}
     }))
-    .pipe(gulp.dest(dest.styles))
+    .pipe(gulp.dest(out.styles))
 ))
 
 gulp.task('styles:build',
@@ -79,7 +79,7 @@ gulp.task('styles:watch', () => {
 /* --------------------------------- HTML -----------------------------------*/
 
 gulp.task('html:clear', () => (
-  del(dest.html + '/**/*.html').catch(noop)
+  del(out.html + '/**/*.html').catch(noop)
 ))
 
 gulp.task('html:compile', () => (
@@ -89,12 +89,12 @@ gulp.task('html:compile', () => (
       empty: true,
       loose: true
     })))
-    .pipe(gulp.dest(dest.html))
+    .pipe(gulp.dest(out.html))
 ))
 
 // Copy robots.txt.
 gulp.task('html:robots', () => (
-  gulp.src(src.robots).pipe(gulp.dest(dest.html))
+  gulp.src(src.robots).pipe(gulp.dest(out.html))
 ))
 
 gulp.task('html:build', gulp.series('html:clear', 'html:compile', 'html:robots'))
@@ -106,7 +106,7 @@ gulp.task('html:watch', () => {
 /* ---------------------------------- XML -----------------------------------*/
 
 gulp.task('xml:clear', () => (
-  del(dest.xml).catch(noop)
+  del(out.xml).catch(noop)
 ))
 
 gulp.task('xml:compile', () => (
@@ -114,7 +114,7 @@ gulp.task('xml:compile', () => (
     .pipe($.statil(statilOptions()))
     .pipe($.filter('*feed*'))
     .pipe($.rename('feed.xml'))
-    .pipe(gulp.dest(dest.html))
+    .pipe(gulp.dest(out.html))
 ))
 
 gulp.task('xml:build', gulp.series('xml:compile'))
@@ -127,7 +127,7 @@ gulp.task('xml:watch', () => {
 /* -------------------------------- Images ----------------------------------*/
 
 gulp.task('images:clear', () => (
-  del(dest.images).catch(noop)
+  del(out.images).catch(noop)
 ))
 
 // Resize and copy images
@@ -143,7 +143,7 @@ gulp.task('images:normal', () => (
       width: 1920,    // max width
       upscale: false
     }))
-    .pipe(gulp.dest(dest.images))
+    .pipe(gulp.dest(out.images))
 ))
 
 // Minify and copy images.
@@ -154,7 +154,7 @@ gulp.task('images:small', () => (
       width: 640,    // max width
       upscale: false
     }))
-    .pipe(gulp.dest(dest.images + '/small'))
+    .pipe(gulp.dest(out.images + '/small'))
 ))
 
 // Crop images to small squares
@@ -168,7 +168,7 @@ gulp.task('images:square', () => (
       height: 640,
       upscale: false
     }))
-    .pipe(gulp.dest(dest.images + '/square'))
+    .pipe(gulp.dest(out.images + '/square'))
 ))
 
 gulp.task('images:build',
@@ -182,11 +182,11 @@ gulp.task('images:watch', () => {
 /* --------------------------------- Fonts ----------------------------------*/
 
 gulp.task('fonts:clear', () => (
-  del(dest.fonts).catch(noop)
+  del(out.fonts).catch(noop)
 ))
 
 gulp.task('fonts:copy', () => (
-  gulp.src(src.fonts).pipe(gulp.dest(dest.fonts))
+  gulp.src(src.fonts).pipe(gulp.dest(out.fonts))
 ))
 
 gulp.task('fonts:build', gulp.series('fonts:copy'))

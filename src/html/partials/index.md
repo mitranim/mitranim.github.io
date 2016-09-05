@@ -12,18 +12,20 @@ Self-taught software developer. Current occupation: senior web developer at
 See [works](/works/).
 
 Tech:
-* Web frontend: JavaScript (Prax + React), ClojureScript
+
+* Web frontend: JavaScript (Prax + React)
 * Backend:
-  * Tentative: Clojure, Node.js
-  * Obsolete: Python (Django), Node.js (Express, Meteor), Go
+  * Tentative: Erlang/OTP, Node.js
+  * Not using anymore: Python (Django), Node.js (Express, Meteor), Go
 
-Also familiar with Erlang, Haskell, Common Lisp, Scheme.
+Familiar with Haskell, Clojure(Script), Common Lisp, Scheme. Learning
+Erlang/OTP.
 
-Preferences:
+Topics of interest:
 
 * Functional programming
-* FP-oriented architectures
-* Dynamic languages
+* Programming language design
+* Developer tools
 
 Favourite pastime: writing [free software](/works/).
 
