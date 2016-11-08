@@ -1,6 +1,9 @@
-<nav class="nav-h text-larger" style="margin-bottom: 1rem">
-  <a {{active('index')}} href="/">home</a>
-  <a {{active('works')}} href="/works/">works</a>
-  <a {{active('thoughts')}} href="/thoughts/">thoughts</a>
-  <a {{active('demos')}} href="/demos/">demos</a>
-</nav>
+<div class="row-start-stretch sm-flex-wrap">
+  <nav class="flex-1 row-start-stretch sm-margin-1-b">
+    <a href="/"          class="text-larger pad interact-nav {{act('index')}}">home</a>
+    <a href="/works/"    class="text-larger pad interact-nav {{act('works')}}">works</a>
+    <a href="/thoughts/" class="text-larger pad interact-nav {{act('thoughts')}}">thoughts</a>
+    <a href="/demos/"    class="text-larger pad interact-nav {{act('demos')}}">demos</a>
+  </nav>
+  <span class="text-right text-blue row-end-center">Updated: {{new Date().toDateString()}}</span>
+</div>

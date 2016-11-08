@@ -1,4 +1,4 @@
-{% extend('thoughts/index.html') %}
+{% extend('partials/blog-post-layout.html') %}
 
 <p class="bg-red pad">
   **Update (late 2015)**. I've come to consider Angular and much of

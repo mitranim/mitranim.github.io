@@ -6,30 +6,30 @@ module.exports = {
       slug: 'cheating-for-performance-pjax',
       title: 'Cheating for Performance: Pjax',
       description: 'Faster page transitions, for free',
-      date: new Date('2015-07-25T00:00:00.000Z')
+      date: new Date('2015-07-25T00:00:00.000Z'),
     },
     'thoughts/next-generation-today.md': {
       slug: 'next-generation-today',
       title: 'Next Generation Today',
       description: 'EcmaScript 2015/2016 workflow with current web frameworks',
-      date: new Date('2015-05-18T00:00:00.000Z')
+      date: new Date('2015-05-18T00:00:00.000Z'),
     },
     'thoughts/cheating-for-website-performance.md': {
       slug: 'cheating-for-website-performance',
       title: 'Cheating For Website Performance',
       description: 'Frontend tips for speeding up websites',
-      date: new Date('2015-03-11T00:00:00.000Z')
+      date: new Date('2015-03-11T00:00:00.000Z'),
     },
     'thoughts/keeping-things-simple.md': {
       slug: 'keeping-things-simple',
       title: 'Keeping Things Simple',
-      date: new Date('2015-03-10T00:00:00.000Z')
+      date: new Date('2015-03-10T00:00:00.000Z'),
     },
     'thoughts/old-posts.md': {
       slug: 'old-posts',
       title: 'Old Posts',
-      description: 'some old stuff from around the net'
-    }
+      description: 'some old stuff from around the net',
+    },
   },
 
   misc: {

@@ -5,9 +5,10 @@ const marked = require('marked')
 const _ = require('lodash')
 const pt = require('path')
 const cheerio = require('cheerio')
+const {test} = require('fpx')
 const prod = process.env.NODE_ENV === 'production'
 
-/*
+/**
  * Markdown config
  */
 
@@ -89,7 +90,7 @@ marked.Renderer.prototype.code = function (code, lang, escaped) {
   return code
 }
 
-/*
+/**
  * Statil config
  */
 
@@ -104,27 +105,23 @@ function statilData () {
 module.exports = function statilOptions () {
   return {
     data: statilData(),
-    ignorePaths: path => (
-      path === 'thoughts/index.html' ||
-      /^partials/.test(path)
-    ),
+    ignorePaths: test(/^partials/),
     rename: '$&/index.html',
     renameExcept: ['index.html', '404.html'],
     imports: {
       prod,
-      truncate (html, length) {
-        return _.truncate(cheerio(html).text(), length)
-      },
+      truncate: (html, length) => _.truncate(cheerio(html).text(), length),
       sortPosts: posts => _.sortBy(posts, post => (
         post.date instanceof Date ? post.date : -Infinity
       )).reverse()
     },
     pipeline: [
-      (content, path) => {
-        if (pt.extname(path) === '.md') {
-          return marked(content).replace(/<pre><code class="(.*)">|<pre><code>/g, '<pre><code class="hljs $1">')
-        }
-      }
+      (content, path) => (
+        pt.extname(path) === '.md'
+        ? marked(content)
+            .replace(/<pre><code class="(.*)">|<pre><code>/g, '<pre><code class="hljs $1">')
+        : content
+      )
     ]
   }
 }

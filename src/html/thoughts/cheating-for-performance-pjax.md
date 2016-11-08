@@ -1,4 +1,4 @@
-{% extend('thoughts/index.html') %}
+{% extend('partials/blog-post-layout.html') %}
 
 ## Overview
 

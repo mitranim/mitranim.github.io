@@ -6,34 +6,59 @@
 
 Name: Nelo Mitranim.
 
-Self-taught software developer. Current occupation: senior web developer at
-[ToBox](https://tobox.com).
+Software developer, autodidact. Main expertise: web applications (full
+stack, mostly frontend).
 
-See [works](/works/).
+Recent occupation: senior web developer at [ToBox](https://tobox.com). Currently
+looking for jobs, along with the rest of our web team! [Contact me](#contacts).
 
-Tech:
+See my [works](/works/).
 
-* Web frontend: JavaScript (Prax + React)
-* Backend:
-  * Tentative: Erlang/OTP, Node.js
-  * Not using anymore: Python (Django), Node.js (Express, Meteor), Go
+### Languages
 
-Familiar with Haskell, Clojure(Script), Common Lisp, Scheme. Learning
-Erlang/OTP.
+Solid experience: JavaScript / Node, Python, Go.
 
-Topics of interest:
+Shaky experience: Haskell, Clojure, Erlang.
 
-* Functional programming
-* Programming language design
-* Developer tools
+Passing familiarity: C, Swift, Rust, Common Lisp, Scheme.
 
-Favourite pastime: writing [free software](/works/).
+Prefer functional programming and functional languages.
+
+### Databases
+
+No solid experience. Used relational and document-based DBs, no love for either.
+Prefer Firebase. Planning to try Datomic next time.
+
+### Applications
+
+Solid experience: web application frontends.
+
+Shaky experience: web application backends.
+
+### Architectures
+
+Solid experience: functional, reactive architectures such as
+[Prax](https://github.com/Mitranim/prax) or Redux.
+
+Not using anymore: MVC, MVVM.
+
+### Frameworks
+
+JavaScript: Prax+React, Redux+React. Used some other crap I don't want to mention.
+
+Python: Django.
+
+### Misc
+
+Highly interested in programming language design.
+
+Favourite pastime: [open sourcing](/works/) byproducts of work as libraries.
 
 Location: Moscow, Russia (planning to move out).
 
-<div class="md-layout-row">
+<div class="md-flex-row">
   <div class="md-flex-1">
-    <h2>Contacts</h2>
+    <h2 id="contacts">Contacts</h2>
 
     <p><span class="fa fa-skype inline"></span><span>skype [mitranim.web](skype:mitranim.web?chat)</span></p>
 
@@ -45,7 +70,7 @@ Location: Moscow, Russia (planning to move out).
   </div>
 
   <div class="md-flex-1">
-    <h2>Social Links</h2>
+    <h2 id="social-links">Social Links</h2>
 
     <p>
       <a href="https://github.com/Mitranim" target="_blank">

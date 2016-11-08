@@ -1,28 +1,35 @@
-%layout {
+%flex-layout {
   display: flex;
 }
 
-%row {
-  @extend %layout;
+%flex-row {
+  @extend %flex-layout;
   flex-direction: row;
 }
 
-%column {
-  @extend %layout;
+%flex-column {
+  @extend %flex-layout;
   flex-direction: column;
 }
 
-%row-between {
-  @extend %row;
-  justify-content: space-between;
+.flex-row {
+  @extend %flex-row;
 }
 
-.layout-row {
-  @extend %row;
+.row-start-stretch {
+  @extend %flex-row;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
-@media (min-width: $sf-breakpoint-md) {
-  .md-layout-row {
+.row-end-center {
+  @extend %flex-row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.md-flex-row {
+  @media (min-width: $sf-breakpoint-md) {
     display: flex;
     flex-direction: row;
   }
@@ -30,8 +37,8 @@
 
 .flex-1 {flex: 1}
 
-@media (min-width: $sf-breakpoint-md) {
-  .md-flex-1 {
+.md-flex-1 {
+  @media (min-width: $sf-breakpoint-md) {
     flex: 1;
   }
 }
@@ -39,7 +46,7 @@
 .flex-11 {flex: 11}
 
 .sm-grid-1, .md-grid-2 {
-  @extend %layout;
+  @extend %flex-layout;
   flex-wrap: wrap;
   > * {
     flex-grow: 0;
@@ -53,4 +60,8 @@
 
 .md-grid-2 > * {
   @media (min-width: $sf-breakpoint-sm) {flex-basis: 50%}
+}
+
+.sm-flex-wrap {
+  @media (max-width: $sf-breakpoint-sm) {flex-wrap: wrap}
 }

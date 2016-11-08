@@ -99,23 +99,6 @@ footer {
 }
 
 /**
- * nav
- */
-
-.nav-h {
-  > * {
-    display: inline-block;
-    padding: $sf-space / 2;
-    &:hover, &:focus {
-      background-color: rgba(gray, 0.1);
-    }
-    &.active {
-      box-shadow: inset 0 -3px 0 0;
-    }
-  }
-}
-
-/**
  * spinner
  */
 

@@ -1,4 +1,4 @@
-{% extend('thoughts/index.html') %}
+{% extend('partials/blog-post-layout.html') %}
 
 Lately I've been trying to figure out how to write shorter programs. Or, more
 generally, how to design simple solutions.
