@@ -44,7 +44,9 @@ Not using anymore: MVC, MVVM.
 
 ### Frameworks
 
-JavaScript: Prax+React, Redux+React. Used some other crap I don't want to mention.
+JavaScript (GUI): Prax+React, Redux+React. Used some other crap I don't want to mention.
+
+JavaScript (Node): Prax, Koa, Express.
 
 Python: Django.
 
