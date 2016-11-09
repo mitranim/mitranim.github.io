@@ -5,8 +5,10 @@
 const $ = require('gulp-load-plugins')()
 const del = require('del')
 const gulp = require('gulp')
-const statilOptions = require('./statil')
 const webpack = require('webpack')
+const {fork} = require('child_process')
+
+const statilOptions = require('./statil')
 const webpackConfig = require('./webpack.config')
 
 /* ******************************** Globals **********************************/
@@ -14,26 +16,44 @@ const webpackConfig = require('./webpack.config')
 const prod = process.env.NODE_ENV === 'production'
 
 const src = {
+  static: [
+    'src/static/**/*',
+    'node_modules/font-awesome/@(fonts)/**/*',
+  ],
   html: 'src/html/**/*',
   xml: 'src/xml/**/*',
-  robots: 'src/robots.txt',
   stylesCore: 'src/styles/app.scss',
   styles: 'src/styles/**/*.scss',
   images: 'src/images/**/*',
-  fonts: 'node_modules/font-awesome/fonts/**/*'
 }
 
 const out = {
-  html: 'dist',
+  root: 'dist',
   xml: 'dist/**/*.xml',
   styles: 'dist/styles',
   images: 'dist/images',
-  fonts: 'dist/fonts'
 }
 
 function noop () {}
 
 /* ********************************* Tasks ***********************************/
+
+/* --------------------------------- Clear ---------------------------------- */
+
+gulp.task('clear', () => (
+  // Skips dotfiles like `.git` and `.gitignore`
+  del(out.root + '/*').catch(noop)
+))
+
+/* -------------------------------- Static --------------------------------- */
+
+gulp.task('static:build', () => (
+  gulp.src(src.static).pipe(gulp.dest(out.root))
+))
+
+gulp.task('static:watch', () => {
+  $.watch(src.static, gulp.series('static:build'))
+})
 
 /* -------------------------------- Scripts ---------------------------------*/
 
@@ -50,13 +70,37 @@ gulp.task('scripts:build', done => {
   })
 })
 
-/* -------------------------------- Styles ----------------------------------*/
+/* --------------------------------- HTML -----------------------------------*/
 
-gulp.task('styles:clear', () => (
-  del(out.styles).catch(noop)
+gulp.task('html:build', () => (
+  gulp.src(src.html)
+    .pipe($.statil(statilOptions()))
+    .pipe($.if(prod, $.minifyHtml({empty: true, loose: true})))
+    .pipe(gulp.dest(out.root))
 ))
 
-gulp.task('styles:compile', () => (
+gulp.task('html:watch', () => {
+  $.watch(src.html, gulp.series('html:build'))
+})
+
+/* ---------------------------------- XML -----------------------------------*/
+
+gulp.task('xml:build', () => (
+  gulp.src([src.html, src.xml])
+    .pipe($.statil(statilOptions()))
+    .pipe($.filter('*feed*'))
+    .pipe($.rename('feed.xml'))
+    .pipe(gulp.dest(out.root))
+))
+
+gulp.task('xml:watch', () => {
+  $.watch(src.html, gulp.series('xml:build'))
+  $.watch(src.xml, gulp.series('xml:build'))
+})
+
+/* -------------------------------- Styles ----------------------------------*/
+
+gulp.task('styles:build', () => (
   gulp.src(src.stylesCore)
     .pipe($.sass())
     .pipe($.autoprefixer())
@@ -69,80 +113,17 @@ gulp.task('styles:compile', () => (
     .pipe(gulp.dest(out.styles))
 ))
 
-gulp.task('styles:build',
-  gulp.series('styles:clear', 'styles:compile'))
-
 gulp.task('styles:watch', () => {
   $.watch(src.styles, gulp.series('styles:build'))
 })
 
-/* --------------------------------- HTML -----------------------------------*/
-
-gulp.task('html:clear', () => (
-  del(out.html + '/**/*.html').catch(noop)
-))
-
-gulp.task('html:compile', () => (
-  gulp.src(src.html)
-    .pipe($.statil(statilOptions()))
-    .pipe($.if(prod, $.minifyHtml({
-      empty: true,
-      loose: true
-    })))
-    .pipe(gulp.dest(out.html))
-))
-
-// Copy robots.txt.
-gulp.task('html:robots', () => (
-  gulp.src(src.robots).pipe(gulp.dest(out.html))
-))
-
-gulp.task('html:build', gulp.series('html:clear', 'html:compile', 'html:robots'))
-
-gulp.task('html:watch', () => {
-  $.watch(src.html, gulp.series('html:build'))
-})
-
-/* ---------------------------------- XML -----------------------------------*/
-
-gulp.task('xml:clear', () => (
-  del(out.xml).catch(noop)
-))
-
-gulp.task('xml:compile', () => (
-  gulp.src([src.html, src.xml])
-    .pipe($.statil(statilOptions()))
-    .pipe($.filter('*feed*'))
-    .pipe($.rename('feed.xml'))
-    .pipe(gulp.dest(out.html))
-))
-
-gulp.task('xml:build', gulp.series('xml:compile'))
-
-gulp.task('xml:watch', () => {
-  $.watch(src.html, gulp.series('xml:build'))
-  $.watch(src.xml, gulp.series('xml:build'))
-})
-
 /* -------------------------------- Images ----------------------------------*/
-
-gulp.task('images:clear', () => (
-  del(out.images).catch(noop)
-))
 
 // Resize and copy images
 gulp.task('images:normal', () => (
   gulp.src(src.images)
-    /**
-    * Experience so far.
-    * {quality: 1} -> reduces size by ≈66% with no resolution change and no visible quality change
-    * {quality: 1, width: 1920} -> reduces size by ≈10 times for hi-res images
-    */
-    .pipe($.imageResize({
-      quality: 1,
-      width: 1920,    // max width
-      upscale: false
-    }))
+    // Requires `graphicsmagick` or `imagemagick`. Install via Homebrew.
+    .pipe($.imageResize({quality: 1}))
     .pipe(gulp.dest(out.images))
 ))
 
@@ -172,49 +153,48 @@ gulp.task('images:square', () => (
 ))
 
 gulp.task('images:build',
-  gulp.series('images:clear',
-    gulp.parallel('images:normal', 'images:small', 'images:square')))
+  gulp.parallel('images:normal', 'images:small', 'images:square'))
 
 gulp.task('images:watch', () => {
   $.watch(src.images, gulp.series('images:build'))
 })
 
-/* --------------------------------- Fonts ----------------------------------*/
-
-gulp.task('fonts:clear', () => (
-  del(out.fonts).catch(noop)
-))
-
-gulp.task('fonts:copy', () => (
-  gulp.src(src.fonts).pipe(gulp.dest(out.fonts))
-))
-
-gulp.task('fonts:build', gulp.series('fonts:copy'))
-
-gulp.task('fonts:watch', () => {
-  $.watch(src.fonts, gulp.series('fonts:build'))
-})
-
 /* -------------------------------- Server ----------------------------------*/
 
 gulp.task('devserver', () => {
-  require('./devserver')
+  let proc
+
+  process.on('exit', () => {
+    if (proc) proc.kill()
+  })
+
+  function restart () {
+    if (proc) proc.kill()
+    proc = fork('./devserver')
+  }
+
+  restart()
+  $.watch(['./webpack.config.js', './devserver.js'], restart)
 })
 
 /* -------------------------------- Default ---------------------------------*/
 
-gulp.task('build',
-  !prod
-  ? gulp.parallel(
-    'styles:build', 'html:build', 'xml:build', 'fonts:build', 'images:build'
-  )
-  : gulp.parallel(
-    'scripts:build', 'styles:build', 'html:build', 'xml:build', 'fonts:build', 'images:build'
-  )
-)
-
-gulp.task('watch', gulp.parallel(
-  'styles:watch', 'html:watch', 'xml:watch', 'fonts:watch', 'images:watch', 'devserver'
+gulp.task('buildup', gulp.parallel(
+  'static:build',
+  'html:build',
+  'xml:build',
+  'styles:build',
+  'images:build'
 ))
 
-gulp.task('default', gulp.series('build', 'watch'))
+gulp.task('watch', gulp.parallel(
+  'html:watch',
+  'xml:watch',
+  'styles:watch',
+  'images:watch',
+  'devserver'
+))
+
+gulp.task('build', gulp.series('clear', gulp.parallel('buildup', 'scripts:build')))
+
+gulp.task('default', gulp.series('clear', 'buildup', 'watch'))

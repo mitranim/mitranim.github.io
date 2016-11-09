@@ -1,9 +1,13 @@
-<footer>
-  <span>
+<footer class="row-between-center margin-2-v">
+  <span class="flex-1 align-left">
     {{((new Date()).getFullYear() > 2014 ? 'y2014—' + (new Date()).getFullYear() : 'y2014')}}
   </span>
   {% if (path !== 'index.html') { %}
-    <a href="/#contacts" class="decorated">touch me</a>
+    <span class="flex-1 align-center">
+      <a href="/#contacts" class="decorated">touch me</a>
+    </span>
   {% } %}
-  <button class="fa fa-arrow-up text-gray" onclick="window.scrollTo(0, 0)"></button>
+  <span class="flex-1 align-right">
+    <button class="fa fa-arrow-up text-gray" onclick="window.scrollTo(0, 0)"></button>
+  </span>
 </footer>

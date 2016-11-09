@@ -1,16 +1,16 @@
-<div class="float-right">
+<div class="float-right width-25">
   <img src="/images/face-square.jpg">
 </div>
 
-<h2>About</h2>
+## About
 
 Name: Nelo Mitranim.
 
-Software developer, autodidact. Main expertise: web applications (full
-stack, mostly frontend).
+Software developer, autodidact. Main expertise: web applications (full stack,
+mostly frontend).
 
 Recent occupation: senior web developer at [ToBox](https://tobox.com). Currently
-looking for jobs, along with the rest of our web team! [Contact me](#contacts).
+looking for jobs, together with the rest of our web team! [Contact me](#contacts).
 
 See my [works](/works/).
 
@@ -54,7 +54,7 @@ Python: Django.
 
 Highly interested in programming language design.
 
-Favourite pastime: [open sourcing](/works/) byproducts of work as libraries.
+Favourite pastime: [writing and contributing](/works/) to open source software.
 
 Location: Moscow, Russia (planning to move out).
 

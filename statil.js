@@ -120,6 +120,7 @@ module.exports = function statilOptions () {
         pt.extname(path) === '.md'
         ? marked(content)
             .replace(/<pre><code class="(.*)">|<pre><code>/g, '<pre><code class="hljs $1">')
+            .replace(/<!--\s*:((?:[^:]|:(?!\s*-->))*):\s*-->/g, '$1')
         : content
       )
     ]

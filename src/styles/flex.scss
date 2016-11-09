@@ -28,6 +28,12 @@
   align-items: center;
 }
 
+.row-between-center {
+  @extend %flex-row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .md-flex-row {
   @media (min-width: $sf-breakpoint-md) {
     display: flex;

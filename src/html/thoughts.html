@@ -1,16 +1,15 @@
 {%
 const title = 'thoughts'
 const description = 'random notes and thoughts'
+extend('index.html', {title, description})
 %}
-
-{% extend('index.html', {title, description}) %}
 
 <header>
   <p class="text-larger">{{include('partials/feed-links.html')}}</p>
 </header>
 
 {%
-_.each(sortPosts(posts), post => {
+for (const post of sortPosts(posts)) {
   const path = 'thoughts/' + post.slug
 %}
 
@@ -31,4 +30,4 @@ _.each(sortPosts(posts), post => {
     {{post.date instanceof Date ? post.date.toDateString() : post.date}}
   </p>
 
-{% }) %}
+{% } %}

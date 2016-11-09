@@ -59,4 +59,4 @@ Electronic education system for Russian schools ([closed
 beta](http://uchebnik.mos.ru)). SPA frontend, part of team. <span class="text-gray">(2014—2015, JavaScript)</span>
 
 Call centre monitoring system: realtime analysis of call centre load, forecast,
-and call management. Node.js backend / React frontend. <span class="text-gray">(2014, JavaScript)</span>
+and call management. Node.js backend / React frontend. <span class="text-gray">(2014, JavaScript / Node)</span>
