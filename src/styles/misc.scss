@@ -137,3 +137,10 @@ body, article {
   box-shadow: none;
   outline: none;
 }
+
+.stretch-to-viewport-v {
+  @extend .col-between-stretch;
+  > :nth-child(2) {
+    @extend .flex-1;
+  }
+}

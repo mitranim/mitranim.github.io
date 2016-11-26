@@ -7,7 +7,7 @@
   flex-direction: row;
 }
 
-%flex-column {
+%flex-col {
   @extend %flex-layout;
   flex-direction: column;
 }
@@ -32,6 +32,12 @@
   @extend %flex-row;
   justify-content: space-between;
   align-items: center;
+}
+
+.col-between-stretch {
+  @extend %flex-col;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
 .md-flex-row {

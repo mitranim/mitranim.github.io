@@ -25,10 +25,11 @@
   <meta property="og:image" content="/images/{{image}}">
 {% } %}
 
-<body></body>
+<body class="col-between-stretch" style="min-height: 100vh"></body>
 
 {{include('partials/navbar.html')}}
 
+<div class="flex-1">
 {% if (path === 'index.html') { %}
   <article>
     {{include('partials/index.md')}}
@@ -36,6 +37,7 @@
 {% } else { %}
   {{content}}
 {% } %}
+</div>
 
 {{include('partials/footer.html')}}
 

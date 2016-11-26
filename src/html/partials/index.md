@@ -9,8 +9,11 @@ Name: Nelo Mitranim.
 Software developer, autodidact. Main expertise: web applications (full stack,
 mostly frontend).
 
-Recent occupation: senior web developer at [ToBox](https://tobox.com). Currently
-looking for jobs, together with the rest of our web team! [Contact me](#contacts).
+Current occupation: part of team at [Purelab.io](http://purelab.io). We do
+software development and consulting, with emphasis on web SPA, Android, iOS.
+Hire us!
+
+Recent occupation: senior web developer at [ToBox](https://tobox.com).
 
 See my [works](/works/).
 
@@ -57,6 +60,10 @@ Highly interested in programming language design.
 Favourite pastime: [writing and contributing](/works/) to open source software.
 
 Location: Moscow, Russia (planning to move out).
+
+Always up-to-date link to
+<a href="/resume/" target="_blank">resume</a>.
+(Most browsers let you print to PDF.)
 
 <div class="md-flex-row">
   <div class="md-flex-1">

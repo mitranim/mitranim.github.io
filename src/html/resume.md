@@ -9,7 +9,7 @@
 <body></body>
 
 <p class="text-right">
-  <span class="text-blue" data-note="Updated: {{new Date().toDateString()}}"></span>
+  <span class="text-blue" data-note="Updated: Nov 09 2016"></span>
   <button class="noprint flat fa fa-print" onclick="window.print()"></button>
 </p>
 
@@ -113,7 +113,7 @@ Emerge: use plain JS types as functional data structures (https://github.com/Mit
 
 2013—2014 (1 yr) Paragon Software — support engineer.
 
-2011—2013 (1.5 yrs) Consulting & Coaching — training manager (staff and project sheduling, automated data analysis).
+2011—2013 (1.5 yrs) Consulting and Coaching — training manager (staff and project scheduling, automated data analysis).
 
 Earlier experience is mostly technical support.
 
