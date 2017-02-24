@@ -9,7 +9,7 @@ Name: Nelo Mitranim.
 Software developer, autodidact. Main expertise: web applications (full stack,
 mostly frontend).
 
-Current occupation: part of team at [Purelab.io](http://purelab.io). We do
+Current occupation: part of [Purelab.io](http://purelab.io). We do
 software development and consulting, with emphasis on web SPA, Android, iOS.
 Hire us!
 
