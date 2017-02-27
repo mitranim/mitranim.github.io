@@ -37,6 +37,10 @@
   &:last-child {margin-right: 0}
 }
 
+.fa-with-text:not(:empty)::before {
+  margin-right: $sf-space / 2;
+}
+
 // wtf
 :not(:empty) .fa.inline:not(:first-child) {
   margin-left: $sf-space / 2;

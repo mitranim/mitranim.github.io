@@ -5,7 +5,8 @@ const marked = require('marked')
 const _ = require('lodash')
 const pt = require('path')
 const cheerio = require('cheerio')
-const {test} = require('fpx')
+const {test, testOr, ifonly, not} = require('fpx')
+const {merge} = require('emerge')
 const prod = process.env.NODE_ENV === 'production'
 
 /**
@@ -104,25 +105,24 @@ function statilData () {
 
 module.exports = function statilOptions () {
   return {
-    data: statilData(),
-    ignorePaths: test(/^partials/),
-    rename: '$&/index.html',
-    renameExcept: ['index.html', '404.html'],
-    imports: {
+    ignorePath: test(/^partials/),
+    renamePath: ifonly(
+      not(testOr('index.html', '404.html')),
+      (path, {dir, name}) => pt.join(dir, name, 'index.html')
+    ),
+    imports: merge(statilData(), {
       prod,
       truncate: (html, length) => _.truncate(cheerio(html).text(), length),
       sortPosts: posts => _.sortBy(posts, post => (
         post.date instanceof Date ? post.date : -Infinity
       )).reverse()
-    },
-    pipeline: [
-      (content, path) => (
-        pt.extname(path) === '.md'
-        ? marked(content)
-            .replace(/<pre><code class="(.*)">|<pre><code>/g, '<pre><code class="hljs $1">')
-            .replace(/<!--\s*:((?:[^:]|:(?!\s*-->))*):\s*-->/g, '$1')
-        : content
-      )
-    ]
+    }),
+    postProcess: (content, path, {ext}) => (
+      ext !== '.md'
+      ? content
+      : marked(content)
+          .replace(/<pre><code class="(.*)">|<pre><code>/g, '<pre><code class="hljs $1">')
+          .replace(/<!--\s*:((?:[^:]|:(?!\s*-->))*):\s*-->/g, '$1')
+    )
   }
 }

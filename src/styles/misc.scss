@@ -1,7 +1,12 @@
 @import './node_modules/font-awesome/scss/mixins';
+@import './_variables';
 
 html {
+  font-family: $sf-font-family-sans-serif;
+  font-weight: $sf-font-weight;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /**
@@ -147,4 +152,16 @@ body, article {
   > :nth-child(2) {
     @extend .flex-1;
   }
+}
+
+.children-margin-0x5-h > :not(:first-child) {
+  margin-left: $sf-space / 2;
+}
+
+.children-margin-1-h > :not(:first-child) {
+  margin-left: $sf-space;
+}
+
+.children-margin-letter-h > :not(:first-child) {
+  margin-left: 1em / 2;
 }
