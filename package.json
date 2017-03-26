@@ -37,7 +37,7 @@
     "emerge": "0.0.28",
     "eslint": "2.13.0",
     "font-awesome": "4.6.1",
-    "fpx": "0.0.13",
+    "fpx": "0.0.20",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-autoprefixer": "3.1.0",
     "gulp-clean-css": "2.0.6",

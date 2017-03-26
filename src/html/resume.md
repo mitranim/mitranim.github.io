@@ -8,9 +8,14 @@
 
 <body></body>
 
-<p class="text-right">
-  <span class="text-blue" data-note="Updated: Nov 09 2016"></span>
-  <button class="noprint flat fa fa-print" onclick="window.print()"></button>
+<p class="text-right children-margin-letter-v">
+  <span class="block text-blue" data-note="Updated: March 26 2017"></span>
+  <span class="block noprint">
+    <button class="flat" style="padding: 0" onclick="window.print()">
+      <span class="fa fa-print"></span>
+      <span>Print to PDF</span>
+    </button>
+  </span>
 </p>
 
 Nelo Mitranim
@@ -30,11 +35,14 @@ Moscow, Russia
 Software developer, autodidact. Main expertise: web applications (full
 stack, mostly frontend).
 
+Part of team at Purelab.io (https://purelab.io), a software development and
+consulting studio.
+
 ## Languages
 
 Solid experience: JavaScript / Node, Python, Go.
 
-Shaky experience: Haskell, Clojure, Erlang.
+Limited experience: Haskell, Clojure, Erlang.
 
 Passing familiarity: C, Swift, Rust, Common Lisp, Scheme.
 
@@ -42,14 +50,15 @@ Prefer functional programming and functional languages.
 
 ## Databases
 
-No solid experience. Used relational and document-based DBs, no love for either.
-Currently using Firebase.
+Currently using GraphQL with Scaphold (https://scaphold.io), also Firebase (https://firebase.google.com).
+
+Limited experience with relational and document-based DBs.
 
 ## Applications
 
 Solid experience: web application frontends.
 
-Shaky experience: web application backends.
+Limited experience: web application backends.
 
 ## Architectures
 
@@ -59,7 +68,7 @@ Not using anymore: MVC, MVVM.
 
 ## Frameworks
 
-JavaScript (GUI): Prax+React, Redux+React. Used some other crap I don't want to mention.
+JavaScript (GUI): Prax+React. Used some other crap I don't want to mention.
 
 JavaScript (Node): Prax, Koa, Express.
 
@@ -68,6 +77,13 @@ Python: Django.
 ## Projects
 
 ### Closed Source
+
+Render.js (https://renderjs.io)
+<span class="text-gray">(JavaScript / Node)</span>
+
+  * Service for prerendering single-page JavaScript applications into HTML
+  * Order of magnitude faster than alternatives
+  * Period: 2016—2017, part of team at Purelab.io
 
 ToBox.com (https://tobox.com)
 <span class="text-gray">(JavaScript / React)</span>
@@ -101,11 +117,15 @@ https://github.com/Mitranim.
 
 Prax: reactive architecture for GUI applications (https://github.com/Mitranim/prax).
 
+Espo: JavaScript extensions for stateful and reactive programming (https://github.com/Mitranim/espo).
+
 fpx: functional programming extentions for JavaScript (http://mitranim.com/fpx/).
 
 Emerge: use plain JS types as functional data structures (https://github.com/Mitranim/emerge).
 
 ## Job Background
+
+2016—present: Purelab.io — part of team.
 
 2015—2016 (1 yr) ToBox.com — senior web developer.
 
@@ -134,4 +154,4 @@ https://github.com/Mitranim.
 
 Location: Moscow, Russia (planning to move out).
 
-Near-native English proficiency.
+Fluent English.

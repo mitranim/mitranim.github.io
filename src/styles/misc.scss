@@ -138,7 +138,7 @@ body, article {
 }
 
 @media print {
-  .noprint {display: none}
+  .noprint:not(:root) {display: none}
 }
 
 .flat {
@@ -163,5 +163,13 @@ body, article {
 }
 
 .children-margin-letter-h > :not(:first-child) {
-  margin-left: 1em / 2;
+  margin-left: calc(1em / 4);
+}
+
+.children-margin-letter-v > :not(:first-child) {
+  margin-top: calc(1em / 4);
+}
+
+.block {
+  display: block;
 }

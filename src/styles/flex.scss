@@ -40,6 +40,12 @@
   align-items: stretch;
 }
 
+.col-start-end {
+  @extend %flex-col;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
 .md-flex-row {
   @media (min-width: $sf-breakpoint-md) {
     display: flex;
