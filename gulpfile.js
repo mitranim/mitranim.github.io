@@ -7,6 +7,7 @@ const del = require('del')
 const gulp = require('gulp')
 const webpack = require('webpack')
 const {fork} = require('child_process')
+const {obj: passthrough} = require('through2')
 
 const statilOptions = require('./statil')
 const webpackConfig = require('./webpack.config')
@@ -75,7 +76,7 @@ gulp.task('scripts:build', done => {
 gulp.task('html:build', () => (
   gulp.src(src.html)
     .pipe($.statil(statilOptions()))
-    .pipe($.if(prod, $.minifyHtml({empty: true, loose: true})))
+    .pipe(!prod ? passthrough() : $.minifyHtml({empty: true, loose: true}))
     .pipe(gulp.dest(out.root))
 ))
 

@@ -9,11 +9,11 @@ Name: Nelo Mitranim.
 Software developer, autodidact. Main expertise: web applications (full stack,
 mostly frontend).
 
-Current occupation: part of [Purelab.io](http://purelab.io). We do
-software development and consulting, with emphasis on web SPA, Android, iOS.
+Current occupation: part of [Purelab.io](http://purelab.io). We do software
+development and consulting, with emphasis on dynamic web apps (SPA with React).
 Hire us!
 
-Recent occupation: senior web developer at [ToBox](https://tobox.com).
+Previous occupation: senior web developer at [ToBox](https://tobox.com).
 
 See my [works](/works/).
 
@@ -21,7 +21,7 @@ See my [works](/works/).
 
 Solid experience: JavaScript / Node, Python, Go.
 
-Shaky experience: Haskell, Clojure, Erlang.
+Limited experience: Haskell, Clojure, Erlang.
 
 Passing familiarity: C, Swift, Rust, Common Lisp, Scheme.
 
@@ -29,14 +29,17 @@ Prefer functional programming and functional languages.
 
 ### Databases
 
-No solid experience. Used relational and document-based DBs, no love for either.
-Prefer Firebase. Planning to try Datomic next time.
+Preference for cloud-based reactive databases. Currently using GraphQL with
+Scaphold (https://scaphold.io), also Firebase (https://firebase.google.com).
+
+Limited experience with relational and document-based DBs.
 
 ### Applications
 
 Solid experience: web application frontends.
 
-Shaky experience: web application backends.
+Limited experience: web application backends. Prefer backend-as-a-service
+platforms such as Scaphold, Firebase, Auth0, AWS Lambda.
 
 ### Architectures
 
@@ -79,7 +82,7 @@ Always up-to-date link to
   </div>
 
   <div class="md-flex-1">
-    <h2 id="social-links">Social Links</h2>
+    <h2 id="links">Links</h2>
 
     <p>
       <a href="https://github.com/Mitranim" target="_blank">

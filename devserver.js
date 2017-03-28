@@ -16,7 +16,7 @@ bs.init({
   online: false,
   ui: false,
   ghostMode: false,
-  notify: false
+  notify: false,
 })
 
 function hmr () {

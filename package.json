@@ -42,7 +42,6 @@
     "gulp-autoprefixer": "3.1.0",
     "gulp-clean-css": "2.0.6",
     "gulp-filter": "4.0.0",
-    "gulp-if": "2.0.0",
     "gulp-image-resize": "0.8.0",
     "gulp-load-plugins": "1.2.2",
     "gulp-minify-html": "1.0.6",
@@ -56,6 +55,7 @@
     "marked": "0.3.5",
     "simple-pjax": "0.3.0",
     "stylific-lite": "0.0.1",
+    "through2": "2.0.3",
     "webpack": "1.13.0",
     "webpack-dev-middleware": "1.6.1",
     "webpack-hot-middleware": "2.10.0"
