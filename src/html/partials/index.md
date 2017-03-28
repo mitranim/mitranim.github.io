@@ -6,12 +6,11 @@
 
 Name: Nelo Mitranim.
 
-Software developer, autodidact. Main expertise: web applications (full stack,
-mostly frontend).
+Autodidact. Software developer. Senior web developer, full stack. Main
+expertise: dynamic web applications (SPA with React).
 
-Current occupation: part of [Purelab.io](http://purelab.io). We do software
-development and consulting, with emphasis on dynamic web apps (SPA with React).
-Hire us!
+Part of team at [Purelab.io](http://purelab.io), a software development and
+consulting studio. Hire us for your next big project!
 
 Previous occupation: senior web developer at [ToBox](https://tobox.com).
 
