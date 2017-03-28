@@ -28,7 +28,7 @@ Prefer functional programming and functional languages.
 
 ### Databases
 
-Preference for cloud-based reactive databases. Currently using GraphQL with
+Solid experience: cloud-based reactive databases. Currently using GraphQL with
 Scaphold (https://scaphold.io), also Firebase (https://firebase.google.com).
 
 Limited experience with relational and document-based DBs.
