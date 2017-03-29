@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "start": "gulp",
-    "serve-prod": "NODE_ENV=production gulp build && NODE_ENV=production node devserver",
-    "deploy": "NODE_ENV=production gulp build && (cd dist && git add -A . && git commit -a -m autocommit && git push origin master)"
+    "build": "NODE_ENV=production gulp build",
+    "serve-prod": "NODE_ENV=production gulp build && NODE_ENV=production node devserver"
   },
   "authors": [
     "Mitranim <me@mitranim.com>"
