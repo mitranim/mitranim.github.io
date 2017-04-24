@@ -4,7 +4,7 @@
 
 ## About
 
-Name: Nelo Mitranim.
+Nelo Mitranim
 
 Autodidact. Software developer. Senior web developer, full stack. Main
 expertise: dynamic web applications (SPA with React).
@@ -43,7 +43,7 @@ platforms such as Scaphold, Firebase, Auth0, AWS Lambda.
 ### Architectures
 
 Solid experience: functional, reactive architectures such as
-[Prax](https://github.com/Mitranim/prax) or Redux.
+[Prax](https://mitranim.com/prax/) or Redux.
 
 Not using anymore: MVC, MVVM.
 

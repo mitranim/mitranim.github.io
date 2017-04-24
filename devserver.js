@@ -8,7 +8,7 @@ bs.init({
   startPath: '/',
   server: {
     baseDir: 'dist',
-    middleware: !prod ? hmr() : null
+    middleware: !prod ? hmr() : null,
   },
   port: 11204,
   files: 'dist',
@@ -34,9 +34,5 @@ function hmr () {
 }
 
 function extend () {
-  return [].reduce.call(arguments, assign, {})
-}
-
-function assign (left, right) {
-  return Object.assign(left, right)
+  return Object.assign({}, ...arguments)
 }

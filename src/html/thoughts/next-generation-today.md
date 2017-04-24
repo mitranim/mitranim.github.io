@@ -50,7 +50,7 @@ You can start from scratch or grab the finished demo at GitHub:
 **Note**: the demo has _significantly_ diverged from the guide by the time you're reading this.
 
 You can also check your progress against the
-[live demo](http://mitranim.com/ng-next-gen/).
+[live demo](https://mitranim.com/ng-next-gen/).
 
 ### Prerequisites For: Everything
 
@@ -594,7 +594,7 @@ export var app = angular.module('app', ['ng']);
 ```
 
 Let's add a view to this element. This is going to be a heavily simplified
-version of the [foliant demo](http://mitranim.com/demos/foliant/) because I'm lazy.
+version of the [foliant demo](https://mitranim.com/demos/foliant/) because I'm lazy.
 
 Create a file `src/app/word-generator/word-generator.html` with:
 
@@ -790,7 +790,7 @@ static readAll() {
 ```
 
 We're using the injected `$http` service to grab some example words from the
-backend for the [demo](http://mitranim.com/demos/foliant/) on which this component is
+backend for the [demo](https://mitranim.com/demos/foliant/) on which this component is
 based. `this` refers to the class, and the arrow function transforms the
 response, converting it into a new instance of this data model. This is a
 typical pattern. In a real app, you would have a root model class that
@@ -1055,7 +1055,7 @@ application module you're bundling. `jspm` collects this file and its entire
 dependency tree into a single file that behaves exactly like our multi-file
 setup in development mode.
 
-See the live demo deployed in "prod mode": [demo](http://mitranim.com/ng-next-gen/).
+See the live demo deployed in "prod mode": [demo](https://mitranim.com/ng-next-gen/).
 
 ----
 

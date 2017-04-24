@@ -22,7 +22,7 @@ Nelo Mitranim
 <br>
 me@mitranim.com
 <br>
-http://mitranim.com
+https://mitranim.com
 <br>
 +7-926-044-00-49
 <br>
@@ -65,7 +65,7 @@ backend-as-a-service platforms such as Scaphold, Firebase, Auth0, AWS Lambda.
 ## Architectures
 
 Solid experience: functional, reactive architectures such as Prax
-(https://github.com/Mitranim/prax) or Redux.
+(https://mitranim.com/prax/) or Redux.
 
 Not using anymore: MVC, MVVM.
 
@@ -113,14 +113,14 @@ Python: Django.
 
 ### Open Source
 
-Recent highlights here. See other stuff on http://mitranim.com/works/ and
+Recent highlights here. See other stuff on https://mitranim.com/works/ and
 https://github.com/Mitranim.
 
 Prax: reactive architecture for GUI applications (https://github.com/Mitranim/prax).
 
 Espo: JavaScript extensions for stateful and reactive programming (https://github.com/Mitranim/espo).
 
-fpx: functional programming extentions for JavaScript (http://mitranim.com/fpx/).
+fpx: functional programming extentions for JavaScript (https://mitranim.com/fpx/).
 
 Emerge: use plain JS types as functional data structures (https://github.com/Mitranim/emerge).
 
@@ -144,7 +144,7 @@ Attempts at a higher education didn't click with me. Ended up with two
 unfinished:
 
   * 2007—2008 MSU (Moscow State University): bioengineering and bioinformatics.
-  * 2002—2004 MATI: physics.
+  * 2002—2004 MATI (Moscow State Aviation Technological University): physics.
 
 ## Misc
 

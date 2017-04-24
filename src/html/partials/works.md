@@ -28,10 +28,11 @@ Poi community website. We have our own video lessons, go check us out!
 
 ## Open Source
 
-### [Prax](http://mitranim.com/prax/) <span class="text-gray">(JavaScript)</span>
+### [Prax](https://mitranim.com/prax/) <span class="text-gray">(JavaScript)</span>
 
-[Work in progress, undocumented] Functional, reactive architecture for dynamic
-web apps. Combines well with React.
+Framework for organising state and side effects in React applications. Heavily
+inspired by Redux, Clojure, ClojureScript libraries, and has been battle-tested
+in large apps since 2015.
 
 ### [espo](https://github.com/Mitranim/espo) <span class="text-gray">(JavaScript)</span>
 
@@ -57,11 +58,11 @@ structures. On hold, undocumented.
 A "programmable language". Basically a Lisp-style language that compiles to
 JavaScript. Currently on hold; should revisit it someday.
 
-### [stylific](http://mitranim.com/stylific/) <span class="text-gray">(Sass / JavaScript)</span>
+### [stylific](https://mitranim.com/stylific/) <span class="text-gray">(Sass / JavaScript)</span>
 
 CSS (Sass) library/framework. Similar to
 [Bootstrap](http://getbootstrap.com), built on different principles. Accompanied
-by [stylific-lite](http://mitranim.com/stylific-lite/).
+by [stylific-lite](https://mitranim.com/stylific-lite/).
 
 ### [simple-pjax](https://github.com/Mitranim/simple-pjax) <span class="text-gray">(JavaScript)</span>
 

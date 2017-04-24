@@ -14,7 +14,7 @@ the contemporary blogosphere?
 
 <p class="text-larger">
   <span>Demo time!</span>
-  <a href="http://mitranim.com/simple-pjax/" target="_blank">http://mitranim.com/simple-pjax/</a>
+  <a href="https://mitranim.com/simple-pjax/" target="_blank">https://mitranim.com/simple-pjax/</a>
   <a href="https://github.com/Mitranim/simple-pjax" target="_blank" class="fa fa-github inline"></a>
 </p>
 
