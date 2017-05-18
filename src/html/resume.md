@@ -35,6 +35,8 @@ Moscow, Russia
 Autodidact. Software developer. Senior web developer, full stack. Main
 expertise: dynamic web applications (SPA with React).
 
+Open source enthusiast.
+
 Part of team at Purelab.io (https://purelab.io), a software development and
 consulting studio.
 

@@ -34,6 +34,11 @@ Framework for organising state and side effects in React applications. Heavily
 inspired by Redux, Clojure, ClojureScript libraries, and has been battle-tested
 in large apps since 2015.
 
+### [Posterus](https://github.com/Mitranim/posterus) <span class="text-gray">(JavaScript)</span>
+
+Asynchronous primitives (futures): alternative to JS promises with true
+cancelation and scheduling control.
+
 ### [espo](https://github.com/Mitranim/espo) <span class="text-gray">(JavaScript)</span>
 
 Utils for stateful and reactive programming in JavaScript.

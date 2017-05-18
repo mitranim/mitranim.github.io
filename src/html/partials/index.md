@@ -12,19 +12,15 @@ expertise: dynamic web applications (SPA with React).
 Part of team at [Purelab.io](http://purelab.io), a software development and
 consulting studio. Hire us for your next big project!
 
-Previous occupation: senior web developer at [ToBox](https://tobox.com).
-
-See my [works](/works/).
+Open source enthusiast. See my [works](/works/).
 
 ### Languages
 
 Solid experience: JavaScript / Node, Python, Go.
 
-Limited experience: Haskell, Clojure, Erlang.
+Limited experience: Rust, Haskell, Clojure, Erlang.
 
-Passing familiarity: C, Swift, Rust, Common Lisp, Scheme.
-
-Prefer functional programming and functional languages.
+Passing familiarity: Swift, C, Common Lisp, Scheme.
 
 ### Databases
 
@@ -42,14 +38,15 @@ platforms such as Scaphold, Firebase, Auth0, AWS Lambda.
 
 ### Architectures
 
-Solid experience: functional, reactive architectures such as
+Solid experience: centralised, hierarchical architectures oriented around
+reactive abstractions and event broadcasts, such as
 [Prax](https://mitranim.com/prax/) or Redux.
 
 Not using anymore: MVC, MVVM.
 
 ### Frameworks
 
-JavaScript (GUI): Prax+React, Redux+React. Used some other crap I don't want to mention.
+JavaScript (GUI): React with Prax, React with Redux.
 
 JavaScript (Node): Prax, Koa, Express.
 
