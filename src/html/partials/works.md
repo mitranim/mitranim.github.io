@@ -52,6 +52,10 @@ Non-OO, much lighter and simpler than the popular alternatives.
 
 Functional programming extensions for JavaScript.
 
+### [Webbs](https://github.com/Mitranim/webbs) <span class="text-gray">(JavaScript)</span>
+
+Adapter for native DOM `WebSocket` with auto-reconnect and offline buffering.
+
 ### [Alder](https://github.com/Mitranim/alder) <span class="text-gray">(JavaScript)</span>
 
 [WIP] Experimental rendering library inspired by React and Reagent. Represents
