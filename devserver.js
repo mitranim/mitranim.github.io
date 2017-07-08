@@ -1,14 +1,43 @@
 'use strict'
 
 const bs = require('browser-sync').create()
+const {log} = require('gulp-util')
+const {mapVals} = require('fpx')
 const config = require('./webpack.config')
+
 const prod = process.env.NODE_ENV === 'production'
+
+const middleware = []
+
+if (prod) {
+  require('webpack')(config).watch({}, (err, stats) => {
+    log('[webpack]', stats.toString(config.stats))
+    if (err) log('[webpack]', err.message)
+  })
+}
+else {
+  const compiler = require('webpack')(extend(config, {
+    entry: mapVals(
+      fsPath => ['webpack-hot-middleware/client', fsPath],
+      config.entry
+    ),
+  }))
+  middleware.push(
+    require('webpack-dev-middleware')(compiler, {
+      publicPath: config.output.publicPath,
+      stats: config.stats,
+    })
+  )
+  middleware.push(
+    require('webpack-hot-middleware')(compiler)
+  )
+}
 
 bs.init({
   startPath: '/',
   server: {
     baseDir: 'dist',
-    middleware: !prod ? hmr() : null,
+    middleware,
   },
   port: 11204,
   files: 'dist',
@@ -18,20 +47,6 @@ bs.init({
   ghostMode: false,
   notify: false,
 })
-
-function hmr () {
-  const compiler = require('webpack')(extend(config, {
-    entry: ['webpack-hot-middleware/client', config.entry]
-  }))
-
-  return [
-    require('webpack-dev-middleware')(compiler, {
-      publicPath: '/',
-      noInfo: true
-    }),
-    require('webpack-hot-middleware')(compiler)
-  ]
-}
 
 function extend () {
   return Object.assign({}, ...arguments)

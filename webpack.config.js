@@ -5,19 +5,23 @@ const webpack = require('webpack')
 const prod = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  entry: pt.resolve('src/scripts/app.js'),
+  entry: {
+    main: pt.resolve('src/scripts/main.js'),
+  },
 
   output: {
-    path: pt.resolve('dist'),
-    filename: 'app.js'
+    path: pt.resolve('dist/scripts'),
+    filename: '[name].js',
+    // For dev middleware
+    publicPath: '/scripts/',
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel',
-        include: pt.resolve('src/scripts')
+        include: pt.resolve('src/scripts'),
+        use: {loader: 'babel-loader'},
       }
     ]
   },
@@ -32,7 +36,7 @@ module.exports = {
     })
   ],
 
-  devtool: prod ? 'source-map' : null,
+  devtool: prod ? 'source-map' : false,
 
   stats: {
     colors: true,

@@ -23,7 +23,7 @@ const src = {
   ],
   html: 'src/html/**/*',
   xml: 'src/xml/**/*',
-  stylesCore: 'src/styles/app.scss',
+  stylesCore: 'src/styles/main.scss',
   styles: 'src/styles/**/*.scss',
   images: 'src/images/**/*',
 }

@@ -4,7 +4,7 @@
 // extend('index.html', {title, description})
 %}
 
-<link rel="stylesheet" type="text/css" href="/styles/app.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 <body></body>
 
