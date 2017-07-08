@@ -62,7 +62,7 @@ Adapter for native DOM `WebSocket` with auto-reconnect and offline buffering.
 view components with plain functions and DOM with plain JavaScript data
 structures. On hold, undocumented.
 
-### [jisp](http://jisp.io) <span class="text-gray">(JavaScript / jisp)</span>
+### [jisp](https://github.com/Mitranim/jisp) <span class="text-gray">(JavaScript / jisp)</span>
 
 A "programmable language". Basically a Lisp-style language that compiles to
 JavaScript. Currently on hold; should revisit it someday.
