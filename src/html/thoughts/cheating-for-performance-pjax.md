@@ -83,7 +83,7 @@ The idea is dead simple. Say a user navigates from page A to page B on your site
 Instead of a full page reload, fetch B by ajax, replace A, and update the URL
 using `history.pushState`. This technique has been termed _`pjax`_.
 
-Here's a super naive example to illustrate the point.
+Here's a super naive example to illustrate the point. (DON'T COPY THIS, SEE BELOW)
 
 ```javascript
 document.addEventListener('click', function(event) {
