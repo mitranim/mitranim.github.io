@@ -24,33 +24,18 @@ Passing familiarity: Swift, C, Common Lisp, Scheme.
 
 ### Databases
 
-Solid experience: cloud-based reactive databases. Currently using GraphQL with
-Scaphold (https://scaphold.io), also Firebase (https://firebase.google.com).
+Preference: cloud-based reactive databases such as Firebase
+(https://firebase.google.com), Scaphold/GraphQL (https://scaphold.io).
 
-Limited experience with relational and document-based DBs.
+Decent experience:
+  * relational databases, SQL
+  * document based-databases: CouchDB/PouchDB, MongoDB (bad choices for most projects)
 
 ### Applications
 
-Solid experience: web application frontends.
-
-Limited experience: web application backends. Prefer backend-as-a-service
-platforms such as Scaphold, Firebase, Auth0, AWS Lambda.
-
-### Architectures
-
-Solid experience: centralised, hierarchical architectures oriented around
-reactive abstractions and event broadcasts, such as
-[Prax](https://mitranim.com/prax/) or Redux.
-
-Not using anymore: MVC, MVVM.
-
-### Frameworks
-
-JavaScript (GUI): React with Prax, React with Redux.
-
-JavaScript (Node): Prax, Koa, Express.
-
-Python: Django.
+Solid experience:
+  * dynamic web applications (SPA)
+  * web application backends (REST and realtime)
 
 ### Misc
 

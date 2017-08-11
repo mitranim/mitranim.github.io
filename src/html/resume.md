@@ -9,7 +9,7 @@
 <body></body>
 
 <p class="text-right children-margin-letter-v">
-  <span class="block text-blue" data-note="Updated: March 28 2017"></span>
+  <span class="block text-blue" data-note="Updated: August 11 2017"></span>
   <span class="block noprint">
     <button class="flat" style="padding: 0" onclick="window.print()">
       <span class="fa fa-print"></span>
@@ -52,32 +52,18 @@ Prefer functional programming and functional languages.
 
 ## Databases
 
-Solid experience: cloud-based reactive databases. Currently using GraphQL with
-Scaphold (https://scaphold.io), also Firebase (https://firebase.google.com).
+Preference: cloud-based reactive databases such as Firebase
+(https://firebase.google.com), Scaphold/GraphQL (https://scaphold.io).
 
-Limited experience with relational and document-based DBs.
+Decent experience:
+  * relational databases, SQL
+  * document based-databases: CouchDB/PouchDB, MongoDB (bad choices for most projects)
 
 ## Applications
 
-Solid experience: web application frontends.
-
-Limited experience: web application backends with Node.js, Python, Go. Prefer
-backend-as-a-service platforms such as Scaphold, Firebase, Auth0, AWS Lambda.
-
-## Architectures
-
-Solid experience: functional, reactive architectures such as Prax
-(https://mitranim.com/prax/) or Redux.
-
-Not using anymore: MVC, MVVM.
-
-## Frameworks
-
-JavaScript (GUI): Prax+React. Used some other crap I don't want to mention.
-
-JavaScript (Node): Prax, Koa, Express.
-
-Python: Django.
+Solid experience:
+  * dynamic web applications (SPA)
+  * web application backends (REST and realtime)
 
 ## Projects
 
@@ -89,7 +75,7 @@ Python: Django.
   * Order of magnitude faster than alternatives
   * Period: 2016—2017, part of team at Purelab.io
 
-#### ToBox.com (https://tobox.com) <span class="text-gray">(JavaScript / React)</span>
+#### ToBox.com (http://tobox.purelab.io) <span class="text-gray">(JavaScript / React)</span>
 
   * Stylish, visual platform for creating online shops
   * Period: 2015—2016, ToBox, senior web developer
@@ -118,13 +104,16 @@ Python: Django.
 Recent highlights here. See other stuff on https://mitranim.com/works/ and
 https://github.com/Mitranim.
 
+Posterus: asynchronous primitives for JS with true cancelation and scheduling
+control (https://github.com/Mitranim/posterus).
+
 Prax: reactive architecture for GUI applications (https://github.com/Mitranim/prax).
 
 Espo: JavaScript extensions for stateful and reactive programming (https://github.com/Mitranim/espo).
 
-fpx: functional programming extentions for JavaScript (https://mitranim.com/fpx/).
-
 Emerge: use plain JS types as functional data structures (https://github.com/Mitranim/emerge).
+
+fpx: functional programming extentions for JavaScript (https://mitranim.com/fpx/).
 
 ## Job Background
 
