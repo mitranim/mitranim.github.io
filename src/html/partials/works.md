@@ -6,6 +6,11 @@ Poi community website. We have our own video lessons, go check us out!
 
 ## Open Source
 
+### [Clojure/Datomic Starter](https://github.com/Mitranim/clojure-datomic-auth0-docker-starter) <span class="text-gray">(Clojure / devops)</span>
+
+Web application template that uses Clojure, Datomic, Auth0, Docker. Guides you
+through the hurdles of setup and deployment.
+
 ### [Posterus](https://github.com/Mitranim/posterus) <span class="text-gray">(JavaScript)</span>
 
 Asynchronous primitives (futures): alternative to JS promises with true
