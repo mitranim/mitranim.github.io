@@ -29,9 +29,9 @@ Preference:
   * reactive databases such as Firebase (https://firebase.google.com)
 
 Decent experience:
-  * GraphQL (e.g. https://scaphold.io)
   * relational databases, SQL
   * document based-databases: CouchDB/PouchDB, MongoDB (bad choices for most projects)
+  * GraphQL (e.g. https://scaphold.io)
 
 ### Applications
 
