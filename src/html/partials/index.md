@@ -7,7 +7,7 @@
 Nelo Mitranim
 
 Autodidact. Software developer. Senior web developer, full stack. Main
-expertise: dynamic web applications (SPA with React).
+expertise: rich web apps (SPA with React).
 
 Part of team at [Purelab.io](http://purelab.io), a software development and
 consulting studio. Hire us for your next big project!
@@ -16,26 +16,29 @@ Open source enthusiast. See my [works](/works/).
 
 ### Languages
 
-Solid experience: JavaScript / Node, Python, Go.
+Solid experience: JavaScript / Node, Python, Go, Clojure.
 
-Limited experience: Rust, Haskell, Clojure, Erlang.
+Limited experience: Rust, Haskell, Erlang.
 
 Passing familiarity: Swift, C, Common Lisp, Scheme.
 
 ### Databases
 
-Preference: cloud-based reactive databases such as Firebase
-(https://firebase.google.com), Scaphold/GraphQL (https://scaphold.io).
+Preference:
+  * Datomic (http://www.datomic.com)
+  * reactive databases such as Firebase (https://firebase.google.com)
 
 Decent experience:
+  * GraphQL (e.g. https://scaphold.io)
   * relational databases, SQL
   * document based-databases: CouchDB/PouchDB, MongoDB (bad choices for most projects)
 
 ### Applications
 
 Solid experience:
-  * dynamic web applications (SPA)
-  * web application backends (REST and realtime)
+  * rich web applications (SPA)
+  * traditional web applications
+  * API backends (REST and socket-based)
 
 ### Misc
 

@@ -9,7 +9,7 @@
 <body></body>
 
 <p class="text-right children-margin-letter-v">
-  <span class="block text-blue" data-note="Updated: August 11 2017"></span>
+  <span class="block text-blue" data-note="Updated: September 06 2017"></span>
   <span class="block noprint">
     <button class="flat" style="padding: 0" onclick="window.print()">
       <span class="fa fa-print"></span>
@@ -33,7 +33,7 @@ Moscow, Russia
 ## About
 
 Autodidact. Software developer. Senior web developer, full stack. Main
-expertise: dynamic web applications (SPA with React).
+expertise: rich web apps (SPA with React).
 
 Open source enthusiast.
 
@@ -42,9 +42,9 @@ consulting studio.
 
 ## Languages
 
-Solid experience: JavaScript / Node, Python, Go.
+Solid experience: JavaScript / Node, Python, Go, Clojure.
 
-Limited experience: Haskell, Clojure, Erlang.
+Limited experience: Haskell, Erlang.
 
 Passing familiarity: C, Swift, Rust, Common Lisp, Scheme.
 
@@ -52,18 +52,21 @@ Prefer functional programming and functional languages.
 
 ## Databases
 
-Preference: cloud-based reactive databases such as Firebase
-(https://firebase.google.com), Scaphold/GraphQL (https://scaphold.io).
+Preference:
+  * Datomic (http://www.datomic.com)
+  * reactive databases such as Firebase (https://firebase.google.com)
 
 Decent experience:
+  * GraphQL (e.g. https://scaphold.io)
   * relational databases, SQL
   * document based-databases: CouchDB/PouchDB, MongoDB (bad choices for most projects)
 
 ## Applications
 
 Solid experience:
-  * dynamic web applications (SPA)
-  * web application backends (REST and realtime)
+  * rich web applications (SPA)
+  * traditional web applications
+  * API backends (REST and socket-based)
 
 ## Projects
 
