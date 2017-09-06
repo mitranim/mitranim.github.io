@@ -144,7 +144,7 @@ unfinished:
 
 Highly interested in programming language design.
 
-Favourite pastime: writing and contributing to open source software. See
+Favorite pastime: writing and contributing to open source software. See
 https://github.com/Mitranim.
 
 Location: Moscow, Russia (planning to move out).

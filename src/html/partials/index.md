@@ -44,7 +44,7 @@ Solid experience:
 
 Highly interested in programming language design.
 
-Favourite pastime: [writing and contributing](/works/) to open source software.
+Favorite pastime: [writing and contributing](/works/) to open source software.
 
 Location: Moscow, Russia (planning to move out).
 

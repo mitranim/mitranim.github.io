@@ -250,11 +250,11 @@ declare module ngDecorate {
     // Names of other angular modules this module depends on.
     dependencies?: string[];
 
-    // DEPRECATED in favour of @autoinject.
+    // DEPRECATED in favor of @autoinject.
     // Angular services that will be assigned to the class prototype.
     inject?: string[];
 
-    // DEPRECATED in favour of @autoinject.
+    // DEPRECATED in favor of @autoinject.
     // Angular services that will be assigned to the class as static properties.
     injectStatic?: string[];
   }

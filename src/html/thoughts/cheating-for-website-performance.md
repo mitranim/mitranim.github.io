@@ -89,7 +89,7 @@ on this very site. Inspect the network console to observe the effects.
 ## Use Server Rendering
 
 There's a trend towards single page applications (SPA) with clientside routing
-and rendering. They tend to skip server-side rendering in favour of being
+and rendering. They tend to skip server-side rendering in favor of being
 data-driven, usually through a RESTful API. As a result, they tend to have slow
 initial page loads. This is bad, particularly on slow connections, which is
 typical for mobile.
