@@ -38,7 +38,8 @@ Decent experience:
 Solid experience:
   * rich web applications (SPA)
   * traditional web applications
-  * API backends (REST and socket-based)
+  * REST API backends
+  * socket API backends
 
 ### Misc
 
