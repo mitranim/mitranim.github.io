@@ -1,12 +1,4 @@
-{%
-// const title = 'resume'
-// const description = 'my resume'
-// extend('index.html', {title, description})
-%}
-
-<link rel="stylesheet" type="text/css" href="/styles/main.css">
-
-<body></body>
+{% extend('partials/static-layout.html', {title: 'Resume: Nelo Mitranim'}) %}
 
 <p class="text-right children-margin-letter-v">
   <span class="block text-blue" data-note="Updated: September 06 2017"></span>

@@ -1,14 +1,21 @@
 require('simple-pjax')
 
-function onclick ({target}) {
-  const collapse = findParent(
-    elem => elem.classList.contains('collapse'),
-    findParent(elem => elem.classList.contains('collapse--head'), target)
-  )
+document.addEventListener('click', onClick)
+
+function onClick({target}) {
+  const collapse = findParent(isCollapse, findParent(isCollapseHead, target))
   if (collapse) collapse.classList.toggle('active')
 }
 
-function findParent (test, elem) {
+function isCollapse(elem) {
+  return elem.classList.contains('collapse')
+}
+
+function isCollapseHead(elem) {
+  return elem.classList.contains('collapse--head')
+}
+
+function findParent(test, elem) {
   return !(elem instanceof window.HTMLElement)
     ? null
     : test(elem)
@@ -16,11 +23,12 @@ function findParent (test, elem) {
     : findParent(test, elem.parentElement)
 }
 
-document.addEventListener('click', onclick)
-
 if (module.hot) {
-  module.hot.accept()
+  module.hot.accept(err => {
+    if (err) console.warn(err)
+  })
   module.hot.dispose(() => {
-    document.removeEventListener('click', onclick)
+    console.clear()
+    document.removeEventListener('click', onClick)
   })
 }

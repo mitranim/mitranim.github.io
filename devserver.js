@@ -18,14 +18,14 @@ if (prod) {
 else {
   const compiler = require('webpack')(extend(config, {
     entry: mapVals(
-      fsPath => ['webpack-hot-middleware/client', fsPath],
+      fsPath => ['webpack-hot-middleware/client?noInfo=true', fsPath],
       config.entry
     ),
   }))
   middleware.push(
     require('webpack-dev-middleware')(compiler, {
       publicPath: config.output.publicPath,
-      stats: config.stats,
+      noInfo: true,
     })
   )
   middleware.push(

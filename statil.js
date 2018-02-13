@@ -1,10 +1,11 @@
 'use strict'
 
+const fs = require('fs')
+const pt = require('path')
+const _ = require('lodash')
+const cheerio = require('cheerio')
 const hljs = require('highlight.js')
 const marked = require('marked')
-const _ = require('lodash')
-const pt = require('path')
-const cheerio = require('cheerio')
 const {test, testOr, ifonly, not} = require('fpx')
 const {merge} = require('emerge')
 const prod = process.env.NODE_ENV === 'production'
@@ -115,7 +116,8 @@ module.exports = function statilOptions () {
       truncate: (html, length) => _.truncate(cheerio(html).text(), length),
       sortPosts: posts => _.sortBy(posts, post => (
         post.date instanceof Date ? post.date : -Infinity
-      )).reverse()
+      )).reverse(),
+      readStyles: () => fs.readFileSync('dist/styles/main.css').toString(),
     }),
     postProcess: (content, path, {ext}) => (
       ext !== '.md'
