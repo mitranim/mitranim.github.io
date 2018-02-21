@@ -1,6 +1,6 @@
 language: node_js
 node_js: node
-script: yarn run build
+script: gulp build
 cache: yarn
 addons:
   apt:
@@ -10,7 +10,7 @@ deploy:
   provider: pages
   github_token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard
   skip_cleanup: true  # keep created files
-  local_dir: dist
+  local_dir: public
   on:
     branch: src
   target_branch: master

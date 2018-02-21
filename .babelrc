@@ -1,17 +1,17 @@
 {
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["> 1%"]
+      },
+      "loose": true,
+      "useBuiltIns": true,
+      "exclude": ["transform-regenerator"]
+    }]
+  ],
   "plugins": [
-    "check-es2015-constants",
-    "transform-es2015-arrow-functions",
-    "transform-es2015-block-scoped-functions",
-    "transform-es2015-block-scoping",
-    "transform-es2015-destructuring",
-    "transform-es2015-function-name",
-    "transform-es2015-literals",
-    "transform-es2015-modules-commonjs",
-    "transform-es2015-parameters",
-    "transform-es2015-shorthand-properties",
-    "transform-es2015-spread",
-    "transform-es2015-template-literals",
-    "transform-object-rest-spread"
+    ["transform-class-properties", {"spec": false}],
+    ["transform-object-rest-spread", {"loose": true}],
+    "transform-react-jsx"
   ]
 }

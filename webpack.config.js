@@ -2,47 +2,69 @@
 
 const pt = require('path')
 const webpack = require('webpack')
-const prod = process.env.NODE_ENV === 'production'
+
+const PROD = process.env.NODE_ENV === 'production'
+
+const SRC_DIR = pt.resolve('src/scripts')
+const TEMPLATE_SRC_DIR = pt.resolve('src/templates')
+const CMS_SRC_DIR = pt.resolve('cms/scripts')
+const PUBLIC_DIR = pt.resolve('public/scripts')
 
 module.exports = {
   entry: {
-    main: pt.resolve('src/scripts/main.js'),
+    main: pt.join(SRC_DIR, 'main.js'),
+    cms: pt.join(CMS_SRC_DIR, 'cms.js'),
   },
 
   output: {
-    path: pt.resolve('dist/scripts'),
+    path: PUBLIC_DIR,
     filename: '[name].js',
-    // For dev middleware
-    publicPath: '/scripts/',
   },
 
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: pt.resolve('src/scripts'),
+        test: /\.jsx?$/,
+        include: [SRC_DIR, TEMPLATE_SRC_DIR, CMS_SRC_DIR],
         use: {loader: 'babel-loader'},
-      }
-    ]
+      },
+      {
+        test: /\.svg$/,
+        include: pt.resolve('src'),
+        use: {loader: 'raw-loader'},
+      },
+      ...(!PROD ? [] : [
+        // disable dev features and warnings in React and related libs
+        {
+          test: /react.*\.jsx?$/,
+          include: /node_modules/,
+          use: {loader: 'transform-loader', options: {envify: true}},
+        },
+      ]),
+    ],
   },
 
-  plugins: !prod ? [
-    new webpack.HotModuleReplacementPlugin()
-  ] : [
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {warnings: false, screw_ie8: true},
-      mangle: true
-    })
+  plugins: [
+    new webpack.ProvidePlugin({
+      React: 'react',
+    }),
+    // ...(PROD ? [
+    //   new webpack.optimize.UglifyJsPlugin({
+    //     mangle: {toplevel: true},
+    //     compress: {warnings: false},
+    //     output: {comments: false},
+    //   }),
+    // ] : []),
   ],
 
-  devtool: prod ? 'source-map' : false,
+  devtool: PROD ? 'source-map' : false,
 
   stats: {
+    assets: false,
     colors: true,
-    chunks: false,
-    version: false,
     hash: false,
-    assets: false
-  }
+    modules: false,
+    timings: true,
+    version: false,
+  },
 }
