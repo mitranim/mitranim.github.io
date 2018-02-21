@@ -65,27 +65,27 @@ function DocpageBody({className, style, children}) {
 
 function PageHeader({entry: {path}}) {
   return (
-    <div className='row-start-stretch sm-flex-wrap margin-2-b'>
-      <nav className='flex-1 row-start-stretch sm-margin-1-b'>
+    <div className='row-start-stretch sm-flex-wrap margin-2-b text-ellipsis gaps-1-h'>
+      <nav className='flex-3 flex-shrink-none row-start-stretch sm-margin-1-b'>
         <a
           href='/'
           className='font-large padding-1 busy-nav'
-          {...m.current(path, 'index.mdx')}>home</a>
+          {...m.current(path, 'index.mdx')}><span>home</span></a>
         <a
           href='/works'
           className='font-large padding-1 busy-nav'
-          {...m.current(path, 'works.mdx')}>works</a>
+          {...m.current(path, 'works.mdx')}><span>works</span></a>
         <a
           href='/posts'
           className='font-large padding-1 busy-nav'
-          {...m.current(path, 'posts.mdx')}>posts</a>
+          {...m.current(path, 'posts.mdx')}><span>posts</span></a>
         <a
           href='/demos'
           className='font-large padding-1 busy-nav'
-          {...m.current(path, 'demos.mdx')}>demos</a>
+          {...m.current(path, 'demos.mdx')}><span>demos</span></a>
       </nav>
-      <span className='text-right text-blue row-end-center'>
-        Updated: {new Date().toDateString()}
+      <span className='flex-1 text-right text-blue row-end-center'>
+        <span>Updated: {new Date().toDateString()}</span>
       </span>
     </div>
   )
