@@ -1,6 +1,6 @@
 'use strict'
 
-// Serves files using the same algorithm as GitHub Pages and Netlify.
+// Serves files using the same HTML resolution algorithm as GitHub Pages and Netlify.
 // Needs a better name, then be published.
 
 const fs = require('fs')
@@ -14,7 +14,7 @@ exports.serve = serve
 async function serve(req, res, settings) {
   const {rootDir} = Object(settings)
   if (typeof rootDir !== 'string') {
-    throw Error(`Expected settings.rootDir, got ${rootDir}`)
+    throw Error(`Expected settings with rootDir, got ${rootDir}`)
   }
   try {
     const {status, headers, body} = await createResponse(rootDir, req.url)
@@ -33,6 +33,9 @@ exports.createResponse = createResponse
 async function createResponse(rootDir, path) {
   if (typeof rootDir !== 'string') {
     throw Error(`Expected a root directory path, got ${rootDir}`)
+  }
+  if (typeof path !== 'string') {
+    throw Error(`Expected a URL pathname, got ${path}`)
   }
 
   const pathname = url.parse(path).pathname

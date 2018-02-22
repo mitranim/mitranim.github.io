@@ -3,7 +3,25 @@ import * as views from '../../src/templates/layouts'
 
 CMS.registerPreviewStyle('/styles/main.css')
 CMS.registerPreviewTemplate('index', MdArticlePreview)
+CMS.registerPreviewTemplate('works', MdArticlePreview)
+CMS.registerPreviewTemplate('demos', MdArticlePreview)
+CMS.registerPreviewTemplate('resume', DocpageMdArticlePreview)
+CMS.registerPreviewTemplate('posts', PostPreview)
+CMS.registerPreviewTemplate('post', PostPreview)
 
 export function MdArticlePreview({entry}) {
-  return <views.MdArticle entry={entry.toJS().data} />
+  return <views.MdArticle entry={parseEntry(entry)} />
+}
+
+export function DocpageMdArticlePreview({entry}) {
+  return <views.DocpageMdArticle entry={parseEntry(entry)} />
+}
+
+export function PostPreview({entry}) {
+  return <views.Post entry={parseEntry(entry)} />
+}
+
+function parseEntry(entry) {
+  const {path, data} = entry.toJS()
+  return {path: path.replace(/src[/]templates[/]/, ''), ...data}
 }

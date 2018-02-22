@@ -160,9 +160,9 @@ export function Posts({tree: {posts}, entry}) {
 
         <div className='fancy-typography gaps-2-v'>
           {publicPostList(posts).map(post => {
-            const link = `/posts/${post.slug}`
+            const link = `/posts/${m.fileName(post.path)}`
             return (
-              <div className='gaps-1-v' key={post.slug}>
+              <div className='gaps-1-v' key={m.fileName(post.path)}>
                 <h2>
                   <a href={link}>{post.title}</a>
                 </h2>
@@ -292,23 +292,28 @@ export function html(props) {
   return `<!doctype html>${renderWithReact(props)}`
 }
 
-export function rssFeed({tree: {posts}}) {
+export function rssFeed({entry: {title, description}, tree: {posts}}) {
   return `
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
   <channel>
-    <title>Nelo Mitranim"s Blog</title>
-    <description>Occasional notes, mostly about programming</description>
+    ${!title ? '' :
+    `<title>Nelo Mitranim"s Blog</title>`}
+    ${!description ? '' :
+    `<description>Occasional notes, mostly about programming</description>`}
     <language>en-us</language>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <link type="text/html" href="https://mitranim.com" />
     ${publicPostList(posts).map(post => {
-      const link = `https://mitranim.com/posts/${post.slug}`
+      const link = `https://mitranim.com/posts/${m.fileName(post.path)}`
       return `
         <item>
-          <title>${post.title}</title>
-          <link type="text/html" href="${link}" />
-          <guid isPermaLink="true">${link}</guid>
+          ${!post.title ? '' :
+          `<title>${post.title}</title>`}
+          ${!link ? '' :
+          `<link type="text/html" href="${link}" />`}
+          ${!link ? '' :
+          `<guid isPermaLink="true">${link}</guid>`}
           ${!post.date ? '' :
           `<pubDate>${post.date instanceof Date ? post.date.toISOString() : post.date}</pubDate>`}
           <author>Nelo Mitranim</author>

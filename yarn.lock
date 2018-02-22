@@ -6297,9 +6297,9 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
-statil@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/statil/-/statil-0.7.0.tgz#2700509b15f37fa14551ca4dc2e0afb3e5d764c4"
+statil@0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/statil/-/statil-0.7.1.tgz#f9bdc297e46666e2392c86bbb052d7e6b69545ca"
   dependencies:
     front-matter "^2.3.0"
     glob "^7.1.2"

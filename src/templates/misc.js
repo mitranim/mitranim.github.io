@@ -1,4 +1,5 @@
 import * as _ from 'lodash'
+import * as pt from 'path'
 import * as f from 'fpx'
 import {compileTemplate} from 'statil/lib/template'
 import {icon as faIcon} from '@fortawesome/fontawesome'
@@ -67,7 +68,9 @@ export function iconProps() {
 }
 
 export function renderEntryTemplate(entry) {
-  return compileTemplate(entry.body, {context: {faSvg}})(entry)
+  return entry.body
+    ? compileTemplate(entry.body, {context: {faSvg}})(entry)
+    : ''
 }
 
 export function mdProps(text) {
@@ -180,7 +183,6 @@ class Renderer extends marked.Renderer {
   }
 }
 
-
 function highlight(code, lang) {
   return lang ? hljs.highlight(lang, code).value : code
 }
@@ -195,4 +197,8 @@ export function md(content) {
   return marked(content, options)
     .replace(/<pre><code/g, '<pre class="padding-1"><code')
     .replace(/<!--\s*:((?:[^:]|:(?!\s*-->))*):\s*-->/g, '$1')
+}
+
+export function fileName(path) {
+  return pt.parse(path).name
 }

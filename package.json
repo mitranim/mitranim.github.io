@@ -44,7 +44,7 @@
     "mime": "2.2.0",
     "papyre": "0.0.4",
     "raw-loader": "0.5.1",
-    "statil": "0.7.0",
+    "statil": "0.7.1",
     "stylific-lite": "0.0.1",
     "transform-loader": "0.2.4",
     "webpack": "3.10.0"

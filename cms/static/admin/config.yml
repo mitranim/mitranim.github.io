@@ -1,17 +1,35 @@
 backend:
   name: github
-  repo: mitranim/mitranim.github.io
+  repo: Mitranim/mitranim.github.io
   branch: src
 
 media_folder: cms/static/uploads
 public_folder: uploads
 
 collections:
-  - name: pages
-    label: Pages
-    format: frontmatter
+  - name: post
+    label: Post
+    folder: src/templates/posts
+    create: true
+    fields:
+      - {name: papyre, widget: hidden}
+      - {name: title, label: Title, widget: string}
+      - {name: description, label: Description, widget: string}
+      - {name: date, label: Date, widget: date}
+      - {name: showInList, label: Show in List, widget: boolean}
+      - {name: misc, widget: hidden}
+      - {name: body, label: Body, widget: markdown}
+  - name: page
+    label: Page
     delete: false
     files:
+      - file: src/templates/feed.xml
+        name: feed
+        label: RSS Feed
+        fields:
+          - {name: papyre, widget: hidden}
+          - {name: title, label: Title, widget: string}
+          - {name: description, label: Description, widget: string}
       - file: src/templates/index.mdx
         name: index
         label: Landing Page
@@ -19,3 +37,28 @@ collections:
           - {name: papyre, widget: hidden}
           - {name: title, label: Title, widget: string}
           - {name: description, label: Description, widget: string}
+          - {name: body, label: Body, widget: markdown}
+      - file: src/templates/works.mdx
+        name: works
+        label: Works
+        fields:
+          - {name: papyre, widget: hidden}
+          - {name: title, label: Title, widget: string}
+          - {name: description, label: Description, widget: string}
+          - {name: body, label: Body, widget: markdown}
+      - file: src/templates/demos.mdx
+        name: demos
+        label: Demos
+        fields:
+          - {name: papyre, widget: hidden}
+          - {name: title, label: Title, widget: string}
+          - {name: description, label: Description, widget: string}
+          - {name: body, label: Body, widget: markdown}
+      - file: src/templates/resume.mdx
+        name: resume
+        label: Resume
+        fields:
+          - {name: papyre, widget: hidden}
+          - {name: title, label: Title, widget: string}
+          - {name: description, label: Description, widget: string}
+          - {name: body, label: Body, widget: markdown}
