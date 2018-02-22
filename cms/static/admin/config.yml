@@ -1,6 +1,7 @@
 backend:
   name: github
   repo: mitranim/mitranim.github.io
+  branch: src
 
 media_folder: cms/static/uploads
 public_folder: uploads
