@@ -16,7 +16,7 @@ collections:
       - {name: title, label: Title, widget: string}
       - {name: description, label: Description, widget: string}
       - {name: date, label: Date, widget: date}
-      - {name: showInList, label: Show in List, widget: boolean}
+      - {name: showInList, label: Show in List, widget: boolean, default: true}
       - {name: misc, widget: hidden}
       - {name: body, label: Body, widget: markdown}
   - name: page
@@ -30,7 +30,7 @@ collections:
           - {name: papyre, widget: hidden}
           - {name: title, label: Title, widget: string}
           - {name: description, label: Description, widget: string}
-      - file: src/templates/index.mdx
+      - file: src/templates/index.md
         name: index
         label: Landing Page
         fields:
@@ -38,7 +38,7 @@ collections:
           - {name: title, label: Title, widget: string}
           - {name: description, label: Description, widget: string}
           - {name: body, label: Body, widget: markdown}
-      - file: src/templates/works.mdx
+      - file: src/templates/works.md
         name: works
         label: Works
         fields:
@@ -46,7 +46,7 @@ collections:
           - {name: title, label: Title, widget: string}
           - {name: description, label: Description, widget: string}
           - {name: body, label: Body, widget: markdown}
-      - file: src/templates/demos.mdx
+      - file: src/templates/demos.md
         name: demos
         label: Demos
         fields:
@@ -54,7 +54,7 @@ collections:
           - {name: title, label: Title, widget: string}
           - {name: description, label: Description, widget: string}
           - {name: body, label: Body, widget: markdown}
-      - file: src/templates/resume.mdx
+      - file: src/templates/resume.md
         name: resume
         label: Resume
         fields:

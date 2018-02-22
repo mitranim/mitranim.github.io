@@ -1,6 +1,5 @@
 ---
 papyre: {fn: html, layout: Post}
-slug: keeping-things-simple
 title: Keeping Things Simple
 date: 2015-03-10T00:00:00.000Z
 ---

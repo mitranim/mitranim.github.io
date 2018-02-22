@@ -1,6 +1,5 @@
 ---
 papyre: {fn: html, layout: Post}
-slug: cheating-for-performance-pjax
 title: "Cheating for Performance: Pjax"
 description: Faster page transitions, for free
 date: 2015-07-25T00:00:00.000Z

@@ -1,6 +1,5 @@
 ---
 papyre: {fn: html, layout: Post}
-slug: cheating-for-website-performance
 title: Cheating For Website Performance
 description: Frontend tips for speeding up websites
 date: 2015-03-11T00:00:00.000Z

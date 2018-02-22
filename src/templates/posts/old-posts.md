@@ -1,6 +1,5 @@
 ---
 papyre: {fn: html, layout: Post}
-slug: old-posts
 title: Old Posts
 description: some old stuff from around the net
 date: 2015-01-01T00:00:00.000Z

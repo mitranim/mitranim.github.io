@@ -70,19 +70,19 @@ function PageHeader({entry: {path}}) {
         <a
           href='/'
           className='font-large padding-1 busy-nav'
-          {...m.current(path, 'index.mdx')}><span>home</span></a>
+          {...m.current(path, 'index.md')}><span>home</span></a>
         <a
           href='/works'
           className='font-large padding-1 busy-nav'
-          {...m.current(path, 'works.mdx')}><span>works</span></a>
+          {...m.current(path, 'works.md')}><span>works</span></a>
         <a
           href='/posts'
           className='font-large padding-1 busy-nav'
-          {...m.current(path, 'posts.mdx')}><span>posts</span></a>
+          {...m.current(path, 'posts.md')}><span>posts</span></a>
         <a
           href='/demos'
           className='font-large padding-1 busy-nav'
-          {...m.current(path, 'demos.mdx')}><span>demos</span></a>
+          {...m.current(path, 'demos.md')}><span>demos</span></a>
       </nav>
       <span className='flex-1 text-right text-blue row-end-center'>
         <span>Updated: {new Date().toDateString()}</span>
