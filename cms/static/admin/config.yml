@@ -23,13 +23,6 @@ collections:
     label: Page
     delete: false
     files:
-      - file: src/templates/feed.xml
-        name: feed
-        label: RSS Feed
-        fields:
-          - {name: papyre, widget: hidden}
-          - {name: title, label: Title, widget: string}
-          - {name: description, label: Description, widget: string}
       - file: src/templates/index.md
         name: index
         label: Landing Page
