@@ -116,7 +116,7 @@ export function current(path, subpath) {
 
 const linkIcon = faSvg('link')
 
-class Renderer extends marked.Renderer {
+class MarkedRenderer extends marked.Renderer {
   // Adds ID anchors to headings
   heading(text, level, raw) {
     const id = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-')
@@ -187,18 +187,22 @@ function highlight(code, lang) {
   return lang ? hljs.highlight(lang, code).value : code
 }
 
-const options = {
-  renderer: new Renderer(),
+const markedOptions = {
+  renderer: new MarkedRenderer(),
   smartypants: true,
   highlight,
 }
 
 export function md(content) {
-  return marked(content, options)
+  return marked(content, markedOptions)
     .replace(/<pre><code/g, '<pre class="padding-1"><code')
     .replace(/<!--\s*:((?:[^:]|:(?!\s*-->))*):\s*-->/g, '$1')
 }
 
+// Webpack's polyfill for the 'path' module is incomplete and doesn't have
+// `parse` or any other function that allows to get a file's name
+// without the extension.
 export function fileName(path) {
-  return pt.parse(path).name
+  const ext = pt.extname(path).replace(/^[.]/, '\\.')
+  return pt.basename(path).replace(new RegExp(`${ext}$`), '')
 }

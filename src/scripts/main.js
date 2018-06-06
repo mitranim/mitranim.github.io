@@ -31,7 +31,7 @@ function isElement(value) {
   return value instanceof window.Element
 }
 
-export function findAncestor(elem, test) {
+function findAncestor(elem, test) {
   return !elem
     ? undefined
     : test(elem)

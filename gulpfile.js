@@ -79,12 +79,12 @@ gulp.task('static:watch', () => {
 
 /* HTML */
 
-const templatingConfig = Object.assign({}, webpackConfig, {
+const papyreConfig = Object.assign({}, webpackConfig, {
   entry: pt.resolve(srcTemplateEntry),
 })
 
 gulp.task('templates:build', done => {
-  papyre.build(templatingConfig, (err, result) => {
+  papyre.build(papyreConfig, (err, result) => {
     if (err) done(err)
     else {
       log('[papyre]', result.timing)
@@ -94,7 +94,7 @@ gulp.task('templates:build', done => {
 })
 
 gulp.task('templates:watch', () => {
-  papyre.watch(templatingConfig, (err, result) => {
+  papyre.watch(papyreConfig, (err, result) => {
     if (err) log(err)
     else {
       log('[papyre]', result.timing)

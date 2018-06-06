@@ -2545,7 +2545,11 @@ form-data@~2.3.1:
     combined-stream "1.0.6"
     mime-types "^2.1.12"
 
-fpx@0.4.0, fpx@>=0.4:
+fpx@0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/fpx/-/fpx-0.4.4.tgz#b4380ab99a6f6dfec27445300d0e4f22bd00122b"
+
+fpx@>=0.4:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/fpx/-/fpx-0.4.0.tgz#c1ea6f19b46e6d37642d43577f7b8a9e08acbb13"
 
@@ -2555,7 +2559,7 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-front-matter@2.3.0, front-matter@>=2, front-matter@^2.3.0:
+front-matter@>=2, front-matter@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/front-matter/-/front-matter-2.3.0.tgz#7203af896ce357ee04e2aa45169ea91ed7f67504"
   dependencies:
@@ -4320,7 +4324,7 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-memory-fs@0.4.1, memory-fs@>=0.4, memory-fs@^0.4.0, memory-fs@~0.4.1:
+memory-fs@>=0.4, memory-fs@^0.4.0, memory-fs@~0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/memory-fs/-/memory-fs-0.4.1.tgz#3a9a20b8462523e447cfbc7e8bb80ed667bfc552"
   dependencies:
@@ -6426,10 +6430,6 @@ strip-indent@^1.0.1:
 strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
-
-stylific-lite@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/stylific-lite/-/stylific-lite-0.0.1.tgz#34df7b0e3ac92641183be56cde04b645520d5d90"
 
 supports-color@^0.2.0:
   version "0.2.0"

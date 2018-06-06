@@ -3,6 +3,10 @@ import * as f from 'fpx'
 import {renderToStaticMarkup} from 'react-dom/server'
 import * as m from './misc'
 
+export function html(props) {
+  return `<!doctype html>${renderWithReact(props)}`
+}
+
 function HtmlHead({children, entry: {title, description, type, image}}) {
   return (
     <head>
@@ -11,7 +15,7 @@ function HtmlHead({children, entry: {title, description, type, image}}) {
       <meta httpEquiv='X-UA-Compatible' content='IE=edge,chrome=1' />
       <meta name='viewport' content='width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes' />
       <link rel='icon' href='data:;base64,=' />
-      <link rel='stylesheet' type='text/css' href='styles/main.css' />
+      <link rel='stylesheet' type='text/css' href={`styles/main.css?${process.env.VERSION || ''}`} />
       {!process.env.PROD ? null :
       <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,300italic,400italic,500italic,600italic&subset=latin' rel='stylesheet' />}
       <title>{title || 'about:mitranim'}</title>
@@ -28,37 +32,33 @@ function HtmlHead({children, entry: {title, description, type, image}}) {
       <meta property='og:description' content={description} />}
       {!image ? null :
       <meta property='og:image' content={`/images/${image}`} />}
-      <DevNocache />
+      <DevHead />
       {children}
     </head>
   )
 }
 
-const focusScript = (
-  <script {...m.innerHtmlProps(`document.body.classList.remove('enable-focus-indicators')`)} />
-)
+const focusScript = rawScript(`document.body.classList.remove('enable-focus-indicators')`)
 
 function PageBody({className, style, children, entry}) {
   return (
-    <body className='col-between-stretch enable-focus-indicators' style={{minHeight: '100vh'}}>
+    <body className='col-start-stretch enable-focus-indicators' style={{minHeight: '100vh'}}>
       {focusScript}
       <PageHeader entry={entry} />
       <div className={`flex-1 ${className || ''}`} style={style}>
         {children}
       </div>
       <PageFooter entry={entry} />
-      <script src='scripts/main.js' />
-      <DevReload />
+      <script src={`scripts/main.js?${process.env.VERSION || ''}`} />
     </body>
   )
 }
 
-function DocpageBody({className, style, children}) {
+function SimplePageBody({className, style, children}) {
   return (
-    <body className='col-between-stretch enable-focus-indicators'>
+    <body className='col-start-stretch enable-focus-indicators'>
       {focusScript}
       <div className={className} style={style}>{children}</div>
-      <DevReload />
     </body>
   )
 }
@@ -122,15 +122,15 @@ export function MdArticle({entry}) {
   )
 }
 
-export function DocpageMdArticle({entry}) {
+export function SimpleMdArticle({entry}) {
   return (
     <html>
       <HtmlHead entry={entry} />
-      <DocpageBody>
+      <SimplePageBody>
         <article
           className='fancy-typography padding-2-v'
           {...m.mdProps(m.renderEntryTemplate(entry))} />
-      </DocpageBody>
+      </SimplePageBody>
     </html>
   )
 }
@@ -213,7 +213,7 @@ function Disqus() {
   return null && (
     <div>
       <div id='disqus_thread' />
-      <script type='text/javascript'>{
+      {rawScript(
 `if (window.DISQUS) {
   window.DISQUS.reset({reload: true})
 }
@@ -225,7 +225,7 @@ else {
   script.src = 'https://' + disqus_shortname + '.disqus.com/embed.js'
   document.body.appendChild(script)
 }`
-        }</script>
+      )}
       <noscript>
         Please enable JavaScript to view the <a href='https://disqus.com/?ref_noscript' rel='nofollow'>comments powered by Disqus.</a>
       </noscript>
@@ -256,19 +256,18 @@ export function Admin() {
         <meta httpEquiv='X-UA-Compatible' content='IE=edge,chrome=1' />
         <meta name='viewport' content='width=device-width,initial-scale=1' />
         <link rel='icon' href='data:;base64,=' />
-        <link rel='stylesheet' href='/styles/cms.css' />
+        <link rel='stylesheet' href={`/styles/cms.css?${process.env.VERSION || ''}`} />
         <title>Content Manager</title>
-        <DevNocache />
+        {/* <DevHead /> */}
       </head>
       <body>
-        <DevReload />
-        <script src='/scripts/cms.js'></script>
+        <script src={`/scripts/cms.js?${process.env.VERSION || ''}`}></script>
       </body>
     </html>
   )
 }
 
-export function DevNocache() {
+function DevHead() {
   if (process.env.PROD) return null
   return [
     <meta httpEquiv='cache-control' content='max-age=0' />,
@@ -276,20 +275,8 @@ export function DevNocache() {
     <meta httpEquiv='expires' content='0' />,
     <meta httpEquiv='expires' content='Tue, 01 Jan 1980 1:00:00 GMT' />,
     <meta httpEquiv='pragma' content='no-cache' />,
+    rawScript('document.write(`<script src="http://${location.hostname}:35729/livereload.js"></${`script`}>`)'),  // eslint-disable-line
   ].map(m.addKey)
-}
-
-const lrScript = 'document.write(`<script src="http://${location.hostname}:35729/livereload.js"></${`script`}>`)'  // eslint-disable-line
-
-export function DevReload() {
-  if (process.env.PROD) return null
-  return (
-    <script dangerouslySetInnerHTML={{__html: lrScript}} />
-  )
-}
-
-export function html(props) {
-  return `<!doctype html>${renderWithReact(props)}`
 }
 
 export function rssFeed({entry: {title, description}, tree: {posts}}) {
@@ -341,4 +328,8 @@ function publicPostList(posts) {
   return _.sortBy(posts, post => (
     post.date instanceof Date ? post.date : -Infinity
   )).reverse()
+}
+
+function rawScript(code) {
+  return <script {...m.innerHtmlProps(code.trim())} />
 }

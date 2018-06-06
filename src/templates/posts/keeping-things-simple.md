@@ -63,5 +63,4 @@ tempting to add new moving parts. It's tempting to address a special case
 instead of figuring out a wider class of problems and a solution that covers
 them all. You need to stop yourself, take a step back, and remember that taking
 the time to find the _right_ problem to solve will spare you from
-[throwing](https://github.com/Mitranim/datacore/commit/2ce33186c0a45024c632ea8f5a113e6780cfb398)
-solutions away.
+throwing solutions away.

@@ -1,5 +1,5 @@
 ---
-papyre: {fn: html, layout: DocpageMdArticle}
+papyre: {fn: html, layout: SimpleMdArticle}
 title: Nelo Mitranim's Resume
 ---
 

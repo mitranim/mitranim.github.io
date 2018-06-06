@@ -1,7 +1,7 @@
 'use strict'
 
 // Serves files using the same HTML resolution algorithm as GitHub Pages and Netlify.
-// Needs a better name, then be published.
+// Needs a better name, then to be published as a library.
 
 const fs = require('fs')
 const pt = require('path')
@@ -38,7 +38,7 @@ async function createResponse(rootDir, path) {
     throw Error(`Expected a URL pathname, got ${path}`)
   }
 
-  const pathname = url.parse(path).pathname
+  const pathname = decodeURIComponent(url.parse(path).pathname)
     //  one//two//  ->  one/two/
     .replace(/([/]+)/g, '/')
     //  /blah  ->  blah
