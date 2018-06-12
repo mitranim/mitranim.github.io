@@ -1,9 +1,3 @@
----
-papyre: {fn: html, layout: Post}
-title: Keeping Things Simple
-date: 2015-03-10T00:00:00.000Z
----
-
 Lately I've been trying to figure out how to write shorter programs. Or, more
 generally, how to design simple solutions.
 

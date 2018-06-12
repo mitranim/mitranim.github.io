@@ -1,10 +1,3 @@
----
-papyre: {fn: html, layout: Post}
-title: Old Posts
-description: some old stuff from around the net
-date: 2015-01-01T00:00:00.000Z
----
-
 [Better MtG Online](https://medium.com/@mitranim/better-mtg-online-82ac42d79970)
 
 Silly proposal to change Magic the Gathering Online.

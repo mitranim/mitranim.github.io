@@ -1,9 +1,0 @@
-{
-  "env": {
-    "browser": true,
-    "es6": false
-  },
-  "parserOptions": {
-    "sourceType": "module"
-  }
-}

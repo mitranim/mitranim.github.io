@@ -1,18 +1,16 @@
----
-papyre: {fn: html, layout: MdArticle}
-title: works
-description: software I'm involved in
----
-
-## Hobby
+## Hobby {#hobby}
 
 ### [ProstoPoi](http://prostopoi.ru) <span class="fg-faded">(2014 — 2016, Python / Django / Sass / React)</span>
 
 Poi community website. We have our own video lessons, go check us out!
 
-## Open Source
+## Open Source {#open-source}
 
 These tend to be listed in reverse chronological order, from recent to older.
+
+### [Papyre](https://github.com/Mitranim/papyre) <span class="fg-faded">(JavaScript)</span>
+
+Build tool for static websites generated with JavaScript and JSX/React.
 
 ### [Clojure Forge](https://github.com/Mitranim/clojure-forge) <span class="fg-faded">(Clojure)</span>
 
@@ -72,9 +70,9 @@ Library that dramatically speeds up page navigation on websites. See the explana
 
 ### [statil](https://github.com/Mitranim/statil) <span class="fg-faded">(JavaScript)</span>
 
-World's simplest generator of static websites like this one.
+World's simplest generator of static websites.
 
-## Commercial
+## Commercial {#commercial}
 
 ### [Render.js](https://renderjs.io) <span class="fg-faded">(JavaScript / Node)</span>
 

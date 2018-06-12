@@ -1,8 +1,3 @@
----
-papyre: {fn: html, layout: MdArticle}
-title: demos
----
-
 ## Silly Little Demos
 
 <a href="https://mitranim.com/simple-pjax/" target="_blank" class="indicate-blank">simple-pjax</a><span>: JavaScript library that makes almost any website faster, essentially for free.</span>

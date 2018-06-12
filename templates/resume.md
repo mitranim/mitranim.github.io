@@ -1,12 +1,7 @@
----
-papyre: {fn: html, layout: SimpleMdArticle}
-title: Nelo Mitranim's Resume
----
-
 <p class="text-right gaps-letter-v">
   <span class="block text-blue" data-note="Updated: September 06 2017"></span>
   <span class="block noprint">
-    <button style="padding: 0" onclick="window.print()">{{$.faSvg('print')}} Print to PDF</button>
+    <button type="button" style="padding: 0" onclick="window.print()">🖨 Print to PDF</button>
   </span>
 </p>
 
@@ -44,10 +39,12 @@ Prefer functional programming and functional languages.
 ## Databases
 
 Preference:
+
   * Datomic (http://www.datomic.com)
   * reactive databases such as Firebase (https://firebase.google.com)
 
 Decent experience:
+
   * relational databases, SQL
   * document based-databases: CouchDB/PouchDB, MongoDB (bad choices for most projects)
   * GraphQL (e.g. https://scaphold.io)
@@ -55,6 +52,7 @@ Decent experience:
 ## Applications
 
 Solid experience:
+
   * rich web applications (SPA)
   * traditional web applications
   * REST API backends

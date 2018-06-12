@@ -1,10 +1,3 @@
----
-papyre: {fn: html, layout: Post}
-title: "Cheating for Performance: Pjax"
-description: Faster page transitions, for free
-date: 2015-07-25T00:00:00.000Z
----
-
 ## Overview
 
 Optimising website performance is tricky. There's plenty of articles delving deep into technical detail, like [this great guide](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=en) by Google. Naturally, when you make it that hard, most people aren't going to bother.
@@ -19,19 +12,16 @@ What if I told you there's a way to dramatically speed up page transitions just 
 Who benefits from this?
 
 <ul class="unstyled-list fancy-list">
-  <li><span class="fg-blue">{{$.faSvg('check')}}</span> typical server-rendered sites</li>
-  <li><span class="fg-blue">{{$.faSvg('check')}}</span> statically generated sites</li>
-  <li><span class="fg-red">{{$.faSvg('times')}}</span> but not SPA (they already enjoy clientside routing)</li>
+  <li><span class="fg-blue">✓</span> typical server-rendered sites</li>
+  <li><span class="fg-blue">✓</span> statically generated sites</li>
+  <li><span class="fg-red">✕</span> but not SPA (they already enjoy clientside routing)</li>
 </ul>
 
 As you might have guessed, we're going to exploit clientside routing with `history.pushState`. It's usually considered a domain of client-rendered SPA, but what a mistake that is!
 
 When you think about it, the status quo of content delivery on the web is _insane_. We're forcing visitors to make dozens of network connections and execute massive amounts of JavaScript on _each page load_ on the same site.
 
-<h3>
-  {{$.faSvg('thumbs-down', {prefix: 'far'})}}
-  <span>Typical page transition</span>
-</h3>
+<h3>👎 Typical page transition</h3>
 
 <ol class="fancy-list">
   <li>Link clicked</li>
@@ -55,10 +45,7 @@ When you think about it, the status quo of content delivery on the web is _insan
 
 With pushstate routing, we can do better.
 
-<h3>
-  {{$.faSvg('thumbs-up', {prefix: 'far'})}}
-  <span>Page transition with pjax</span>
-</h3>
+<h3>👍 Page transition with pjax</h3>
 
 <ol class="fancy-list">
   <li>Link clicked</li>

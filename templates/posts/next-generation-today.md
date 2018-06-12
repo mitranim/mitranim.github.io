@@ -1,46 +1,3 @@
----
-papyre: {fn: html, layout: Post}
-title: Next Generation Today
-description: EcmaScript 2015/2016 workflow with current web frameworks
-date: 2015-05-18T00:00:00.000Z
-showInList: false
-misc:
-  ngTemplate: |
-    <div layout="gaps-1-v">
-      <!-- Left column: source words -->
-      <div flex="1" class="gaps-1-v">
-        <h3 theme="text-primary" layout="row-between">
-          <span>Source Words</span>
-          <span id="indicator"></span>
-        </h3>
-        <form ng-submit="self.add()" layout="gaps-1-v"
-              sf-tooltip="{{self.error}}" sf-trigger="{{!!self.error}}">
-          <input flex="11" tabindex="1" ng-model="self.word">
-          <button flex="1" theme="primary" tabindex="1">Add</button>
-        </form>
-        <div ng-repeat="word in self.words" layout="row-between gaps-1-v">
-          <span flex="11" layout="cross-center" class="padding-1" style="margin-1-r">{{word}}</span>
-          <button flex="1" ng-click="self.remove(word)">✕</button>
-        </div>
-      </div>
-
-      <!-- Right column: generated results -->
-      <div flex="1" class="gaps-1-v">
-        <h3 theme="text-accent">Generated Words</h3>
-        <form ng-submit="self.generate()" layout>
-          <button flex="1" theme="accent" tabindex="1">Generate</button>
-        </form>
-        <div ng-repeat="word in self.results" layout="row-between">
-          <button flex="1" ng-click="self.pick(word)">←</button>
-          <span flex="11" layout="cross-center" class="padding-1" style="margin-1-l">{{word}}</span>
-        </div>
-        <div ng-if="self.depleted" layout="cross-center">
-          <span theme="text-warn" class="padding-1">(depleted)</span>
-        </div>
-      </div>
-    </div>
----
-
 <p class="bg-red padding-1">
   **Update (late 2015)**. I've come to consider Angular and much of
   the tech covered in this post to be garbage. What's actually
@@ -58,7 +15,7 @@ production, with a tried and tested current generation framework. I'll use
 Angular 1.x as an example. By the end of the guide, your production-ready
 Angular code may look like this:
 
-```typescript
+```ts
 import {Component} from 'ng-decorate';
 
 @Component({
@@ -74,7 +31,7 @@ export class AppTabset {
 This guide is _massive_. I couldn't fit everything I wanted in here. You'll
 probably want to read it in chunks, taking breaks.
 
-## Quicklinks
+## TOC
 
 * [Setup](#setup)
 * [Modules](#modules)
@@ -84,7 +41,7 @@ probably want to read it in chunks, taking breaks.
 * [Demo](#demo)
 * [Production Builds](#production-builds)
 
-## Setup
+## Setup {#setup}
 
 You can start from scratch or grab the finished demo at GitHub:
 [https://github.com/Mitranim/ng-next-gen](https://github.com/Mitranim/ng-next-gen).
@@ -154,7 +111,7 @@ By far the biggest ES6 feature is the new, official, module system. It finally
 puts an end to the dark age of globals, AMD/CommonJS wars, and the Angular1 DI
 monstrosity. This is what the syntax looks like:
 
-```typescript
+```ts
 import _ from 'lodash';                 // default import
 import {Attribute} from 'ng-decorate';  // named import
 export class MyViewModel {/* ... */};   // named export
@@ -234,10 +191,8 @@ tsd install angular -r -s
 
 Create an `src/app/lib.d.ts` with the following:
 
-<!-- src/app/lib.d.ts -->
-
-```typescript
-#collapse src/app/lib.d.ts
+{{collapse "src/app/lib.d.ts"}}
+```ts
 declare module 'ng-decorate' {
   export var Attribute: typeof ngDecorate.Attribute;
   export var Ambient: typeof ngDecorate.Ambient;
@@ -359,6 +314,7 @@ declare module 'foliant' {
 
 declare type StringMap = {[key: string]: string};
 ```
+{{endcollapse}}
 
 ### Build Configuration
 
@@ -370,10 +326,8 @@ npm i --save-dev browser-sync gulp gulp-concat gulp-load-plugins gulp-ng-html2js
 
 Create a `gulpfile.js` with the following:
 
-<!-- gulpfile.js -->
-
+{{collapse "gulpfile.js"}}
 ```js
-#collapse gulpfile.js
 'use strict';
 
 var gulp = require('gulp');
@@ -504,6 +458,7 @@ gulp.task('default', ['build', 'scripts:watch', 'html:watch', 'styles:watch', 's
   return gulp.start('server');
 });
 ```
+{{endcollapse}}
 
 ### HTML
 
@@ -537,7 +492,7 @@ end of the tutorial.
 
 At this point, we're ready to start coding!
 
-## Modules
+## Modules {#modules}
 
 Our first step is to take advantage of ES6 modules. We'll disregard angular
 "modules" (a more accurate name would be "DI containers"), using just one for
@@ -545,7 +500,7 @@ the entire app.
 
 Create `src/app/app.ts`:
 
-```typescript
+```ts
 import 'angular';
 
 // Our one and only angular module.
@@ -554,7 +509,7 @@ export var app = angular.module('app', ['ng']);
 
 Create `src/app/boot.ts`:
 
-```typescript
+```ts
 import {app} from 'app';
 
 // Bootstrap the app.
@@ -574,14 +529,14 @@ bootstrap solves this problem.
 Invoke `gulp` to start up the pipeline and the local server. You should see a
 blank page and no console errors. Now it's time to add some content.
 
-## Components
+## Components {#components}
 
 Next generation frameworks use custom elements as building blocks of your
 application. This is also the best practice in Angular 1.x, which gives you the
 necessary tools in the form of directives. Here's a custom element defined with
 the raw Angular 1.x API:
 
-```typescript
+```ts
 import {app} from 'app';
 
 app.directive('wordGenerator', function() {
@@ -605,7 +560,7 @@ to cheat and import a library designed for this:
 installed it with `jspm`. Create `src/app/words-generator/words-generator.ts`
 with:
 
-```typescript
+```ts
 import {Component} from 'ng-decorate';
 
 @Component({
@@ -643,22 +598,23 @@ version of the [foliant demo](https://mitranim.com/demos/foliant/) because I'm l
 
 Create a file `src/app/word-generator/word-generator.html` with:
 
+{{collapse "src/app/word-generator/word-generator.html"}}
 ```html
-#collapse src/app/word-generator/word-generator.html
-{{$.ngTemplate}}
+{{ngTemplate}}
 ```
+{{endcollapse}}
 
 It won't have any functionality yet. We'll need to grab some data over ajax,
 which brings us to Angular's dependency injection and services.
 
-## Dealing With Angular DI
+## Dealing With Angular DI {#dealing-with-angular-di}
 
 If your code runs before the angular application is bootstrapped, how do you get
 hold of angular services that are only available through dependency injection?
 
 You could try `injector.get`:
 
-```typescript
+```ts
 var $q = angular.injector(['ng']).get('$q');
 // or
 var $q = angular.injector(['app', 'ng']).get('$q');
@@ -676,7 +632,7 @@ take advantage of dependency injection. `ng-decorate` abstracts this away by
 capturing injected services as static or prototype properties of the decorated
 class. Example:
 
-```typescript
+```ts
 import {Ambient, autoinject} from 'ng-decorate';
 
 @Ambient
@@ -704,7 +660,7 @@ Finally, to get hold of contextual dependencies like `$scope` or `$element`,
 you'll use a stock Angular feature: annotating the controller class with an
 `$inject` property.
 
-```typescript
+```ts
 import {Component} from 'ng-decorate';
 
 @Component({
@@ -724,13 +680,13 @@ class ViewModel {
 Now that we know how to get hold of angular services, let's take advantage of
 `$http` and create a model class with ajax capability.
 
-## Services
+## Services {#services}
 
 Create `src/models/words.ts`:
 
 <!-- src/app/models/words.ts -->
 
-```typescript
+```ts
 import {Service, autoinject} from 'ng-decorate';
 
 export const wordsUrl = 'https://incandescent-torch-3438.firebaseio.com/foliant/defaults/words/eng.json';
@@ -760,7 +716,7 @@ Whoah what's going on in here? Let's take this slow.
 
 ### 1. Service decorator
 
-```typescript
+```ts
 import {Service, autoinject} from 'ng-decorate';
 
 @Service({
@@ -773,7 +729,7 @@ export class Words {
 
 This is a shortcut to:
 
-```typescript
+```ts
 import {app} from 'app';
 
 app.factory('Words', ['$http', function($http) {
@@ -811,7 +767,7 @@ export class Words {
 
 ### 2. Even weirder type annotations... this is not my grandfather's JavaScript!
 
-```typescript
+```ts
 [key: string]: string;
 
 /* ... */
@@ -825,7 +781,7 @@ an inline type cast.
 
 ### 3. Ajax
 
-```typescript
+```ts
 static readAll() {
   return this.$http({
     url: url,
@@ -845,7 +801,7 @@ encapsulates ajax, validation and transformation logic.
 Another typical pattern is to have aggregator modules that re-export everything
 from their folder. Create `src/app/models/all.ts`:
 
-```typescript
+```ts
 export * from './words';
 ```
 
@@ -853,13 +809,12 @@ This is handy for maintenance reasons.
 
 Now let's wrap this up by adding real functionality to the element.
 
-## Demo
+## Demo {#demo}
 
 Modify your `src/app/boot.ts`:
 
-```typescript
-#collapse src/app/boot.ts
-
+{{collapse "src/app/boot.ts"}}
+```ts
 import {app} from 'app';
 
 // Pull the application together.
@@ -874,6 +829,7 @@ angular.element(document).ready(() => {
   });
 });
 ```
+{{endcollapse}}
 
 ```diff
 import {app} from 'app';
@@ -886,9 +842,8 @@ import {app} from 'app';
 
 Replace the contents of `src/app/word-generator/word-generator.ts` with this:
 
-```typescript
-#collapse src/app/word-generator/word-generator.ts
-
+{{collapse "src/app/word-generator/word-generator.ts"}}
+```ts
 import Traits from 'foliant';
 import {Component} from 'ng-decorate';
 import {Words} from 'models/all';
@@ -1019,6 +974,7 @@ class VM {
   }
 }
 ```
+{{endcollapse}}
 
 Return to the page. You should see source words to the left and generated
 results to the right. Congratulations! You have written a working Angular 1.x
@@ -1026,7 +982,7 @@ application that takes advantage of ES6 and ES7 features, types, ES6 modules,
 and a truly universal package system. The best part? This is perfectly valid for
 production use.
 
-## Production Builds
+## Production Builds {#production-builds}
 
 Until now, we've been importing JavaScript files over XHR. Now we'll take
 advantage of `jspm`'s bundling feature to create a single self-executing
@@ -1035,10 +991,8 @@ when building for production.
 
 Modify your `src/html/index.html`:
 
-<!-- src/html/index.html -->
-
+{{collapse "src/html/index.html"}}
 ```html
-#collapse src/html/index.html
 <!DOCTYPE html>
 <html>
   <head>
@@ -1063,6 +1017,7 @@ Modify your `src/html/index.html`:
   </body>
 </html>
 ```
+{{endcollapse}}
 
 ```diff
 + <% if (prod()) { %>
@@ -1104,7 +1059,7 @@ setup in development mode.
 
 See the live demo deployed in "prod mode": [demo](https://mitranim.com/ng-next-gen/).
 
-----
+---
 
 That's it! You can now build modern web applications using future technologies,
 with no drawbacks or compromises. Grab the complete demo on GitHub:
@@ -1113,3 +1068,17 @@ and start playing around.
 
 If you have any questions, grab me over on [Gitter](https://gitter.im/Mitranim)
 or [Skype](skype:mitranim.web?chat).
+
+<!--
+<script>
+  window.addEventListener('click', function toggleCollapse(event) {
+    var node = event.target
+    for (;;) {
+      if (!(node instanceof window.Element)) return
+      if (node.classList.contains('collapse')) break
+      node = node.parentNode
+    }
+    node.classList.toggle('active')
+  })
+</script>
+ -->
