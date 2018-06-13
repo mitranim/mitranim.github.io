@@ -1,7 +1,7 @@
 # Usage
 #
 #   "make"      -- build or rebuild manually
-#   "make -j w" -- build, start server, watch and rebuild
+#   "make w -j" -- build, start server, watch and rebuild
 #
 # Notes
 #
@@ -21,9 +21,9 @@
 #
 # TODO
 #
-#   Autoprefix and minify CSS without resorting to NPM
 #   Report when rebuilding in watch mode; old errors may confuse
 
+# This writes absolute paths, space-separated, to stdout
 FSWATCH_LINE = fswatch -l 0.1 -0
 FSWATCH_MUTE = fswatch -l 0.1 -o
 INVOKE = xargs -n1 -I{}
@@ -32,7 +32,7 @@ ABSTRACT = .PHONY
 $(ABSTRACT): all
 all: cmd static html styles images
 
-# Requires "make -j w"
+# Requires "make w -j"
 $(ABSTRACT): w
 w: all cmd-w static-w html-w styles-w images-w server make-w
 
@@ -81,6 +81,7 @@ images: images/*
 		echo convert $$file public/images/$${file#images/};\
 	done) | gm batch -
 
+# Note: fswatch gives us absolute paths
 $(ABSTRACT): images-w
 images-w:
 	@$(FSWATCH_LINE) images | while read -d "" file; do\
@@ -91,6 +92,7 @@ $(ABSTRACT): server
 server:
 	@go run server.go
 
+# Note: fswatch gives us absolute paths
 $(ABSTRACT): make-w
 make-w:
 	@$(FSWATCH_LINE) $(MAKEFILE_LIST) | while read -d "" file; do\

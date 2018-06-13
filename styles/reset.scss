@@ -1,3 +1,5 @@
+// https://github.com/Mitranim/style-base
+
 *, ::before, ::after {
   box-sizing: border-box;
 }
@@ -41,13 +43,20 @@ h1, h2, h3, h4, h5, h6 {
  * :focus
  */
 
-:focus {
-  outline: none;
-}
+// :focus {
+//   outline: none;
+// }
 
-// FF
-::-moz-focus-inner {
-  border: none;
+// // FF
+// ::-moz-focus-inner {
+//   border: none;
+// }
+
+%reset-focus {
+  &:focus {outline: none}
+
+  // FF
+  &::-moz-focus-inner {border: none}
 }
 
 /**
@@ -110,14 +119,15 @@ input[type=file] {
 // In Chrome (version 63 and possibly others), radio inputs shrink, while
 // radio inputs don't.
 input[type=radio] {
-  flex-shrink: 0;
+  -ms-flex-negative: 0;
+        flex-shrink: 0;
 }
 
-// Eliminates some minor layout glitches
-form {
-  display: flex;
-  flex-direction: column;
-}
+// // Eliminates some minor layout glitches
+// form {
+//   display: flex;
+//   flex-direction: column;
+// }
 
 input[type=number] {
   &::-webkit-inner-spin-button,

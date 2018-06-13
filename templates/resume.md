@@ -1,7 +1,9 @@
-<p class="text-right gaps-letter-v">
+<p class="text-right gaps-v-letter">
   <span class="block text-blue" data-note="Updated: September 06 2017"></span>
   <span class="block noprint">
-    <button type="button" style="padding: 0" onclick="window.print()">🖨 Print to PDF</button>
+    <button type="button" style="padding: 0" onclick="window.print()">
+      <span class="fill-faded">{{svg "print"}}</span> Print to PDF
+    </button>
   </span>
 </p>
 
@@ -28,26 +30,20 @@ consulting studio.
 
 ## Languages
 
-Solid experience: JavaScript / Node, Python, Go, Clojure.
+Solid experience: Go, JavaScript / Node, Clojure, Python.
 
-Limited experience: Haskell, Erlang.
+Limited experience: Rust, Haskell, Erlang.
 
-Passing familiarity: C, Swift, Rust, Common Lisp, Scheme.
-
-Prefer functional programming and functional languages.
+Passing familiarity: Swift, Common Lisp, Scheme.
 
 ## Databases
-
-Preference:
-
-  * Datomic (http://www.datomic.com)
-  * reactive databases such as Firebase (https://firebase.google.com)
 
 Decent experience:
 
   * relational databases, SQL
-  * document based-databases: CouchDB/PouchDB, MongoDB (bad choices for most projects)
-  * GraphQL (e.g. https://scaphold.io)
+  * document based-databases: ArangoDB, CouchDB
+  * Datomic (http://www.datomic.com)
+  * Firebase (https://firebase.google.com)
 
 ## Applications
 
@@ -56,7 +52,7 @@ Solid experience:
   * rich web applications (SPA)
   * traditional web applications
   * REST API backends
-  * socket API backends
+  * websocket API backends
 
 ## Projects
 
@@ -94,7 +90,7 @@ Solid experience:
 
 ### Open Source
 
-Recent highlights here. See other stuff on https://mitranim.com/works/ and
+Recent highlights here. See other stuff on https://mitranim.com/works and
 https://github.com/Mitranim.
 
 Posterus: asynchronous primitives for JS with true cancelation and scheduling
@@ -132,10 +128,9 @@ unfinished:
 
 ## Misc
 
-Highly interested in programming language design.
+Favorite pastime: writing and contributing to open source software. See https://github.com/Mitranim.
 
-Favorite pastime: writing and contributing to open source software. See
-https://github.com/Mitranim.
+Highly interested in programming language design.
 
 Location: Moscow, Russia (planning to move out).
 

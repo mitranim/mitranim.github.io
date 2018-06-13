@@ -130,8 +130,8 @@ var (
 	FUNCS = map[string]interface{}{
 		"external":       external,
 		"current":        current,
-		"now":            func() string { return humanDate(time.Now().UTC()) },
-		"humanDate":      humanDate,
+		"now":            func() string { return isoDate(time.Now().UTC()) },
+		"isoDate":        isoDate,
 		"years":          years,
 		"html":           func(val string) template.HTML { return template.HTML(val) },
 		"attr":           func(val string) template.HTMLAttr { return template.HTMLAttr(val) },
@@ -379,7 +379,7 @@ func current(href string, data interface{}) template.HTMLAttr {
 	return ""
 }
 
-func humanDate(date time.Time) string {
+func isoDate(date time.Time) string {
 	// time.Parse uses these magic numbers instead of conventional placeholders
 	return date.Format("2006-01-02")
 }
@@ -485,21 +485,18 @@ func (self *MdRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) 
 }
 
 // TODO: instantiating some lexers is EXTREMELY SLOW due to internal fuckups in
-// Chroma. This takes an order of magnitude more time than the ENTIRE BUILD.
+// Chroma. This takes an order of magnitude more time than the ENTIRE BUILD
+// would have. The worst offender is JS. HTML also auto-detects and includes JS.
 func findLexer(tag string, text string) (out chroma.Lexer) {
-	// The JS lexer uses a horrifying regex that takes 60ms to compile on my
-	// machine, at RUNTIME, every time we run the build.
-	if tag == "js" || tag == "javascript" {
-		out = lexers.Get("typescript")
-	} else if len(tag) > 0 {
+	if len(tag) > 0 {
 		out = lexers.Get(tag)
 	} else {
 		out = lexers.Analyse(text)
 	}
-	if out != nil {
-		return out
+	if out == nil {
+		out = lexers.Fallback
 	}
-	return lexers.Fallback
+	return out
 }
 
 // Must be interpolated raw

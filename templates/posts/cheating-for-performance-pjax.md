@@ -21,7 +21,7 @@ As you might have guessed, we're going to exploit clientside routing with `histo
 
 When you think about it, the status quo of content delivery on the web is _insane_. We're forcing visitors to make dozens of network connections and execute massive amounts of JavaScript on _each page load_ on the same site.
 
-<h3>👎 Typical page transition</h3>
+<p class="font-large">👎 Typical page transition</p>
 
 <ol class="fancy-list">
   <li>Link clicked</li>
@@ -45,7 +45,7 @@ When you think about it, the status quo of content delivery on the web is _insan
 
 With pushstate routing, we can do better.
 
-<h3>👍 Page transition with pjax</h3>
+<p class="font-large">👍 Page transition with pjax</p>
 
 <ol class="fancy-list">
   <li>Link clicked</li>

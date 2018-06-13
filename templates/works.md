@@ -1,95 +1,113 @@
-## Hobby {#hobby}
+# TOC
 
-### [ProstoPoi](http://prostopoi.ru) <span class="fg-faded">(2014 — 2016, Python / Django / Sass / React)</span>
+  * [Open Source](#open-source)
+  * [Commercial](#commercial)
+  * [Other](#other)
 
-Poi community website. We have our own video lessons, go check us out!
+# Open Source {#open-source}
 
-## Open Source {#open-source}
+(Newer-to-older.)
 
-These tend to be listed in reverse chronological order, from recent to older.
+## [io2](https://github.com/ShanzhaiCity/oxygen-economics) <span class="fg-faded font-normal">(Go, JS)</span>
 
-### [Papyre](https://github.com/Mitranim/papyre) <span class="fg-faded">(JavaScript)</span>
+Prototype for a charity/crowdfunding hybrid. Purelab and ShanzhaiCity collaboration.
+
+## [Papyre](https://github.com/Mitranim/papyre) <span class="fg-faded font-normal">(JS)</span>
 
 Build tool for static websites generated with JavaScript and JSX/React.
 
-### [Clojure Forge](https://github.com/Mitranim/clojure-forge) <span class="fg-faded">(Clojure)</span>
+## [Sublime-Clojure](https://github.com/Mitranim/sublime-clojure)
 
-Development tool for Clojure programmers, especially useful for Ring servers. Watches files, reloads code, restarts system, displays system errors on a webpage. More reliable than the widely used tools.
+Clojure syntax highlighting for Sublime Text. Better than the built-in syntax. 100% accurate.
 
-### [Posterus](https://github.com/Mitranim/posterus) <span class="fg-faded">(JavaScript)</span>
+## [Clojure Forge](https://github.com/Mitranim/clojure-forge) <span class="fg-faded font-normal">(Clojure)</span>
 
-Asynchronous primitives (futures): alternative to JS promises with true
-cancelation and scheduling control.
+Development tool for Clojure programmers, especially useful for Ring servers. Watches files, reloads code, restarts system, displays system errors on a webpage. More reliable than other widely used tools.
 
-### [Prax](https://mitranim.com/prax/) <span class="fg-faded">(JavaScript)</span>
+## [Posterus](https://github.com/Mitranim/posterus) <span class="fg-faded font-normal">(JS)</span>
 
-Framework for state and side effects in React applications. Heavily inspired by
-Clojure and ClojureScript libraries. Battle-tested in large apps since 2015.
+Asynchronous primitives (futures): alternative to JS promises with true cancelation and scheduling control.
 
-### [espo](https://github.com/Mitranim/espo) <span class="fg-faded">(JavaScript)</span>
+## [Espo](https://github.com/Mitranim/espo) <span class="fg-faded font-normal">(JS)</span>
 
-Utils for stateful and reactive programming in JavaScript. Provides
-Clojure-inspired reactive primitives with Rust-inspired automatic management of
-resource lifetimes.
+Utils for stateful and reactive programming in JavaScript. Provides Clojure-inspired reactive primitives with Rust-inspired automatic management of resource lifetimes.
 
-### [emerge](https://github.com/Mitranim/emerge) <span class="fg-faded">(JavaScript)</span>
+## [Emerge](https://github.com/Mitranim/emerge) <span class="fg-faded font-normal">(JS)</span>
 
-Utils for using plain JS objects as immutable data structures with extremely
-memory-efficient updates. Heavily inspired by `clojure.core`. Much lighter and
-simpler than the popular alternatives.
+Utils for using plain JS objects as immutable data structures with extremely memory-efficient updates. Heavily inspired by `clojure.core`. Much lighter and simpler than the popular alternatives.
 
-### [fpx](https://github.com/Mitranim/fpx) <span class="fg-faded">(JavaScript)</span>
+## [fpx](https://github.com/Mitranim/fpx) <span class="fg-faded font-normal">(JS)</span>
 
 Functional programming extensions for JavaScript.
 
-### [Webbs](https://github.com/Mitranim/webbs) <span class="fg-faded">(JavaScript)</span>
+## [Prax](https://mitranim.com/prax/) <span class="fg-faded font-normal">(JS)</span>
+
+Framework for state and side effects in React applications. Heavily inspired by Clojure and ClojureScript libraries. Battle-tested in large apps since 2015.
+
+## [Webbs](https://github.com/Mitranim/webbs) <span class="fg-faded font-normal">(JS)</span>
 
 Adapter for native DOM `WebSocket` with auto-reconnect and offline buffering.
 
-### [Alder](https://github.com/Mitranim/alder) <span class="fg-faded">(JavaScript)</span>
+## [Alder](https://github.com/Mitranim/alder) <span class="fg-faded font-normal">(JS)</span>
 
-[unmaintained] Experimental rendering library inspired by React and Reagent. Represents
-view components with plain functions and DOM with plain JavaScript data
-structures. On hold, undocumented.
+[unmaintained] Experimental rendering library inspired by React and Reagent. Represents view components with plain functions and DOM with plain JavaScript data structures. Undocumented.
 
-### [jisp](https://github.com/Mitranim/jisp) <span class="fg-faded">(JavaScript / jisp)</span>
+## [Atril](https://mitranim.com/atril/) <span class="fg-faded font-normal">(TypeScript)</span>
 
-[unmaintained] A "programmable language". Basically a Lisp-style language that compiles to
-JavaScript. Currently on hold; should revisit it someday.
+[unmaintained] Experimental rendering library inspired by React and Angular. Documented with flashy demos, but unused.
 
-### [stylific](https://mitranim.com/stylific/) <span class="fg-faded">(Sass / JavaScript)</span>
+## [jisp](https://github.com/Mitranim/jisp) <span class="fg-faded font-normal">(JS, jisp)</span>
 
-[unmaintained] CSS (Sass) library/framework. Similar to
-[Bootstrap](http://getbootstrap.com), built on different principles. Accompanied
-by [stylific-lite](https://mitranim.com/stylific-lite/).
+[unmaintained] A Lisp-style language that compiles to JavaScript.
 
-### [simple-pjax](https://github.com/Mitranim/simple-pjax) <span class="fg-faded">(JavaScript)</span>
+## [stylific](https://mitranim.com/stylific/) <span class="fg-faded font-normal">(Sass, JS)</span>
 
-Library that dramatically speeds up page navigation on websites. See the explanatory
-[blog post](/thoughts/cheating-for-performance-pjax/).
+[unmaintained] CSS (Sass) library/framework. Similar to [Bootstrap](http://getbootstrap.com), built on different principles. Accompanied by [stylific-lite](https://mitranim.com/stylific-lite/).
 
-### [statil](https://github.com/Mitranim/statil) <span class="fg-faded">(JavaScript)</span>
+## [simple-pjax](https://github.com/Mitranim/simple-pjax) <span class="fg-faded font-normal">(JS)</span>
 
-World's simplest generator of static websites.
+Drop-in JS tool that dramatically speeds up page transitions on server-rendered websites. See the explanatory [blog post](/thoughts/cheating-for-performance-pjax/).
 
-## Commercial {#commercial}
+## [statil](https://github.com/Mitranim/statil) <span class="fg-faded font-normal">(JS)</span>
 
-### [Render.js](https://renderjs.io) <span class="fg-faded">(JavaScript / Node)</span>
+Simple generator of static websites.
+
+# Commercial {#commercial}
+
+## ShanzhaiCity <span class="fg-faded font-normal">(2017—2018, Go, JS, Clojure).</span>
+
+Various webapps and websites for [ShanzhaiCity](https://shanzhaicity.com), a US-Chinese startup aiming at making charity effective.
+
+## [Render.js](https://renderjs.io) <span class="fg-faded font-normal">(JS, Node)</span>
 
   * Service for prerendering single-page JavaScript applications into HTML
   * Order of magnitude faster than alternatives
   * Period: 2016—2017, part of team at Purelab.io
 
-### [ToBox](http://tobox.purelab.io) <span class="fg-faded">(2015—2016, JavaScript / React)</span>
+## [ToBox](http://tobox.purelab.io) <span class="fg-faded font-normal">(2015—2016, JS, React)</span>
 
 Stylish, visual platform for creating online shops. (Part of web frontend team.)
 
-### [uchebnik.mos.ru](http://uchebnik.mos.ru) <span class="fg-faded">(2014—2015, JavaScript)</span>
+<!--
+## [uchebnik.mos.ru](http://uchebnik.mos.ru) <span class="fg-faded font-normal">(2014—2015, JS)</span>
 
 Electronic education system for Russian schools ([closed
 beta](http://uchebnik.mos.ru)). SPA frontend, part of team.
 
-### Call centre control system <span class="fg-faded">(2014, JavaScript / Node / React)</span>
+## Call centre control system <span class="fg-faded font-normal">(2014, JS, Node, React)</span>
 
 Call centre monitoring and control system: realtime analysis of call centre
-load, forecast, call management. Node.js backend / React frontend.
+load, forecast, call management. Node.js backend, React frontend.
+-->
+
+# Other {#other}
+
+<!--
+## [Bolala](http://bolala.ru) <span class="fg-faded font-normal">(2017—2018, JS, React)</span>
+
+(In development.)
+-->
+
+## [ProstoPoi](http://prostopoi.ru) <span class="fg-faded font-normal">(2014—2016, Python, Django, React)</span>
+
+Poi community website. We have our own video lessons, go check us out!
