@@ -84,7 +84,10 @@ $font-size-h3: 1.2rem;
 html {
   font-family: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Segoe UI', Verdana, sans-serif;
   // font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Segoe UI', Verdana, sans-serif;
+
   font-size: 18px;
+  @media print {font-size: 14px}
+
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -235,14 +238,14 @@ code, pre {
  * Layout
  */
 
-.row-start-stretch  {@include flex-layout(row, start, stretch)}
-.row-end-center     {@include flex-layout(row, end, center)}
-.row-between-center {@include flex-layout(row, between, center)}
-.col-start-stretch  {@include flex-layout(col, start, stretch)}
+.row-start-stretch  {@include flex-layout(row, start, stretch);}
+.row-end-center     {@include flex-layout(row, end, center);}
+.row-between-center {@include flex-layout(row, between, center);}
+.col-start-stretch  {@include flex-layout(col, start, stretch);}
 
-.flex-1             {@include flex(1)}
+.flex-1             {@include flex(1);}
 
-.flex-noshrink      {@include flex-shrink(none)}
+.flex-noshrink      {@include flex-shrink(none);}
 
 .stretch-to-viewport {
   min-height: 100vh;
@@ -272,25 +275,25 @@ code, pre {
 
 .margin-r-1  {margin-right:  1rem}
 
-.margin-v-1  {@include margin-v(1rem)}
-.margin-v-2  {@include margin-v(2rem)}
+.margin-v-1  {@include margin-v(1rem);}
+.margin-v-2  {@include margin-v(2rem);}
 
 .padding-1   {padding: 1rem}
-.padding-h-1 {@include padding-h(1rem)}
+.padding-h-1 {@include padding-h(1rem);}
 .padding-t-1 {padding-top: 1rem}
 .padding-b-2 {padding-bottom: 2rem}
 
-.gaps-v-1      {@include gaps-v(1rem)}
-.gaps-v-2      {@include gaps-v(2rem)}
-.gaps-v-4      {@include gaps-v(4rem)}
+.gaps-v-1      {@include gaps-v(1rem);}
+.gaps-v-2      {@include gaps-v(2rem);}
+.gaps-v-4      {@include gaps-v(4rem);}
 
-.gaps-h-0x25   {@include gaps-h(0.25rem)}
-.gaps-h-1      {@include gaps-h(1rem)}
-.gaps-h-2      {@include gaps-h(2rem)}
-.gaps-h-4      {@include gaps-h(4rem)}
+.gaps-h-0x25   {@include gaps-h(0.25rem);}
+.gaps-h-1      {@include gaps-h(1rem);}
+.gaps-h-2      {@include gaps-h(2rem);}
+.gaps-h-4      {@include gaps-h(4rem);}
 
-.gaps-v-letter {@include gaps-v(1ex)}
-.gaps-h-letter {@include gaps-v(calc(1em / 4))}
+.gaps-v-letter {@include gaps-v(1ex);}
+.gaps-h-letter {@include gaps-v(calc(1em / 4));}
 
 .center-by-margins {
   margin-left: auto;
@@ -342,51 +345,24 @@ code, pre {
 }
 
 /**
- * collapse
+ * details/summary
  */
 
-.collapse--head {
-  cursor: pointer;
-  @extend .padding-1;
-
-  &::after {
-    content: '▷';
-
-    display: inline-block;
-    text-align: center;
-
-    width: 1.5em;
-    height: 1.5em;
-
-    padding: 0;
-    transform: translateY(0.1em);
-
-    // Cosmetic.
-    opacity: 0.5;
-    @include transition;
+details.details {
+  summary {
+    @extend .cursor-pointer;
+    @extend .padding-1;
+    @extend .bg-smoke;
   }
-}
-
-.collapse--body {
-  display: none;
-  > :first-child {margin-top: 0}
-  > :last-child {margin-bottom: 0}
-}
-
-.collapse.active > .collapse--head {
-  &::after {
-    content: '▶︎';
-    transform: translateX(-0.2em) rotate(90deg);
-  }
-}
-
-.collapse.active > .collapse--body {
-  display: block;
 }
 
 /**
  * Misc
  */
+
+[disabled] {
+  @extend .cursor-not-allowed;
+}
 
 .navlink {
   @extend .font-large;
@@ -403,6 +379,8 @@ code, pre {
   }
 }
 
+// Motivation: pseudoelements are ignored when copy-pasting or printing.
+// This should be used for cosmetic text.
 [data-note]::before {
   content: attr(data-note);
 }
@@ -414,8 +392,9 @@ code, pre {
 .svg-icon {
   width: 1em;
   height: 1em;
-  // vertical-align: text-top;
+  @extend .flex-noshrink;
   vertical-align: -0.1em;
+  // vertical-align: text-top;
   // vertical-align: middle;
 }
 
@@ -427,4 +406,9 @@ code, pre {
 
 .unstyled-list {
   list-style-type: none;
+}
+
+// Workaround for a Blackfriday bug (?)
+li p {
+  display: inline;
 }

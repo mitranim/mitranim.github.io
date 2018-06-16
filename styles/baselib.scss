@@ -42,27 +42,27 @@
 %display-flex {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+         display: flex;
 }
 
 %display-inline-flex {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
-  display: inline-flex;
+         display: inline-flex;
 }
 
 %flex-direction-row {
   -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
+   -webkit-box-direction: normal;
+         -ms-flex-direction: row;
+             flex-direction: row;
 }
 
 %flex-direction-col {
-  -webkit-box-orient: vertical;
+   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+     -ms-flex-direction: column;
+         flex-direction: column;
 }
 
 @mixin flex-direction($value) {
@@ -74,31 +74,31 @@
 }
 
 %flex-justify-start {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
+      -webkit-box-pack: start;
+         -ms-flex-pack: start;
   justify-content: flex-start;
 }
 
 %flex-justify-center {
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+     -ms-flex-pack: center;
+   justify-content: center;
 }
 
 %flex-justify-end {
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
+      -webkit-box-pack: end;
+         -ms-flex-pack: end;
   justify-content: flex-end;
 }
 
 %flex-justify-around {
-  -ms-flex-pack: distribute;
+      -ms-flex-pack: distribute;
   justify-content: space-around;
 }
 
 %flex-justify-between {
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
+       -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
@@ -115,26 +115,26 @@
 
 %flex-align-start {
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+     -ms-flex-align: start;
+   align-items: flex-start;
 }
 
 %flex-align-center {
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+     -ms-flex-align: center;
+        align-items: center;
 }
 
 %flex-align-end {
   -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
+     -ms-flex-align: end;
+   align-items: flex-end;
 }
 
 %flex-align-stretch {
   -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+     -ms-flex-align: stretch;
+        align-items: stretch;
 }
 
 @mixin flex-align($value) {
@@ -149,9 +149,9 @@
 
 @mixin flex-layout($dir: none, $justify: none, $align: none) {
   @extend %display-flex;
-  @if $dir     != none {@include flex-direction($dir)}
-  @if $justify != none {@include flex-justify($justify)}
-  @if $align   != none {@include flex-align($align)}
+  @if $dir     != none {@include flex-direction($dir);}
+  @if $justify != none {@include flex-justify($justify);}
+  @if $align   != none {@include flex-align($align);}
 }
 
 @mixin flex-wrap($value: wrap) {
@@ -192,10 +192,10 @@
 }
 
 @mixin flex-self($value) {
-  @if $value == start {@extend %start;}
-  @else if $value == center {@extend %center;}
-  @else if $value == end {@extend %end;}
-  @else if $value == stretch {@extend %stretch;}
+  @if $value == start {@extend %flex-self-start;}
+  @else if $value == center {@extend %flex-self-center;}
+  @else if $value == end {@extend %flex-self-end;}
+  @else if $value == stretch {@extend %flex-self-stretch;}
   @else {
     @debug 'Unknown flex-self (align-self) property: #{$value}';
   }

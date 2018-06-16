@@ -25,6 +25,7 @@ most other links to be absolute. Exercise care.
 <body class="col-start-stretch" style="min-height: 100vh">
 {{- end -}}
 
+
 {{- define "html-bottom" -}}
 </body>
 </html>
@@ -67,9 +68,10 @@ most other links to be absolute. Exercise care.
     <a href="/#contacts" class="decorate-link">touch me</a>
   </span>
   <span class="flex-1 text-right">
-    <button type="button" class="fill-faded padding-1" onclick="window.scrollTo(0, 0)">
+    <!-- This only works without a base href -->
+    <a href="#" class="fill-faded padding-1" onclick="event.preventDefault(); window.scrollTo(0, 0)">
       {{svg "arrow-up"}}
-    </button>
+    </a>
   </span>
 </footer>
 {{- end -}}

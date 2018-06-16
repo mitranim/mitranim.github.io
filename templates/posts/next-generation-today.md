@@ -145,7 +145,13 @@ files, so it will never be invoked.
 Open `system.config.js`, find `"paths"`, and change the import path for
 application files:
 
-`"*": "*.js"` → `"*": "app/*.js"`
+```js
+// from:
+"*": "*.js"
+
+// to:
+"*": "app/*.js"
+```
 
 Install our runtime dependencies:
 
@@ -191,8 +197,7 @@ tsd install angular -r -s
 
 Create an `src/app/lib.d.ts` with the following:
 
-{{collapse "src/app/lib.d.ts"}}
-```ts
+```details"src/app/lib.d.ts"ts
 declare module 'ng-decorate' {
   export var Attribute: typeof ngDecorate.Attribute;
   export var Ambient: typeof ngDecorate.Ambient;
@@ -314,7 +319,6 @@ declare module 'foliant' {
 
 declare type StringMap = {[key: string]: string};
 ```
-{{endcollapse}}
 
 ### Build Configuration
 
@@ -326,8 +330,7 @@ npm i --save-dev browser-sync gulp gulp-concat gulp-load-plugins gulp-ng-html2js
 
 Create a `gulpfile.js` with the following:
 
-{{collapse "gulpfile.js"}}
-```js
+```details"gulpfile.js"js
 'use strict';
 
 var gulp = require('gulp');
@@ -458,7 +461,6 @@ gulp.task('default', ['build', 'scripts:watch', 'html:watch', 'styles:watch', 's
   return gulp.start('server');
 });
 ```
-{{endcollapse}}
 
 ### HTML
 
@@ -598,11 +600,9 @@ version of the [foliant demo](https://mitranim.com/demos/foliant/) because I'm l
 
 Create a file `src/app/word-generator/word-generator.html` with:
 
-{{collapse "src/app/word-generator/word-generator.html"}}
-```html
+```details"src/app/word-generator/word-generator.html"html
 {{ngTemplate}}
 ```
-{{endcollapse}}
 
 It won't have any functionality yet. We'll need to grab some data over ajax,
 which brings us to Angular's dependency injection and services.
@@ -813,8 +813,7 @@ Now let's wrap this up by adding real functionality to the element.
 
 Modify your `src/app/boot.ts`:
 
-{{collapse "src/app/boot.ts"}}
-```ts
+```details"src/app/boot.ts"ts
 import {app} from 'app';
 
 // Pull the application together.
@@ -829,7 +828,6 @@ angular.element(document).ready(() => {
   });
 });
 ```
-{{endcollapse}}
 
 ```diff
 import {app} from 'app';
@@ -842,8 +840,7 @@ import {app} from 'app';
 
 Replace the contents of `src/app/word-generator/word-generator.ts` with this:
 
-{{collapse "src/app/word-generator/word-generator.ts"}}
-```ts
+```details"src/app/word-generator/word-generator.ts"ts
 import Traits from 'foliant';
 import {Component} from 'ng-decorate';
 import {Words} from 'models/all';
@@ -974,7 +971,6 @@ class VM {
   }
 }
 ```
-{{endcollapse}}
 
 Return to the page. You should see source words to the left and generated
 results to the right. Congratulations! You have written a working Angular 1.x
@@ -991,8 +987,7 @@ when building for production.
 
 Modify your `src/html/index.html`:
 
-{{collapse "src/html/index.html"}}
-```html
+```details"src/html/index.html"html
 <!DOCTYPE html>
 <html>
   <head>
@@ -1017,7 +1012,6 @@ Modify your `src/html/index.html`:
   </body>
 </html>
 ```
-{{endcollapse}}
 
 ```diff
 + <% if (prod()) { %>

@@ -1,5 +1,5 @@
 <p class="text-right gaps-v-letter">
-  <span class="block text-blue" data-note="Updated: September 06 2017"></span>
+  <span class="block fg-blue" data-note="Updated: 2018-06-15"></span>
   <span class="block noprint">
     <button type="button" style="padding: 0" onclick="window.print()">
       <span class="fill-faded">{{svg "print"}}</span> Print to PDF
@@ -19,7 +19,7 @@ Skype: mitranim.web
 <br />
 Moscow, Russia
 
-## About
+# About
 
 Autodidact. Senior software developer and architect. Main expertise: web applications, full stack.
 
@@ -28,7 +28,7 @@ Open source enthusiast.
 Part of team at Purelab.io (https://purelab.io), a software development and
 consulting studio.
 
-## Languages
+# Languages
 
 Solid experience: Go, JavaScript / Node, Clojure, Python.
 
@@ -36,7 +36,7 @@ Limited experience: Rust, Haskell, Erlang.
 
 Passing familiarity: Swift, Common Lisp, Scheme.
 
-## Databases
+# Databases
 
 Decent experience:
 
@@ -45,7 +45,7 @@ Decent experience:
   * Datomic (http://www.datomic.com)
   * Firebase (https://firebase.google.com)
 
-## Applications
+# Applications
 
 Solid experience:
 
@@ -54,57 +54,55 @@ Solid experience:
   * REST API backends
   * websocket API backends
 
-## Projects
+# Projects
 
-### Commercial
+## Commercial
 
-#### Render.js (https://renderjs.io) <span class="fg-gray">(JavaScript / Node)</span>
+### ShanzhaiCity <span class="fg-faded font-normal">(2017—2018, Go, JS, Clojure).</span>
+
+Various webapps and websites for [ShanzhaiCity](https://shanzhaicity.com), a US-Chinese startup aiming at making charity effective.
+
+### [Render.js](https://renderjs.io) <span class="fg-faded font-normal">(JS, Node)</span>
 
   * Service for prerendering single-page JavaScript applications into HTML
   * Order of magnitude faster than alternatives
   * Period: 2016—2017, part of team at Purelab.io
 
-#### ToBox.com (http://tobox.purelab.io) <span class="fg-gray">(JavaScript / React)</span>
+### [ToBox](http://tobox.purelab.io) <span class="fg-faded font-normal">(2015—2016, JS, React)</span>
 
-  * Stylish, visual platform for creating online shops
-  * Period: 2015—2016, ToBox, senior web developer
+Stylish, visual platform for creating online shops. (Part of web frontend team.)
 
-#### uchebnik.mos.ru (http://uchebnik.mos.ru) <span class="fg-gray">(JavaScript)</span>
+## Other {#other}
 
-  * Electronic education system for Russian schools (closed beta)
-  * SPA frontend
-  * Period: 2014—2015, Paragon Software, web developer
+<!--
+## [Bolala](http://bolala.ru) <span class="fg-faded font-normal">(2017—2018, JS, React)</span>
 
-#### Call centre control system <span class="fg-gray">(2014, JavaScript / Node / React)</span>
+(In development.)
+-->
 
-  * Realtime analysis and prediction of call centre workload, call management
-  * Node.js backend, React frontend
-  * Period: 2014, freelance
+### [ProstoPoi](http://prostopoi.ru) <span class="fg-faded font-normal">(2014—2016, Python, Django, React)</span>
 
-### Hobby
+Poi community website. We have our own video lessons, go check us out!
 
-#### ProstoPoi (http://prostopoi.ru) <span class="fg-gray">(Python / Django / React)</span>
-
-  * Poi community website. We have our own video lessons, go check us out!
-  * Period: 2014—2016, hobby project
-
-### Open Source
+## Open Source
 
 Recent highlights here. See other stuff on https://mitranim.com/works and
 https://github.com/Mitranim.
 
+io2: prototype for a charity/crowdfunding hybrid. Purelab and ShanzhaiCity collaboration, work in progress. (https://github.com/ShanzhaiCity/oxygen-economics)
+
 Posterus: asynchronous primitives for JS with true cancelation and scheduling
 control (https://github.com/Mitranim/posterus).
 
-Prax: reactive architecture for GUI applications (https://github.com/Mitranim/prax).
+Prax: reactive architecture for GUI applications (https://mitranim.com/prax/).
 
-Espo: JavaScript extensions for stateful and reactive programming (https://github.com/Mitranim/espo).
+Espo: JavaScript extensions for stateful and reactive programming (https://mitranim.com/espo/).
 
 Emerge: use plain JS types as functional data structures (https://github.com/Mitranim/emerge).
 
 fpx: functional programming extentions for JavaScript (https://mitranim.com/fpx/).
 
-## Job Background
+# Job Background
 
 2016—present: Purelab.io — part of team.
 
@@ -118,7 +116,7 @@ fpx: functional programming extentions for JavaScript (https://mitranim.com/fpx/
 
 Earlier experience: mostly technical support.
 
-## Education
+# Education
 
 Attempts at a higher education didn't click with me. Ended up with two
 unfinished:
@@ -126,7 +124,7 @@ unfinished:
   * 2007—2008 MSU (Moscow State University): bioengineering and bioinformatics.
   * 2002—2004 MATI (Moscow State Aviation Technological University): physics.
 
-## Misc
+# Misc
 
 Favorite pastime: writing and contributing to open source software. See https://github.com/Mitranim.
 

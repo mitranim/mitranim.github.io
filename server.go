@@ -18,7 +18,10 @@ const (
 )
 
 func main() {
-	fmt.Printf("Starting server on %v\n", magenta(fmt.Sprintf("http://localhost:%v", PORT)))
+	fmt.Fprintf(
+		os.Stderr,
+		"Starting server on %v\n",
+		magenta(fmt.Sprintf("http://localhost:%v", PORT)))
 	http.ListenAndServe(fmt.Sprintf(":%v", PORT), http.HandlerFunc(handle))
 }
 

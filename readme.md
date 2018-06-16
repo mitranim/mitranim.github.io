@@ -1,1 +1,1 @@
-My personal website, hosted via Github Pages.
+Personal website, hosted via Github Pages.

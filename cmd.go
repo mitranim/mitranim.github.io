@@ -7,9 +7,11 @@ import (
 	"html/template"
 	"io"
 	"io/ioutil"
+	l "log"
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 
@@ -28,6 +30,8 @@ const (
 )
 
 var (
+	log = l.New(os.Stderr, "", 0)
+
 	TEMPS = template.New("")
 
 	SITE = []interface{}{
@@ -142,8 +146,6 @@ var (
 		"svg":            svg,
 		"withHash":       withHash,
 		"ngTemplate":     func() string { return NG_TEMPLATE },
-		"collapse":       collapse,
-		"endcollapse":    endcollapse,
 	}
 
 	WITH_HASHES = map[string]string{}
@@ -197,11 +199,11 @@ func main() {
 	t0 := time.Now()
 	err := build()
 	if err != nil {
-		fmt.Printf("%+v\n", err)
+		log.Printf("%+v\n", err)
 		os.Exit(1)
 	}
 	t1 := time.Now()
-	fmt.Printf("Built in %v\n", t1.Sub(t0))
+	log.Printf("Built in %v\n", t1.Sub(t0))
 }
 
 func build() error {
@@ -305,7 +307,10 @@ func findTemplate(name string) (*template.Template, error) {
 func render(temp *template.Template, data interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	err := temp.Execute(&buf, data)
-	return buf.Bytes(), err
+	if err != nil {
+		return nil, stack(err)
+	}
+	return buf.Bytes(), nil
 }
 
 func renderByName(name string, data interface{}) (template.HTML, error) {
@@ -313,10 +318,12 @@ func renderByName(name string, data interface{}) (template.HTML, error) {
 	if err != nil {
 		return "", err
 	}
+
 	bytes, err := render(temp, data)
 	if err != nil {
 		return "", err
 	}
+
 	return template.HTML(bytes), nil
 }
 
@@ -339,7 +346,7 @@ func renderTo(temp *template.Template, path string, data interface{}) error {
 		return err
 	}
 
-	// fmt.Printf("Wrote %v\n", path)
+	// log.Printf("Wrote %v\n", path)
 	return nil
 }
 
@@ -356,7 +363,7 @@ func writeTo(path string, bytes []byte) error {
 		return stack(err)
 	}
 
-	// fmt.Printf("Wrote %v\n", path)
+	// log.Printf("Wrote %v\n", path)
 	return nil
 }
 
@@ -372,8 +379,7 @@ func current(href string, data interface{}) template.HTMLAttr {
 	case Post:
 		path = data.Path
 	}
-	isCurrent := path != "" && strings.HasPrefix(href, path)
-	if isCurrent {
+	if href == path {
 		return "aria-current"
 	}
 	return ""
@@ -444,49 +450,79 @@ func withHash(assetPath string) (string, error) {
 	return out, nil
 }
 
-func collapse(title string) template.HTML {
-	return ``
-	// 	return template.HTML(`
-	// <div class="collapse">
-	//   <div class="collapse--head bg-smoke">` + title + `</div>
-	//   <div class="collapse--body">
-	// `)
-}
-
-func endcollapse() template.HTML {
-	return ``
-	// 	return template.HTML(`
-	//   </div>
-	// </div>
-	// `)
-}
+var (
+	detailTagReg  = regexp.MustCompile(`details"([^"\s]*)"(\S*)?`)
+	DETAILS_START = []byte(`<details class="details fancy-typography">`)
+	DETAILS_END   = []byte(`</details>`)
+	SUMMARY_START = []byte(`<summary>`)
+	SUMMARY_END   = []byte(`</summary>`)
+)
 
 type MdRenderer struct{ bf.HTMLRenderer }
 
 func (self *MdRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	switch node.Type {
+	default:
+		return self.HTMLRenderer.RenderNode(out, node, entering)
+
 	case bf.CodeBlock:
 		tag := string(node.CodeBlockData.Info)
+
+		/*
+			Special magic for code blocks like these:
+
+			```details"title"lang
+			(some text)
+			```
+
+			This gets wrapped in a <details> element, with the string in the
+			middle acting as its summary. The lang tag is optiona; if present,
+			the block is processed as code, otherwise as regular text.
+		*/
+		if detailTagReg.MatchString(tag) {
+			match := detailTagReg.FindStringSubmatch(tag)
+			title := match[1]
+			lang := match[2]
+
+			out.Write(DETAILS_START)
+			out.Write(SUMMARY_START)
+			out.Write([]byte(title))
+			out.Write(SUMMARY_END)
+
+			if lang != "" {
+				node.CodeBlockData.Info = []byte(lang)
+				self.RenderNode(out, node, entering)
+			} else {
+				log.Println("Processing as regular markdown")
+				// Not actually code, just a details block
+				out.Write(bf.Run(node.Literal, MD_OPTS...))
+			}
+
+			out.Write(DETAILS_END)
+			return bf.SkipChildren
+		}
+
 		text := string(node.Literal)
 		lexer := findLexer(tag, text)
 		iterator, err := lexer.Tokenise(nil, string(text))
 		if err != nil {
+			log.Printf("Tokenizer error: %v", err)
 			return self.HTMLRenderer.RenderNode(out, node, entering)
 		}
+
 		err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
 		if err != nil {
+			log.Printf("Formatter error: %v", err)
 			return self.HTMLRenderer.RenderNode(out, node, entering)
 		}
-		return bf.SkipChildren
 
-	default:
-		return self.HTMLRenderer.RenderNode(out, node, entering)
+		return bf.SkipChildren
 	}
 }
 
-// TODO: instantiating some lexers is EXTREMELY SLOW due to internal fuckups in
-// Chroma. This takes an order of magnitude more time than the ENTIRE BUILD
-// would have. The worst offender is JS. HTML also auto-detects and includes JS.
+// TODO: instantiating some lexers is EXTREMELY SLOW (tens of milliseconds).
+// This takes an order of magnitude more CPU time than the the rest of the
+// build. The worst offender is JS. HTML also auto-detects and includes JS.
 func findLexer(tag string, text string) (out chroma.Lexer) {
 	if len(tag) > 0 {
 		out = lexers.Get(tag)

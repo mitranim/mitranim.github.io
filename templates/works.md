@@ -10,7 +10,7 @@
 
 ## [io2](https://github.com/ShanzhaiCity/oxygen-economics) <span class="fg-faded font-normal">(Go, JS)</span>
 
-Prototype for a charity/crowdfunding hybrid. Purelab and ShanzhaiCity collaboration.
+Prototype for a charity/crowdfunding hybrid. Purelab and ShanzhaiCity collaboration, work in progress.
 
 ## [Papyre](https://github.com/Mitranim/papyre) <span class="fg-faded font-normal">(JS)</span>
 
@@ -87,18 +87,6 @@ Various webapps and websites for [ShanzhaiCity](https://shanzhaicity.com), a US-
 ## [ToBox](http://tobox.purelab.io) <span class="fg-faded font-normal">(2015—2016, JS, React)</span>
 
 Stylish, visual platform for creating online shops. (Part of web frontend team.)
-
-<!--
-## [uchebnik.mos.ru](http://uchebnik.mos.ru) <span class="fg-faded font-normal">(2014—2015, JS)</span>
-
-Electronic education system for Russian schools ([closed
-beta](http://uchebnik.mos.ru)). SPA frontend, part of team.
-
-## Call centre control system <span class="fg-faded font-normal">(2014, JS, Node, React)</span>
-
-Call centre monitoring and control system: realtime analysis of call centre
-load, forecast, call management. Node.js backend, React frontend.
--->
 
 # Other {#other}
 

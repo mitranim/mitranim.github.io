@@ -172,8 +172,11 @@ a[href] {
  * Lists
  */
 
-ul, ol {
+ul {
   list-style-type: disc;
+}
+
+ul, ol {
   list-style-position: inside;
 }
 

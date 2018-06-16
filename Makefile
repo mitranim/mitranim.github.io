@@ -10,18 +10,24 @@
 #   "fswatch -l N" means latency = N (default 1 second, too slow)
 #   "fswatch -o" means empty output
 #   "xargs -n1 -I{}" means invoke without arguments
-#   "make w" requires parallelism and MUST be run with "-j"
+#   "make w" requires concurrency and MUST be run with "-j"
 #
 # Dependencies
 #
 #   https://golang.org (then "go get -d" in this directory)
 #   https://github.com/sass/sassc
+#   https://github.com/tdewolff/minify/cmd/minify
 #   http://www.graphicsmagick.org
 #   https://github.com/emcrisostomo/fswatch
+#
+# Optional dependencies
+#
+#   https://github.com/Mitranim/gorun
 #
 # TODO
 #
 #   Report when rebuilding in watch mode; old errors may confuse
+#   Minify HTML to avoid whitespace gotchas?
 
 # This writes absolute paths, space-separated, to stdout
 FSWATCH_LINE = fswatch -l 0.1 -0
@@ -67,7 +73,8 @@ styles: public/styles/main.css
 
 public/styles/main.css: styles/*.scss
 	@mkdir -p public/styles
-	@sassc styles/main.scss $@
+	@sassc styles/main.scss | minify --type=css > $@
+	@echo "[styles] Wrote $@"
 
 $(ABSTRACT): styles-w
 styles-w:
@@ -90,7 +97,11 @@ images-w:
 
 $(ABSTRACT): server
 server:
-	@go run server.go
+	@if command -v gorun > /dev/null; then\
+		gorun -w server.go;\
+	else\
+		go run server.go;\
+	fi
 
 # Note: fswatch gives us absolute paths
 $(ABSTRACT): make-w
@@ -111,7 +122,7 @@ deploy: clean all
 		rm -rf .git &&\
 		git init &&\
 		git remote add origin https://github.com/Mitranim/mitranim.github.io.git &&\
-		git add -A .&&\
-		git commit -a -m gh&&\
+		git add -A . &&\
+		git commit -a -m gh &&\
 		git push -f origin master\
 	)
