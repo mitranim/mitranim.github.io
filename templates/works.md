@@ -6,23 +6,31 @@
 
 # Open Source {#open-source}
 
-(Newer-to-older.)
+Newer-to-older.
 
-## [io2](https://github.com/ShanzhaiCity/oxygen-economics) <span class="fg-faded font-normal">(Go, JS)</span>
+## [Sublime-Gox](https://github.com/Mitranim/sublime-gox) <span class="fg-faded font-normal">(sublime-syntax)</span>
 
-Prototype for a charity/crowdfunding hybrid. Purelab and ShanzhaiCity collaboration, work in progress.
+Go syntax highlighting for Sublime Text. Significantly improved over the built-in.
+
+## [Oxygen Economics](https://github.com/ShanzhaiCity/oxygen-economics) <span class="fg-faded font-normal">(Go, JS)</span>
+
+Prototype for a charity crowdfunding platform. Purelab and ShanzhaiCity collaboration, work in progress.
+
+## [gorun](https://github.com/Mitranim/gorun) <span class="fg-faded font-normal">(Go)</span>
+
+Go development tool. Runs an entire Go directory, can watch and rerun.
 
 ## [Papyre](https://github.com/Mitranim/papyre) <span class="fg-faded font-normal">(JS)</span>
 
 Build tool for static websites generated with JavaScript and JSX/React.
 
-## [Sublime-Clojure](https://github.com/Mitranim/sublime-clojure)
+## [Sublime-Clojure](https://github.com/Mitranim/sublime-clojure) <span class="fg-faded font-normal">(sublime-syntax)</span>
 
 Clojure syntax highlighting for Sublime Text. Better than the built-in syntax. 100% accurate.
 
 ## [Clojure Forge](https://github.com/Mitranim/clojure-forge) <span class="fg-faded font-normal">(Clojure)</span>
 
-Development tool for Clojure programmers, especially useful for Ring servers. Watches files, reloads code, restarts system, displays system errors on a webpage. More reliable than other widely used tools.
+Development tool for Clojure programmers, especially useful for Ring servers. Watches files, reloads code, restarts system, displays system errors on a webpage.
 
 ## [Posterus](https://github.com/Mitranim/posterus) <span class="fg-faded font-normal">(JS)</span>
 
@@ -81,8 +89,8 @@ Various webapps and websites for [ShanzhaiCity](https://shanzhaicity.com), a US-
 ## [Render.js](https://renderjs.io) <span class="fg-faded font-normal">(JS, Node)</span>
 
   * Service for prerendering single-page JavaScript applications into HTML
-  * Order of magnitude faster than alternatives
-  * Period: 2016—2017, part of team at Purelab.io
+  * An order of magnitude faster than the alternatives
+  * 2016—2017, part of team at Purelab.io
 
 ## [ToBox](http://tobox.purelab.io) <span class="fg-faded font-normal">(2015—2016, JS, React)</span>
 

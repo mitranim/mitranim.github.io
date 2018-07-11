@@ -48,7 +48,7 @@ $color-black:   #111111;
 $color-gray:    #aaaaaa;
 $color-silver:  #dddddd;
 
-$color-focus: $color-aqua;
+// $color-focus: $color-aqua;
 $color-indigo-dark: hsl(231, 60%, 30%); // #3f51b5
 $color-link: $color-indigo-dark;
 
@@ -140,13 +140,19 @@ code, pre {
 
 .busy-underdash {
   border-bottom: 1px dashed;
-  &:hover, &:focus {
+  // &:hover, &:focus {
+  //   border-bottom: 1px solid;
+  // }
+  &:hover {
     border-bottom: 1px solid;
   }
 }
 
 .active-underdash {
-  &:hover, &:focus {
+  // &:hover, &:focus {
+  //   border-bottom: 1px dashed;
+  // }
+  &:hover {
     border-bottom: 1px dashed;
   }
   &:active {

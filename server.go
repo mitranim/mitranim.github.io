@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 )
 
-// Serves static files. Uses more or less the same HTML/URL resolution algorithm
-// as GitHub Pages and Netlify.
+// Serves static files, resolving URL/HTML the same way as GitHub Pages and
+// Netlify.
 
 const (
 	PORT      = "11204"

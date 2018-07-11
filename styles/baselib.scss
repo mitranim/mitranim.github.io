@@ -27,11 +27,11 @@
  * width and height
  */
 
-.width-25p    {width: 25%}
-.width-50p    {width: 50%}
-.width-75p    {width: 75%}
-.width-100p   {width: 100%}
-.width-100vw  {width: 100vw}
+.width-25p    {width:  25%}
+.width-50p    {width:  50%}
+.width-75p    {width:  75%}
+.width-100p   {width:  100%}
+.width-100vw  {width:  100vw}
 .height-100p  {height: 100%}
 .height-100vh {height: 100vh}
 
@@ -66,11 +66,9 @@
 }
 
 @mixin flex-direction($value) {
-  @if $value == row {@extend %flex-direction-row;}
+  @if      $value == row {@extend %flex-direction-row;}
   @else if $value == col {@extend %flex-direction-col;}
-  @else {
-    @error 'Unknown flex-direction: #{$value}'
-  }
+  @else {@error 'Unknown flex-direction: #{$value}'}
 }
 
 %flex-justify-start {
@@ -103,14 +101,12 @@
 }
 
 @mixin flex-justify($value) {
-  @if $value == start {@extend %flex-justify-start;}
-  @else if $value == center {@extend %flex-justify-center;}
-  @else if $value == end {@extend %flex-justify-end;}
-  @else if $value == around {@extend %flex-justify-around;}
+  @if      $value == start   {@extend %flex-justify-start;}
+  @else if $value == center  {@extend %flex-justify-center;}
+  @else if $value == end     {@extend %flex-justify-end;}
+  @else if $value == around  {@extend %flex-justify-around;}
   @else if $value == between {@extend %flex-justify-between;}
-  @else {
-    @error 'Unknown flex-justify (justify-content) property: #{$value}';
-  }
+  @else {@error 'Unknown flex-justify (justify-content) property: #{$value}'}
 }
 
 %flex-align-start {
@@ -138,13 +134,11 @@
 }
 
 @mixin flex-align($value) {
-  @if $value == start {@extend %flex-align-start;}
-  @else if $value == center {@extend %flex-align-center;}
-  @else if $value == end {@extend %flex-align-end;}
+  @if      $value == start   {@extend %flex-align-start;}
+  @else if $value == center  {@extend %flex-align-center;}
+  @else if $value == end     {@extend %flex-align-end;}
   @else if $value == stretch {@extend %flex-align-stretch;}
-  @else {
-    @error 'Unknown flex-align (align-items) property: #{$value}';
-  }
+  @else {@error 'Unknown flex-align (align-items) property: #{$value}'}
 }
 
 @mixin flex-layout($dir: none, $justify: none, $align: none) {
@@ -192,13 +186,11 @@
 }
 
 @mixin flex-self($value) {
-  @if $value == start {@extend %flex-self-start;}
-  @else if $value == center {@extend %flex-self-center;}
-  @else if $value == end {@extend %flex-self-end;}
+  @if      $value == start   {@extend %flex-self-start;}
+  @else if $value == center  {@extend %flex-self-center;}
+  @else if $value == end     {@extend %flex-self-end;}
   @else if $value == stretch {@extend %flex-self-stretch;}
-  @else {
-    @debug 'Unknown flex-self (align-self) property: #{$value}';
-  }
+  @else {@error 'Unknown flex-self (align-self) property: #{$value}'}
 }
 
 @mixin flex-shrink($value) {

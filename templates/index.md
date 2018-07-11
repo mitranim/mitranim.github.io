@@ -14,18 +14,18 @@ Open source enthusiast. See my [works](/works).
 
 ## Languages
 
-Solid experience: Go, JavaScript / Node, Clojure, Python.
+Solid experience: Go, JS/Node, Clojure, Python.
 
 Limited experience: Rust, Haskell, Erlang.
 
-Passing familiarity: Swift, Common Lisp, Scheme.
+Passing familiarity: Swift, C, Common Lisp, Scheme.
 
 ## Databases
 
 Decent experience:
 
-  * relational databases, SQL
-  * document based-databases: ArangoDB, CouchDB
+  * SQL databases: Postgres
+  * document databases: ArangoDB, CouchDB
   * Datomic (http://www.datomic.com)
   * Firebase (https://firebase.google.com)
 
