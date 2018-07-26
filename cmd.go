@@ -475,9 +475,9 @@ func (self *MdRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) 
 			(some text)
 			```
 
-			This gets wrapped in a <details> element, with the string in the
-			middle acting as its summary. The lang tag is optiona; if present,
-			the block is processed as code, otherwise as regular text.
+			This gets wrapped in a <details> element, with the string in the middle
+			as <summary>. The lang tag is optional; if present, the block is
+			processed as code, otherwise as regular text.
 		*/
 		if detailTagReg.MatchString(tag) {
 			match := detailTagReg.FindStringSubmatch(tag)
@@ -490,11 +490,11 @@ func (self *MdRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) 
 			out.Write(SUMMARY_END)
 
 			if lang != "" {
+				// As code
 				node.CodeBlockData.Info = []byte(lang)
 				self.RenderNode(out, node, entering)
 			} else {
-				log.Println("Processing as regular markdown")
-				// Not actually code, just a details block
+				// As regular text
 				out.Write(bf.Run(node.Literal, MD_OPTS...))
 			}
 
