@@ -6,19 +6,25 @@
 
 # Open Source {#open-source}
 
-Newer-to-older.
+Newer-to-older. Some trifles are omitted.
+
+## [gow](https://github.com/Mitranim/gow) <span class="fg-faded font-normal">(Go)</span>
+
+"Missing" watch mode for the `go` command. Watch Go files and rerun, clear terminal on restart, hit <key>^R</key> to restart, and more.
 
 ## [Sublime-Gox](https://github.com/Mitranim/sublime-gox) <span class="fg-faded font-normal">(sublime-syntax)</span>
 
-Go syntax highlighting for Sublime Text. Significantly improved over the built-in.
+Go syntax highlighting for Sublime Text. Significantly better than the built-in.
+
+Pending pull request to replace the built-in package: https://github.com/sublimehq/Packages/pull/1662.
+
+## [Imperouter](https://github.com/Mitranim/imperouter) <span class="fg-faded font-normal">(JS)</span>
+
+Minimal pushstate routing for JS apps. Much more simple, lightweight, low-level and flexible than existing routers. Compatible with isomorphic server-side rendering.
 
 ## [Oxygen Economics](https://github.com/ShanzhaiCity/oxygen-economics) <span class="fg-faded font-normal">(Go, JS)</span>
 
 Prototype for a charity crowdfunding platform. Purelab and ShanzhaiCity collaboration, work in progress.
-
-## [gorun](https://github.com/Mitranim/gorun) <span class="fg-faded font-normal">(Go)</span>
-
-Go development tool. Runs an entire Go directory, can watch and rerun.
 
 ## [Papyre](https://github.com/Mitranim/papyre) <span class="fg-faded font-normal">(JS)</span>
 
@@ -27,6 +33,8 @@ Build tool for static websites generated with JavaScript and JSX/React.
 ## [Sublime-Clojure](https://github.com/Mitranim/sublime-clojure) <span class="fg-faded font-normal">(sublime-syntax)</span>
 
 Clojure syntax highlighting for Sublime Text. Better than the built-in syntax. 100% accurate.
+
+Pending pull request to replace the built-in package: https://github.com/sublimehq/Packages/pull/1259.
 
 ## [Clojure Forge](https://github.com/Mitranim/clojure-forge) <span class="fg-faded font-normal">(Clojure)</span>
 
@@ -52,9 +60,15 @@ Functional programming extensions for JavaScript.
 
 Framework for state and side effects in React applications. Heavily inspired by Clojure and ClojureScript libraries. Battle-tested in large apps since 2015.
 
+Deprecated: has become obsolete after discovering an architecture that doesn't require a reactivity framework.
+
 ## [Webbs](https://github.com/Mitranim/webbs) <span class="fg-faded font-normal">(JS)</span>
 
 Adapter for native DOM `WebSocket` with auto-reconnect and offline buffering.
+
+## [Xhttp](https://github.com/Mitranim/xhttp) <span class="fg-faded font-normal">(JS)</span>
+
+Pair of libraries for making HTTP requests in Node.js and browsers. Much better than all existing alternatives.
 
 ## [Alder](https://github.com/Mitranim/alder) <span class="fg-faded font-normal">(JS)</span>
 
@@ -98,11 +112,9 @@ Stylish, visual platform for creating online shops. (Part of web frontend team.)
 
 # Other {#other}
 
-<!--
-## [Bolala](http://bolala.ru) <span class="fg-faded font-normal">(2017—2018, JS, React)</span>
+## [Bolala](https://bolala.ru) <span class="fg-faded font-normal">(2017—2018, JS)</span>
 
-(In development.)
--->
+An e-commerce platform. Work in progress. (Note: Russian residents may require a VPN or SSH tunnel to visit the site.)
 
 ## [ProstoPoi](http://prostopoi.ru) <span class="fg-faded font-normal">(2014—2016, Python, Django, React)</span>
 

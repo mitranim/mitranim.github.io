@@ -258,9 +258,12 @@ code, pre {
  */
 
 .row-start-stretch  {@include flex-layout(row, start, stretch);}
+.row-center-center  {@include flex-layout(row, center, center);}
 .row-end-center     {@include flex-layout(row, end, center);}
 .row-between-center {@include flex-layout(row, between, center);}
+.col-start-start    {@include flex-layout(col, start, start);}
 .col-start-stretch  {@include flex-layout(col, start, stretch);}
+.col-start-end      {@include flex-layout(col, start, end);}
 
 .flex-1             {@include flex(1);}
 
@@ -302,11 +305,14 @@ code, pre {
 .padding-t-1 {padding-top: 1rem}
 .padding-b-2 {padding-bottom: 2rem}
 
+.gaps-v-0x25   {@include gaps-v(0.25rem);}
+.gaps-v-0x5    {@include gaps-v(0.5rem);}
 .gaps-v-1      {@include gaps-v(1rem);}
 .gaps-v-2      {@include gaps-v(2rem);}
 .gaps-v-4      {@include gaps-v(4rem);}
 
 .gaps-h-0x25   {@include gaps-h(0.25rem);}
+.gaps-h-0x5    {@include gaps-h(0.5rem);}
 .gaps-h-1      {@include gaps-h(1rem);}
 .gaps-h-2      {@include gaps-h(2rem);}
 .gaps-h-4      {@include gaps-h(4rem);}
@@ -386,6 +392,7 @@ details.details {
 .navlink {
   @extend .font-large;
   @extend .padding-1;
+  @extend .row-center-center;
   color: $color-link;
   &.--busy {
     @extend %reset-focus;

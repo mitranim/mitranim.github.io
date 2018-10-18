@@ -10,17 +10,17 @@ most other links to be absolute. Exercise care.
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes">
   <link rel="icon" href="data:;base64,=">
-  <link rel="stylesheet" type="text/css" href="{{withHash "/styles/main.css" | attr}}">
+  <link rel="stylesheet" type="text/css" href="{{withHash "/styles/main.css" | asAttr}}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,300italic,400italic,500italic,600italic&subset=latin">
-  <title>{{if .Title}}{{.Title | html}}{{else}}about:mitranim{{end}}</title>
+  <title>{{if .Title}}{{.Title | asHtml}}{{else}}about:mitranim{{end}}</title>
   <meta name="author" content="Nelo Mitranim">
-  {{if .Description}}<meta name="description" content="{{.Description | attr}}">{{end}}
+  {{if .Description}}<meta name="description" content="{{.Description | asAttr}}">{{end}}
   {{if .Type}}
   <meta property="og:site_name" content="about:mitranim">
-  <meta property="og:type" content="{{.Type | attr}}">
+  <meta property="og:type" content="{{.Type | asAttr}}">
   {{end}}
-  {{if .Title}}<meta property="og:title" content="{{.Title | attr}}">{{end}}
-  {{if .Image}}<meta property="og:image" content="/images/{{.Image | attr}}">{{end}}
+  {{if .Title}}<meta property="og:title" content="{{.Title | asAttr}}">{{end}}
+  {{if .Image}}<meta property="og:image" content="/images/{{.Image | asAttr}}">{{end}}
 </head>
 <body class="col-start-stretch" style="min-height: 100vh">
 {{- end -}}
@@ -54,7 +54,7 @@ most other links to be absolute. Exercise care.
     <a href="/demos" {{current "demos.html" .}} class="navlink --busy"><span>demos</span></a>
   </nav>
   <span class="flex-1"></span>
-  <span class="margin-r-1 text-right fg-blue row-end-center sm-hide">
+  <span class="margin-r-1 fg-blue row-center-center padding-1 sm-hide">
     <span>Updated: {{now}}</span>
   </span>
 </div>
@@ -63,14 +63,19 @@ most other links to be absolute. Exercise care.
 
 {{- define "footer" -}}
 <footer class="limit-width row-between-center margin-t-4 margin-b-2">
-  <span class="flex-1 text-left">{{years}}</span>
+  <span class="flex-1 row-start-start gaps-h-0x5">
+    <span class="text-left">{{years}}</span>
+    <a href="https://github.com/Mitranim/mitranim.github.io" {{targetBlank}} class="decorate-link indicate-external-link">site source</a>
+  </span>
+
   <span class="flex-1 text-center">
     <a href="/#contacts" class="decorate-link">touch me</a>
   </span>
+
   <span class="flex-1 text-right">
     <!-- This only works without a base href -->
     <a href="#" class="fill-faded padding-1" onclick="event.preventDefault(); window.scrollTo(0, 0)">
-      {{svg "arrow-up"}}
+      {{html "svg-arrow-up"}}
     </a>
   </span>
 </footer>
@@ -80,7 +85,7 @@ most other links to be absolute. Exercise care.
 {{- define "index.html" -}}
 {{template "site-top" .}}
 <article class="fancy-typography">
-{{render "index.md" . | md}}
+{{htmlWith "index.md" . | asMd}}
 </article>
 {{template "site-bottom" .}}
 {{- end -}}
@@ -100,7 +105,7 @@ most other links to be absolute. Exercise care.
 {{- define "works.html" -}}
 {{template "site-top" .}}
 <article class="fancy-typography">
-{{render "works.md" . | md}}
+{{htmlWith "works.md" . | asMd}}
 </article>
 {{template "site-bottom" .}}
 {{- end -}}
@@ -113,17 +118,17 @@ most other links to be absolute. Exercise care.
     <h1>Feed Links</h1>
 
     <header class="font-large gaps-h-2 margin-b-2">
-      <a href="/feed.xml" {{external}} class="gaps-h-0x25 undecorate">
-        <span class="fill-rss">{{svg "rss"}}</span>
+      <a href="/feed.xml" {{targetBlank}} class="gaps-h-0x25 undecorate">
+        <span class="fill-rss">{{html "svg-rss"}}</span>
         <span>RSS</span>
       </a>
-      <a href="http://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml" {{external}} class="gaps-h-0x25 undecorate">
-        <span class="fill-feedly">{{svg "rss-square"}}</span>
+      <a href="http://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml" {{targetBlank}} class="gaps-h-0x25 undecorate">
+        <span class="fill-feedly">{{html "svg-rss-square"}}</span>
         <span>Feedly</span>
       </a>
       {{/*
-      <a href="https://twitter.com/Mitranim" {{external}} class="gaps-h-0x25">
-        <span>{{svg "twitter"}}</span>
+      <a href="https://twitter.com/Mitranim" {{targetBlank}} class="gaps-h-0x25">
+        <span>{{html "svg-twitter"}}</span>
         <span>Twitter</span>
       </a> */}}
     </header>
@@ -135,15 +140,15 @@ most other links to be absolute. Exercise care.
     {{range $post := getListedPosts}}
       {{$link := join "/posts/" $post.Slug}}
       <div class="gaps-v-1">
-        <h2><a href="{{$link | attr}}">{{$post.Title | html}}</a></h2>
+        <h2><a href="{{$link | asAttr}}">{{$post.Title | asHtml}}</a></h2>
         {{if $post.Description}}
         <p>
-          <span>{{$post.Description | html}}</span>
-          <a href="{{$link | attr}}"> (read more)</a>
+          <span>{{$post.Description | asHtml}}</span>
+          <a href="{{$link | asAttr}}"> (read more)</a>
         </p>
         {{end}}
         {{if $post.Date}}
-        <p class="fg-faded font-small">Published {{$post.Date | isoDate}}</p>
+        <p class="fg-faded font-small">Published {{$post.Date | formatDateIso}}</p>
         {{end}}
       </div>
     {{else}}
@@ -161,11 +166,11 @@ most other links to be absolute. Exercise care.
 In principle, this should use text/template rather than html/template, but CBA.
 -->
 {{- define "feed.xml" -}}
-{{`<?xml version="1.0" encoding="utf-8"?>` | html}}
+{{`<?xml version="1.0" encoding="utf-8"?>` | asHtml}}
 <rss version="2.0">
   <channel>
-    <title>{{.Title | html}}</title>
-    <description>{{.Description | html}}</description>
+    <title>{{.Title | asHtml}}</title>
+    <description>{{.Description | asHtml}}</description>
     <language>en-us</language>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <link type="text/html" href="https://mitranim.com" />
@@ -174,10 +179,10 @@ In principle, this should use text/template rather than html/template, but CBA.
       {{if $post.Title}}<title>{{$post.Title}}</title>{{end}}
       {{if $post.Slug}}
       {{$link := join "https://mitranim.com/posts/" $post.Slug}}
-      <link type="text/html" href="{{$link | attr}}"></link>
-      <guid isPermaLink="true">{{$link | html}}</guid>
+      <link type="text/html" href="{{$link | asAttr}}"></link>
+      <guid isPermaLink="true">{{$link | asHtml}}</guid>
       {{end}}
-      {{if $post.Date}}<pubDate>{{$post.Date | isoDate}}</pubDate>{{end}}
+      {{if $post.Date}}<pubDate>{{$post.Date | formatDateIso}}</pubDate>{{end}}
       <author>Nelo Mitranim</author>
       {{if $post.Description}}<description>{{$post.Description}}</description>{{end}}
     </item>
@@ -193,10 +198,10 @@ In principle, this should use text/template rather than html/template, but CBA.
   <header class="gaps-v-1">
     <h1>{{.Title}}</h1>
     {{if .Description}}<p class="font-large fg-faded text-italic">{{.Description}}</p>{{end}}
-    {{if .Date}}<p class="fg-faded">Published {{.Date | isoDate}}</p>{{end}}
+    {{if .Date}}<p class="fg-faded">Published {{.Date | formatDateIso}}</p>{{end}}
   </header>
   <div class="fancy-typography">
-    {{render .Md . | md}}
+    {{htmlWith .Md . | asMd}}
   </div>
 </article>
 {{template "site-bottom" .}}
@@ -206,7 +211,7 @@ In principle, this should use text/template rather than html/template, but CBA.
 {{- define "demos.html" -}}
 {{template "site-top" .}}
 <article class="fancy-typography">
-{{render "demos.md" . | md}}
+{{htmlWith "demos.md" . | asMd}}
 </article>
 {{template "site-bottom" .}}
 {{- end -}}
@@ -215,7 +220,7 @@ In principle, this should use text/template rather than html/template, but CBA.
 {{- define "resume.html" -}}
 {{template "html-top" .}}
 <article class="fancy-typography limit-width padding-t-1 padding-b-2">
-{{render "resume.md" . | md}}
+{{htmlWith "resume.md" . | asMd}}
 </article>
 {{template "html-bottom" .}}
 {{- end -}}

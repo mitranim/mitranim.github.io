@@ -1,8 +1,8 @@
 <p class="text-right gaps-v-letter">
-  <span class="block fg-blue" data-note="Updated: 2018-06-15"></span>
+  <span class="block fg-blue" data-note="Updated: 2018-10-18"></span>
   <span class="block noprint">
     <button type="button" style="padding: 0" onclick="window.print()">
-      <span class="fill-faded">{{svg "print"}}</span> Print to PDF
+      <span class="fill-faded">{{html "svg-print"}}</span> Print to PDF
     </button>
   </span>
 </p>
@@ -30,20 +30,24 @@ consulting studio.
 
 # Languages
 
-Solid experience: Go, JavaScript / Node, Clojure, Python.
+Solid experience: Go, JS/Node, Clojure, Python.
 
 Limited experience: Rust, Haskell, Erlang.
 
-Passing familiarity: Swift, Common Lisp, Scheme.
+Passing familiarity: Swift, C, Common Lisp, Scheme.
+
+Predominant choice: Go.
 
 # Databases
 
-Decent experience:
+Wide-ranging experience:
 
-  * relational databases, SQL
-  * document based-databases: ArangoDB, CouchDB
+  * SQL databases: Postgres
+  * document databases: ArangoDB, CouchDB
   * Datomic (http://www.datomic.com)
   * Firebase (https://firebase.google.com)
+
+Predominant choice: Postgres.
 
 # Applications
 
@@ -52,7 +56,7 @@ Solid experience:
   * rich web applications (SPA)
   * traditional web applications
   * REST API backends
-  * websocket API backends
+  * websocket API backends with live notifications
 
 # Projects
 
@@ -74,11 +78,9 @@ Stylish, visual platform for creating online shops. (Part of web frontend team.)
 
 ## Other {#other}
 
-<!--
-## [Bolala](http://bolala.ru) <span class="fg-faded font-normal">(2017—2018, JS, React)</span>
+### [Bolala](https://bolala.ru) <span class="fg-faded font-normal">(2017—2018, JS)</span>
 
-(In development.)
--->
+An e-commerce platform. Work in progress. (Note: Russian residents may require a VPN or SSH tunnel to visit the site.)
 
 ### [ProstoPoi](http://prostopoi.ru) <span class="fg-faded font-normal">(2014—2016, Python, Django, React)</span>
 
@@ -86,15 +88,14 @@ Poi community website. We have our own video lessons, go check us out!
 
 ## Open Source
 
-Recent highlights here. See other stuff on https://mitranim.com/works and
-https://github.com/Mitranim.
+Recent highlights here. See lots of other stuff on https://mitranim.com/works and https://github.com/Mitranim.
 
-io2: prototype for a charity/crowdfunding hybrid. Purelab and ShanzhaiCity collaboration, work in progress. (https://github.com/ShanzhaiCity/oxygen-economics)
+gow: the missing watch mode for Go development. Watch Go files and rerun, clear terminal on restart, hit <key>^R</key> to restart, and more. (https://github.com/Mitranim/gow)
+
+Oxygen Economics: prototype for a charity/crowdfunding hybrid. Purelab and ShanzhaiCity collaboration, work in progress. (https://github.com/ShanzhaiCity/oxygen-economics)
 
 Posterus: asynchronous primitives for JS with true cancelation and scheduling
 control (https://github.com/Mitranim/posterus).
-
-Prax: reactive architecture for GUI applications (https://mitranim.com/prax/).
 
 Espo: JavaScript extensions for stateful and reactive programming (https://mitranim.com/espo/).
 

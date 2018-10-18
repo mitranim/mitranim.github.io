@@ -8,7 +8,7 @@ Nelo Mitranim
 
 Autodidact. Senior software developer and architect. Main expertise: web applications, full stack.
 
-Part of team at <a href="https://purelab.io" {{external}}>Purelab.io</a>, a software development and consulting studio. Hire us for your next big project!
+Part of team at <a href="https://purelab.io" {{targetBlank}}>Purelab.io</a>, a software development and consulting studio. Hire us for your next big project!
 
 Open source enthusiast. See my [works](/works).
 
@@ -20,14 +20,18 @@ Limited experience: Rust, Haskell, Erlang.
 
 Passing familiarity: Swift, C, Common Lisp, Scheme.
 
+Predominant choice: Go.
+
 ## Databases
 
-Decent experience:
+Wide-ranging experience:
 
   * SQL databases: Postgres
   * document databases: ArangoDB, CouchDB
   * Datomic (http://www.datomic.com)
   * Firebase (https://firebase.google.com)
+
+Predominant choice: Postgres.
 
 ## Applications
 
@@ -36,13 +40,13 @@ Solid experience:
   * rich web applications (SPA)
   * traditional web applications
   * REST API backends
-  * websocket API backends
+  * websocket API backends with live notifications
 
 ## Misc
 
 Favorite pastime: [writing and contributing](/works) to open source software.
 
-Highly interested in programming language design.
+Enthusiastic about programming language design.
 
 Location: Moscow, Russia (planning to move out).
 
@@ -50,24 +54,22 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 # Contacts
 
-<span>{{svg "skype"}} skype [mitranim.web](skype:mitranim.web?chat)</span>
+<span>{{html "svg-skype"}} skype [mitranim.web](skype:mitranim.web?chat)</span>
 
-<span>{{svg "paper-plane"}} Telegram [Mitranim](https://telegram.me/Mitranim)</span>
+<span>{{html "svg-paper-plane"}} Telegram [Mitranim](https://telegram.me/Mitranim)</span>
 
-<span>{{svg "mobile-alt"}} phone +7-926-044-00-49</span>
+<span>{{html "svg-mobile-alt"}} phone +7-926-044-00-49</span>
 
 <span>@ email [me@mitranim.com](mailto:me@mitranim.com)</span>
 
-I tend to be **unresponsive** on email, please prefer the other channels.
+I tend to be **unresponsive** on email, please consider the other channels.
 
 # Links
 
-<a href="https://github.com/Mitranim" {{external}}>{{svg "github"}} Me on GitHub</a>
+<a href="https://github.com/Mitranim" {{targetBlank}}>{{html "svg-github"}} Me on GitHub</a>
 
-<a href="http://twitter.com/mitranim" {{external}}>{{svg "twitter"}} Me on Twitter</a>
+<a href="http://twitter.com/mitranim" {{targetBlank}}>{{html "svg-twitter"}} Me on Twitter</a>
 
-<a href="http://linkedin.com/in/mitranim" {{external}}>{{svg "linkedin"}} Me on LinkedIn</a>
+<a href="http://linkedin.com/in/mitranim" {{targetBlank}}>{{html "svg-linkedin"}} Me on LinkedIn</a>
 
-<a href="http://facebook.com/mitranim" {{external}}>{{svg "facebook"}} Me on Facebook</a>
-
-<a href="https://github.com/Mitranim/mitranim.github.io" {{external}}>Website source code</a>
+<a href="http://facebook.com/mitranim" {{targetBlank}}>{{html "svg-facebook"}} Me on Facebook</a>
