@@ -1,4 +1,12 @@
-.DS_Store
-/public
-/todo
-/cmd
+/*
+!/.gitignore
+!/Makefile
+!/cmd.go
+!/images
+!/readme.md
+!/server.go
+!/static
+!/styles
+!/templates
+!/go.mod
+!/go.sum
