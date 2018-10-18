@@ -32,7 +32,7 @@ const (
 var (
 	log = l.New(os.Stderr, "", 0)
 
-	TEMPS = template.New("")
+	TEMPLATES = template.New("")
 
 	SITE = []interface{}{
 		Page{
@@ -131,23 +131,6 @@ var (
 		},
 	}
 
-	FUNCS = map[string]interface{}{
-		"external":       external,
-		"current":        current,
-		"now":            func() string { return isoDate(time.Now().UTC()) },
-		"isoDate":        isoDate,
-		"years":          years,
-		"html":           func(val string) template.HTML { return template.HTML(val) },
-		"attr":           func(val string) template.HTMLAttr { return template.HTMLAttr(val) },
-		"md":             md,
-		"getListedPosts": getListedPosts,
-		"render":         renderByName,
-		"join":           path.Join,
-		"svg":            svg,
-		"withHash":       withHash,
-		"ngTemplate":     func() string { return NG_TEMPLATE },
-	}
-
 	WITH_HASHES = map[string]string{}
 
 	MD_OPTS = []bf.Option{
@@ -221,14 +204,29 @@ func build() error {
 }
 
 func initTemplates() error {
-	TEMPS.Funcs(FUNCS)
+	TEMPLATES.Funcs(map[string]interface{}{
+		"asHtml":         func(val string) template.HTML { return template.HTML(val) },
+		"asAttr":         func(val string) template.HTMLAttr { return template.HTMLAttr(val) },
+		"asMd":           asMd,
+		"targetBlank":    func() template.HTMLAttr { return template.HTMLAttr(`target="_blank" rel="noopener noreferrer"`) },
+		"current":        current,
+		"now":            func() string { return formatDateIso(time.Now().UTC()) },
+		"formatDateIso":  formatDateIso,
+		"years":          years,
+		"getListedPosts": getListedPosts,
+		"htmlWith":       renderByName,
+		"html":           func(name string) (template.HTML, error) { return renderByName(name, nil) },
+		"join":           path.Join,
+		"withHash":       withHash,
+		"ngTemplate":     func() string { return NG_TEMPLATE },
+	})
 
 	for _, pattern := range []string{
 		"templates/*.md",
 		"templates/**/*.md",
 		"templates/*.html",
 	} {
-		_, err := TEMPS.ParseGlob(pattern)
+		_, err := TEMPLATES.ParseGlob(pattern)
 		if err != nil {
 			return stack(err)
 		}
@@ -289,13 +287,13 @@ func renderSite() error {
 }
 
 func findTemplate(name string) (*template.Template, error) {
-	temp := TEMPS.Lookup(name)
+	temp := TEMPLATES.Lookup(name)
 	if temp != nil {
 		return temp, nil
 	}
 
 	var names []string
-	for _, temp := range TEMPS.Templates() {
+	for _, temp := range TEMPLATES.Templates() {
 		if temp.Name() != "" {
 			names = append(names, temp.Name())
 		}
@@ -304,7 +302,7 @@ func findTemplate(name string) (*template.Template, error) {
 	return nil, errors.Errorf("Template %q not found. Known templates: %v", name, names)
 }
 
-func render(temp *template.Template, data interface{}) ([]byte, error) {
+func renderTemplate(temp *template.Template, data interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	err := temp.Execute(&buf, data)
 	if err != nil {
@@ -319,7 +317,7 @@ func renderByName(name string, data interface{}) (template.HTML, error) {
 		return "", err
 	}
 
-	bytes, err := render(temp, data)
+	bytes, err := renderTemplate(temp, data)
 	if err != nil {
 		return "", err
 	}
@@ -367,10 +365,6 @@ func writeTo(path string, bytes []byte) error {
 	return nil
 }
 
-func external() template.HTMLAttr {
-	return template.HTMLAttr(`target="_blank" rel="noopener noreferrer"`)
-}
-
 func current(href string, data interface{}) template.HTMLAttr {
 	var path string
 	switch data := data.(type) {
@@ -385,7 +379,7 @@ func current(href string, data interface{}) template.HTMLAttr {
 	return ""
 }
 
-func isoDate(date time.Time) string {
+func formatDateIso(date time.Time) string {
 	// time.Parse uses these magic numbers instead of conventional placeholders
 	return date.Format("2006-01-02")
 }
@@ -399,7 +393,7 @@ func years() string {
 	return fmt.Sprint(start)
 }
 
-func md(val interface{}) template.HTML {
+func asMd(val interface{}) template.HTML {
 	var input []byte
 	switch val := val.(type) {
 	case []byte:
@@ -422,10 +416,6 @@ func getListedPosts() (out []Post) {
 		}
 	}
 	return
-}
-
-func svg(name string) (template.HTML, error) {
-	return renderByName("svg-"+name, nil)
 }
 
 func withHash(assetPath string) (string, error) {
