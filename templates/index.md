@@ -24,7 +24,7 @@ Predominant choice: Go.
 
 ## Databases
 
-Wide-ranging experience:
+Solid experience:
 
   * SQL databases: Postgres
   * document databases: ArangoDB, CouchDB
@@ -41,6 +41,7 @@ Solid experience:
   * traditional web applications
   * REST API backends
   * websocket API backends with live notifications
+  * Ethereum apps; see <a href="https://github.com/purelabio/eth" {{targetBlank}}>eth</a>
 
 ## Misc
 
@@ -52,7 +53,7 @@ Location: Moscow, Russia (planning to move out).
 
 Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF.)
 
-# Contacts
+# Contacts {#contacts}
 
 <span>{{html "svg-skype"}} skype [mitranim.web](skype:mitranim.web?chat)</span>
 

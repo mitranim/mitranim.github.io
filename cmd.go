@@ -204,7 +204,7 @@ func build() error {
 }
 
 func initTemplates() error {
-	TEMPLATES.Funcs(map[string]interface{}{
+	TEMPLATES.Funcs(template.FuncMap{
 		"asHtml":         func(val string) template.HTML { return template.HTML(val) },
 		"asAttr":         func(val string) template.HTMLAttr { return template.HTMLAttr(val) },
 		"asMd":           asMd,

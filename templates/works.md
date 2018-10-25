@@ -6,7 +6,15 @@
 
 # Open Source {#open-source}
 
-Newer-to-older. Some trifles are omitted.
+Newer-to-older. Some stuff is omitted.
+
+## [eth](https://github.com/purelabio/eth) <span class="fg-faded font-normal">(Go)</span>
+
+Client library for interacting with Ethereum from Go. Superior alternative to the "official" client libraries provided with "go-ethereum".
+
+## [repr](https://github.com/Mitranim/repr) <span class="fg-faded font-normal">(Go)</span>
+
+Go pretty-printer. Formats data structures into syntactically valid Go code. Useful for code generation.
 
 ## [gow](https://github.com/Mitranim/gow) <span class="fg-faded font-normal">(Go)</span>
 

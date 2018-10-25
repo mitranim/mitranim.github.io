@@ -40,7 +40,7 @@ Predominant choice: Go.
 
 # Databases
 
-Wide-ranging experience:
+Solid experience:
 
   * SQL databases: Postgres
   * document databases: ArangoDB, CouchDB
@@ -89,6 +89,8 @@ Poi community website. We have our own video lessons, go check us out!
 ## Open Source
 
 Recent highlights here. See lots of other stuff on https://mitranim.com/works and https://github.com/Mitranim.
+
+Eth: client library for interacting with Ethereum from Go. Superior alternative to the "official" client libraries provided with "go-ethereum". (https://github.com/purelabio/eth)
 
 gow: the missing watch mode for Go development. Watch Go files and rerun, clear terminal on restart, hit <key>^R</key> to restart, and more. (https://github.com/Mitranim/gow)
 
