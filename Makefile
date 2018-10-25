@@ -22,7 +22,7 @@
 #
 # Optional dependencies
 #
-#   https://github.com/Mitranim/gorun
+#   https://github.com/Mitranim/gow
 #
 # TODO
 #
@@ -60,7 +60,7 @@ static-w:
 $(ABSTRACT): html
 html: public/%.html
 
-# The styles are for asset hashing
+# The styles dependency is for asset hashing
 public/%.html: cmd styles templates/**/*
 	@./cmd
 
@@ -97,8 +97,8 @@ images-w:
 
 $(ABSTRACT): server
 server:
-	@if command -v gorun > /dev/null; then\
-		gorun -w server.go;\
+	@if command -v gow > /dev/null; then\
+		gow run server.go;\
 	else\
 		go run server.go;\
 	fi
