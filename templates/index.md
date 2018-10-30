@@ -38,7 +38,7 @@ Predominant choice: Postgres.
 Solid experience:
 
   * rich web applications (SPA)
-  * traditional web applications
+  * traditional web applications (SSR, forms)
   * REST API backends
   * websocket API backends with live notifications
   * Ethereum apps; see <a href="https://github.com/purelabio/eth" {{targetBlank}}>eth</a>
@@ -67,7 +67,7 @@ I tend to be **unresponsive** on email, please consider the other channels.
 
 # Links
 
-<a href="https://github.com/Mitranim" {{targetBlank}}>{{html "svg-github"}} Me on GitHub</a>
+<a href="https://github.com/mitranim" {{targetBlank}}>{{html "svg-github"}} Me on GitHub</a>
 
 <a href="http://twitter.com/mitranim" {{targetBlank}}>{{html "svg-twitter"}} Me on Twitter</a>
 

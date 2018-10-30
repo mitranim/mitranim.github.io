@@ -22,7 +22,7 @@
 #
 # Optional dependencies
 #
-#   https://github.com/Mitranim/gow
+#   https://github.com/mitranim/gow
 #
 # TODO
 #
@@ -121,7 +121,7 @@ deploy: clean all
 		cd public &&\
 		rm -rf .git &&\
 		git init &&\
-		git remote add origin https://github.com/Mitranim/mitranim.github.io.git &&\
+		git remote add origin https://github.com/mitranim/mitranim.github.io.git &&\
 		git add -A . &&\
 		git commit -a -m gh &&\
 		git push -f origin master\

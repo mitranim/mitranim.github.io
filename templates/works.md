@@ -12,21 +12,21 @@ Newer-to-older. Some stuff is omitted.
 
 Client library for interacting with Ethereum from Go. Superior alternative to the "official" client libraries provided with "go-ethereum".
 
-## [repr](https://github.com/Mitranim/repr) <span class="fg-faded font-normal">(Go)</span>
+## [repr](https://github.com/mitranim/repr) <span class="fg-faded font-normal">(Go)</span>
 
 Go pretty-printer. Formats data structures into syntactically valid Go code. Useful for code generation.
 
-## [gow](https://github.com/Mitranim/gow) <span class="fg-faded font-normal">(Go)</span>
+## [gow](https://github.com/mitranim/gow) <span class="fg-faded font-normal">(Go)</span>
 
 "Missing" watch mode for the `go` command. Watch Go files and rerun, clear terminal on restart, hit <key>^R</key> to restart, and more.
 
-## [Sublime-Gox](https://github.com/Mitranim/sublime-gox) <span class="fg-faded font-normal">(sublime-syntax)</span>
+## [Sublime-Gox](https://github.com/mitranim/sublime-gox) <span class="fg-faded font-normal">(sublime-syntax)</span>
 
 Go syntax highlighting for Sublime Text. Significantly better than the built-in.
 
 Pending pull request to replace the built-in package: https://github.com/sublimehq/Packages/pull/1662.
 
-## [Imperouter](https://github.com/Mitranim/imperouter) <span class="fg-faded font-normal">(JS)</span>
+## [Imperouter](https://github.com/mitranim/imperouter) <span class="fg-faded font-normal">(JS)</span>
 
 Minimal pushstate routing for JS apps. Much more simple, lightweight, low-level and flexible than existing routers. Compatible with isomorphic server-side rendering.
 
@@ -34,33 +34,33 @@ Minimal pushstate routing for JS apps. Much more simple, lightweight, low-level 
 
 Prototype for a charity crowdfunding platform. Purelab and ShanzhaiCity collaboration, work in progress.
 
-## [Papyre](https://github.com/Mitranim/papyre) <span class="fg-faded font-normal">(JS)</span>
+## [Papyre](https://github.com/mitranim/papyre) <span class="fg-faded font-normal">(JS)</span>
 
 Build tool for static websites generated with JavaScript and JSX/React.
 
-## [Sublime-Clojure](https://github.com/Mitranim/sublime-clojure) <span class="fg-faded font-normal">(sublime-syntax)</span>
+## [Sublime-Clojure](https://github.com/mitranim/sublime-clojure) <span class="fg-faded font-normal">(sublime-syntax)</span>
 
 Clojure syntax highlighting for Sublime Text. Better than the built-in syntax. 100% accurate.
 
 Pending pull request to replace the built-in package: https://github.com/sublimehq/Packages/pull/1259.
 
-## [Clojure Forge](https://github.com/Mitranim/clojure-forge) <span class="fg-faded font-normal">(Clojure)</span>
+## [Clojure Forge](https://github.com/mitranim/clojure-forge) <span class="fg-faded font-normal">(Clojure)</span>
 
 Development tool for Clojure programmers, especially useful for Ring servers. Watches files, reloads code, restarts system, displays system errors on a webpage.
 
-## [Posterus](https://github.com/Mitranim/posterus) <span class="fg-faded font-normal">(JS)</span>
+## [Posterus](https://github.com/mitranim/posterus) <span class="fg-faded font-normal">(JS)</span>
 
 Asynchronous primitives (futures): alternative to JS promises with true cancelation and scheduling control.
 
-## [Espo](https://github.com/Mitranim/espo) <span class="fg-faded font-normal">(JS)</span>
+## [Espo](https://github.com/mitranim/espo) <span class="fg-faded font-normal">(JS)</span>
 
 Utils for stateful and reactive programming in JavaScript. Provides Clojure-inspired reactive primitives with Rust-inspired automatic management of resource lifetimes.
 
-## [Emerge](https://github.com/Mitranim/emerge) <span class="fg-faded font-normal">(JS)</span>
+## [Emerge](https://github.com/mitranim/emerge) <span class="fg-faded font-normal">(JS)</span>
 
 Utils for using plain JS objects as immutable data structures with extremely memory-efficient updates. Heavily inspired by `clojure.core`. Much lighter and simpler than the popular alternatives.
 
-## [fpx](https://github.com/Mitranim/fpx) <span class="fg-faded font-normal">(JS)</span>
+## [fpx](https://github.com/mitranim/fpx) <span class="fg-faded font-normal">(JS)</span>
 
 Functional programming extensions for JavaScript.
 
@@ -70,15 +70,15 @@ Framework for state and side effects in React applications. Heavily inspired by 
 
 Deprecated: has become obsolete after discovering an architecture that doesn't require a reactivity framework.
 
-## [Webbs](https://github.com/Mitranim/webbs) <span class="fg-faded font-normal">(JS)</span>
+## [Webbs](https://github.com/mitranim/webbs) <span class="fg-faded font-normal">(JS)</span>
 
 Adapter for native DOM `WebSocket` with auto-reconnect and offline buffering.
 
-## [Xhttp](https://github.com/Mitranim/xhttp) <span class="fg-faded font-normal">(JS)</span>
+## [Xhttp](https://github.com/mitranim/xhttp) <span class="fg-faded font-normal">(JS)</span>
 
 Pair of libraries for making HTTP requests in Node.js and browsers. Much better than all existing alternatives.
 
-## [Alder](https://github.com/Mitranim/alder) <span class="fg-faded font-normal">(JS)</span>
+## [Alder](https://github.com/mitranim/alder) <span class="fg-faded font-normal">(JS)</span>
 
 [unmaintained] Experimental rendering library inspired by React and Reagent. Represents view components with plain functions and DOM with plain JavaScript data structures. Undocumented.
 
@@ -86,7 +86,7 @@ Pair of libraries for making HTTP requests in Node.js and browsers. Much better 
 
 [unmaintained] Experimental rendering library inspired by React and Angular. Documented with flashy demos, but unused.
 
-## [jisp](https://github.com/Mitranim/jisp) <span class="fg-faded font-normal">(JS, jisp)</span>
+## [jisp](https://github.com/mitranim/jisp) <span class="fg-faded font-normal">(JS, jisp)</span>
 
 [unmaintained] A Lisp-style language that compiles to JavaScript.
 
@@ -94,11 +94,11 @@ Pair of libraries for making HTTP requests in Node.js and browsers. Much better 
 
 [unmaintained] CSS (Sass) library/framework. Similar to [Bootstrap](http://getbootstrap.com), built on different principles. Accompanied by [stylific-lite](https://mitranim.com/stylific-lite/).
 
-## [simple-pjax](https://github.com/Mitranim/simple-pjax) <span class="fg-faded font-normal">(JS)</span>
+## [simple-pjax](https://github.com/mitranim/simple-pjax) <span class="fg-faded font-normal">(JS)</span>
 
 Drop-in JS tool that dramatically speeds up page transitions on server-rendered websites. See the explanatory [blog post](/thoughts/cheating-for-performance-pjax/).
 
-## [statil](https://github.com/Mitranim/statil) <span class="fg-faded font-normal">(JS)</span>
+## [statil](https://github.com/mitranim/statil) <span class="fg-faded font-normal">(JS)</span>
 
 Simple generator of static websites.
 

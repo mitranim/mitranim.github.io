@@ -1,5 +1,5 @@
 <p class="text-right gaps-v-letter">
-  <span class="block fg-blue" data-note="Updated: 2018-10-18"></span>
+  <span class="block fg-blue" data-note="Updated: 2018-10-25"></span>
   <span class="block noprint">
     <button type="button" style="padding: 0" onclick="window.print()">
       <span class="fill-faded">{{html "svg-print"}}</span> Print to PDF
@@ -54,9 +54,10 @@ Predominant choice: Postgres.
 Solid experience:
 
   * rich web applications (SPA)
-  * traditional web applications
+  * traditional web applications (SSR, forms)
   * REST API backends
   * websocket API backends with live notifications
+  * Ethereum apps
 
 # Projects
 
@@ -88,20 +89,20 @@ Poi community website. We have our own video lessons, go check us out!
 
 ## Open Source
 
-Recent highlights here. See lots of other stuff on https://mitranim.com/works and https://github.com/Mitranim.
+Recent highlights here. See lots of other stuff on https://mitranim.com/works and https://github.com/mitranim.
 
 Eth: client library for interacting with Ethereum from Go. Superior alternative to the "official" client libraries provided with "go-ethereum". (https://github.com/purelabio/eth)
 
-gow: the missing watch mode for Go development. Watch Go files and rerun, clear terminal on restart, hit <key>^R</key> to restart, and more. (https://github.com/Mitranim/gow)
+gow: the missing watch mode for Go development. Watch Go files and rerun, clear terminal on restart, hit <key>^R</key> to restart, and more. (https://github.com/mitranim/gow)
 
 Oxygen Economics: prototype for a charity/crowdfunding hybrid. Purelab and ShanzhaiCity collaboration, work in progress. (https://github.com/ShanzhaiCity/oxygen-economics)
 
 Posterus: asynchronous primitives for JS with true cancelation and scheduling
-control (https://github.com/Mitranim/posterus).
+control (https://github.com/mitranim/posterus).
 
 Espo: JavaScript extensions for stateful and reactive programming (https://mitranim.com/espo/).
 
-Emerge: use plain JS types as functional data structures (https://github.com/Mitranim/emerge).
+Emerge: use plain JS types as functional data structures (https://github.com/mitranim/emerge).
 
 fpx: functional programming extentions for JavaScript (https://mitranim.com/fpx/).
 
@@ -129,7 +130,7 @@ unfinished:
 
 # Misc
 
-Favorite pastime: writing and contributing to open source software. See https://github.com/Mitranim.
+Favorite pastime: writing and contributing to open source software. See https://github.com/mitranim.
 
 Highly interested in programming language design.
 

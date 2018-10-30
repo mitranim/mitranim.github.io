@@ -22,7 +22,7 @@ automatically compress images without visible quality loss, rescale to
 different dimensions, crop, etc. They can be a
 [part](https://github.com/scalableminds/gulp-image-resize) of your standard
 build chain, so there's absolutely no excuse for not using them. See
-[example](https://github.com/Mitranim/stylific/blob/master/gulpfile.js) (scroll
+[example](https://github.com/mitranim/stylific/blob/master/gulpfile.js) (scroll
 down to image processing).
 
 Another important thing to compress is JavaScript. Modern JavaScript libraries
@@ -78,9 +78,9 @@ like me, this will seem like a waste of time. The biggest benefit of pjax is
 keeping the browsing session. Micromanaging partial templates is probably not
 worth your time, but everyone's needs are different.
 
-I wrote a [simple pjax library](https://github.com/Mitranim/simple-pjax) that
+I wrote a [simple pjax library](https://github.com/mitranim/simple-pjax) that
 works with zero config. Check the
-[gotchas](https://github.com/Mitranim/simple-pjax#gotchas) to see if it's usable
+[gotchas](https://github.com/mitranim/simple-pjax#gotchas) to see if it's usable
 for your site, then give it a spin or roll your own! The library is also used
 on this very site. Inspect the network console to observe the effects.
 
@@ -162,4 +162,4 @@ from the cache, rendering it with zero latency.
 
 Static site generators are [plentiful](https://www.staticgen.com), and if they
 don't float your boat, you can write your
-[own](https://github.com/Mitranim/mitranim.github.io) in an afternoon.
+[own](https://github.com/mitranim/mitranim.github.io) in an afternoon.

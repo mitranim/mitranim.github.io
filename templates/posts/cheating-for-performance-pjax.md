@@ -99,7 +99,7 @@ document.addEventListener('click', function(event) {
 })
 ```
 
-I have fashioned this into a simple, fully automatic [library](https://github.com/Mitranim/simple-pjax). Just drop it into your site and enjoy the benefits. Feedback and contributions are welcome! If you happen to find a better implementation, I'd be happy to hear about it.
+I have fashioned this into a simple, fully automatic [library](https://github.com/mitranim/simple-pjax). Just drop it into your site and enjoy the benefits. Feedback and contributions are welcome! If you happen to find a better implementation, I'd be happy to hear about it.
 
 ## Benefits
 

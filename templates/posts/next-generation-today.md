@@ -44,7 +44,7 @@ probably want to read it in chunks, taking breaks.
 ## Setup {#setup}
 
 You can start from scratch or grab the finished demo at GitHub:
-[https://github.com/Mitranim/ng-next-gen](https://github.com/Mitranim/ng-next-gen).
+[https://github.com/mitranim/ng-next-gen](https://github.com/mitranim/ng-next-gen).
 **Note**: the demo has _significantly_ diverged from the guide by the time you're reading this.
 
 You can also check your progress against the
@@ -558,7 +558,7 @@ class ViewModel {}
 All of these options are required for a proper custom element definition. This
 API is pretty bad. We'll use custom decorators to make it semantic. I'm going
 to cheat and import a library designed for this:
-[ng-decorate](https://github.com/Mitranim/ng-decorate). We have already
+[ng-decorate](https://github.com/mitranim/ng-decorate). We have already
 installed it with `jspm`. Create `src/app/words-generator/words-generator.ts`
 with:
 
@@ -1057,7 +1057,7 @@ See the live demo deployed in "prod mode": [demo](https://mitranim.com/ng-next-g
 
 That's it! You can now build modern web applications using future technologies,
 with no drawbacks or compromises. Grab the complete demo on GitHub:
-[https://github.com/Mitranim/ng-next-gen](https://github.com/Mitranim/ng-next-gen)
+[https://github.com/mitranim/ng-next-gen](https://github.com/mitranim/ng-next-gen)
 and start playing around.
 
 If you have any questions, grab me over on [Gitter](https://gitter.im/Mitranim)
