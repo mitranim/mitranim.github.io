@@ -59,11 +59,11 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 <span>{{html "svg-paper-plane"}} Telegram [Mitranim](https://telegram.me/Mitranim)</span>
 
-<span>{{html "svg-mobile-alt"}} phone +7-926-044-00-49</span>
+<span>{{html "svg-mobile-alt"}} phone [+7-926-044-00-49](tel:+7-926-044-00-49)</span>
 
 <span>@ email [me@mitranim.com](mailto:me@mitranim.com)</span>
 
-I tend to be **unresponsive** on email, please consider the other channels.
+I tend to be **unresponsive** on email, please try the other channels first.
 
 # Links
 
