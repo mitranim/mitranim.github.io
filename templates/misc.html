@@ -203,6 +203,12 @@ In principle, this should use text/template rather than html/template, but CBA.
   <div class="fancy-typography">
     {{htmlWith .Md . | asMd}}
   </div>
+  <hr />
+  <div>
+    This blog currently doesn't have comments. To respond, use
+    <a href="mailto:me@mitranim.com?subject=Re:%20{{.Title}}">me@mitranim.com</a>
+    or one of my <a href="/#contacts">other contacts</a>.
+  </div>
 </article>
 {{template "site-bottom" .}}
 {{- end -}}
