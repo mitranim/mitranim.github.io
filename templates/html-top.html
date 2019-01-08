@@ -1,0 +1,29 @@
+<!--
+Note the absence of a base href. This enables relative hashes, but requires
+most other links to be absolute. Exercise care.
+-->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes" />
+  <link rel="icon" href="data:;base64,=" />
+  <link rel="stylesheet" type="text/css" href="{{linkWithHash "/styles/main.css" | asAttr}}" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,300italic,400italic,500italic,600italic&subset=latin" />
+
+  <title>{{if .Title}}{{.Title | asHtml}}{{else}}about:mitranim{{end}}</title>
+
+  <link rel="alternate" type="application/atom+xml" title="Mitranim's Posts (Atom)" href="/feed.xml" />
+  <link rel="alternate" type="application/rss+xml"  title="Mitranim's Posts (RSS)"  href="/feed_rss.xml" />
+
+  <meta name="author" content="Nelo Mitranim" />
+  {{if .Description}}<meta name="description" content="{{.Description | asAttr}}" />{{end}}
+  {{if .Type}}
+  <meta property="og:site_name" content="about:mitranim" />
+  <meta property="og:type" content="{{.Type | asAttr}}" />
+  {{end}}
+  {{if .Title}}<meta property="og:title" content="{{.Title | asAttr}}" />{{end}}
+  {{if .Image}}<meta property="og:image" content="/images/{{.Image | asAttr}}" />{{end}}
+</head>
+<body class="col-start-stretch" style="min-height: 100vh">

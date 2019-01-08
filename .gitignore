@@ -4,9 +4,9 @@
 !/cmd.go
 !/images
 !/readme.md
-!/server.go
 !/static
 !/styles
 !/templates
 !/go.mod
 !/go.sum
+!/srv.nginx

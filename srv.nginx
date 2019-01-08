@@ -1,0 +1,77 @@
+# Usage:
+#
+# nginx -p . -c srv.nginx
+# open http://localhost:52693
+
+daemon off;
+error_log /dev/stderr;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    charset utf-8;
+
+    server {
+        listen 52693;
+        root ./public;
+
+        # The following lines behave like Github Pages and Netlify, with the
+        # difference that we don't use redirects to "repair" URLs with a
+        # redundant or missing slash.
+        error_page 404 /404.html;
+        try_files $uri $uri.html $uri/index.html =404;
+
+        add_header "cache-control" "no-cache";
+    }
+
+    types {
+        text/html                             html htm shtml;
+        text/css                              css;
+        text/xml                              xml rss;
+        image/gif                             gif;
+        image/jpeg                            jpeg jpg;
+        application/x-javascript              js;
+        text/plain                            txt;
+        text/x-component                      htc;
+        text/mathml                           mml;
+        image/png                             png;
+        image/x-icon                          ico;
+        image/x-jng                           jng;
+        image/vnd.wap.wbmp                    wbmp;
+        application/java-archive              jar war ear;
+        application/mac-binhex40              hqx;
+        application/pdf                       pdf;
+        application/x-cocoa                   cco;
+        application/x-java-archive-diff       jardiff;
+        application/x-java-jnlp-file          jnlp;
+        application/x-makeself                run;
+        application/x-perl                    pl pm;
+        application/x-pilot                   prc pdb;
+        application/x-rar-compressed          rar;
+        application/x-redhat-package-manager  rpm;
+        application/x-sea                     sea;
+        application/x-shockwave-flash         swf;
+        application/x-stuffit                 sit;
+        application/x-tcl                     tcl tk;
+        application/x-x509-ca-cert            der pem crt;
+        application/x-xpinstall               xpi;
+        application/zip                       zip;
+        application/octet-stream              deb;
+        application/octet-stream              bin exe dll;
+        application/octet-stream              dmg;
+        application/octet-stream              eot;
+        application/octet-stream              iso img;
+        application/octet-stream              msi msp msm;
+        audio/mpeg                            mp3;
+        audio/x-realaudio                     ra;
+        video/mpeg                            mpeg mpg;
+        video/quicktime                       mov;
+        video/x-flv                           flv;
+        video/x-msvideo                       avi;
+        video/x-ms-wmv                        wmv;
+        video/x-ms-asf                        asx asf;
+        video/x-mng                           mng;
+    }
+}

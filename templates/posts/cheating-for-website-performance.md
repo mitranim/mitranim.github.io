@@ -152,7 +152,7 @@ use a caching proxy / CDN like CloudFlare to reduce latency for static content.
 
 Simple websites with one maintainer, like a personal page or a blog, don't need
 a scripting engine with a database. You can prerender them into HTML files, then
-serve with nginx or on a service like GitHub Pages. Dynamic functionality can be
+serve with nginx or on a service like Github Pages. Dynamic functionality can be
 implemented with ajax.
 
 Serving static files is naturally more performant than rendering templates on

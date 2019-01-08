@@ -55,11 +55,11 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 # Contacts {#contacts}
 
-<span>{{html "svg-skype"}} skype [mitranim.web](skype:mitranim.web?chat)</span>
+<span>{{include "svg-skype"}} skype [mitranim.web](skype:mitranim.web?chat)</span>
 
-<span>{{html "svg-paper-plane"}} Telegram [Mitranim](https://telegram.me/Mitranim)</span>
+<span>{{include "svg-paper-plane"}} Telegram [Mitranim](https://telegram.me/Mitranim)</span>
 
-<span>{{html "svg-mobile-alt"}} phone [+7-926-044-00-49](tel:+7-926-044-00-49)</span>
+<span>{{include "svg-mobile-alt"}} phone [+7-926-044-00-49](tel:+7-926-044-00-49)</span>
 
 <span>@ email [me@mitranim.com](mailto:me@mitranim.com)</span>
 
@@ -67,10 +67,10 @@ I tend to be **unresponsive** on email, please try the other channels first.
 
 # Links
 
-<a href="https://github.com/mitranim" {{targetBlank}}>{{html "svg-github"}} Me on GitHub</a>
+<a href="https://github.com/mitranim" {{targetBlank}}>{{include "svg-github"}} My Github</a>
 
-<a href="http://twitter.com/mitranim" {{targetBlank}}>{{html "svg-twitter"}} Me on Twitter</a>
+<a href="http://twitter.com/mitranim" {{targetBlank}}>{{include "svg-twitter"}} My Twitter</a>
 
-<a href="http://linkedin.com/in/mitranim" {{targetBlank}}>{{html "svg-linkedin"}} Me on LinkedIn</a>
+<a href="http://linkedin.com/in/mitranim" {{targetBlank}}>{{include "svg-linkedin"}} My LinkedIn</a>
 
-<a href="http://facebook.com/mitranim" {{targetBlank}}>{{html "svg-facebook"}} Me on Facebook</a>
+<a href="http://facebook.com/mitranim" {{targetBlank}}>{{include "svg-facebook"}} My Facebook</a>

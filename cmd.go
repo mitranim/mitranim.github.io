@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/xml"
 	"fmt"
 	"hash/crc32"
 	"html/template"
@@ -24,9 +25,9 @@ import (
 )
 
 const (
-	OUT       = "public"
-	FILE_MODE = 0600
-	DIR_MODE  = 0700
+	PUBLIC_DIR = "public"
+	FILE_MODE  = 0600
+	DIR_MODE   = 0700
 )
 
 var (
@@ -34,7 +35,7 @@ var (
 
 	TEMPLATES = template.New("")
 
-	SITE = []interface{}{
+	SITE_PAGES = []Page{
 		Page{
 			Path:        "index.html",
 			Title:       "about:mitranim",
@@ -58,12 +59,6 @@ var (
 			Description: "Random notes and thoughts",
 		},
 
-		Feed{
-			Path:        "feed.xml",
-			Title:       "Nelo Mitranim's Blog",
-			Description: "Occasional notes, mostly about programming",
-		},
-
 		Page{
 			Path:        "demos.html",
 			Title:       "Demos",
@@ -75,7 +70,9 @@ var (
 			Title:       "Resume",
 			Description: "Nelo Mitranim's Resume",
 		},
+	}
 
+	SITE_POSTS = []Post{
 		Post{
 			Page: Page{
 				Path:        "posts/cheating-for-performance-pjax.html",
@@ -100,8 +97,9 @@ var (
 
 		Post{
 			Page: Page{
-				Path:  "posts/keeping-things-simple.html",
-				Title: "Keeping Things Simple",
+				Path:        "posts/keeping-things-simple.html",
+				Title:       "Keeping Things Simple",
+				Description: "Musings on simplicity in programming",
 			},
 			Md:     "keeping-things-simple.md",
 			Date:   time.Date(2015, 3, 10, 0, 0, 0, 0, time.UTC),
@@ -131,7 +129,26 @@ var (
 		},
 	}
 
-	WITH_HASHES = map[string]string{}
+	FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
+
+	TEMPLATE_FUNCS = template.FuncMap{
+		"asHtml":         func(val string) template.HTML { return template.HTML(val) },
+		"asAttr":         func(val string) template.HTMLAttr { return template.HTMLAttr(val) },
+		"asMd":           asMd,
+		"targetBlank":    targetBlankAttr,
+		"current":        currentAttr,
+		"now":            func() string { return formatDateIso(time.Now().UTC()) },
+		"formatDateIso":  formatDateIso,
+		"years":          years,
+		"getListedPosts": getListedPosts,
+		"include":        includeTemplate,
+		"includeWith":    includeTemplateWith,
+		"join":           path.Join,
+		"linkWithHash":   linkWithHash,
+		"ngTemplate":     func() string { return NG_TEMPLATE },
+	}
+
+	ASSET_HASHES = map[string]string{}
 
 	MD_OPTS = []bf.Option{
 		bf.WithExtensions(
@@ -149,8 +166,6 @@ var (
 	// CHROMA_STYLE = styles.Tango
 	// CHROMA_STYLE = styles.VisualStudio
 	// CHROMA_STYLE = styles.Xcode
-
-	stack = errors.WithStack
 )
 
 type Page struct {
@@ -163,19 +178,14 @@ type Page struct {
 
 type Post struct {
 	Page
-	Md     string
-	Date   time.Time
-	Listed bool
+	Md       string
+	Rendered string
+	Date     time.Time
+	Listed   bool
 }
 
 func (self Post) Slug() string {
 	return strings.TrimSuffix(filepath.Base(self.Path), filepath.Ext(self.Path))
-}
-
-type Feed struct {
-	Path        string
-	Title       string
-	Description string
 }
 
 func main() {
@@ -186,7 +196,7 @@ func main() {
 		os.Exit(1)
 	}
 	t1 := time.Now()
-	log.Printf("Built in %v\n", t1.Sub(t0))
+	log.Printf("[html] done in %v\n", t1.Sub(t0))
 }
 
 func build() error {
@@ -204,22 +214,7 @@ func build() error {
 }
 
 func initTemplates() error {
-	TEMPLATES.Funcs(template.FuncMap{
-		"asHtml":         func(val string) template.HTML { return template.HTML(val) },
-		"asAttr":         func(val string) template.HTMLAttr { return template.HTMLAttr(val) },
-		"asMd":           asMd,
-		"targetBlank":    func() template.HTMLAttr { return template.HTMLAttr(`target="_blank" rel="noopener noreferrer"`) },
-		"current":        current,
-		"now":            func() string { return formatDateIso(time.Now().UTC()) },
-		"formatDateIso":  formatDateIso,
-		"years":          years,
-		"getListedPosts": getListedPosts,
-		"htmlWith":       renderByName,
-		"html":           func(name string) (template.HTML, error) { return renderByName(name, nil) },
-		"join":           path.Join,
-		"withHash":       withHash,
-		"ngTemplate":     func() string { return NG_TEMPLATE },
-	})
+	TEMPLATES.Funcs(TEMPLATE_FUNCS)
 
 	for _, pattern := range []string{
 		"templates/*.md",
@@ -228,7 +223,7 @@ func initTemplates() error {
 	} {
 		_, err := TEMPLATES.ParseGlob(pattern)
 		if err != nil {
-			return stack(err)
+			return errors.WithStack(err)
 		}
 	}
 
@@ -236,51 +231,104 @@ func initTemplates() error {
 }
 
 func renderSite() error {
-	for _, entry := range SITE {
-		switch entry := entry.(type) {
-		case Page:
-			path := entry.Path
-			temp, err := findTemplate(path)
-			if err != nil {
-				return err
-			}
-			err = renderTo(temp, path, entry)
-			if err != nil {
-				return err
-			}
-
-		case Post:
-			path := entry.Path
-			temp, err := findTemplate("post.html")
-			if err != nil {
-				return err
-			}
-			err = renderTo(temp, path, entry)
-			if err != nil {
-				return err
-			}
-
-			// Redirect for old post URL
-			meta := fmt.Sprintf(
-				`<meta http-equiv="refresh" content="0;URL='https://mitranim.com/posts/%v'" />`,
-				entry.Slug(),
-			)
-			err = writeTo(filepath.Join("thoughts", entry.Slug()), []byte(meta))
-			if err != nil {
-				return err
-			}
-
-		case Feed:
-			path := entry.Path
-			temp, err := findTemplate(path)
-			if err != nil {
-				return err
-			}
-			err = renderTo(temp, path, entry)
-			if err != nil {
-				return err
-			}
+	for _, page := range SITE_PAGES {
+		temp, err := findTemplate(page.Path)
+		if err != nil {
+			return err
 		}
+
+		output, err := renderTemplate(temp, page)
+		if err != nil {
+			return err
+		}
+
+		err = writePublic(page.Path, output)
+		if err != nil {
+			return err
+		}
+	}
+
+	feed := Feed{
+		Title:       "mitranim.com blog",
+		Link:        &FeedLink{Href: "https://mitranim.com/posts"},
+		Author:      FEED_AUTHOR,
+		Updated:     time.Now(),
+		Created:     time.Now(),
+		Id:          "a963504f-51a5-4b86-84e1-80a8b579c7e7",
+		Description: "Random thoughts about technology",
+		Items:       nil,
+	}
+
+	for _, post := range SITE_POSTS {
+		inner, err := findTemplate("post-content.html")
+		if err != nil {
+			return err
+		}
+
+		content, err := renderTemplate(inner, post)
+		if err != nil {
+			return err
+		}
+		post.Rendered = string(content)
+
+		outer, err := findTemplate("post-layout.html")
+		if err != nil {
+			return err
+		}
+
+		output, err := renderTemplate(outer, post)
+		if err != nil {
+			return err
+		}
+
+		err = writePublic(post.Path, output)
+		if err != nil {
+			return err
+		}
+
+		// Redirect old post URL
+		meta := fmt.Sprintf(
+			`<meta http-equiv="refresh" content="0;URL='https://mitranim.com/posts/%v'" />`,
+			post.Slug(),
+		)
+		err = writePublic(filepath.Join("thoughts", post.Slug()), []byte(meta))
+		if err != nil {
+			return err
+		}
+
+		if !post.Listed {
+			continue
+		}
+
+		href := "https://mitranim.com/posts/" + post.Slug()
+		feed.Items = append(feed.Items, FeedItem{
+			Title:       post.Page.Title,
+			Link:        &FeedLink{Href: href},
+			Author:      FEED_AUTHOR,
+			Description: post.Page.Description,
+			Id:          href,
+			Created:     post.Date, // FIXME fetch from git,
+			Updated:     post.Date, // FIXME fetch from git,
+			Content:     string(content),
+		})
+	}
+
+	content, err := xml.MarshalIndent(feed.AtomFeed(), "", "\t")
+	if err != nil {
+		return errors.WithStack(err)
+	}
+	err = writePublic("feed.xml", append([]byte(xml.Header), content...))
+	if err != nil {
+		return errors.WithStack(err)
+	}
+
+	content, err = xml.MarshalIndent(feed.RssFeed(), "", "\t")
+	if err != nil {
+		return errors.WithStack(err)
+	}
+	err = writePublic("feed_rss.xml", append([]byte(xml.Header), content...))
+	if err != nil {
+		return errors.WithStack(err)
 	}
 
 	return nil
@@ -306,12 +354,16 @@ func renderTemplate(temp *template.Template, data interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	err := temp.Execute(&buf, data)
 	if err != nil {
-		return nil, stack(err)
+		return nil, errors.WithStack(err)
 	}
 	return buf.Bytes(), nil
 }
 
-func renderByName(name string, data interface{}) (template.HTML, error) {
+func includeTemplate(name string) (template.HTML, error) {
+	return includeTemplateWith(name, nil)
+}
+
+func includeTemplateWith(name string, data interface{}) (template.HTML, error) {
 	temp, err := findTemplate(name)
 	if err != nil {
 		return "", err
@@ -325,47 +377,28 @@ func renderByName(name string, data interface{}) (template.HTML, error) {
 	return template.HTML(bytes), nil
 }
 
-func renderTo(temp *template.Template, path string, data interface{}) error {
-	path = filepath.Join(OUT, path)
+func writePublic(path string, bytes []byte) error {
+	path = filepath.Join(PUBLIC_DIR, path)
 
 	err := os.MkdirAll(filepath.Dir(path), DIR_MODE)
 	if err != nil {
-		return stack(err)
-	}
-
-	out, err := os.Create(path)
-	if err != nil {
-		return stack(err)
-	}
-	defer out.Close()
-
-	err = temp.Execute(out, data)
-	if err != nil {
-		return err
-	}
-
-	// log.Printf("Wrote %v\n", path)
-	return nil
-}
-
-func writeTo(path string, bytes []byte) error {
-	path = filepath.Join(OUT, path)
-
-	err := os.MkdirAll(filepath.Dir(path), DIR_MODE)
-	if err != nil {
-		return stack(err)
+		return errors.WithStack(err)
 	}
 
 	err = ioutil.WriteFile(path, bytes, FILE_MODE)
 	if err != nil {
-		return stack(err)
+		return errors.WithStack(err)
 	}
 
 	// log.Printf("Wrote %v\n", path)
 	return nil
 }
 
-func current(href string, data interface{}) template.HTMLAttr {
+func targetBlankAttr() template.HTMLAttr {
+	return template.HTMLAttr(`target="_blank" rel="noopener noreferrer"`)
+}
+
+func currentAttr(href string, data interface{}) template.HTMLAttr {
 	var path string
 	switch data := data.(type) {
 	case Page:
@@ -407,25 +440,22 @@ func asMd(val interface{}) template.HTML {
 }
 
 func getListedPosts() (out []Post) {
-	for _, val := range SITE {
-		switch val := val.(type) {
-		case Post:
-			if val.Listed {
-				out = append(out, val)
-			}
+	for _, post := range SITE_POSTS {
+		if post.Listed {
+			out = append(out, post)
 		}
 	}
 	return
 }
 
-func withHash(assetPath string) (string, error) {
-	out := WITH_HASHES[assetPath]
+func linkWithHash(assetPath string) (string, error) {
+	out := ASSET_HASHES[assetPath]
 
 	if out == "" {
-		path := filepath.Join(OUT, assetPath)
+		path := filepath.Join(PUBLIC_DIR, assetPath)
 		bytes, err := ioutil.ReadFile(path)
 		if err != nil {
-			return "", stack(err)
+			return "", errors.WithStack(err)
 		}
 
 		hash := crc32.ChecksumIEEE(bytes)
@@ -434,7 +464,7 @@ func withHash(assetPath string) (string, error) {
 		} else {
 			out = fmt.Sprintf("%v?%v", assetPath, hash)
 		}
-		WITH_HASHES[assetPath] = out
+		ASSET_HASHES[assetPath] = out
 	}
 
 	return out, nil
@@ -458,16 +488,16 @@ func (self *MdRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) 
 	case bf.CodeBlock:
 		tag := string(node.CodeBlockData.Info)
 
-		/*
-			Special magic for code blocks like these:
+		/**
+		Special magic for code blocks like these:
 
-			```details"title"lang
-			(some text)
-			```
+		```details"title"lang
+		(some text)
+		```
 
-			This gets wrapped in a <details> element, with the string in the middle
-			as <summary>. The lang tag is optional; if present, the block is
-			processed as code, otherwise as regular text.
+		This gets wrapped in a <details> element, with the string in the middle
+		as <summary>. The lang tag is optional; if present, the block is
+		processed as code, otherwise as regular text.
 		*/
 		if detailTagReg.MatchString(tag) {
 			match := detailTagReg.FindStringSubmatch(tag)
@@ -561,3 +591,375 @@ const NG_TEMPLATE = `
   </div>
 </div>
 `
+
+/*
+This and other feed-related types are copied from
+https://github.com/gorilla/feeds with minor modifications.
+*/
+type Feed struct {
+	Title       string
+	Link        *FeedLink
+	Description string
+	Author      *FeedAuthor
+	Updated     time.Time
+	Created     time.Time
+	Id          string
+	Subtitle    string
+	Items       []FeedItem
+	Copyright   string
+	Image       *FeedImage
+}
+
+type FeedLink struct {
+	Href   string
+	Rel    string
+	Type   string
+	Length string
+}
+
+type FeedAuthor struct {
+	Name  string
+	Email string
+}
+
+func (self FeedAuthor) RssAuthor() string {
+	if len(self.Email) > 0 {
+		str := self.Email
+		if len(self.Name) > 0 {
+			str += " (" + self.Name + ")"
+		}
+		return str
+	}
+	return self.Name
+}
+
+type FeedImage struct {
+	Url    string
+	Title  string
+	Link   string
+	Width  int
+	Height int
+}
+
+type FeedItem struct {
+	Title       string
+	Link        *FeedLink
+	Source      *FeedLink
+	Author      *FeedAuthor
+	Description string // used as description in rss, summary in atom
+	Id          string // used as guid in rss, id in atom
+	Updated     time.Time
+	Created     time.Time
+	Enclosure   *FeedEnclosure
+	Content     string
+}
+
+type FeedEnclosure struct {
+	Url    string
+	Length string
+	Type   string
+}
+
+func (self Feed) AtomFeed() AtomFeed {
+	feed := AtomFeed{
+		Xmlns:    "http://www.w3.org/2005/Atom",
+		Title:    self.Title,
+		Link:     &AtomLink{Href: self.Link.Href, Rel: self.Link.Rel},
+		Subtitle: self.Description,
+		Id:       self.Link.Href,
+		Updated:  AtomTime(self.Updated),
+		Rights:   self.Copyright,
+	}
+
+	if self.Author != nil {
+		feed.Author = &AtomAuthor{
+			AtomPerson: AtomPerson{
+				Name:  self.Author.Name,
+				Email: self.Author.Email,
+			},
+		}
+	}
+
+	for _, item := range self.Items {
+		var name string
+		var email string
+		if item.Author != nil {
+			name = item.Author.Name
+			email = item.Author.Email
+		}
+
+		linkRel := item.Link.Rel
+		if linkRel == "" {
+			linkRel = "alternate"
+		}
+
+		entry := AtomEntry{
+			Title:   item.Title,
+			Links:   []AtomLink{{Href: item.Link.Href, Rel: linkRel, Type: item.Link.Type}},
+			Id:      item.Id,
+			Updated: AtomTime(item.Updated),
+			Summary: &AtomSummary{Type: "html", Content: item.Description},
+		}
+
+		// if there's a content, assume it's html
+		if len(item.Content) > 0 {
+			entry.Content = &AtomContent{Type: "html", Content: item.Content}
+		}
+
+		if item.Enclosure != nil && linkRel != "enclosure" {
+			entry.Links = append(entry.Links, AtomLink{
+				Href:   item.Enclosure.Url,
+				Rel:    "enclosure",
+				Type:   item.Enclosure.Type,
+				Length: item.Enclosure.Length,
+			})
+		}
+
+		if len(name) > 0 || len(email) > 0 {
+			entry.Author = &AtomAuthor{AtomPerson: AtomPerson{Name: name, Email: email}}
+		}
+
+		feed.Entries = append(feed.Entries, entry)
+	}
+
+	return feed
+}
+
+func (self Feed) RssFeed() RssFeed {
+	var author string
+	if self.Author != nil {
+		author = self.Author.RssAuthor()
+	}
+
+	var image *RssImage
+	if self.Image != nil {
+		image = &RssImage{
+			Url:    self.Image.Url,
+			Title:  self.Image.Title,
+			Link:   self.Image.Link,
+			Width:  self.Image.Width,
+			Height: self.Image.Height,
+		}
+	}
+
+	feed := RssFeed{
+		Version:          "2.0",
+		ContentNamespace: "http://purl.org/rss/1.0/modules/content/",
+		Channel: &RssChannel{
+			Title:          self.Title,
+			Link:           self.Link.Href,
+			Description:    self.Description,
+			ManagingEditor: author,
+			PubDate:        RssTime(self.Created),
+			LastBuildDate:  RssTime(self.Updated),
+			Copyright:      self.Copyright,
+			Image:          image,
+		},
+	}
+
+	for _, item := range self.Items {
+		rssItem := RssItem{
+			Title:       item.Title,
+			Link:        item.Link.Href,
+			Description: item.Description,
+			Guid:        item.Id,
+			PubDate:     RssTime(item.Created),
+		}
+
+		if len(item.Content) > 0 {
+			rssItem.Content = &RssContent{Content: item.Content}
+		}
+
+		if item.Source != nil {
+			rssItem.Source = item.Source.Href
+		}
+
+		if item.Enclosure != nil && item.Enclosure.Type != "" && item.Enclosure.Length != "" {
+			rssItem.Enclosure = &RssEnclosure{
+				Url:    item.Enclosure.Url,
+				Type:   item.Enclosure.Type,
+				Length: item.Enclosure.Length,
+			}
+		}
+
+		if item.Author != nil {
+			rssItem.Author = item.Author.RssAuthor()
+		}
+
+		feed.Channel.Items = append(feed.Channel.Items, rssItem)
+	}
+
+	return feed
+}
+
+type AtomFeed struct {
+	XMLName     xml.Name `xml:"feed"`
+	Xmlns       string   `xml:"xmlns,attr"`
+	Title       string   `xml:"title"`   // required
+	Id          string   `xml:"id"`      // required
+	Updated     AtomTime `xml:"updated"` // required
+	Category    string   `xml:"category,omitempty"`
+	Icon        string   `xml:"icon,omitempty"`
+	Logo        string   `xml:"logo,omitempty"`
+	Rights      string   `xml:"rights,omitempty"` // copyright used
+	Subtitle    string   `xml:"subtitle,omitempty"`
+	Link        *AtomLink
+	Author      *AtomAuthor `xml:"author,omitempty"`
+	Contributor *AtomContributor
+	Entries     []AtomEntry
+}
+
+// Multiple links with different rel can coexist
+// Atom 1.0 <link rel="enclosure" type="audio/mpeg" title="MP3" href="http://www.example.org/myaudiofile.mp3" length="1234" />
+type AtomLink struct {
+	XMLName xml.Name `xml:"link"`
+	Href    string   `xml:"href,attr"`
+	Rel     string   `xml:"rel,attr,omitempty"`
+	Type    string   `xml:"type,attr,omitempty"`
+	Length  string   `xml:"length,attr,omitempty"`
+}
+
+type AtomAuthor struct {
+	XMLName xml.Name `xml:"author"`
+	AtomPerson
+}
+
+type AtomContributor struct {
+	XMLName xml.Name `xml:"contributor"`
+	AtomPerson
+}
+
+type AtomPerson struct {
+	Name  string `xml:"name,omitempty"`
+	Uri   string `xml:"uri,omitempty"`
+	Email string `xml:"email,omitempty"`
+}
+
+type AtomEntry struct {
+	XMLName     xml.Name `xml:"entry"`
+	Xmlns       string   `xml:"xmlns,attr,omitempty"`
+	Title       string   `xml:"title"`   // required
+	Updated     AtomTime `xml:"updated"` // required
+	Id          string   `xml:"id"`      // required
+	Category    string   `xml:"category,omitempty"`
+	Content     *AtomContent
+	Rights      string `xml:"rights,omitempty"`
+	Source      string `xml:"source,omitempty"`
+	Published   string `xml:"published,omitempty"`
+	Contributor *AtomContributor
+	Links       []AtomLink   // required if no child 'content' elements
+	Summary     *AtomSummary // required if content has src or content is base64
+	Author      *AtomAuthor  // required if feed lacks an author
+}
+
+type AtomContent struct {
+	XMLName xml.Name `xml:"content"`
+	Content string   `xml:",cdata"`
+	Type    string   `xml:"type,attr"`
+}
+
+type AtomSummary struct {
+	XMLName xml.Name `xml:"summary"`
+	Content string   `xml:",cdata"`
+	Type    string   `xml:"type,attr"`
+}
+
+type AtomTime time.Time
+
+func (self AtomTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
+	if time.Time(self).IsZero() {
+		return nil
+	}
+	enc.EncodeToken(start)
+	enc.EncodeToken(xml.CharData(time.Time(self).String()))
+	enc.EncodeToken(xml.EndElement{start.Name})
+	return nil
+}
+
+type RssFeed struct {
+	XMLName          xml.Name `xml:"rss"`
+	Version          string   `xml:"version,attr"`
+	ContentNamespace string   `xml:"xmlns:content,attr"`
+	Channel          *RssChannel
+}
+
+type RssChannel struct {
+	XMLName        xml.Name `xml:"channel"`
+	Title          string   `xml:"title"`       // required
+	Link           string   `xml:"link"`        // required
+	Description    string   `xml:"description"` // required
+	Language       string   `xml:"language,omitempty"`
+	Copyright      string   `xml:"copyright,omitempty"`
+	ManagingEditor string   `xml:"managingEditor,omitempty"` // Author used
+	WebMaster      string   `xml:"webMaster,omitempty"`
+	PubDate        RssTime  `xml:"pubDate,omitempty"`       // created or updated
+	LastBuildDate  RssTime  `xml:"lastBuildDate,omitempty"` // updated used
+	Category       string   `xml:"category,omitempty"`
+	Generator      string   `xml:"generator,omitempty"`
+	Docs           string   `xml:"docs,omitempty"`
+	Cloud          string   `xml:"cloud,omitempty"`
+	Ttl            int      `xml:"ttl,omitempty"`
+	Rating         string   `xml:"rating,omitempty"`
+	SkipHours      string   `xml:"skipHours,omitempty"`
+	SkipDays       string   `xml:"skipDays,omitempty"`
+	Image          *RssImage
+	TextInput      *RssTextInput
+	Items          []RssItem
+}
+
+type RssImage struct {
+	XMLName xml.Name `xml:"image"`
+	Url     string   `xml:"url"`
+	Title   string   `xml:"title"`
+	Link    string   `xml:"link"`
+	Width   int      `xml:"width,omitempty"`
+	Height  int      `xml:"height,omitempty"`
+}
+
+type RssTextInput struct {
+	XMLName     xml.Name `xml:"textInput"`
+	Title       string   `xml:"title"`
+	Description string   `xml:"description"`
+	Name        string   `xml:"name"`
+	Link        string   `xml:"link"`
+}
+
+type RssItem struct {
+	XMLName     xml.Name `xml:"item"`
+	Title       string   `xml:"title"`       // required
+	Link        string   `xml:"link"`        // required
+	Description string   `xml:"description"` // required
+	Content     *RssContent
+	Author      string `xml:"author,omitempty"`
+	Category    string `xml:"category,omitempty"`
+	Comments    string `xml:"comments,omitempty"`
+	Enclosure   *RssEnclosure
+	Guid        string  `xml:"guid,omitempty"`    // Id used
+	PubDate     RssTime `xml:"pubDate,omitempty"` // created or updated
+	Source      string  `xml:"source,omitempty"`
+}
+
+type RssContent struct {
+	XMLName xml.Name `xml:"content:encoded"`
+	Content string   `xml:",cdata"`
+}
+
+// RSS 2.0 <enclosure url="http://example.com/file.mp3" length="123456789" type="audio/mpeg" />
+type RssEnclosure struct {
+	XMLName xml.Name `xml:"enclosure"`
+	Url     string   `xml:"url,attr"`
+	Length  string   `xml:"length,attr"`
+	Type    string   `xml:"type,attr"`
+}
+
+type RssTime time.Time
+
+func (self RssTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
+	if time.Time(self).IsZero() {
+		return nil
+	}
+	enc.EncodeToken(start)
+	enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC1123Z)))
+	enc.EncodeToken(xml.EndElement{start.Name})
+	return nil
+}

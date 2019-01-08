@@ -1,0 +1,5 @@
+{{template "site-top.html" .}}
+<article class="fancy-typography">
+{{includeWith "demos.md" . | asMd}}
+</article>
+{{template "site-bottom.html" .}}

@@ -31,32 +31,12 @@ html {
   font-family: sans-serif;
 }
 
-pre, code {
+code, key, pre {
   font-family: monospace;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
-}
-
-/**
- * :focus
- */
-
-// :focus {
-//   outline: none;
-// }
-
-// // FF
-// ::-moz-focus-inner {
-//   border: none;
-// }
-
-%reset-focus {
-  &:focus {outline: none}
-
-  // FF
-  &::-moz-focus-inner {border: none}
 }
 
 /**
@@ -76,8 +56,6 @@ button {
   border: none;
   color: inherit;
   background-color: inherit;
-  &:focus {@extend :focus;}
-  &:active {@extend :focus;} // FF
   > * {vertical-align: middle}
   border-radius: 0;
 }

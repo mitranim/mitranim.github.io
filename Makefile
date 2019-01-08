@@ -5,12 +5,15 @@
 #
 # Notes
 #
-#   "$$" escapes shell variables.
-#   "$${varname#prefix}" interpolates the variable without the prefix.
-#   "fswatch -l N" means latency = N (default 1 second, too slow)
-#   "fswatch -o" means empty output
-#   "xargs -n1 -I{}" means invoke without arguments
-#   "make w" requires concurrency and MUST be run with "-j"
+#   "$$" rather than "$" -- prevent the interpolation from happening in make,
+#   delaying it until shell execution.
+#
+#   "${varname#prefix}" or "$${varname#prefix}" -- interpolate the variable
+#   while stripping the prefix.
+#
+#   "make w"        -- requires concurrency and MUST be run with "-j"
+#   "fswatch <dir>" -- writes absolute paths to stdout, newline-separated
+#   "fswatch -l N"  -- set latency; default is 1 second, too slow
 #
 # Dependencies
 #
@@ -20,25 +23,20 @@
 #   http://www.graphicsmagick.org
 #   https://github.com/emcrisostomo/fswatch
 #
-# Optional dependencies
-#
-#   https://github.com/mitranim/gow
-#
 # TODO
 #
-#   Report when rebuilding in watch mode; old errors may confuse
 #   Minify HTML to avoid whitespace gotchas?
+#   Restart Nginx on config changes.
+#   Watch HTML from cmd.go for faster rebuilds.
 
-# This writes absolute paths, space-separated, to stdout
-FSWATCH_LINE = fswatch -l 0.1 -0
-FSWATCH_MUTE = fswatch -l 0.1 -o
-INVOKE = xargs -n1 -I{}
-ABSTRACT = .PHONY
+ABSTRACT   = .PHONY
+FSWATCH    = fswatch -l 0.1 # writes absolute paths to stdout
+CLEAR_TERM = printf "\x1bc\x1b[3J"
 
 $(ABSTRACT): all
 all: cmd static html styles images
 
-# Requires "make w -j"
+# Requires "-j": "make w -j"
 $(ABSTRACT): w
 w: all cmd-w static-w html-w styles-w images-w server make-w
 
@@ -47,7 +45,13 @@ cmd: cmd.go
 
 $(ABSTRACT): cmd-w
 cmd-w:
-	@$(FSWATCH_MUTE) cmd.go | $(INVOKE) $(MAKE) cmd html
+	@$(FSWATCH) cmd.go |    \
+	while read;             \
+	do                      \
+		$(CLEAR_TERM) &&    \
+		$(MAKE) cmd html && \
+		echo "[cmd] done";  \
+	done
 
 $(ABSTRACT): static
 static: static/**/*
@@ -55,74 +59,107 @@ static: static/**/*
 
 $(ABSTRACT): static-w
 static-w:
-	@$(FSWATCH_MUTE) static | $(INVOKE) $(MAKE) static
+	@$(FSWATCH) static |      \
+	while read;               \
+	do                        \
+		$(CLEAR_TERM) &&      \
+		$(MAKE) static &&     \
+		echo "[static] done"; \
+	done
 
 $(ABSTRACT): html
 html: public/%.html
 
-# The styles dependency is for asset hashing
+# The "styles" dependency is for asset hashing, for asset links.
 public/%.html: cmd styles templates/**/*
 	@./cmd
 
 $(ABSTRACT): html-w
 html-w:
-	@$(FSWATCH_MUTE) templates | $(INVOKE) $(MAKE) html
+	@$(FSWATCH) templates | \
+	while read;             \
+	do                      \
+		$(CLEAR_TERM) &&    \
+		$(MAKE) html;       \
+	done
 
 $(ABSTRACT): styles
 styles: public/styles/main.css
 
 public/styles/main.css: styles/*.scss
 	@mkdir -p public/styles
-	@sassc styles/main.scss | minify --type=css > $@
-	@echo "[styles] Wrote $@"
+	@sassc styles/main.scss | minify --type=css > "${@}"
+	@echo "[styles] wrote ${@}"
 
 $(ABSTRACT): styles-w
 styles-w:
-	@$(FSWATCH_MUTE) styles | $(INVOKE) $(MAKE) styles
+	@$(FSWATCH) styles | \
+	while read;          \
+	do                   \
+		$(CLEAR_TERM) && \
+		$(MAKE) styles;  \
+	done
 
 $(ABSTRACT): images
 images: images/*
 	@mkdir -p public/images
 	@# Create a multiline batch file and pipe it to graphicsmagick.
-	@(for file in $?; do\
-		echo convert $$file public/images/$${file#images/};\
-	done) | gm batch -
+	@(\
+		for file in ${?};                                               \
+		do                                                              \
+			echo "convert" "$${file}" "public/images/$${file#images/}"; \
+		done                                                            \
+	) | gm batch -
 
-# Note: fswatch gives us absolute paths
+# Note: we truncate `pwd` because fswatch gives us absolute paths.
 $(ABSTRACT): images-w
 images-w:
-	@$(FSWATCH_LINE) images | while read -d "" file; do\
-		gm convert $$file public/images/$${file#$$(pwd)/images/};\
+	@$(FSWATCH) images |                                                  \
+	while read file;                                                      \
+	do                                                                    \
+		$(CLEAR_TERM) &&                                                  \
+		gm convert "$${file}" "public/images/$${file#$$(pwd)/images/}" && \
+		echo "[images] wrote public/images/$${file#$$(pwd)/images/}";     \
 	done
 
 $(ABSTRACT): server
 server:
-	@if command -v gow > /dev/null; then\
-		gow run server.go;\
-	else\
-		go run server.go;\
-	fi
+	@echo "Starting server at http://localhost:52693"
+	@nginx -p . -c srv.nginx
 
-# Note: fswatch gives us absolute paths
+# Note: we truncate `pwd` because fswatch gives us absolute paths.
 $(ABSTRACT): make-w
 make-w:
-	@$(FSWATCH_LINE) $(MAKEFILE_LIST) | while read -d "" file; do\
-		echo \"$${file#$$(pwd)/}\" has changed. Don\'t forget to restart.;\
+	@$(FSWATCH) $(MAKEFILE_LIST) |                                     \
+	while read file;                                                   \
+	do                                                                 \
+		$(CLEAR_TERM) &&                                               \
+		echo "$${file#$$(pwd)/} has changed, don't forget to restart"; \
 	done
 
 $(ABSTRACT): clean
 clean:
-	@rm -f cmd
-	@rm -rf public/*
+	@rm -f cmd && rm -rf public/*
 
 $(ABSTRACT): deploy
 deploy: clean all
-	@(\
-		cd public &&\
-		rm -rf .git &&\
-		git init &&\
-		git remote add origin https://github.com/mitranim/mitranim.github.io.git &&\
-		git add -A . &&\
-		git commit -a -m gh &&\
-		git push -f origin master\
-	)
+	@                                                                          \
+	url=$$(git remote get-url origin)        &&                                \
+	source=$$(git symbolic-ref --short head) &&                                \
+	target=master                            &&                                \
+	if                                                                         \
+		[ "$${source}" == "$${target}" ];                                      \
+	then                                                                       \
+		echo "expected source branch to be distinct from \"$${target}\"" >&2;  \
+		exit 1;                                                                \
+	else                                                                       \
+		cd public                                 &&                           \
+		rm -rf .git                               &&                           \
+		git init                                  &&                           \
+		git remote add origin "$${url}"           &&                           \
+		git add -A .                              &&                           \
+		git commit -a --allow-empty-message -m '' &&                           \
+		git branch -m "$${target}"                &&                           \
+		git push -f origin "$${target}"           &&                           \
+		rm -rf .git;                                                           \
+	fi

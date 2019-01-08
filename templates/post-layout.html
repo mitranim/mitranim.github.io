@@ -1,0 +1,16 @@
+{{template "site-top.html" .}}
+<article class="fancy-typography gaps-v-2">
+  <header class="gaps-v-1">
+    <h1>{{.Title}}</h1>
+    {{if .Description}}<p class="font-large fg-faded text-italic">{{.Description}}</p>{{end}}
+    {{if .Date}}<p class="fg-faded">Published {{.Date | formatDateIso}}</p>{{end}}
+  </header>
+  {{.Rendered | asHtml}}
+  <hr />
+  <div>
+    This blog currently doesn't have comments. To respond, use
+    <a href="mailto:me@mitranim.com?subject=Re:%20{{.Title}}">me@mitranim.com</a>
+    or one of my <a href="/#contacts">other contacts</a>.
+  </div>
+</article>
+{{template "site-bottom.html" .}}

@@ -43,7 +43,7 @@ probably want to read it in chunks, taking breaks.
 
 ## Setup {#setup}
 
-You can start from scratch or grab the finished demo at GitHub:
+You can start from scratch or grab the finished demo at Github:
 [https://github.com/mitranim/ng-next-gen](https://github.com/mitranim/ng-next-gen).
 **Note**: the demo has _significantly_ diverged from the guide by the time you're reading this.
 
@@ -1056,7 +1056,7 @@ See the live demo deployed in "prod mode": [demo](https://mitranim.com/ng-next-g
 ---
 
 That's it! You can now build modern web applications using future technologies,
-with no drawbacks or compromises. Grab the complete demo on GitHub:
+with no drawbacks or compromises. Grab the complete demo on Github:
 [https://github.com/mitranim/ng-next-gen](https://github.com/mitranim/ng-next-gen)
 and start playing around.
 

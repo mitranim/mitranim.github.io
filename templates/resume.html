@@ -1,0 +1,5 @@
+{{template "html-top.html" .}}
+<article class="fancy-typography limit-width padding-t-1 padding-b-2">
+{{includeWith "resume.md" . | asMd}}
+</article>
+{{template "html-bottom.html" .}}

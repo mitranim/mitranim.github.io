@@ -98,7 +98,7 @@ body {
   @extend .padding-h-1;
 }
 
-code, pre {
+code, key, pre {
   @extend .font-monospace;
   background-color: rgb(250, 250, 245);
 }
@@ -137,18 +137,12 @@ code, pre {
 
 .busy-underdash {
   border-bottom: 1px dashed;
-  // &:hover, &:focus {
-  //   border-bottom: 1px solid;
-  // }
   &:hover {
     border-bottom: 1px solid;
   }
 }
 
 .active-underdash {
-  // &:hover, &:focus {
-  //   border-bottom: 1px dashed;
-  // }
   &:hover {
     border-bottom: 1px dashed;
   }
@@ -200,18 +194,18 @@ code, pre {
     margin-bottom: 1rem;
   }
 
-  %h {
-    color: $color-black-37;
-    margin-right: 0.4rem;
-  }
-  h1::before {content: '#'; @extend %h;}
-  h2::before {content: '##'; @extend %h;}
-  h3::before {content: '###'; @extend %h;}
-  h4::before {content: '####'; @extend %h;}
-  h5::before {content: '#####'; @extend %h;}
-  h6::before {content: '######'; @extend %h;}
+  // %h {
+  //   color: $color-black-37;
+  //   margin-right: 0.4rem;
+  // }
+  // h1::before {content: '#'; @extend %h;}
+  // h2::before {content: '##'; @extend %h;}
+  // h3::before {content: '###'; @extend %h;}
+  // h4::before {content: '####'; @extend %h;}
+  // h5::before {content: '#####'; @extend %h;}
+  // h6::before {content: '######'; @extend %h;}
 
-  > p, > ul, > ol, > pre {
+  > p, > ul:not(.unstyled-list), > ol:not(.unstyled-list), > pre {
     &:not(:first-child) {
       margin-top: 1rem;
     }
@@ -220,11 +214,11 @@ code, pre {
     }
   }
 
-  > ul, > ol {
+  > ul:not(.unstyled-list), > ol:not(.unstyled-list) {
     @extend .fancy-list;
   }
 
-  li {
+  ul:not(.unstyled-list) > li, ol:not(.unstyled-list) > li {
     &:not(:first-child) {
       margin-top: 0.25rem;
     }
@@ -254,6 +248,7 @@ code, pre {
  * Layout
  */
 
+.row-start-start    {@include flex-layout(row, start, start);}
 .row-start-stretch  {@include flex-layout(row, start, stretch);}
 .row-center-center  {@include flex-layout(row, center, center);}
 .row-end-center     {@include flex-layout(row, end, center);}
@@ -265,6 +260,16 @@ code, pre {
 .flex-1             {@include flex(1);}
 
 .flex-noshrink      {@include flex-shrink(none);}
+
+.order-1 {@include flex-order(1)};
+.order-2 {@include flex-order(2)};
+.order-3 {@include flex-order(3)};
+.order-4 {@include flex-order(4)};
+.order-5 {@include flex-order(5)};
+.order-6 {@include flex-order(6)};
+.order-7 {@include flex-order(7)};
+.order-8 {@include flex-order(8)};
+.order-9 {@include flex-order(9)};
 
 .stretch-to-viewport {
   min-height: 100vh;
@@ -392,8 +397,7 @@ details.details {
   @extend .row-center-center;
   color: $color-link;
   &.--busy {
-    @extend %reset-focus;
-    &:hover, &:focus {
+    &:hover {
       background-color: rgba(gray, 0.1);
     }
     &[aria-current=''], &[aria-current=true] {
@@ -429,6 +433,7 @@ details.details {
 
 .unstyled-list {
   list-style-type: none;
+  list-style-position: unset;
 }
 
 // Workaround for a bug (?) in our markdown renderer.
