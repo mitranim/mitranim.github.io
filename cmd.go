@@ -871,7 +871,7 @@ func (self AtomTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error 
 		return nil
 	}
 	enc.EncodeToken(start)
-	enc.EncodeToken(xml.CharData(time.Time(self).String()))
+	enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC3339)))
 	enc.EncodeToken(xml.EndElement{start.Name})
 	return nil
 }
