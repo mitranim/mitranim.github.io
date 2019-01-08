@@ -21,7 +21,7 @@ Moscow, Russia
 
 # About
 
-Autodidact. Senior software developer and architect. Main expertise: web applications, full stack.
+Autodidact. Senior software developer and architect. Main expertise: web applications (full stack).
 
 Open source enthusiast.
 
@@ -130,9 +130,9 @@ unfinished:
 
 # Misc
 
-Favorite pastime: writing and contributing to open source software. See https://github.com/mitranim.
+Favorite pastimes: open source development (see https://github.com/mitranim), computer games, anime.
 
-Highly interested in programming language design.
+Enthusiastic about software, physics, biology, philosophy, culture, computer games, anime, science fiction.
 
 Location: Moscow, Russia (planning to move out).
 

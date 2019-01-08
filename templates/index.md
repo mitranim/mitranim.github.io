@@ -6,7 +6,7 @@
 
 Nelo Mitranim
 
-Autodidact. Senior software developer and architect. Main expertise: web applications, full stack.
+Autodidact. Senior software developer and architect. Main expertise: web applications (full stack).
 
 Part of team at <a href="https://purelab.io" {{targetBlank}}>Purelab.io</a>, a software development and consulting studio. Hire us for your next big project!
 
@@ -41,13 +41,13 @@ Solid experience:
   * traditional web applications (SSR, forms)
   * REST API backends
   * websocket API backends with live notifications
-  * Ethereum apps; see <a href="https://github.com/purelabio/eth" {{targetBlank}}>eth</a>
+  * Ethereum apps; see <a href="https://github.com/purelabio/eth" {{targetBlank}}>github.com/purelabio/eth</a>
 
 ## Misc
 
-Favorite pastime: [writing and contributing](/works) to open source software.
+Favorite pastimes: [open source development](/works), computer games, anime.
 
-Enthusiastic about programming language design.
+Enthusiastic about software, physics, biology, philosophy, culture, computer games, anime, science fiction.
 
 Location: Moscow, Russia (planning to move out).
 
@@ -61,9 +61,7 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 <span>{{include "svg-mobile-alt"}} phone [+7-926-044-00-49](tel:+7-926-044-00-49)</span>
 
-<span>@ email [me@mitranim.com](mailto:me@mitranim.com)</span>
-
-I tend to be **unresponsive** on email, please try the other channels first.
+<span>@ email [me@mitranim.com](mailto:me@mitranim.com)</span>; **I tend to be unresponsive on email.**
 
 # Links
 
