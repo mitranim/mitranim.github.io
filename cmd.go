@@ -30,143 +30,152 @@ const (
 	DIR_MODE   = 0700
 )
 
-var (
-	log = l.New(os.Stderr, "", 0)
+var SITE_PAGES = []Page{
+	Page{
+		Path:        "index.html",
+		Title:       "about:mitranim",
+		Description: "About me: details, works, posts",
+	},
 
-	TEMPLATES = template.New("")
+	Page{
+		Path:  "404.html",
+		Title: "Page Not Found",
+	},
 
-	SITE_PAGES = []Page{
-		Page{
-			Path:        "index.html",
-			Title:       "about:mitranim",
-			Description: "About me: details, works, posts",
+	Page{
+		Path:        "works.html",
+		Title:       "Works",
+		Description: "Software I'm involved in",
+	},
+
+	Page{
+		Path:        "posts.html",
+		Title:       "Blog Posts",
+		Description: "Random notes and thoughts",
+	},
+
+	Page{
+		Path:        "demos.html",
+		Title:       "Demos",
+		Description: "Silly little demos",
+	},
+
+	Page{
+		Path:        "resume.html",
+		Title:       "Resume",
+		Description: "Nelo Mitranim's Resume",
+	},
+}
+
+var SITE_POSTS = []Post{
+	Post{
+		Page: Page{
+			Path:        "posts/cheating-for-performance-pjax.html",
+			Title:       "Cheating for Performance with Pjax",
+			Description: "Faster page transitions, for free",
 		},
+		Md:      "cheating-for-performance-pjax.md",
+		Created: time.Date(2015, 7, 25, 0, 0, 0, 0, time.UTC),
+		Listed:  true,
+	},
 
-		Page{
-			Path:  "404.html",
-			Title: "Page Not Found",
+	Post{
+		Page: Page{
+			Path:        "posts/cheating-for-website-performance.html",
+			Title:       "Cheating for Website Performance",
+			Description: "Frontend tips for speeding up websites",
 		},
+		Md:      "cheating-for-website-performance.md",
+		Created: time.Date(2015, 3, 11, 0, 0, 0, 0, time.UTC),
+		Listed:  true,
+	},
 
-		Page{
-			Path:        "works.html",
-			Title:       "Works",
-			Description: "Software I'm involved in",
+	Post{
+		Page: Page{
+			Path:        "posts/keeping-things-simple.html",
+			Title:       "Keeping Things Simple",
+			Description: "Musings on simplicity in programming",
 		},
+		Md:      "keeping-things-simple.md",
+		Created: time.Date(2015, 3, 10, 0, 0, 0, 0, time.UTC),
+		Listed:  true,
+	},
 
-		Page{
-			Path:        "posts.html",
-			Title:       "Blog Posts",
-			Description: "Random notes and thoughts",
+	Post{
+		Page: Page{
+			Path:        "posts/next-generation-today.html",
+			Title:       "Next Generation Today",
+			Description: "EcmaScript 2015/2016 workflow with current web frameworks",
 		},
+		Md:      "next-generation-today.md",
+		Created: time.Date(2015, 5, 18, 0, 0, 0, 0, time.UTC),
+		Listed:  false,
+	},
 
-		Page{
-			Path:        "demos.html",
-			Title:       "Demos",
-			Description: "Silly little demos",
+	Post{
+		Page: Page{
+			Path:        "posts/old-posts.html",
+			Title:       "Old Posts",
+			Description: "some old stuff from around the net",
 		},
+		Md:      "old-posts.md",
+		Created: time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
+		Listed:  true,
+	},
+}
 
-		Page{
-			Path:        "resume.html",
-			Title:       "Resume",
-			Description: "Nelo Mitranim's Resume",
-		},
-	}
+var FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
 
-	SITE_POSTS = []Post{
-		Post{
-			Page: Page{
-				Path:        "posts/cheating-for-performance-pjax.html",
-				Title:       "Cheating for Performance with Pjax",
-				Description: "Faster page transitions, for free",
-			},
-			Md:     "cheating-for-performance-pjax.md",
-			Date:   time.Date(2015, 7, 25, 0, 0, 0, 0, time.UTC),
-			Listed: true,
-		},
+var SITE_FEED = Feed{
+	Title:       "Nelo Mitranim's Blog",
+	Link:        &FeedLink{Href: "https://mitranim.com/posts"},
+	Author:      FEED_AUTHOR,
+	Created:     time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
+	Updated:     time.Now(),
+	Id:          "a963504f-51a5-4b86-84e1-80a8b579c7e7",
+	Description: "Random thoughts about technology",
+	Items:       nil,
+}
 
-		Post{
-			Page: Page{
-				Path:        "posts/cheating-for-website-performance.html",
-				Title:       "Cheating for Website Performance",
-				Description: "Frontend tips for speeding up websites",
-			},
-			Md:     "cheating-for-website-performance.md",
-			Date:   time.Date(2015, 3, 11, 0, 0, 0, 0, time.UTC),
-			Listed: true,
-		},
+var TEMPLATES = template.New("")
 
-		Post{
-			Page: Page{
-				Path:        "posts/keeping-things-simple.html",
-				Title:       "Keeping Things Simple",
-				Description: "Musings on simplicity in programming",
-			},
-			Md:     "keeping-things-simple.md",
-			Date:   time.Date(2015, 3, 10, 0, 0, 0, 0, time.UTC),
-			Listed: true,
-		},
+var TEMPLATE_FUNCS = template.FuncMap{
+	"asHtml":         func(val string) template.HTML { return template.HTML(val) },
+	"asAttr":         func(val string) template.HTMLAttr { return template.HTMLAttr(val) },
+	"asMd":           asMd,
+	"targetBlank":    targetBlankAttr,
+	"current":        currentAttr,
+	"now":            func() string { return formatDateIso(time.Now().UTC()) },
+	"formatDateIso":  formatDateIso,
+	"years":          years,
+	"getListedPosts": getListedPosts,
+	"include":        includeTemplate,
+	"includeWith":    includeTemplateWith,
+	"join":           path.Join,
+	"linkWithHash":   linkWithHash,
+	"ngTemplate":     func() string { return NG_TEMPLATE },
+}
 
-		Post{
-			Page: Page{
-				Path:        "posts/next-generation-today.html",
-				Title:       "Next Generation Today",
-				Description: "EcmaScript 2015/2016 workflow with current web frameworks",
-			},
-			Md:     "next-generation-today.md",
-			Date:   time.Date(2015, 5, 18, 0, 0, 0, 0, time.UTC),
-			Listed: false,
-		},
+var ASSET_HASHES = map[string]string{}
 
-		Post{
-			Page: Page{
-				Path:        "posts/old-posts.html",
-				Title:       "Old Posts",
-				Description: "some old stuff from around the net",
-			},
-			Md:     "old-posts.md",
-			Date:   time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
-			Listed: true,
-		},
-	}
+var MD_OPTS = []bf.Option{
+	bf.WithExtensions(
+		bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.HeadingIDs,
+	),
+	bf.WithRenderer(&MdRenderer{*bf.NewHTMLRenderer(bf.HTMLRendererParameters{
+		Flags: bf.CommonHTMLFlags,
+	})}),
+}
 
-	FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
+var CHROMA_FORMATTER = html.New()
 
-	TEMPLATE_FUNCS = template.FuncMap{
-		"asHtml":         func(val string) template.HTML { return template.HTML(val) },
-		"asAttr":         func(val string) template.HTMLAttr { return template.HTMLAttr(val) },
-		"asMd":           asMd,
-		"targetBlank":    targetBlankAttr,
-		"current":        currentAttr,
-		"now":            func() string { return formatDateIso(time.Now().UTC()) },
-		"formatDateIso":  formatDateIso,
-		"years":          years,
-		"getListedPosts": getListedPosts,
-		"include":        includeTemplate,
-		"includeWith":    includeTemplateWith,
-		"join":           path.Join,
-		"linkWithHash":   linkWithHash,
-		"ngTemplate":     func() string { return NG_TEMPLATE },
-	}
+// var CHROMA_STYLE = styles.Colorful
+// var CHROMA_STYLE = styles.Tango
+// var CHROMA_STYLE = styles.VisualStudio
+// var CHROMA_STYLE = styles.Xcode
+var CHROMA_STYLE = styles.Pygments
 
-	ASSET_HASHES = map[string]string{}
-
-	MD_OPTS = []bf.Option{
-		bf.WithExtensions(
-			bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.HeadingIDs,
-		),
-		bf.WithRenderer(&MdRenderer{*bf.NewHTMLRenderer(bf.HTMLRendererParameters{
-			Flags: bf.CommonHTMLFlags,
-		})}),
-	}
-
-	CHROMA_FORMATTER = html.New()
-
-	// CHROMA_STYLE     = styles.Colorful
-	CHROMA_STYLE = styles.Pygments
-	// CHROMA_STYLE = styles.Tango
-	// CHROMA_STYLE = styles.VisualStudio
-	// CHROMA_STYLE = styles.Xcode
-)
+var log = l.New(os.Stderr, "", 0)
 
 type Page struct {
 	Path        string
@@ -180,7 +189,8 @@ type Post struct {
 	Page
 	Md       string
 	Rendered string
-	Date     time.Time
+	Created  time.Time
+	Updated  time.Time
 	Listed   bool
 }
 
@@ -248,16 +258,7 @@ func renderSite() error {
 		}
 	}
 
-	feed := Feed{
-		Title:       "mitranim.com blog",
-		Link:        &FeedLink{Href: "https://mitranim.com/posts"},
-		Author:      FEED_AUTHOR,
-		Updated:     time.Now(),
-		Created:     time.Now(),
-		Id:          "a963504f-51a5-4b86-84e1-80a8b579c7e7",
-		Description: "Random thoughts about technology",
-		Items:       nil,
-	}
+	feed := SITE_FEED
 
 	for _, post := range SITE_POSTS {
 		inner, err := findTemplate("post-content.html")
@@ -307,8 +308,8 @@ func renderSite() error {
 			Author:      FEED_AUTHOR,
 			Description: post.Page.Description,
 			Id:          href,
-			Created:     post.Date, // FIXME fetch from git,
-			Updated:     post.Date, // FIXME fetch from git,
+			Created:     post.Created, // TODO fetch from git?
+			Updated:     post.Updated, // TODO fetch from git?
 			Content:     string(content),
 		})
 	}
@@ -601,8 +602,8 @@ type Feed struct {
 	Link        *FeedLink
 	Description string
 	Author      *FeedAuthor
-	Updated     time.Time
 	Created     time.Time
+	Updated     time.Time
 	Id          string
 	Subtitle    string
 	Items       []FeedItem
@@ -648,8 +649,8 @@ type FeedItem struct {
 	Author      *FeedAuthor
 	Description string // used as description in rss, summary in atom
 	Id          string // used as guid in rss, id in atom
-	Updated     time.Time
 	Created     time.Time
+	Updated     time.Time
 	Enclosure   *FeedEnclosure
 	Content     string
 }
@@ -694,11 +695,12 @@ func (self Feed) AtomFeed() AtomFeed {
 		}
 
 		entry := AtomEntry{
-			Title:   item.Title,
-			Links:   []AtomLink{{Href: item.Link.Href, Rel: linkRel, Type: item.Link.Type}},
-			Id:      item.Id,
-			Updated: AtomTime(item.Updated),
-			Summary: &AtomSummary{Type: "html", Content: item.Description},
+			Title:     item.Title,
+			Links:     []AtomLink{{Href: item.Link.Href, Rel: linkRel, Type: item.Link.Type}},
+			Id:        item.Id,
+			Published: AtomTime(item.Created),
+			Updated:   AtomTime(item.Updated),
+			Summary:   &AtomSummary{Type: "html", Content: item.Description},
 		}
 
 		// if there's a content, assume it's html
@@ -838,14 +840,14 @@ type AtomPerson struct {
 type AtomEntry struct {
 	XMLName     xml.Name `xml:"entry"`
 	Xmlns       string   `xml:"xmlns,attr,omitempty"`
-	Title       string   `xml:"title"`   // required
-	Updated     AtomTime `xml:"updated"` // required
-	Id          string   `xml:"id"`      // required
+	Title       string   `xml:"title"` // required
+	Id          string   `xml:"id"`    // required
 	Category    string   `xml:"category,omitempty"`
 	Content     *AtomContent
-	Rights      string `xml:"rights,omitempty"`
-	Source      string `xml:"source,omitempty"`
-	Published   string `xml:"published,omitempty"`
+	Rights      string   `xml:"rights,omitempty"`
+	Source      string   `xml:"source,omitempty"`
+	Published   AtomTime `xml:"published,omitempty"`
+	Updated     AtomTime `xml:"updated"` // required
 	Contributor *AtomContributor
 	Links       []AtomLink   // required if no child 'content' elements
 	Summary     *AtomSummary // required if content has src or content is base64

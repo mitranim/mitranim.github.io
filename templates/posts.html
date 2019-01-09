@@ -10,8 +10,8 @@
         {{if $post.Description}}
         <p>{{$post.Description | asHtml}}</p>
         {{end}}
-        {{if $post.Date}}
-        <p class="fg-faded font-small">Published {{$post.Date | formatDateIso}}</p>
+        {{if $post.Created}}
+        <p class="fg-faded font-small">Published {{$post.Created | formatDateIso}}</p>
         {{end}}
       </div>
     {{else}}
