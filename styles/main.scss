@@ -177,10 +177,14 @@ code, key, pre {
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#{$stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>');
 }
 
-.fancy-list > * {
-  position: relative;
-  padding-left: 1.5em;
+.list-unstyled {
+  list-style-type: none;
+  list-style-position: unset;
 }
+
+.list-fancy                 {padding-left: 1.5em;}
+ul.list-fancy               {list-style-type: disc;}
+ul.list-fancy ul.list-fancy {list-style-type: circle;}
 
 .fancy-typography {
   h1 {font-size: $font-size-h1}
@@ -205,7 +209,7 @@ code, key, pre {
   // h5::before {content: '#####'; @extend %h;}
   // h6::before {content: '######'; @extend %h;}
 
-  > p, > ul:not(.unstyled-list), > ol:not(.unstyled-list), > pre {
+  > p, > pre, ul, ol {
     &:not(:first-child) {
       margin-top: 1rem;
     }
@@ -214,16 +218,13 @@ code, key, pre {
     }
   }
 
-  > ul:not(.unstyled-list), > ol:not(.unstyled-list) {
-    @extend .fancy-list;
+  ul, ol {
+    @extend .list-fancy;
   }
 
-  ul:not(.unstyled-list) > li, ol:not(.unstyled-list) > li {
-    &:not(:first-child) {
-      margin-top: 0.25rem;
-    }
+  ul > li, ol > li {
     &:not(:last-child) {
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
     }
   }
 
@@ -431,12 +432,8 @@ details.details {
   }
 }
 
-.unstyled-list {
-  list-style-type: none;
-  list-style-position: unset;
-}
-
-// Workaround for a bug (?) in our markdown renderer.
+// Workaround for a bug (?) in our markdown renderer, which puts paragraphs
+// inside list elements.
 li p {
   display: inline;
 }

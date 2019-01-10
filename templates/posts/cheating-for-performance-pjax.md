@@ -11,7 +11,7 @@ What if I told you there's a way to dramatically speed up page transitions just 
 
 Who benefits from this?
 
-<ul class="unstyled-list fancy-list">
+<ul class="list-unstyled">
   <li><span class="fg-blue">✓</span> typical server-rendered sites</li>
   <li><span class="fg-blue">✓</span> statically generated sites</li>
   <li><span class="fg-red">✕</span> but not SPA (they already enjoy clientside routing)</li>
@@ -23,10 +23,10 @@ When you think about it, the status quo of content delivery on the web is _insan
 
 <p class="font-large">👎 Typical page transition</p>
 
-<ol class="fancy-list">
+<ol>
   <li>Link clicked</li>
 
-  <ul class="unstyled-list fancy-list">
+  <ul class="list-unstyled">
     <li>✅ download new document
     <li>💀 throw away JS runtime
     <li>💀 throw away websocket connections
@@ -35,7 +35,7 @@ When you think about it, the status quo of content delivery on the web is _insan
   </ul>
 
   <li>More work!</li>
-  <ul class="unstyled-list fancy-list">
+  <ul class="list-unstyled">
     <li>💀 create new JS runtime</li>
     <li>💀 rerun all scripts</li>
     <li>🎂 display new document, with images and fonts flickering in</li>
@@ -47,10 +47,10 @@ With pushstate routing, we can do better.
 
 <p class="font-large">👍 Page transition with pjax</p>
 
-<ol class="fancy-list">
+<ol>
   <li>Link clicked</li>
 
-  <ul class="unstyled-list fancy-list">
+  <ul class="list-unstyled">
     <li>✅ download new document</li>
     <li>✅ download new images if needed</li>
   </ul>
