@@ -200,7 +200,7 @@ func (self Post) Slug() string {
 
 func main() {
 	t0 := time.Now()
-	err := build()
+	err := buildSite()
 	if err != nil {
 		log.Printf("%+v\n", err)
 		os.Exit(1)
@@ -209,38 +209,44 @@ func main() {
 	log.Printf("[html] done in %v\n", t1.Sub(t0))
 }
 
-func build() error {
-	err := initTemplates()
-	if err != nil {
-		return err
-	}
-
-	err = renderSite()
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func initTemplates() error {
+func buildSite() error {
 	TEMPLATES.Funcs(TEMPLATE_FUNCS)
 
 	for _, pattern := range []string{
-		"templates/*.md",
-		"templates/**/*.md",
 		"templates/*.html",
+		"templates/*.md",
+		"templates/**/*.html",
+		"templates/**/*.md",
 	} {
-		_, err := TEMPLATES.ParseGlob(pattern)
+		/**
+		Differences from `TEMPLATES.ParseGlob`:
+			* accepts empty matches
+			* rejects duplicates
+		*/
+
+		matches, err := filepath.Glob(pattern)
 		if err != nil {
 			return errors.WithStack(err)
 		}
+
+		for _, match := range matches {
+			name := filepath.Base(match)
+			if TEMPLATES.Lookup(name) != nil {
+				return errors.Errorf("duplicate template %q at %q", name, match)
+			}
+
+			content, err := ioutil.ReadFile(match)
+			if err != nil {
+				return errors.WithStack(err)
+			}
+
+			_, err = TEMPLATES.New(name).Parse(string(content))
+			if err != nil {
+				return errors.WithStack(err)
+			}
+		}
 	}
 
-	return nil
-}
-
-func renderSite() error {
 	for _, page := range SITE_PAGES {
 		temp, err := findTemplate(page.Path)
 		if err != nil {
