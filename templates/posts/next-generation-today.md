@@ -41,7 +41,7 @@ probably want to read it in chunks, taking breaks.
 * [Demo](#demo)
 * [Production Builds](#production-builds)
 
-## Setup {#setup}
+## Setup
 
 You can start from scratch or grab the finished demo at Github:
 [https://github.com/mitranim/ng-next-gen](https://github.com/mitranim/ng-next-gen).
@@ -494,7 +494,7 @@ end of the tutorial.
 
 At this point, we're ready to start coding!
 
-## Modules {#modules}
+## Modules
 
 Our first step is to take advantage of ES6 modules. We'll disregard angular
 "modules" (a more accurate name would be "DI containers"), using just one for
@@ -531,7 +531,7 @@ bootstrap solves this problem.
 Invoke `gulp` to start up the pipeline and the local server. You should see a
 blank page and no console errors. Now it's time to add some content.
 
-## Components {#components}
+## Components
 
 Next generation frameworks use custom elements as building blocks of your
 application. This is also the best practice in Angular 1.x, which gives you the
@@ -607,7 +607,7 @@ Create a file `src/app/word-generator/word-generator.html` with:
 It won't have any functionality yet. We'll need to grab some data over ajax,
 which brings us to Angular's dependency injection and services.
 
-## Dealing With Angular DI {#dealing-with-angular-di}
+## Dealing With Angular DI
 
 If your code runs before the angular application is bootstrapped, how do you get
 hold of angular services that are only available through dependency injection?
@@ -680,7 +680,7 @@ class ViewModel {
 Now that we know how to get hold of angular services, let's take advantage of
 `$http` and create a model class with ajax capability.
 
-## Services {#services}
+## Services
 
 Create `src/models/words.ts`:
 
@@ -809,7 +809,7 @@ This is handy for maintenance reasons.
 
 Now let's wrap this up by adding real functionality to the element.
 
-## Demo {#demo}
+## Demo
 
 Modify your `src/app/boot.ts`:
 
@@ -978,7 +978,7 @@ application that takes advantage of ES6 and ES7 features, types, ES6 modules,
 and a truly universal package system. The best part? This is perfectly valid for
 production use.
 
-## Production Builds {#production-builds}
+## Production Builds
 
 Until now, we've been importing JavaScript files over XHR. Now we'll take
 advantage of `jspm`'s bundling feature to create a single self-executing

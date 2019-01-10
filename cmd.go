@@ -17,9 +17,9 @@ import (
 	"time"
 
 	"github.com/alecthomas/chroma"
-	"github.com/alecthomas/chroma/formatters/html"
-	"github.com/alecthomas/chroma/lexers"
-	"github.com/alecthomas/chroma/styles"
+	chtml "github.com/alecthomas/chroma/formatters/html"
+	clexers "github.com/alecthomas/chroma/lexers"
+	cstyles "github.com/alecthomas/chroma/styles"
 	"github.com/pkg/errors"
 	bf "github.com/russross/blackfriday/v2"
 )
@@ -159,22 +159,31 @@ var TEMPLATE_FUNCS = template.FuncMap{
 
 var ASSET_HASHES = map[string]string{}
 
-var MD_OPTS = []bf.Option{
-	bf.WithExtensions(
-		bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.HeadingIDs,
-	),
-	bf.WithRenderer(&MdRenderer{*bf.NewHTMLRenderer(bf.HTMLRendererParameters{
-		Flags: bf.CommonHTMLFlags,
-	})}),
+var CHROMA_FORMATTER = chtml.New()
+
+// var CHROMA_STYLE = cstyles.Colorful
+// var CHROMA_STYLE = cstyles.Tango
+// var CHROMA_STYLE = cstyles.VisualStudio
+// var CHROMA_STYLE = cstyles.Xcode
+var CHROMA_STYLE = cstyles.Pygments
+
+/*
+Note: we create a new renderer for every page because `bf.HTMLRenderer` is
+stateful and is not meant to be reused for unrelated invocations. In
+particular, reusing it between pages causes `bf.AutoHeadingIDs` to
+unnecessarily deduplicate heading IDs on different pages by giving them unique
+suffixes.
+*/
+func markdownOpts() []bf.Option {
+	return []bf.Option{
+		bf.WithExtensions(
+			bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.AutoHeadingIDs,
+		),
+		bf.WithRenderer(&MarkdownRenderer{bf.NewHTMLRenderer(bf.HTMLRendererParameters{
+			Flags: bf.CommonHTMLFlags,
+		})}),
+	}
 }
-
-var CHROMA_FORMATTER = html.New()
-
-// var CHROMA_STYLE = styles.Colorful
-// var CHROMA_STYLE = styles.Tango
-// var CHROMA_STYLE = styles.VisualStudio
-// var CHROMA_STYLE = styles.Xcode
-var CHROMA_STYLE = styles.Pygments
 
 var log = l.New(os.Stderr, "", 0)
 
@@ -515,19 +524,56 @@ func linkWithHash(assetPath string) (string, error) {
 }
 
 var (
-	detailTagReg  = regexp.MustCompile(`details"([^"\s]*)"(\S*)?`)
-	DETAILS_START = []byte(`<details class="details fancy-typography">`)
-	DETAILS_END   = []byte(`</details>`)
-	SUMMARY_START = []byte(`<summary>`)
-	SUMMARY_END   = []byte(`</summary>`)
+	detailTagReg = regexp.MustCompile(`details"([^"\s]*)"(\S*)?`)
+
+	DETAILS_START    = []byte(`<details class="details fancy-typography">`)
+	DETAILS_END      = []byte(`</details>`)
+	SUMMARY_START    = []byte(`<summary>`)
+	SUMMARY_END      = []byte(`</summary>`)
+	ANGLE_OPEN       = []byte("<")
+	ANGLE_OPEN_SLASH = []byte("</")
+	ANGLE_CLOSE      = []byte(">")
+
+	HEADING_TAGS = map[int][]byte{
+		1: []byte("h1"),
+		2: []byte("h2"),
+		3: []byte("h3"),
+		4: []byte("h4"),
+		5: []byte("h5"),
+		6: []byte("h6"),
+	}
 )
 
-type MdRenderer struct{ bf.HTMLRenderer }
+type MarkdownRenderer struct{ *bf.HTMLRenderer }
 
-func (self *MdRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
+func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	switch node.Type {
 	default:
 		return self.HTMLRenderer.RenderNode(out, node, entering)
+
+	// Difference from default: adds an ID anchor.
+	case bf.Heading:
+		headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
+		tag := HEADING_TAGS[headingLevel]
+		if tag == nil {
+			panic(errors.Errorf("unrecognized heading level: %v", headingLevel))
+		}
+		if entering {
+			out.Write(ANGLE_OPEN)
+			out.Write(tag)
+			if node.HeadingID != "" {
+				out.Write([]byte(` id="` + node.HeadingID + `"`))
+			}
+			out.Write(ANGLE_CLOSE)
+		} else {
+			if node.HeadingID != "" {
+				out.Write([]byte(`<a href="#` + node.HeadingID + `" class="heading-anchor">🔗</a>`))
+			}
+			out.Write(ANGLE_OPEN_SLASH)
+			out.Write(tag)
+			out.Write(ANGLE_CLOSE)
+		}
+		return bf.GoToNext
 
 	case bf.CodeBlock:
 		tag := string(node.CodeBlockData.Info)
@@ -559,7 +605,7 @@ func (self *MdRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) 
 				self.RenderNode(out, node, entering)
 			} else {
 				// As regular text
-				out.Write(bf.Run(node.Literal, MD_OPTS...))
+				out.Write(bf.Run(node.Literal, markdownOpts()...))
 			}
 
 			out.Write(DETAILS_END)
@@ -587,12 +633,12 @@ func (self *MdRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) 
 // build. The worst offender is JS. HTML also auto-detects and includes JS.
 func findLexer(tag string, text string) (out chroma.Lexer) {
 	if len(tag) > 0 {
-		out = lexers.Get(tag)
+		out = clexers.Get(tag)
 	} else {
-		out = lexers.Analyse(text)
+		out = clexers.Analyse(text)
 	}
 	if out == nil {
-		out = lexers.Fallback
+		out = clexers.Fallback
 	}
 	return out
 }

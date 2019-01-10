@@ -4,7 +4,7 @@
   * [Commercial](#commercial)
   * [Other](#other)
 
-# Open Source {#open-source}
+# Open Source
 
 Ordered by newer first. Filtered by subjective significance.
 
@@ -106,7 +106,7 @@ Drop-in JS library that dramatically speeds up page transitions on server-render
 
 ~~Simple generator of static websites.~~ Simple templating utility that uses JS for embedded scripting.
 
-# Commercial {#commercial}
+# Commercial
 
 ## ShanzhaiCity <span class="fg-faded font-normal">(2017—2018, Go, JS, Clojure).</span>
 
@@ -122,7 +122,7 @@ Various webapps and websites for [ShanzhaiCity](https://shanzhaicity.com), a US-
 
 Stylish, visual platform for creating online shops. (Part of web frontend team.)
 
-# Other {#other}
+# Other
 
 ## [Bolala](https://bolala.ru) <span class="fg-faded font-normal">(2017—2018, JS)</span>
 

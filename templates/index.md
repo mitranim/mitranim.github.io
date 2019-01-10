@@ -53,7 +53,7 @@ Location: Moscow, Russia (planning to move out).
 
 Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF.)
 
-# Contacts {#contacts}
+# Contacts
 
 <span>{{include "svg-skype"}} skype [mitranim.web](skype:mitranim.web?chat)</span>
 

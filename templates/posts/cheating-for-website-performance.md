@@ -14,7 +14,7 @@ I'm not going to delve into server performance here.
 * [Reduce Latency](#reduce-latency)
 * [Consider a Static Website](#consider-a-static-website)
 
-## Minify Everything {#minify-everything}
+## Minify Everything
 
 By far the most important thing to optimise is images. There are great free
 tools like [graphicsmagick](http://www.graphicsmagick.org) that let you
@@ -34,7 +34,7 @@ rockets past a megabyte. Minification gets it down to manageable size.
 Minifying CSS is usually less important, but like everything else, it's a useful
 optimisation and there's no excuse for not doing it.
 
-## Concatenate Everything {#concatenate-everything}
+## Concatenate Everything
 
 Network latency is a huge deal. I can't stress this enough. Depending on the
 connectivity between your servers and your users, latency could range from 50ms
@@ -50,7 +50,7 @@ still has to wait longer before rendering the entirety of the page.
 That's bad. To avoid that, make sure to concatenate assets used on each page,
 like stylesheets, scripts, and icons (see below on that).
 
-## Use Pjax {#use-pjax}
+## Use Pjax
 
 **Update**: see this [in-depth post](/thoughts/cheating-for-performance-pjax) on pjax.
 
@@ -84,7 +84,7 @@ works with zero config. Check the
 for your site, then give it a spin or roll your own! The library is also used
 on this very site. Inspect the network console to observe the effects.
 
-## Use Server Rendering {#use-server-rendering}
+## Use Server Rendering
 
 There's a trend towards single page applications (SPA) with clientside routing
 and rendering. They tend to skip server-side rendering in favor of being
@@ -99,7 +99,7 @@ libraries, like React, already support isomorphic routing and rendering, and
 other frameworks, like Angular 2 and Ember, are planning to support it. Make
 sure to research this feature for your stack of choice.
 
-## Make Your JavaScript Lazy {#make-your-javascript-lazy}
+## Make Your JavaScript Lazy
 
 If your application is JavaScript-heavy, you should use a module system with
 lazy loading. This is supported by the ES6 module system, and you can use it
@@ -110,7 +110,7 @@ The core parts of the application should be bundled into a single file, and big
 but optional parts may be imported asynchronously when needed. If your app is
 small, you can skip lazy loading and bundle the entire app.
 
-## Use Font Icons or Inline SVG {#use-font-icons-or-inline-svg}
+## Use Font Icons or Inline SVG
 
 Most sites need icons. In the past, we had to use raster images. However, in the
 days of widespread retina displays, `@font-face`, and SVG, that's a poor option.
@@ -123,7 +123,7 @@ with JavaScript for cool visual effects. On the other hand, icon fonts are
 easier to set up and use, and cost less bandwidth than embedded SVGs. For most
 sites, a mix of both solutions will probably be optimal.
 
-## Serve Static Assets {#serve-static-assets}
+## Serve Static Assets
 
 This goes without saying, but you should double check to make sure your server
 is properly configured for static files like images, stylesheets, and scripts.
@@ -131,7 +131,7 @@ It should include headers that tell the browser to cache the file, and respond
 with 304 for unchanged assets. This eliminates a lot of redownloading, reducing
 latency+download time to latency+0.
 
-## Reduce Latency {#reduce-latency}
+## Reduce Latency
 
 Network latency is a huge deal. It's a part of each request made by the browser,
 even for static assets with 304 responses. The browser blocks page rendering
@@ -148,7 +148,7 @@ sure to use a web hosting with low latency times for your target audience. If
 your audience is all over the world, pick a server with good average latency and
 use a caching proxy / CDN like CloudFlare to reduce latency for static content.
 
-## Consider a Static Website {#consider-a-static-website}
+## Consider a Static Website
 
 Simple websites with one maintainer, like a personal page or a blog, don't need
 a scripting engine with a database. You can prerender them into HTML files, then

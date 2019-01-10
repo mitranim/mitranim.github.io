@@ -77,7 +77,7 @@ Various webapps and websites for [ShanzhaiCity](https://shanzhaicity.com), a US-
 
 Stylish, visual platform for creating online shops. (Part of web frontend team.)
 
-## Other {#other}
+## Other
 
 ### [Bolala](https://bolala.ru) <span class="fg-faded font-normal">(2017—2018, JS)</span>
 

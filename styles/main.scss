@@ -437,3 +437,16 @@ details.details {
 li p {
   display: inline;
 }
+
+.heading-anchor {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  border-bottom: 1px solid;
+
+  // Note: "display: none" or "visibility: hidden" prevent the anchor from
+  // receiving focus on tab-navigation.
+  opacity: 0;
+  &:focus, &:hover, h1:hover &, h2:hover &, h3:hover &, h4:hover &, h5:hover &, h6:hover & {
+    opacity: 1;
+  }
+}
