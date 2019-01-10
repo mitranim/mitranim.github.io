@@ -8,10 +8,13 @@
       <div class="gaps-v-1">
         <h2><a href="{{$link | asAttr}}">{{$post.Title | asHtml}}</a></h2>
         {{if $post.Description}}
-        <p>{{$post.Description | asHtml}}</p>
+          <p>{{$post.Description | asHtml}}</p>
         {{end}}
-        {{if $post.Created}}
-        <p class="fg-faded font-small">Published {{$post.Created | formatDateIso}}</p>
+        {{if not $post.Created.IsZero}}
+          <p class="fg-faded font-small">Published {{$post.Created | formatDateIso}}</p>
+        {{end}}
+        {{if not $post.Updated.IsZero}}
+          <p class="fg-faded font-small">Updated {{$post.Updated | formatDateIso}}</p>
         {{end}}
       </div>
     {{else}}
