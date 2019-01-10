@@ -6,7 +6,7 @@
     {{if not .Created.IsZero}}<p class="fg-faded">Published {{.Created | formatDateIso}}</p>{{end}}
     {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateIso}}</p>{{end}}
   </header>
-  {{.Rendered | asHtml}}
+  {{.Html | asHtml}}
   <hr />
   <div>
     This blog currently doesn't have comments. To respond, use

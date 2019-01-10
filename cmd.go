@@ -25,9 +25,10 @@ import (
 )
 
 const (
-	PUBLIC_DIR = "public"
-	FILE_MODE  = 0600
-	DIR_MODE   = 0700
+	PUBLIC_DIR      = "public"
+	FILE_MODE       = 0600
+	DIR_MODE        = 0700
+	TIME_FORMAT_ISO = "2006-01-02"
 )
 
 var SITE_PAGES = []Page{
@@ -74,7 +75,7 @@ var SITE_POSTS = []Post{
 			Title:       "Cheating for Performance with Pjax",
 			Description: "Faster page transitions, for free",
 		},
-		Md:      "cheating-for-performance-pjax.md",
+		MdName:  "cheating-for-performance-pjax.md",
 		Created: time.Date(2015, 7, 25, 0, 0, 0, 0, time.UTC),
 		Listed:  true,
 	},
@@ -85,7 +86,7 @@ var SITE_POSTS = []Post{
 			Title:       "Cheating for Website Performance",
 			Description: "Frontend tips for speeding up websites",
 		},
-		Md:      "cheating-for-website-performance.md",
+		MdName:  "cheating-for-website-performance.md",
 		Created: time.Date(2015, 3, 11, 0, 0, 0, 0, time.UTC),
 		Listed:  true,
 	},
@@ -96,7 +97,7 @@ var SITE_POSTS = []Post{
 			Title:       "Keeping Things Simple",
 			Description: "Musings on simplicity in programming",
 		},
-		Md:      "keeping-things-simple.md",
+		MdName:  "keeping-things-simple.md",
 		Created: time.Date(2015, 3, 10, 0, 0, 0, 0, time.UTC),
 		Listed:  true,
 	},
@@ -107,7 +108,7 @@ var SITE_POSTS = []Post{
 			Title:       "Next Generation Today",
 			Description: "EcmaScript 2015/2016 workflow with current web frameworks",
 		},
-		Md:      "next-generation-today.md",
+		MdName:  "next-generation-today.md",
 		Created: time.Date(2015, 5, 18, 0, 0, 0, 0, time.UTC),
 		Listed:  false,
 	},
@@ -118,7 +119,7 @@ var SITE_POSTS = []Post{
 			Title:       "Old Posts",
 			Description: "some old stuff from around the net",
 		},
-		Md:      "old-posts.md",
+		MdName:  "old-posts.md",
 		Created: time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
 		Listed:  true,
 	},
@@ -140,20 +141,20 @@ var SITE_FEED = Feed{
 var TEMPLATES = template.New("")
 
 var TEMPLATE_FUNCS = template.FuncMap{
-	"asHtml":         func(val string) template.HTML { return template.HTML(val) },
-	"asAttr":         func(val string) template.HTMLAttr { return template.HTMLAttr(val) },
-	"asMd":           asMd,
-	"targetBlank":    targetBlankAttr,
-	"current":        currentAttr,
-	"now":            func() string { return formatDateIso(time.Now().UTC()) },
-	"formatDateIso":  formatDateIso,
-	"years":          years,
-	"getListedPosts": getListedPosts,
-	"include":        includeTemplate,
-	"includeWith":    includeTemplateWith,
-	"join":           path.Join,
-	"linkWithHash":   linkWithHash,
-	"ngTemplate":     func() string { return NG_TEMPLATE },
+	"asHtml":        asHtml,
+	"asAttr":        asAttr,
+	"toMarkdown":    toMarkdown,
+	"targetBlank":   targetBlankAttr,
+	"current":       currentAttr,
+	"now":           func() string { return formatDateIso(time.Now().UTC()) },
+	"formatDateIso": formatDateIso,
+	"years":         years,
+	"listedPosts":   listedPosts,
+	"include":       includeTemplate,
+	"includeWith":   includeTemplateWith,
+	"joinPath":      path.Join,
+	"linkWithHash":  linkWithHash,
+	"ngTemplate":    func() string { return NG_TEMPLATE },
 }
 
 var ASSET_HASHES = map[string]string{}
@@ -187,11 +188,11 @@ type Page struct {
 
 type Post struct {
 	Page
-	Md       string
-	Rendered string
-	Created  time.Time
-	Updated  time.Time
-	Listed   bool
+	MdName  string
+	Html    []byte
+	Created time.Time
+	Updated time.Time
+	Listed  bool
 }
 
 func (self Post) Slug() string {
@@ -276,7 +277,7 @@ func buildSite() error {
 		if err != nil {
 			return err
 		}
-		post.Rendered = string(content)
+		post.Html = content
 
 		outer, err := findTemplate("post-layout.html")
 		if err != nil {
@@ -320,25 +321,34 @@ func buildSite() error {
 		})
 	}
 
-	content, err := xml.MarshalIndent(feed.AtomFeed(), "", "\t")
+	buf, err := xmlEncode(feed.AtomFeed())
 	if err != nil {
-		return errors.WithStack(err)
+		return err
 	}
-	err = writePublic("feed.xml", append([]byte(xml.Header), content...))
+	err = writePublic("feed.xml", buf.Bytes())
 	if err != nil {
-		return errors.WithStack(err)
+		return err
 	}
 
-	content, err = xml.MarshalIndent(feed.RssFeed(), "", "\t")
+	buf, err = xmlEncode(feed.RssFeed())
 	if err != nil {
-		return errors.WithStack(err)
+		return err
 	}
-	err = writePublic("feed_rss.xml", append([]byte(xml.Header), content...))
+	err = writePublic("feed_rss.xml", buf.Bytes())
 	if err != nil {
-		return errors.WithStack(err)
+		return err
 	}
 
 	return nil
+}
+
+func xmlEncode(input interface{}) (*bytes.Buffer, error) {
+	buf := &bytes.Buffer{}
+	buf.WriteString(xml.Header)
+	enc := xml.NewEncoder(buf)
+	enc.Indent("", "\t")
+	err := enc.Encode(input)
+	return buf, errors.WithStack(err)
 }
 
 func findTemplate(name string) (*template.Template, error) {
@@ -353,8 +363,7 @@ func findTemplate(name string) (*template.Template, error) {
 			names = append(names, temp.Name())
 		}
 	}
-
-	return nil, errors.Errorf("Template %q not found. Known templates: %v", name, names)
+	return nil, errors.Errorf("template %q not found. Known templates: %v", name, names)
 }
 
 func renderTemplate(temp *template.Template, data interface{}) ([]byte, error) {
@@ -420,8 +429,7 @@ func currentAttr(href string, data interface{}) template.HTMLAttr {
 }
 
 func formatDateIso(date time.Time) string {
-	// time.Parse uses these magic numbers instead of conventional placeholders
-	return date.Format("2006-01-02")
+	return date.Format(TIME_FORMAT_ISO)
 }
 
 func years() string {
@@ -433,20 +441,49 @@ func years() string {
 	return fmt.Sprint(start)
 }
 
-func asMd(val interface{}) template.HTML {
-	var input []byte
-	switch val := val.(type) {
-	case []byte:
-		input = val
-	case string:
-		input = []byte(val)
-	case template.HTML:
-		input = []byte(val)
-	}
-	return template.HTML(bf.Run(input, MD_OPTS...))
+func asHtml(input interface{}) template.HTML {
+	return template.HTML(toString(input))
 }
 
-func getListedPosts() (out []Post) {
+func asAttr(input interface{}) template.HTMLAttr {
+	return template.HTMLAttr(toString(input))
+}
+
+func toString(input interface{}) string {
+	switch input := input.(type) {
+	case []byte:
+		return string(input)
+	case string:
+		return input
+	case template.HTML:
+		return string(input)
+	case template.HTMLAttr:
+		return string(input)
+	default:
+		panic(errors.Errorf("unrecognized input: %v", input))
+	}
+}
+
+func toMarkdown(input interface{}) template.HTML {
+	return template.HTML(bf.Run(toBytes(input), markdownOpts()...))
+}
+
+func toBytes(input interface{}) []byte {
+	switch input := input.(type) {
+	case []byte:
+		return input
+	case string:
+		return []byte(input)
+	case template.HTML:
+		return []byte(input)
+	case template.HTMLAttr:
+		return []byte(input)
+	default:
+		panic(errors.Errorf("unrecognized input: %v", input))
+	}
+}
+
+func listedPosts() (out []Post) {
 	for _, post := range SITE_POSTS {
 		if post.Listed {
 			out = append(out, post)
@@ -531,16 +568,14 @@ func (self *MdRenderer) RenderNode(out io.Writer, node *bf.Node, entering bool) 
 
 		text := string(node.Literal)
 		lexer := findLexer(tag, text)
-		iterator, err := lexer.Tokenise(nil, string(text))
+		iterator, err := lexer.Tokenise(nil, text)
 		if err != nil {
-			log.Printf("Tokenizer error: %v", err)
-			return self.HTMLRenderer.RenderNode(out, node, entering)
+			panic(errors.Wrap(err, "tokenizer error"))
 		}
 
 		err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
 		if err != nil {
-			log.Printf("Formatter error: %v", err)
-			return self.HTMLRenderer.RenderNode(out, node, entering)
+			panic(errors.Wrap(err, "formatter error"))
 		}
 
 		return bf.SkipChildren
@@ -801,17 +836,17 @@ func (self Feed) RssFeed() RssFeed {
 }
 
 type AtomFeed struct {
-	XMLName     xml.Name `xml:"feed"`
-	Xmlns       string   `xml:"xmlns,attr"`
-	Title       string   `xml:"title"`   // required
-	Id          string   `xml:"id"`      // required
-	Updated     AtomTime `xml:"updated"` // required
-	Category    string   `xml:"category,omitempty"`
-	Icon        string   `xml:"icon,omitempty"`
-	Logo        string   `xml:"logo,omitempty"`
-	Rights      string   `xml:"rights,omitempty"` // copyright used
-	Subtitle    string   `xml:"subtitle,omitempty"`
-	Link        *AtomLink
+	XMLName     xml.Name    `xml:"feed"`
+	Xmlns       string      `xml:"xmlns,attr"`
+	Title       string      `xml:"title"`   // required
+	Id          string      `xml:"id"`      // required
+	Updated     AtomTime    `xml:"updated"` // required
+	Category    string      `xml:"category,omitempty"`
+	Icon        string      `xml:"icon,omitempty"`
+	Logo        string      `xml:"logo,omitempty"`
+	Rights      string      `xml:"rights,omitempty"` // copyright used
+	Subtitle    string      `xml:"subtitle,omitempty"`
+	Link        *AtomLink   ``
 	Author      *AtomAuthor `xml:"author,omitempty"`
 	Contributor *AtomContributor
 	Entries     []AtomEntry
@@ -844,16 +879,16 @@ type AtomPerson struct {
 }
 
 type AtomEntry struct {
-	XMLName     xml.Name `xml:"entry"`
-	Xmlns       string   `xml:"xmlns,attr,omitempty"`
-	Title       string   `xml:"title"` // required
-	Id          string   `xml:"id"`    // required
-	Category    string   `xml:"category,omitempty"`
-	Content     *AtomContent
-	Rights      string   `xml:"rights,omitempty"`
-	Source      string   `xml:"source,omitempty"`
-	Published   AtomTime `xml:"published,omitempty"`
-	Updated     AtomTime `xml:"updated"` // required
+	XMLName     xml.Name     `xml:"entry"`
+	Xmlns       string       `xml:"xmlns,attr,omitempty"`
+	Title       string       `xml:"title"` // required
+	Id          string       `xml:"id"`    // required
+	Category    string       `xml:"category,omitempty"`
+	Content     *AtomContent ``
+	Rights      string       `xml:"rights,omitempty"`
+	Source      string       `xml:"source,omitempty"`
+	Published   AtomTime     `xml:"published,omitempty"`
+	Updated     AtomTime     `xml:"updated"` // required
 	Contributor *AtomContributor
 	Links       []AtomLink   // required if no child 'content' elements
 	Summary     *AtomSummary // required if content has src or content is base64
@@ -880,7 +915,7 @@ func (self AtomTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error 
 	}
 	enc.EncodeToken(start)
 	enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC3339)))
-	enc.EncodeToken(xml.EndElement{start.Name})
+	enc.EncodeToken(xml.EndElement{Name: start.Name})
 	return nil
 }
 
@@ -933,18 +968,18 @@ type RssTextInput struct {
 }
 
 type RssItem struct {
-	XMLName     xml.Name `xml:"item"`
-	Title       string   `xml:"title"`       // required
-	Link        string   `xml:"link"`        // required
-	Description string   `xml:"description"` // required
-	Content     *RssContent
-	Author      string `xml:"author,omitempty"`
-	Category    string `xml:"category,omitempty"`
-	Comments    string `xml:"comments,omitempty"`
-	Enclosure   *RssEnclosure
-	Guid        string  `xml:"guid,omitempty"`    // Id used
-	PubDate     RssTime `xml:"pubDate,omitempty"` // created or updated
-	Source      string  `xml:"source,omitempty"`
+	XMLName     xml.Name      `xml:"item"`
+	Title       string        `xml:"title"`       // required
+	Link        string        `xml:"link"`        // required
+	Description string        `xml:"description"` // required
+	Content     *RssContent   ``
+	Author      string        `xml:"author,omitempty"`
+	Category    string        `xml:"category,omitempty"`
+	Comments    string        `xml:"comments,omitempty"`
+	Enclosure   *RssEnclosure ``
+	Guid        string        `xml:"guid,omitempty"`    // Id used
+	PubDate     RssTime       `xml:"pubDate,omitempty"` // created or updated
+	Source      string        `xml:"source,omitempty"`
 }
 
 type RssContent struct {
@@ -968,6 +1003,6 @@ func (self RssTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
 	}
 	enc.EncodeToken(start)
 	enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC1123Z)))
-	enc.EncodeToken(xml.EndElement{start.Name})
+	enc.EncodeToken(xml.EndElement{Name: start.Name})
 	return nil
 }

@@ -1,7 +1,10 @@
 <!--
-Note the absence of a base href. This enables relative hashes, but requires
-most other links to be absolute. Exercise care.
+
+Note the absence of a base href. This enables #hash hrefs relative to the
+current URL, but other links MUST be absolute.
+
 -->
+
 <!doctype html>
 <html>
 <head>
@@ -15,7 +18,7 @@ most other links to be absolute. Exercise care.
   <title>{{if .Title}}{{.Title | asHtml}}{{else}}about:mitranim{{end}}</title>
 
   <link rel="alternate" type="application/atom+xml" title="Mitranim's Posts (Atom)" href="/feed.xml" />
-  <link rel="alternate" type="application/rss+xml"  title="Mitranim's Posts (RSS)"  href="/feed_rss.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Mitranim's Posts (RSS)" href="/feed_rss.xml" />
 
   <meta name="author" content="Nelo Mitranim" />
   {{if .Description}}<meta name="description" content="{{.Description | asAttr}}" />{{end}}
