@@ -26,6 +26,7 @@ import (
 
 const (
 	PUBLIC_DIR      = "public"
+	TEMPLATE_DIR    = "templates"
 	FILE_MODE       = 0600
 	DIR_MODE        = 0700
 	TIME_FORMAT_ISO = "2006-01-02"
@@ -155,23 +156,23 @@ var SITE_FEED = Feed{
 	Items:       nil,
 }
 
-var TEMPLATES = template.New("")
+var TEMPLATES *template.Template
 
 var TEMPLATE_FUNCS = template.FuncMap{
-	"asHtml":        asHtml,
-	"asAttr":        asAttr,
-	"toMarkdown":    toMarkdown,
-	"targetBlank":   targetBlankAttr,
-	"current":       currentAttr,
-	"now":           func() string { return formatDateIso(time.Now().UTC()) },
-	"formatDateIso": formatDateIso,
-	"years":         years,
-	"listedPosts":   listedPosts,
-	"include":       includeTemplate,
-	"includeWith":   includeTemplateWith,
-	"joinPath":      path.Join,
-	"linkWithHash":  linkWithHash,
-	"ngTemplate":    func() string { return NG_TEMPLATE },
+	"asHtml":         asHtml,
+	"asAttr":         asAttr,
+	"toMarkdown":     toMarkdown,
+	"externalAnchor": externalAnchor,
+	"current":        currentAttr,
+	"now":            func() string { return formatDateIso(time.Now().UTC()) },
+	"formatDateIso":  formatDateIso,
+	"years":          years,
+	"listedPosts":    listedPosts,
+	"include":        includeTemplate,
+	"includeWith":    includeTemplateWith,
+	"joinPath":       path.Join,
+	"linkWithHash":   linkWithHash,
+	"raw":            func(text string) template.HTML { return template.HTML(text) },
 }
 
 var ASSET_HASHES = map[string]string{}
@@ -216,11 +217,11 @@ type Page struct {
 
 type Post struct {
 	Page
-	MdName  string
-	Html    []byte
-	Created time.Time
-	Updated time.Time
-	Listed  bool
+	MdName      string
+	HtmlContent []byte
+	Created     time.Time
+	Updated     time.Time
+	Listed      bool
 }
 
 func (self Post) Slug() string {
@@ -231,53 +232,20 @@ func main() {
 	t0 := time.Now()
 	err := buildSite()
 	if err != nil {
-		log.Printf("%+v\n", err)
-		os.Exit(1)
+		panic(err)
 	}
 	t1 := time.Now()
-	log.Printf("[html] done in %v\n", t1.Sub(t0))
+	log.Printf("[html] built in %v\n", t1.Sub(t0))
 }
 
 func buildSite() error {
-	TEMPLATES.Funcs(TEMPLATE_FUNCS)
-
-	for _, pattern := range []string{
-		"templates/*.html",
-		"templates/*.md",
-		"templates/**/*.html",
-		"templates/**/*.md",
-	} {
-		/**
-		Differences from `TEMPLATES.ParseGlob`:
-			* accepts empty matches
-			* rejects duplicates
-		*/
-
-		matches, err := filepath.Glob(pattern)
-		if err != nil {
-			return errors.WithStack(err)
-		}
-
-		for _, match := range matches {
-			name := filepath.Base(match)
-			if TEMPLATES.Lookup(name) != nil {
-				return errors.Errorf("duplicate template %q at %q", name, match)
-			}
-
-			content, err := ioutil.ReadFile(match)
-			if err != nil {
-				return errors.WithStack(err)
-			}
-
-			_, err = TEMPLATES.New(name).Parse(string(content))
-			if err != nil {
-				return errors.WithStack(err)
-			}
-		}
+	err := initTemplates()
+	if err != nil {
+		return err
 	}
 
 	for _, page := range SITE_PAGES {
-		temp, err := findTemplate(page.Path)
+		temp, err := findTemplate(TEMPLATES, page.Path)
 		if err != nil {
 			return err
 		}
@@ -296,23 +264,22 @@ func buildSite() error {
 	feed := SITE_FEED
 
 	for _, post := range SITE_POSTS {
-		inner, err := findTemplate("post-content.html")
+		contentTemp, err := findTemplate(TEMPLATES, "post-content.html")
 		if err != nil {
 			return err
 		}
 
-		content, err := renderTemplate(inner, post)
-		if err != nil {
-			return err
-		}
-		post.Html = content
-
-		outer, err := findTemplate("post-layout.html")
+		post.HtmlContent, err = renderTemplate(contentTemp, post)
 		if err != nil {
 			return err
 		}
 
-		output, err := renderTemplate(outer, post)
+		layoutTemp, err := findTemplate(TEMPLATES, "post-layout.html")
+		if err != nil {
+			return err
+		}
+
+		output, err := renderTemplate(layoutTemp, post)
 		if err != nil {
 			return err
 		}
@@ -347,7 +314,7 @@ func buildSite() error {
 			Id:          href,
 			Created:     post.Created, // TODO fetch from git?
 			Updated:     post.Updated, // TODO fetch from git?
-			Content:     string(content),
+			Content:     string(post.HtmlContent),
 		})
 	}
 
@@ -372,6 +339,73 @@ func buildSite() error {
 	return nil
 }
 
+func initTemplates() error {
+	temp := template.New("")
+	temp.Funcs(TEMPLATE_FUNCS)
+
+	for _, pattern := range []string{
+		filepath.Join(TEMPLATE_DIR, "*.html"),
+		filepath.Join(TEMPLATE_DIR, "*.md"),
+		filepath.Join(TEMPLATE_DIR, "**/*.html"),
+		filepath.Join(TEMPLATE_DIR, "**/*.md"),
+	} {
+		/**
+		Differences from `.ParseGlob()`:
+			* accepts empty matches
+			* rejects duplicates
+			* preprocesses .md templates to preserve raw code blocks
+		*/
+
+		matches, err := filepath.Glob(pattern)
+		if err != nil {
+			return errors.WithStack(err)
+		}
+
+		for _, match := range matches {
+			name := filepath.Base(match)
+			if temp.Lookup(name) != nil {
+				return errors.Errorf("duplicate template %q at %q", name, match)
+			}
+
+			bytes, err := ioutil.ReadFile(match)
+			if err != nil {
+				return errors.WithStack(err)
+			}
+			content := string(bytes)
+
+			if filepath.Ext(match) == ".md" {
+				/**
+				Modify the template to preserve content between ``` as-is. We
+				need it raw for Markdown and code highlighting.
+				*/
+				content = codeBlockReg.ReplaceAllStringFunc(content, codeBlockToRaw)
+			}
+
+			_, err = temp.New(name).Parse(content)
+			if err != nil {
+				return errors.WithStack(err)
+			}
+		}
+	}
+
+	TEMPLATES = temp
+	return nil
+}
+
+/*
+Unless this has diverged from the comment, it should look like this:
+
+	(?:^|\n)```\S*\r?\n((?:[^`]|`[^`]|``[^`])*)```
+*/
+var codeBlockReg = regexp.MustCompile(fmt.Sprintf(
+	`(?:^|\n)%[2]v\S*\r?\n((?:[^%[1]v]|%[1]v[^%[1]v]|%[1]v%[1]v[^%[1]v])*)%[2]v`,
+	"`",
+	"```"))
+
+func codeBlockToRaw(input string) string {
+	return "{{raw (print `" + strings.Replace(input, "`", "` \"`\" `", -1) + "`)}}"
+}
+
 func xmlEncode(input interface{}) (*bytes.Buffer, error) {
 	buf := &bytes.Buffer{}
 	buf.WriteString(xml.Header)
@@ -381,14 +415,14 @@ func xmlEncode(input interface{}) (*bytes.Buffer, error) {
 	return buf, errors.WithStack(err)
 }
 
-func findTemplate(name string) (*template.Template, error) {
-	temp := TEMPLATES.Lookup(name)
+func findTemplate(root *template.Template, name string) (*template.Template, error) {
+	temp := root.Lookup(name)
 	if temp != nil {
 		return temp, nil
 	}
 
 	var names []string
-	for _, temp := range TEMPLATES.Templates() {
+	for _, temp := range root.Templates() {
 		if temp.Name() != "" {
 			names = append(names, temp.Name())
 		}
@@ -410,7 +444,7 @@ func includeTemplate(name string) (template.HTML, error) {
 }
 
 func includeTemplateWith(name string, data interface{}) (template.HTML, error) {
-	temp, err := findTemplate(name)
+	temp, err := findTemplate(TEMPLATES, name)
 	if err != nil {
 		return "", err
 	}
@@ -720,43 +754,6 @@ func findLexer(tag string, text string) (out chroma.Lexer) {
 	}
 	return out
 }
-
-// Must be interpolated raw
-const NG_TEMPLATE = `
-<div layout="gaps-1-v">
-  <!-- Left column: source words -->
-  <div flex="1" class="gaps-1-v">
-    <h3 theme="text-primary" layout="row-between">
-      <span>Source Words</span>
-      <span id="indicator"></span>
-    </h3>
-    <form ng-submit="self.add()" layout="gaps-1-v"
-          sf-tooltip="{{self.error}}" sf-trigger="{{!!self.error}}">
-      <input flex="11" tabindex="1" ng-model="self.word">
-      <button flex="1" theme="primary" tabindex="1">Add</button>
-    </form>
-    <div ng-repeat="word in self.words" layout="row-between gaps-1-v">
-      <span flex="11" layout="cross-center" class="padding-1" style="margin-1-r">{{word}}</span>
-      <button flex="1" ng-click="self.remove(word)">✕</button>
-    </div>
-  </div>
-
-  <!-- Right column: generated results -->
-  <div flex="1" class="gaps-1-v">
-    <h3 theme="text-accent">Generated Words</h3>
-    <form ng-submit="self.generate()" layout>
-      <button flex="1" theme="accent" tabindex="1">Generate</button>
-    </form>
-    <div ng-repeat="word in self.results" layout="row-between">
-      <button flex="1" ng-click="self.pick(word)">←</button>
-      <span flex="11" layout="cross-center" class="padding-1" style="margin-1-l">{{word}}</span>
-    </div>
-    <div ng-if="self.depleted" layout="cross-center">
-      <span theme="text-warn" class="padding-1">(depleted)</span>
-    </div>
-  </div>
-</div>
-`
 
 /*
 This and other feed-related types are copied from

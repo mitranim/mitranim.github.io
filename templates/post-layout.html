@@ -2,11 +2,11 @@
 <article role="main article" id="main-content" class="fancy-typography gaps-v-2">
     <header class="gaps-v-1">
         <h1>{{.Title}}</h1>
-        {{if .Description}}<p class="font-large fg-faded text-italic">{{.Description}}</p>{{end}}
+        {{if .Description}}<p class="font-large text-italic">{{.Description}}</p>{{end}}
         {{if not .Created.IsZero}}<p class="fg-faded">Published {{.Created | formatDateIso}}</p>{{end}}
         {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateIso}}</p>{{end}}
     </header>
-    {{.Html | asHtml}}
+    {{.HtmlContent | asHtml}}
     <hr />
     <div>
         This blog currently doesn't support comments. To respond, use

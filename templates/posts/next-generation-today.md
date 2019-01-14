@@ -600,7 +600,39 @@ version of the [foliant demo](https://mitranim.com/demos/foliant/) because I'm l
 Create a file `src/app/word-generator/word-generator.html` with:
 
 ```details"src/app/word-generator/word-generator.html"html
-{{ngTemplate}}
+<div layout="gaps-1-v">
+    <!-- Left column: source words -->
+    <div flex="1" class="gaps-1-v">
+        <h3 theme="text-primary" layout="row-between">
+            <span>Source Words</span>
+            <span id="indicator"></span>
+        </h3>
+        <form ng-submit="self.add()" layout="gaps-1-v"
+                    sf-tooltip="{{self.error}}" sf-trigger="{{!!self.error}}">
+            <input flex="11" tabindex="1" ng-model="self.word">
+            <button flex="1" theme="primary" tabindex="1">Add</button>
+        </form>
+        <div ng-repeat="word in self.words" layout="row-between gaps-1-v">
+            <span flex="11" layout="cross-center" class="padding-1" style="margin-1-r">{{word}}</span>
+            <button flex="1" ng-click="self.remove(word)">✕</button>
+        </div>
+    </div>
+
+    <!-- Right column: generated results -->
+    <div flex="1" class="gaps-1-v">
+        <h3 theme="text-accent">Generated Words</h3>
+        <form ng-submit="self.generate()" layout>
+            <button flex="1" theme="accent" tabindex="1">Generate</button>
+        </form>
+        <div ng-repeat="word in self.results" layout="row-between">
+            <button flex="1" ng-click="self.pick(word)">←</button>
+            <span flex="11" layout="cross-center" class="padding-1" style="margin-1-l">{{word}}</span>
+        </div>
+        <div ng-if="self.depleted" layout="cross-center">
+            <span theme="text-warn" class="padding-1">(depleted)</span>
+        </div>
+    </div>
+</div>
 ```
 
 It won't have any functionality yet. We'll need to grab some data over ajax,
