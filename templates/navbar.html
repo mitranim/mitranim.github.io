@@ -1,12 +1,14 @@
-<div class="limit-width --unpadded row-start-stretch margin-b-2 text-ellipsis gaps-h-1">
-  <nav class="flex-noshrink row-start-stretch">
-    <a href="/"      {{current "index.html" .}} class="navlink --busy"><span>home</span></a>
-    <a href="/works" {{current "works.html" .}} class="navlink --busy"><span>works</span></a>
-    <a href="/posts" {{current "posts.html" .}} class="navlink --busy"><span>posts</span></a>
-    <a href="/demos" {{current "demos.html" .}} class="navlink --busy"><span>demos</span></a>
-  </nav>
-  <span class="flex-1"></span>
-  <span class="margin-r-1 fg-blue row-center-center padding-1 sm-hide">
-    <span>Updated: {{now}}</span>
-  </span>
+<div class="limit-width --unpadded row-start-stretch margin-b-2 gaps-h-1">
+    <nav class="row-start-stretch">
+        <a href="/"      {{current "index.html" .}} class="navlink --busy">home</a>
+        <a href="/works" {{current "works.html" .}} class="navlink --busy">works</a>
+        <a href="/posts" {{current "posts.html" .}} class="navlink --busy">posts</a>
+        <a href="/demos" {{current "demos.html" .}} class="navlink --busy">demos</a>
+    </nav>
+
+    <span class="flex-1"></span>
+
+    <span class="fg-blue row-center-center padding-1 sm-hide">
+        Updated: {{now}}
+    </span>
 </div>

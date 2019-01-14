@@ -1,17 +1,16 @@
 <footer class="limit-width row-between-center margin-t-4 margin-b-2">
-  <span class="flex-1 row-start-start gaps-h-0x5">
-    <span class="text-left">{{years}}</span>
-    <a href="https://github.com/mitranim/mitranim.github.io" {{targetBlank}} class="decorate-link indicate-external-link">website source</a>
-  </span>
+    <span class="flex-1 row-start-start gaps-h-0x5">
+        <span class="text-left">{{years}}</span>
+        {{externalAnchor "https://github.com/mitranim/mitranim.github.io" "website source"}}
+    </span>
 
-  <span class="flex-1 text-center">
-    <a href="/#contacts" class="decorate-link">touch me</a>
-  </span>
+    <span class="flex-1 text-center">
+        <a href="/#contacts" class="decorate-link">touch me</a>
+    </span>
 
-  <span class="flex-1 text-right">
-    <!-- This only works without a base href -->
-    <a href="#" class="fill-faded padding-1" onclick="event.preventDefault(); window.scrollTo(0, 0)">
-      {{include "svg-arrow-up"}}
-    </a>
-  </span>
+    <span class="flex-1 row-end-center gaps-h-0x5">
+        <a href="#" class="fill-faded padding-1 busy-bg-pale" onclick="event.preventDefault(); window.scrollTo(0, 0)">
+            {{include "svg-arrow-up"}}
+        </a>
+    </span>
 </footer>

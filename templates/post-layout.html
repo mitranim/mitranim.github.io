@@ -1,17 +1,17 @@
 {{template "site-top.html" .}}
 <article class="fancy-typography gaps-v-2">
-  <header class="gaps-v-1">
-    <h1>{{.Title}}</h1>
-    {{if .Description}}<p class="font-large fg-faded text-italic">{{.Description}}</p>{{end}}
-    {{if not .Created.IsZero}}<p class="fg-faded">Published {{.Created | formatDateIso}}</p>{{end}}
-    {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateIso}}</p>{{end}}
-  </header>
-  {{.Html | asHtml}}
-  <hr />
-  <div>
-    This blog currently doesn't have comments. To respond, use
-    <a href="mailto:me@mitranim.com?subject=Re:%20{{.Title}}">me@mitranim.com</a>
-    or one of my <a href="/#contacts">other contacts</a>.
-  </div>
+    <header class="gaps-v-1">
+        <h1>{{.Title}}</h1>
+        {{if .Description}}<p class="font-large fg-faded text-italic">{{.Description}}</p>{{end}}
+        {{if not .Created.IsZero}}<p class="fg-faded">Published {{.Created | formatDateIso}}</p>{{end}}
+        {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateIso}}</p>{{end}}
+    </header>
+    {{.Html | asHtml}}
+    <hr />
+    <div>
+        This blog currently doesn't support comments. To respond, use
+        <a href="mailto:me@mitranim.com?subject=Re:%20{{.Title}}">me@mitranim.com</a>
+        or one of my <a href="/#contacts">other contacts</a>.
+    </div>
 </article>
 {{template "site-bottom.html" .}}

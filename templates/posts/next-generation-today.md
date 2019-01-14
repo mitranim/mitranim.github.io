@@ -17,12 +17,12 @@ Angular code may look like this:
 import {Component} from 'ng-decorate';
 
 @Component({
-  selector: 'app-tabset'
+    selector: 'app-tabset'
 })
 export class AppTabset {
-  constructor() {
-    this.activeTab = this.tabs[0];
-  }
+    constructor() {
+        this.activeTab = this.tabs[0];
+    }
 }
 ```
 
@@ -87,6 +87,7 @@ interchangeable; this guide will use TypeScript, but you can pick Babel with
 equal results.
 
 Install the transpiler:
+
 ```sh
 npm i --save-dev Microsoft/TypeScript gulp-typescript
 ```
@@ -170,13 +171,13 @@ First, create an `src/app/tsconfig.json` with the following:
 
 ```json
 {
-  "version": "1.5.0",
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "noImplicitAny": false,
-    "experimentalDecorators": true
-  }
+    "version": "1.5.0",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "experimentalDecorators": true
+    }
 }
 ```
 
@@ -197,122 +198,122 @@ Create an `src/app/lib.d.ts` with the following:
 
 ```details"src/app/lib.d.ts"ts
 declare module 'ng-decorate' {
-  export var Attribute: typeof ngDecorate.Attribute;
-  export var Ambient: typeof ngDecorate.Ambient;
-  export var Component: typeof ngDecorate.Component;
-  export var Service: typeof ngDecorate.Service;
-  export var Controller: typeof ngDecorate.Controller;
-  export var autoinject: typeof ngDecorate.autoinject;
-  export var bindTwoWay: typeof ngDecorate.bindTwoWay;
-  export var bindOneWay: typeof ngDecorate.bindOneWay;
-  export var bindString: typeof ngDecorate.bindString;
-  export var bindExpression: typeof ngDecorate.bindExpression;
-  export var defaults: typeof ngDecorate.defaults;
+    export var Attribute: typeof ngDecorate.Attribute;
+    export var Ambient: typeof ngDecorate.Ambient;
+    export var Component: typeof ngDecorate.Component;
+    export var Service: typeof ngDecorate.Service;
+    export var Controller: typeof ngDecorate.Controller;
+    export var autoinject: typeof ngDecorate.autoinject;
+    export var bindTwoWay: typeof ngDecorate.bindTwoWay;
+    export var bindOneWay: typeof ngDecorate.bindOneWay;
+    export var bindString: typeof ngDecorate.bindString;
+    export var bindExpression: typeof ngDecorate.bindExpression;
+    export var defaults: typeof ngDecorate.defaults;
 }
 
 declare module ngDecorate {
-  // Class decorators.
-  export function Attribute(config: DirectiveConfig): ClassDecorator;
-  export function Ambient(config: BaseConfig): ClassDecorator;
-  export function Ambient(target: Function): void;
-  export function Component(config: DirectiveConfig): ClassDecorator;
-  export function Service(config: ServiceConfig): ClassDecorator;
-  export function Controller(config: ControllerConfig): ClassDecorator;
+    // Class decorators.
+    export function Attribute(config: DirectiveConfig): ClassDecorator;
+    export function Ambient(config: BaseConfig): ClassDecorator;
+    export function Ambient(target: Function): void;
+    export function Component(config: DirectiveConfig): ClassDecorator;
+    export function Service(config: ServiceConfig): ClassDecorator;
+    export function Controller(config: ControllerConfig): ClassDecorator;
 
-  // Property decorators.
-  export function autoinject(target: any, key: string);
-  export function bindTwoWay(options: BindTwoWayOptions): PropertyDecorator;
-  export function bindTwoWay(target: any, key: string): void;
-  export function bindOneWay(key: string): PropertyDecorator;
-  export function bindOneWay(target: any, key: string): void;
-  export function bindString(key: string): PropertyDecorator;
-  export function bindString(target: any, key: string): void;
-  export function bindExpression(key: string): PropertyDecorator;
-  export function bindExpression(target: any, key: string): void;
+    // Property decorators.
+    export function autoinject(target: any, key: string);
+    export function bindTwoWay(options: BindTwoWayOptions): PropertyDecorator;
+    export function bindTwoWay(target: any, key: string): void;
+    export function bindOneWay(key: string): PropertyDecorator;
+    export function bindOneWay(target: any, key: string): void;
+    export function bindString(key: string): PropertyDecorator;
+    export function bindString(target: any, key: string): void;
+    export function bindExpression(key: string): PropertyDecorator;
+    export function bindExpression(target: any, key: string): void;
 
-  // Mutable configuration.
-  export const defaults: {
-    module?: ng.IModule;
-    moduleName?: string;
-    controllerAs: string;
-    makeTemplateUrl: (selector: string) => string;
-  };
+    // Mutable configuration.
+    export const defaults: {
+        module?: ng.IModule;
+        moduleName?: string;
+        controllerAs: string;
+        makeTemplateUrl: (selector: string) => string;
+    };
 
-  // Abstract interface shared by configuration objects.
-  interface BaseConfig {
-    // Angular module object. If provided, other module options are ignored, and
-    // no new module is declared.
-    module?: ng.IModule;
+    // Abstract interface shared by configuration objects.
+    interface BaseConfig {
+        // Angular module object. If provided, other module options are ignored, and
+        // no new module is declared.
+        module?: ng.IModule;
 
-    // Optional name for the new module created for this service or directive.
-    // If omitted, the service or directive name is used.
-    moduleName?: string;
+        // Optional name for the new module created for this service or directive.
+        // If omitted, the service or directive name is used.
+        moduleName?: string;
 
-    // Names of other angular modules this module depends on.
-    dependencies?: string[];
+        // Names of other angular modules this module depends on.
+        dependencies?: string[];
 
-    // DEPRECATED in favor of @autoinject.
-    // Angular services that will be assigned to the class prototype.
-    inject?: string[];
+        // DEPRECATED in favor of @autoinject.
+        // Angular services that will be assigned to the class prototype.
+        inject?: string[];
 
-    // DEPRECATED in favor of @autoinject.
-    // Angular services that will be assigned to the class as static properties.
-    injectStatic?: string[];
-  }
+        // DEPRECATED in favor of @autoinject.
+        // Angular services that will be assigned to the class as static properties.
+        injectStatic?: string[];
+    }
 
-  interface DirectiveConfig extends BaseConfig, ng.IDirective {
-    // The name of the custom element or attribute. Used to derive module name,
-    // directive name, and template url.
-    selector: string;
-  }
+    interface DirectiveConfig extends BaseConfig, ng.IDirective {
+        // The name of the custom element or attribute. Used to derive module name,
+        // directive name, and template url.
+        selector: string;
+    }
 
-  interface ServiceConfig extends BaseConfig {
-    // The name of the service in the angular module system. Mandatory
-    // due to minification woes.
-    serviceName: string;
-  }
+    interface ServiceConfig extends BaseConfig {
+        // The name of the service in the angular module system. Mandatory
+        // due to minification woes.
+        serviceName: string;
+    }
 
-  interface ControllerConfig extends BaseConfig {
-    // Mandatory controller name.
-    controllerName: string;
-    // Optional service name. If included, the controller is published to
-    // angular's DI as a service under this name.
-    serviceName?: string;
-  }
+    interface ControllerConfig extends BaseConfig {
+        // Mandatory controller name.
+        controllerName: string;
+        // Optional service name. If included, the controller is published to
+        // angular's DI as a service under this name.
+        serviceName?: string;
+    }
 
-  interface ControllerClass extends Function {
-    template?: string|Function;
-    templateUrl?: string|Function;
-    link?: Function;
-    compile?: any;
-  }
+    interface ControllerClass extends Function {
+        template?: string|Function;
+        templateUrl?: string|Function;
+        link?: Function;
+        compile?: any;
+    }
 
-  interface BindTwoWayOptions {
-    // Adds `*` to the property descriptor, marking it for `$watchCollection`.
-    collection?: boolean;
-    // Adds `?` to the property descriptor, marking it optional.
-    optional?: boolean;
-    // Adds an external property name to the binding.
-    key?: string;
-  }
+    interface BindTwoWayOptions {
+        // Adds `*` to the property descriptor, marking it for `$watchCollection`.
+        collection?: boolean;
+        // Adds `?` to the property descriptor, marking it optional.
+        optional?: boolean;
+        // Adds an external property name to the binding.
+        key?: string;
+    }
 }
 
 declare module 'foliant' {
-  class StringSet {
-    constructor(strings?: string[]);
-    add(string: string): void;
-    del(string: string): void;
-    has(string: string): boolean;
-  }
-  class Traits {
-    constructor(words?: string[]);
-    static StringSet: typeof StringSet;
-    examine(words: string[]): void;
-    generator(): () => string;
-    knownSounds: StringSet;
-    knownVowels: StringSet;
-  }
-  export default Traits;
+    class StringSet {
+        constructor(strings?: string[]);
+        add(string: string): void;
+        del(string: string): void;
+        has(string: string): boolean;
+    }
+    class Traits {
+        constructor(words?: string[]);
+        static StringSet: typeof StringSet;
+        examine(words: string[]): void;
+        generator(): () => string;
+        knownSounds: StringSet;
+        knownVowels: StringSet;
+    }
+    export default Traits;
 }
 
 declare type StringMap = {[key: string]: string};
@@ -338,117 +339,117 @@ var flags = require('yargs').argv;
 var pt = require('path');
 
 function prod() {
-  return flags.prod === true || flags.prod === 'true';
+    return flags.prod === true || flags.prod === 'true';
 }
 
 /*--------------------------------- Scripts ---------------------------------*/
 
 gulp.task('scripts:clear', function() {
-  return gulp.src('dist/app/**/*.js', {read: false, allowEmpty: true})
-    .pipe($.plumber())
-    .pipe($.rimraf());
+    return gulp.src('dist/app/**/*.js', {read: false, allowEmpty: true})
+        .pipe($.plumber())
+        .pipe($.rimraf());
 });
 
 gulp.task('scripts:views', ['scripts:clear'], function() {
-  return gulp.src('src/app/**/*.html')
-    .pipe($.plumber())
-    .pipe($.ngHtml2js({moduleName: 'app'}))
-    .pipe($.concat('views.js'))
-    .pipe($.replace(/^([^]*)$/,
-      'System.register([], function() {\n' +
-      '  return {\n' +
-      '    setters: [],\n' +
-      '    execute: function() {\n' +
-      '      $1\n' +
-      '    }\n' +
-      '  };\n' +
-      '});\n'))
-    .pipe(gulp.dest('dist/app'));
+    return gulp.src('src/app/**/*.html')
+        .pipe($.plumber())
+        .pipe($.ngHtml2js({moduleName: 'app'}))
+        .pipe($.concat('views.js'))
+        .pipe($.replace(/^([^]*)$/,
+            'System.register([], function() {\n' +
+            '  return {\n' +
+            '    setters: [],\n' +
+            '    execute: function() {\n' +
+            '      $1\n' +
+            '    }\n' +
+            '  };\n' +
+            '});\n'))
+        .pipe(gulp.dest('dist/app'));
 });
 
 gulp.task('scripts:ts', ['scripts:views'], function() {
-  return gulp.src('src/app/**/*.ts')
-    .pipe($.plumber())
-    .pipe($.sourcemaps.init())
-    .pipe($.typescript({
-      noExternalResolve: true,
-      typescript: require('typescript'),
-      target: 'ES5',
-      module: 'system',
-      experimentalDecorators: true
-    }))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('dist/app'))
-    .pipe(bsync.reload({stream: true}));
+    return gulp.src('src/app/**/*.ts')
+        .pipe($.plumber())
+        .pipe($.sourcemaps.init())
+        .pipe($.typescript({
+            noExternalResolve: true,
+            typescript: require('typescript'),
+            target: 'ES5',
+            module: 'system',
+            experimentalDecorators: true
+        }))
+        .pipe($.sourcemaps.write())
+        .pipe(gulp.dest('dist/app'))
+        .pipe(bsync.reload({stream: true}));
 });
 
 gulp.task('scripts:watch', function() {
-  $.watch('src/app/**/*', function() {return gulp.start('scripts:ts')});
+    $.watch('src/app/**/*', function() {return gulp.start('scripts:ts')});
 });
 
 /*---------------------------------- HTML -----------------------------------*/
 
 gulp.task('html:clear', function() {
-  return gulp.src([
-      'dist/**/*.html',
-      '!dist/app/**/*',
-      '!dist/jspm_packages/**/*'
-    ], {read: false, allowEmpty: true})
-    .pipe($.plumber())
-    .pipe($.rimraf());
+    return gulp.src([
+            'dist/**/*.html',
+            '!dist/app/**/*',
+            '!dist/jspm_packages/**/*'
+        ], {read: false, allowEmpty: true})
+        .pipe($.plumber())
+        .pipe($.rimraf());
 });
 
 gulp.task('html:compile', ['html:clear'], function() {
-  return gulp.src('src/html/**/*')
-    .pipe($.plumber())
-    .pipe($.statil({
-      stripPrefix: 'src/html',
-      imports: {prod: prod}
-    }))
-    .pipe(gulp.dest('dist'))
-    .pipe(bsync.reload({stream: true}));
+    return gulp.src('src/html/**/*')
+        .pipe($.plumber())
+        .pipe($.statil({
+            stripPrefix: 'src/html',
+            imports: {prod: prod}
+        }))
+        .pipe(gulp.dest('dist'))
+        .pipe(bsync.reload({stream: true}));
 });
 
 gulp.task('html:watch', function() {
-  $.watch('src/html/**/*', function() {return gulp.start('html:compile')});
+    $.watch('src/html/**/*', function() {return gulp.start('html:compile')});
 });
 
 /*--------------------------------- Styles ----------------------------------*/
 
 gulp.task('styles:copy', function() {
-  return gulp.src('node_modules/stylific/lib/stylific.css')
-    .pipe(gulp.dest('dist/css'));
+    return gulp.src('node_modules/stylific/lib/stylific.css')
+        .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('styles:watch', function() {
-  $.watch('node_modules/stylific/lib/stylific.css', function() {return gulp.start('styles:copy')});
+    $.watch('node_modules/stylific/lib/stylific.css', function() {return gulp.start('styles:copy')});
 });
 
 /*--------------------------------- System ----------------------------------*/
 
 gulp.task('system:copy', function() {
-  return gulp.src('system.config.js').pipe(gulp.dest('dist'));
+    return gulp.src('system.config.js').pipe(gulp.dest('dist'));
 });
 
 gulp.task('system:watch', function() {
-  $.watch('system.config.js', function() {return gulp.start('system:copy')});
+    $.watch('system.config.js', function() {return gulp.start('system:copy')});
 });
 
 /*--------------------------------- Server ----------------------------------*/
 
 gulp.task('server', function() {
-  return bsync.init({
-    startPath: '/ng-next-gen/',
-    server: {
-      baseDir: 'dist',
-      middleware: function(req, res, next) {
-        req.url = req.url.replace(/^\/ng-next-gen/, '/')
-        next()
-      }
-    },
-    port: 9238,
-    online: false
-  });
+    return bsync.init({
+        startPath: '/ng-next-gen/',
+        server: {
+            baseDir: 'dist',
+            middleware: function(req, res, next) {
+                req.url = req.url.replace(/^\/ng-next-gen/, '/')
+                next()
+            }
+        },
+        port: 9238,
+        online: false
+    });
 });
 
 /*--------------------------------- Default ---------------------------------*/
@@ -456,7 +457,7 @@ gulp.task('server', function() {
 gulp.task('build', ['scripts:ts', 'html:compile', 'styles:copy', 'system:copy']);
 
 gulp.task('default', ['build', 'scripts:watch', 'html:watch', 'styles:watch', 'system:watch'], function() {
-  return gulp.start('server');
+    return gulp.start('server');
 });
 ```
 
@@ -468,22 +469,22 @@ with the following:
 ```html
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="/ng-next-gen/css/stylific.css">
-    <base href="/ng-next-gen/"></base>
-  </head>
-  <body>
-    <sf-article>
-      <word-generator></word-generator>
-    </sf-article>
+    <head>
+        <link rel="stylesheet" href="/ng-next-gen/css/stylific.css">
+        <base href="/ng-next-gen/"></base>
+    </head>
+    <body>
+        <sf-article>
+            <word-generator></word-generator>
+        </sf-article>
 
-    <script src="jspm_packages/es6-module-loader.js"></script>
-    <script src="jspm_packages/system.js"></script>
-    <script src="system.config.js"></script>
-    <script>
-      System.import('boot');
-    </script>
-  </body>
+        <script src="jspm_packages/es6-module-loader.js"></script>
+        <script src="jspm_packages/system.js"></script>
+        <script src="system.config.js"></script>
+        <script>
+            System.import('boot');
+        </script>
+    </body>
 </html>
 ```
 
@@ -514,9 +515,9 @@ import {app} from 'app';
 
 // Bootstrap the app.
 angular.element(document).ready(() => {
-  angular.bootstrap(document.body, [app.name], {
-    strictDi: true
-  });
+    angular.bootstrap(document.body, [app.name], {
+        strictDi: true
+    });
 });
 ```
 
@@ -540,14 +541,14 @@ the raw Angular 1.x API:
 import {app} from 'app';
 
 app.directive('wordGenerator', function() {
-  return {
-    restrict: 'E',
-    scope: {},
-    templateUrl: 'word-generator/word-generator.html',
-    controllerAs: 'self',
-    bindToController: true,
-    controller: ViewModel
-  };
+    return {
+        restrict: 'E',
+        scope: {},
+        templateUrl: 'word-generator/word-generator.html',
+        controllerAs: 'self',
+        bindToController: true,
+        controller: ViewModel
+    };
 });
 
 class ViewModel {}
@@ -564,7 +565,7 @@ with:
 import {Component} from 'ng-decorate';
 
 @Component({
-  selector: 'word-generator'
+    selector: 'word-generator'
 })
 class ViewModel {}
 ```
@@ -635,18 +636,18 @@ import {Ambient, autoinject} from 'ng-decorate';
 
 @Ambient
 export class Record {
-  /**
-   * Compile-time type information.
-   */
-  // Prototype property.
-  @autoinject $q: ng.IQService;
-  // Static property.
-  @autoinject static $http: ng.IHttpService;
+    /**
+     * Compile-time type information.
+     */
+    // Prototype property.
+    @autoinject $q: ng.IQService;
+    // Static property.
+    @autoinject static $http: ng.IHttpService;
 
-  constructor() {
-    console.log(this.$q);
-    console.log(Record.$http);
-  }
+    constructor() {
+        console.log(this.$q);
+        console.log(Record.$http);
+    }
 }
 ```
 
@@ -662,16 +663,16 @@ you'll use a stock Angular feature: annotating the controller class with an
 import {Component} from 'ng-decorate';
 
 @Component({
-  selector: 'custom-element'
+    selector: 'custom-element'
 })
 class ViewModel {
-  // Compile-time type information.
-  element: HTMLElement;
+    // Compile-time type information.
+    element: HTMLElement;
 
-  static $inject = ['$element']; // stock Angular feature
-  constructor($element) {
-    this.element = $element[0];
-  }
+    static $inject = ['$element']; // stock Angular feature
+    constructor($element) {
+        this.element = $element[0];
+    }
 }
 ```
 
@@ -690,23 +691,23 @@ import {Service, autoinject} from 'ng-decorate';
 export const wordsUrl = 'https://incandescent-torch-3438.firebaseio.com/foliant/defaults/words/eng.json';
 
 @Service({
-  serviceName: 'Words'
+    serviceName: 'Words'
 })
 export class Words {
-  @autoinject static $http: ng.IHttpService;
-  [key: string]: string;
+    @autoinject static $http: ng.IHttpService;
+    [key: string]: string;
 
-  constructor(fields?: StringMap) {
-    if (fields) for (let key in fields) this[key] = fields[key];
-  }
+    constructor(fields?: StringMap) {
+        if (fields) for (let key in fields) this[key] = fields[key];
+    }
 
-  static readAll() {
-    return this.$http({
-      url: wordsUrl,
-      method: 'GET'
-    })
-    .then(response => new Words(<StringMap>response.data));
-  }
+    static readAll() {
+        return this.$http({
+            url: wordsUrl,
+            method: 'GET'
+        })
+        .then(response => new Words(<StringMap>response.data));
+    }
 }
 ```
 
@@ -718,10 +719,10 @@ Whoah what's going on in here? Let's take this slow.
 import {Service, autoinject} from 'ng-decorate';
 
 @Service({
-  serviceName: 'Words'
+    serviceName: 'Words'
 })
 export class Words {
-  @autoinject static $http;
+    @autoinject static $http;
 }
 ```
 
@@ -731,8 +732,8 @@ This is a shortcut to:
 import {app} from 'app';
 
 app.factory('Words', ['$http', function($http) {
-  Words.$http = $http;
-  return Words;
+    Words.$http = $http;
+    return Words;
 }]);
 export class Words {}
 ```
@@ -781,11 +782,11 @@ an inline type cast.
 
 ```ts
 static readAll() {
-  return this.$http({
-    url: url,
-    method: 'GET'
-  })
-  .then(response => new Words(<StringMap>response.data));
+    return this.$http({
+        url: url,
+        method: 'GET'
+    })
+    .then(response => new Words(<StringMap>response.data));
 }
 ```
 
@@ -821,9 +822,9 @@ import 'word-generator/word-generator';
 
 // Bootstrap the app.
 angular.element(document).ready(() => {
-  angular.bootstrap(document.body, [app.name], {
-    strictDi: true
-  });
+    angular.bootstrap(document.body, [app.name], {
+        strictDi: true
+    });
 });
 ```
 
@@ -844,129 +845,129 @@ import {Component} from 'ng-decorate';
 import {Words} from 'models/all';
 
 @Component({
-  selector: 'word-generator'
+    selector: 'word-generator'
 })
 class VM {
-  // Source words.
-  words: string[];
-  // Generated words.
-  results: string[] = [];
-  // Input.
-  word: string = '';
-  // Error.
-  error: string = null;
-  // True when the generator is out of words.
-  depleted: boolean = false;
-  // Words generator.
-  gen: () => string;
+    // Source words.
+    words: string[];
+    // Generated words.
+    results: string[] = [];
+    // Input.
+    word: string = '';
+    // Error.
+    error: string = null;
+    // True when the generator is out of words.
+    depleted: boolean = false;
+    // Words generator.
+    gen: () => string;
 
-  constructor() {
-    this.reload().then(this.generate.bind(this));
-  }
-
-  /**
-   * Reloads the example words from the backend.
-   */
-  reload() {
-    return Words.readAll().then(words => {
-      this.words = Object.keys(words).map(key => words[key]);
-    });
-  }
-
-  /**
-   * Word count limit.
-   */
-  get limit(): number {return 12}
-
-  /**
-   * Generates a group of words.
-   */
-  generate(): void {
-    // Remove error, if any.
-    this.error = '';
-
-    // Regenerate the generator, if necessary.
-    if (!this.gen) this.gen = new Traits(this.words).generator();
-    var words = [];
-
-    while (words.length < this.limit) {
-      var word = this.gen();
-      if (!word) break;
-      // Skip source words.
-      if (~this.words.indexOf(word)) continue;
-      words.push(word);
+    constructor() {
+        this.reload().then(this.generate.bind(this));
     }
 
-    if (words.length < this.limit) this.depleted = true;
-    else this.depleted = false;
-
-    this.results = words;
-  }
-
-  /**
-   * Adds a word to the source or displays an error message.
-   */
-  add(word: string): void {
-    this.word = this.word.toLowerCase();
-
-    if (!this.word) {
-      this.error = 'Please input a word.';
-      return;
+    /**
+     * Reloads the example words from the backend.
+     */
+    reload() {
+        return Words.readAll().then(words => {
+            this.words = Object.keys(words).map(key => words[key]);
+        });
     }
 
-    if (this.word.length < 2) {
-      this.error = 'The word is too short.';
-      return;
+    /**
+     * Word count limit.
+     */
+    get limit(): number {return 12}
+
+    /**
+     * Generates a group of words.
+     */
+    generate(): void {
+        // Remove error, if any.
+        this.error = '';
+
+        // Regenerate the generator, if necessary.
+        if (!this.gen) this.gen = new Traits(this.words).generator();
+        var words = [];
+
+        while (words.length < this.limit) {
+            var word = this.gen();
+            if (!word) break;
+            // Skip source words.
+            if (~this.words.indexOf(word)) continue;
+            words.push(word);
+        }
+
+        if (words.length < this.limit) this.depleted = true;
+        else this.depleted = false;
+
+        this.results = words;
     }
 
-    if (~this.words.indexOf(this.word)) {
-      this.error = 'This word is already in the set.';
-      return;
-    }
+    /**
+     * Adds a word to the source or displays an error message.
+     */
+    add(word: string): void {
+        this.word = this.word.toLowerCase();
 
-    try {
-      new Traits(this.words).examine([this.word]);
-    } catch (err) {
-      console.warn('-- word parsing error:', err);
-      this.error = 'Some of these characters are not allowed in a word.';
-      return;
-    }
+        if (!this.word) {
+            this.error = 'Please input a word.';
+            return;
+        }
 
-    this.error = '';
-    this.words.push(this.word);
-    this.word = '';
+        if (this.word.length < 2) {
+            this.error = 'The word is too short.';
+            return;
+        }
 
-    // Refresh the generator.
-    this.gen = new Traits(this.words).generator();
-  }
+        if (~this.words.indexOf(this.word)) {
+            this.error = 'This word is already in the set.';
+            return;
+        }
 
-  /**
-   * Drops a word from the source and refreshes the generator.
-   */
-  remove(word: string): void {
-    var index = this.words.indexOf(word);
-    if (~index) this.words.splice(index, 1);
-    if (!this.words.length) {
-      this.reload().then(() => {
+        try {
+            new Traits(this.words).examine([this.word]);
+        } catch (err) {
+            console.warn('-- word parsing error:', err);
+            this.error = 'Some of these characters are not allowed in a word.';
+            return;
+        }
+
+        this.error = '';
+        this.words.push(this.word);
+        this.word = '';
+
+        // Refresh the generator.
         this.gen = new Traits(this.words).generator();
-        this.generate();
-      });
-    } else {
-      this.gen = new Traits(this.words).generator();
     }
-  }
 
-  /**
-   * Adds the given word to the source, removing it from the generated
-   * results. Doesn't refresh the generator because adding a previously
-   * generated word to the same source set has no effect on the total output.
-   */
-  pick(word: string): void {
-    if (~this.words.indexOf(word)) return;
-    this.words.push(word);
-    var index = this.results.indexOf(word);
-    if (~index) this.results.splice(index, 1);
-  }
+    /**
+     * Drops a word from the source and refreshes the generator.
+     */
+    remove(word: string): void {
+        var index = this.words.indexOf(word);
+        if (~index) this.words.splice(index, 1);
+        if (!this.words.length) {
+            this.reload().then(() => {
+                this.gen = new Traits(this.words).generator();
+                this.generate();
+            });
+        } else {
+            this.gen = new Traits(this.words).generator();
+        }
+    }
+
+    /**
+     * Adds the given word to the source, removing it from the generated
+     * results. Doesn't refresh the generator because adding a previously
+     * generated word to the same source set has no effect on the total output.
+     */
+    pick(word: string): void {
+        if (~this.words.indexOf(word)) return;
+        this.words.push(word);
+        var index = this.results.indexOf(word);
+        if (~index) this.results.splice(index, 1);
+    }
 }
 ```
 
@@ -988,26 +989,26 @@ Modify your `src/html/index.html`:
 ```details"src/html/index.html"html
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="/ng-next-gen/css/stylific.css">
-    <base href="/ng-next-gen/"></base>
-  </head>
-  <body>
-    <sf-article>
-      <word-generator></word-generator>
-    </sf-article>
+    <head>
+        <link rel="stylesheet" href="/ng-next-gen/css/stylific.css">
+        <base href="/ng-next-gen/"></base>
+    </head>
+    <body>
+        <sf-article>
+            <word-generator></word-generator>
+        </sf-article>
 
-    <% if (prod()) { %>
-      <script src="build.js"></script>
-    <% } else { %>
-      <script src="jspm_packages/es6-module-loader.js"></script>
-      <script src="jspm_packages/system.js"></script>
-      <script src="system.config.js"></script>
-      <script>
-        System.import('boot');
-      </script>
-    <% } %>
-  </body>
+        <% if (prod()) { %>
+            <script src="build.js"></script>
+        <% } else { %>
+            <script src="jspm_packages/es6-module-loader.js"></script>
+            <script src="jspm_packages/system.js"></script>
+            <script src="system.config.js"></script>
+            <script>
+                System.import('boot');
+            </script>
+        <% } %>
+    </body>
 </html>
 ```
 
@@ -1015,12 +1016,12 @@ Modify your `src/html/index.html`:
 + <% if (prod()) { %>
 +     <script src="build.js"></script>
 + <% } else { %>
-    <script src="jspm_packages/es6-module-loader.js"></script>
-    <script src="jspm_packages/system.js"></script>
-    <script src="config.js"></script>
-    <script>
-      System.import('boot')
-    </script>
+        <script src="jspm_packages/es6-module-loader.js"></script>
+        <script src="jspm_packages/system.js"></script>
+        <script src="config.js"></script>
+        <script>
+            System.import('boot')
+        </script>
 + <% } %>
 ```
 
@@ -1028,10 +1029,10 @@ Open `package.json`, find or create `"scripts"`, and add these lines:
 
 ```json
 "scripts": {
-  "start": "gulp",
-  "bundle": "jspm bundle-sfx boot --minify",
-  "build-prod": "gulp build --prod && npm run bundle",
-  "serve-prod": "npm run build-prod && gulp bsync"
+    "start": "gulp",
+    "bundle": "jspm bundle-sfx boot --minify",
+    "build-prod": "gulp build --prod && npm run bundle",
+    "serve-prod": "npm run build-prod && gulp bsync"
 }
 ```
 
@@ -1063,14 +1064,14 @@ or [Skype](skype:mitranim.web?chat).
 
 <!--
 <script>
-  window.addEventListener('click', function toggleCollapse(event) {
-    var node = event.target
-    for (;;) {
-      if (!(node instanceof window.Element)) return
-      if (node.classList.contains('collapse')) break
-      node = node.parentNode
-    }
-    node.classList.toggle('active')
-  })
+    window.addEventListener('click', function toggleCollapse(event) {
+        var node = event.target
+        for (;;) {
+            if (!(node instanceof window.Element)) return
+            if (node.classList.contains('collapse')) break
+            node = node.parentNode
+        }
+        node.classList.toggle('active')
+    })
 </script>
- -->
+-->

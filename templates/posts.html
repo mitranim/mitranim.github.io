@@ -1,35 +1,35 @@
 {{template "site-top.html" .}}
 <div class="col-start-stretch gaps-v-4">
-  <div class="fancy-typography gaps-v-2">
-    <h1>Blog Posts</h1>
+    <div class="fancy-typography gaps-v-2">
+        <h1>Blog Posts</h1>
 
-    {{range $post := listedPosts}}
-      {{$link := joinPath "/posts/" $post.Slug}}
-      <div class="gaps-v-1">
-        <h2><a href="{{$link | asAttr}}">{{$post.Title | asHtml}}</a></h2>
-        {{if $post.Description}}
-          <p>{{$post.Description | asHtml}}</p>
+        {{range $post := listedPosts}}
+            {{$link := joinPath "/posts/" $post.Slug}}
+            <div class="gaps-v-1">
+                <h2><a href="{{$link | asAttr}}">{{$post.Title | asHtml}}</a></h2>
+                {{if $post.Description}}
+                    <p>{{$post.Description | asHtml}}</p>
+                {{end}}
+                {{if not $post.Created.IsZero}}
+                    <p class="fg-faded font-small">Published {{$post.Created | formatDateIso}}</p>
+                {{end}}
+                {{if not $post.Updated.IsZero}}
+                    <p class="fg-faded font-small">Updated {{$post.Updated | formatDateIso}}</p>
+                {{end}}
+            </div>
+        {{else}}
+            <p>Oops! It appears there are no public posts yet.</p>
         {{end}}
-        {{if not $post.Created.IsZero}}
-          <p class="fg-faded font-small">Published {{$post.Created | formatDateIso}}</p>
-        {{end}}
-        {{if not $post.Updated.IsZero}}
-          <p class="fg-faded font-small">Updated {{$post.Updated | formatDateIso}}</p>
-        {{end}}
-      </div>
-    {{else}}
-      <p>Oops! It appears there are no public posts yet.</p>
-    {{end}}
-  </div>
+    </div>
 
-  <div class="fancy-typography">
-    <h1>Feed Links</h1>
+    <div class="fancy-typography">
+        <h1>Feed Links</h1>
 
-    <ul class="row-start-start gaps-h-1 list-unstyled">
-      <li><a href="/feed.xml" {{targetBlank}}>Atom</a></li>
-      <li><a href="/feed_rss.xml" {{targetBlank}}>RSS</a></li>
-      <li><a href="https://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml" {{targetBlank}}>Feedly</a></li>
-    </ul>
-  </div>
+        <ul class="row-start-start gaps-h-1 list-unstyled">
+            <li>{{externalAnchor "/feed.xml" "Atom"}}</li>
+            <li>{{externalAnchor "/feed_rss.xml" "RSS"}}</li>
+            <li>{{externalAnchor "https://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml" "Feedly"}}</li>
+        </ul>
+    </div>
 </div>
 {{template "site-bottom.html" .}}
