@@ -607,7 +607,7 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 			out.Write(ANGLE_CLOSE)
 		} else {
 			if node.HeadingID != "" {
-				out.Write([]byte(`<a href="#` + node.HeadingID + `" class="heading-anchor">🔗</a>`))
+				out.Write([]byte(`<a href="#` + node.HeadingID + `" class="heading-anchor" aria-hidden="true"></a>`))
 			}
 			out.Write(ANGLE_OPEN_SLASH)
 			out.Write(tag)

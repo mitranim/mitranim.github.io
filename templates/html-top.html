@@ -30,4 +30,13 @@ links MUST be absolute.
     <meta property="og:site_name" content="about:mitranim" />
     {{end}}
 </head>
-<body class="col-start-stretch" style="min-height: 100vh">
+
+<body class="col-start-stretch relative" style="min-height: 100vh">
+    <!--
+
+    This JS code skips to the content without changing the URL or polluting the
+    browser history. It SEEMS to work with the MacOS VoiceOver. Haven't tested
+    other operating systems.
+
+    -->
+    <a href="#main-content" class="skip-to-content" onclick="event.preventDefault(); document.getElementById('main-content').scrollIntoView()">Skip to content</a>

@@ -382,3 +382,13 @@ ul.list-fancy ul.list-fancy {list-style-type: circle;}
         margin-left: 0.5rem;
     }
 }
+
+.skip-to-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @extend .padding-1;
+    @extend .bg-smoke;
+    opacity: 0;
+    &:focus {opacity: 1;}
+}

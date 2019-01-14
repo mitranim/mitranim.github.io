@@ -1,5 +1,5 @@
 {{template "site-top.html" .}}
-<article class="fancy-typography">
+<article role="main article" id="main-content" class="fancy-typography">
 {{includeWith "demos.md" . | toMarkdown}}
 </article>
 {{template "site-bottom.html" .}}
