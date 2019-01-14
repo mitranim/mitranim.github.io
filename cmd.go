@@ -187,15 +187,14 @@ var CHROMA_STYLE = cstyles.Pygments
 
 /*
 Note: we create a new renderer for every page because `bf.HTMLRenderer` is
-stateful and is not meant to be reused for unrelated invocations. In
-particular, reusing it between pages causes `bf.AutoHeadingIDs` to
-unnecessarily deduplicate heading IDs on different pages by giving them unique
-suffixes.
+stateful and is not meant to be reused between unrelated texts. In particular,
+reusing it between pages causes `bf.AutoHeadingIDs` to suffix heading IDs,
+making them unique across multiple pages. We don't want that.
 */
 func markdownOpts() []bf.Option {
 	return []bf.Option{
 		bf.WithExtensions(
-			bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.AutoHeadingIDs,
+			bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.HeadingIDs | bf.AutoHeadingIDs,
 		),
 		bf.WithRenderer(&MarkdownRenderer{bf.NewHTMLRenderer(bf.HTMLRendererParameters{
 			Flags: bf.CommonHTMLFlags,
