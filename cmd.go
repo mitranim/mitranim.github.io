@@ -440,8 +440,20 @@ func writePublic(path string, bytes []byte) error {
 	return nil
 }
 
-func targetBlankAttr() template.HTMLAttr {
-	return template.HTMLAttr(`target="_blank" rel="noopener noreferrer"`)
+var featherIconExternalLink = strings.TrimSpace(`
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-link-icon">
+	<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+	<polyline points="15 3 21 3 21 9" />
+	<line x1="10" y1="14" x2="21" y2="3" />
+</svg>
+`)
+
+var featherIconExternalLinkBytes = []byte(featherIconExternalLink)
+
+// Note: somewhat duplicated in `MarkdownRenderer.RenderNode`.
+func externalAnchor(href string, text string) template.HTML {
+	return template.HTML(fmt.Sprintf(`<a href="%v" target="_blank" rel="noopener noreferrer" class="decorate-link">%v%v</a>`,
+		href, text, featherIconExternalLink))
 }
 
 func currentAttr(href string, data interface{}) template.HTMLAttr {
@@ -547,14 +559,6 @@ func linkWithHash(assetPath string) (string, error) {
 var (
 	detailTagReg = regexp.MustCompile(`details"([^"\s]*)"(\S*)?`)
 
-	DETAILS_START    = []byte(`<details class="details fancy-typography">`)
-	DETAILS_END      = []byte(`</details>`)
-	SUMMARY_START    = []byte(`<summary>`)
-	SUMMARY_END      = []byte(`</summary>`)
-	ANGLE_OPEN       = []byte("<")
-	ANGLE_OPEN_SLASH = []byte("</")
-	ANGLE_CLOSE      = []byte(">")
-
 	HEADING_TAGS = map[int][]byte{
 		1: []byte("h1"),
 		2: []byte("h2"),
@@ -563,7 +567,22 @@ var (
 		5: []byte("h5"),
 		6: []byte("h6"),
 	}
+
+	DETAILS_START       = []byte(`<details class="details fancy-typography">`)
+	DETAILS_END         = []byte(`</details>`)
+	SUMMARY_START       = []byte(`<summary>`)
+	SUMMARY_END         = []byte(`</summary>`)
+	ANGLE_OPEN          = []byte("<")
+	ANGLE_OPEN_SLASH    = []byte("</")
+	ANGLE_CLOSE         = []byte(">")
+	ANCHOR_TAG          = []byte("a")
+	EXTERNAL_LINK_ATTRS = []byte(` target="_blank" rel="noopener noreferrer"`)
+	HREF_START          = []byte(` href="`)
+	HREF_END            = []byte(`"`)
+	SPACE               = []byte(` `)
 )
+
+var externalLinkReg = regexp.MustCompile(`^\w+://`)
 
 type MarkdownRenderer struct{ *bf.HTMLRenderer }
 
@@ -596,6 +615,44 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 		}
 		return bf.GoToNext
 
+	/**
+	Difference from default: external links get attributes like
+	`target="_blank"` and an external link icon.
+
+	"External" = "starts with a protocol".
+
+	Note: currently doesn't support some flags and extensions.
+
+	Note: somewhat duplicates `externalAnchor`.
+	*/
+	case bf.Link:
+		if entering {
+			out.Write(ANGLE_OPEN)
+			out.Write(ANCHOR_TAG)
+			out.Write(HREF_START)
+			out.Write(node.LinkData.Destination)
+			out.Write(HREF_END)
+			if externalLinkReg.Match(node.LinkData.Destination) {
+				out.Write(EXTERNAL_LINK_ATTRS)
+			}
+			out.Write(ANGLE_CLOSE)
+		} else {
+			if externalLinkReg.Match(node.LinkData.Destination) {
+				out.Write(featherIconExternalLinkBytes)
+			}
+			out.Write(ANGLE_OPEN_SLASH)
+			out.Write(ANCHOR_TAG)
+			out.Write(ANGLE_CLOSE)
+		}
+		return bf.GoToNext
+
+	/**
+	Differences from default:
+
+		* code highlighting
+
+		* supports special directives like rendering <details>
+	*/
 	case bf.CodeBlock:
 		tag := string(node.CodeBlockData.Info)
 

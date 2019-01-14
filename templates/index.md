@@ -8,7 +8,7 @@ Nelo Mitranim
 
 Autodidact. Senior software developer and architect. Main expertise: web applications (full stack).
 
-Part of team at <a href="https://purelab.io" {{targetBlank}}>Purelab.io</a>, a software development and consulting studio. Hire us for your next big project!
+Part of team at [Purelab.io](https://purelab.io), a software development and consulting studio. Hire us for your next big project!
 
 Open source enthusiast. See my [works](/works).
 
@@ -28,8 +28,8 @@ Solid experience:
 
   * SQL databases: Postgres
   * document databases: ArangoDB, CouchDB
-  * Datomic (http://www.datomic.com)
-  * Firebase (https://firebase.google.com)
+  * Datomic ([http://www.datomic.com](http://www.datomic.com))
+  * Firebase ([https://firebase.google.com](https://firebase.google.com))
 
 Predominant choice: Postgres.
 
@@ -41,7 +41,7 @@ Solid experience:
   * traditional web applications (SSR, forms)
   * REST API backends
   * websocket API backends with live notifications
-  * Ethereum apps; see <a href="https://github.com/purelabio/eth" {{targetBlank}}>github.com/purelabio/eth</a>
+  * Ethereum apps; see [github.com/purelabio/eth](https://github.com/purelabio/eth)
 
 ## Misc
 
@@ -65,10 +65,10 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 # Links
 
-<a href="https://github.com/mitranim" {{targetBlank}}>{{include "svg-github"}} My Github</a>
+[{{include "svg-github"}} My Github](https://github.com/mitranim)
 
-<a href="http://twitter.com/mitranim" {{targetBlank}}>{{include "svg-twitter"}} My Twitter</a>
+[{{include "svg-github"}} My Twitter](http://twitter.com/mitranim)
 
-<a href="http://linkedin.com/in/mitranim" {{targetBlank}}>{{include "svg-linkedin"}} My LinkedIn</a>
+[{{include "svg-github"}} My LinkedIn](http://linkedin.com/in/mitranim)
 
-<a href="http://facebook.com/mitranim" {{targetBlank}}>{{include "svg-facebook"}} My Facebook</a>
+[{{include "svg-github"}} My Facebook](http://facebook.com/mitranim)

@@ -100,7 +100,7 @@ Pair of libraries for making HTTP requests in Node.js and browsers. Much better 
 
 ## [simple-pjax](https://github.com/mitranim/simple-pjax) <span class="fg-faded font-normal">(JS)</span>
 
-Drop-in JS library that dramatically speeds up page transitions on server-rendered websites. See the explanatory [blog post](/thoughts/cheating-for-performance-pjax/).
+Drop-in JS library that dramatically speeds up page transitions on server-rendered websites. See the explanatory [blog post](/posts/cheating-for-performance-pjax/).
 
 ## [statil](https://github.com/mitranim/statil) <span class="fg-faded font-normal">(JS)</span>
 

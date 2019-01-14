@@ -105,7 +105,7 @@ I have fashioned this into a simple, fully automatic [library](https://github.co
 
 Despite the simplicity, the benefits are stunning. This gives your multi-page website most of the advantages enjoyed by SPA. The browser gets to keep the same JavaScript runtime and all downloaded assets, including images, fonts, stylesheets, etc. This dramatically improves page load times, particularly on poor connections such as mobile networks. This also lets you maintain a persistent websocket connection while the user navigates your server-rendered multi-page app!
 
-Also, I can't overstate how wasteful it is to execute all scripts on each new page load, which is typical for most websites. I just checked [wired.com](http://wired.com) and the total execution time of all scripts was **480 ms** _before_ ads kicked in. Each new page reruns all scripts. Using pjax, you can eliminate this waste, keeping your website more responsive and saving the visitors' CPU cycles and battery life.
+Also, I can't overstate how wasteful it is to execute all scripts on each new page load, which is typical for most websites. I just checked [Wired](https://wired.com) and the total execution time of all scripts was **480 ms** _before_ ads kicked in. Each new page reruns all scripts. Using pjax, you can eliminate this waste, keeping your website more responsive and saving the visitors' CPU cycles and battery life.
 
 ## Gotchas
 

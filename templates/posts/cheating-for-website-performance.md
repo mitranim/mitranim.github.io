@@ -1,5 +1,5 @@
 Have been turning into a bit of a performance nut lately. This is what I've
-found useful for speeding up websites. These are mostly frontend optimisations;
+found useful for speeding up websites. These are mostly frontend optimizations;
 I'm not going to delve into server performance here.
 
 ## TOC
@@ -16,14 +16,7 @@ I'm not going to delve into server performance here.
 
 ## Minify Everything
 
-By far the most important thing to optimise is images. There are great free
-tools like [graphicsmagick](http://www.graphicsmagick.org) that let you
-automatically compress images without visible quality loss, rescale to
-different dimensions, crop, etc. They can be a
-[part](https://github.com/scalableminds/gulp-image-resize) of your standard
-build chain, so there's absolutely no excuse for not using them. See
-[example](https://github.com/mitranim/stylific/blob/master/gulpfile.js) (scroll
-down to image processing).
+By far the most important thing to optimize is images. There are great free tools like [graphicsmagick](http://www.graphicsmagick.org) that let you automatically compress images without visible quality loss, rescale to different dimensions, crop, etc. They can be a [part](https://github.com/scalableminds/gulp-image-resize) of your standard build chain, so there's absolutely no excuse for not using them. See [example](https://github.com/mitranim/stylific/blob/master/gulpfile.js) (scroll down to image processing).
 
 Another important thing to compress is JavaScript. Modern JavaScript libraries
 (and hopefully your application's code) tend to be richly commented, bloating
@@ -31,8 +24,8 @@ the source size, with the expectation of being minified for production use. With
 massive frameworks like Angular, React, or Polymer, the total size easily
 rockets past a megabyte. Minification gets it down to manageable size.
 
-Minifying CSS is usually less important, but like everything else, it's a useful
-optimisation and there's no excuse for not doing it.
+Minifying CSS is usually less important, but like everything else, it's a
+useful optimization and there's no excuse for not doing it.
 
 ## Concatenate Everything
 
@@ -52,7 +45,7 @@ like stylesheets, scripts, and icons (see below on that).
 
 ## Use Pjax
 
-**Update**: see this [in-depth post](/thoughts/cheating-for-performance-pjax) on pjax.
+**Update**: see this [in-depth post](/posts/cheating-for-performance-pjax) on pjax.
 
 Pjax is a cheap trick that combines `history.pushState` and `ajax` to mimic page
 transitions without actually reloading the page.
@@ -72,17 +65,9 @@ poor connections such as mobile networks. This also lets you maintain a
 persistent WebSocket connection while the user navigates your server-rendered
 multi-page app!
 
-There are a few [implementations](https://github.com/defunkt/jquery-pjax) in the
-wild, but they require clientside _and_ server-side configuration. If you're
-like me, this will seem like a waste of time. The biggest benefit of pjax is
-keeping the browsing session. Micromanaging partial templates is probably not
-worth your time, but everyone's needs are different.
+There are a few [implementations](https://github.com/defunkt/jquery-pjax) in the wild, but they require clientside _and_ server-side configuration. If you're like me, this will seem like a waste of time. The biggest benefit of pjax is keeping the browsing session. Micromanaging partial templates is probably not worth your time, but everyone's needs are different.
 
-I wrote a [simple pjax library](https://github.com/mitranim/simple-pjax) that
-works with zero config. Check the
-[gotchas](https://github.com/mitranim/simple-pjax#gotchas) to see if it's usable
-for your site, then give it a spin or roll your own! The library is also used
-on this very site. Inspect the network console to observe the effects.
+I wrote a [simple pjax library](https://github.com/mitranim/simple-pjax) that works with zero config. Check the [gotchas](https://github.com/mitranim/simple-pjax#gotchas) to see if it's usable for your site, then give it a spin or roll your own! The library is also used on this very site. Inspect the network console to observe the effects.
 
 ## Use Server Rendering
 
@@ -101,14 +86,9 @@ sure to research this feature for your stack of choice.
 
 ## Make Your JavaScript Lazy
 
-If your application is JavaScript-heavy, you should use a module system with
-lazy loading. This is supported by the ES6 module system, and you can use it
-today with [SystemJS](https://github.com/systemjs/systemjs) and, optionally,
-[jspm](http://jspm.io). You can also achieve a similar effect with AMD.
+If your application is JavaScript-heavy, you should use a module system with lazy loading. This is supported by the ES6 module system, and you can use it today with [SystemJS](https://github.com/systemjs/systemjs) and, optionally, [jspm](http://jspm.io). You can also achieve a similar effect with AMD.
 
-The core parts of the application should be bundled into a single file, and big
-but optional parts may be imported asynchronously when needed. If your app is
-small, you can skip lazy loading and bundle the entire app.
+The core parts of the application should be bundled into a single file, and big but optional parts may be imported asynchronously when needed. If your app is small, you can skip lazy loading and bundle the entire app.
 
 ## Use Font Icons or Inline SVG
 
@@ -150,16 +130,8 @@ use a caching proxy / CDN like CloudFlare to reduce latency for static content.
 
 ## Consider a Static Website
 
-Simple websites with one maintainer, like a personal page or a blog, don't need
-a scripting engine with a database. You can prerender them into HTML files, then
-serve with nginx or on a service like Github Pages. Dynamic functionality can be
-implemented with ajax.
+Simple websites with one maintainer, like a personal page or a blog, don't need a scripting engine with a database. You can prerender them into HTML files, then serve with nginx or on a service like Github Pages. Dynamic functionality can be implemented with ajax.
 
-Serving static files is naturally more performant than rendering templates on
-each request. They're also automatically subject to caching. When the base
-document is cached, some browsers may serve the entire page, including assets,
-from the cache, rendering it with zero latency.
+Serving static files is naturally more performant than rendering templates on each request. They're also automatically subject to caching. When the base document is cached, some browsers may serve the entire page, including assets, from the cache, rendering it with zero latency.
 
-Static site generators are [plentiful](https://www.staticgen.com), and if they
-don't float your boat, you can write your
-[own](https://github.com/mitranim/mitranim.github.io) in an afternoon.
+Static site generators are [plentiful](https://www.staticgen.com), and if they don't float your boat, you can write your [own](https://github.com/mitranim/mitranim.github.io) in an afternoon.
