@@ -1,7 +1,5 @@
-<p class="bg-red padding-1">
-  **Update (late 2015)**. I've come to consider Angular and much of
-  the tech covered in this post to be garbage. What's actually
-  good? I'll try to cover that in due time.
+<p class="theme-red padding-1">
+    <b>Update (late 2015)</b>. I've come to consider the tech covered in this post to be garbage. What's actually good? I'll try to cover that in due time.
 </p>
 
 Next generation web frameworks are around the corner.

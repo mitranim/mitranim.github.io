@@ -1,254 +1,137 @@
 @import './reset';
 @import './baselib';
 
-/**
- * Variables
- */
+/* SCSS Vars */
 
 $breakpoint-xs: 420px;
 $breakpoint-sm: 600px;
 $breakpoint-md: 960px;
 $breakpoint-lg: 1024px;
-$max-page-width: $breakpoint-md;
 
-// Grayscale
-$color-white-07: rgba(255, 255, 255, 0.07);
-$color-white-10: rgba(255, 255, 255, 0.10);
-$color-white-12: rgba(255, 255, 255, 0.12);
-$color-white-30: rgba(255, 255, 255, 0.30);
-$color-white-50: rgba(255, 255, 255, 0.50);
-$color-white-70: rgba(255, 255, 255, 0.70);
-$color-white-87: rgba(255, 255, 255, 0.87);
-$color-white:    white;
-$color-black-03: rgba(0, 0, 0, 0.03);
-$color-black-06: rgba(0, 0, 0, 0.06);
-$color-black-12: rgba(0, 0, 0, 0.12);
-$color-black-20: rgba(0, 0, 0, 0.20);
-$color-black-37: rgba(0, 0, 0, 0.37);
-$color-black-54: rgba(0, 0, 0, 0.54);
-$color-black-80: rgba(0, 0, 0, 0.80);
-$color-black-87: rgba(0, 0, 0, 0.87);
-$color-black:    black;
+/* Global */
 
-// http://clrs.cc
-$color-navy:    #001f3f;
-$color-blue:    #0074d9;
-$color-aqua:    #7fdbff;
-$color-teal:    #39cccc;
-$color-olive:   #3d9970;
-$color-green:   #2ecc40;
-$color-lime:    #01ff70;
-$color-yellow:  #ffdc00;
-$color-orange:  #ff851b;
-$color-red:     #ff4136;
-$color-maroon:  #85144b;
-$color-fuchsia: #f012be;
-$color-purple:  #b10dc9;
-$color-black:   #111111;
-$color-gray:    #aaaaaa;
-$color-silver:  #dddddd;
+:root {
+    /* Typography */
 
-// $color-focus: $color-aqua;
-$color-indigo-dark: hsl(231, 60%, 30%); // #3f51b5
-$color-link: $color-indigo-dark;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Segoe UI', Verdana, sans-serif;
 
-// Source: http://brandcolors.net.
-$color-skype:     #00aff0;
-$color-github:    #4183c4;
-$color-twitter:   #55acee;
-$color-linkedin:  #0976b4;
-$color-facebook:  #3b5998;
-$color-feedly:    #2bb24c;
-$color-rss:       #f26522;
+    /* Theme */
 
-$border-radius: 2px;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
 
-$z-index-tooltip: 100;
+    code, key, pre {background-color: var(--color-code-bg);}
 
-$font-size-h1: 1.6rem;
-$font-size-h2: 1.4rem;
-$font-size-h3: 1.2rem;
+    .hr {color: var(--color-hr);}
 
-@mixin transition($property: all, $duration: 0.2s, $function: ease-out) {
-  transition: $property $duration $function;
-}
+    /* Vars */
 
-@mixin sm {
-  @media (max-width: $breakpoint-sm) {@content;}
-}
+    --max-page-width: #{$breakpoint-md};
+    --font-size-h1: 1.6rem;
+    --font-size-h2: 1.4rem;
+    --font-size-h3: 1.2rem;
 
-/**
- * Global
- */
-
-html {
-  // font-family: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Segoe UI', Verdana, sans-serif;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Segoe UI', Verdana, sans-serif;
-
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  @extend .weight-normal;
+    // Source: http://brandcolors.net.
+    --color-skype:    #00aff0;
+    --color-github:   #4183c4;
+    --color-twitter:  #55acee;
+    --color-linkedin: #0976b4;
+    --color-facebook: #3b5998;
+    --color-feedly:   #2bb24c;
+    --color-rss:      #f26522;
 }
 
 body {
-  overflow-x: auto;
-  overflow-y: scroll;
-  @extend .center-by-margins;
-  @extend .padding-h-1;
+    overflow-x: auto;
+    overflow-y: scroll;
+    @extend .center-by-margins;
+    @extend .padding-h-1;
 }
 
 code, key, pre {
-  @extend .font-monospace;
-  background-color: rgb(250, 250, 245);
+    @extend .font-monospace;
 }
 
-/**
- * Typography
- */
+/* Themes */
 
-.weight-bold {
-  @extend .weight-semibold;
+.theme-light {
+    --color-bg:      white;
+    --color-fg:      black;
+    --color-pale:    hsl(0, 0%, 94%);
+    --color-faded:   hsl(0, 0%, 46%);
+    --color-smoke:   aliceblue;
+    --color-red:     hsl(3,   100%, 60%);
+    --color-blue:    hsl(207, 100%, 42%);
+    --color-link:    hsl(231, 60%, 30%);
+    --color-code-bg: hsl(60, 33%, 97%);
+    --color-hr:      hsl(0, 0%, 63%);
+
+    .active-light {@extend .underdash;}
 }
 
-.font-small {
-  font-size: 0.8rem;
+.theme-dark {
+    --color-bg:      hsl(200, 5%, 10%);
+    --color-fg:      white;
+    --color-pale:    hsl(0, 0%, 20%);
+    --color-faded:   hsl(0, 0%, 70%);
+    --color-smoke:   darkslategray;
+    --color-red:     hsl(0, 70%, 30%);
+    --color-blue:    hsl(207, 100%, 60%);
+    --color-link:    hsl(230, 70%, 80%);
+    --color-code-bg: hsl(70, 8%, 15%); // Same as chroma's Monokai background
+    --color-hr:      hsl(0, 0%, 63%);
+
+    .active-dark {@extend .underdash;}
 }
 
-.font-normal {
-  font-size: 1rem;
+.theme-red {
+    background-color: var(--color-red);
+    color: white;
 }
 
-.font-large {
-  font-size: 1.4rem;
-}
+.bg-smoke {background-color: var(--color-smoke);}
 
-.font-giant {
-  font-size: 2rem;
-}
+.fg-pale  {color: var(--color-pale);}
+.fg-faded {color: var(--color-faded);}
+.fg-blue  {color: var(--color-blue);}
+.fg-red   {color: var(--color-red);}
+.fg-link  {color: var(--color-link);}
 
-.font-monospace {
-  font-family: Menlo, Consolas, monospace;
-}
+.fill-fg    {fill: var(--color-fg);}
+.fill-faded {fill: var(--color-faded);}
 
-.underdash {
-  border-bottom: 1px dashed;
-}
+.stroke-fg {stroke: var(--color-fg);}
 
-.busy-underdash {
-  border-bottom: 1px dashed;
-  &:hover {
-    border-bottom: 1px solid;
-  }
-}
+.fg-facebook {color: var(--color-facebook);}
+.fg-github   {color: var(--color-github);}
+.fg-linkedin {color: var(--color-linkedin);}
+.fg-skype    {color: var(--color-skype);}
+.fg-twitter  {color: var(--color-twitter);}
+.fg-feedly   {color: var(--color-feedly);}
+.fg-rss      {color: var(--color-rss);}
+.fg-feedly   {color: var(--color-feedly);}
 
-.active-underdash {
-  &:hover {
-    border-bottom: 1px dashed;
-  }
-  &:active {
-    border-bottom: 1px solid;
-  }
-}
+.fill-facebook {fill: var(--color-facebook);}
+.fill-github   {fill: var(--color-github);}
+.fill-linkedin {fill: var(--color-linkedin);}
+.fill-skype    {fill: var(--color-skype);}
+.fill-twitter  {fill: var(--color-twitter);}
+.fill-feedly   {fill: var(--color-feedly);}
+.fill-rss      {fill: var(--color-rss);}
+.fill-feedly   {fill: var(--color-feedly);}
 
-.decorate-link {
-  &[href], &.--always {
-    color: $color-link;
-    @extend .busy-underdash;
-    // @extend .active-underdash;
-  }
-}
+.busy-bg-pale:hover {background-color: var(--color-pale);}
 
-.indicate-external-link::after {
-  content: '';
-  margin-left: 0.3ch;
-  display: inline-block;
-  width: 0.8em;
-  height: 0.8em;
-  @extend .bg-contain;
+/* Typography */
 
-  // URL-encode the "#". Note: SASS seems to use 1-indexing, not 0-indexing.
-  // Also note: can't use `stroke="currentColor"` because color inheritance
-  // doesn't seem to work in data URL images. If we want differently colored
-  // links, this SVG will have to migrate from CSS to the markup.
-  $stroke: '%23' + str-slice(inspect($color-link), 2);
+.weight-bold    {@extend .weight-semibold;}
+.font-small     {font-size: 0.8rem;}
+.font-normal    {font-size: 1rem;}
+.font-large     {font-size: 1.4rem;}
+.font-giant     {font-size: 2rem;}
+.font-monospace {font-family: Menlo, Consolas, monospace;}
 
-  // Feather icon: "external-link"
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#{$stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>');
-}
-
-.list-unstyled, .fancy-typography .list-unstyled {
-  padding: 0;
-  list-style-type: none;
-  list-style-position: unset;
-}
-
-.list-fancy                 {padding-left: 1.5em;}
-ul.list-fancy               {list-style-type: disc;}
-ul.list-fancy ul.list-fancy {list-style-type: circle;}
-
-.fancy-typography {
-  h1 {font-size: $font-size-h1}
-  h2 {font-size: $font-size-h2}
-  h3 {font-size: $font-size-h3}
-
-  h1, h2, h3, h4, h5, h6 {
-    &:not(:first-child) {
-      margin-top: 2rem;
-    }
-    margin-bottom: 1rem;
-  }
-
-  // %h {
-  //   color: $color-black-37;
-  //   margin-right: 0.4rem;
-  // }
-  // h1::before {content: '#'; @extend %h;}
-  // h2::before {content: '##'; @extend %h;}
-  // h3::before {content: '###'; @extend %h;}
-  // h4::before {content: '####'; @extend %h;}
-  // h5::before {content: '#####'; @extend %h;}
-  // h6::before {content: '######'; @extend %h;}
-
-  > p, > pre, ul, ol {
-    &:not(:first-child) {
-      margin-top: 1rem;
-    }
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-
-  ul, ol {
-    @extend .list-fancy;
-  }
-
-  ul > li, ol > li {
-    &:not(:last-child) {
-      margin-bottom: 0.5rem;
-    }
-  }
-
-  hr {
-    @include margin-v(2rem);
-    @extend .hr;
-  }
-
-  a:not(.undecorate) {
-    @extend .decorate-link;
-    &[target~=_blank] {
-      @extend .indicate-external-link;
-    }
-  }
-
-  pre {
-    @extend .padding-1;
-  }
-}
-
-/**
- * Layout
- */
+/* Layout */
 
 .row-start-start    {@include flex-layout(row, start, start);}
 .row-start-stretch  {@include flex-layout(row, start, stretch);}
@@ -259,195 +142,243 @@ ul.list-fancy ul.list-fancy {list-style-type: circle;}
 .col-start-stretch  {@include flex-layout(col, start, stretch);}
 .col-start-end      {@include flex-layout(col, start, end);}
 
-.flex-1             {@include flex(1);}
+.flex-1 {@include flex(1);}
+.flex-2 {@include flex(2);}
+.flex-3 {@include flex(3);}
+.flex-4 {@include flex(4);}
+.flex-5 {@include flex(5);}
+.flex-6 {@include flex(6);}
+.flex-7 {@include flex(7);}
+.flex-8 {@include flex(8);}
+.flex-9 {@include flex(9);}
 
-.flex-noshrink      {@include flex-shrink(none);}
+.flex-noshrink {@include flex-shrink(none);}
 
-.order-1 {@include flex-order(1)};
-.order-2 {@include flex-order(2)};
-.order-3 {@include flex-order(3)};
-.order-4 {@include flex-order(4)};
-.order-5 {@include flex-order(5)};
-.order-6 {@include flex-order(6)};
-.order-7 {@include flex-order(7)};
-.order-8 {@include flex-order(8)};
-.order-9 {@include flex-order(9)};
+.order-1 {@include flex-order(1);}
+.order-2 {@include flex-order(2);}
+.order-3 {@include flex-order(3);}
+.order-4 {@include flex-order(4);}
+.order-5 {@include flex-order(5);}
+.order-6 {@include flex-order(6);}
+.order-7 {@include flex-order(7);}
+.order-8 {@include flex-order(8);}
+.order-9 {@include flex-order(9);}
 
 .stretch-to-viewport {
-  min-height: 100vh;
-  @extend .col-start-stretch;
+    min-height: 100vh;
+    @extend .col-start-stretch;
 }
 
 .limit-width {
-  width: 100%;
-  @extend .center-by-margins;
-  max-width: $max-page-width;
-  &:not(.--unpadded) {
-    @extend .padding-h-1;
-  }
+    width: 100%;
+    @extend .center-by-margins;
+    max-width: var(--max-page-width);
+    &:not(.--unpadded) {@extend .padding-h-1;}
 }
 
-/**
- * Whitespace
- */
+/* Whitespace */
 
-.margin-t-1  {margin-top:    1rem}
-.margin-t-2  {margin-top:    2rem}
-.margin-t-4  {margin-top:    4rem}
-
-.margin-b-1  {margin-bottom: 1rem}
-.margin-b-2  {margin-bottom: 2rem}
-.margin-b-4  {margin-bottom: 4rem}
-
-.margin-r-1  {margin-right:  1rem}
-
+.margin-t-1  {margin-top:    1rem;}
+.margin-t-2  {margin-top:    2rem;}
+.margin-t-4  {margin-top:    4rem;}
+.margin-b-1  {margin-bottom: 1rem;}
+.margin-b-2  {margin-bottom: 2rem;}
+.margin-b-4  {margin-bottom: 4rem;}
+.margin-r-1  {margin-right:  1rem;}
 .margin-v-1  {@include margin-v(1rem);}
 .margin-v-2  {@include margin-v(2rem);}
 
-.padding-1   {padding: 1rem}
+.padding-0x5 {padding: 0.5rem;}
+.padding-1   {padding: 1rem;}
 .padding-h-1 {@include padding-h(1rem);}
-.padding-t-1 {padding-top: 1rem}
-.padding-b-2 {padding-bottom: 2rem}
+.padding-t-1 {padding-top: 1rem;}
+.padding-b-2 {padding-bottom: 2rem;}
 
 .gaps-v-0x25   {@include gaps-v(0.25rem);}
 .gaps-v-0x5    {@include gaps-v(0.5rem);}
 .gaps-v-1      {@include gaps-v(1rem);}
 .gaps-v-2      {@include gaps-v(2rem);}
 .gaps-v-4      {@include gaps-v(4rem);}
-
 .gaps-h-0x25   {@include gaps-h(0.25rem);}
 .gaps-h-0x5    {@include gaps-h(0.5rem);}
 .gaps-h-1      {@include gaps-h(1rem);}
 .gaps-h-2      {@include gaps-h(2rem);}
 .gaps-h-4      {@include gaps-h(4rem);}
-
 .gaps-v-letter {@include gaps-v(1ex);}
 .gaps-h-letter {@include gaps-v(calc(1em / 4));}
 
 .center-by-margins {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/**
- * Themes
- */
+/* details/summary */
 
-.fg-black   {color: $color-black}
-.fg-white   {color: $color-white}
-.fg-pale    {color: $color-black-12}
-.fg-faded   {color: $color-black-54}
-.fg-blue    {color: $color-blue}
-.fg-red     {color: $color-red}
-.fg-link    {color: $color-link}
-
-.fill-faded {fill: $color-black-54}
-
-.bg-white   {background-color: $color-white}
-.bg-light   {background-color: $color-black-03}
-.bg-smoke   {background-color: aliceblue}
-.bg-red {
-  background-color: $color-red;
-  color: white;
-}
-
-.fg-facebook {color: $color-facebook}
-.fg-github   {color: $color-github}
-.fg-linkedin {color: $color-linkedin}
-.fg-skype    {color: $color-skype}
-.fg-twitter  {color: $color-twitter}
-.fg-feedly   {color: $color-feedly}
-.fg-rss      {color: $color-rss}
-.fg-feedly   {color: $color-feedly}
-
-.fill-facebook {fill: $color-facebook}
-.fill-github   {fill: $color-github}
-.fill-linkedin {fill: $color-linkedin}
-.fill-skype    {fill: $color-skype}
-.fill-twitter  {fill: $color-twitter}
-.fill-feedly   {fill: $color-feedly}
-.fill-rss      {fill: $color-rss}
-.fill-feedly   {fill: $color-feedly}
-
-.hr {
-  color: $color-black-37;
-}
-
-/**
- * details/summary
- */
-
-details.details {
-  summary {
+.details summary {
     @extend .cursor-pointer;
     @extend .padding-1;
-    @extend .bg-smoke;
-  }
+    background-color: var(--color-smoke);
+    .fancy-typography & ~ pre {margin-top: 0;}
 }
 
-/**
- * Misc
- */
+/* Misc */
 
-[disabled] {
-  @extend .cursor-not-allowed;
+.underdash {border-bottom: 1px dashed;}
+
+.busy-underdash {
+    border-bottom: 1px dashed;
+    &:hover {border-bottom: 1px solid;}
 }
+
+.decorate-link[href] {
+    @extend .fg-link;
+    @extend .busy-underdash;
+}
+
+// Note: this has to be artifically negated in .heading-anchor.
+.decorate-link[href^='#']::before {
+    content: '#';
+    opacity: 0.5;
+}
+
+.external-link-icon {
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 0.3ch;
+}
+
+.list-unstyled, .fancy-typography .list-unstyled {
+    padding: 0;
+    list-style-type: none;
+    list-style-position: unset;
+}
+
+.list-fancy                 {padding-left: 1.5em;}
+ul.list-fancy               {list-style-type: disc;}
+ul.list-fancy ul.list-fancy {list-style-type: circle;}
+
+.fancy-typography {
+    h1 {font-size: var(--font-size-h1);}
+    h2 {font-size: var(--font-size-h2);}
+    h3 {font-size: var(--font-size-h3);}
+
+    h1, h2, h3, h4, h5, h6 {
+        &:not(:first-child) {
+            margin-top: 2rem;
+        }
+        margin-bottom: 1rem;
+    }
+
+    // %h {
+    //     color: var(--color-faded);
+    //     font-size: 0.8em;
+    //     margin-right: 0.5ch;
+    // }
+    // h1::before {content: 'h1 '; @extend %h;}
+    // h2::before {content: 'h2 '; @extend %h;}
+    // h3::before {content: 'h3 '; @extend %h;}
+    // h4::before {content: 'h4 '; @extend %h;}
+    // h5::before {content: 'h5 '; @extend %h;}
+    // h6::before {content: 'h6 '; @extend %h;}
+
+    > p, > pre, ul, ol {
+        &:not(:first-child) {
+            margin-top: 1rem;
+        }
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+
+    ul, ol {
+        @extend .list-fancy;
+    }
+
+    ul > li, ol > li {
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    hr {
+        @include margin-v(2rem);
+        @extend .hr;
+    }
+
+    a {@extend .decorate-link;}
+
+    pre {
+        @extend .padding-1;
+    }
+}
+
+[disabled] {@extend .cursor-not-allowed;}
 
 .navlink {
-  @extend .font-large;
-  @extend .padding-1;
-  @extend .row-center-center;
-  color: $color-link;
-  &.--busy {
-    &:hover {
-      background-color: rgba(gray, 0.1);
+    @extend .font-large;
+    @extend .padding-1;
+    @extend .row-center-center;
+    @extend .fg-link;
+    &.--busy {
+        @extend .busy-bg-pale;
+        &[aria-current=''], &[aria-current=true] {
+            box-shadow: inset 0 -3px 0 0;
+        }
     }
-    &[aria-current=''], &[aria-current=true] {
-      box-shadow: inset 0 -3px 0 0;
-    }
-  }
 }
 
 // Motivation: pseudoelements are ignored when copy-pasting or printing.
 // This should be used for cosmetic text.
 [data-note]::before {
-  content: attr(data-note);
+    content: attr(data-note);
 }
 
 @media print {
-  .noprint:not(:root) {display: none}
+    .noprint:not(:root) {display: none;}
 }
 
 .svg-icon {
-  width: 1em;
-  height: 1em;
-  @extend .flex-noshrink;
-  vertical-align: -0.1em;
-  // vertical-align: text-top;
-  // vertical-align: middle;
+    width: 1em;
+    height: 1em;
+    @extend .flex-noshrink;
+
+    vertical-align: -0.1em;
+    // vertical-align: text-top;
+    // vertical-align: middle;
 }
 
 .sm-hide {
-  @include sm {
-    display: none;
-  }
-}
-
-// Workaround for a bug (?) in our markdown renderer, which puts paragraphs
-// inside list elements.
-li p {
-  display: inline;
+    @media (max-width: $breakpoint-sm) {display: none;}
 }
 
 .heading-anchor {
-  font-size: 1rem;
-  margin-left: 0.5rem;
-  border-bottom: 1px solid;
+    /*
+    Note: we use opacity because "display: none" or "visibility: hidden" would
+    prevent the anchor from receiving focus on tab-navigation.
+    */
+    opacity: 0;
+    &:focus, &:hover, h1:hover &, h2:hover &, h3:hover &, h4:hover &, h5:hover &, h6:hover & {
+        opacity: 1;
+    }
 
-  // Note: "display: none" or "visibility: hidden" prevent the anchor from
-  // receiving focus on tab-navigation.
-  opacity: 0;
-  &:focus, &:hover, h1:hover &, h2:hover &, h3:hover &, h4:hover &, h5:hover &, h6:hover & {
-    opacity: 1;
-  }
+    // Negate the .decorate-link hash modifier.
+    .fancy-typography &[href^='#']::before {
+        content: '';
+    }
+
+    /*
+    Note: putting the link symbol into a pseudoelement prevents it from getting
+    unnecessarily included into RSS article content, various reader modes,
+    printed content, etc.
+
+    Note: this doesn't cause screen readers to ignore the link. To omit it from
+    screen reader navigation and voiceover, use [aria-hidden="true"]. Note that
+    [aria-hidden=""] does not work.
+    */
+    &::after {
+        content: '🔗';
+        font-size: 1rem;
+        margin-left: 0.5rem;
+    }
 }

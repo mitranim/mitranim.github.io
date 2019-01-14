@@ -1,104 +1,98 @@
 // https://github.com/mitranim/style-base
 
 *, ::before, ::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
-/**
- * Typography
- */
+/* Typography */
 
 * {
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  text-transform: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    text-transform: inherit;
 }
 
-// Fixed line height reduces the jumping that happens when loading a webfont.
-// `ex` ≈ height of lowercase letter. This property must be set directly on an
-// element rather than inherited, hence the `*`.
+/*
+Fixed line height reduces the jumping that happens when loading a webfont.
+`ex` ≈ height of lowercase letter. This property must be set directly on an
+element rather than inherited, hence the `*`.
+*/
 * {
-  line-height: 2.5ex;
+    line-height: 2.8ex;
 }
 
 html {
-  font-family: sans-serif;
+    font-family: sans-serif;
 }
 
 code, key, pre {
-  font-family: monospace;
+    font-family: monospace;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-size: inherit;
+    font-size: inherit;
 }
 
-/**
- * cursors
- */
+/* cursors */
 
 html, :-webkit-any-link {
-  cursor: default;
+    cursor: default;
 }
 
-/**
- * button
- */
+/* button */
 
 button {
-  cursor: pointer;
-  border: none;
-  color: inherit;
-  background-color: inherit;
-  > * {vertical-align: middle}
-  border-radius: 0;
+    cursor: pointer;
+    border: none;
+    color: inherit;
+    background-color: inherit;
+    > * {vertical-align: middle;}
+    border-radius: 0;
 }
 
 [role=button] {
-  cursor: pointer;
+    cursor: pointer;
 }
 
-/**
- * inputs
- */
+/* inputs */
 
 input, textarea {
-  border: none;
-  color: inherit;
-  background-color: inherit;
+    border: none;
+    color: inherit;
+    background-color: inherit;
 }
 
 textarea {
-  resize: none;
+    resize: none;
 }
 
 ::placeholder {
-  color: currentColor;
-  opacity: 0.5;
+    color: currentColor;
+    opacity: 0.5;
 }
 
 form, input, textarea, button, select, option {
-  text-decoration: inherit; // FF
+    text-decoration: inherit; // FF
 }
 
 input[type=checkbox],
 input[type=radio],
 input[type=select],
 input[type=file] {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 // In Chrome (version 63 and possibly others), radio inputs shrink, while
 // radio inputs don't.
 input[type=radio] {
-  -ms-flex-negative: 0;
-        flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
 }
 
 // // Eliminates some minor layout glitches
@@ -108,96 +102,80 @@ input[type=radio] {
 // }
 
 input[type=number] {
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-  }
-  -moz-appearance: none;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+    -moz-appearance: none;
 }
 
-/**
- * hr
- */
+/* hr */
 
 hr {
-  margin: 0;
-  border: none;
-  // Applying border to a pseudoelement rather than the <hr /> itself allows
-  // padding to affect the width
-  &::before {
-    content: '';
-    display: block;
-    border-top: 1px solid;
-  }
+    margin: 0;
+    border: none;
+
+    // Putting border on a pseudoelement rather than the tag allows padding to
+    // affect the width.
+    &::before {
+        content: '';
+        display: block;
+        border-top: 1px dashed;
+    }
 }
 
-/**
- * anchor
- */
+/* anchor */
 
 a {
-  text-decoration: none;
-  // Screw default anchor colors! They always mess with themes. Let's decorate
-  // links manually.
-  color: inherit;
+    text-decoration: none;
+    // Screw default anchor colors! They always mess with themes. Let's decorate
+    // links manually.
+    color: inherit;
 }
 
 a[href] {
-  cursor: pointer;
+    cursor: pointer;
 }
 
-/**
- * Lists
- */
+/* Lists */
 
 ul {
-  list-style-type: disc;
+    list-style-type: disc;
 }
 
 ul, ol {
-  list-style-position: inside;
+    list-style-position: inside;
 }
 
-/**
- * monospace
- */
+/* monospace */
 
 pre {
-  white-space: pre-wrap;
+    white-space: pre-wrap;
 }
 
-/**
- * Typography
- */
+/* Typography */
 
 b, strong {
-  font-weight: bolder;
+    font-weight: bolder;
 }
 
-/**
- * Misc
- */
+/* Misc */
 
 // IE 10 fix & higher specificity.
-[hidden]:not(:root) {display: none}
+[hidden]:not(:root) {
+    display: none;
+}
 
 // IE fix.
-template {display: none !important}
+template {
+    display: none !important;
+}
 
 [disabled] {
-  pointer-events: none;
-  opacity: 0.7;
+    pointer-events: none;
+    opacity: 0.7;
 }
 
 img {
-  max-width: 100%;
+    max-width: 100%;
 }
-
-// code, pre {
-//   // Normalise monospace font size.
-//   font-size: 14/16 * 1em;
-//   // Prevent further reduction.
-//   code, pre {
-//     font-size: 1em;
-//   }
-// }
