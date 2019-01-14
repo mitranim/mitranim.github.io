@@ -184,11 +184,21 @@ var ASSET_HASHES = map[string]string{}
 
 var CHROMA_FORMATTER = chtml.New()
 
-// var CHROMA_STYLE = cstyles.Colorful
-// var CHROMA_STYLE = cstyles.Tango
-// var CHROMA_STYLE = cstyles.VisualStudio
-// var CHROMA_STYLE = cstyles.Xcode
-var CHROMA_STYLE = cstyles.Pygments
+/*
+// Light
+cstyles.Colorful
+cstyles.Tango
+cstyles.VisualStudio
+cstyles.Xcode
+cstyles.Pygments
+
+// Dark
+cstyles.Dracula
+cstyles.Fruity
+cstyles.Native
+cstyles.Monokai
+*/
+var CHROMA_STYLE = cstyles.Monokai
 
 /*
 Note: we create a new renderer for every page because `bf.HTMLRenderer` is
