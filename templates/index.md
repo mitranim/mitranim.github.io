@@ -1,7 +1,7 @@
 # About
 
-<div style="float: right; margin-left: 1rem">
-  <img src="images/face-square.jpg" style="width: 10rem; height: 10rem">
+<div style="float: right; margin-left: 1rem; margin-bottom: 1rem;">
+  <img src="images/face-square.jpg" alt="portrait" style="display: block; width: 10rem; height: 10rem;">
 </div>
 
 Nelo Mitranim
