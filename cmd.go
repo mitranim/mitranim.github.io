@@ -295,7 +295,7 @@ func buildSite() error {
 			SITE_BASE,
 			post.Slug(),
 		)
-		err = writePublic(filepath.Join("thoughts", post.Slug()), []byte(meta))
+		err = writePublic(filepath.Join("thoughts", post.Slug()+".html"), []byte(meta))
 		if err != nil {
 			return err
 		}
