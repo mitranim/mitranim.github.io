@@ -144,6 +144,7 @@ clean:
 $(ABSTRACT): deploy
 deploy: clean all
 	@                                                                          \
+	export PRODUCTION=true                   &&                                \
 	url=$$(git remote get-url origin)        &&                                \
 	source=$$(git symbolic-ref --short head) &&                                \
 	target=master                            &&                                \
