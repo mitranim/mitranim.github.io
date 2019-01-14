@@ -127,13 +127,30 @@ var SITE_POSTS = []Post{
 
 var FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
 
+var SITE_BASE = func() string {
+	if PRODUCTION {
+		return "https://mitranim.com"
+	}
+	return "http://localhost:52693"
+}()
+
 var SITE_FEED = Feed{
-	Title:       "Nelo Mitranim's Blog",
-	Link:        &FeedLink{Href: "https://mitranim.com/posts"},
+	Title:   "Software, Tech, Philosophy, Games | mitranim",
+	XmlBase: SITE_BASE,
+	AltLink: &FeedLink{
+		Rel:  "alternate",
+		Type: "text/html",
+		Href: SITE_BASE + "/posts",
+	},
+	SelfLink: &FeedLink{
+		Rel:  "self",
+		Type: "application/atom+xml",
+		Href: SITE_BASE + "/feed.xml",
+	},
 	Author:      FEED_AUTHOR,
 	Created:     time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
 	Updated:     time.Now(),
-	Id:          "a963504f-51a5-4b86-84e1-80a8b579c7e7",
+	Id:          SITE_BASE + "/posts",
 	Description: "Random thoughts about technology",
 	Items:       nil,
 }
@@ -184,6 +201,8 @@ func markdownOpts() []bf.Option {
 		})}),
 	}
 }
+
+var PRODUCTION = os.Getenv("PRODUCTION") == "true"
 
 var log = l.New(os.Stderr, "", 0)
 
@@ -305,7 +324,8 @@ func buildSite() error {
 
 		// Redirect old post URL
 		meta := fmt.Sprintf(
-			`<meta http-equiv="refresh" content="0;URL='https://mitranim.com/posts/%v'" />`,
+			`<meta http-equiv="refresh" content="0;URL='%v/posts/%v'" />`,
+			SITE_BASE,
 			post.Slug(),
 		)
 		err = writePublic(filepath.Join("thoughts", post.Slug()), []byte(meta))
@@ -317,8 +337,9 @@ func buildSite() error {
 			continue
 		}
 
-		href := "https://mitranim.com/posts/" + post.Slug()
+		href := SITE_BASE + "/posts/" + post.Slug()
 		feed.Items = append(feed.Items, FeedItem{
+			XmlBase:     href,
 			Title:       post.Page.Title,
 			Link:        &FeedLink{Href: href},
 			Author:      FEED_AUTHOR,
@@ -686,7 +707,9 @@ https://github.com/gorilla/feeds with minor modifications.
 */
 type Feed struct {
 	Title       string
-	Link        *FeedLink
+	XmlBase     string
+	AltLink     *FeedLink
+	SelfLink    *FeedLink
 	Description string
 	Author      *FeedAuthor
 	Created     time.Time
@@ -699,9 +722,9 @@ type Feed struct {
 }
 
 type FeedLink struct {
-	Href   string
 	Rel    string
 	Type   string
+	Href   string
 	Length string
 }
 
@@ -730,6 +753,7 @@ type FeedImage struct {
 }
 
 type FeedItem struct {
+	XmlBase     string
 	Title       string
 	Link        *FeedLink
 	Source      *FeedLink
@@ -751,12 +775,28 @@ type FeedEnclosure struct {
 func (self Feed) AtomFeed() AtomFeed {
 	feed := AtomFeed{
 		Xmlns:    "http://www.w3.org/2005/Atom",
-		Title:    self.Title,
-		Link:     &AtomLink{Href: self.Link.Href, Rel: self.Link.Rel},
+		XmlBase:  self.XmlBase,
+		Title:    self.Title + " | Atom",
 		Subtitle: self.Description,
-		Id:       self.Link.Href,
 		Updated:  AtomTime(self.Updated),
 		Rights:   self.Copyright,
+	}
+
+	if self.AltLink != nil {
+		feed.Id = self.AltLink.Href
+		feed.Links = append(feed.Links, AtomLink{
+			Rel:  self.AltLink.Rel,
+			Type: self.AltLink.Type,
+			Href: self.AltLink.Href,
+		})
+	}
+
+	if self.SelfLink != nil {
+		feed.Links = append(feed.Links, AtomLink{
+			Rel:  self.SelfLink.Rel,
+			Type: self.SelfLink.Type,
+			Href: self.SelfLink.Href,
+		})
 	}
 
 	if self.Author != nil {
@@ -776,23 +816,27 @@ func (self Feed) AtomFeed() AtomFeed {
 			email = item.Author.Email
 		}
 
-		linkRel := item.Link.Rel
-		if linkRel == "" {
-			linkRel = "alternate"
-		}
-
 		entry := AtomEntry{
+			XmlBase:   item.XmlBase,
 			Title:     item.Title,
-			Links:     []AtomLink{{Href: item.Link.Href, Rel: linkRel, Type: item.Link.Type}},
 			Id:        item.Id,
 			Published: AtomTime(item.Created),
-			Updated:   AtomTime(item.Updated),
+			Updated:   AtomTime(eitherTime(item.Updated, item.Created)),
 			Summary:   &AtomSummary{Type: "html", Content: item.Description},
 		}
 
-		// if there's a content, assume it's html
-		if len(item.Content) > 0 {
-			entry.Content = &AtomContent{Type: "html", Content: item.Content}
+		var linkRel string
+		if item.Link != nil {
+			link := AtomLink{
+				Href: item.Link.Href,
+				Rel:  item.Link.Rel,
+				Type: item.Link.Type,
+			}
+			if link.Rel == "" {
+				link.Rel = "alternate"
+			}
+			linkRel = link.Rel
+			entry.Links = append(entry.Links, link)
 		}
 
 		if item.Enclosure != nil && linkRel != "enclosure" {
@@ -802,6 +846,11 @@ func (self Feed) AtomFeed() AtomFeed {
 				Type:   item.Enclosure.Type,
 				Length: item.Enclosure.Length,
 			})
+		}
+
+		// If there's content, assume it's html
+		if len(item.Content) > 0 {
+			entry.Content = &AtomContent{Type: "html", Content: item.Content}
 		}
 
 		if len(name) > 0 || len(email) > 0 {
@@ -834,25 +883,33 @@ func (self Feed) RssFeed() RssFeed {
 	feed := RssFeed{
 		Version:          "2.0",
 		ContentNamespace: "http://purl.org/rss/1.0/modules/content/",
+		XmlBase:          self.XmlBase,
 		Channel: &RssChannel{
-			Title:          self.Title,
-			Link:           self.Link.Href,
+			Title:          self.Title + " | RSS",
 			Description:    self.Description,
 			ManagingEditor: author,
 			PubDate:        RssTime(self.Created),
-			LastBuildDate:  RssTime(self.Updated),
+			LastBuildDate:  RssTime(eitherTime(self.Updated, self.Created)),
 			Copyright:      self.Copyright,
 			Image:          image,
 		},
 	}
 
+	if self.AltLink != nil {
+		feed.Channel.AltLink = self.AltLink.Href
+	}
+
 	for _, item := range self.Items {
 		rssItem := RssItem{
+			XmlBase:     item.XmlBase,
 			Title:       item.Title,
-			Link:        item.Link.Href,
 			Description: item.Description,
 			Guid:        item.Id,
 			PubDate:     RssTime(item.Created),
+		}
+
+		if item.Link != nil {
+			rssItem.Link = item.Link.Href
 		}
 
 		if len(item.Content) > 0 {
@@ -884,6 +941,7 @@ func (self Feed) RssFeed() RssFeed {
 type AtomFeed struct {
 	XMLName     xml.Name    `xml:"feed"`
 	Xmlns       string      `xml:"xmlns,attr"`
+	XmlBase     string      `xml:"xml:base,attr,omitempty"`
 	Title       string      `xml:"title"`   // required
 	Id          string      `xml:"id"`      // required
 	Updated     AtomTime    `xml:"updated"` // required
@@ -892,9 +950,9 @@ type AtomFeed struct {
 	Logo        string      `xml:"logo,omitempty"`
 	Rights      string      `xml:"rights,omitempty"` // copyright used
 	Subtitle    string      `xml:"subtitle,omitempty"`
-	Link        *AtomLink   ``
 	Author      *AtomAuthor `xml:"author,omitempty"`
 	Contributor *AtomContributor
+	Links       []AtomLink
 	Entries     []AtomEntry
 }
 
@@ -902,9 +960,9 @@ type AtomFeed struct {
 // Atom 1.0 <link rel="enclosure" type="audio/mpeg" title="MP3" href="http://www.example.org/myaudiofile.mp3" length="1234" />
 type AtomLink struct {
 	XMLName xml.Name `xml:"link"`
-	Href    string   `xml:"href,attr"`
 	Rel     string   `xml:"rel,attr,omitempty"`
 	Type    string   `xml:"type,attr,omitempty"`
+	Href    string   `xml:"href,attr"`
 	Length  string   `xml:"length,attr,omitempty"`
 }
 
@@ -927,6 +985,7 @@ type AtomPerson struct {
 type AtomEntry struct {
 	XMLName     xml.Name     `xml:"entry"`
 	Xmlns       string       `xml:"xmlns,attr,omitempty"`
+	XmlBase     string       `xml:"xml:base,attr,omitempty"`
 	Title       string       `xml:"title"` // required
 	Id          string       `xml:"id"`    // required
 	Category    string       `xml:"category,omitempty"`
@@ -936,8 +995,8 @@ type AtomEntry struct {
 	Published   AtomTime     `xml:"published,omitempty"`
 	Updated     AtomTime     `xml:"updated"` // required
 	Contributor *AtomContributor
-	Links       []AtomLink   // required if no child 'content' elements
-	Summary     *AtomSummary // required if content has src or content is base64
+	Links       []AtomLink   // required if no content
+	Summary     *AtomSummary // required if content has src or is base64
 	Author      *AtomAuthor  // required if feed lacks an author
 }
 
@@ -967,6 +1026,7 @@ func (self AtomTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error 
 
 type RssFeed struct {
 	XMLName          xml.Name `xml:"rss"`
+	XmlBase          string   `xml:"xml:base,attr,omitempty"`
 	Version          string   `xml:"version,attr"`
 	ContentNamespace string   `xml:"xmlns:content,attr"`
 	Channel          *RssChannel
@@ -975,7 +1035,7 @@ type RssFeed struct {
 type RssChannel struct {
 	XMLName        xml.Name `xml:"channel"`
 	Title          string   `xml:"title"`       // required
-	Link           string   `xml:"link"`        // required
+	AltLink        string   `xml:"link"`        // required
 	Description    string   `xml:"description"` // required
 	Language       string   `xml:"language,omitempty"`
 	Copyright      string   `xml:"copyright,omitempty"`
@@ -1015,6 +1075,7 @@ type RssTextInput struct {
 
 type RssItem struct {
 	XMLName     xml.Name      `xml:"item"`
+	XmlBase     string        `xml:"xml:base,attr,omitempty"`
 	Title       string        `xml:"title"`       // required
 	Link        string        `xml:"link"`        // required
 	Description string        `xml:"description"` // required
@@ -1051,4 +1112,11 @@ func (self RssTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
 	enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC1123Z)))
 	enc.EncodeToken(xml.EndElement{Name: start.Name})
 	return nil
+}
+
+func eitherTime(a, b time.Time) time.Time {
+	if !a.IsZero() {
+		return a
+	}
+	return b
 }
