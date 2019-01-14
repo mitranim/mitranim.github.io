@@ -2,6 +2,7 @@
 !/.gitignore
 !/Makefile
 !/cmd.go
+!/notify.go
 !/images
 !/readme.md
 !/static

@@ -173,6 +173,11 @@ var TEMPLATE_FUNCS = template.FuncMap{
 	"joinPath":       path.Join,
 	"linkWithHash":   linkWithHash,
 	"raw":            func(text string) template.HTML { return template.HTML(text) },
+	"FLAGS": func() map[string]interface{} {
+		return map[string]interface{}{
+			"PRODUCTION": PRODUCTION,
+		}
+	},
 }
 
 var ASSET_HASHES = map[string]string{}

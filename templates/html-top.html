@@ -29,6 +29,32 @@ links MUST be absolute.
     <meta property="og:type" content="{{.Type | asAttr}}" />
     <meta property="og:site_name" content="about:mitranim" />
     {{end}}
+
+    {{if not FLAGS.PRODUCTION}}
+    <script>
+        {
+            let ws
+            let shouldReload = false
+
+            function reinit() {
+                const url = 'ws://' + window.location.hostname + ':52694/ws'
+                const ws = new WebSocket(url)
+                ws.onmessage = reload
+                ws.onclose = reinitAfterClose
+                if (shouldReload) ws.onopen = reload
+            }
+
+            function reload() {window.location.reload()}
+
+            function reinitAfterClose() {
+                shouldReload = true
+                setTimeout(reinit, 1000)
+            }
+
+            reinit()
+        }
+    </script>
+    {{end}}
 </head>
 
 <body class="col-start-stretch relative" style="min-height: 100vh">

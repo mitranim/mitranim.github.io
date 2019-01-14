@@ -17,28 +17,42 @@
 #
 # Dependencies
 #
-#   https://golang.org (then "go get -d" in this directory)
-#   https://github.com/sass/sassc
-#   https://github.com/tdewolff/minify/cmd/minify
-#   http://www.graphicsmagick.org
-#   https://github.com/emcrisostomo/fswatch
+#   * https://golang.org
+#
+#     brew install go
+#
+#   * https://github.com/sass/sassc
+#
+#     brew install sassc
+#
+#   * https://github.com/tdewolff/minify/tree/master/cmd/minify
+#
+#     go get -u github.com/tdewolff/minify/cmd/minify
+#
+#   * http://www.graphicsmagick.org
+#
+#     brew install graphicsmagick
+#
+#   * https://github.com/emcrisostomo/fswatch
+#
+#     brew install fswatch
 #
 # TODO
 #
 #   Minify HTML to avoid whitespace gotchas?
 #   Restart Nginx on config changes.
-#   Watch HTML from cmd.go for faster rebuilds.
 
 ABSTRACT   = .PHONY
 FSWATCH    = fswatch -l 0.1 # writes absolute paths to stdout
 CLEAR_TERM = printf "\x1bc\x1b[3J"
+REFRESH    = curl http://localhost:52694/broadcast
 
 $(ABSTRACT): all
 all: cmd static html styles images
 
 # Requires "-j": "make w -j"
 $(ABSTRACT): w
-w: all cmd-w static-w html-w styles-w images-w server make-w
+w: all cmd-w static-w html-w styles-w images-w server notify-w make-w
 
 cmd: cmd.go
 	@go build cmd.go
@@ -51,6 +65,7 @@ cmd-w:
 		$(CLEAR_TERM) &&    \
 		$(MAKE) cmd html && \
 		echo "[cmd] done";  \
+		$(REFRESH);         \
 	done
 
 $(ABSTRACT): static
@@ -65,12 +80,13 @@ static-w:
 		$(CLEAR_TERM) &&      \
 		$(MAKE) static &&     \
 		echo "[static] done"; \
+		$(REFRESH);           \
 	done
 
 $(ABSTRACT): html
 html: public/%.html
 
-# The "styles" dependency is for asset hashing, for asset links.
+# The "styles" dependency is for asset hashing for asset links.
 public/%.html: cmd styles templates/**/*
 	@./cmd
 
@@ -81,6 +97,7 @@ html-w:
 	do                      \
 		$(CLEAR_TERM) &&    \
 		$(MAKE) html;       \
+		$(REFRESH);         \
 	done
 
 $(ABSTRACT): styles
@@ -89,6 +106,7 @@ styles: public/styles/main.css
 public/styles/main.css: styles/*.scss
 	@mkdir -p public/styles
 	@sassc styles/main.scss | minify --type=css > "${@}"
+	@#sassc styles/main.scss > "${@}"
 	@echo "[styles] wrote ${@}"
 
 $(ABSTRACT): styles-w
@@ -98,6 +116,7 @@ styles-w:
 	do                   \
 		$(CLEAR_TERM) && \
 		$(MAKE) styles;  \
+		$(REFRESH);      \
 	done
 
 $(ABSTRACT): images
@@ -120,6 +139,7 @@ images-w:
 		$(CLEAR_TERM) &&                                                  \
 		gm convert "$${file}" "public/images/$${file#$$(pwd)/images/}" && \
 		echo "[images] wrote public/images/$${file#$$(pwd)/images/}";     \
+		$(REFRESH);                                                       \
 	done
 
 $(ABSTRACT): server
@@ -127,19 +147,30 @@ server:
 	@echo "Starting server at http://localhost:52693"
 	@nginx -p . -c srv.nginx
 
+$(ABSTRACT): notify-w
+notify-w: notify
+	@./notify
+
+notify: notify.go
+	@go build notify.go
+
 # Note: we truncate `pwd` because fswatch gives us absolute paths.
 $(ABSTRACT): make-w
 make-w:
-	@$(FSWATCH) $(MAKEFILE_LIST) |                                     \
-	while read file;                                                   \
-	do                                                                 \
-		$(CLEAR_TERM) &&                                               \
-		echo "$${file#$$(pwd)/} has changed, don't forget to restart"; \
+	@$(FSWATCH) $(MAKEFILE_LIST) |                                            \
+	while read file;                                                          \
+	do                                                                        \
+		$(CLEAR_TERM) &&                                                      \
+		echo "[make] $${file#$$(pwd)/} has changed, don't forget to restart"; \
+		$(REFRESH);                                                           \
 	done
 
 $(ABSTRACT): clean
 clean:
-	@rm -f cmd && rm -rf public/*
+	@\
+	rm -f cmd    && \
+	rm -f notify && \
+	rm -rf public/*
 
 $(ABSTRACT): deploy
 deploy: clean all
