@@ -387,8 +387,19 @@ ul.list-fancy ul.list-fancy {list-style-type: circle;}
     position: absolute;
     top: 0;
     left: 0;
-    @extend .padding-1;
     @extend .bg-smoke;
+
+    width: 1px;
+    height: 1px;
     opacity: 0;
-    &:focus {opacity: 1;}
+    overflow: hidden;
+    padding: 0;
+
+    &:focus {
+        @extend .padding-1;
+        width: initial;
+        height: initial;
+        opacity: initial;
+        overflow: initial;
+    }
 }

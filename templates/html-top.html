@@ -65,4 +65,4 @@ links MUST be absolute.
     other operating systems.
 
     -->
-    <a href="#main-content" class="skip-to-content" onclick="event.preventDefault(); document.getElementById('main-content').scrollIntoView()">Skip to content</a>
+    <a href="#main-content" class="skip-to-content" onclick="event.preventDefault(); if (document.getElementById('main-content')) {document.getElementById('main-content').scrollIntoView()}">Skip to content</a>
