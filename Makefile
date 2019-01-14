@@ -173,9 +173,11 @@ clean:
 	rm -rf public/*
 
 $(ABSTRACT): deploy
-deploy: clean all
+deploy:
 	@                                                                          \
 	export PRODUCTION=true                   &&                                \
+	$(MAKE) clean                            &&                                \
+	$(MAKE) all                              &&                                \
 	url=$$(git remote get-url origin)        &&                                \
 	source=$$(git symbolic-ref --short head) &&                                \
 	target=master                            &&                                \
