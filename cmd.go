@@ -159,7 +159,7 @@ var SITE_BASE = func() string {
 }()
 
 var SITE_FEED = Feed{
-	Title:   "Software, Tech, Philosophy, Games | mitranim",
+	Title:   "Software, Tech, Philosophy, Games",
 	XmlBase: SITE_BASE,
 	AltLink: &FeedLink{
 		Rel:  "alternate",
@@ -895,7 +895,7 @@ func (self Feed) AtomFeed() AtomFeed {
 	feed := AtomFeed{
 		Xmlns:    "http://www.w3.org/2005/Atom",
 		XmlBase:  self.XmlBase,
-		Title:    self.Title + " | Atom",
+		Title:    self.Title + " | Atom | mitranim",
 		Subtitle: self.Description,
 		Updated:  AtomTime(self.Updated),
 		Rights:   self.Copyright,
@@ -1004,7 +1004,7 @@ func (self Feed) RssFeed() RssFeed {
 		ContentNamespace: "http://purl.org/rss/1.0/modules/content/",
 		XmlBase:          self.XmlBase,
 		Channel: &RssChannel{
-			Title:          self.Title + " | RSS",
+			Title:          self.Title + " | RSS | mitranim",
 			Description:    self.Description,
 			ManagingEditor: author,
 			PubDate:        RssTime(self.Created),
