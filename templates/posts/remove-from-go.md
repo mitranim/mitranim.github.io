@@ -1,5 +1,7 @@
 The [Go programming language](https://golang.org) espouses ["less is more"](http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html). It prefers fewer features and "one way of doing things". However, it still has some fat to lose! This article highlights what I consider unnecessary, and suggests the path to gradual deprecation and removal.
 
+Goes without saying: **this is an opinion piece**. If we disagree, that's cool!
+
 We're not allowed to break existing code under Go1. However, it seems plausible to migrate most existing code in advance, preparing it for the hypothetical Go2 that removes the deprecated features, alongside other breaking changes it's expected to make. The following migration strategy seems realistic:
 
 * Go1 adds two minor syntactic features (see below)
@@ -103,7 +105,7 @@ See the related [gofmt change](#gofmt-declarations).
 
 ## Remove parenthesized lists from `var`, `const`, `type`, `import` {#remove-paren-lists}
 
-Let's start with _reasons pro_.
+Let's start with arguments in favor of the feature.
 
 Currently, parenthesized lists have exactly _one_ non-aesthetic reason to exist: `const (...)` enables the use of `iota`, acting as its scope.
 
@@ -125,7 +127,7 @@ import "encoding/base64"
 
 That's a weak-ass justification for an entire language feature, made even weaker by [goimports](https://godoc.org/golang.org/x/tools/cmd/goimports) which edits your `imports` automatically.
 
-Now for _reasons contra_.
+Now, arguments against the feature.
 
 Code should be convenient to type and edit. I think having options hinders that. Every time you write adjacent vars, some of your neurons are wasted on choosing between:
 
@@ -215,7 +217,7 @@ func main() {
 
 Having read a considerable amount of code in multiple languages with this import style, I'm convinced that it's always a bad idea. Subjectively, it makes the code harder to understand and harder to track down the definitions. Objectively, it makes the code more fragile against changes.
 
-## Remove if-assignment and derivatives: `if := ; ... {}` {#remove-if-assignment}
+## Remove if-assignment and derivatives: `if _ := _ ; _ {}` {#remove-if-assignment}
 
 Subjectively, I find this form annoying to type and annoying to read. Objectively, it's an unnecessary choice that wastes everyone's brainpower. Anyone reading the code has to be aware of both syntactic forms.
 
