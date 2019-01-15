@@ -59,13 +59,14 @@ cmd: cmd.go
 
 $(ABSTRACT): cmd-w
 cmd-w:
-	@$(FSWATCH) cmd.go |    \
-	while read;             \
-	do                      \
-		$(CLEAR_TERM) &&    \
-		$(MAKE) cmd html && \
-		echo "[cmd] done";  \
-		$(REFRESH);         \
+	@$(FSWATCH) cmd.go |     \
+	while read;              \
+	do                       \
+		$(CLEAR_TERM);       \
+		$(MAKE) cmd &&       \
+		echo "[cmd] done" && \
+		$(MAKE) html &&      \
+		$(REFRESH);          \
 	done
 
 $(ABSTRACT): static
@@ -74,13 +75,13 @@ static: static/**/*
 
 $(ABSTRACT): static-w
 static-w:
-	@$(FSWATCH) static |      \
-	while read;               \
-	do                        \
-		$(CLEAR_TERM) &&      \
-		$(MAKE) static &&     \
-		echo "[static] done"; \
-		$(REFRESH);           \
+	@$(FSWATCH) static |        \
+	while read;                 \
+	do                          \
+		$(CLEAR_TERM);          \
+		$(MAKE) static &&       \
+		echo "[static] done" && \
+		$(REFRESH);             \
 	done
 
 $(ABSTRACT): html
@@ -95,8 +96,8 @@ html-w:
 	@$(FSWATCH) templates | \
 	while read;             \
 	do                      \
-		$(CLEAR_TERM) &&    \
-		$(MAKE) html;       \
+		$(CLEAR_TERM);      \
+		$(MAKE) html &&     \
 		$(REFRESH);         \
 	done
 
@@ -111,12 +112,12 @@ public/styles/main.css: styles/*.scss
 
 $(ABSTRACT): styles-w
 styles-w:
-	@$(FSWATCH) styles | \
-	while read;          \
-	do                   \
-		$(CLEAR_TERM) && \
-		$(MAKE) styles;  \
-		$(REFRESH);      \
+	@$(FSWATCH) styles |  \
+	while read;           \
+	do                    \
+		$(CLEAR_TERM);    \
+		$(MAKE) styles && \
+		$(REFRESH);       \
 	done
 
 $(ABSTRACT): images
@@ -136,9 +137,9 @@ images-w:
 	@$(FSWATCH) images |                                                  \
 	while read file;                                                      \
 	do                                                                    \
-		$(CLEAR_TERM) &&                                                  \
+		$(CLEAR_TERM);                                                    \
 		gm convert "$${file}" "public/images/$${file#$$(pwd)/images/}" && \
-		echo "[images] wrote public/images/$${file#$$(pwd)/images/}";     \
+		echo "[images] wrote public/images/$${file#$$(pwd)/images/}" &&   \
 		$(REFRESH);                                                       \
 	done
 
@@ -160,9 +161,8 @@ make-w:
 	@$(FSWATCH) $(MAKEFILE_LIST) |                                            \
 	while read file;                                                          \
 	do                                                                        \
-		$(CLEAR_TERM) &&                                                      \
+		$(CLEAR_TERM);                                                        \
 		echo "[make] $${file#$$(pwd)/} has changed, don't forget to restart"; \
-		$(REFRESH);                                                           \
 	done
 
 $(ABSTRACT): clean
