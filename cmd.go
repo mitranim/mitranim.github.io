@@ -73,6 +73,17 @@ var SITE_PAGES = []Page{
 var SITE_POSTS = []Post{
 	Post{
 		Page: Page{
+			Path:        "posts/remove-from-go.html",
+			Title:       "Things I Would Remove from Go",
+			Description: "If less is more, Go could gain by losing weight",
+		},
+		PostMdName: "remove-from-go.md",
+		Created:    time.Date(2019, 1, 15, 0, 0, 0, 0, time.UTC),
+		Listed:     !PRODUCTION,
+	},
+
+	Post{
+		Page: Page{
 			Path:        "posts/back-from-hiatus-2019.html",
 			Title:       "Back from Hiatus (2019)",
 			Description: "Back to blogging after three and a half years",
