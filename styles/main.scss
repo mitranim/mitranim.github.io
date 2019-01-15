@@ -231,17 +231,15 @@ code, key, pre {
     @extend .busy-underdash;
 }
 
-// Note: this has to be artifically negated in .heading-anchor.
-.decorate-link[href^='#']::before {
-    content: '#';
-    opacity: 0.5;
-}
-
 .external-link-icon {
     display: inline-block;
     width: 0.8em;
     height: 0.8em;
     margin-left: 0.3ch;
+}
+
+.hash-prefix {
+    opacity: 0.5;
 }
 
 .list-unstyled, .fancy-typography .list-unstyled {
@@ -356,11 +354,6 @@ ul.list-fancy ul.list-fancy {list-style-type: circle;}
     opacity: 0;
     &:focus, &:hover, h1:hover &, h2:hover &, h3:hover &, h4:hover &, h5:hover &, h6:hover & {
         opacity: 1;
-    }
-
-    // Negate the .decorate-link hash modifier.
-    .fancy-typography &[href^='#']::before {
-        content: '';
     }
 
     /*

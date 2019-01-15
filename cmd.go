@@ -630,9 +630,12 @@ var (
 	HREF_START          = []byte(` href="`)
 	HREF_END            = []byte(`"`)
 	SPACE               = []byte(` `)
+
+	HASH_PREFIX = []byte(`<span class="hash-prefix noprint" aria-hidden="true">#</span>`)
 )
 
 var externalLinkReg = regexp.MustCompile(`^\w+://`)
+var hashLinkReg = regexp.MustCompile(`^#`)
 
 type MarkdownRenderer struct{ *bf.HTMLRenderer }
 
@@ -666,10 +669,14 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 		return bf.GoToNext
 
 	/**
-	Difference from default: external links get attributes like
-	`target="_blank"` and an external link icon.
+	Differences from default:
 
-	"External" = "starts with a protocol".
+		* external links get attributes like `target="_blank"` and an external
+		  link icon
+		* intra-page hash links, like `href="#blah"`, are prefixed with a hash
+		  symbol hidden from screen readers
+
+	"External href" is defined as "starts with a protocol".
 
 	Note: currently doesn't support some flags and extensions.
 
@@ -686,6 +693,9 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 				out.Write(EXTERNAL_LINK_ATTRS)
 			}
 			out.Write(ANGLE_CLOSE)
+			if hashLinkReg.Match(node.LinkData.Destination) {
+				out.Write(HASH_PREFIX)
+			}
 		} else {
 			if externalLinkReg.Match(node.LinkData.Destination) {
 				out.Write(featherIconExternalLinkBytes)
