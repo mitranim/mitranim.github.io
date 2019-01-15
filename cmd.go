@@ -79,7 +79,7 @@ var SITE_POSTS = []Post{
 		},
 		PostMdName: "remove-from-go.md",
 		Created:    time.Date(2019, 1, 15, 0, 0, 0, 0, time.UTC),
-		Listed:     !PRODUCTION,
+		Listed:     true,
 	},
 
 	Post{
@@ -90,7 +90,7 @@ var SITE_POSTS = []Post{
 		},
 		PostMdName: "back-from-hiatus-2019.md",
 		Created:    time.Date(2019, 1, 15, 0, 0, 0, 0, time.UTC),
-		Listed:     !PRODUCTION,
+		Listed:     true,
 	},
 
 	Post{
