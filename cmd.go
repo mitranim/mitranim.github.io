@@ -77,9 +77,9 @@ var SITE_POSTS = []Post{
 			Title:       "Cheating for Performance with Pjax",
 			Description: "Faster page transitions, for free",
 		},
-		MdName:  "cheating-for-performance-pjax.md",
-		Created: time.Date(2015, 7, 25, 0, 0, 0, 0, time.UTC),
-		Listed:  true,
+		PostMdName: "cheating-for-performance-pjax.md",
+		Created:    time.Date(2015, 7, 25, 0, 0, 0, 0, time.UTC),
+		Listed:     true,
 	},
 
 	Post{
@@ -88,9 +88,9 @@ var SITE_POSTS = []Post{
 			Title:       "Cheating for Website Performance",
 			Description: "Frontend tips for speeding up websites",
 		},
-		MdName:  "cheating-for-website-performance.md",
-		Created: time.Date(2015, 3, 11, 0, 0, 0, 0, time.UTC),
-		Listed:  true,
+		PostMdName: "cheating-for-website-performance.md",
+		Created:    time.Date(2015, 3, 11, 0, 0, 0, 0, time.UTC),
+		Listed:     true,
 	},
 
 	Post{
@@ -99,9 +99,9 @@ var SITE_POSTS = []Post{
 			Title:       "Keeping Things Simple",
 			Description: "Musings on simplicity in programming",
 		},
-		MdName:  "keeping-things-simple.md",
-		Created: time.Date(2015, 3, 10, 0, 0, 0, 0, time.UTC),
-		Listed:  true,
+		PostMdName: "keeping-things-simple.md",
+		Created:    time.Date(2015, 3, 10, 0, 0, 0, 0, time.UTC),
+		Listed:     true,
 	},
 
 	Post{
@@ -110,9 +110,9 @@ var SITE_POSTS = []Post{
 			Title:       "Next Generation Today",
 			Description: "EcmaScript 2015/2016 workflow with current web frameworks",
 		},
-		MdName:  "next-generation-today.md",
-		Created: time.Date(2015, 5, 18, 0, 0, 0, 0, time.UTC),
-		Listed:  false,
+		PostMdName: "next-generation-today.md",
+		Created:    time.Date(2015, 5, 18, 0, 0, 0, 0, time.UTC),
+		Listed:     false,
 	},
 
 	Post{
@@ -121,9 +121,9 @@ var SITE_POSTS = []Post{
 			Title:       "Old Posts",
 			Description: "some old stuff from around the net",
 		},
-		MdName:  "old-posts.md",
-		Created: time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
-		Listed:  true,
+		PostMdName: "old-posts.md",
+		Created:    time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
+		Listed:     true,
 	},
 }
 
@@ -233,7 +233,7 @@ type Page struct {
 
 type Post struct {
 	Page
-	MdName      string
+	PostMdName  string
 	HtmlContent []byte
 	Created     time.Time
 	Updated     time.Time
@@ -261,77 +261,18 @@ func buildSite() error {
 	}
 
 	for _, page := range SITE_PAGES {
-		temp, err := findTemplate(TEMPLATES, page.Path)
-		if err != nil {
-			return err
-		}
-
-		output, err := renderTemplate(temp, page)
-		if err != nil {
-			return err
-		}
-
-		err = writePublic(page.Path, output)
+		err := buildPage(page)
 		if err != nil {
 			return err
 		}
 	}
 
 	feed := SITE_FEED
-
 	for _, post := range SITE_POSTS {
-		contentTemp, err := findTemplate(TEMPLATES, "post-content.html")
+		feed, err = buildPost(post, feed)
 		if err != nil {
 			return err
 		}
-
-		post.HtmlContent, err = renderTemplate(contentTemp, post)
-		if err != nil {
-			return err
-		}
-
-		layoutTemp, err := findTemplate(TEMPLATES, "post-layout.html")
-		if err != nil {
-			return err
-		}
-
-		output, err := renderTemplate(layoutTemp, post)
-		if err != nil {
-			return err
-		}
-
-		err = writePublic(post.Path, output)
-		if err != nil {
-			return err
-		}
-
-		// Redirect old post URL
-		meta := fmt.Sprintf(
-			`<meta http-equiv="refresh" content="0;URL='%v/posts/%v'" />`,
-			SITE_BASE,
-			post.Slug(),
-		)
-		err = writePublic(filepath.Join("thoughts", post.Slug()+".html"), []byte(meta))
-		if err != nil {
-			return err
-		}
-
-		if !post.Listed {
-			continue
-		}
-
-		href := SITE_BASE + "/posts/" + post.Slug()
-		feed.Items = append(feed.Items, FeedItem{
-			XmlBase:     href,
-			Title:       post.Page.Title,
-			Link:        &FeedLink{Href: href},
-			Author:      FEED_AUTHOR,
-			Description: post.Page.Description,
-			Id:          href,
-			Created:     post.Created, // TODO fetch from git?
-			Updated:     post.Updated, // TODO fetch from git?
-			Content:     string(post.HtmlContent),
-		})
 	}
 
 	buf, err := xmlEncode(feed.AtomFeed())
@@ -353,6 +294,82 @@ func buildSite() error {
 	}
 
 	return nil
+}
+
+func buildPage(page Page) error {
+	temp, err := findTemplate(TEMPLATES, page.Path)
+	if err != nil {
+		return err
+	}
+
+	output, err := renderTemplate(temp, page)
+	if err != nil {
+		return err
+	}
+
+	err = writePublic(page.Path, output)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func buildPost(post Post, feed Feed) (Feed, error) {
+	contentTemp, err := findTemplate(TEMPLATES, "post-content.html")
+	if err != nil {
+		return feed, err
+	}
+
+	post.HtmlContent, err = renderTemplate(contentTemp, post)
+	if err != nil {
+		return feed, err
+	}
+
+	layoutTemp, err := findTemplate(TEMPLATES, "post-layout.html")
+	if err != nil {
+		return feed, err
+	}
+
+	output, err := renderTemplate(layoutTemp, post)
+	if err != nil {
+		return feed, err
+	}
+
+	err = writePublic(post.Path, output)
+	if err != nil {
+		return feed, err
+	}
+
+	// Redirect old post URL
+	meta := fmt.Sprintf(
+		`<meta http-equiv="refresh" content="0;URL='%v/posts/%v'" />`,
+		SITE_BASE,
+		post.Slug(),
+	)
+	err = writePublic(filepath.Join("thoughts", post.Slug()+".html"), []byte(meta))
+	if err != nil {
+		return feed, err
+	}
+
+	if !post.Listed {
+		return feed, nil
+	}
+
+	href := SITE_BASE + "/posts/" + post.Slug()
+	feed.Items = append(feed.Items, FeedItem{
+		XmlBase:     href,
+		Title:       post.Page.Title,
+		Link:        &FeedLink{Href: href},
+		Author:      FEED_AUTHOR,
+		Description: post.Page.Description,
+		Id:          href,
+		Created:     post.Created, // TODO fetch from git?
+		Updated:     post.Updated, // TODO fetch from git?
+		Content:     string(post.HtmlContent),
+	})
+
+	return feed, nil
 }
 
 func initTemplates() error {
