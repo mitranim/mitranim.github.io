@@ -265,17 +265,30 @@ ul.list-fancy ul.list-fancy {list-style-type: circle;}
         margin-bottom: 1rem;
     }
 
-    // %h {
-    //     color: var(--color-faded);
-    //     font-size: 0.8em;
-    //     margin-right: 0.5ch;
-    // }
-    // h1::before {content: 'h1 '; @extend %h;}
-    // h2::before {content: 'h2 '; @extend %h;}
-    // h3::before {content: 'h3 '; @extend %h;}
-    // h4::before {content: 'h4 '; @extend %h;}
-    // h5::before {content: 'h5 '; @extend %h;}
-    // h6::before {content: 'h6 '; @extend %h;}
+    @media (min-width: $breakpoint-lg + 1px) {
+        %h {
+            color: var(--color-faded);
+            font-size: 0.8em;
+            position: absolute;
+            right: calc(100% + 1ch);
+        }
+
+        h1, h2, h3, h4, h5, h6 {position: relative;}
+
+        h1::before {content: '# ';      @extend %h;}
+        h2::before {content: '## ';     @extend %h;}
+        h3::before {content: '### ';    @extend %h;}
+        h4::before {content: '#### ';   @extend %h;}
+        h5::before {content: '##### ';  @extend %h;}
+        h6::before {content: '###### '; @extend %h;}
+
+        // h1::before {content: 'h1 '; @extend %h;}
+        // h2::before {content: 'h2 '; @extend %h;}
+        // h3::before {content: 'h3 '; @extend %h;}
+        // h4::before {content: 'h4 '; @extend %h;}
+        // h5::before {content: 'h5 '; @extend %h;}
+        // h6::before {content: 'h6 '; @extend %h;}
+    }
 
     > p, > pre, ul, ol {
         &:not(:first-child) {
