@@ -73,6 +73,17 @@ var SITE_PAGES = []Page{
 var SITE_POSTS = []Post{
 	Post{
 		Page: Page{
+			Path:        "posts/back-from-hiatus-2019.html",
+			Title:       "Back from Hiatus (2019)",
+			Description: "Back to blogging after three and a half years",
+		},
+		PostMdName: "back-from-hiatus-2019.md",
+		Created:    time.Date(2019, 1, 15, 0, 0, 0, 0, time.UTC),
+		Listed:     !PRODUCTION,
+	},
+
+	Post{
+		Page: Page{
 			Path:        "posts/cheating-for-performance-pjax.html",
 			Title:       "Cheating for Performance with Pjax",
 			Description: "Faster page transitions, for free",
