@@ -386,8 +386,8 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		Author:      FEED_AUTHOR,
 		Description: post.Page.Description,
 		Id:          href,
-		Created:     post.Created, // TODO fetch from git?
-		Updated:     post.Updated, // TODO fetch from git?
+		Created:     post.Created,                           // TODO fetch from git?
+		Updated:     eitherTime(post.Created, post.Updated), // TODO fetch from git?
 		Content:     string(post.HtmlContent),
 	})
 

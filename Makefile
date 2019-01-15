@@ -177,7 +177,7 @@ deploy:
 	@                                                                          \
 	export PRODUCTION=true                   &&                                \
 	$(MAKE) clean                            &&                                \
-	$(MAKE) all                              &&                                \
+	$(MAKE) all -j                           &&                                \
 	url=$$(git remote get-url origin)        &&                                \
 	source=$$(git symbolic-ref --short head) &&                                \
 	target=master                            &&                                \
