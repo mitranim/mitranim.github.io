@@ -8,10 +8,11 @@
     </header>
     {{.HtmlContent | asHtml}}
     <hr />
-    <div>
-        This blog currently doesn't support comments. To respond, use
-        <a href="mailto:me@mitranim.com?subject=Re:%20{{.Title}}">me@mitranim.com</a>
-        or one of my <a href="/#contacts">other contacts</a>.
+    <div class="gaps-v-1">
+        <p>
+            This blog currently doesn't support comments. To respond, use <a href="mailto:me@mitranim.com?subject=Re:%20{{.Title}}">me@mitranim.com</a> or one of my <a href="/#contacts">other contacts</a>.
+        </p>
+        {{include "feed-links.html"}}
     </div>
 </article>
 {{template "site-bottom.html" .}}

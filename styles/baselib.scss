@@ -145,6 +145,10 @@
     @if $align   != none {@include flex-align($align);}
 }
 
+@mixin flex-inline {
+    @extend %display-inline-flex;
+}
+
 @mixin flex-wrap($value: wrap) {
     -ms-flex-wrap: $value;
     flex-wrap:     $value;
