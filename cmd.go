@@ -78,7 +78,7 @@ var SITE_POSTS = []Post{
 			Description: "If less is more, Go could gain by losing weight",
 		},
 		PostMdName: "remove-from-go.md",
-		Created:    time.Date(2019, 1, 15, 0, 0, 0, 0, time.UTC),
+		Created:    time.Date(2019, 1, 15, 1, 0, 0, 0, time.UTC),
 		Listed:     true,
 	},
 
