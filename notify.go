@@ -6,33 +6,36 @@ import (
 	"net/http"
 	"os"
 	"sync"
+	"sync/atomic"
 
 	"github.com/gorilla/websocket"
 )
 
-const (
-	SERVER_PORT = "52694"
-	PUBLIC_DIR  = "public"
-)
-
-// sync.Map<string, *websocket.Conn>
-var CONNS sync.Map
-
-var CLEAR_TERM = []byte("\x1bc\x1b[3J")
+const SERVER_PORT = "52694"
 
 var log = l.New(os.Stderr, "", 0)
 
+// Used for avoiding redundant simultaneous broadcasts.
+var NOTIFYING uint32 = 0
+
+var CLIENTS sync.Map // sync.Map<string, *Client>
+
+// Note: Gorilla's websockets support only one concurrent reader and one
+// concurrent writer, and require external synchronization.
+type Client struct {
+	*websocket.Conn
+	sync.Mutex
+}
+
 func main() {
-	http.ListenAndServe(
-		fmt.Sprintf(":%v", SERVER_PORT),
-		http.HandlerFunc(handleRequest),
-	)
+	addr := fmt.Sprintf(":%v", SERVER_PORT)
+	http.ListenAndServe(addr, http.HandlerFunc(handleRequest))
 }
 
 func handleRequest(rew http.ResponseWriter, req *http.Request) {
 	switch req.URL.Path {
 	case "/broadcast":
-		broadcast()
+		notifyClients()
 
 	case "/ws":
 		if req.Method != http.MethodGet {
@@ -55,8 +58,8 @@ func initConn(rew http.ResponseWriter, req *http.Request) {
 	}
 
 	key := req.RemoteAddr
-	CONNS.Store(key, conn)
-	defer CONNS.Delete(key)
+	CLIENTS.Store(key, &Client{Conn: conn})
+	defer CLIENTS.Delete(key)
 
 	for {
 		_, _, err := conn.ReadMessage()
@@ -68,13 +71,24 @@ func initConn(rew http.ResponseWriter, req *http.Request) {
 
 func skipOriginCheck(*http.Request) bool { return true }
 
-func broadcast() {
-	CONNS.Range(func(_, val interface{}) bool {
-		conn := val.(*websocket.Conn)
-		err := conn.WriteMessage(websocket.TextMessage, nil)
-		if err != nil {
-			log.Printf("failed to notify socket: %+v", err)
-		}
+func notifyClients() {
+	if !atomic.CompareAndSwapUint32(&NOTIFYING, 0, 1) {
+		return
+	}
+	defer atomic.CompareAndSwapUint32(&NOTIFYING, 1, 0)
+
+	CLIENTS.Range(func(_, val interface{}) bool {
+		go notifyClient(val.(*Client))
 		return true
 	})
+}
+
+func notifyClient(client *Client) {
+	client.Lock()
+	defer client.Unlock()
+
+	err := client.WriteMessage(websocket.TextMessage, nil)
+	if err != nil {
+		log.Printf("failed to notify socket: %+v", err)
+	}
 }
