@@ -3,8 +3,8 @@
     <header class="gaps-v-1">
         <h1>{{.Title}}</h1>
         {{if .Description}}<p role="doc-subtitle" class="font-large text-italic">{{.Description}}</p>{{end}}
-        {{if not .Created.IsZero}}<p class="fg-faded">Published {{.Created | formatDateIso}}</p>{{end}}
-        {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateIso}}</p>{{end}}
+        {{if not .Created.IsZero}}<p class="fg-faded">Published {{.Created | formatDateForHumans}}</p>{{end}}
+        {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateForHumans}}</p>{{end}}
     </header>
     {{.HtmlContent | asHtml}}
     <hr />

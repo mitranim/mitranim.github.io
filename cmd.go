@@ -25,11 +25,12 @@ import (
 )
 
 const (
-	PUBLIC_DIR      = "public"
-	TEMPLATE_DIR    = "templates"
-	FILE_MODE       = 0600
-	DIR_MODE        = 0700
-	TIME_FORMAT_ISO = "2006-01-02"
+	PUBLIC_DIR        = "public"
+	TEMPLATE_DIR      = "templates"
+	SERVER_PORT       = "52693"
+	FILE_MODE         = 0600
+	DIR_MODE          = 0700
+	HUMAN_TIME_FORMAT = "Jan 02, 2006"
 )
 
 var SITE_PAGES = []Page{
@@ -155,7 +156,7 @@ var SITE_BASE = func() string {
 	if PRODUCTION {
 		return "https://mitranim.com"
 	}
-	return "http://localhost:52693"
+	return "http://localhost:" + SERVER_PORT
 }()
 
 var SITE_FEED = Feed{
@@ -182,20 +183,20 @@ var SITE_FEED = Feed{
 var TEMPLATES *template.Template
 
 var TEMPLATE_FUNCS = template.FuncMap{
-	"asHtml":         asHtml,
-	"asAttr":         asAttr,
-	"toMarkdown":     toMarkdown,
-	"externalAnchor": externalAnchor,
-	"current":        currentAttr,
-	"now":            func() string { return formatDateIso(time.Now().UTC()) },
-	"formatDateIso":  formatDateIso,
-	"years":          years,
-	"listedPosts":    listedPosts,
-	"include":        includeTemplate,
-	"includeWith":    includeTemplateWith,
-	"joinPath":       path.Join,
-	"linkWithHash":   linkWithHash,
-	"raw":            func(text string) template.HTML { return template.HTML(text) },
+	"asHtml":              asHtml,
+	"asAttr":              asAttr,
+	"toMarkdown":          toMarkdown,
+	"externalAnchor":      externalAnchor,
+	"current":             currentAttr,
+	"now":                 func() string { return formatDateForHumans(time.Now().UTC()) },
+	"formatDateForHumans": formatDateForHumans,
+	"years":               years,
+	"listedPosts":         listedPosts,
+	"include":             includeTemplate,
+	"includeWith":         includeTemplateWith,
+	"joinPath":            path.Join,
+	"linkWithHash":        linkWithHash,
+	"raw":                 func(text string) template.HTML { return template.HTML(text) },
 	"FLAGS": func() map[string]interface{} {
 		return map[string]interface{}{
 			"PRODUCTION": PRODUCTION,
@@ -559,8 +560,8 @@ func currentAttr(href string, data interface{}) template.HTMLAttr {
 	return ""
 }
 
-func formatDateIso(date time.Time) string {
-	return date.Format(TIME_FORMAT_ISO)
+func formatDateForHumans(date time.Time) string {
+	return date.Format(HUMAN_TIME_FORMAT)
 }
 
 func years() string {

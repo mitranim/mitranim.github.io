@@ -11,10 +11,10 @@
                     <p>{{$post.Description | asHtml}}</p>
                 {{end}}
                 {{if not $post.Created.IsZero}}
-                    <p class="fg-faded font-small">Published {{$post.Created | formatDateIso}}</p>
+                    <p class="fg-faded font-small">Published {{$post.Created | formatDateForHumans}}</p>
                 {{end}}
                 {{if not $post.Updated.IsZero}}
-                    <p class="fg-faded font-small">Updated {{$post.Updated | formatDateIso}}</p>
+                    <p class="fg-faded font-small">Updated {{$post.Updated | formatDateForHumans}}</p>
                 {{end}}
             </div>
         {{else}}
