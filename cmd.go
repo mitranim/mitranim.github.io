@@ -669,8 +669,8 @@ var (
 	HREF_START          = []byte(` href="`)
 	HREF_END            = []byte(`"`)
 	SPACE               = []byte(` `)
-
-	HASH_PREFIX = []byte(`<span class="hash-prefix noprint" aria-hidden="true">#</span>`)
+	HASH_PREFIX         = []byte(`<span class="hash-prefix noprint" aria-hidden="true">#</span>`)
+	HEADING_PREFIX      = []byte(`<span class="heading-prefix" aria-hidden="true"></span>`)
 )
 
 var externalLinkReg = regexp.MustCompile(`^\w+://`)
@@ -683,7 +683,13 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 	default:
 		return self.HTMLRenderer.RenderNode(out, node, entering)
 
-	// Difference from default: adds an ID anchor.
+	/**
+	Differences from default:
+
+		* fancy prefix indicating heading level, hidden from screen readers
+
+		* ID anchor suffix, hidden from screen readers
+	*/
 	case bf.Heading:
 		headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
 		tag := HEADING_TAGS[headingLevel]
@@ -697,6 +703,7 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 				out.Write([]byte(` id="` + node.HeadingID + `"`))
 			}
 			out.Write(ANGLE_CLOSE)
+			out.Write(HEADING_PREFIX)
 		} else {
 			if node.HeadingID != "" {
 				out.Write([]byte(`<a href="#` + node.HeadingID + `" class="heading-anchor" aria-hidden="true"></a>`))
@@ -712,6 +719,7 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 
 		* external links get attributes like `target="_blank"` and an external
 		  link icon
+
 		* intra-page hash links, like `href="#blah"`, are prefixed with a hash
 		  symbol hidden from screen readers
 

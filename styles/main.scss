@@ -265,31 +265,6 @@ ul.list-fancy ul.list-fancy {list-style-type: circle;}
         margin-bottom: 1rem;
     }
 
-    @media (min-width: $breakpoint-lg + 1px) {
-        %h {
-            color: var(--color-faded);
-            font-size: 0.8em;
-            position: absolute;
-            right: calc(100% + 1ch);
-        }
-
-        h1, h2, h3, h4, h5, h6 {position: relative;}
-
-        h1::before {content: '# ';      @extend %h;}
-        h2::before {content: '## ';     @extend %h;}
-        h3::before {content: '### ';    @extend %h;}
-        h4::before {content: '#### ';   @extend %h;}
-        h5::before {content: '##### ';  @extend %h;}
-        h6::before {content: '###### '; @extend %h;}
-
-        // h1::before {content: 'h1 '; @extend %h;}
-        // h2::before {content: 'h2 '; @extend %h;}
-        // h3::before {content: 'h3 '; @extend %h;}
-        // h4::before {content: 'h4 '; @extend %h;}
-        // h5::before {content: 'h5 '; @extend %h;}
-        // h6::before {content: 'h6 '; @extend %h;}
-    }
-
     > p, > pre, ul, ol {
         &:not(:first-child) {
             margin-top: 1rem;
@@ -299,9 +274,7 @@ ul.list-fancy ul.list-fancy {list-style-type: circle;}
         }
     }
 
-    ul, ol {
-        @extend .list-fancy;
-    }
+    ul, ol {@extend .list-fancy;}
 
     ul > li, ol > li {
         &:not(:last-child) {
@@ -316,8 +289,26 @@ ul.list-fancy ul.list-fancy {list-style-type: circle;}
 
     a {@extend .decorate-link;}
 
-    pre {
-        @extend .padding-1;
+    pre {@extend .padding-1;}
+
+    .heading-prefix {display: none;}
+
+    @media (min-width: $breakpoint-lg + 1px) {
+        h1, h2, h3, h4, h5, h6 {position: relative;}
+
+        .heading-prefix {
+            position: absolute;
+            right:    calc(100% + 1ch);
+            display:  inline;
+            color:    var(--color-faded);
+        }
+
+        h1 > .heading-prefix::before {content: '# ';}
+        h2 > .heading-prefix::before {content: '## ';}
+        h3 > .heading-prefix::before {content: '### ';}
+        h4 > .heading-prefix::before {content: '#### ';}
+        h5 > .heading-prefix::before {content: '##### ';}
+        h6 > .heading-prefix::before {content: '###### ';}
     }
 }
 
