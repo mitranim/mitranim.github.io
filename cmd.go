@@ -66,6 +66,7 @@ var SITE_PAGES = []Page{
 		Path:        "resume.html",
 		Title:       "Resume",
 		Description: "Nelo Mitranim's Resume",
+		ForceLight:  true,
 	},
 }
 
@@ -227,6 +228,7 @@ type Page struct {
 	Description string
 	Type        string
 	Image       string
+	ForceLight  bool
 }
 
 type Post struct {

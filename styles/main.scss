@@ -65,8 +65,6 @@ code, key, pre {
     --color-link:    hsl(231, 60%, 30%);
     --color-code-bg: hsl(60, 33%, 97%);
     --color-hr:      hsl(0, 0%, 63%);
-
-    .active-light {@extend .underdash;}
 }
 
 .theme-dark {
@@ -80,8 +78,6 @@ code, key, pre {
     --color-link:    hsl(230, 70%, 80%);
     --color-code-bg: hsl(70, 8%, 15%); // Same as chroma's Monokai background
     --color-hr:      hsl(0, 0%, 63%);
-
-    .active-dark {@extend .underdash;}
 }
 
 .theme-red {
