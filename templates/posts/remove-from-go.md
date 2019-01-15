@@ -2,6 +2,8 @@ The [Go programming language](https://golang.org) espouses ["less is more"](http
 
 Goes without saying: **this is an opinion piece**. If we disagree, that's cool!
 
+This is just what I consider _relatively easy to remove_. I have other complaints about Go, mostly related to its deep fundamentals that would be very hard or impossible to change. They're not mentioned in this piece.
+
 We're not allowed to break existing code under Go1. However, it seems plausible to migrate most existing code in advance, preparing it for the hypothetical Go2 that removes the deprecated features, alongside other breaking changes it's expected to make. The following migration strategy seems realistic:
 
 * Go1 adds two minor syntactic features (see below)
@@ -190,18 +192,20 @@ client.Timeout = time.Minute
 client = &http.Client{Timeout: time.Minute}
 ```
 
-If `&` worked on primitive literals, it would be strictly more powerful than `new`:
+Currently, `&` doesn't work with non-composite literals:
 
 ```go
 // doesn't compile
 _ = &"hello world!"
 ```
 
-Note that most code can already be converted to `&`. Code like `new(string)` or `new(int)` should be extremely rare in the wild.
+Before `new` can be removed, `&` needs to be extended to support primitive literals. That would make it strictly more powerful than `new`.
 
 Allowing `&` on primitives would also make it easier to print Go data structures as code. Currently, pretty-printing libraries have to resort to ugly workarounds to support those types.
 
-For Go1, adding the missing `&` support would be a safe, backwards-compatible change.
+Note that most code can already be converted to `&`. Code like `new(string)` or `new(int)` should be extremely rare in the wild.
+
+For Go1, extending `&` to primitive literals would be a safe, backwards-compatible change.
 
 ## Remove dot-import: `import . "some-package"` {#remove-dot-import}
 

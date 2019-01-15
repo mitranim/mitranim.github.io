@@ -1,4 +1,4 @@
-# Silly Little Demos
+<h1>Silly Little Demos</h1>
 
 [simple-pjax](https://mitranim.com/simple-pjax/): JavaScript library that makes almost any website faster, essentially for free.
 

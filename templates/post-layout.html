@@ -1,5 +1,5 @@
 {{template "site-top.html" .}}
-<article role="main article" id="main-content" class="fancy-typography gaps-v-2">
+<article role="main article" id="main-content" class="fancy-typography flex-1 col-start-stretch gaps-v-2">
     <header class="gaps-v-1">
         <h1>{{.Title}}</h1>
         {{if .Description}}<p role="doc-subtitle" class="font-large text-italic">{{.Description}}</p>{{end}}
@@ -7,7 +7,7 @@
         {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateForHumans}}</p>{{end}}
     </header>
     {{.HtmlContent | asHtml}}
-    <hr />
+    <hr style="margin-top: auto" />
     <div class="gaps-v-1">
         <p>
             This blog currently doesn't support comments. To respond, use <a href="mailto:me@mitranim.com?subject=Re:%20{{.Title}}">me@mitranim.com</a> or one of my <a href="/#contacts">other contacts</a>.
