@@ -34,117 +34,106 @@ const (
 )
 
 var SITE_PAGES = []Page{
-	Page{
-		Path:        "index.html",
-		Title:       "about:mitranim",
-		Description: "About me: details, works, posts",
+	{
+		Path:        `index.html`,
+		Title:       `about:mitranim`,
+		Description: `About me: details, works, posts`,
 	},
-
-	Page{
+	{
 		Path:  "404.html",
 		Title: "Page Not Found",
 	},
-
-	Page{
-		Path:        "works.html",
-		Title:       "Works",
-		Description: "Software I'm involved in",
+	{
+		Path:        `works.html`,
+		Title:       `Works`,
+		Description: `Software I'm involved in`,
 	},
-
-	Page{
-		Path:        "posts.html",
-		Title:       "Blog Posts",
-		Description: "Random notes and thoughts",
+	{
+		Path:        `posts.html`,
+		Title:       `Blog Posts`,
+		Description: `Random notes and thoughts`,
 	},
-
-	Page{
-		Path:        "demos.html",
-		Title:       "Demos",
-		Description: "Silly little demos",
+	{
+		Path:        `demos.html`,
+		Title:       `Demos`,
+		Description: `Silly little demos`,
 	},
-
-	Page{
-		Path:        "resume.html",
-		Title:       "Resume",
-		Description: "Nelo Mitranim's Resume",
+	{
+		Path:        `resume.html`,
+		Title:       `Resume`,
+		Description: `Nelo Mitranim's Resume`,
 		ForceLight:  true,
 	},
 }
 
 var SITE_POSTS = []Post{
-	Post{
+	{
 		Page: Page{
-			Path:        "posts/remove-from-go.html",
-			Title:       "Things I Would Remove from Go",
-			Description: "If less is more, Go could gain by losing weight",
+			Path:        `posts/remove-from-go.html`,
+			Title:       `Things I Would Remove from Go`,
+			Description: `If less is more, Go could gain by losing weight`,
 		},
-		PostMdName: "remove-from-go.md",
+		PostMdName: `remove-from-go.md`,
 		Created:    time.Date(2019, 1, 15, 1, 0, 0, 0, time.UTC),
 		Listed:     true,
 	},
-
-	Post{
+	{
 		Page: Page{
-			Path:        "posts/back-from-hiatus-2019.html",
-			Title:       "Back from Hiatus (2019)",
-			Description: "Back to blogging after three and a half years",
+			Path:        `posts/back-from-hiatus-2019.html`,
+			Title:       `Back from Hiatus (2019)`,
+			Description: `Back to blogging after three and a half years`,
 		},
-		PostMdName: "back-from-hiatus-2019.md",
+		PostMdName: `back-from-hiatus-2019.md`,
 		Created:    time.Date(2019, 1, 15, 0, 0, 0, 0, time.UTC),
 		Listed:     true,
 	},
-
-	Post{
+	{
 		Page: Page{
-			Path:        "posts/cheating-for-performance-pjax.html",
-			Title:       "Cheating for Performance with Pjax",
-			Description: "Faster page transitions, for free",
+			Path:        `posts/cheating-for-performance-pjax.html`,
+			Title:       `Cheating for Performance with Pjax`,
+			Description: `Faster page transitions, for free`,
 		},
-		PostMdName: "cheating-for-performance-pjax.md",
+		PostMdName: `cheating-for-performance-pjax.md`,
 		Created:    time.Date(2015, 7, 25, 0, 0, 0, 0, time.UTC),
 		Listed:     true,
 	},
-
-	Post{
+	{
 		Page: Page{
-			Path:        "posts/cheating-for-website-performance.html",
-			Title:       "Cheating for Website Performance",
-			Description: "Frontend tips for speeding up websites",
+			Path:        `posts/cheating-for-website-performance.html`,
+			Title:       `Cheating for Website Performance`,
+			Description: `Frontend tips for speeding up websites`,
 		},
-		PostMdName: "cheating-for-website-performance.md",
+		PostMdName: `cheating-for-website-performance.md`,
 		Created:    time.Date(2015, 3, 11, 0, 0, 0, 0, time.UTC),
 		Listed:     true,
 	},
-
-	Post{
+	{
 		Page: Page{
-			Path:        "posts/keeping-things-simple.html",
-			Title:       "Keeping Things Simple",
-			Description: "Musings on simplicity in programming",
+			Path:        `posts/keeping-things-simple.html`,
+			Title:       `Keeping Things Simple`,
+			Description: `Musings on simplicity in programming`,
 		},
-		PostMdName: "keeping-things-simple.md",
+		PostMdName: `keeping-things-simple.md`,
 		Created:    time.Date(2015, 3, 10, 0, 0, 0, 0, time.UTC),
 		Listed:     true,
 	},
-
-	Post{
+	{
 		Page: Page{
-			Path:        "posts/next-generation-today.html",
-			Title:       "Next Generation Today",
-			Description: "EcmaScript 2015/2016 workflow with current web frameworks",
+			Path:        `posts/next-generation-today.html`,
+			Title:       `Next Generation Today`,
+			Description: `EcmaScript 2015/2016 workflow with current web frameworks`,
 		},
-		PostMdName: "next-generation-today.md",
+		PostMdName: `next-generation-today.md`,
 		Created:    time.Date(2015, 5, 18, 0, 0, 0, 0, time.UTC),
 		Listed:     false,
 	},
-
-	Post{
+	{
 		Page: Page{
-			Path:        "posts/old-posts.html",
-			Title:       "Old Posts",
-			Description: "some old stuff from around the net",
+			Path:        `posts/old-posts.html`,
+			Title:       `Old Posts`,
+			Description: `some old stuff from around the net`,
 		},
-		PostMdName: "old-posts.md",
+		PostMdName: `old-posts.md`,
 		Created:    time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
 		Listed:     true,
 	},
@@ -176,7 +165,7 @@ var SITE_FEED = Feed{
 	Created:     time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
 	Updated:     time.Now(),
 	Id:          SITE_BASE + "/posts",
-	Description: "Random thoughts about technology",
+	Description: `Random thoughts about technology`,
 	Items:       nil,
 }
 
@@ -815,8 +804,8 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 }
 
 // TODO: instantiating some lexers is EXTREMELY SLOW (tens of milliseconds).
-// This takes an order of magnitude more CPU time than the the rest of the
-// build. The worst offender is JS. HTML also auto-detects and includes JS.
+// This takes at least as much time as the rest of the build. The worst
+// offender is JS. HTML also auto-detects and includes JS.
 func findLexer(tag string, text string) (out chroma.Lexer) {
 	if len(tag) > 0 {
 		out = clexers.Get(tag)

@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"sync"
-	"sync/atomic"
 
 	"github.com/gorilla/websocket"
 )
@@ -14,9 +13,6 @@ import (
 const SERVER_PORT = "52694"
 
 var log = l.New(os.Stderr, "", 0)
-
-// Used for avoiding redundant simultaneous broadcasts.
-var NOTIFYING uint32 = 0
 
 var CLIENTS sync.Map // sync.Map<string, *Client>
 
@@ -53,7 +49,7 @@ func initConn(rew http.ResponseWriter, req *http.Request) {
 	up := websocket.Upgrader{CheckOrigin: skipOriginCheck}
 	conn, err := up.Upgrade(rew, req, nil)
 	if err != nil {
-		log.Printf("failed to init connection at %v: %v", req.URL, err)
+		log.Printf("failed to init connection at %v: %v", req.RemoteAddr, err)
 		return
 	}
 
@@ -72,11 +68,6 @@ func initConn(rew http.ResponseWriter, req *http.Request) {
 func skipOriginCheck(*http.Request) bool { return true }
 
 func notifyClients() {
-	if !atomic.CompareAndSwapUint32(&NOTIFYING, 0, 1) {
-		return
-	}
-	defer atomic.CompareAndSwapUint32(&NOTIFYING, 1, 0)
-
 	CLIENTS.Range(func(_, val interface{}) bool {
 		go notifyClient(val.(*Client))
 		return true
