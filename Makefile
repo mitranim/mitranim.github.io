@@ -165,12 +165,10 @@ make-w:
 		echo "[make] $${file#$$(pwd)/} has changed, don't forget to restart"; \
 	done
 
+# Doesn't remove binaries
 $(ABSTRACT): clean
 clean:
-	@\
-	rm -f cmd    && \
-	rm -f notify && \
-	rm -rf public/*
+	@rm -rf public/*
 
 $(ABSTRACT): deploy
 deploy:
@@ -195,5 +193,7 @@ deploy:
 		git commit -a --allow-empty-message -m '' &&                           \
 		git branch -m "$${target}"                &&                           \
 		git push -f origin "$${target}"           &&                           \
-		rm -rf .git;                                                           \
+		rm -rf .git                               &&                           \
+		export PRODUCTION=''                      &&                           \
+		$(MAKE) all;                                                           \
 	fi
