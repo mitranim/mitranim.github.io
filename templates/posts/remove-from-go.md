@@ -223,7 +223,7 @@ Having read a considerable amount of code in multiple languages with this import
 
 ## Remove if-assignment and derivatives: `if _ := _ ; _ {}` {#remove-if-assignment}
 
-Subjectively, I find this form annoying to type and annoying to read. Objectively, it's an unnecessary choice that wastes everyone's brainpower. Anyone reading the code has to be aware of both syntactic forms.
+Subjectively, I find this form annoying to type and annoying to read. Objectively, it's a choice, and this post is predicated on "choice is bad". This wastes everyone's brainpower; anyone reading the code has to be aware of both syntactic forms.
 
 Instead of two options:
 

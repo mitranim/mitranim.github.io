@@ -4,7 +4,7 @@
   <img src="images/face-square.jpg" alt="portrait" style="display: block; width: 10rem; height: 10rem;">
 </div>
 
-Nelo Mitranim
+Nelo Mitranim.
 
 Autodidact. Senior software developer and architect. Main expertise: web applications (full stack).
 
