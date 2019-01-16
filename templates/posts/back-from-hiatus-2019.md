@@ -11,5 +11,3 @@ In 2019, I intend to blog regularly. I have a huge backlog of topics to cover an
 * game design from player perspective
 
 Subscribe via {{externalAnchor "/feed.xml" "Atom"}} or {{externalAnchor "/feed_rss.xml" "RSS"}} and enjoy!
-
-It's possible to subscribe via [Feedly](https://feedly.com), but it currently fails to add new posts from this blog. I'm looking into resolving this.
