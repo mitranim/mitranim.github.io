@@ -24,7 +24,6 @@
 #
 #   * Minify HTML to avoid whitespace gotchas
 #   * Restart Nginx on config changes
-#   * Kill Nginx on SIGTERM
 
 ABSTRACT   = .PHONY
 FSWATCH    = fswatch -l 0.1 # writes absolute paths to stdout
@@ -127,10 +126,17 @@ images-w:
 		$(REFRESH);                                                       \
 	done
 
+# Unlike most processes, Nginx doesn't terminate on SIGHUP and continues
+# running in the background when the terminal tab is closed. To terminate it
+# along with other processes, we have to trap SIGHUP and kill nginx manually.
+# Trapping the signal requires us to run nginx in the background; otherwise the
+# trap handler wouldn't run until nginx terminates, defeating the purpose.
+# Also, at least in Bash 3.2, the trap handler must be registered AFTER
+# starting the background process.
 $(ABSTRACT): server
 server:
 	@echo "Starting server at http://localhost:52693"
-	@nginx -p . -c srv.nginx
+	@nginx -p . -c srv.nginx & trap 'jobs -p | xargs kill' INT HUP && wait
 
 $(ABSTRACT): notify-w
 notify-w: notify
