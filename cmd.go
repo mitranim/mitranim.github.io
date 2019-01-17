@@ -69,6 +69,16 @@ var SITE_PAGES = []Page{
 var SITE_POSTS = []Post{
 	{
 		Page: Page{
+			Path:        `posts/camel-case-abbr.html`,
+			Title:       `Don't Abbreviate in CamelCase`,
+			Description: `CamelCase identifiers should avoid abbreviations, e.g. "JsonText" rather than "JSONText"`,
+		},
+		PostMdName: `camel-case-abbr.md`,
+		Created:    time.Date(2019, 1, 17, 7, 0, 0, 0, time.UTC),
+		Listed:     true,
+	},
+	{
+		Page: Page{
 			Path:        `posts/remove-from-go.html`,
 			Title:       `Things I Would Remove from Go`,
 			Description: `If less is more, Go could gain by losing weight`,
