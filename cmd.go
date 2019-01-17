@@ -386,8 +386,8 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		Author:      FEED_AUTHOR,
 		Description: post.Page.Description,
 		Id:          href,
-		Created:     post.Created,                           // TODO fetch from git?
-		Updated:     eitherTime(post.Created, post.Updated), // TODO fetch from git?
+		Created:     post.Created,                                          // TODO fetch from git?
+		Updated:     anyTime(post.Created, post.Updated, time.Now().UTC()), // TODO fetch from git?
 		Content:     string(post.HtmlContent),
 	})
 
@@ -948,7 +948,7 @@ func (self Feed) AtomFeed() AtomFeed {
 			Title:     item.Title,
 			Id:        item.Id,
 			Published: AtomTime(item.Created),
-			Updated:   AtomTime(eitherTime(item.Updated, item.Created)),
+			Updated:   AtomTime(anyTime(item.Updated, item.Created, time.Now().UTC())),
 			Summary:   &AtomSummary{Type: "html", Content: item.Description},
 		}
 
@@ -1015,8 +1015,8 @@ func (self Feed) RssFeed() RssFeed {
 			Title:          self.Title + " | RSS | mitranim",
 			Description:    self.Description,
 			ManagingEditor: author,
-			PubDate:        RssTime(self.Created),
-			LastBuildDate:  RssTime(eitherTime(self.Updated, self.Created)),
+			PubDate:        RssTime(anyTime(self.Created, time.Now().UTC())),
+			LastBuildDate:  RssTime(anyTime(self.Updated, self.Created, time.Now().UTC())),
 			Copyright:      self.Copyright,
 			Image:          image,
 		},
@@ -1241,9 +1241,11 @@ func (self RssTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
 	return nil
 }
 
-func eitherTime(a, b time.Time) time.Time {
-	if !a.IsZero() {
-		return a
+func anyTime(vals ...time.Time) time.Time {
+	for _, val := range vals {
+		if !val.IsZero() {
+			return val
+		}
 	}
-	return b
+	return time.Time{}
 }
