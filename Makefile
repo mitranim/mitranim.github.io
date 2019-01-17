@@ -1,6 +1,6 @@
 # Usage
 #
-#   "make"      -- build or rebuild manually
+#   "make -j"   -- build or rebuild manually
 #   "make w -j" -- build, start server, watch and rebuild
 #
 # Notes
@@ -17,30 +17,14 @@
 #
 # Dependencies
 #
-#   * https://golang.org
-#
-#     brew install go
-#
-#   * https://github.com/sass/sassc
-#
-#     brew install sassc
-#
-#   * https://github.com/tdewolff/minify/tree/master/cmd/minify
-#
-#     go get -u github.com/tdewolff/minify/cmd/minify
-#
-#   * http://www.graphicsmagick.org
-#
-#     brew install graphicsmagick
-#
-#   * https://github.com/emcrisostomo/fswatch
-#
-#     brew install fswatch
+#   Global dependencies are listed on the "deps" task.
+#   Run "make deps" to install.
 #
 # TODO
 #
-#   Minify HTML to avoid whitespace gotchas?
-#   Restart Nginx on config changes.
+#   * Minify HTML to avoid whitespace gotchas
+#   * Restart Nginx on config changes
+#   * Kill Nginx on SIGTERM
 
 ABSTRACT   = .PHONY
 FSWATCH    = fswatch -l 0.1 # writes absolute paths to stdout
@@ -164,6 +148,17 @@ make-w:
 		$(CLEAR_TERM);                                                        \
 		echo "[make] $${file#$$(pwd)/} has changed, don't forget to restart"; \
 	done
+
+# Currently MacOS only. Requires Homebrew: https://brew.sh.
+#   https://golang.org
+#   https://github.com/sass/sassc
+#   http://www.graphicsmagick.org
+#   https://github.com/emcrisostomo/fswatch
+#   https://github.com/tdewolff/minify/tree/master/cmd/minify
+$(ABSTRACT): deps
+deps:
+	@brew install go sassc graphicsmagick fswatch
+	@(cd && go get github.com/tdewolff/minify/cmd/minify)
 
 # Doesn't remove binaries
 $(ABSTRACT): clean
