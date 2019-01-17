@@ -194,6 +194,7 @@ deploy:
 		git branch -m "$${target}"                &&                           \
 		git push -f origin "$${target}"           &&                           \
 		rm -rf .git                               &&                           \
+		cd ..                                     &&                           \
 		export PRODUCTION=''                      &&                           \
-		$(MAKE) all;                                                           \
+		$(MAKE) all -j;                                                        \
 	fi
