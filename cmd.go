@@ -197,6 +197,7 @@ var TEMPLATE_FUNCS = template.FuncMap{
 	"linkWithHash":        linkWithHash,
 	"raw":                 func(text string) template.HTML { return template.HTML(text) },
 	"headingPrefix":       func() template.HTML { return HEADING_PREFIX_HTML },
+
 	"FLAGS": func() map[string]interface{} {
 		return map[string]interface{}{"DEV": DEV}
 	},
@@ -254,11 +255,11 @@ type Page struct {
 
 type Post struct {
 	Page
-	PostMdName  string
-	HtmlContent []byte
-	Created     time.Time
-	Updated     time.Time
-	Listed      bool
+	PostMdName string
+	HtmlBody   []byte
+	Created    time.Time
+	Updated    time.Time
+	Listed     bool
 }
 
 func (self Post) Slug() string {
@@ -337,12 +338,12 @@ func buildPage(page Page) error {
 }
 
 func buildPost(post Post, feed Feed) (Feed, error) {
-	contentTemp, err := findTemplate(TEMPLATES, "post-content.html")
+	bodyTemp, err := findTemplate(TEMPLATES, "post-body.html")
 	if err != nil {
 		return feed, err
 	}
 
-	post.HtmlContent, err = renderTemplate(contentTemp, post)
+	post.HtmlBody, err = renderTemplate(bodyTemp, post)
 	if err != nil {
 		return feed, err
 	}
@@ -352,12 +353,22 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		return feed, err
 	}
 
-	output, err := renderTemplate(layoutTemp, post)
+	content, err := renderTemplate(layoutTemp, post)
 	if err != nil {
 		return feed, err
 	}
 
-	err = writePublic(post.Path, output)
+	feedLayoutTemp, err := findTemplate(TEMPLATES, "post-feed-layout.html")
+	if err != nil {
+		return feed, err
+	}
+
+	feedContent, err := renderTemplate(feedLayoutTemp, post)
+	if err != nil {
+		return feed, err
+	}
+
+	err = writePublic(post.Path, content)
 	if err != nil {
 		return feed, err
 	}
@@ -387,7 +398,7 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		Id:          href,
 		Created:     post.Created,                                          // TODO fetch from git?
 		Updated:     anyTime(post.Created, post.Updated, time.Now().UTC()), // TODO fetch from git?
-		Content:     string(post.HtmlContent),
+		Content:     string(feedContent),
 	})
 
 	return feed, nil

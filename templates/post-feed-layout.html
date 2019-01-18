@@ -1,0 +1,16 @@
+<article role="main article" class="fancy-typography">
+<!--
+
+Unsure about including the description. The Atom or RSS feed item already
+contains the desription as a separate element. The RSS readers I use tend to
+show it in feed item previews, but not when viewing the article. However, other
+readers may include the description into the article, making this redundant.
+
+-->
+{{- /*
+{{if .Description}}
+<p role="doc-subtitle" class="font-large font-italic">{{sentence .Description}}</p>
+{{end}}
+*/ -}}
+{{.HtmlBody | asHtml}}
+</article>

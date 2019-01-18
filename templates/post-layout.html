@@ -1,22 +1,24 @@
 {{template "site-top.html" .}}
-<article role="main article" id="main-content" class="fancy-typography flex-1 col-start-stretch gaps-v-2">
-    <header class="gaps-v-1">
-        <!-- Should be kept in sync with "MarkdownRenderer.RenderNode" for headings -->
+<div role="main" id="main-content" class="fancy-typography flex-1 col-start-stretch gaps-v-2">
+    <article role="article" class="fancy-typography">
+        <!-- Should be kept in sync with "MarkdownRenderer.RenderNode" logic for headings -->
         <h1>{{headingPrefix}}{{.Title}}</h1>
         {{if .Description}}<p role="doc-subtitle" class="font-large font-italic">{{.Description}}</p>{{end}}
         {{if not .Created.IsZero}}<p class="fg-faded">Published {{.Created | formatDateForHumans}}</p>{{end}}
         {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateForHumans}}</p>{{end}}
-    </header>
-    {{.HtmlContent | asHtml}}
+        {{.HtmlBody | asHtml}}
+    </article>
+
     <hr style="margin-top: auto" />
+
     <div class="gaps-v-1">
         <p>
-            This blog currently doesn't support comments. To respond, use
+            This blog currently doesn't support comments. Respond using
             <a href="mailto:me@mitranim.com?subject=Re:%20{{.Title}}">me@mitranim.com</a>,
             {{externalAnchor "http://twitter.com/mitranim" "twitter"}},
             or one of my <a href="/#contacts">other contacts</a>.
         </p>
         {{include "feed-links.html"}}
     </div>
-</article>
+</div>
 {{template "site-bottom.html" .}}
