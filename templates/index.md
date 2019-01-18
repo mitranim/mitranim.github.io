@@ -67,8 +67,8 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 [{{include "svg-github"}} My Github](https://github.com/mitranim)
 
-[{{include "svg-github"}} My Twitter](http://twitter.com/mitranim)
+[{{include "svg-twitter"}} My Twitter](http://twitter.com/mitranim)
 
-[{{include "svg-github"}} My LinkedIn](http://linkedin.com/in/mitranim)
+[{{include "svg-linkedin"}} My LinkedIn](http://linkedin.com/in/mitranim)
 
-[{{include "svg-github"}} My Facebook](http://facebook.com/mitranim)
+[{{include "svg-facebook"}} My Facebook](http://facebook.com/mitranim)
