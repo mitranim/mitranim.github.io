@@ -35,6 +35,7 @@ all: cmd static html styles images
 
 # Requires "-j": "make w -j"
 $(ABSTRACT): w
+w: export DEV=true
 w: all cmd-w static-w html-w styles-w images-w server notify-w make-w
 
 cmd: cmd.go
@@ -171,10 +172,11 @@ $(ABSTRACT): clean
 clean:
 	@rm -rf public/*
 
+# Note: "make clean" and "make all" ensure that the targets are rebuilt in
+# "production mode" rather than "development mode".
 $(ABSTRACT): deploy
 deploy:
 	@                                                                          \
-	export PROD=true                   &&                                \
 	$(MAKE) clean                            &&                                \
 	$(MAKE) all -j                           &&                                \
 	url=$$(git remote get-url origin)        &&                                \
@@ -194,8 +196,12 @@ deploy:
 		git commit -a --allow-empty-message -m '' &&                           \
 		git branch -m "$${target}"                &&                           \
 		git push -f origin "$${target}"           &&                           \
-		rm -rf .git                               &&                           \
-		cd ..                                     &&                           \
-		export PROD=''                      &&                           \
-		$(MAKE) all -j;                                                        \
+		rm -rf .git;                                                           \
 	fi
+
+# When "make w -j" is running, this should be used instead of "make deploy".
+$(ABSTRACT): w-deploy
+w-deploy:
+	@$(MAKE) deploy
+	@$(MAKE) clean
+	@DEV=true $(MAKE) all -j
