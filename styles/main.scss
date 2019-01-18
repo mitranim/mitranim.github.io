@@ -70,7 +70,7 @@ code, key, pre {
 .theme-dark {
     --color-bg:      hsl(200, 5%, 10%);
     --color-fg:      white;
-    --color-pale:    hsl(0, 0%, 20%);
+    --color-pale:    hsl(0, 0%, 15%);
     --color-faded:   hsl(0, 0%, 70%);
     --color-smoke:   darkslategray;
     --color-red:     hsl(0, 70%, 30%);
@@ -85,7 +85,11 @@ code, key, pre {
     color: white;
 }
 
+.bg-pale  {background-color: var(--color-pale);}
 .bg-smoke {background-color: var(--color-smoke);}
+.bg-code  {background-color: var(--color-code-bg);}
+
+.busy-bg-pale:hover {background-color: var(--color-pale);}
 
 .fg-pale  {color: var(--color-pale);}
 .fg-faded {color: var(--color-faded);}
@@ -115,8 +119,6 @@ code, key, pre {
 .fill-feedly   {fill: var(--color-feedly);}
 .fill-rss      {fill: var(--color-rss);}
 .fill-feedly   {fill: var(--color-feedly);}
-
-.busy-bg-pale:hover {background-color: var(--color-pale);}
 
 /* Typography */
 
