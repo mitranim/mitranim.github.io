@@ -1,7 +1,8 @@
 {{template "site-top.html" .}}
 <article role="main article" id="main-content" class="fancy-typography flex-1 col-start-stretch gaps-v-2">
     <header class="gaps-v-1">
-        <h1>{{.Title}}</h1>
+        <!-- Should be kept in sync with "MarkdownRenderer.RenderNode" for headings -->
+        <h1>{{headingPrefix}}{{.Title}}</h1>
         {{if .Description}}<p role="doc-subtitle" class="font-large font-italic">{{.Description}}</p>{{end}}
         {{if not .Created.IsZero}}<p class="fg-faded">Published {{.Created | formatDateForHumans}}</p>{{end}}
         {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateForHumans}}</p>{{end}}

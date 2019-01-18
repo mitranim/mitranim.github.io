@@ -196,6 +196,7 @@ var TEMPLATE_FUNCS = template.FuncMap{
 	"joinPath":            path.Join,
 	"linkWithHash":        linkWithHash,
 	"raw":                 func(text string) template.HTML { return template.HTML(text) },
+	"headingPrefix":       func() template.HTML { return HEADING_PREFIX_HTML },
 	"FLAGS": func() map[string]interface{} {
 		return map[string]interface{}{
 			"PROD": PROD,
@@ -673,8 +674,14 @@ var (
 	HEADING_PREFIX      = []byte(`<span class="heading-prefix" aria-hidden="true"></span>`)
 )
 
-var externalLinkReg = regexp.MustCompile(`^\w+://`)
-var hashLinkReg = regexp.MustCompile(`^#`)
+var (
+	HEADING_PREFIX_HTML = template.HTML(HEADING_PREFIX)
+)
+
+var (
+	externalLinkReg = regexp.MustCompile(`^\w+://`)
+	hashLinkReg     = regexp.MustCompile(`^#`)
+)
 
 type MarkdownRenderer struct{ *bf.HTMLRenderer }
 
