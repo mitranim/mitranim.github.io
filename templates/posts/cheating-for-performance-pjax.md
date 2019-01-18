@@ -11,7 +11,7 @@ What if I told you there's a way to dramatically speed up page transitions just 
 
 Who benefits from this?
 
-<ul class="list-unstyled">
+<ul class="unstyled-list">
     <li><span class="fg-blue">✓</span> typical server-rendered sites</li>
     <li><span class="fg-blue">✓</span> statically generated sites</li>
     <li><span class="fg-red">✕</span> but not SPA (they already enjoy clientside routing)</li>
@@ -26,7 +26,7 @@ When you think about it, the status quo of content delivery on the web is _insan
 <ol>
     <li>Link clicked</li>
 
-    <ul class="list-unstyled">
+    <ul class="unstyled-list">
         <li>✅ download new document
         <li>💀 throw away JS runtime
         <li>💀 throw away websocket connections
@@ -35,7 +35,7 @@ When you think about it, the status quo of content delivery on the web is _insan
     </ul>
 
     <li>More work!</li>
-    <ul class="list-unstyled">
+    <ul class="unstyled-list">
         <li>💀 create new JS runtime</li>
         <li>💀 rerun all scripts</li>
         <li>🎂 display new document, with images and fonts flickering in</li>
@@ -50,7 +50,7 @@ With pushstate routing, we can do better.
 <ol>
     <li>Link clicked</li>
 
-    <ul class="list-unstyled">
+    <ul class="unstyled-list">
         <li>✅ download new document</li>
         <li>✅ download new images if needed</li>
     </ul>

@@ -174,7 +174,7 @@ clean:
 $(ABSTRACT): deploy
 deploy:
 	@                                                                          \
-	export PRODUCTION=true                   &&                                \
+	export PROD=true                   &&                                \
 	$(MAKE) clean                            &&                                \
 	$(MAKE) all -j                           &&                                \
 	url=$$(git remote get-url origin)        &&                                \
@@ -196,6 +196,6 @@ deploy:
 		git push -f origin "$${target}"           &&                           \
 		rm -rf .git                               &&                           \
 		cd ..                                     &&                           \
-		export PRODUCTION=''                      &&                           \
+		export PROD=''                      &&                           \
 		$(MAKE) all -j;                                                        \
 	fi

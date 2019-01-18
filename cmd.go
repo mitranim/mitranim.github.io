@@ -152,7 +152,7 @@ var SITE_POSTS = []Post{
 var FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
 
 var SITE_BASE = func() string {
-	if PRODUCTION {
+	if PROD {
 		return "https://mitranim.com"
 	}
 	return "http://localhost:" + SERVER_PORT
@@ -198,7 +198,7 @@ var TEMPLATE_FUNCS = template.FuncMap{
 	"raw":                 func(text string) template.HTML { return template.HTML(text) },
 	"FLAGS": func() map[string]interface{} {
 		return map[string]interface{}{
-			"PRODUCTION": PRODUCTION,
+			"PROD": PROD,
 		}
 	},
 }
@@ -240,7 +240,7 @@ func markdownOpts() []bf.Option {
 	}
 }
 
-var PRODUCTION = os.Getenv("PRODUCTION") == "true"
+var PROD = os.Getenv("PROD") == "true"
 
 var log = l.New(os.Stderr, "", 0)
 
