@@ -89,8 +89,8 @@ styles: public/styles/main.css
 
 public/styles/main.css: styles/*.scss
 	@mkdir -p public/styles
-	@sassc styles/main.scss | minify --type=css > "${@}"
-	@#sassc styles/main.scss > "${@}"
+	@#sassc styles/main.scss | minify --type=css > "${@}"
+	@sassc styles/main.scss > "${@}"
 	@echo "[styles] wrote ${@}"
 
 $(ABSTRACT): styles-w
