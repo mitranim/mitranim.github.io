@@ -1,4 +1,4 @@
-# About
+# Overview
 
 <div style="float: right; margin-left: 1rem; margin-bottom: 1rem;">
   <img src="images/face-square.jpg" alt="portrait" style="display: block; width: 10rem; height: 10rem;">
@@ -12,7 +12,7 @@ Part of team at [Purelab.io](https://purelab.io), a software development and con
 
 Open source enthusiast. See my [works](/works).
 
-## Languages
+# Languages
 
 Solid experience: Go, JS/Node, Clojure, Python.
 
@@ -22,7 +22,7 @@ Passing familiarity: Swift, C, Common Lisp, Scheme.
 
 Predominant choice: Go.
 
-## Databases
+# Databases
 
 Solid experience:
 
@@ -33,7 +33,7 @@ Solid experience:
 
 Predominant choice: Postgres.
 
-## Applications
+# Applications
 
 Solid experience:
 
@@ -43,7 +43,7 @@ Solid experience:
   * websocket API backends with live notifications
   * Ethereum apps; see [github.com/purelabio/eth](https://github.com/purelabio/eth)
 
-## Misc
+# Misc
 
 Favorite pastimes: [open source development](/works), computer games, anime.
 
