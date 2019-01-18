@@ -11,7 +11,7 @@ We're not allowed to break existing code under Go1. However, it seems plausible 
 * Both "old" and "new" code continues to run under Go1
 * Go2 drops the unnecessary features
 
-# TOC
+## TOC
 
 * [Language](#language)
     * [Remove `:=` in favor of `var`](#prefer-var)
@@ -24,11 +24,11 @@ We're not allowed to break existing code under Go1. However, it seems plausible 
     * [Gofmt: align adjacent assignments](#gofmt-declarations)
 * [Misc](#misc)
 
-# Language Changes {#language}
+## Language Changes {#language}
 
-## Remove `:=` in favor of `var` {#prefer-var}
+### Remove `:=` in favor of `var` {#prefer-var}
 
-### Arguments
+#### Arguments
 
 1\. Having two equivalent assignment forms is redundant.
 
@@ -83,7 +83,7 @@ var one,
     two = someExpression
 ```
 
-### Migration
+#### Migration
 
 Completely embracing `var` requires an addition to the language. Various forms of `if`, `for`, `select`, and `switch` currently support `:=` but not `var`:
 
@@ -105,7 +105,7 @@ For Go1, adding the missing `var` support would be a safe, backwards-compatible 
 
 See the related [gofmt change](#gofmt-declarations).
 
-## Remove parenthesized lists from `var`, `const`, `type`, `import` {#remove-paren-lists}
+### Remove parenthesized lists from `var`, `const`, `type`, `import` {#remove-paren-lists}
 
 Let's start with arguments in favor of the feature.
 
@@ -173,13 +173,13 @@ We've now wasted some brainpower and typing. Without lists, this would not have 
 
 For consistency, the `go.mod` syntax should also remove lists.
 
-## Maybe remove `iota` due to removing lists {#remove-iota}
+### Maybe remove `iota` due to removing lists {#remove-iota}
 
 `iota` requires parenthesized `const (...)` for scoping. Removing lists also leads to removing `iota`.
 
 While I tend to avoid `iota`, I don't have a strong argument against it. If keeping `iota` in the language is important, then instead of removing lists entirely, we could just consider them non-idiomatic _unless_ `iota` is used.
 
-## Remove `new` in favor of `&` {#remove-new}
+### Remove `new` in favor of `&` {#remove-new}
 
 `new` was relevant when `&` was allowed only on "storage locations" such as variables and inner fields. Now that `&` is allowed on [composite literals](https://golang.org/ref/spec#Composite_literals), `new` is close to obsolete.
 
@@ -207,7 +207,7 @@ Note that most code can already be converted to `&`. Code like `new(string)` or 
 
 For Go1, extending `&` to primitive literals would be a safe, backwards-compatible change.
 
-## Remove dot-import: `import . "some-package"` {#remove-dot-import}
+### Remove dot-import: `import . "some-package"` {#remove-dot-import}
 
 Dot-import splurges all exported definitions from another package into the current scope:
 
@@ -221,7 +221,7 @@ func main() {
 
 Having read a considerable amount of code in multiple languages with this import style, I'm convinced that it's always a bad idea. Subjectively, it makes the code harder to understand and harder to track down the definitions. Objectively, it makes the code more fragile against changes.
 
-## Remove if-assignment and derivatives: `if _ := _ ; _ {}` {#remove-if-assignment}
+### Remove if-assignment and derivatives: `if _ := _ ; _ {}` {#remove-if-assignment}
 
 Subjectively, I find this form annoying to type and annoying to read. Objectively, it's a choice, and this post is predicated on "choice is bad". This wastes everyone's brainpower; anyone reading the code has to be aware of both syntactic forms.
 
@@ -250,9 +250,9 @@ If subscoping the variable is vital, just use a block. This also allows you to s
 }
 ```
 
-# Tool Changes {#tools}
+## Tool Changes {#tools}
 
-## Gofmt: align adjacent non-listed `var`, `const`, `type`, `import` {#gofmt-declarations}
+### Gofmt: align adjacent non-listed `var`, `const`, `type`, `import` {#gofmt-declarations}
 
 Currently, `gofmt` aligns adjacent assignments only in parenthesized lists:
 
@@ -276,7 +276,7 @@ const ni   = 20
 const san  = 30
 ```
 
-# Misc {#misc}
+## Misc {#misc}
 
 While writing this post, I tried to argue that complex numbers should be moved from built-ins to the standard library, but ended unconvinced.
 
