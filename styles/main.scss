@@ -312,38 +312,12 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
         h5 > .heading-prefix::before {content: '##### ';}
         h6 > .heading-prefix::before {content: '###### ';}
     }
-
 }
-
-$blockquote-mul: 2;
 
 .blockquote {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: calc(2rem + #{$blockquote-mul}ch);
-    padding-right: calc(2rem + #{$blockquote-mul}ch);
-    min-height: calc(2rem + #{$blockquote-mul}ex);
-    position: relative;
+    padding: 1rem 1rem 1rem calc(1rem + 3px);
+    border-left: 3px solid var(--color-faded);
     @extend .bg-code;
-}
-
-%blockquote-frill {
-    position: absolute;
-    font-size: #{$blockquote-mul}rem;
-    @extend .weight-lighter;
-    @extend .fg-faded;
-}
-
-.blockquote-prefix {
-    @extend %blockquote-frill;
-    top: 1rem;
-    left: 1rem;
-}
-
-.blockquote-suffix {
-    @extend %blockquote-frill;
-    top: 1rem;
-    right: 1rem;
 }
 
 [disabled] {@extend .cursor-not-allowed;}

@@ -672,8 +672,8 @@ var (
 	SPACE               = []byte(` `)
 	HASH_PREFIX         = []byte(`<span class="hash-prefix noprint" aria-hidden="true">#</span>`)
 	HEADING_PREFIX      = []byte(`<span class="heading-prefix" aria-hidden="true"></span>`)
-	BLOCKQUOTE_START    = []byte(`<blockquote class="blockquote"><span class="blockquote-prefix" aria-hidden="true">«</span>`)
-	BLOCKQUOTE_END      = []byte(`<span class="blockquote-suffix" aria-hidden="true">»</span></blockquote>`)
+	BLOCKQUOTE_START    = []byte(`<blockquote class="blockquote">`)
+	BLOCKQUOTE_END      = []byte(`</blockquote>`)
 )
 
 var (
