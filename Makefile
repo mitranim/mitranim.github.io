@@ -3,6 +3,11 @@
 #   "make -j"   -- build or rebuild manually
 #   "make w -j" -- build, start server, watch and rebuild
 #
+# Dependencies
+#
+#   Global dependencies are listed on the "deps" task.
+#   Run "make deps" to install.
+#
 # Notes
 #
 #   "$$" rather than "$" -- prevent the interpolation from happening in make,
@@ -33,10 +38,19 @@
 #     https://www.gnu.org/software/make/manual/make.html#Reading-Makefiles
 #     https://www.gnu.org/software/make/manual/make.html#Variables_002fRecursion
 #
-# Dependencies
+# Change Detection
 #
-#   Global dependencies are listed on the "deps" task.
-#   Run "make deps" to install.
+#   Make avoids rebuilding targets that are newer than thair sources. This
+#   feature is biased towards single-file targets, and doesn't work as expected
+#   with multi-file targets. For example, if one of the previously created
+#   output files is no longer generated or updated, Make will always rerun the
+#   rule because that file will always be older than some of the sources.
+#
+#   To work properly, multi-file outputs need either a phony target or an empty
+#   target. A phony target simply causes the rule to always run. An empty
+#   target is an empty file that marks the timestamp of the last rebuild,
+#   allowing Make to compare timestamps to decide when to rebuild, just like
+#   with single-file outputs. That's what we use.
 #
 # TODO
 #
@@ -49,12 +63,12 @@ CLEAR_TERM = printf "\x1bc\x1b[3J"
 REFRESH    = curl http://localhost:52694/broadcast
 
 $(ABSTRACT): all
-all: cmd static html styles images
+all: cmd static html styles img
 
 # Requires "-j": "make w -j"
 $(ABSTRACT): w
 w: export DEV ?= true
-w: all cmd-w static-w html-w styles-w images-w server notify-w make-w
+w: all cmd-w static-w html-w styles-w img-w server notify-w make-w
 
 cmd: cmd.go
 	@go build cmd.go
@@ -72,8 +86,11 @@ cmd-w:
 	done
 
 $(ABSTRACT): static
-static: static/* static/*/*
+static: public/timestamps/static
+
+public/timestamps/static: static/* static/*/*
 	@rsync -r static/ public/
+	@mkdir -p public/timestamps && touch public/timestamps/static
 
 $(ABSTRACT): static-w
 static-w:
@@ -87,11 +104,12 @@ static-w:
 	done
 
 $(ABSTRACT): html
-html: public/*.html public/*/*.html
+html: public/timestamps/html
 
 # Note: asset dependencies are used for link hashing.
-public/%.html: cmd public/styles/main.css templates/* templates/*/*
+public/timestamps/html: cmd public/styles/main.css templates/* templates/*/*
 	@./cmd
+	@mkdir -p public/timestamps && touch public/timestamps/html
 
 $(ABSTRACT): html-w
 html-w:
@@ -122,33 +140,49 @@ styles-w:
 		$(REFRESH);       \
 	done
 
-# Unlike source code, image files tend to be copied rather than modified.
-# Copying a file doesn't affect its modification timestamp, which for images
-# tends to be rather old. Since Make relies on modification times, adding an
-# "old" image file doesn't cause a rebuild. Note that our "image-w" task does
-# detect new files; the problem is peculiar to the "images" task. To ensure
-# consistency, we resort to rebuilding all images every time.
+$(ABSTRACT): img
+img: public/timestamps/img
+
+# Optimizes raster images using graphicsmagick in batch mode.
 #
-# NOTE: this breaks on filenames with spaces.
-$(ABSTRACT): images
-images: images/*.*
-	@# Create output directory for every image.
-	@for file in ${^}; do mkdir -p "public/$$(dirname $${file})"; done
-	@# Create a multiline batch file and pipe it to graphicsmagick.
-	@(for file in ${^}; do echo "convert" "$${file}" "public/$${file}"; done) | gm batch -
+# Notes on the "images" dependency. The directory's timestamp changes when
+# adding or deleting a child file or directory. Image files tend to be copied
+# around without changing their timestamps, so this is the only way to detect
+# such changes. This is also why the task is called "img" rather than "images".
+#
+# Note: this breaks on filenames with spaces. This happens for so many reasons
+# that the best workaround is to avoid spaces in names.
+public/timestamps/img: images images/*
+	@(\
+		find images -type f -name '*.jpg' -o -name '*.png' |  \
+		while read path;                                      \
+		do                                                    \
+			if ! mkdir -p "public/$$(dirname $${path})";      \
+			then exit 1;                                      \
+			fi;                                               \
+		done                                                  \
+	)
+	@(                                                        \
+		find images -type f -name '*.jpg' -o -name '*.png' |  \
+		while read path;                                      \
+		do                                                    \
+			echo "convert" "$${path}" "public/$${path}";      \
+		done                                                  \
+	) | gm batch -
+	@mkdir -p public/timestamps && touch public/timestamps/img
 
 # Note: we truncate `pwd` because fswatch gives us absolute paths.
-$(ABSTRACT): images-w
-images-w:
-	@$(FSWATCH) images |                           \
-	while read file;                               \
-	do                                             \
-		$(CLEAR_TERM)                           && \
-		path=$${file#$$(pwd)/}                  && \
-		mkdir -p "public/$$(dirname $${path})"  && \
-		gm convert "$${file}" "public/$${path}" && \
-		echo "[images] wrote public/$${path}"   && \
-		$(REFRESH);                                \
+$(ABSTRACT): img-w
+img-w:
+	@$(FSWATCH) images |                            \
+	while read file;                                \
+	do                                              \
+		$(CLEAR_TERM)                            && \
+		path=$${file#$$(pwd)/}                   && \
+		mkdir -p "public/$$(dirname "$${path}")" && \
+		gm convert "$${file}" "public/$${path}"  && \
+		echo "[img] wrote public/$${path}"       && \
+		$(REFRESH);                                 \
 	done
 
 # Unlike most processes, Nginx doesn't terminate on SIGHUP and continues
