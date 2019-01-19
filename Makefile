@@ -64,7 +64,7 @@ cmd-w:
 	@$(FSWATCH) cmd.go |     \
 	while read;              \
 	do                       \
-		$(CLEAR_TERM);       \
+		$(CLEAR_TERM) &&     \
 		$(MAKE) cmd &&       \
 		echo "[cmd] done" && \
 		$(MAKE) html &&      \
@@ -72,7 +72,7 @@ cmd-w:
 	done
 
 $(ABSTRACT): static
-static: static/**/*
+static: static/* static/*/*
 	@rsync -r static/ public/
 
 $(ABSTRACT): static-w
@@ -80,7 +80,7 @@ static-w:
 	@$(FSWATCH) static |        \
 	while read;                 \
 	do                          \
-		$(CLEAR_TERM);          \
+		$(CLEAR_TERM) &&        \
 		$(MAKE) static &&       \
 		echo "[static] done" && \
 		$(REFRESH);             \
@@ -98,7 +98,7 @@ html-w:
 	@$(FSWATCH) templates | \
 	while read;             \
 	do                      \
-		$(CLEAR_TERM);      \
+		$(CLEAR_TERM) &&    \
 		$(MAKE) html &&     \
 		$(REFRESH);         \
 	done
@@ -117,7 +117,7 @@ styles-w:
 	@$(FSWATCH) styles |  \
 	while read;           \
 	do                    \
-		$(CLEAR_TERM);    \
+		$(CLEAR_TERM) &&  \
 		$(MAKE) styles && \
 		$(REFRESH);       \
 	done
@@ -170,7 +170,7 @@ make-w:
 	@$(FSWATCH) $(MAKEFILE_LIST) |                                            \
 	while read file;                                                          \
 	do                                                                        \
-		$(CLEAR_TERM);                                                        \
+		$(CLEAR_TERM) &&                                                      \
 		echo "[make] $${file#$$(pwd)/} has changed, don't forget to restart"; \
 	done
 
