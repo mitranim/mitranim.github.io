@@ -122,27 +122,33 @@ styles-w:
 		$(REFRESH);       \
 	done
 
+# Unlike source code, image files tend to be copied rather than modified.
+# Copying a file doesn't affect its modification timestamp, which for images
+# tends to be rather old. Since Make relies on modification times, adding an
+# "old" image file doesn't cause a rebuild. Note that our "image-w" task does
+# detect new files; the problem is peculiar to the "images" task. To ensure
+# consistency, we resort to rebuilding all images every time.
+#
+# NOTE: this breaks on filenames with spaces.
 $(ABSTRACT): images
-images: images/*
-	@mkdir -p public/images
+images: images/*.*
+	@# Create output directory for every image.
+	@for file in ${^}; do mkdir -p "public/$$(dirname $${file})"; done
 	@# Create a multiline batch file and pipe it to graphicsmagick.
-	@(\
-		for file in ${?};                                               \
-		do                                                              \
-			echo "convert" "$${file}" "public/images/$${file#images/}"; \
-		done                                                            \
-	) | gm batch -
+	@(for file in ${^}; do echo "convert" "$${file}" "public/$${file}"; done) | gm batch -
 
 # Note: we truncate `pwd` because fswatch gives us absolute paths.
 $(ABSTRACT): images-w
 images-w:
-	@$(FSWATCH) images |                                                  \
-	while read file;                                                      \
-	do                                                                    \
-		$(CLEAR_TERM);                                                    \
-		gm convert "$${file}" "public/images/$${file#$$(pwd)/images/}" && \
-		echo "[images] wrote public/images/$${file#$$(pwd)/images/}" &&   \
-		$(REFRESH);                                                       \
+	@$(FSWATCH) images |                           \
+	while read file;                               \
+	do                                             \
+		$(CLEAR_TERM)                           && \
+		path=$${file#$$(pwd)/}                  && \
+		mkdir -p "public/$$(dirname $${path})"  && \
+		gm convert "$${file}" "public/$${path}" && \
+		echo "[images] wrote public/$${path}"   && \
+		$(REFRESH);                                \
 	done
 
 # Unlike most processes, Nginx doesn't terminate on SIGHUP and continues
