@@ -87,10 +87,10 @@ static-w:
 	done
 
 $(ABSTRACT): html
-html: public/%.html
+html: public/*.html public/*/*.html
 
-# The "styles" dependency is for asset hashing for asset links.
-public/%.html: cmd styles templates/**/*
+# Note: asset dependencies are used for link hashing.
+public/%.html: cmd public/styles/main.css templates/* templates/*/*
 	@./cmd
 
 $(ABSTRACT): html-w
