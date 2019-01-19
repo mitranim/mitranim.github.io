@@ -15,6 +15,24 @@
 #   "fswatch <dir>" -- writes absolute paths to stdout, newline-separated
 #   "fswatch -l N"  -- set latency; default is 1 second, too slow
 #
+# Env Vars
+#
+#   Env vars in Make have a major gotcha. Make uses file timestamps to decide
+#   when to rebuild a target or skip the rebuild. Our Makefile is explicitly
+#   written to allow this behavior wherever possible. Merely changing an env
+#   var and rerunning a rule doesn't guarantee a rebuild. This means that any
+#   env var change must be accompanied by a "make clean".
+#
+#   Using "<RULE>: export <VAR> = <VAL>", a rule can set an environment var for
+#   itself and all its dependencies. The "=" can be replaced with various forms
+#   such as ":=" or "?=". The latter is a "default" that runs only if the var is
+#   not already defined. This allows an external override.
+#
+#   See docs on variable assignment:
+#
+#     https://www.gnu.org/software/make/manual/make.html#Reading-Makefiles
+#     https://www.gnu.org/software/make/manual/make.html#Variables_002fRecursion
+#
 # Dependencies
 #
 #   Global dependencies are listed on the "deps" task.
@@ -35,7 +53,7 @@ all: cmd static html styles images
 
 # Requires "-j": "make w -j"
 $(ABSTRACT): w
-w: export DEV=true
+w: export DEV ?= true
 w: all cmd-w static-w html-w styles-w images-w server notify-w make-w
 
 cmd: cmd.go

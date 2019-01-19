@@ -33,6 +33,12 @@ const (
 	HUMAN_TIME_FORMAT = "Jan 02, 2006"
 )
 
+var FLAGS = struct {
+	DEV bool
+}{
+	DEV: os.Getenv("DEV") == "true",
+}
+
 var SITE_PAGES = []Page{
 	{
 		Path:        `index.html`,
@@ -152,7 +158,7 @@ var SITE_POSTS = []Post{
 var FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
 
 var SITE_BASE = func() string {
-	if DEV {
+	if FLAGS.DEV {
 		return "http://localhost:" + SERVER_PORT
 	}
 	return "https://mitranim.com"
@@ -197,10 +203,7 @@ var TEMPLATE_FUNCS = template.FuncMap{
 	"linkWithHash":        linkWithHash,
 	"raw":                 func(text string) template.HTML { return template.HTML(text) },
 	"headingPrefix":       func() template.HTML { return HEADING_PREFIX_HTML },
-
-	"FLAGS": func() map[string]interface{} {
-		return map[string]interface{}{"DEV": DEV}
-	},
+	"FLAGS":               func() interface{} { return FLAGS },
 }
 
 var ASSET_HASHES = map[string]string{}
@@ -239,8 +242,6 @@ func markdownOpts() []bf.Option {
 		})}),
 	}
 }
-
-var DEV = os.Getenv("DEV") == "true"
 
 var log = l.New(os.Stderr, "", 0)
 
