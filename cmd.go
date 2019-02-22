@@ -75,6 +75,16 @@ var SITE_PAGES = []Page{
 var SITE_POSTS = []Post{
 	{
 		Page: Page{
+			Path:        `posts/astrotips.html`,
+			Title:       `Announcing Astrotips: Video Guides on Astroneer`,
+			Description: `A series of video guides, tips and tricks on Astroneer, an amazing space exploration and building game`,
+		},
+		PostMdName: `astrotips.md`,
+		Created:    time.Date(2019, 2, 22, 11, 0, 0, 0, time.UTC),
+		Listed:     true,
+	},
+	{
+		Page: Page{
 			Path:        `posts/camel-case-abbr.html`,
 			Title:       `Don't Abbreviate in CamelCase`,
 			Description: `CamelCase identifiers should avoid abbreviations, e.g. "JsonText" rather than "JSONText"`,

@@ -31,9 +31,10 @@ $breakpoint-lg: 1024px;
     --font-size-h2: 1.4rem;
     --font-size-h3: 1.2rem;
 
-    // Source: http://brandcolors.net.
+    // Source: https://brandcolors.net.
     --color-skype:    #00aff0;
     --color-github:   #4183c4;
+    --color-youtube:  #ff0000;
     --color-twitter:  #55acee;
     --color-linkedin: #0976b4;
     --color-facebook: #3b5998;
@@ -110,6 +111,7 @@ code, key, pre {
 .fg-feedly   {color: var(--color-feedly);}
 .fg-rss      {color: var(--color-rss);}
 .fg-feedly   {color: var(--color-feedly);}
+.fg-youtube  {color: var(--color-youtube);}
 
 .fill-facebook {fill: var(--color-facebook);}
 .fill-github   {fill: var(--color-github);}
@@ -119,6 +121,7 @@ code, key, pre {
 .fill-feedly   {fill: var(--color-feedly);}
 .fill-rss      {fill: var(--color-rss);}
 .fill-feedly   {fill: var(--color-feedly);}
+.fill-youtube  {fill: var(--color-youtube);}
 
 /* Typography */
 

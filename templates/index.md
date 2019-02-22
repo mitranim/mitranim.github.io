@@ -10,7 +10,7 @@ Autodidact. Senior software developer and architect. Main expertise: web applica
 
 **Open for hire!** See my expertise and interests below.
 
-Open source enthusiast. See my [works](/works).
+Enthusiastic open source developer. Also trying my hand at gaming videos. See [works](/works).
 
 # Languages
 
@@ -66,6 +66,8 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 # Links
 
 [{{include "svg-github"}} My Github](https://github.com/mitranim)
+
+[{{include "svg-youtube"}} My Youtube](https://www.youtube.com/channel/UCt6dH_XZxJCgaa6vwqrwFxA)
 
 [{{include "svg-twitter"}} My Twitter](http://twitter.com/mitranim)
 

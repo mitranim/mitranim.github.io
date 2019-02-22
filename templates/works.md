@@ -1,8 +1,15 @@
 # TOC
 
-  * [Open Source](#open-source)
-  * [Commercial](#commercial)
-  * [Other](#other)
+* [Gaming](#gaming)
+* [Open Source](#open-source)
+* [Commercial](#commercial)
+* [Other](#other)
+
+# Gaming
+
+## [Astrotips](https://www.youtube.com/channel/UCt6dH_XZxJCgaa6vwqrwFxA)
+
+Series of video guides on [Astroneer](https://astroneer.space), an amazing game about surviving, exploring and building on alien planets.
 
 # Open Source
 
