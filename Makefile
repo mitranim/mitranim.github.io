@@ -1,7 +1,9 @@
 # Usage
 #
-#   "make -j"   -- build or rebuild manually
-#   "make w -j" -- build, start server, watch and rebuild
+#   "make -j"       -- build or rebuild manually
+#   "make w -j"     -- build, start server, watch and rebuild
+#   "make deploy"   -- deploy while "w" is not running
+#   "make w-deploy" -- deploy while "w" is running
 #
 # Dependencies
 #
