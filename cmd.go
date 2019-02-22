@@ -565,7 +565,7 @@ func currentAttr(href string, data interface{}) template.HTMLAttr {
 		path = data.Path
 	}
 	if href == path {
-		return "aria-current"
+		return `aria-current="page"`
 	}
 	return ""
 }
