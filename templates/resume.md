@@ -1,5 +1,5 @@
 <p class="text-right gaps-v-letter">
-  <span class="block fg-blue" data-note="Updated: 2018-10-25"></span>
+  <span class="block fg-blue" data-note="Updated: 2019-02-22"></span>
   <span class="block noprint">
     <button type="button" style="padding: 0" onclick="window.print()">
       <span class="fill-faded">{{include "svg-print"}}</span> Print to PDF
@@ -23,10 +23,9 @@ Moscow, Russia
 
 Autodidact. Senior software developer and architect. Main expertise: web applications (full stack).
 
-Open source enthusiast.
+**Currently open for hire!** See my expertise and interests below.
 
-Part of team at Purelab.io (https://purelab.io), a software development and
-consulting studio.
+Open source enthusiast.
 
 # Languages
 
@@ -108,7 +107,7 @@ fpx: functional programming extentions for JavaScript (https://mitranim.com/fpx/
 
 # Job Background
 
-2016—present: Purelab.io — part of team.
+2016—2018: Purelab.io — part of team.
 
 2015—2016 (1 yr) ToBox.com — senior web developer.
 

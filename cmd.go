@@ -493,7 +493,7 @@ func findTemplate(root *template.Template, name string) (*template.Template, err
 			names = append(names, temp.Name())
 		}
 	}
-	return nil, errors.Errorf("template %q not found. Known templates: %v", name, names)
+	return nil, errors.Errorf("template %q not found; known templates: %v", name, names)
 }
 
 func renderTemplate(temp *template.Template, data interface{}) ([]byte, error) {

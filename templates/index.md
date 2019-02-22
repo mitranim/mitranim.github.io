@@ -8,7 +8,7 @@ Nelo Mitranim.
 
 Autodidact. Senior software developer and architect. Main expertise: web applications (full stack).
 
-Part of team at [Purelab.io](https://purelab.io), a software development and consulting studio. Hire us for your next big project!
+**Open for hire!** See my expertise and interests below.
 
 Open source enthusiast. See my [works](/works).
 
