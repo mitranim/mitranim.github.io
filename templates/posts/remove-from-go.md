@@ -1,4 +1,4 @@
-The [Go programming language](https://golang.org) espouses ["less is more"](http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html). It prefers fewer features and "one way of doing things". However, it still has some fat to lose! This article highlights what I consider unnecessary, and suggests the path to gradual deprecation and removal.
+The [Go programming language](https://golang.org) espouses ["less is more"](https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html). It prefers fewer features and "one way of doing things". However, it still has some fat to lose! This article highlights what I consider unnecessary, and suggests the path to gradual deprecation and removal.
 
 Goes without saying: **this is an opinion piece**. If we disagree, that's cool!
 

@@ -3,7 +3,7 @@
 </p>
 
 Next generation web frameworks are around the corner.
-[Angular2](https://angular.io) and [Aurelia](http://aurelia.io) go beta in a few
+[Angular2](https://angular.io) and [Aurelia](https://aurelia.io) go beta in a few
 months. They codify custom elements as the dominant design pattern, and put
 spotlight on some future and exotic JavaScript features: ES6 modules, decorated
 classes, TypeScript annotations, and other.
@@ -51,8 +51,8 @@ You can also check your progress against the
 ### Prerequisites For: Everything
 
 We'll start from blank. You'll need several command line utilities for package
-management and builds. The guide assumes you have [Node.js](http://nodejs.org)
-and [git](http://git-scm.com) installed. Install other tools with `npm`:
+management and builds. The guide assumes you have [Node.js](https://nodejs.org)
+and [git](https://git-scm.com) installed. Install other tools with `npm`:
 
 ```sh
 npm install -g jspm gulp tsd
@@ -131,7 +131,7 @@ API. You also get lazy asynchronous loading, which is part of the module spec,
 for free. SystemJS also consumes the AMD and CommonJS formats, so you can import
 any existing libraries.
 
-In addition, we'll use [`jspm`](http://jspm.io). It's the real package manager
+In addition, we'll use [`jspm`](https://jspm.io). It's the real package manager
 for the web that replaces `bower`. It will automatically install SystemJS for
 us.
 

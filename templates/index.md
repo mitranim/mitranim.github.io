@@ -28,7 +28,7 @@ Solid experience:
 
   * SQL databases: Postgres
   * document databases: ArangoDB, CouchDB
-  * Datomic ([http://www.datomic.com](http://www.datomic.com))
+  * Datomic ([https://www.datomic.com](https://www.datomic.com))
   * Firebase ([https://firebase.google.com](https://firebase.google.com))
 
 Predominant choice: Postgres.
@@ -69,8 +69,8 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 [{{include "svg-youtube"}} My Youtube](https://www.youtube.com/channel/UCt6dH_XZxJCgaa6vwqrwFxA)
 
-[{{include "svg-twitter"}} My Twitter](http://twitter.com/mitranim)
+[{{include "svg-twitter"}} My Twitter](https://twitter.com/mitranim)
 
-[{{include "svg-linkedin"}} My LinkedIn](http://linkedin.com/in/mitranim)
+[{{include "svg-linkedin"}} My LinkedIn](https://linkedin.com/in/mitranim)
 
-[{{include "svg-facebook"}} My Facebook](http://facebook.com/mitranim)
+[{{include "svg-facebook"}} My Facebook](https://facebook.com/mitranim)

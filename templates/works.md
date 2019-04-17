@@ -13,7 +13,7 @@ Series of video guides on [Astroneer](https://astroneer.space), an amazing game 
 
 # Open Source
 
-Ordered by newer first. Filtered by subjective significance.
+Ordered by newer first. Less significant stuff is omitted.
 
 ## [github.com/purelabio/eth](https://github.com/purelabio/eth) <span class="fg-faded font-normal">(Go)</span>
 
@@ -103,7 +103,7 @@ Pair of libraries for making HTTP requests in Node.js and browsers. Much better 
 
 ## [stylific](https://mitranim.com/stylific/) <span class="fg-faded font-normal">(Sass, JS)</span>
 
-[unmaintained] CSS (Sass) library/framework. Similar to [Bootstrap](http://getbootstrap.com), built on different principles. Accompanied by [stylific-lite](https://mitranim.com/stylific-lite/).
+[unmaintained] CSS (Sass) library/framework. Similar to [Bootstrap](https://getbootstrap.com), built on different principles. Accompanied by [stylific-lite](https://mitranim.com/stylific-lite/).
 
 ## [simple-pjax](https://github.com/mitranim/simple-pjax) <span class="fg-faded font-normal">(JS)</span>
 
@@ -125,7 +125,7 @@ Various webapps and websites for [ShanzhaiCity](https://shanzhaicity.com), a US-
   * An order of magnitude faster than the alternatives
   * 2016—2017, part of team at Purelab.io
 
-## [ToBox](http://tobox.purelab.io) <span class="fg-faded font-normal">(2015—2016, JS, React)</span>
+## [ToBox](https://tobox.purelab.io) <span class="fg-faded font-normal">(2015—2016, JS, React)</span>
 
 Stylish, visual platform for creating online shops. (Part of web frontend team.)
 

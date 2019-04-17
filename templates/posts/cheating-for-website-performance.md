@@ -86,7 +86,7 @@ sure to research this feature for your stack of choice.
 
 ## Make Your JavaScript Lazy
 
-If your application is JavaScript-heavy, you should use a module system with lazy loading. This is supported by the ES6 module system, and you can use it today with [SystemJS](https://github.com/systemjs/systemjs) and, optionally, [jspm](http://jspm.io). You can also achieve a similar effect with AMD.
+If your application is JavaScript-heavy, you should use a module system with lazy loading. This is supported by the ES6 module system, and you can use it today with [SystemJS](https://github.com/systemjs/systemjs) and, optionally, [jspm](https://jspm.io). You can also achieve a similar effect with AMD.
 
 The core parts of the application should be bundled into a single file, and big but optional parts may be imported asynchronously when needed. If your app is small, you can skip lazy loading and bundle the entire app.
 
