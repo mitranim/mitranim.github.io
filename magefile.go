@@ -54,6 +54,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"strings"
 	"sync"
 
 	"github.com/gorilla/websocket"
@@ -498,11 +499,8 @@ func Deploy() (err error) {
 	shell("git", "add", "-A", ".")
 	shell("git", "commit", "-a", "--allow-empty-message", "-m", "''")
 	shell("git", "branch", "-m", targetBranch)
-
-	// FIXME uncomment for real deploy
-	// Will require GH credentials
-	// shell("git", "push", "-f", "origin", targetBranch)
-	// must(os.RemoveAll(".git"))
+	shell("git", "push", "-f", "origin", targetBranch)
+	must(os.RemoveAll(".git"))
 
 	return
 }
@@ -522,5 +520,5 @@ func shell(command string, args ...string) string {
 	if err != nil {
 		panic(err)
 	}
-	return buf.String()
+	return strings.TrimSpace(buf.String())
 }
