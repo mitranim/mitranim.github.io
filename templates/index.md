@@ -10,7 +10,7 @@ Autodidact. Senior software developer and architect. Main expertise: web applica
 
 **Open for hire!** See my expertise and interests below.
 
-Enthusiastic open source developer. Also trying my hand at gaming videos. See [works](/works).
+Passionate about open source software and computer games. Trying my hand at gaming videos. See [works](/works).
 
 # Languages
 
