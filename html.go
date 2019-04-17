@@ -1,14 +1,17 @@
+// +build mage
+
 package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/xml"
 	"fmt"
 	"hash/crc32"
 	"html/template"
 	"io"
 	"io/ioutil"
-	l "log"
+	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -16,153 +19,69 @@ import (
 	"strings"
 	"time"
 
+	"github.com/BurntSushi/toml"
 	"github.com/alecthomas/chroma"
 	chtml "github.com/alecthomas/chroma/formatters/html"
 	clexers "github.com/alecthomas/chroma/lexers"
 	cstyles "github.com/alecthomas/chroma/styles"
+	"github.com/magefile/mage/mg"
 	"github.com/pkg/errors"
+	"github.com/rjeczalik/notify"
 	bf "github.com/russross/blackfriday/v2"
 )
 
-const (
-	PUBLIC_DIR        = "public"
-	TEMPLATE_DIR      = "templates"
-	SERVER_PORT       = "52693"
-	FILE_MODE         = 0600
-	DIR_MODE          = 0700
-	HUMAN_TIME_FORMAT = "Jan 02, 2006"
-)
+const TEMPLATE_DIR = "templates"
+const FILE_MODE = 0600
+const DIR_MODE = 0700
+const HUMAN_TIME_FORMAT = "Jan 02, 2006"
 
-var FLAGS = struct {
-	DEV bool
-}{
-	DEV: os.Getenv("DEV") == "true",
+// Rebuilds HTML.
+func Html() error {
+	mg.Deps(Styles)
+	t0 := time.Now()
+	err := buildSite()
+	if err != nil {
+		return err
+	}
+	t1 := time.Now()
+	log.Printf("[html] built in %v", t1.Sub(t0))
+	return nil
 }
 
-var SITE_PAGES = []Page{
-	{
-		Path:        `index.html`,
-		Title:       `about:mitranim`,
-		Description: `About me: details, works, posts`,
-	},
-	{
-		Path:  "404.html",
-		Title: "Page Not Found",
-	},
-	{
-		Path:        `works.html`,
-		Title:       `Works`,
-		Description: `Software I'm involved in`,
-	},
-	{
-		Path:        `posts.html`,
-		Title:       `Blog Posts`,
-		Description: `Random notes and thoughts`,
-	},
-	{
-		Path:        `demos.html`,
-		Title:       `Demos`,
-		Description: `Silly little demos`,
-	},
-	{
-		Path:        `resume.html`,
-		Title:       `Resume`,
-		Description: `Nelo Mitranim's Resume`,
-		ForceLight:  true,
-	},
+// Watches templates and rebuilds HTML.
+//
+// When rebuilds become too slow, this could reinitialize and re-render only
+// the changed templates. But I'd rather avoid that.
+func HtmlW(ctx context.Context) error {
+	fsEvents := make(chan notify.EventInfo, 1)
+	err := notify.Watch(TEMPLATE_DIR+"/...", fsEvents, FS_EVENTS)
+	if err != nil {
+		return err
+	}
+	defer notify.Stop(fsEvents)
+
+	for {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+
+		case fsEvent := <-fsEvents:
+			log.Println("[html] FS event:", fsEvent)
+
+			err := Html()
+			if err != nil {
+				log.Println("[html] error:", err)
+				continue
+			}
+
+			notifyClients()
+		}
+	}
 }
 
-var SITE_POSTS = []Post{
-	{
-		Page: Page{
-			Path:        `posts/astrotips.html`,
-			Title:       `Announcing Astrotips: Video Guides on Astroneer`,
-			Description: `A series of video guides, tips and tricks on Astroneer, an amazing space exploration and building game`,
-		},
-		PostMdName: `astrotips.md`,
-		Created:    time.Date(2019, 2, 22, 11, 0, 0, 0, time.UTC),
-		Listed:     true,
-	},
-	{
-		Page: Page{
-			Path:        `posts/camel-case-abbr.html`,
-			Title:       `Don't Abbreviate in CamelCase`,
-			Description: `CamelCase identifiers should avoid abbreviations, e.g. "JsonText" rather than "JSONText"`,
-		},
-		PostMdName: `camel-case-abbr.md`,
-		Created:    time.Date(2019, 1, 17, 7, 0, 0, 0, time.UTC),
-		Listed:     true,
-	},
-	{
-		Page: Page{
-			Path:        `posts/remove-from-go.html`,
-			Title:       `Things I Would Remove from Go`,
-			Description: `If less is more, Go could gain by losing weight`,
-		},
-		PostMdName: `remove-from-go.md`,
-		Created:    time.Date(2019, 1, 15, 1, 0, 0, 0, time.UTC),
-		Listed:     true,
-	},
-	{
-		Page: Page{
-			Path:        `posts/back-from-hiatus-2019.html`,
-			Title:       `Back from Hiatus (2019)`,
-			Description: `Back to blogging after three and a half years`,
-		},
-		PostMdName: `back-from-hiatus-2019.md`,
-		Created:    time.Date(2019, 1, 15, 0, 0, 0, 0, time.UTC),
-		Listed:     true,
-	},
-	{
-		Page: Page{
-			Path:        `posts/cheating-for-performance-pjax.html`,
-			Title:       `Cheating for Performance with Pjax`,
-			Description: `Faster page transitions, for free`,
-		},
-		PostMdName: `cheating-for-performance-pjax.md`,
-		Created:    time.Date(2015, 7, 25, 0, 0, 0, 0, time.UTC),
-		Listed:     true,
-	},
-	{
-		Page: Page{
-			Path:        `posts/cheating-for-website-performance.html`,
-			Title:       `Cheating for Website Performance`,
-			Description: `Frontend tips for speeding up websites`,
-		},
-		PostMdName: `cheating-for-website-performance.md`,
-		Created:    time.Date(2015, 3, 11, 0, 0, 0, 0, time.UTC),
-		Listed:     true,
-	},
-	{
-		Page: Page{
-			Path:        `posts/keeping-things-simple.html`,
-			Title:       `Keeping Things Simple`,
-			Description: `Musings on simplicity in programming`,
-		},
-		PostMdName: `keeping-things-simple.md`,
-		Created:    time.Date(2015, 3, 10, 0, 0, 0, 0, time.UTC),
-		Listed:     true,
-	},
-	{
-		Page: Page{
-			Path:        `posts/next-generation-today.html`,
-			Title:       `Next Generation Today`,
-			Description: `EcmaScript 2015/2016 workflow with current web frameworks`,
-		},
-		PostMdName: `next-generation-today.md`,
-		Created:    time.Date(2015, 5, 18, 0, 0, 0, 0, time.UTC),
-		Listed:     false,
-	},
-	{
-		Page: Page{
-			Path:        `posts/old-posts.html`,
-			Title:       `Old Posts`,
-			Description: `some old stuff from around the net`,
-		},
-		PostMdName: `old-posts.md`,
-		Created:    time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
-		Listed:     true,
-	},
+var SITE struct {
+	Pages []Page
+	Posts []Post
 }
 
 var FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
@@ -253,8 +172,6 @@ func markdownOpts() []bf.Option {
 	}
 }
 
-var log = l.New(os.Stderr, "", 0)
-
 type Page struct {
 	Path        string
 	Title       string
@@ -270,30 +187,42 @@ type Post struct {
 	HtmlBody   []byte
 	Created    time.Time
 	Updated    time.Time
-	Listed     bool
+	Listed     flagBool
 }
 
 func (self Post) Slug() string {
 	return strings.TrimSuffix(filepath.Base(self.Path), filepath.Ext(self.Path))
 }
 
-func main() {
-	t0 := time.Now()
-	err := buildSite()
-	if err != nil {
-		panic(err)
+type flagBool bool
+
+func (self *flagBool) UnmarshalText(input []byte) error {
+	switch string(input) {
+	case "true":
+		*self = true
+		return nil
+
+	case "false":
+		*self = false
+		return nil
+
+	// Somehow arrives unquoted, just like true and false
+	case "dev":
+		*self = flagBool(FLAGS.DEV)
+		return nil
+
+	default:
+		return errors.Errorf(`unrecognized flagBool value: %v; must be true, false, or dev`, input)
 	}
-	t1 := time.Now()
-	log.Printf("[html] built in %v\n", t1.Sub(t0))
 }
 
 func buildSite() error {
-	err := initTemplates()
+	err := initSite()
 	if err != nil {
 		return err
 	}
 
-	for _, page := range SITE_PAGES {
+	for _, page := range SITE.Pages {
 		err := buildPage(page)
 		if err != nil {
 			return err
@@ -301,7 +230,7 @@ func buildSite() error {
 	}
 
 	feed := SITE_FEED
-	for _, post := range SITE_POSTS {
+	for _, post := range SITE.Posts {
 		feed, err = buildPost(post, feed)
 		if err != nil {
 			return err
@@ -415,7 +344,12 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 	return feed, nil
 }
 
-func initTemplates() error {
+func initSite() error {
+	_, err := toml.DecodeFile(filepath.Join(TEMPLATE_DIR, "site.toml"), &SITE)
+	if err != nil {
+		return err
+	}
+
 	temp := template.New("")
 	temp.Funcs(TEMPLATE_FUNCS)
 
@@ -636,7 +570,7 @@ func toBytes(input interface{}) []byte {
 }
 
 func listedPosts() (out []Post) {
-	for _, post := range SITE_POSTS {
+	for _, post := range SITE.Posts {
 		if post.Listed {
 			out = append(out, post)
 		}
@@ -938,7 +872,7 @@ type FeedEnclosure struct {
 
 func (self Feed) AtomFeed() AtomFeed {
 	feed := AtomFeed{
-		Xmlns:    "http://www.w3.org/2005/Atom",
+		Xmlns:    "https://www.w3.org/2005/Atom",
 		XmlBase:  self.XmlBase,
 		Title:    self.Title + " | Atom | mitranim",
 		Subtitle: self.Description,
@@ -1121,7 +1055,7 @@ type AtomFeed struct {
 }
 
 // Multiple links with different rel can coexist
-// Atom 1.0 <link rel="enclosure" type="audio/mpeg" title="MP3" href="http://www.example.org/myaudiofile.mp3" length="1234" />
+// Atom 1.0 <link rel="enclosure" type="audio/mpeg" title="MP3" href="https://www.example.org/myaudiofile.mp3" length="1234" />
 type AtomLink struct {
 	XMLName xml.Name `xml:"link"`
 	Rel     string   `xml:"rel,attr,omitempty"`
@@ -1258,7 +1192,7 @@ type RssContent struct {
 	Content string   `xml:",cdata"`
 }
 
-// RSS 2.0 <enclosure url="http://example.com/file.mp3" length="123456789" type="audio/mpeg" />
+// RSS 2.0 <enclosure url="https://example.com/file.mp3" length="123456789" type="audio/mpeg" />
 type RssEnclosure struct {
 	XMLName xml.Name `xml:"enclosure"`
 	Url     string   `xml:"url,attr"`

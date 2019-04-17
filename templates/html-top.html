@@ -35,12 +35,12 @@ links MUST be absolute.
         {
             let ws
             function reinit() {
-                const url    = 'ws://' + window.location.hostname + ':52694/ws'
+                const url    = 'ws://' + window.location.host + '/ws'
                 const ws     = new WebSocket(url)
                 ws.onmessage = reload
                 ws.onclose   = reinitAfterDelay
             }
-            function reload()           {window.location.reload()}
+            function reload() {window.location.reload()}
             function reinitAfterDelay() {setTimeout(reinit, 1000)}
             reinit()
         }
