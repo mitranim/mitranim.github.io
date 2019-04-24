@@ -5,7 +5,7 @@ description = "About me: bio, works, posts"
 
 [[pages]]
 path = "404.html"
-title = "age Not Found"
+title = "Page Not Found"
 
 [[pages]]
 path = "works.html"
@@ -32,80 +32,95 @@ forceLight = true
 
 [[posts]]
 path = "posts/gameplay-conjecture.html"
+inputPath = "posts/gameplay-conjecture.md"
 title = "Gameplay Conjecture"
 description = "Amount of gameplay ≈ amount of required decisions"
-postMdName = "gameplay-conjecture.md"
-created = 2019-04-20T09:00:00Z
+created = 2019-05-01T09:00:00Z
+public = "dev"
 listed = "dev"
 
 [[posts]]
 path = "posts/astrotips.html"
+inputPath = "posts/astrotips.md"
 title = "Announcing Astrotips: Video Guides on Astroneer"
 description = "A series of video guides, tips and tricks on Astroneer, an amazing space exploration and building game"
-postMdName = "astrotips.md"
 created = 2019-02-22T11:00:00Z
+public = true
 listed = true
 
 [[posts]]
 path = "posts/camel-case-abbr.html"
+inputPath = "posts/camel-case-abbr.md"
 title = "Don't Abbreviate in CamelCase"
 description = 'CamelCase identifiers should avoid abbreviations, e.g. "JsonText" rather than "JSONText"'
-postMdName = "camel-case-abbr.md"
 created = 2019-01-17T07:00:00Z
+public = true
 listed = true
 
 [[posts]]
 path = "posts/remove-from-go.html"
+inputPath = "posts/remove-from-go.md"
 title = "Things I Would Remove From Go"
 description = "If less is more, Go could gain by losing weight"
-postMdName = "remove-from-go.md"
 created = 2019-01-15T01:00:00Z
+public = true
 listed = true
 
 [[posts]]
 path = "posts/back-from-hiatus-2019.html"
+inputPath = "posts/back-from-hiatus-2019.md"
 title = "Back from Hiatus (2019)"
 description = "Back to blogging after three and a half years"
-postMdName = "back-from-hiatus-2019.md"
 created = 2019-01-15T00:00:00Z
+public = true
 listed = true
 
 [[posts]]
 path = "posts/cheating-for-performance-pjax.html"
+inputPath = "posts/cheating-for-performance-pjax.md"
+obsoletePath = "thoughts/cheating-for-performance-pjax.html"
 title = "Cheating for Performance with Pjax"
 description = "Faster page transitions, for free"
-postMdName = "cheating-for-performance-pjax.md"
 created = 2015-07-25T00:00:00Z
+public = true
 listed = true
 
 [[posts]]
 path = "posts/cheating-for-website-performance.html"
+inputPath = "posts/cheating-for-website-performance.md"
+obsoletePath = "thoughts/cheating-for-website-performance.html"
 title = "Cheating for Website Performance"
 description = "Frontend tips for speeding up websites"
-postMdName = "cheating-for-website-performance.md"
 created = 2015-03-11T00:00:00Z
+public = true
 listed = true
 
 [[posts]]
 path = "posts/keeping-things-simple.html"
+inputPath = "posts/keeping-things-simple.md"
+obsoletePath = "thoughts/keeping-things-simple.html"
 title = "Keeping Things Simple"
 description = "Musings on simplicity in programming"
-postMdName = "keeping-things-simple.md"
 created = 2015-03-10T00:00:00Z
+public = true
 listed = true
 
 [[posts]]
 path = "posts/next-generation-today.html"
+inputPath = "posts/next-generation-today.md"
+obsoletePath = "thoughts/next-generation-today.html"
 title = "Next Generation Today"
 description = "EcmaScript 2015/2016 workflow with current web frameworks"
-postMdName = "next-generation-today.md"
 created = 2015-05-18T00:00:00Z
+public = true
 listed = false
 
 [[posts]]
 path = "posts/old-posts.html"
+inputPath = "posts/old-posts.md"
+obsoletePath = "thoughts/old-posts.html"
 title = "Old Posts"
 description = "some old stuff from around the net"
-postMdName = "old-posts.md"
 created = 2015-01-01T00:00:00Z
+public = true
 listed = true

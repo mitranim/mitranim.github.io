@@ -8,7 +8,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"hash/crc32"
-	"html/template"
+	ht "html/template"
 	"io"
 	"io/ioutil"
 	"log"
@@ -114,9 +114,9 @@ var SITE_FEED = Feed{
 	Items:       nil,
 }
 
-var TEMPLATES *template.Template
+var TEMPLATES *ht.Template
 
-var TEMPLATE_FUNCS = template.FuncMap{
+var TEMPLATE_FUNCS = ht.FuncMap{
 	"asHtml":              asHtml,
 	"asAttr":              asAttr,
 	"toMarkdown":          toMarkdown,
@@ -130,8 +130,8 @@ var TEMPLATE_FUNCS = template.FuncMap{
 	"includeWith":         includeTemplateWith,
 	"joinPath":            path.Join,
 	"linkWithHash":        linkWithHash,
-	"raw":                 func(text string) template.HTML { return template.HTML(text) },
-	"headingPrefix":       func() template.HTML { return HEADING_PREFIX_HTML },
+	"raw":                 func(text string) ht.HTML { return ht.HTML(text) },
+	"headingPrefix":       func() ht.HTML { return HEADING_PREFIX_HTML },
 	"FLAGS":               func() interface{} { return FLAGS },
 }
 
@@ -183,15 +183,17 @@ type Page struct {
 
 type Post struct {
 	Page
-	PostMdName string
-	HtmlBody   []byte
-	Created    time.Time
-	Updated    time.Time
-	Listed     flagBool
+	InputPath    string
+	ObsoletePath string
+	HtmlBody     []byte
+	Created      time.Time
+	Updated      time.Time
+	Public       flagBool
+	Listed       flagBool
 }
 
-func (self Post) Slug() string {
-	return strings.TrimSuffix(filepath.Base(self.Path), filepath.Ext(self.Path))
+func (self Post) UrlFromSiteRoot() string {
+	return "/" + strings.TrimSuffix(self.Path, filepath.Ext(self.Path))
 }
 
 type flagBool bool
@@ -231,6 +233,9 @@ func buildSite() error {
 
 	feed := SITE_FEED
 	for _, post := range SITE.Posts {
+		if !post.Public {
+			continue
+		}
 		feed, err = buildPost(post, feed)
 		if err != nil {
 			return err
@@ -283,6 +288,7 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		return feed, err
 	}
 
+	// Used for the page and the feed entry, enclosed in different layouts.
 	post.HtmlBody, err = renderTemplate(bodyTemp, post)
 	if err != nil {
 		return feed, err
@@ -298,12 +304,12 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		return feed, err
 	}
 
-	feedLayoutTemp, err := findTemplate(TEMPLATES, "post-feed-layout.html")
+	feedPostLayoutTemp, err := findTemplate(TEMPLATES, "feed-post-layout.html")
 	if err != nil {
 		return feed, err
 	}
 
-	feedContent, err := renderTemplate(feedLayoutTemp, post)
+	feedPostContent, err := renderTemplate(feedPostLayoutTemp, post)
 	if err != nil {
 		return feed, err
 	}
@@ -313,22 +319,19 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		return feed, err
 	}
 
-	// Redirect old post URL
-	meta := fmt.Sprintf(
-		`<meta http-equiv="refresh" content="0;URL='%v/posts/%v'" />`,
-		SITE_BASE,
-		post.Slug(),
-	)
-	err = writePublic(filepath.Join("thoughts", post.Slug()+".html"), []byte(meta))
-	if err != nil {
-		return feed, err
+	if post.ObsoletePath != "" {
+		meta := fmt.Sprintf(`<meta http-equiv="refresh" content="0;URL='%v'" />`, post.UrlFromSiteRoot())
+		err = writePublic(post.ObsoletePath, []byte(meta))
+		if err != nil {
+			return feed, err
+		}
 	}
 
 	if !post.Listed {
 		return feed, nil
 	}
 
-	href := SITE_BASE + "/posts/" + post.Slug()
+	href := SITE_BASE + post.UrlFromSiteRoot()
 	feed.Items = append(feed.Items, FeedItem{
 		XmlBase:     href,
 		Title:       post.Page.Title,
@@ -338,7 +341,7 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		Id:          href,
 		Created:     post.Created,                                          // TODO fetch from git?
 		Updated:     anyTime(post.Created, post.Updated, time.Now().UTC()), // TODO fetch from git?
-		Content:     string(feedContent),
+		Content:     string(feedPostContent),
 	})
 
 	return feed, nil
@@ -350,51 +353,50 @@ func initSite() error {
 		return err
 	}
 
-	temp := template.New("")
+	temp := ht.New("")
 	temp.Funcs(TEMPLATE_FUNCS)
 
-	for _, pattern := range []string{
+	/**
+	The following code is similar to `temp.ParseGlob()`, but:
+		* accepts empty matches
+		* rejects duplicates
+		* preprocesses .md templates to preserve raw code blocks
+	*/
+
+	matches, err := globs(
 		filepath.Join(TEMPLATE_DIR, "*.html"),
 		filepath.Join(TEMPLATE_DIR, "*.md"),
 		filepath.Join(TEMPLATE_DIR, "**/*.html"),
 		filepath.Join(TEMPLATE_DIR, "**/*.md"),
-	} {
-		/**
-		Differences from `.ParseGlob()`:
-			* accepts empty matches
-			* rejects duplicates
-			* preprocesses .md templates to preserve raw code blocks
-		*/
+	)
+	if err != nil {
+		return errors.WithStack(err)
+	}
 
-		matches, err := filepath.Glob(pattern)
+	for _, fsPath := range matches {
+		virtPath := strings.TrimPrefix(filepath.ToSlash(fsPath), TEMPLATE_DIR+"/")
+
+		if temp.Lookup(virtPath) != nil {
+			return errors.Errorf("duplicate template %q", virtPath)
+		}
+
+		bytes, err := ioutil.ReadFile(fsPath)
 		if err != nil {
 			return errors.WithStack(err)
 		}
 
-		for _, match := range matches {
-			name := filepath.Base(match)
-			if temp.Lookup(name) != nil {
-				return errors.Errorf("duplicate template %q at %q", name, match)
-			}
+		content := string(bytes)
+		if filepath.Ext(fsPath) == ".md" {
+			/**
+			Modify the template to preserve content between ``` as-is. We
+			need it raw for Markdown and code highlighting.
+			*/
+			content = codeBlockReg.ReplaceAllStringFunc(content, codeBlockToRaw)
+		}
 
-			bytes, err := ioutil.ReadFile(match)
-			if err != nil {
-				return errors.WithStack(err)
-			}
-			content := string(bytes)
-
-			if filepath.Ext(match) == ".md" {
-				/**
-				Modify the template to preserve content between ``` as-is. We
-				need it raw for Markdown and code highlighting.
-				*/
-				content = codeBlockReg.ReplaceAllStringFunc(content, codeBlockToRaw)
-			}
-
-			_, err = temp.New(name).Parse(content)
-			if err != nil {
-				return errors.WithStack(err)
-			}
+		_, err = temp.New(virtPath).Parse(content)
+		if err != nil {
+			return errors.WithStack(err)
 		}
 	}
 
@@ -402,18 +404,22 @@ func initSite() error {
 	return nil
 }
 
-/*
-Unless this has diverged from the comment, it should look like this:
-
-	(?:^|\n)```\S*\r?\n((?:[^`]|`[^`]|``[^`])*)```
-*/
-var codeBlockReg = regexp.MustCompile(fmt.Sprintf(
-	`(?:^|\n)%[2]v\S*\r?\n((?:[^%[1]v]|%[1]v[^%[1]v]|%[1]v%[1]v[^%[1]v])*)%[2]v`,
-	"`",
-	"```"))
+var codeBlockReg = regexp.MustCompile("(?:^|\\n)```\\S*\\r?\\n((?:[^`]|`[^`]|``[^`])*)```")
 
 func codeBlockToRaw(input string) string {
 	return "{{raw (print `" + strings.Replace(input, "`", "` \"`\" `", -1) + "`)}}"
+}
+
+func globs(patterns ...string) ([]string, error) {
+	var out []string
+	for _, pattern := range patterns {
+		matches, err := filepath.Glob(pattern)
+		if err != nil {
+			return out, errors.WithStack(err)
+		}
+		out = append(out, matches...)
+	}
+	return out, nil
 }
 
 func xmlEncode(input interface{}) (*bytes.Buffer, error) {
@@ -425,7 +431,7 @@ func xmlEncode(input interface{}) (*bytes.Buffer, error) {
 	return buf, errors.WithStack(err)
 }
 
-func findTemplate(root *template.Template, name string) (*template.Template, error) {
+func findTemplate(root *ht.Template, name string) (*ht.Template, error) {
 	temp := root.Lookup(name)
 	if temp != nil {
 		return temp, nil
@@ -440,7 +446,7 @@ func findTemplate(root *template.Template, name string) (*template.Template, err
 	return nil, errors.Errorf("template %q not found; known templates: %v", name, names)
 }
 
-func renderTemplate(temp *template.Template, data interface{}) ([]byte, error) {
+func renderTemplate(temp *ht.Template, data interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	err := temp.Execute(&buf, data)
 	if err != nil {
@@ -449,11 +455,11 @@ func renderTemplate(temp *template.Template, data interface{}) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func includeTemplate(name string) (template.HTML, error) {
+func includeTemplate(name string) (ht.HTML, error) {
 	return includeTemplateWith(name, nil)
 }
 
-func includeTemplateWith(name string, data interface{}) (template.HTML, error) {
+func includeTemplateWith(name string, data interface{}) (ht.HTML, error) {
 	temp, err := findTemplate(TEMPLATES, name)
 	if err != nil {
 		return "", err
@@ -464,7 +470,7 @@ func includeTemplateWith(name string, data interface{}) (template.HTML, error) {
 		return "", err
 	}
 
-	return template.HTML(bytes), nil
+	return ht.HTML(bytes), nil
 }
 
 func writePublic(path string, bytes []byte) error {
@@ -495,12 +501,12 @@ var featherIconExternalLink = strings.TrimSpace(`
 var featherIconExternalLinkBytes = []byte(featherIconExternalLink)
 
 // Note: somewhat duplicated in `MarkdownRenderer.RenderNode`.
-func externalAnchor(href string, text string) template.HTML {
-	return template.HTML(fmt.Sprintf(`<a href="%v" target="_blank" rel="noopener noreferrer" class="decorate-link">%v%v</a>`,
+func externalAnchor(href string, text string) ht.HTML {
+	return ht.HTML(fmt.Sprintf(`<a href="%v" target="_blank" rel="noopener noreferrer" class="decorate-link">%v%v</a>`,
 		href, text, featherIconExternalLink))
 }
 
-func currentAttr(href string, data interface{}) template.HTMLAttr {
+func currentAttr(href string, data interface{}) ht.HTMLAttr {
 	var path string
 	switch data := data.(type) {
 	case Page:
@@ -527,12 +533,12 @@ func years() string {
 	return fmt.Sprint(start)
 }
 
-func asHtml(input interface{}) template.HTML {
-	return template.HTML(toString(input))
+func asHtml(input interface{}) ht.HTML {
+	return ht.HTML(toString(input))
 }
 
-func asAttr(input interface{}) template.HTMLAttr {
-	return template.HTMLAttr(toString(input))
+func asAttr(input interface{}) ht.HTMLAttr {
+	return ht.HTMLAttr(toString(input))
 }
 
 func toString(input interface{}) string {
@@ -541,17 +547,17 @@ func toString(input interface{}) string {
 		return string(input)
 	case string:
 		return input
-	case template.HTML:
+	case ht.HTML:
 		return string(input)
-	case template.HTMLAttr:
+	case ht.HTMLAttr:
 		return string(input)
 	default:
 		panic(errors.Errorf("unrecognized input: %v", input))
 	}
 }
 
-func toMarkdown(input interface{}) template.HTML {
-	return template.HTML(bf.Run(toBytes(input), markdownOpts()...))
+func toMarkdown(input interface{}) ht.HTML {
+	return ht.HTML(bf.Run(toBytes(input), markdownOpts()...))
 }
 
 func toBytes(input interface{}) []byte {
@@ -560,9 +566,9 @@ func toBytes(input interface{}) []byte {
 		return input
 	case string:
 		return []byte(input)
-	case template.HTML:
+	case ht.HTML:
 		return []byte(input)
-	case template.HTMLAttr:
+	case ht.HTMLAttr:
 		return []byte(input)
 	default:
 		panic(errors.Errorf("unrecognized input: %v", input))
@@ -571,7 +577,7 @@ func toBytes(input interface{}) []byte {
 
 func listedPosts() (out []Post) {
 	for _, post := range SITE.Posts {
-		if post.Listed {
+		if post.Public && post.Listed {
 			out = append(out, post)
 		}
 	}
@@ -631,7 +637,7 @@ var (
 )
 
 var (
-	HEADING_PREFIX_HTML = template.HTML(HEADING_PREFIX)
+	HEADING_PREFIX_HTML = ht.HTML(HEADING_PREFIX)
 )
 
 var (

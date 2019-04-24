@@ -4,9 +4,8 @@
         <h1>Blog Posts</h1>
 
         {{range $post := listedPosts}}
-            {{$link := joinPath "/posts/" $post.Slug}}
             <div class="gaps-v-1">
-                <h2><a href="{{$link | asAttr}}">{{$post.Title | asHtml}}</a></h2>
+                <h2><a href="{{$post.UrlFromSiteRoot | asAttr}}">{{$post.Title | asHtml}}</a></h2>
                 {{if $post.Description}}
                     <p>{{$post.Description | asHtml}}</p>
                 {{end}}
