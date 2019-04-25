@@ -40,6 +40,24 @@ public = "dev"
 listed = "dev"
 
 [[posts]]
+path = "posts/tips-and-tricks-doom-2016.html"
+inputPath = "posts/tips-and-tricks-doom-2016.md"
+title = "Tips and Tricks: Doom 2016"
+description = "General tips, notes on difficulty, enemies, runes, weapons"
+created = 2019-04-25T12:00:00Z
+public = true
+listed = true
+
+[[posts]]
+path = "posts/game-impressions-doom-2016.html"
+inputPath = "posts/game-impressions-doom-2016.md"
+title = "Game Impressions: Doom 2016"
+description = "I really like Doom 2016, here's why"
+created = 2019-04-25T11:00:00Z
+public = true
+listed = true
+
+[[posts]]
 path = "posts/astrotips.html"
 inputPath = "posts/astrotips.md"
 title = "Announcing Astrotips: Video Guides on Astroneer"
