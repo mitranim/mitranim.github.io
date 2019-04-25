@@ -10,7 +10,7 @@ I've tried to phrase this from my subjective perspective: "what I like" rather t
 * [Upgrades](#upgrades)
 * [Weapons](#weapons)
 * [Runes](#runes)
-* [Misc](#misc)
+* [Replayability](#replayability)
 * [Conclusion](#conclusion)
 
 ## Overview
