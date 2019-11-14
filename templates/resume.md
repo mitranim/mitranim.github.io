@@ -119,14 +119,6 @@ fpx: functional programming extentions for JavaScript (https://mitranim.com/fpx/
 
 Earlier experience: mostly technical support.
 
-# Education
-
-Attempts at a higher education didn't click with me. Ended up with two
-unfinished:
-
-  * 2007—2008 MSU (Moscow State University): bioengineering and bioinformatics.
-  * 2002—2004 MATI (Moscow State Aviation Technological University): physics.
-
 # Misc
 
 Favorite pastimes: open source development (see https://github.com/mitranim), computer games, anime.

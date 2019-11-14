@@ -72,7 +72,7 @@ The game has four upgrade progressions:
 * weapon mods
 * runes
 
-I don't really like the health and armor progressions. By the end, it doubles your health and triples the armor. It just boosts your numbers without changing how you play, exactly what I praise this game for _not_ doing much. It adds to the power creep, impeding the replayability of earlier missions. The game could have been better without it.
+I don't really like the health and armor progressions. By the end, it doubles your health and triples the armor. It just boosts your numbers without changing how you play, exactly what I praise this game for _not_ doing much. It adds to the power creep, widening the difficulty gap between the early and late missions and thus impeding replayability. The game could have been better without it.
 
 Utility systems is stuff like faster weapon swapping or becoming immune to barrel explosions. They don't affect the game much; barrel immunity is the only major effect. I'm guessing they added this to incentivize secret hunting. Fortunately, these upgrades don't increase your power much. They could be taken out of the game and nobody would notice.
 
@@ -102,7 +102,7 @@ I appreciate the "mastery" challenges required for the last upgrades. Some of th
 
 Runes passively change something about your character. You gradually earn 12, but can only use 3 at any time. This means you don't just max them out and forget about it; you'll keep thinking which runes to pick for a given situation or playstyle, which can be interesting.
 
-Unlike other upgrades, they're unlocked _and_ upgraded through challenges rather than points. The unlocking challenges teleport you into rooms with very strict rules, while the upgrade challenges are done through normal gameplay. Just as with weapon upgrades, I really like this approach. It provides a different kind of gameplay and can teach you something new. For example, one challenge requires you to survive a dangerous fight on 1 health. You might have to learn to dodge some attacks you couldn't before. The same challenge also forces you to use a Gauss Cannon with an un-upgraded Siege Mode, which _stops your movement_; this suicidal tool turns out to be vital against charging Pinkies. That challenge can teach you a lot, and you wouldn't put yourself in this position during normal gameplay.
+Unlike other upgrades, they're unlocked _and_ upgraded through challenges rather than points. The unlocking challenges teleport you into rooms with very strict rules, while the upgrade challenges are done through normal gameplay. Just as with weapon upgrades, I really like this approach. It provides a different kind of gameplay and can teach you something new. For example, one challenge requires you to survive a dangerous fight on 1 health. You might have to learn to dodge some attacks you didn't before. The same challenge also forces you to use a Gauss Cannon with an un-upgraded Siege Mode, which _stops your movement_; this suicidal tool turns out to be vital against charging Pinkies. That challenge can teach you a lot, and you wouldn't try that during normal gameplay.
 
 Rune _upgrades_ are done by performing a certain action N times. I find the requirements a bit too bland. Unlike weapon mastery challenges, they tend to require actions you're already doing: Glory Kill N demons, pick up N armor, and so on. They tend to just happen in the background without requiring much thought. But the overall concept is solid; I prefer it to any currency-based unlocks.
 

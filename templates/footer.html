@@ -6,7 +6,7 @@
         </span>
 
         <span class="flex-1 text-center">
-            <a href="/#contacts" class="decorate-link">touch me</a>
+            {{if not (eq .Path "index.html")}}<a href="/#contacts" class="decorate-link">touch me</a>{{end}}
         </span>
 
         <span class="flex-1 row-end-center gaps-h-0x5">

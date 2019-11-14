@@ -6,7 +6,7 @@
 
 Nelo Mitranim.
 
-Autodidact. Senior software developer and architect. Main expertise: web applications (full stack). Gaming enthusiast.
+Autodidact. Senior software developer and architect. Main expertise: web applications (full stack). Open source and gaming enthusiast.
 
 **Open for hire!** See my expertise and interests below.
 

@@ -102,7 +102,7 @@ func Static(ctx context.Context) error {
 
 		outPath := filepath.Join(PUBLIC_DIR, rel)
 
-		err = os.MkdirAll(filepath.Dir(outPath), os.ModeDir)
+		err = os.MkdirAll(filepath.Dir(outPath), os.ModePerm)
 		if err != nil {
 			return err
 		}
@@ -340,7 +340,7 @@ func makeImagePath(srcPath string) (string, error) {
 		return "", err
 	}
 	outPath := filepath.Join(PUBLIC_DIR, "images", rel)
-	return outPath, os.MkdirAll(filepath.Dir(outPath), os.ModeDir)
+	return outPath, os.MkdirAll(filepath.Dir(outPath), os.ModePerm)
 }
 
 var CLIENTS sync.Map // sync.Map<string, *Client>
