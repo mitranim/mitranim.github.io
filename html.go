@@ -35,6 +35,8 @@ const FILE_MODE = 0600
 const DIR_MODE = 0700
 const HUMAN_TIME_FORMAT = "Jan 02, 2006"
 
+var SITE_FILE = filepath.Join(TEMPLATE_DIR, "site.toml")
+
 // Rebuilds HTML.
 func Html() error {
 	mg.Deps(Styles)
@@ -50,8 +52,8 @@ func Html() error {
 
 // Watches templates and rebuilds HTML.
 //
-// When rebuilds become too slow, this could reinitialize and re-render only
-// the changed templates. But I'd rather avoid that.
+// If rebuilds become too slow from too many files, this could reinitialize and
+// re-render only the changed templates. Keeping it simple for now.
 func HtmlW(ctx context.Context) error {
 	fsEvents := make(chan notify.EventInfo, 1)
 	err := notify.Watch(TEMPLATE_DIR+"/...", fsEvents, FS_EVENTS)
@@ -339,8 +341,8 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		Author:      FEED_AUTHOR,
 		Description: post.Page.Description,
 		Id:          href,
-		Created:     post.Created,                                          // TODO fetch from git?
-		Updated:     anyTime(post.Created, post.Updated, time.Now().UTC()), // TODO fetch from git?
+		Created:     post.Created,                                          // TODO get from git?
+		Updated:     anyTime(post.Created, post.Updated, time.Now().UTC()), // TODO get from git?
 		Content:     string(feedPostContent),
 	})
 
@@ -348,7 +350,7 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 }
 
 func initSite() error {
-	_, err := toml.DecodeFile(filepath.Join(TEMPLATE_DIR, "site.toml"), &SITE)
+	_, err := toml.DecodeFile(SITE_FILE, &SITE)
 	if err != nil {
 		return err
 	}

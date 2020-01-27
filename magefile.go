@@ -59,6 +59,7 @@ import (
 
 	"github.com/gorilla/websocket"
 	"github.com/magefile/mage/mg"
+	"github.com/pkg/errors"
 	"github.com/rjeczalik/notify"
 )
 
@@ -89,7 +90,7 @@ func Clean() error {
 func Static(ctx context.Context) error {
 	return filepath.Walk("static", func(srcPath string, info os.FileInfo, err error) error {
 		if err != nil {
-			return err
+			return errors.WithStack(err)
 		}
 		if info.IsDir() {
 			return nil
@@ -97,30 +98,30 @@ func Static(ctx context.Context) error {
 
 		rel, err := filepath.Rel("static", srcPath)
 		if err != nil {
-			return err
+			return errors.WithStack(err)
 		}
 
 		outPath := filepath.Join(PUBLIC_DIR, rel)
 
 		err = os.MkdirAll(filepath.Dir(outPath), os.ModePerm)
 		if err != nil {
-			return err
+			return errors.WithStack(err)
 		}
 
 		src, err := os.Open(srcPath)
 		if err != nil {
-			return err
+			return errors.WithStack(err)
 		}
 		defer src.Close()
 
 		out, err := os.Create(outPath)
 		if err != nil {
-			return err
+			return errors.WithStack(err)
 		}
 		defer out.Close()
 
 		_, err = io.Copy(out, src)
-		return err
+		return errors.WithStack(err)
 	})
 }
 
@@ -129,7 +130,7 @@ func StaticW(ctx context.Context) error {
 	fsEvents := make(chan notify.EventInfo, 1)
 	err := notify.Watch("static/...", fsEvents, FS_EVENTS)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 	defer notify.Stop(fsEvents)
 
@@ -141,7 +142,7 @@ func StaticW(ctx context.Context) error {
 		case fsEvent := <-fsEvents:
 			info, err := os.Stat(fsEvent.Path())
 			if err != nil {
-				log.Println("[static] error:", err)
+				log.Println("[static] error:", errors.WithStack(err))
 				continue
 			}
 
@@ -153,7 +154,7 @@ func StaticW(ctx context.Context) error {
 
 			err = Static(ctx)
 			if err != nil {
-				log.Println("[static] error:", err)
+				log.Println("[static] error:", errors.WithStack(err))
 				continue
 			}
 
@@ -188,7 +189,7 @@ func StylesW(ctx context.Context) error {
 	fsEvents := make(chan notify.EventInfo, 1)
 	err := notify.Watch("styles/...", fsEvents, FS_EVENTS)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 	defer notify.Stop(fsEvents)
 
@@ -201,7 +202,7 @@ func StylesW(ctx context.Context) error {
 			log.Println("[styles] FS event:", fsEvent)
 			err = Styles(ctx)
 			if err != nil {
-				log.Println("[styles] error:", err)
+				log.Println("[styles] error:", errors.WithStack(err))
 				continue
 			}
 			notifyClients()
@@ -218,7 +219,7 @@ func Images(ctx context.Context) error {
 
 	err := filepath.Walk("images", func(srcPath string, info os.FileInfo, err error) error {
 		if err != nil {
-			return err
+			return errors.WithStack(err)
 		}
 
 		if info.IsDir() || !isImage(srcPath) {
@@ -251,17 +252,17 @@ func Images(ctx context.Context) error {
 
 	pipeIn, err := cmd.StdinPipe()
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	err = cmd.Start()
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	_, err = pipeIn.Write([]byte(batch))
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 	pipeIn.Close()
 
@@ -273,7 +274,7 @@ func ImagesW(ctx context.Context) error {
 	fsEvents := make(chan notify.EventInfo, 1)
 	err := notify.Watch("images/...", fsEvents, FS_EVENTS)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 	defer notify.Stop(fsEvents)
 
@@ -287,13 +288,13 @@ func ImagesW(ctx context.Context) error {
 
 			cwd, err := os.Getwd()
 			if err != nil {
-				log.Println("[images] error:", err)
+				log.Println("[images] error:", errors.WithStack(err))
 				continue
 			}
 
 			srcPath, err := filepath.Rel(cwd, absPath)
 			if err != nil {
-				log.Println("[images] error:", err)
+				log.Println("[images] error:", errors.WithStack(err))
 				continue
 			}
 
@@ -305,7 +306,7 @@ func ImagesW(ctx context.Context) error {
 
 			outPath, err := makeImagePath(srcPath)
 			if err != nil {
-				log.Println("[images] error:", err)
+				log.Println("[images] error:", errors.WithStack(err))
 				continue
 			}
 
@@ -315,7 +316,7 @@ func ImagesW(ctx context.Context) error {
 
 			err = cmd.Run()
 			if err != nil {
-				log.Println("[images] error:", err)
+				log.Println("[images] error:", errors.WithStack(err))
 				continue
 			}
 
@@ -337,7 +338,7 @@ func isImage(pt string) bool {
 func makeImagePath(srcPath string) (string, error) {
 	rel, err := filepath.Rel("images", srcPath)
 	if err != nil {
-		return "", err
+		return "", errors.WithStack(err)
 	}
 	outPath := filepath.Join(PUBLIC_DIR, "images", rel)
 	return outPath, os.MkdirAll(filepath.Dir(outPath), os.ModePerm)
@@ -434,7 +435,7 @@ func initClientConn(rew http.ResponseWriter, req *http.Request) {
 	up := websocket.Upgrader{CheckOrigin: skipOriginCheck}
 	conn, err := up.Upgrade(rew, req, nil)
 	if err != nil {
-		log.Printf("failed to init connection at %v: %v", req.RemoteAddr, err)
+		log.Printf("failed to init connection at %v: %v", req.RemoteAddr, errors.WithStack(err))
 		return
 	}
 
@@ -466,7 +467,7 @@ func notifyClient(client *Client) {
 
 	err := client.WriteMessage(websocket.TextMessage, nil)
 	if err != nil {
-		log.Printf("failed to notify socket: %+v", err)
+		log.Printf("failed to notify socket: %+v", errors.WithStack(err))
 	}
 }
 
@@ -492,6 +493,11 @@ func Deploy() (err error) {
 			sourceBranch, targetBranch))
 	}
 
+	cwd, err := os.Getwd()
+	if err != nil {
+		return errors.WithStack(err)
+	}
+
 	must(os.Chdir(PUBLIC_DIR))
 	must(os.RemoveAll(".git"))
 	shell("git", "init")
@@ -501,6 +507,7 @@ func Deploy() (err error) {
 	shell("git", "branch", "-m", targetBranch)
 	shell("git", "push", "-f", "origin", targetBranch)
 	must(os.RemoveAll(".git"))
+	must(os.Chdir(cwd))
 
 	return
 }
@@ -518,7 +525,7 @@ func shell(command string, args ...string) string {
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
 	if err != nil {
-		panic(err)
+		panic(errors.WithStack(err))
 	}
 	return strings.TrimSpace(buf.String())
 }
