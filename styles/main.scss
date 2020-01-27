@@ -137,6 +137,9 @@ code, key, pre {
 
 /* Layout */
 
+.flex        {@extend %display-flex;}
+.inline-flex {@extend %display-inline-flex;}
+
 .row-start-start    {@include flex-layout(row, start, start);}
 .row-start-stretch  {@include flex-layout(row, start, stretch);}
 .row-center-center  {@include flex-layout(row, center, center);}
@@ -145,14 +148,6 @@ code, key, pre {
 .col-start-start    {@include flex-layout(col, start, start);}
 .col-start-stretch  {@include flex-layout(col, start, stretch);}
 .col-start-end      {@include flex-layout(col, start, end);}
-
-// Note: the additional specificity allows this class to override the regular,
-// non-inline flex container classes.
-.flex-inline,
-:root.flex-inline,
-.flex-inline:not(:root) {
-    @include flex-inline;
-}
 
 .flex-1 {@include flex(1);}
 .flex-2 {@include flex(2);}
@@ -178,6 +173,7 @@ code, key, pre {
 
 .stretch-to-viewport {
     min-height: 100vh;
+    @extend .flex;
     @extend .col-start-stretch;
 }
 
@@ -331,6 +327,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
 .navlink {
     @extend .font-large;
     @extend .padding-1;
+    @extend .flex;
     @extend .row-center-center;
     @extend .fg-link;
     &.--busy {

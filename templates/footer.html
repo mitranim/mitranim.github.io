@@ -1,6 +1,6 @@
 <footer style="margin-top: auto">
-    <div class="limit-width row-between-center margin-t-4 margin-b-2">
-        <span class="flex-1 row-start-start gaps-h-0x5">
+    <div class="limit-width flex row-between-center margin-t-4 margin-b-2">
+        <span class="flex-1 flex row-start-start gaps-h-0x5">
             <span class="text-left">{{years}}</span>
             {{externalAnchor "https://github.com/mitranim/mitranim.github.io" "website source"}}
         </span>
@@ -9,7 +9,7 @@
             {{if not (eq .Path "index.html")}}<a href="/#contacts" class="decorate-link">touch me</a>{{end}}
         </span>
 
-        <span class="flex-1 row-end-center gaps-h-0x5">
+        <span class="flex-1 flex row-end-center gaps-h-0x5">
             <a href="#" class="fill-faded padding-1 busy-bg-pale" onclick="event.preventDefault(); window.scrollTo(0, 0)">
                 {{include "svg-arrow-up"}}
             </a>

@@ -139,14 +139,9 @@
 }
 
 @mixin flex-layout($dir: none, $justify: none, $align: none) {
-    @extend %display-flex;
     @if $dir     != none {@include flex-direction($dir);}
     @if $justify != none {@include flex-justify($justify);}
     @if $align   != none {@include flex-align($align);}
-}
-
-@mixin flex-inline {
-    @extend %display-inline-flex;
 }
 
 @mixin flex-wrap($value: wrap) {
