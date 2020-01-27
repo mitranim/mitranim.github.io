@@ -23,11 +23,11 @@ Moscow, Russia
 
 Autodidact. Senior software developer and architect. Main expertise: web applications (full stack).
 
-**Currently open for hire!** See my expertise and interests below.
-
 Open source enthusiast.
 
 # Languages
+
+Dominant choice: Go.
 
 Solid experience: Go, JS/Node, Clojure, Python.
 
@@ -35,9 +35,9 @@ Limited experience: Rust, Haskell, Erlang.
 
 Passing familiarity: Swift, C, Common Lisp, Scheme.
 
-Predominant choice: Go.
-
 # Databases
+
+Dominant choice: Postgres.
 
 Solid experience:
 
@@ -45,8 +45,6 @@ Solid experience:
   * document databases: ArangoDB, CouchDB
   * Datomic (https://www.datomic.com)
   * Firebase (https://firebase.google.com)
-
-Predominant choice: Postgres.
 
 # Applications
 

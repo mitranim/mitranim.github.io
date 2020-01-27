@@ -8,11 +8,11 @@ Nelo Mitranim.
 
 Autodidact. Senior software developer and architect. Main expertise: web applications (full stack). Open source and gaming enthusiast.
 
-**Open for hire!** See my expertise and interests below.
-
 Passionate about open source software and computer games. Trying my hand at gaming videos. See [works](/works).
 
 # Languages
+
+Dominant choice: Go.
 
 Solid experience: Go, JS/Node, Clojure, Python.
 
@@ -20,9 +20,9 @@ Limited experience: Rust, Haskell, Erlang.
 
 Passing familiarity: Swift, C, Common Lisp, Scheme.
 
-Predominant choice: Go.
-
 # Databases
+
+Dominant choice: Postgres.
 
 Solid experience:
 
@@ -30,8 +30,6 @@ Solid experience:
   * document databases: ArangoDB, CouchDB
   * Datomic ([https://www.datomic.com](https://www.datomic.com))
   * Firebase ([https://firebase.google.com](https://firebase.google.com))
-
-Predominant choice: Postgres.
 
 # Applications
 
