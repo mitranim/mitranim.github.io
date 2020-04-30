@@ -46,7 +46,6 @@ package main
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -88,7 +87,8 @@ func Clean() error {
 
 // Copies files from ./static to the target directory.
 func Static(ctx context.Context) error {
-	return filepath.Walk("static", func(srcPath string, info os.FileInfo, err error) error {
+	const DIR = "static"
+	return filepath.Walk(DIR, func(srcPath string, info os.FileInfo, err error) error {
 		if err != nil {
 			return errors.WithStack(err)
 		}
@@ -96,7 +96,7 @@ func Static(ctx context.Context) error {
 			return nil
 		}
 
-		rel, err := filepath.Rel("static", srcPath)
+		rel, err := filepath.Rel(DIR, srcPath)
 		if err != nil {
 			return errors.WithStack(err)
 		}
@@ -473,24 +473,23 @@ func notifyClient(client *Client) {
 
 // Builds in "production" mode and deploys. Must not run concurrently with any
 // other tasks.
-func Deploy() (err error) {
+func Deploy() error {
 	FLAGS.DEV = false
-
 	mg.SerialDeps(Clean, Build)
 
-	defer func() {
-		if err == nil {
-			err, _ = recover().(error)
-		}
-	}()
-
-	originUrl := shell("git", "remote", "get-url", "origin")
-	sourceBranch := shell("git", "symbolic-ref", "--short", "head")
+	originUrl, err := shellCmd("git", "remote", "get-url", "origin")
+	if err != nil {
+		return err
+	}
+	sourceBranch, err := shellCmd("git", "symbolic-ref", "--short", "head")
+	if err != nil {
+		return err
+	}
 	const targetBranch = "master"
 
 	if sourceBranch == targetBranch {
-		panic(fmt.Sprintf("expected source branch %q to be distinct from target branch %q",
-			sourceBranch, targetBranch))
+		return errors.Errorf("expected source branch %q to be distinct from target branch %q",
+			sourceBranch, targetBranch)
 	}
 
 	cwd, err := os.Getwd()
@@ -498,34 +497,47 @@ func Deploy() (err error) {
 		return errors.WithStack(err)
 	}
 
-	must(os.Chdir(PUBLIC_DIR))
-	must(os.RemoveAll(".git"))
-	shell("git", "init")
-	shell("git", "remote", "add", "origin", originUrl)
-	shell("git", "add", "-A", ".")
-	shell("git", "commit", "-a", "--allow-empty-message", "-m", "''")
-	shell("git", "branch", "-m", targetBranch)
-	shell("git", "push", "-f", "origin", targetBranch)
-	must(os.RemoveAll(".git"))
-	must(os.Chdir(cwd))
+	return unpanic(func() {
+		must(os.Chdir(PUBLIC_DIR))
+		must(os.RemoveAll(".git"))
+		mustShellCmd("git", "init")
+		mustShellCmd("git", "remote", "add", "origin", originUrl)
+		mustShellCmd("git", "add", "-A", ".")
+		mustShellCmd("git", "commit", "-a", "--allow-empty-message", "-m", "''")
+		mustShellCmd("git", "branch", "-m", targetBranch)
+		mustShellCmd("git", "push", "-f", "origin", targetBranch)
+		must(os.RemoveAll(".git"))
+		must(os.Chdir(cwd))
+	})
+}
 
+func unpanic(fun func()) (err error) {
+	defer func() {
+		if err == nil {
+			err, _ = recover().(error)
+		}
+	}()
+	fun()
 	return
+}
+
+func mustShellCmd(command string, args ...string) string {
+	out, err := shellCmd(command, args...)
+	must(err)
+	return out
+}
+
+func shellCmd(command string, args ...string) (string, error) {
+	var buf bytes.Buffer
+	cmd := exec.Command(command, args...)
+	cmd.Stdout = &buf
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	return strings.TrimSpace(buf.String()), errors.WithStack(err)
 }
 
 func must(err error) {
 	if err != nil {
 		panic(err)
 	}
-}
-
-func shell(command string, args ...string) string {
-	var buf bytes.Buffer
-	cmd := exec.Command(command, args...)
-	cmd.Stdout = &buf
-	cmd.Stderr = os.Stderr
-	err := cmd.Run()
-	if err != nil {
-		panic(errors.WithStack(err))
-	}
-	return strings.TrimSpace(buf.String())
 }

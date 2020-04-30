@@ -50,10 +50,12 @@ func Html() error {
 	return nil
 }
 
-// Watches templates and rebuilds HTML.
-//
-// If rebuilds become too slow from too many files, this could reinitialize and
-// re-render only the changed templates. Keeping it simple for now.
+/*
+Watches templates and rebuilds HTML.
+
+If rebuilds become too slow from too many files, this could reinitialize and
+re-render only the changed templates. Keeping it simple for now.
+*/
 func HtmlW(ctx context.Context) error {
 	fsEvents := make(chan notify.EventInfo, 1)
 	err := notify.Watch(TEMPLATE_DIR+"/...", fsEvents, FS_EVENTS)
@@ -451,10 +453,7 @@ func findTemplate(root *ht.Template, name string) (*ht.Template, error) {
 func renderTemplate(temp *ht.Template, data interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	err := temp.Execute(&buf, data)
-	if err != nil {
-		return nil, errors.WithStack(err)
-	}
-	return buf.Bytes(), nil
+	return buf.Bytes(), errors.WithStack(err)
 }
 
 func includeTemplate(name string) (ht.HTML, error) {
@@ -792,9 +791,11 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 	}
 }
 
-// TODO: instantiating some lexers is EXTREMELY SLOW (tens of milliseconds).
-// This takes at least as much time as the rest of the build. The worst
-// offender is JS. HTML also auto-detects and includes JS.
+/*
+TODO: instantiating some lexers is EXTREMELY SLOW (tens of milliseconds). This
+takes at least as much time as the rest of the build. The worst offender is JS.
+HTML also auto-detects and includes JS.
+*/
 func findLexer(tag string, text string) (out chroma.Lexer) {
 	if len(tag) > 0 {
 		out = clexers.Get(tag)
