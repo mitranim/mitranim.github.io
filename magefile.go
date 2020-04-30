@@ -503,7 +503,7 @@ func Deploy() error {
 		mustShellCmd("git", "init")
 		mustShellCmd("git", "remote", "add", "origin", originUrl)
 		mustShellCmd("git", "add", "-A", ".")
-		mustShellCmd("git", "commit", "-a", "--allow-empty-message", "-m", "''")
+		mustShellCmd("git", "commit", "-a", "--allow-empty-message", "-m", "")
 		mustShellCmd("git", "branch", "-m", targetBranch)
 		mustShellCmd("git", "push", "-f", "origin", targetBranch)
 		must(os.RemoveAll(".git"))

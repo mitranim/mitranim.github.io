@@ -29,7 +29,7 @@ Glory Kills become less viable on Nightmare because other enemies attack while y
 
 On Nightmare, enemy shots tend to lead the target. Straight movement gets you shot.
 
-Some enemies have surprising moves and behaviors. Ranged enemies can suddenly rush into melee. Imps have surprisingly agile melee moves. Pinkies will track you surprisingly well while charging, and can quickly turn 180 degrees to smack you. The list goes on. The developers have done an amazing job with the enemy movesets. When you find yourself going "WTF this move, this is bullshit!", appreciate the game's ability to surprise you!
+Some enemies have surprising moves and behaviors. Ranged enemies can suddenly rush into melee. Imps have surprisingly agile melee moves. Pinkies will track you surprisingly well while charging, and can quickly turn 180 degrees to smack you. The list goes on. The developers have done an amazing job with the enemy movesets. When you find yourself going "WTF this move is bullshit!", appreciate the game's ability to surprise you!
 
 With slow-firing weapons, it's faster to switch to another gun than wait for the recovery. Cycling between the Super Shotgun, Gauss Cannon, and Rocket Launcher, or at least two of these guns, can increase your burst DPS.
 
@@ -43,7 +43,7 @@ In-Flight Mobility gives you more movement control in the air than you have on t
 
 Ammo Boost roughly doubles the ammo pickups. Makes ammo-intensive guns such as the Gauss Cannon more spammable. More consistently useful than Rich Get Richer.
 
-Kills under the Berserk powerup count as Glory Kills. When berserking, use the appopriate runes, namely Seek and Destroy (launch from farther away), Savagery (kill faster), and Blood Fueled (move faster after Glory Kills). When Berserk ends, revert to your normal runes.
+Kills under the Berserk powerup count as Glory Kills. When berserking, use the appropriate runes, namely Seek and Destroy (launch from farther away), Savagery (kill faster), and Blood Fueled (move faster after Glory Kills). When Berserk ends, revert to your normal runes.
 
 ## Utility Upgrades
 
