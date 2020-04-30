@@ -70,9 +70,9 @@ Various webapps and websites for [ShanzhaiCity](https://shanzhaicity.com), a US-
   * Order of magnitude faster than alternatives
   * Period: 2016—2017, part of team at Purelab.io
 
-### [ToBox](https://tobox.purelab.io) <span class="fg-faded font-normal">(2015—2016, JS, React)</span>
+### [ToBox](https://tobox.com) <span class="fg-faded font-normal">(2015—2016, JS, React)</span>
 
-Stylish, visual platform for creating online shops. (Part of web frontend team.)
+Stylish, visual platform for creating online shops. (Part of web frontend team.) The current website was not made by us.
 
 ## Other
 

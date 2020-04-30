@@ -1,4 +1,4 @@
-Spent the past week absorbed into Doom 2016. My "let's play" is being gradually released on YouTube: [playlist link](https://www.youtube.com/playlist?list=PLfygJGWNJ-9Vqxy5svyBTy0jIS8ggtDXd). This post summarizes my impressions.
+Spent the past week absorbed into Doom 2016. My "let's play" is being gradually released on Youtube: [playlist link](https://www.youtube.com/playlist?list=PLfygJGWNJ-9Vqxy5svyBTy0jIS8ggtDXd). This post summarizes my impressions.
 
 I've tried to phrase this from my subjective perspective: "what I like" rather than "what's good", because everyone likes different things. The accompanying post [Tips and Tricks: Doom 2016](/posts/tips-and-tricks-doom-2016) contains advice on how to play, while this post analyzes the game's design. This is about single player only; I haven't tried the PvP.
 

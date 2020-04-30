@@ -74,7 +74,7 @@ code, key, pre {
 
 .theme-dark {
     --color-bg:      hsl(200, 5%, 10%);
-    --color-fg:      white;
+    --color-fg:      hsl(0, 0%, 90%);
     --color-pale:    hsl(0, 0%, 15%);
     --color-faded:   hsl(0, 0%, 70%);
     --color-smoke:   darkslategray;
@@ -395,6 +395,8 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
     left: 0;
     @extend .bg-smoke;
 
+    // This visually hides the element while allowing it to receive focus.
+    // `display: none` or `visibility: hidden` would have prevented focus.
     width: 1px;
     height: 1px;
     opacity: 0;

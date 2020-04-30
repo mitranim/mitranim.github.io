@@ -40,6 +40,15 @@ public = "dev"
 listed = "dev"
 
 [[posts]]
+path = "posts/thoughts-on-the-egg.html"
+inputPath = "posts/thoughts-on-the-egg.md"
+title = "Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt"
+description = ""
+created = 2020-04-30T08:25:16Z
+public = true
+listed = true
+
+[[posts]]
 path = "posts/tips-and-tricks-doom-2016.html"
 inputPath = "posts/tips-and-tricks-doom-2016.md"
 title = "Tips and Tricks: Doom 2016"
