@@ -40,6 +40,7 @@ $breakpoint-lg: 1024px;
     --color-linkedin: #0976b4;
     --color-facebook: #3b5998;
     --color-feedly:   #2bb24c;
+    --color-discord:  #7289da;
     --color-rss:      #f26522;
 
     /* Misc */
@@ -126,6 +127,7 @@ code, key, pre {
 .fill-rss      {fill: var(--color-rss);}
 .fill-feedly   {fill: var(--color-feedly);}
 .fill-youtube  {fill: var(--color-youtube);}
+.fill-discord  {fill: var(--color-discord);}
 
 /* Typography */
 
