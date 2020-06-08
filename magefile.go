@@ -1,44 +1,7 @@
 // +build mage
 
 /*
-Dependencies:
-
-	* Go
-	* Mage
-	* GraphicsMagick
-	* DartSass
-
-Windows assumes Chocolatey: https://chocolatey.org.
-
-Go dependencies are installed automatically on launch.
-
-For Mage installation, see https://magefile.org.
-
-Installing GraphicsMagick:
-
-	* MacOS: "brew install graphicksmagick"
-	* Windows: "choco install graphicksmagick"
-
-Installing DartSass:
-
-	* MacOS: "brew install sass/sass/sass"
-	* Windows: "choco install sass"
-
-First run:
-
-	mage -v build
-	mage -v watch
-
-Regular run (start before making changes):
-
-	mage -v watch
-
-Deploy:
-
-	(stop other tasks)
-	mage -v deploy
-
-To skip the "-v", set the environment variable "MAGEFILE_VERBOSE=true".
+See `readme.md` for dependencies and build commands.
 */
 
 package main
