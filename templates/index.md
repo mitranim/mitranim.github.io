@@ -53,15 +53,15 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 # Contacts
 
-<span>{{include "svg-skype"}} Skype [mitranim.web](skype:mitranim.web?chat)</span>
+<span>{{include "svg-skype"}} Skype: [mitranim.web](skype:mitranim.web?chat)</span>
 
-<span>{{include "svg-paper-plane"}} Telegram [Mitranim](https://telegram.me/Mitranim)</span>
+<span>{{include "svg-paper-plane"}} Telegram: [Mitranim](https://telegram.me/Mitranim)</span>
 
-<span>{{include "svg-discord"}} Discord `Mitranim#5870`</span>
+<span>{{include "svg-discord"}} Discord: `Mitranim#5870`</span>
 
-<span>{{include "svg-mobile-alt"}} Phone [+7-926-044-00-49](tel:+7-926-044-00-49)</span>
+<span>{{include "svg-mobile-alt"}} Phone: [+7-926-044-00-49](tel:+7-926-044-00-49)</span>
 
-<span>@ Email [me@mitranim.com](mailto:me@mitranim.com)</span>; I tend to be **unresponsive** on email.
+<span>@ Email: [me@mitranim.com](mailto:me@mitranim.com)</span>; tend to be **unresponsive** on email, please consider IM first.
 
 # Links
 
