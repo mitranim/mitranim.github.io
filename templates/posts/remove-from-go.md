@@ -20,6 +20,7 @@ We're not allowed to break existing code under Go1. However, it seems plausible 
     * [Remove `new` in favor of `&`](#remove-new)
     * [Remove dot-import](#remove-dot-import)
     * [Remove if-assignment](#remove-if-assignment)
+    * [Remove short float syntax](#remove-short-float-syntax)
 * [Tools](#tools)
     * [Gofmt: align adjacent assignments](#gofmt-declarations)
 * [Misc](#misc)
@@ -249,6 +250,19 @@ If subscoping the variable is vital, just use a block. This also allows you to s
     if ok { _ }
 }
 ```
+
+### Remove short float syntax {#remove-short-float-syntax}
+
+<span class="fg-faded">(This entry was added at 2020-06-11.)</span>
+
+In Go, the following forms are equivalent:
+
+```go
+var _ = 0.123
+var _ = .123
+```
+
+The short form works only for numbers below `0` and is not essential. The long form is essential and more general. Subjectively, I find the short form slightly harder to read; my brain starts thinking about typos and other syntactic forms involving dots. Objectively, it creates an unnecessary choice. Let's leave just one option: the "long" form.
 
 ## Tool Changes {#tools}
 
