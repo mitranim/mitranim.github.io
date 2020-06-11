@@ -253,7 +253,7 @@ If subscoping the variable is vital, just use a block. This also allows you to s
 
 ### Remove short float syntax {#remove-short-float-syntax}
 
-<span class="fg-faded">(This entry was added at 2020-06-11.)</span>
+<span class="fg-faded">(This entry was added on 2020-06-11.)</span>
 
 In Go, the following forms are equivalent:
 
