@@ -182,7 +182,7 @@ type Page struct {
 	Description string
 	Type        string
 	Image       string
-	ForceLight  bool
+	ColorScheme string
 }
 
 type Post struct {

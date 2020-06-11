@@ -26,7 +26,7 @@ description = "Silly little demos"
 path = "resume.html"
 title = "Resume"
 description = "Nelo Mitranim's resume"
-forceLight = true
+colorScheme = "color-scheme-light"
 
 # ----
 

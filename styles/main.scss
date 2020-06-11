@@ -1,38 +1,41 @@
 @import './reset';
 @import './baselib';
 
-/* SCSS Vars */
+/* Vars */
 
 $breakpoint-xs: 420px;
 $breakpoint-sm: 600px;
 $breakpoint-md: 960px;
 $breakpoint-lg: 1024px;
 
-/* Global */
+@mixin color-scheme-dark {
+    --color-bg:      hsl(200, 5%, 10%);
+    --color-fg:      hsl(0, 0%, 90%);
+    --color-pale:    hsl(0, 0%, 15%);
+    --color-faded:   hsl(0, 0%, 70%);
+    --color-smoke:   darkslategray;
+    --color-red:     hsl(0, 70%, 30%);
+    --color-blue:    hsl(207, 100%, 60%);
+    --color-link:    hsl(230, 70%, 80%);
+    --color-code-bg: hsl(70, 8%, 15%); // Same as chroma's Monokai background
+    --color-hr:      hsl(0, 0%, 63%);
+}
 
-:root {
-    /* Typography */
+@mixin color-scheme-light {
+    --color-bg:      white;
+    --color-fg:      black;
+    --color-pale:    hsl(0, 0%, 94%);
+    --color-faded:   hsl(0, 0%, 46%);
+    --color-smoke:   aliceblue;
+    --color-red:     hsl(3,   100%, 60%);
+    --color-blue:    hsl(207, 100%, 42%);
+    --color-link:    hsl(231, 60%, 30%);
+    --color-code-bg: hsl(60, 33%, 97%);
+    --color-hr:      hsl(0, 0%, 63%);
+}
 
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Segoe UI', Verdana, sans-serif;
-    font-size: 18px;
-
-    /* Theme */
-
-    background-color: var(--color-bg);
-    color: var(--color-fg);
-
-    code, key, pre {background-color: var(--color-code-bg);}
-
-    .hr {color: var(--color-hr);}
-
-    /* Vars */
-
-    --max-page-width: #{$breakpoint-md};
-    --font-size-h1: 1.6rem;
-    --font-size-h2: 1.4rem;
-    --font-size-h3: 1.2rem;
-
-    // Source: https://brandcolors.net.
+// Source: https://brandcolors.net.
+%brand-colors {
     --color-skype:    #00aff0;
     --color-github:   #4183c4;
     --color-youtube:  #ff0000;
@@ -42,8 +45,41 @@ $breakpoint-lg: 1024px;
     --color-feedly:   #2bb24c;
     --color-discord:  #7289da;
     --color-rss:      #f26522;
+}
+
+/* Global */
+
+:root {
+    /* Typography */
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Segoe UI', Verdana, sans-serif;
+    font-size: 18px;
+
+    /* Colors */
+
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+
+    code, key, pre {background-color: var(--color-code-bg);}
+
+    .hr {color: var(--color-hr);}
+
+    // This must use `include` and not `extend`, in this specific order,
+    // otherwise the generated CSS will have the wrong precedence order.
+    @include color-scheme-dark;
+    @media(prefers-color-scheme: light) {@include color-scheme-light;}
+
+    /* Vars */
+
+    --max-page-width: #{$breakpoint-md};
+    --font-size-h1: 1.6rem;
+    --font-size-h2: 1.4rem;
+    --font-size-h3: 1.2rem;
+
+    @extend %brand-colors;
 
     /* Misc */
+
     scroll-behavior: smooth;
 }
 
@@ -60,30 +96,12 @@ code, key, pre {
 
 /* Themes */
 
-.theme-light {
-    --color-bg:      white;
-    --color-fg:      black;
-    --color-pale:    hsl(0, 0%, 94%);
-    --color-faded:   hsl(0, 0%, 46%);
-    --color-smoke:   aliceblue;
-    --color-red:     hsl(3,   100%, 60%);
-    --color-blue:    hsl(207, 100%, 42%);
-    --color-link:    hsl(231, 60%, 30%);
-    --color-code-bg: hsl(60, 33%, 97%);
-    --color-hr:      hsl(0, 0%, 63%);
+.color-scheme-dark {
+    @include color-scheme-dark;
 }
 
-.theme-dark {
-    --color-bg:      hsl(200, 5%, 10%);
-    --color-fg:      hsl(0, 0%, 90%);
-    --color-pale:    hsl(0, 0%, 15%);
-    --color-faded:   hsl(0, 0%, 70%);
-    --color-smoke:   darkslategray;
-    --color-red:     hsl(0, 70%, 30%);
-    --color-blue:    hsl(207, 100%, 60%);
-    --color-link:    hsl(230, 70%, 80%);
-    --color-code-bg: hsl(70, 8%, 15%); // Same as chroma's Monokai background
-    --color-hr:      hsl(0, 0%, 63%);
+.color-scheme-light {
+    @include color-scheme-light;
 }
 
 .theme-red {
