@@ -53,8 +53,9 @@ func Html() error {
 /*
 Watches templates and rebuilds HTML.
 
-If rebuilds become too slow from too many files, this could reinitialize and
-re-render only the changed templates. Keeping it simple for now.
+If rebuilds become too slow because of too many files, this could reinitialize
+and re-render only the changed templates rather than everything. Keeping it
+simple for now.
 */
 func HtmlW(ctx context.Context) error {
 	fsEvents := make(chan notify.EventInfo, 1)
@@ -212,13 +213,13 @@ func (self *flagBool) UnmarshalText(input []byte) error {
 		*self = false
 		return nil
 
-	// Somehow arrives unquoted, just like true and false
+	// Somehow arrives unquoted, just like "true" and "false".
 	case "dev":
 		*self = flagBool(FLAGS.DEV)
 		return nil
 
 	default:
-		return errors.Errorf(`unrecognized flagBool value: %v; must be true, false, or dev`, input)
+		return errors.Errorf(`unrecognized flagBool value: %q; must be "true", "false", or "dev"`, input)
 	}
 }
 
@@ -259,12 +260,8 @@ func buildSite() error {
 	if err != nil {
 		return err
 	}
-	err = writePublic("feed_rss.xml", buf.Bytes())
-	if err != nil {
-		return err
-	}
 
-	return nil
+	return writePublic("feed_rss.xml", buf.Bytes())
 }
 
 func buildPage(page Page) error {
@@ -278,12 +275,7 @@ func buildPage(page Page) error {
 		return err
 	}
 
-	err = writePublic(page.Path, output)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return writePublic(page.Path, output)
 }
 
 func buildPost(post Post, feed Feed) (Feed, error) {
@@ -483,12 +475,7 @@ func writePublic(path string, bytes []byte) error {
 	}
 
 	err = ioutil.WriteFile(path, bytes, FILE_MODE)
-	if err != nil {
-		return errors.WithStack(err)
-	}
-
-	// log.Printf("Wrote %v\n", path)
-	return nil
+	return errors.WithStack(err)
 }
 
 var featherIconExternalLink = strings.TrimSpace(`

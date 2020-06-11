@@ -29,9 +29,13 @@ const FS_EVENTS = notify.Create | notify.Remove | notify.Write
 const SERVER_PORT = "52693"
 const PUBLIC_DIR = "public"
 
-type Flags struct{ DEV bool }
+type Flags struct {
+	DEV bool
+}
 
-var FLAGS = Flags{DEV: os.Getenv("DEV") == "true" || os.Getenv("DEV") == ""}
+var FLAGS = Flags{
+	DEV: os.Getenv("DEV") == "true" || os.Getenv("DEV") == "",
+}
 
 var Default = Build
 
@@ -128,7 +132,7 @@ func StaticW(ctx context.Context) error {
 	}
 }
 
-// Builds styles. Requires dart-sass.
+// Builds styles. Requires `dart-sass`.
 func Styles(ctx context.Context) error {
 	const CMD = "sass"
 	args := []string{"--no-source-map"}
@@ -187,7 +191,7 @@ func Images(ctx context.Context) error {
 			return errors.WithStack(err)
 		}
 
-		if info.IsDir() || !isImage(srcPath) {
+		if info.IsDir() || !isImagePath(srcPath) {
 			return nil
 		}
 
@@ -263,7 +267,7 @@ func ImagesW(ctx context.Context) error {
 				continue
 			}
 
-			if !isImage(srcPath) {
+			if !isImagePath(srcPath) {
 				continue
 			}
 
@@ -290,9 +294,9 @@ func ImagesW(ctx context.Context) error {
 	}
 }
 
-func isImage(pt string) bool {
+func isImagePath(pt string) bool {
 	switch filepath.Ext(pt) {
-	case ".jpg", ".png":
+	case ".jpg", ".jpeg", ".png":
 		return true
 	default:
 		return false
@@ -324,8 +328,16 @@ func Server() error {
 	return http.ListenAndServe(":"+SERVER_PORT, http.HandlerFunc(serve))
 }
 
-// Serves static files, resolving URL/HTML similarly to the default Nginx
-// config, Github Pages, or Netlify.
+/*
+Serves static files, resolving URL/HTML in a fashion similar to the default
+Nginx config, Github Pages, and Netlify.
+
+Note: this has a race condition between checking for a file's existence and
+actually serving it. In a production-grade version, this condition should
+probably be addressed. Serving a file is not an atomic operation; the file may
+be deleted or changed midway. This development server doesn't need to handle
+this problem.
+*/
 func serve(rew http.ResponseWriter, req *http.Request) {
 	if req.URL.Path == "/ws" {
 		if req.Method != http.MethodGet {
@@ -346,53 +358,50 @@ func serve(rew http.ResponseWriter, req *http.Request) {
 	reqPath := req.URL.Path
 	filePath := filepath.Join(PUBLIC_DIR, reqPath)
 
-	// Ends with slash -> error 404 for hygiene. Directory links must not end
-	// with a slash. It's unnecessary, and GH Pages will do a 301 redirect,
-	// introducing an additional delay.
+	// Ends with slash? Return error 404 for hygiene. Directory links must not end
+	// with a slash. It's unnecessary, and GH Pages will do a 301 redirect to a
+	// non-slash URL, which is a good feature but adds latency.
 	if len(reqPath) > 1 && reqPath[len(reqPath)-1] == '/' {
 		goto notFound
 	}
 
-	{
-		stat, _ := os.Stat(filePath)
-		if fileExists(stat) {
-			http.ServeFile(rew, req, filePath)
-			return
-		}
+	if fileExists(filePath) {
+		http.ServeFile(rew, req, filePath)
+		return
 	}
 
-	// Has extension -> don't bother looking for +.html or +/index.html
+	// Has extension? Don't bother looking for +".html" or +"/index.html".
 	if path.Ext(reqPath) != "" {
 		goto notFound
 		return
 	}
 
-	// Try +.html
+	// Try +".html".
 	{
 		candidatePath := filePath + ".html"
-		candidateStat, _ := os.Stat(candidatePath)
-		if fileExists(candidateStat) {
+		if fileExists(candidatePath) {
 			http.ServeFile(rew, req, candidatePath)
 			return
 		}
 	}
 
-	// Try +/index.html
+	// Try +"/index.html".
 	{
 		candidatePath := filepath.Join(filePath, "index.html")
-		stat, _ := os.Stat(candidatePath)
-		if fileExists(stat) {
+		if fileExists(candidatePath) {
 			http.ServeFile(rew, req, candidatePath)
 			return
 		}
 	}
 
 notFound:
-	// Sends code 200 if 404.html is found; not worth fixing for local development
+	// Minor issue: sends code 200 instead of 404 if "404.html" is found; not
+	// worth fixing for local development.
 	http.ServeFile(rew, req, filepath.Join(PUBLIC_DIR, "404.html"))
 }
 
-func fileExists(stat os.FileInfo) bool {
+func fileExists(filePath string) bool {
+	stat, _ := os.Stat(filePath)
 	return stat != nil && !stat.IsDir()
 }
 
@@ -400,7 +409,7 @@ func initClientConn(rew http.ResponseWriter, req *http.Request) {
 	up := websocket.Upgrader{CheckOrigin: skipOriginCheck}
 	conn, err := up.Upgrade(rew, req, nil)
 	if err != nil {
-		log.Printf("failed to init connection at %v: %v", req.RemoteAddr, errors.WithStack(err))
+		log.Printf("Failed to init connection at %v: %v", req.RemoteAddr, errors.WithStack(err))
 		return
 	}
 
@@ -432,7 +441,7 @@ func notifyClient(client *Client) {
 
 	err := client.WriteMessage(websocket.TextMessage, nil)
 	if err != nil {
-		log.Printf("failed to notify socket: %+v", errors.WithStack(err))
+		log.Printf("Failed to notify socket: %+v", errors.WithStack(err))
 	}
 }
 
