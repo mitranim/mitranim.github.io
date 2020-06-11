@@ -91,34 +91,6 @@ var SITE struct {
 
 var FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
 
-var SITE_BASE = func() string {
-	if FLAGS.DEV {
-		return "http://localhost:" + SERVER_PORT
-	}
-	return "https://mitranim.com"
-}()
-
-var SITE_FEED = Feed{
-	Title:   "Software, Tech, Philosophy, Games",
-	XmlBase: SITE_BASE,
-	AltLink: &FeedLink{
-		Rel:  "alternate",
-		Type: "text/html",
-		Href: SITE_BASE + "/posts",
-	},
-	SelfLink: &FeedLink{
-		Rel:  "self",
-		Type: "application/atom+xml",
-		Href: SITE_BASE + "/feed.xml",
-	},
-	Author:      FEED_AUTHOR,
-	Created:     time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
-	Updated:     time.Now(),
-	Id:          SITE_BASE + "/posts",
-	Description: `Random thoughts about technology`,
-	Items:       nil,
-}
-
 var TEMPLATES *ht.Template
 
 var TEMPLATE_FUNCS = ht.FuncMap{
@@ -138,6 +110,38 @@ var TEMPLATE_FUNCS = ht.FuncMap{
 	"raw":                 func(text string) ht.HTML { return ht.HTML(text) },
 	"headingPrefix":       func() ht.HTML { return HEADING_PREFIX_HTML },
 	"FLAGS":               func() Flags { return FLAGS },
+}
+
+func siteBase() string {
+	if FLAGS.DEV {
+		return "http://localhost:" + SERVER_PORT
+	}
+	return "https://mitranim.com"
+}
+
+func siteFeed() Feed {
+	base := siteBase()
+
+	return Feed{
+		Title:   "Software, Tech, Philosophy, Games",
+		XmlBase: base,
+		AltLink: &FeedLink{
+			Rel:  "alternate",
+			Type: "text/html",
+			Href: base + "/posts",
+		},
+		SelfLink: &FeedLink{
+			Rel:  "self",
+			Type: "application/atom+xml",
+			Href: base + "/feed.xml",
+		},
+		Author:      FEED_AUTHOR,
+		Created:     time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
+		Updated:     time.Now(),
+		Id:          base + "/posts",
+		Description: `Random thoughts about technology`,
+		Items:       nil,
+	}
 }
 
 var ASSET_HASHES = map[string]string{}
@@ -236,7 +240,7 @@ func buildSite() error {
 		}
 	}
 
-	feed := SITE_FEED
+	feed := siteFeed()
 	for _, post := range SITE.Posts {
 		if !post.Public {
 			continue
@@ -327,7 +331,7 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		return feed, nil
 	}
 
-	href := SITE_BASE + post.UrlFromSiteRoot()
+	href := siteBase() + post.UrlFromSiteRoot()
 	feed.Items = append(feed.Items, FeedItem{
 		XmlBase:     href,
 		Title:       post.Page.Title,
