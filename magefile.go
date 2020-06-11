@@ -29,7 +29,9 @@ const FS_EVENTS = notify.Create | notify.Remove | notify.Write
 const SERVER_PORT = "52693"
 const PUBLIC_DIR = "public"
 
-var FLAGS = struct{ DEV bool }{DEV: os.Getenv("DEV") == "true" || os.Getenv("DEV") == ""}
+type Flags struct{ DEV bool }
+
+var FLAGS = Flags{DEV: os.Getenv("DEV") == "true" || os.Getenv("DEV") == ""}
 
 var Default = Build
 

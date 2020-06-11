@@ -136,7 +136,7 @@ var TEMPLATE_FUNCS = ht.FuncMap{
 	"linkWithHash":        linkWithHash,
 	"raw":                 func(text string) ht.HTML { return ht.HTML(text) },
 	"headingPrefix":       func() ht.HTML { return HEADING_PREFIX_HTML },
-	"FLAGS":               func() interface{} { return FLAGS },
+	"FLAGS":               func() Flags { return FLAGS },
 }
 
 var ASSET_HASHES = map[string]string{}
