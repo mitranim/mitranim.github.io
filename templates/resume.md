@@ -2,7 +2,7 @@
   <span class="block fg-blue" data-note="Updated: 2019-02-22"></span>
   <span class="block noprint">
     <button type="button" style="padding: 0" onclick="window.print()">
-      <span class="fill-faded">{{include "svg-print"}}</span> Print to PDF
+      <span>{{include "svg-print"}}</span> Print to PDF
     </button>
   </span>
 </p>

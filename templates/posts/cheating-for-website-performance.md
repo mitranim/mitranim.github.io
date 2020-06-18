@@ -2,7 +2,7 @@ Have been turning into a bit of a performance nut lately. This is what I've
 found useful for speeding up websites. These are mostly frontend optimizations;
 I'm not going to delve into server performance here.
 
-## TOC
+## Table of Contents
 
 * [Minify Everything](#minify-everything)
 * [Concatenate Everything](#concatenate-everything)

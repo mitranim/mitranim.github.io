@@ -1,4 +1,4 @@
-# TOC
+# Table of Contents
 
 * [Gaming](#gaming)
 * [Open Source](#open-source)

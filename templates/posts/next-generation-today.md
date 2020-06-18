@@ -29,7 +29,7 @@ export class AppTabset {
 This guide is _massive_. I couldn't fit everything I wanted in here. You'll
 probably want to read it in chunks, taking breaks.
 
-## TOC
+## Table of Contents
 
 * [Setup](#setup)
 * [Modules](#modules)

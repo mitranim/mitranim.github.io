@@ -38,6 +38,9 @@ links MUST be absolute.
     <meta http-equiv="pragma" content="no-cache" />
 
     <script>
+        // Listen for websocket notifications and reload on any message.
+        // Automatically reconnect on connection loss.
+        // (Lack of backoff is intentional.)
         {
             function reinit() {
                 const url    = 'ws://' + window.location.host + '/ws'
@@ -58,7 +61,7 @@ links MUST be absolute.
 
     This JS code skips to the content without changing the URL or polluting the
     browser history. It SEEMS to work with the MacOS VoiceOver. Haven't tested
-    other operating systems.
+    assistive tech on other operating systems.
 
     -->
     <a href="#main-content" class="skip-to-content" onclick="event.preventDefault(); if (document.getElementById('main-content')) {document.getElementById('main-content').scrollIntoView()}">Skip to content</a>

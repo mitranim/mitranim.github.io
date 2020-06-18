@@ -9,6 +9,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -26,7 +27,11 @@ import (
 )
 
 const FS_EVENTS = notify.Create | notify.Remove | notify.Write
-const SERVER_PORT = "52693"
+
+// We could avoid this by acquiring a random port and reporting it to the
+// terminal, but a consistent port is more convenient for developing a website.
+const SERVER_PORT = 52693
+
 const PUBLIC_DIR = "public"
 
 type Flags struct {
@@ -39,22 +44,22 @@ var FLAGS = Flags{
 
 var Default = Build
 
-// Builds everything.
+// Rebuild everything.
 func Build() {
 	mg.Deps(Static, Styles, Images, Html)
 }
 
-// Rebuilds, then watches and rebuilds on changes.
+// Rebuild, then watch and rebuild on changes.
 func Watch() {
 	mg.Deps(StaticW, StylesW, ImagesW, HtmlW, Server)
 }
 
-// Removes built artifacts.
+// Remove built artifacts.
 func Clean() error {
 	return os.RemoveAll(PUBLIC_DIR)
 }
 
-// Copies files from ./static to the target directory.
+// Copy files from "./static" to the target directory.
 func Static(ctx context.Context) error {
 	const DIR = "static"
 	return filepath.Walk(DIR, func(srcPath string, info os.FileInfo, err error) error {
@@ -94,7 +99,7 @@ func Static(ctx context.Context) error {
 	})
 }
 
-// Watches static files and reruns the static task on changes.
+// Watch static files and rerun the static task on changes.
 func StaticW(ctx context.Context) error {
 	fsEvents := make(chan notify.EventInfo, 1)
 	err := notify.Watch("static/...", fsEvents, FS_EVENTS)
@@ -127,12 +132,12 @@ func StaticW(ctx context.Context) error {
 				continue
 			}
 
-			notifyClients()
+			notifyClients(nil)
 		}
 	}
 }
 
-// Builds styles. Requires `dart-sass`.
+// Build styles; requires `dart-sass`.
 func Styles(ctx context.Context) error {
 	const CMD = "sass"
 	args := []string{"--no-source-map"}
@@ -147,7 +152,7 @@ func Styles(ctx context.Context) error {
 	return cmd.Run()
 }
 
-// Watches and rebuilds styles.
+// Watch and rebuild styles.
 //
 // This could use Sass's "--watch" option, but on errors, it outputs to both
 // stdout and stderr. We'd have to read from them concurrently, and use brittle
@@ -174,12 +179,12 @@ func StylesW(ctx context.Context) error {
 				log.Println("[styles] error:", errors.WithStack(err))
 				continue
 			}
-			notifyClients()
+			notifyClients(nil)
 		}
 	}
 }
 
-// Resizes and optimizes images. Requires GraphicsMagick.
+// Resize and optimize images; requires GraphicsMagick.
 //
 // Uses "filepath.Walk" instead of "filepath.Glob" because the latter can't
 // find everything we need in a single call.
@@ -238,7 +243,7 @@ func Images(ctx context.Context) error {
 	return cmd.Wait()
 }
 
-// Watches and rebuilds images.
+// Watch and rebuild images.
 func ImagesW(ctx context.Context) error {
 	fsEvents := make(chan notify.EventInfo, 1)
 	err := notify.Watch("images/...", fsEvents, FS_EVENTS)
@@ -289,7 +294,7 @@ func ImagesW(ctx context.Context) error {
 				continue
 			}
 
-			notifyClients()
+			notifyClients(nil)
 		}
 	}
 }
@@ -322,10 +327,11 @@ type Client struct {
 	sync.Mutex
 }
 
-// Serves static files and notifies about file changes over websockets.
+// Serve static files and notify websocket clients about file changes.
 func Server() error {
-	log.Println("Starting server on", "http://localhost:"+SERVER_PORT)
-	return http.ListenAndServe(":"+SERVER_PORT, http.HandlerFunc(serve))
+	const port = SERVER_PORT
+	log.Println("Starting server on", fmt.Sprintf("http://localhost:%v", port))
+	return http.ListenAndServe(fmt.Sprintf(":%v", port), http.HandlerFunc(serve))
 }
 
 /*
@@ -428,25 +434,25 @@ func initClientConn(rew http.ResponseWriter, req *http.Request) {
 
 func skipOriginCheck(*http.Request) bool { return true }
 
-func notifyClients() {
+func notifyClients(msg []byte) {
 	CLIENTS.Range(func(_, val interface{}) bool {
-		go notifyClient(val.(*Client))
+		go notifyClient(val.(*Client), msg)
 		return true
 	})
 }
 
-func notifyClient(client *Client) {
+func notifyClient(client *Client, msg []byte) {
 	client.Lock()
 	defer client.Unlock()
 
-	err := client.WriteMessage(websocket.TextMessage, nil)
+	err := client.WriteMessage(websocket.TextMessage, msg)
 	if err != nil {
 		log.Printf("Failed to notify socket: %+v", errors.WithStack(err))
 	}
 }
 
-// Builds in "production" mode and deploys. Must not run concurrently with any
-// other tasks.
+// Build in "production" mode and deploy. Stop all other tasks before running
+// this!
 func Deploy() error {
 	FLAGS.DEV = false
 	mg.SerialDeps(Clean, Build)

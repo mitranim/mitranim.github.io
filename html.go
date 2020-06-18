@@ -37,7 +37,7 @@ const HUMAN_TIME_FORMAT = "Jan 02, 2006"
 
 var SITE_FILE = filepath.Join(TEMPLATE_DIR, "site.toml")
 
-// Rebuilds HTML.
+// Rebuild HTML.
 func Html() error {
 	mg.Deps(Styles)
 	t0 := time.Now()
@@ -51,7 +51,7 @@ func Html() error {
 }
 
 /*
-Watches templates and rebuilds HTML.
+Watch templates and rebuild HTML.
 
 If rebuilds become too slow because of too many files, this could reinitialize
 and re-render only the changed templates rather than everything. Keeping it
@@ -79,7 +79,7 @@ func HtmlW(ctx context.Context) error {
 				continue
 			}
 
-			notifyClients()
+			notifyClients(nil)
 		}
 	}
 }
@@ -94,6 +94,7 @@ var FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
 var TEMPLATES *ht.Template
 
 var TEMPLATE_FUNCS = ht.FuncMap{
+	"FLAGS":               func() Flags { return FLAGS },
 	"asHtml":              asHtml,
 	"asAttr":              asAttr,
 	"toMarkdown":          toMarkdown,
@@ -109,12 +110,13 @@ var TEMPLATE_FUNCS = ht.FuncMap{
 	"linkWithHash":        linkWithHash,
 	"raw":                 func(text string) ht.HTML { return ht.HTML(text) },
 	"headingPrefix":       func() ht.HTML { return HEADING_PREFIX_HTML },
-	"FLAGS":               func() Flags { return FLAGS },
+	"pathWithoutExt":      pathWithoutExt,
+	"baseName":            baseName,
 }
 
 func siteBase() string {
 	if FLAGS.DEV {
-		return "http://localhost:" + SERVER_PORT
+		return fmt.Sprintf("http://localhost:%v", SERVER_PORT)
 	}
 	return "https://mitranim.com"
 }
@@ -197,12 +199,12 @@ type Post struct {
 	HtmlBody     []byte
 	Created      time.Time
 	Updated      time.Time
-	Public       flagBool
-	Listed       flagBool
+	IsPublic     flagBool
+	IsListed     flagBool
 }
 
 func (self Post) UrlFromSiteRoot() string {
-	return "/" + strings.TrimSuffix(self.Path, filepath.Ext(self.Path))
+	return "/" + pathWithoutExt(self.Path)
 }
 
 type flagBool bool
@@ -242,7 +244,7 @@ func buildSite() error {
 
 	feed := siteFeed()
 	for _, post := range SITE.Posts {
-		if !post.Public {
+		if !post.IsPublic {
 			continue
 		}
 		feed, err = buildPost(post, feed)
@@ -327,7 +329,7 @@ func buildPost(post Post, feed Feed) (Feed, error) {
 		}
 	}
 
-	if !post.Listed {
+	if !post.IsListed {
 		return feed, nil
 	}
 
@@ -569,7 +571,7 @@ func toBytes(input interface{}) []byte {
 
 func listedPosts() (out []Post) {
 	for _, post := range SITE.Posts {
-		if post.Public && post.Listed {
+		if post.IsPublic && post.IsListed {
 			out = append(out, post)
 		}
 	}
@@ -647,9 +649,12 @@ func (self *MarkdownRenderer) RenderNode(out io.Writer, node *bf.Node, entering 
 	/**
 	Differences from default:
 
-		* fancy prefix indicating heading level, hidden from screen readers
+		* Fancy prefix indicating heading level, hidden from screen readers;
+		  speaking it aloud is redundant because screen readers will indicate the
+		  heading level anyway.
 
-		* ID anchor suffix, hidden from screen readers
+		* ID anchor suffix, hidden from screen readers; hearing it all the time
+		  quickly gets tiring.
 	*/
 	case bf.Heading:
 		headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
@@ -1219,4 +1224,16 @@ func anyTime(vals ...time.Time) time.Time {
 		}
 	}
 	return time.Time{}
+}
+
+func stripLeadingSlash(str string) string {
+	return strings.TrimPrefix(str, "/")
+}
+
+func pathWithoutExt(pt string) string {
+	return strings.TrimSuffix(pt, filepath.Ext(pt))
+}
+
+func baseName(pt string) string {
+	return pathWithoutExt(filepath.Base(pt))
 }

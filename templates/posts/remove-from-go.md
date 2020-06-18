@@ -11,7 +11,7 @@ We're not allowed to break existing code under Go1. However, it seems plausible 
 * Both "old" and "new" code continues to run under Go1
 * Go2 drops the unnecessary features
 
-## TOC
+## Table of Contents
 
 * [Language](#language)
     * [Remove `:=` in favor of `var`](#prefer-var)

@@ -31,8 +31,10 @@ Build, then watch and rebuild on changes:
 
     mage -v build watch
 
-Clean build and deploy:
+To deploy, _stop the other tasks_, then run this:
 
     mage -v deploy
 
-To be able to omit the `-v`, set the environment variable `MAGEFILE_VERBOSE=true`.
+Deployment is exclusive with other tasks because it performs a clean build in "production mode".
+
+To omit the `-v`, set the environment variable `MAGEFILE_VERBOSE=true`, for example by adding this to `~/.profile`.

@@ -2,7 +2,7 @@ Note: check the accompanying post [Game Impressions: Doom 2016](/posts/game-impr
 
 This is about single player only; I haven't tried the PvP.
 
-## TOC
+## Table of Contents
 
 * [General](#general)
 * [Runes](#runes)
