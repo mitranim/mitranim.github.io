@@ -4,8 +4,8 @@
         <!-- Should be kept in sync with "MarkdownRenderer.RenderNode" logic for headings -->
         <h1>{{headingPrefix}}{{.Title}}</h1>
         {{if .Description}}<p role="doc-subtitle" class="font-large font-italic">{{.Description}}</p>{{end}}
-        {{if not .Created.IsZero}}<p class="fg-faded">Published {{.Created | formatDateForHumans}}</p>{{end}}
-        {{if not .Updated.IsZero}}<p class="fg-faded">Updated {{.Updated | formatDateForHumans}}</p>{{end}}
+        {{if not .Created.IsZero}}<p class="fg-gray-close">Published {{.Created | formatDateForHumans}}</p>{{end}}
+        {{if not .Updated.IsZero}}<p class="fg-gray-close">Updated {{.Updated | formatDateForHumans}}</p>{{end}}
         {{.HtmlBody | asHtml}}
     </article>
 

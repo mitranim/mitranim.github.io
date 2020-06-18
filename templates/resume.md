@@ -60,27 +60,27 @@ Solid experience:
 
 ## Commercial
 
-### ShanzhaiCity <span class="fg-faded font-normal">(2017—2018, Go, JS, Clojure).</span>
+### ShanzhaiCity <span class="fg-gray-close font-normal">(2017—2018, Go, JS, Clojure).</span>
 
 Various webapps and websites for [ShanzhaiCity](https://shanzhaicity.com), a US-Chinese startup aiming at making charity effective.
 
-### [Render.js](https://renderjs.io) <span class="fg-faded font-normal">(JS, Node)</span>
+### [Render.js](https://renderjs.io) <span class="fg-gray-close font-normal">(JS, Node)</span>
 
   * Service for prerendering single-page JavaScript applications into HTML
   * Order of magnitude faster than alternatives
   * Period: 2016—2017, part of team at Purelab.io
 
-### [ToBox](https://tobox.com) <span class="fg-faded font-normal">(2015—2016, JS, React)</span>
+### [ToBox](https://tobox.com) <span class="fg-gray-close font-normal">(2015—2016, JS, React)</span>
 
 Stylish, visual platform for creating online shops. (Part of web frontend team.) The current website was not made by us.
 
 ## Other
 
-### [Bolala](https://bolala.ru) <span class="fg-faded font-normal">(2017—2018, JS)</span>
+### [Bolala](https://bolala.ru) <span class="fg-gray-close font-normal">(2017—2018, JS)</span>
 
 An e-commerce platform. Work in progress. (Note: Russian residents may require a VPN or SSH tunnel to visit the site.)
 
-### [ProstoPoi](http://prostopoi.ru) <span class="fg-faded font-normal">(2014—2016, Python, Django, React)</span>
+### [ProstoPoi](http://prostopoi.ru) <span class="fg-gray-close font-normal">(2014—2016, Python, Django, React)</span>
 
 Poi community website. We have our own video lessons, go check us out!
 
