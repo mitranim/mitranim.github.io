@@ -1,8 +1,6 @@
 # Overview
 
-<div style="float: right; margin-left: 1rem; margin-bottom: 1rem;">
-  <img src="images/ph2_small.jpg" alt="portrait" style="display: block; width: 10rem; height: auto;">
-</div>
+{{imgBox "/images/portrait_small.jpg" "Nelo"}}
 
 Nelo Mitranim.
 

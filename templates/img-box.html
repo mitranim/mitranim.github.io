@@ -1,0 +1,11 @@
+<!--
+Note: using <figure> and <figcaption> would cause the MacOS VoiceOver to read
+the caption twice when reading the content sequentially.
+-->
+{{$caption := or (.Caption) (baseName .Src)}}
+<div class="img-box">
+  <div class="img-box-padder" style="padding-top: calc({{.Height}} / {{.Width}} * 100%)">
+    <img src="{{.Src | asAttr}}" alt="{{$caption}}" class="img-box-img">
+  </div>
+  <span class="img-box-caption" aria-hidden="true">{{$caption}}</span>
+</div>

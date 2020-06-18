@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"hash/crc32"
 	ht "html/template"
+	"image"
 	"io"
 	"io/ioutil"
 	"log"
@@ -16,8 +17,12 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
+
+	_ "image/jpeg"
+	_ "image/png"
 
 	"github.com/BurntSushi/toml"
 	"github.com/alecthomas/chroma"
@@ -112,6 +117,11 @@ var TEMPLATE_FUNCS = ht.FuncMap{
 	"headingPrefix":       func() ht.HTML { return HEADING_PREFIX_HTML },
 	"pathWithoutExt":      pathWithoutExt,
 	"baseName":            baseName,
+	"imgBox":              imgBox,
+	"ariaHidden":          ariaHidden,
+	"emoji":               emoji,
+	"formatFloat":         formatFloat,
+	"formatFloatPercent":  formatFloatPercent,
 }
 
 func siteBase() string {
@@ -1236,4 +1246,69 @@ func pathWithoutExt(pt string) string {
 
 func baseName(pt string) string {
 	return pathWithoutExt(filepath.Base(pt))
+}
+
+func imgConfig(pt string) (image.Config, error) {
+	file, err := os.Open(pt)
+	if err != nil {
+		return image.Config{}, errors.WithStack(err)
+	}
+	defer file.Close()
+
+	conf, _, err := image.DecodeConfig(file)
+	return conf, errors.WithStack(err)
+}
+
+/*
+Renders an image box. Scans the image file on disk to determine its dimentions.
+Includes the height/width proportion into the template, which allows to ensure
+fixed image dimensions and therefore prevent layout reflow on image load.
+*/
+func imgBox(src string, caption string) (ht.HTML, error) {
+	// Takes tens of microseconds on my system, might be good enough for now.
+	conf, err := imgConfig(stripLeadingSlash(src))
+	if err != nil {
+		return "", err
+	}
+
+	input := struct {
+		Src     string
+		Caption string
+		Width   int
+		Height  int
+	}{
+		Src:     src,
+		Caption: caption,
+		Width:   conf.Width,
+		Height:  conf.Height,
+	}
+
+	return includeTemplateWith("img-box.html", input)
+}
+
+func ariaHidden(str string) ht.HTML {
+	return ht.HTML(fmt.Sprintf(`<span aria-hidden="true">%v</span>`, str))
+}
+
+/*
+Causes the MacOS VoiceOver to read the label followed by the word "image".
+`role="img"` prevents it from reading the original name of the emoji, but forces
+it to say "image". TODO: find a way to make it read only the label.
+*/
+func emoji(emoji string, label string) ht.HTML {
+	if emoji == "" {
+		return ""
+	}
+	if label == "" {
+		return ariaHidden(emoji)
+	}
+	return ht.HTML(fmt.Sprintf(`<span aria-label="%v" role="img">%v</span>`, label, emoji))
+}
+
+func formatFloat(value float64, prec int) string {
+	return strconv.FormatFloat(value, 'f', prec, 64)
+}
+
+func formatFloatPercent(value float64, prec int) string {
+	return strconv.FormatFloat(value*100, 'f', prec, 64) + "%"
 }
