@@ -29,7 +29,7 @@ Installing DartSass:
 
 Build, then watch and rebuild on changes:
 
-    mage -v build watch
+    mage -v clean build watch
 
 To deploy, _stop the other tasks_, then run this:
 

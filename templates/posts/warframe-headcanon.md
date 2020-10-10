@@ -363,7 +363,7 @@ In each of these legends:
 
 It's plausible that among the warframes made from humans using the Helminth process, some had regained their minds, or never completely lost them in the first place. When the Tenno went into stasis, they stuck around. Gara was spending time with Unum, Inaros was tracking down the remaining Orokin survivors and finishing the Tenno's work, Protea was with Parvos in the Granum Void, and so on.
 
-## Hostages get recaptured all the time because _we leave them behind_ {#hostages}
+## Hostages get recaptured all the time because we leave them behind {#hostages}
 
 At the end of Rescue missions, we rush to the landing craft and fly away, as the hostage just stands there in the extraction zone. If we really wanted to extract them, we'd put them in a pokeball, like Capture targets. Of course they get recaptured. That's why you can rerun the mission!
 
