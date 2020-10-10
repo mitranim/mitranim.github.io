@@ -35,8 +35,16 @@ path = "posts/warframe-headcanon.html"
 inputPath = "posts/warframe-headcanon.md"
 title = "Warframe Headcanon (Spoilers)"
 description = "Collection of Warframe headcanon co-authored with friends"
-created = 2020-06-16T05:27:55Z
-isPublic = true
+publishedAt = 2020-10-10T12:25:32Z
+isListed = true
+
+[[posts]]
+path = "posts/warframe-fixes.html"
+inputPath = "posts/warframe-fixes.md"
+title = "Things I Would Fix in Warframe"
+description = ""
+publishedAt = 2020-05-21T00:00:00Z
+updatedAt = 2020-06-25T09:02:05Z
 isListed = "dev"
 
 [[posts]]
