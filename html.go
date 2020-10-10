@@ -16,6 +16,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
@@ -33,12 +34,13 @@ import (
 	"github.com/pkg/errors"
 	"github.com/rjeczalik/notify"
 	bf "github.com/russross/blackfriday/v2"
+	"github.com/shurcooL/sanitized_anchor_name"
 )
 
 const TEMPLATE_DIR = "templates"
 const FILE_MODE = 0600
 const DIR_MODE = 0700
-const HUMAN_TIME_FORMAT = "Jan 02, 2006"
+const HUMAN_TIME_FORMAT = "Jan 02 2006"
 
 var SITE_FILE = filepath.Join(TEMPLATE_DIR, "site.toml")
 
@@ -89,6 +91,7 @@ func HtmlW(ctx context.Context) error {
 	}
 }
 
+// See `templates/site.toml`.
 var SITE struct {
 	Pages []Page
 	Posts []Post
@@ -117,11 +120,13 @@ var TEMPLATE_FUNCS = ht.FuncMap{
 	"headingPrefix":       func() ht.HTML { return HEADING_PREFIX_HTML },
 	"pathWithoutExt":      pathWithoutExt,
 	"baseName":            baseName,
+	"imgBoxWithLink":      imgBoxWithLink,
 	"imgBox":              imgBox,
 	"ariaHidden":          ariaHidden,
 	"emoji":               emoji,
 	"formatFloat":         formatFloat,
 	"formatFloatPercent":  formatFloatPercent,
+	"tableOfContents":     tableOfContents,
 }
 
 func siteBase() string {
@@ -148,14 +153,16 @@ func siteFeed() Feed {
 			Href: base + "/feed.xml",
 		},
 		Author:      FEED_AUTHOR,
-		Created:     time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC),
-		Updated:     time.Now(),
+		Published:   timePtr(time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC)),
+		Updated:     timePtr(time.Now()),
 		Id:          base + "/posts",
 		Description: `Random thoughts about technology`,
 		Items:       nil,
 	}
 }
 
+// Concurrency-unsafe like many other globals, but should only be called from
+// templating functions which are run sequentially.
 var ASSET_HASHES = map[string]string{}
 
 var CHROMA_FORMATTER = chtml.New()
@@ -207,19 +214,40 @@ type Post struct {
 	InputPath    string
 	ObsoletePath string
 	HtmlBody     []byte
-	Created      time.Time
-	Updated      time.Time
-	IsPublic     flagBool
-	IsListed     flagBool
+	PublishedAt  *time.Time
+	UpdatedAt    *time.Time
+	IsListed     fudgedBool
+}
+
+func (self Post) ExistsAsFile() bool {
+	return self.PublishedAt != nil || FLAGS.DEV
+}
+
+func (self Post) ExistsInFeeds() bool {
+	return self.PublishedAt != nil && bool(self.IsListed)
 }
 
 func (self Post) UrlFromSiteRoot() string {
 	return "/" + pathWithoutExt(self.Path)
 }
 
-type flagBool bool
+// Somewhat inefficient but shouldn't be measurable.
+func (self Post) TimeString() string {
+	var out []string
 
-func (self *flagBool) UnmarshalText(input []byte) error {
+	if self.PublishedAt != nil {
+		out = append(out, `published `+formatDateForHumans(*self.PublishedAt))
+		if self.UpdatedAt != nil {
+			out = append(out, `updated `+formatDateForHumans(*self.UpdatedAt))
+		}
+	}
+
+	return strings.Join(out, ", ")
+}
+
+type fudgedBool bool
+
+func (self *fudgedBool) UnmarshalText(input []byte) error {
 	switch string(input) {
 	case "true":
 		*self = true
@@ -229,141 +257,129 @@ func (self *flagBool) UnmarshalText(input []byte) error {
 		*self = false
 		return nil
 
-	// Somehow arrives unquoted, just like "true" and "false".
+	// Somehow arrives unquoted, just like "true" and "false". 🤨
 	case "dev":
-		*self = flagBool(FLAGS.DEV)
+		*self = fudgedBool(FLAGS.DEV)
 		return nil
 
 	default:
-		return errors.Errorf(`unrecognized flagBool value: %q; must be "true", "false", or "dev"`, input)
+		return errors.Errorf(`unrecognized fudgedBool value: %q; must be "true", "false", or "dev"`, input)
 	}
 }
 
-func buildSite() error {
-	err := initSite()
-	if err != nil {
-		return err
-	}
+func buildSite() (err error) {
+	defer rec(&err)
+
+	must(initSite())
 
 	for _, page := range SITE.Pages {
-		err := buildPage(page)
-		if err != nil {
-			return err
-		}
+		must(buildPage(page))
 	}
 
 	feed := siteFeed()
 	for _, post := range SITE.Posts {
-		if !post.IsPublic {
-			continue
-		}
-		feed, err = buildPost(post, feed)
-		if err != nil {
-			return err
-		}
+		must(maybeBuildPost(post))
+		must(maybeAppendPost(&feed.Items, post))
 	}
 
-	buf, err := xmlEncode(feed.AtomFeed())
-	if err != nil {
-		return err
-	}
-	err = writePublic("feed.xml", buf.Bytes())
-	if err != nil {
-		return err
-	}
+	content, err := xmlEncode(feed.AtomFeed())
+	must(err)
 
-	buf, err = xmlEncode(feed.RssFeed())
-	if err != nil {
-		return err
-	}
+	must(writePublic("feed.xml", content))
 
-	return writePublic("feed_rss.xml", buf.Bytes())
+	content, err = xmlEncode(feed.RssFeed())
+	must(err)
+
+	must(writePublic("feed_rss.xml", content))
+	return nil
 }
 
-func buildPage(page Page) error {
+func buildPage(page Page) (err error) {
+	defer rec(&err)
+
 	temp, err := findTemplate(TEMPLATES, page.Path)
-	if err != nil {
-		return err
-	}
+	must(err)
 
 	output, err := renderTemplate(temp, page)
-	if err != nil {
-		return err
-	}
+	must(err)
 
 	return writePublic(page.Path, output)
 }
 
-func buildPost(post Post, feed Feed) (Feed, error) {
-	bodyTemp, err := findTemplate(TEMPLATES, "post-body.html")
-	if err != nil {
-		return feed, err
+func maybeBuildPost(post Post) (err error) {
+	defer rec(&err)
+
+	if !post.ExistsAsFile() {
+		return nil
 	}
+
+	bodyTemp, err := findTemplate(TEMPLATES, "post-body.html")
+	must(err)
 
 	// Used for the page and the feed entry, enclosed in different layouts.
 	post.HtmlBody, err = renderTemplate(bodyTemp, post)
-	if err != nil {
-		return feed, err
-	}
+	must(err)
 
 	layoutTemp, err := findTemplate(TEMPLATES, "post-layout.html")
-	if err != nil {
-		return feed, err
-	}
+	must(err)
 
 	content, err := renderTemplate(layoutTemp, post)
-	if err != nil {
-		return feed, err
-	}
+	must(err)
 
-	feedPostLayoutTemp, err := findTemplate(TEMPLATES, "feed-post-layout.html")
-	if err != nil {
-		return feed, err
-	}
-
-	feedPostContent, err := renderTemplate(feedPostLayoutTemp, post)
-	if err != nil {
-		return feed, err
-	}
-
-	err = writePublic(post.Path, content)
-	if err != nil {
-		return feed, err
-	}
+	must(writePublic(post.Path, content))
 
 	if post.ObsoletePath != "" {
 		meta := fmt.Sprintf(`<meta http-equiv="refresh" content="0;URL='%v'" />`, post.UrlFromSiteRoot())
-		err = writePublic(post.ObsoletePath, []byte(meta))
-		if err != nil {
-			return feed, err
-		}
+		must(writePublic(post.ObsoletePath, []byte(meta)))
 	}
 
-	if !post.IsListed {
-		return feed, nil
-	}
+	return nil
+}
+
+func postToFeedItem(post Post) (_ FeedItem, err error) {
+	defer rec(&err)
+
+	feedPostLayoutTemp, err := findTemplate(TEMPLATES, "feed-post-layout.html")
+	must(err)
+
+	feedPostContent, err := renderTemplate(feedPostLayoutTemp, post)
+	must(err)
 
 	href := siteBase() + post.UrlFromSiteRoot()
-	feed.Items = append(feed.Items, FeedItem{
+
+	return FeedItem{
 		XmlBase:     href,
 		Title:       post.Page.Title,
 		Link:        &FeedLink{Href: href},
 		Author:      FEED_AUTHOR,
 		Description: post.Page.Description,
 		Id:          href,
-		Created:     post.Created,                                          // TODO get from git?
-		Updated:     anyTime(post.Created, post.Updated, time.Now().UTC()), // TODO get from git?
+		Published:   post.PublishedAt,                                                     // TODO get from git?
+		Updated:     anyTime(post.PublishedAt, post.UpdatedAt, timePtr(time.Now().UTC())), // TODO get from git?
 		Content:     string(feedPostContent),
-	})
-
-	return feed, nil
+	}, nil
 }
 
-func initSite() error {
-	_, err := toml.DecodeFile(SITE_FILE, &SITE)
+func maybeAppendPost(feedItems *[]FeedItem, post Post) error {
+	if !post.ExistsInFeeds() {
+		return nil
+	}
+
+	item, err := postToFeedItem(post)
 	if err != nil {
 		return err
 	}
+
+	*feedItems = append(*feedItems, item)
+	return nil
+}
+
+func initSite() (err error) {
+	defer rec(&err)
+
+	zero(&SITE)
+	_, err = toml.DecodeFile(SITE_FILE, &SITE)
+	must(errors.WithStack(err))
 
 	temp := ht.New("")
 	temp.Funcs(TEMPLATE_FUNCS)
@@ -381,9 +397,7 @@ func initSite() error {
 		filepath.Join(TEMPLATE_DIR, "**/*.html"),
 		filepath.Join(TEMPLATE_DIR, "**/*.md"),
 	)
-	if err != nil {
-		return errors.WithStack(err)
-	}
+	must(errors.WithStack(err))
 
 	for _, fsPath := range matches {
 		virtPath := strings.TrimPrefix(filepath.ToSlash(fsPath), TEMPLATE_DIR+"/")
@@ -393,9 +407,7 @@ func initSite() error {
 		}
 
 		bytes, err := ioutil.ReadFile(fsPath)
-		if err != nil {
-			return errors.WithStack(err)
-		}
+		must(errors.WithStack(err))
 
 		content := string(bytes)
 		if filepath.Ext(fsPath) == ".md" {
@@ -407,9 +419,7 @@ func initSite() error {
 		}
 
 		_, err = temp.New(virtPath).Parse(content)
-		if err != nil {
-			return errors.WithStack(err)
-		}
+		must(errors.WithStack(err))
 	}
 
 	TEMPLATES = temp
@@ -418,6 +428,7 @@ func initSite() error {
 
 var codeBlockReg = regexp.MustCompile("(?:^|\\n)```\\S*\\r?\\n((?:[^`]|`[^`]|``[^`])*)```")
 
+// TODO: check if the standard library has a better quoting function.
 func codeBlockToRaw(input string) string {
 	return "{{raw (print `" + strings.Replace(input, "`", "` \"`\" `", -1) + "`)}}"
 }
@@ -434,17 +445,17 @@ func globs(patterns ...string) ([]string, error) {
 	return out, nil
 }
 
-func xmlEncode(input interface{}) (*bytes.Buffer, error) {
-	buf := &bytes.Buffer{}
+func xmlEncode(input interface{}) ([]byte, error) {
+	var buf bytes.Buffer
 	buf.WriteString(xml.Header)
-	enc := xml.NewEncoder(buf)
+	enc := xml.NewEncoder(&buf)
 	enc.Indent("", "\t")
 	err := enc.Encode(input)
-	return buf, errors.WithStack(err)
+	return buf.Bytes(), errors.WithStack(err)
 }
 
-func findTemplate(root *ht.Template, name string) (*ht.Template, error) {
-	temp := root.Lookup(name)
+func findTemplate(root *ht.Template, templateName string) (*ht.Template, error) {
+	temp := root.Lookup(templateName)
 	if temp != nil {
 		return temp, nil
 	}
@@ -455,7 +466,7 @@ func findTemplate(root *ht.Template, name string) (*ht.Template, error) {
 			names = append(names, temp.Name())
 		}
 	}
-	return nil, errors.Errorf("template %q not found; known templates: %v", name, names)
+	return nil, errors.Errorf("template %q not found; known templates: %v", templateName, names)
 }
 
 func renderTemplate(temp *ht.Template, data interface{}) ([]byte, error) {
@@ -464,12 +475,12 @@ func renderTemplate(temp *ht.Template, data interface{}) ([]byte, error) {
 	return buf.Bytes(), errors.WithStack(err)
 }
 
-func includeTemplate(name string) (ht.HTML, error) {
-	return includeTemplateWith(name, nil)
+func includeTemplate(templateName string) (ht.HTML, error) {
+	return includeTemplateWith(templateName, nil)
 }
 
-func includeTemplateWith(name string, data interface{}) (ht.HTML, error) {
-	temp, err := findTemplate(TEMPLATES, name)
+func includeTemplateWith(templateName string, data interface{}) (ht.HTML, error) {
+	temp, err := findTemplate(TEMPLATES, templateName)
 	if err != nil {
 		return "", err
 	}
@@ -480,6 +491,109 @@ func includeTemplateWith(name string, data interface{}) (ht.HTML, error) {
 	}
 
 	return ht.HTML(bytes), nil
+}
+
+/*
+Scans the given Markdown template and generates a TOC from the headings.
+
+Note: the Markdown library we're using has its own TOC feature, but it's
+unusable for our purposes. Fortunately, it exposes the parser and AST, allowing
+us to extract the heading data.
+
+Note: we currently render markdown content as a Go template, which includes
+parsing it for the TOC, then we render it as markdown, which involves parsing it
+again. An ideal implementation would parse only once.
+*/
+func tableOfContents(templateName string) (ht.HTML, error) {
+	pt := filepath.Join(TEMPLATE_DIR, templateName)
+	content, err := ioutil.ReadFile(pt)
+	if err != nil {
+		return "", errors.WithStack(err)
+	}
+	return ht.HTML(tableOfContentsFromMarkdown(content)), nil
+}
+
+func tableOfContentsFromMarkdown(content []byte) []byte {
+	var out []byte
+
+	headings := markdownHeadings(content)
+
+	levelOffset := int(^uint(0) >> 1) // max `int`
+	for _, heading := range headings {
+		if heading.Level < levelOffset {
+			levelOffset = heading.Level
+		}
+	}
+
+	const indent = "  "
+	for _, heading := range headings {
+		for i := heading.Level - levelOffset; i > 0; i-- {
+			out = append(out, indent...)
+		}
+		out = append(out, "* ["...)
+		out = append(out, heading.Text...)
+		out = append(out, "](#"...)
+		out = append(out, heading.Id...)
+		out = append(out, ")\n"...)
+	}
+
+	return out
+}
+
+type MarkdownHeading struct {
+	Level int
+	Text  []byte
+	Id    string
+}
+
+func markdownHeadings(content []byte) []MarkdownHeading {
+	var out []MarkdownHeading
+
+	node := bf.New(markdownOpts()...).Parse(content)
+
+	node.Walk(func(node *bf.Node, entering bool) bf.WalkStatus {
+		if node.Type == bf.Document {
+			return bf.GoToNext
+		}
+
+		if node.Type == bf.Heading {
+			heading := MarkdownHeading{
+				Level: node.HeadingData.Level,
+				Text:  node.Literal,
+				Id:    node.HeadingData.HeadingID,
+			}
+
+			textNode := bfNodeFind(node, bf.Text)
+			if textNode != nil && len(heading.Text) == 0 {
+				heading.Text = textNode.Literal
+			}
+			if textNode != nil && heading.Id == "" {
+				heading.Id = sanitized_anchor_name.Create(string(textNode.Literal))
+			}
+
+			if len(heading.Text) > 0 && heading.Id != "" {
+				out = append(out, heading)
+			}
+		}
+
+		return bf.SkipChildren
+	})
+
+	return out
+}
+
+func bfNodeFind(node *bf.Node, nodeType bf.NodeType) *bf.Node {
+	var out *bf.Node
+
+	node.Walk(func(node *bf.Node, entering bool) bf.WalkStatus {
+		if node.Type == nodeType {
+			out = node
+			return bf.SkipChildren
+		}
+		return bf.GoToNext
+	})
+
+	return out
 }
 
 func writePublic(path string, bytes []byte) error {
@@ -581,7 +695,7 @@ func toBytes(input interface{}) []byte {
 
 func listedPosts() (out []Post) {
 	for _, post := range SITE.Posts {
-		if post.IsPublic && post.IsListed {
+		if post.ExistsInFeeds() {
 			out = append(out, post)
 		}
 	}
@@ -825,8 +939,8 @@ type Feed struct {
 	SelfLink    *FeedLink
 	Description string
 	Author      *FeedAuthor
-	Created     time.Time
-	Updated     time.Time
+	Published   *time.Time
+	Updated     *time.Time
 	Id          string
 	Subtitle    string
 	Items       []FeedItem
@@ -861,8 +975,8 @@ type FeedImage struct {
 	Url    string
 	Title  string
 	Link   string
-	Width  int
-	Height int
+	Width  int64
+	Height int64
 }
 
 type FeedItem struct {
@@ -873,8 +987,8 @@ type FeedItem struct {
 	Author      *FeedAuthor
 	Description string // used as description in rss, summary in atom
 	Id          string // used as guid in rss, id in atom
-	Created     time.Time
-	Updated     time.Time
+	Published   *time.Time
+	Updated     *time.Time
 	Enclosure   *FeedEnclosure
 	Content     string
 }
@@ -891,7 +1005,7 @@ func (self Feed) AtomFeed() AtomFeed {
 		XmlBase:  self.XmlBase,
 		Title:    self.Title + " | Atom | mitranim",
 		Subtitle: self.Description,
-		Updated:  AtomTime(self.Updated),
+		Updated:  (*AtomTime)(self.Updated),
 		Rights:   self.Copyright,
 	}
 
@@ -933,8 +1047,8 @@ func (self Feed) AtomFeed() AtomFeed {
 			XmlBase:   item.XmlBase,
 			Title:     item.Title,
 			Id:        item.Id,
-			Published: AtomTime(item.Created),
-			Updated:   AtomTime(anyTime(item.Updated, item.Created, time.Now().UTC())),
+			Published: (*AtomTime)(item.Published),
+			Updated:   (*AtomTime)(anyTime(item.Updated, item.Published, timePtr(time.Now().UTC()))),
 			Summary:   &AtomSummary{Type: "html", Content: item.Description},
 		}
 
@@ -1001,8 +1115,8 @@ func (self Feed) RssFeed() RssFeed {
 			Title:          self.Title + " | RSS | mitranim",
 			Description:    self.Description,
 			ManagingEditor: author,
-			PubDate:        RssTime(anyTime(self.Created, time.Now().UTC())),
-			LastBuildDate:  RssTime(anyTime(self.Updated, self.Created, time.Now().UTC())),
+			PubDate:        (*RssTime)(anyTime(self.Published, timePtr(time.Now().UTC()))),
+			LastBuildDate:  (*RssTime)(anyTime(self.Updated, self.Published, timePtr(time.Now().UTC()))),
 			Copyright:      self.Copyright,
 			Image:          image,
 		},
@@ -1018,7 +1132,7 @@ func (self Feed) RssFeed() RssFeed {
 			Title:       item.Title,
 			Description: item.Description,
 			Guid:        item.Id,
-			PubDate:     RssTime(item.Created),
+			PubDate:     (*RssTime)(item.Published),
 		}
 
 		if item.Link != nil {
@@ -1057,7 +1171,7 @@ type AtomFeed struct {
 	XmlBase     string      `xml:"xml:base,attr,omitempty"`
 	Title       string      `xml:"title"`   // required
 	Id          string      `xml:"id"`      // required
-	Updated     AtomTime    `xml:"updated"` // required
+	Updated     *AtomTime   `xml:"updated"` // required
 	Category    string      `xml:"category,omitempty"`
 	Icon        string      `xml:"icon,omitempty"`
 	Logo        string      `xml:"logo,omitempty"`
@@ -1105,8 +1219,8 @@ type AtomEntry struct {
 	Content     *AtomContent ``
 	Rights      string       `xml:"rights,omitempty"`
 	Source      string       `xml:"source,omitempty"`
-	Published   AtomTime     `xml:"published,omitempty"`
-	Updated     AtomTime     `xml:"updated"` // required
+	Published   *AtomTime    `xml:"published,omitempty"`
+	Updated     *AtomTime    `xml:"updated"` // required
 	Contributor *AtomContributor
 	Links       []AtomLink   // required if no content
 	Summary     *AtomSummary // required if content has src or is base64
@@ -1128,9 +1242,6 @@ type AtomSummary struct {
 type AtomTime time.Time
 
 func (self AtomTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
-	if time.Time(self).IsZero() {
-		return nil
-	}
 	enc.EncodeToken(start)
 	enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC3339)))
 	enc.EncodeToken(xml.EndElement{Name: start.Name})
@@ -1154,13 +1265,13 @@ type RssChannel struct {
 	Copyright      string   `xml:"copyright,omitempty"`
 	ManagingEditor string   `xml:"managingEditor,omitempty"` // Author used
 	WebMaster      string   `xml:"webMaster,omitempty"`
-	PubDate        RssTime  `xml:"pubDate,omitempty"`       // created or updated
-	LastBuildDate  RssTime  `xml:"lastBuildDate,omitempty"` // updated used
+	PubDate        *RssTime `xml:"pubDate,omitempty"`       // created or updated
+	LastBuildDate  *RssTime `xml:"lastBuildDate,omitempty"` // updated used
 	Category       string   `xml:"category,omitempty"`
 	Generator      string   `xml:"generator,omitempty"`
 	Docs           string   `xml:"docs,omitempty"`
 	Cloud          string   `xml:"cloud,omitempty"`
-	Ttl            int      `xml:"ttl,omitempty"`
+	Ttl            int64    `xml:"ttl,omitempty"`
 	Rating         string   `xml:"rating,omitempty"`
 	SkipHours      string   `xml:"skipHours,omitempty"`
 	SkipDays       string   `xml:"skipDays,omitempty"`
@@ -1174,8 +1285,8 @@ type RssImage struct {
 	Url     string   `xml:"url"`
 	Title   string   `xml:"title"`
 	Link    string   `xml:"link"`
-	Width   int      `xml:"width,omitempty"`
-	Height  int      `xml:"height,omitempty"`
+	Width   int64    `xml:"width,omitempty"`
+	Height  int64    `xml:"height,omitempty"`
 }
 
 type RssTextInput struct {
@@ -1198,7 +1309,7 @@ type RssItem struct {
 	Comments    string        `xml:"comments,omitempty"`
 	Enclosure   *RssEnclosure ``
 	Guid        string        `xml:"guid,omitempty"`    // Id used
-	PubDate     RssTime       `xml:"pubDate,omitempty"` // created or updated
+	PubDate     *RssTime      `xml:"pubDate,omitempty"` // created or updated
 	Source      string        `xml:"source,omitempty"`
 }
 
@@ -1218,22 +1329,19 @@ type RssEnclosure struct {
 type RssTime time.Time
 
 func (self RssTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
-	if time.Time(self).IsZero() {
-		return nil
-	}
 	enc.EncodeToken(start)
 	enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC1123Z)))
 	enc.EncodeToken(xml.EndElement{Name: start.Name})
 	return nil
 }
 
-func anyTime(vals ...time.Time) time.Time {
+func anyTime(vals ...*time.Time) *time.Time {
 	for _, val := range vals {
-		if !val.IsZero() {
+		if val != nil && !val.IsZero() {
 			return val
 		}
 	}
-	return time.Time{}
+	return nil
 }
 
 func stripLeadingSlash(str string) string {
@@ -1264,8 +1372,8 @@ Renders an image box. Scans the image file on disk to determine its dimentions.
 Includes the height/width proportion into the template, which allows to ensure
 fixed image dimensions and therefore prevent layout reflow on image load.
 */
-func imgBox(src string, caption string) (ht.HTML, error) {
-	// Takes tens of microseconds on my system, might be good enough for now.
+func imgBoxWithLink(src string, caption string, href string) (ht.HTML, error) {
+	// Takes tens of microseconds on my system, good enough for now.
 	conf, err := imgConfig(stripLeadingSlash(src))
 	if err != nil {
 		return "", err
@@ -1273,17 +1381,23 @@ func imgBox(src string, caption string) (ht.HTML, error) {
 
 	input := struct {
 		Src     string
+		Href    string // TODO: does this need to be `ht.HTMLAttr`?
 		Caption string
 		Width   int
 		Height  int
 	}{
 		Src:     src,
+		Href:    href,
 		Caption: caption,
 		Width:   conf.Width,
 		Height:  conf.Height,
 	}
 
 	return includeTemplateWith("img-box.html", input)
+}
+
+func imgBox(src string, caption string) (ht.HTML, error) {
+	return imgBoxWithLink(src, caption, "")
 }
 
 func ariaHidden(str string) ht.HTML {
@@ -1311,4 +1425,11 @@ func formatFloat(value float64, prec int) string {
 
 func formatFloatPercent(value float64, prec int) string {
 	return strconv.FormatFloat(value*100, 'f', prec, 64) + "%"
+}
+
+func timePtr(inst time.Time) *time.Time { return &inst }
+
+func zero(val interface{}) {
+	rval := reflect.ValueOf(val).Elem()
+	rval.Set(reflect.New(rval.Type()).Elem())
 }

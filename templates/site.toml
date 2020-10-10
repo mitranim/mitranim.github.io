@@ -44,8 +44,7 @@ path = "posts/gameplay-conjecture.html"
 inputPath = "posts/gameplay-conjecture.md"
 title = "Gameplay Conjecture"
 description = "Amount of gameplay ≈ amount of required decisions"
-created = 2019-05-01T09:00:00Z
-isPublic = "dev"
+publishedAt = 2019-05-01T09:00:00Z
 isListed = "dev"
 
 [[posts]]
@@ -53,8 +52,7 @@ path = "posts/thoughts-on-the-egg.html"
 inputPath = "posts/thoughts-on-the-egg.md"
 title = "Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt"
 description = ""
-created = 2020-04-30T08:25:16Z
-isPublic = true
+publishedAt = 2020-04-30T08:25:16Z
 isListed = true
 
 [[posts]]
@@ -62,8 +60,7 @@ path = "posts/tips-and-tricks-doom-2016.html"
 inputPath = "posts/tips-and-tricks-doom-2016.md"
 title = "Tips and Tricks: Doom 2016"
 description = "General tips, notes on difficulty, enemies, runes, weapons"
-created = 2019-04-25T12:00:00Z
-isPublic = true
+publishedAt = 2019-04-25T12:00:00Z
 isListed = true
 
 [[posts]]
@@ -71,8 +68,7 @@ path = "posts/game-impressions-doom-2016.html"
 inputPath = "posts/game-impressions-doom-2016.md"
 title = "Game Impressions: Doom 2016"
 description = "I really like Doom 2016, here's why"
-created = 2019-04-25T11:00:00Z
-isPublic = true
+publishedAt = 2019-04-25T11:00:00Z
 isListed = true
 
 [[posts]]
@@ -80,8 +76,7 @@ path = "posts/astrotips.html"
 inputPath = "posts/astrotips.md"
 title = "Announcing Astrotips: Video Guides on Astroneer"
 description = "A series of video guides, tips and tricks on Astroneer, an amazing space exploration and building game"
-created = 2019-02-22T11:00:00Z
-isPublic = true
+publishedAt = 2019-02-22T11:00:00Z
 isListed = true
 
 [[posts]]
@@ -89,8 +84,7 @@ path = "posts/camel-case-abbr.html"
 inputPath = "posts/camel-case-abbr.md"
 title = "Don't Abbreviate in CamelCase"
 description = 'CamelCase identifiers should avoid abbreviations, e.g. "JsonText" rather than "JSONText"'
-created = 2019-01-17T07:00:00Z
-isPublic = true
+publishedAt = 2019-01-17T07:00:00Z
 isListed = true
 
 [[posts]]
@@ -98,8 +92,7 @@ path = "posts/remove-from-go.html"
 inputPath = "posts/remove-from-go.md"
 title = "Things I Would Remove From Go"
 description = "If less is more, Go could gain by losing weight"
-created = 2019-01-15T01:00:00Z
-isPublic = true
+publishedAt = 2019-01-15T01:00:00Z
 isListed = true
 
 [[posts]]
@@ -107,8 +100,7 @@ path = "posts/back-from-hiatus-2019.html"
 inputPath = "posts/back-from-hiatus-2019.md"
 title = "Back from Hiatus (2019)"
 description = "Back to blogging after three and a half years"
-created = 2019-01-15T00:00:00Z
-isPublic = true
+publishedAt = 2019-01-15T00:00:00Z
 isListed = true
 
 [[posts]]
@@ -117,8 +109,7 @@ inputPath = "posts/cheating-for-performance-pjax.md"
 obsoletePath = "thoughts/cheating-for-performance-pjax.html"
 title = "Cheating for Performance with Pjax"
 description = "Faster page transitions, for free"
-created = 2015-07-25T00:00:00Z
-isPublic = true
+publishedAt = 2015-07-25T00:00:00Z
 isListed = true
 
 [[posts]]
@@ -127,8 +118,7 @@ inputPath = "posts/cheating-for-website-performance.md"
 obsoletePath = "thoughts/cheating-for-website-performance.html"
 title = "Cheating for Website Performance"
 description = "Frontend tips for speeding up websites"
-created = 2015-03-11T00:00:00Z
-isPublic = true
+publishedAt = 2015-03-11T00:00:00Z
 isListed = true
 
 [[posts]]
@@ -137,8 +127,7 @@ inputPath = "posts/keeping-things-simple.md"
 obsoletePath = "thoughts/keeping-things-simple.html"
 title = "Keeping Things Simple"
 description = "Musings on simplicity in programming"
-created = 2015-03-10T00:00:00Z
-isPublic = true
+publishedAt = 2015-03-10T00:00:00Z
 isListed = true
 
 [[posts]]
@@ -147,8 +136,7 @@ inputPath = "posts/next-generation-today.md"
 obsoletePath = "thoughts/next-generation-today.html"
 title = "Next Generation Today"
 description = "EcmaScript 2015/2016 workflow with current web frameworks"
-created = 2015-05-18T00:00:00Z
-isPublic = true
+publishedAt = 2015-05-18T00:00:00Z
 isListed = false
 
 [[posts]]
@@ -157,6 +145,5 @@ inputPath = "posts/old-posts.md"
 obsoletePath = "thoughts/old-posts.html"
 title = "Old Posts"
 description = "some old stuff from around the net"
-created = 2015-01-01T00:00:00Z
-isPublic = true
+publishedAt = 2015-01-01T00:00:00Z
 isListed = true

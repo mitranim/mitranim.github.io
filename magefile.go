@@ -17,7 +17,6 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
-	"strings"
 	"sync"
 
 	"github.com/gorilla/websocket"
@@ -62,41 +61,36 @@ func Clean() error {
 // Copy files from "./static" to the target directory.
 func Static(ctx context.Context) error {
 	const DIR = "static"
-	return filepath.Walk(DIR, func(srcPath string, info os.FileInfo, err error) error {
-		if err != nil {
-			return errors.WithStack(err)
-		}
+
+	err := filepath.Walk(DIR, func(srcPath string, info os.FileInfo, fsErr error) (err error) {
+		defer rec(&err)
+		must(errors.WithStack(fsErr))
+
 		if info.IsDir() {
 			return nil
 		}
 
 		rel, err := filepath.Rel(DIR, srcPath)
-		if err != nil {
-			return errors.WithStack(err)
-		}
+		must(errors.WithStack(err))
 
 		outPath := filepath.Join(PUBLIC_DIR, rel)
 
 		err = os.MkdirAll(filepath.Dir(outPath), os.ModePerm)
-		if err != nil {
-			return errors.WithStack(err)
-		}
+		must(errors.WithStack(err))
 
 		src, err := os.Open(srcPath)
-		if err != nil {
-			return errors.WithStack(err)
-		}
+		must(errors.WithStack(err))
 		defer src.Close()
 
 		out, err := os.Create(outPath)
-		if err != nil {
-			return errors.WithStack(err)
-		}
+		must(errors.WithStack(err))
 		defer out.Close()
 
 		_, err = io.Copy(out, src)
-		return errors.WithStack(err)
+		must(errors.WithStack(err))
+		return nil
 	})
+	return errors.WithStack(err)
 }
 
 // Watch static files and rerun the static task on changes.
@@ -188,30 +182,26 @@ func StylesW(ctx context.Context) error {
 //
 // Uses "filepath.Walk" instead of "filepath.Glob" because the latter can't
 // find everything we need in a single call.
-func Images(ctx context.Context) error {
+func Images(ctx context.Context) (err error) {
+	defer rec(&err)
 	var batch string
 
-	err := filepath.Walk("images", func(srcPath string, info os.FileInfo, err error) error {
-		if err != nil {
-			return errors.WithStack(err)
-		}
+	err = filepath.Walk("images", func(srcPath string, info os.FileInfo, fsErr error) (err error) {
+		defer rec(&err)
+		must(errors.WithStack(fsErr))
 
 		if info.IsDir() || !isImagePath(srcPath) {
 			return nil
 		}
 
 		outPath, err := makeImagePath(srcPath)
-		if err != nil {
-			return err
-		}
+		must(err)
 
 		batch += "convert " + srcPath + " " + outPath + "\n"
 		return nil
 	})
+	must(errors.WithStack(err))
 
-	if err != nil {
-		return err
-	}
 	if batch == "" {
 		return nil
 	}
@@ -225,22 +215,18 @@ func Images(ctx context.Context) error {
 	cmd.Stderr = os.Stderr
 
 	pipeIn, err := cmd.StdinPipe()
-	if err != nil {
-		return errors.WithStack(err)
-	}
+	must(errors.WithStack(err))
 
 	err = cmd.Start()
-	if err != nil {
-		return errors.WithStack(err)
-	}
+	must(errors.WithStack(err))
 
 	_, err = pipeIn.Write([]byte(batch))
-	if err != nil {
-		return errors.WithStack(err)
-	}
-	pipeIn.Close()
+	must(errors.WithStack(err))
+	must(errors.WithStack(pipeIn.Close()))
 
-	return cmd.Wait()
+	err = cmd.Wait()
+	must(errors.WithStack(err))
+	return nil
 }
 
 // Watch and rebuild images.
@@ -379,7 +365,6 @@ func serve(rew http.ResponseWriter, req *http.Request) {
 	// Has extension? Don't bother looking for +".html" or +"/index.html".
 	if path.Ext(reqPath) != "" {
 		goto notFound
-		return
 	}
 
 	// Try +".html".
@@ -453,18 +438,18 @@ func notifyClient(client *Client, msg []byte) {
 
 // Build in "production" mode and deploy. Stop all other tasks before running
 // this!
-func Deploy() error {
+func Deploy() (err error) {
+	defer rec(&err)
+
 	FLAGS.DEV = false
 	mg.SerialDeps(Clean, Build)
 
-	originUrl, err := shellCmd("git", "remote", "get-url", "origin")
-	if err != nil {
-		return err
-	}
-	sourceBranch, err := shellCmd("git", "symbolic-ref", "--short", "head")
-	if err != nil {
-		return err
-	}
+	originUrl, err := runCmdOut("git", "remote", "get-url", "origin")
+	must(err)
+
+	sourceBranch, err := runCmdOut("git", "symbolic-ref", "--short", "head")
+	must(err)
+
 	const targetBranch = "master"
 
 	if sourceBranch == targetBranch {
@@ -473,51 +458,62 @@ func Deploy() error {
 	}
 
 	cwd, err := os.Getwd()
-	if err != nil {
-		return errors.WithStack(err)
-	}
+	must(errors.WithStack(err))
 
-	return unpanic(func() {
-		must(os.Chdir(PUBLIC_DIR))
-		must(os.RemoveAll(".git"))
-		mustShellCmd("git", "init")
-		mustShellCmd("git", "remote", "add", "origin", originUrl)
-		mustShellCmd("git", "add", "-A", ".")
-		mustShellCmd("git", "commit", "-a", "--allow-empty-message", "-m", "")
-		mustShellCmd("git", "branch", "-m", targetBranch)
-		mustShellCmd("git", "push", "-f", "origin", targetBranch)
-		must(os.RemoveAll(".git"))
-		must(os.Chdir(cwd))
-	})
+	must(os.Chdir(PUBLIC_DIR))
+	must(os.RemoveAll(".git"))
+	must(runCmd("git", "init"))
+	must(runCmd("git", "remote", "add", "origin", originUrl))
+	must(runCmd("git", "add", "-A", "."))
+	must(runCmd("git", "commit", "-a", "--allow-empty-message", "-m", ""))
+	must(runCmd("git", "branch", "-m", targetBranch))
+	must(runCmd("git", "push", "-f", "origin", targetBranch))
+	must(os.RemoveAll(".git"))
+	must(os.Chdir(cwd))
+
+	return nil
 }
 
-func unpanic(fun func()) (err error) {
-	defer func() {
-		if err == nil {
-			err, _ = recover().(error)
-		}
-	}()
-	fun()
-	return
-}
-
-func mustShellCmd(command string, args ...string) string {
-	out, err := shellCmd(command, args...)
-	must(err)
-	return out
-}
-
-func shellCmd(command string, args ...string) (string, error) {
-	var buf bytes.Buffer
+/*
+Runs a command for side effects, connecting its stdout and stderr to the parent
+process.
+*/
+func runCmd(command string, args ...string) error {
 	cmd := exec.Command(command, args...)
-	cmd.Stdout = &buf
+	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
-	return strings.TrimSpace(buf.String()), errors.WithStack(err)
+	return errors.WithStack(err)
+}
+
+/*
+Runs a command and returns its stdout. Stderr is connected to the parent
+process. TODO: should this also return stderr?
+*/
+func runCmdOut(command string, args ...string) (string, error) {
+	cmd := exec.Command(command, args...)
+	cmd.Stderr = os.Stderr
+	out, err := cmd.Output()
+	return string(bytes.TrimSpace(out)), errors.WithStack(err)
 }
 
 func must(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func rec(ptr *error) {
+	val := recover()
+	if val == nil {
+		return
+	}
+
+	recErr, ok := val.(error)
+	if ok {
+		*ptr = recErr
+		return
+	}
+
+	panic(val)
 }
