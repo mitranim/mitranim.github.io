@@ -4,7 +4,7 @@
 /* Vars */
 
 // Note: CSS variables can't be used for media queries.
-$breakpoint-xs: 420px;
+$breakpoint-xs: 320px;
 $breakpoint-sm: 600px;
 $breakpoint-md: 960px;
 $breakpoint-lg: 1024px;
@@ -77,10 +77,6 @@ $breakpoint-lg: 1024px;
     background-color: var(--color-bg);
     color: var(--color-fg);
 
-    code, key, pre {background-color: var(--color-code-bg);}
-
-    .hr {color: var(--color-hr);}
-
     /* Vars */
 
     @extend %vars-misc;
@@ -104,7 +100,7 @@ body {
 }
 
 code, key, pre {
-    @extend .font-monospace;
+    @extend .code;
 }
 
 /* Themes */
@@ -165,6 +161,8 @@ code, key, pre {
 .fill-feedly   {fill: var(--color-feedly);}
 .fill-youtube  {fill: var(--color-youtube);}
 .fill-discord  {fill: var(--color-discord);}
+
+.hr {color: var(--color-hr);}
 
 /* Typography */
 
@@ -252,8 +250,8 @@ code, key, pre {
 .gaps-h-1      {@include gaps-h(1rem);}
 .gaps-h-2      {@include gaps-h(2rem);}
 .gaps-h-4      {@include gaps-h(4rem);}
-.gaps-v-letter {@include gaps-v(1ex);}
-.gaps-h-letter {@include gaps-v(calc(1em / 4));}
+.gaps-v-letter {@include gaps-v(1ex);}           // TODO better letter height.
+.gaps-h-letter {@include gaps-v(calc(1em / 4));} // TODO better letter width.
 
 .center-by-margins {
     margin-left: auto;
@@ -339,7 +337,10 @@ ul.fancy-list ul.fancy-list {
         @extend .hr;
     }
 
-    a {@extend .decorate-link;}
+    // Questionable restrictions.
+    p, ul, ol, h1, h2, h3, h4, h5, h6 {
+        a {@extend .decorate-link;}
+    }
 
     pre {@extend .padding-1;}
 
@@ -368,6 +369,21 @@ ul.fancy-list ul.fancy-list {
     padding: 1rem 1rem 1rem calc(1rem + var(--thick-border-width));
     border-left: var(--thick-border-width) solid var(--color-gray-fg-close);
     @extend .bg-code;
+    @extend .gaps-v-1;
+
+    // Tentative. Prevents the background from overlapping with floating images.
+    clear: both;
+
+    footer {
+        @extend .block;
+        @extend .text-right;
+
+        // Note: MacOS VoiceOver seems to read this emdash as "comma". WTF?
+        &::before {
+            content: '—'; // emdash
+            margin-right: 0.5em; // TODO use letter spacing.
+        }
+    }
 }
 
 [disabled] {@extend .cursor-not-allowed;}
@@ -480,21 +496,35 @@ large.
     clear: both;
     position: relative;
 
-    width: var(--img-box-size);
+    // Flexible sizing proportional to display width.
+    width: 30vw;
+    min-width: 6em;
+    max-width: 10em;
     height: auto;
-    @media (max-width: $breakpoint-sm) {
-        width: var(--img-box-size-small);
-    }
 
-    margin-left: 1rem;
-    margin-bottom: 1rem;
+    margin: 0 0 1em 1em;
 
     border: 1px solid var(--color-gray-fg-far);
-    @extend .rounded;
+
+    // Tentative.
+    // @extend .rounded;
+
+    // On extra-small displays, break the text instead of floating.
+    @media (max-width: $breakpoint-xs) {
+        float: unset;
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+        margin: 1em 0 1em 0;
+    }
 }
 
 .img-box-padder {
+    @extend .block;
     border-radius: inherit;
+
+    // TODO: choose visual effect.
+    &[href]:hover {}
 }
 
 /*
@@ -524,4 +554,11 @@ Possible solutions:
     @include padding-v(0.25rem);
     @extend .text-center;
     border-top: 1px solid var(--color-gray-fg-far);
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
+
+.code {
+    @extend .bg-code;
+    @extend .font-monospace;
 }
