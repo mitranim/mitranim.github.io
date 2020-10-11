@@ -224,7 +224,7 @@ func (self Post) ExistsAsFile() bool {
 }
 
 func (self Post) ExistsInFeeds() bool {
-	return self.PublishedAt != nil && bool(self.IsListed)
+	return self.ExistsAsFile() && bool(self.IsListed)
 }
 
 func (self Post) UrlFromSiteRoot() string {
