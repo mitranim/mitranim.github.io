@@ -277,9 +277,10 @@ func buildSite() (err error) {
 	}
 
 	feed := siteFeed()
-	for _, post := range SITE.Posts {
+	for i := range SITE.Posts {
+		post := &SITE.Posts[i]
 		must(maybeBuildPost(post))
-		must(maybeAppendPost(&feed.Items, post))
+		must(maybeAppendPost(&feed.Items, *post))
 	}
 
 	content, err := xmlEncode(feed.AtomFeed())
@@ -306,7 +307,7 @@ func buildPage(page Page) (err error) {
 	return writePublic(page.Path, output)
 }
 
-func maybeBuildPost(post Post) (err error) {
+func maybeBuildPost(post *Post) (err error) {
 	defer rec(&err)
 
 	if !post.ExistsAsFile() {
@@ -414,6 +415,10 @@ func initSite() (err error) {
 			/**
 			Modify the template to preserve content between ``` as-is. We
 			need it raw for Markdown and code highlighting.
+
+			TODO extend this to single grave quotes, and use a decent parser instead
+			of a regexp. It might be viable to use Blackfriday to parse a Markdown
+			file that includes Go templating directives.
 			*/
 			content = codeBlockReg.ReplaceAllStringFunc(content, codeBlockToRaw)
 		}
@@ -428,7 +433,10 @@ func initSite() (err error) {
 
 var codeBlockReg = regexp.MustCompile("(?:^|\\n)```\\S*\\r?\\n((?:[^`]|`[^`]|``[^`])*)```")
 
-// TODO: check if the standard library has a better quoting function.
+/*
+TODO: check if the standard library has a better quoting function. Might be able
+to use `strconv.Quote`.
+*/
 func codeBlockToRaw(input string) string {
 	return "{{raw (print `" + strings.Replace(input, "`", "` \"`\" `", -1) + "`)}}"
 }
