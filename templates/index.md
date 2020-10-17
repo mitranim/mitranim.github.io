@@ -6,7 +6,7 @@ Nelo Mitranim.
 
 Autodidact. Senior software developer and architect. Main expertise: web applications (full stack). Open source and gaming enthusiast.
 
-Passionate about open source software and computer games. Trying my hand at gaming videos. See [works](/works).
+Passionate about open source software. See [works](/works).
 
 # Languages
 
@@ -45,7 +45,7 @@ Favorite pastimes: [open source development](/works), computer games, anime.
 
 Enthusiastic about software, physics, biology, philosophy, culture, computer games, anime, science fiction.
 
-Location: Moscow, Russia (planning to move out).
+Location: Moscow, Russia (open to offers to move out).
 
 Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF.)
 

@@ -31,6 +31,30 @@ colorScheme = "color-scheme-light"
 # ----
 
 [[posts]]
+path = "posts/lang-var-minus.html"
+inputPath = "posts/lang-var-minus.md"
+title = "Language Design: Gotchas With Variadic Minus"
+description = "Treating the minus operator as a function can be tricky and dangerous"
+publishedAt = 2020-10-17T07:20:06Z
+isListed = true
+
+[[posts]]
+path = "posts/lang-case-conventions.html"
+inputPath = "posts/lang-case-conventions.md"
+title = "Language Design: Case Conventions"
+description = "Objective arguments to solve case conventions and move on"
+publishedAt = 2020-10-16T15:30:41Z
+isListed = true
+
+[[posts]]
+path = "posts/lang-homoiconic.html"
+inputPath = "posts/lang-homoiconic.md"
+title = "Language Design: Homoiconicity"
+description = "Thoughts on homoiconicity, an interesting language quality seen in Lisps"
+publishedAt = 2020-10-16T12:41:58Z
+isListed = true
+
+[[posts]]
 path = "posts/warframe-headcanon.html"
 inputPath = "posts/warframe-headcanon.md"
 title = "Warframe Headcanon (Spoilers)"
@@ -39,29 +63,19 @@ publishedAt = 2020-10-10T12:25:32Z
 isListed = true
 
 [[posts]]
-path = "posts/warframe-fixes.html"
-inputPath = "posts/warframe-fixes.md"
-title = "Things I Would Fix in Warframe"
-description = ""
-publishedAt = 2020-05-21T00:00:00Z
-updatedAt = 2020-06-25T09:02:05Z
-isListed = "dev"
-
-[[posts]]
-path = "posts/gameplay-conjecture.html"
-inputPath = "posts/gameplay-conjecture.md"
-title = "Gameplay Conjecture"
-description = "Amount of gameplay ≈ amount of required decisions"
-publishedAt = 2019-05-01T09:00:00Z
-isListed = "dev"
-
-[[posts]]
 path = "posts/thoughts-on-the-egg.html"
 inputPath = "posts/thoughts-on-the-egg.md"
 title = "Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt"
 description = ""
 publishedAt = 2020-04-30T08:25:16Z
 isListed = true
+
+[[posts]]
+path = "posts/gameplay-conjecture.html"
+inputPath = "posts/gameplay-conjecture.md"
+title = "Gameplay Conjecture"
+description = "Amount of gameplay ≈ amount of required decisions"
+isListed = "dev"
 
 [[posts]]
 path = "posts/tips-and-tricks-doom-2016.html"

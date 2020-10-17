@@ -383,4 +383,6 @@ But what if Inaros is made of fast-moving, fast-replicating nano- or micro-bots?
 
 {{imgBoxWithLink "/images/warframe/orokin_drone.png" "Orokin Drone" "https://warframe.fandom.com/wiki/Orokin_Drone"}}
 
-In the Corrupted faction, all units are named "Corrupted X", except for these drones. Now consider, how exactly does an Orokin Tower's "neural sentry", likely a Cephalon, maintain the towers? How does it corrupt those who visit its domain? How does it maintain the state of corruption? It must have tools, mobile drones acting as its eyes and arms. It must have indoctrination devices, numerous and mobile. When deploying squads of Corrupted into remote areas, those eyes, arms, and indoctrination devices must be deployed with them to relay the combat situation, orders, and ensure continuous loyalty. It stands to reason that these drones are responsible for it.
+In the Corrupted faction, all units are named "Corrupted X", except for these drones. Now consider, how exactly does an Orokin Tower's "neural sentry", likely a Cephalon, maintain the towers? How does it corrupt those who visit its domain? How does it maintain the state of corruption?
+
+It must have tools, mobile drones acting as its eyes and arms. It must have indoctrination devices, numerous and mobile. When deploying squads of Corrupted into remote areas, those eyes, arms, and indoctrination devices must be deployed with them to relay the combat situation, orders, and ensure continuous loyalty. It stands to reason that these drones are responsible for it.
