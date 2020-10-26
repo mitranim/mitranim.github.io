@@ -29,12 +29,10 @@ Installing DartSass:
 
 Build, then watch and rebuild on changes:
 
-    mage -v clean build watch
+    mage clean build watch
 
 To deploy, _stop the other tasks_, then run this:
 
-    mage -v deploy
+    mage deploy
 
 Deployment is exclusive with other tasks because it performs a clean build in "production mode".
-
-To omit the `-v`, set the environment variable `MAGEFILE_VERBOSE=true`, for example by adding this to `~/.profile`.

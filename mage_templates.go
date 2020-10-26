@@ -3,8 +3,6 @@
 package main
 
 import (
-	"bytes"
-	"context"
 	"encoding/xml"
 	"fmt"
 	"hash/crc32"
@@ -12,7 +10,6 @@ import (
 	"image"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -37,69 +34,44 @@ import (
 	"github.com/shurcooL/sanitized_anchor_name"
 )
 
-const TEMPLATE_DIR = "templates"
-const FILE_MODE = 0600
-const DIR_MODE = 0700
-const HUMAN_TIME_FORMAT = "Jan 02 2006"
-
-var SITE_FILE = filepath.Join(TEMPLATE_DIR, "site.toml")
-
-// Rebuild HTML.
-func Html() error {
+// Rebuild templates.
+func Templates() error {
 	mg.Deps(Styles)
-	t0 := time.Now()
-	err := buildSite()
-	if err != nil {
-		return err
-	}
-	t1 := time.Now()
-	log.Printf("[html] built in %v", t1.Sub(t0))
-	return nil
+	return logTime("[templates] built in", buildSite)
 }
 
 /*
-Watch templates and rebuild HTML.
+Watch and rebuild templates.
 
 If rebuilds become too slow because of too many files, this could reinitialize
 and re-render only the changed templates rather than everything. Keeping it
 simple for now.
 */
-func HtmlW(ctx context.Context) error {
-	fsEvents := make(chan notify.EventInfo, 1)
-	err := notify.Watch(TEMPLATE_DIR+"/...", fsEvents, FS_EVENTS)
-	if err != nil {
-		return err
-	}
-	defer notify.Stop(fsEvents)
-
-	for {
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-
-		case fsEvent := <-fsEvents:
-			log.Println("[html] FS event:", fsEvent)
-
-			err := Html()
-			if err != nil {
-				log.Println("[html] error:", err)
-				continue
-			}
-
-			notifyClients(nil)
+func TemplatesW() error {
+	return watch(fpj(TEMPLATE_DIR, "..."), notify.All, func(event notify.EventInfo) {
+		logger.Println("[templates] FS event:", event)
+		err := Templates()
+		if err != nil {
+			logger.Println("[templates] error:", err)
+			return
 		}
+		notifyClients(nil)
+	})
+}
+
+var (
+	SITE_FILE = fpj(TEMPLATE_DIR, "site.toml")
+
+	// See `templates/site.toml`.
+	SITE struct {
+		Pages []Page
+		Posts []Post
 	}
-}
 
-// See `templates/site.toml`.
-var SITE struct {
-	Pages []Page
-	Posts []Post
-}
+	FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
 
-var FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
-
-var TEMPLATES *ht.Template
+	TEMPLATES *ht.Template
+)
 
 var TEMPLATE_FUNCS = ht.FuncMap{
 	"FLAGS":               func() Flags { return FLAGS },
@@ -130,10 +102,10 @@ var TEMPLATE_FUNCS = ht.FuncMap{
 }
 
 func siteBase() string {
-	if FLAGS.DEV {
-		return fmt.Sprintf("http://localhost:%v", SERVER_PORT)
+	if FLAGS.PROD {
+		return "https://mitranim.com"
 	}
-	return "https://mitranim.com"
+	return fmt.Sprintf("http://localhost:%v", SERVER_PORT)
 }
 
 func siteFeed() Feed {
@@ -161,27 +133,29 @@ func siteFeed() Feed {
 	}
 }
 
-// Concurrency-unsafe like many other globals, but should only be called from
-// templating functions which are run sequentially.
-var ASSET_HASHES = map[string]string{}
+var (
+	// Concurrency-unsafe like many other globals, but should only be called from
+	// templating functions which are run sequentially.
+	ASSET_HASHES = map[string]string{}
 
-var CHROMA_FORMATTER = chtml.New()
+	CHROMA_FORMATTER = chtml.New()
 
-/*
-// Light
-cstyles.Colorful
-cstyles.Tango
-cstyles.VisualStudio
-cstyles.Xcode
-cstyles.Pygments
+	/**
+	// Light
+	cstyles.Colorful
+	cstyles.Tango
+	cstyles.VisualStudio
+	cstyles.Xcode
+	cstyles.Pygments
 
-// Dark
-cstyles.Dracula
-cstyles.Fruity
-cstyles.Native
-cstyles.Monokai
-*/
-var CHROMA_STYLE = cstyles.Monokai
+	// Dark
+	cstyles.Dracula
+	cstyles.Fruity
+	cstyles.Native
+	cstyles.Monokai
+	*/
+	CHROMA_STYLE = cstyles.Monokai
+)
 
 /*
 Note: we create a new renderer for every page because `bf.HTMLRenderer` is
@@ -220,7 +194,7 @@ type Post struct {
 }
 
 func (self Post) ExistsAsFile() bool {
-	return self.PublishedAt != nil || FLAGS.DEV
+	return self.PublishedAt != nil || !FLAGS.PROD
 }
 
 func (self Post) ExistsInFeeds() bool {
@@ -259,7 +233,7 @@ func (self *fudgedBool) UnmarshalText(input []byte) error {
 
 	// Somehow arrives unquoted, just like "true" and "false". 🤨
 	case "dev":
-		*self = fudgedBool(FLAGS.DEV)
+		*self = fudgedBool(!FLAGS.PROD)
 		return nil
 
 	default:
@@ -393,10 +367,10 @@ func initSite() (err error) {
 	*/
 
 	matches, err := globs(
-		filepath.Join(TEMPLATE_DIR, "*.html"),
-		filepath.Join(TEMPLATE_DIR, "*.md"),
-		filepath.Join(TEMPLATE_DIR, "**/*.html"),
-		filepath.Join(TEMPLATE_DIR, "**/*.md"),
+		fpj(TEMPLATE_DIR, "*.html"),
+		fpj(TEMPLATE_DIR, "*.md"),
+		fpj(TEMPLATE_DIR, "**/*.html"),
+		fpj(TEMPLATE_DIR, "**/*.md"),
 	)
 	must(errors.WithStack(err))
 
@@ -441,27 +415,6 @@ func codeBlockToRaw(input string) string {
 	return "{{raw (print `" + strings.Replace(input, "`", "` \"`\" `", -1) + "`)}}"
 }
 
-func globs(patterns ...string) ([]string, error) {
-	var out []string
-	for _, pattern := range patterns {
-		matches, err := filepath.Glob(pattern)
-		if err != nil {
-			return out, errors.WithStack(err)
-		}
-		out = append(out, matches...)
-	}
-	return out, nil
-}
-
-func xmlEncode(input interface{}) ([]byte, error) {
-	var buf bytes.Buffer
-	buf.WriteString(xml.Header)
-	enc := xml.NewEncoder(&buf)
-	enc.Indent("", "\t")
-	err := enc.Encode(input)
-	return buf.Bytes(), errors.WithStack(err)
-}
-
 func findTemplate(root *ht.Template, templateName string) (*ht.Template, error) {
 	temp := root.Lookup(templateName)
 	if temp != nil {
@@ -475,12 +428,6 @@ func findTemplate(root *ht.Template, templateName string) (*ht.Template, error) 
 		}
 	}
 	return nil, errors.Errorf("template %q not found; known templates: %v", templateName, names)
-}
-
-func renderTemplate(temp *ht.Template, data interface{}) ([]byte, error) {
-	var buf bytes.Buffer
-	err := temp.Execute(&buf, data)
-	return buf.Bytes(), errors.WithStack(err)
 }
 
 func includeTemplate(templateName string) (ht.HTML, error) {
@@ -511,9 +458,13 @@ us to extract the heading data.
 Note: we currently render markdown content as a Go template, which includes
 parsing it for the TOC, then we render it as markdown, which involves parsing it
 again. An ideal implementation would parse only once.
+
+We could technically find the template by name and call `.Tree.Root.String()`
+instead of reading from disk, but reading from disk is simpler and doesn't
+depend on an obscure API.
 */
 func tableOfContents(templateName string) (ht.HTML, error) {
-	pt := filepath.Join(TEMPLATE_DIR, templateName)
+	pt := fpj(TEMPLATE_DIR, templateName)
 	content, err := ioutil.ReadFile(pt)
 	if err != nil {
 		return "", errors.WithStack(err)
@@ -605,14 +556,14 @@ func bfNodeFind(node *bf.Node, nodeType bf.NodeType) *bf.Node {
 }
 
 func writePublic(path string, bytes []byte) error {
-	path = filepath.Join(PUBLIC_DIR, path)
+	path = fpj(PUBLIC_DIR, path)
 
-	err := os.MkdirAll(filepath.Dir(path), DIR_MODE)
+	err := os.MkdirAll(filepath.Dir(path), os.ModePerm)
 	if err != nil {
 		return errors.WithStack(err)
 	}
 
-	err = ioutil.WriteFile(path, bytes, FILE_MODE)
+	err = ioutil.WriteFile(path, bytes, FS_MODE_FILE)
 	return errors.WithStack(err)
 }
 
@@ -714,7 +665,7 @@ func linkWithHash(assetPath string) (string, error) {
 	out := ASSET_HASHES[assetPath]
 
 	if out == "" {
-		path := filepath.Join(PUBLIC_DIR, assetPath)
+		path := fpj(PUBLIC_DIR, assetPath)
 		bytes, err := ioutil.ReadFile(path)
 		if err != nil {
 			return "", errors.WithStack(err)

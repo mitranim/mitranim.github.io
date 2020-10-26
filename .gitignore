@@ -1,13 +1,12 @@
 /*
 
+!/images
+!/static
+!/styles
+!/templates
+
 !/.gitignore
 !/*.go
 !/go.mod
 !/go.sum
 !/readme.md
-
-!/images
-!/misc
-!/static
-!/styles
-!/templates
