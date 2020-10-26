@@ -8,8 +8,8 @@
 .fixed    {position: fixed;}
 
 .sticky {
-    position: -webkit-sticky;
-    position: sticky;
+  position: -webkit-sticky;
+  position: sticky;
 }
 
 /* display */
@@ -37,218 +37,218 @@
 /* flex */
 
 %display-flex {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 %display-inline-flex {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 %flex-direction-row {
-    -webkit-box-orient:    horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction:    row;
-    flex-direction:        row;
+  -webkit-box-orient:    horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction:    row;
+  flex-direction:        row;
 }
 
 %flex-direction-col {
-    -webkit-box-orient:    vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction:    column;
-    flex-direction:        column;
+  -webkit-box-orient:    vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction:    column;
+  flex-direction:        column;
 }
 
 @mixin flex-direction($value) {
-    @if      $value == row {@extend %flex-direction-row;}
-    @else if $value == col {@extend %flex-direction-col;}
-    @else {@error 'Unknown flex-direction: #{$value}';}
+  @if      $value == row {@extend %flex-direction-row;}
+  @else if $value == col {@extend %flex-direction-col;}
+  @else {@error 'Unknown flex-direction: #{$value}';}
 }
 
 %flex-justify-start {
-    -webkit-box-pack: start;
-    -ms-flex-pack:    start;
-    justify-content:  flex-start;
+  -webkit-box-pack: start;
+  -ms-flex-pack:    start;
+  justify-content:  flex-start;
 }
 
 %flex-justify-center {
-    -webkit-box-pack: center;
-    -ms-flex-pack:    center;
-    justify-content:  center;
+  -webkit-box-pack: center;
+  -ms-flex-pack:    center;
+  justify-content:  center;
 }
 
 %flex-justify-end {
-    -webkit-box-pack: end;
-    -ms-flex-pack:    end;
-    justify-content:  flex-end;
+  -webkit-box-pack: end;
+  -ms-flex-pack:    end;
+  justify-content:  flex-end;
 }
 
 %flex-justify-around {
-    -ms-flex-pack:   distribute;
-    justify-content: space-around;
+  -ms-flex-pack:   distribute;
+  justify-content: space-around;
 }
 
 %flex-justify-between {
-    -webkit-box-pack: justify;
-    -ms-flex-pack:    justify;
-    justify-content:  space-between;
+  -webkit-box-pack: justify;
+  -ms-flex-pack:    justify;
+  justify-content:  space-between;
 }
 
 @mixin flex-justify($value) {
-    @if      $value == start   {@extend %flex-justify-start;}
-    @else if $value == center  {@extend %flex-justify-center;}
-    @else if $value == end     {@extend %flex-justify-end;}
-    @else if $value == around  {@extend %flex-justify-around;}
-    @else if $value == between {@extend %flex-justify-between;}
-    @else {@error 'Unknown flex-justify (justify-content) property: #{$value}';}
+  @if      $value == start   {@extend %flex-justify-start;}
+  @else if $value == center  {@extend %flex-justify-center;}
+  @else if $value == end     {@extend %flex-justify-end;}
+  @else if $value == around  {@extend %flex-justify-around;}
+  @else if $value == between {@extend %flex-justify-between;}
+  @else {@error 'Unknown flex-justify (justify-content) property: #{$value}';}
 }
 
 %flex-align-start {
-    -webkit-box-align: start;
-    -ms-flex-align:    start;
-    align-items:       flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align:    start;
+  align-items:       flex-start;
 }
 
 %flex-align-center {
-    -webkit-box-align: center;
-    -ms-flex-align:    center;
-    align-items:       center;
+  -webkit-box-align: center;
+  -ms-flex-align:    center;
+  align-items:       center;
 }
 
 %flex-align-end {
-    -webkit-box-align: end;
-    -ms-flex-align:    end;
-    align-items:       flex-end;
+  -webkit-box-align: end;
+  -ms-flex-align:    end;
+  align-items:       flex-end;
 }
 
 %flex-align-stretch {
-    -webkit-box-align: stretch;
-    -ms-flex-align:    stretch;
-    align-items:       stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align:    stretch;
+  align-items:       stretch;
 }
 
 @mixin flex-align($value) {
-    @if      $value == start   {@extend %flex-align-start;}
-    @else if $value == center  {@extend %flex-align-center;}
-    @else if $value == end     {@extend %flex-align-end;}
-    @else if $value == stretch {@extend %flex-align-stretch;}
-    @else {@error 'Unknown flex-align (align-items) property: #{$value}';}
+  @if      $value == start   {@extend %flex-align-start;}
+  @else if $value == center  {@extend %flex-align-center;}
+  @else if $value == end     {@extend %flex-align-end;}
+  @else if $value == stretch {@extend %flex-align-stretch;}
+  @else {@error 'Unknown flex-align (align-items) property: #{$value}';}
 }
 
 @mixin flex-layout($dir: none, $justify: none, $align: none) {
-    @if $dir     != none {@include flex-direction($dir);}
-    @if $justify != none {@include flex-justify($justify);}
-    @if $align   != none {@include flex-align($align);}
+  @if $dir     != none {@include flex-direction($dir);}
+  @if $justify != none {@include flex-justify($justify);}
+  @if $align   != none {@include flex-align($align);}
 }
 
 @mixin flex-wrap($value: wrap) {
-    -ms-flex-wrap: $value;
-    flex-wrap:     $value;
+  -ms-flex-wrap: $value;
+  flex-wrap:     $value;
 }
 
 @mixin flex-nowrap {
-    @include flex-wrap(nowrap);
+  @include flex-wrap(nowrap);
 }
 
 @mixin flex($value) {
-    -webkit-box-flex: $value;
-    -ms-flex:         $value;
-    flex:             $value;
+  -webkit-box-flex: $value;
+  -ms-flex:         $value;
+  flex:             $value;
 }
 
 %flex-self-start {
-    -ms-flex-item-align: start;
-    align-self:          flex-start;
+  -ms-flex-item-align: start;
+  align-self:          flex-start;
 }
 
 %flex-self-center {
-    -ms-flex-item-align: center;
-    -ms-grid-row-align:  center;
-    align-self:          center;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align:  center;
+  align-self:          center;
 }
 
 %flex-self-end {
-    -ms-flex-item-align: end;
-    align-self:          flex-end;
+  -ms-flex-item-align: end;
+  align-self:          flex-end;
 }
 
 %flex-self-stretch {
-    -ms-flex-item-align: stretch;
-    -ms-grid-row-align:  stretch;
-    align-self:          stretch;
+  -ms-flex-item-align: stretch;
+  -ms-grid-row-align:  stretch;
+  align-self:          stretch;
 }
 
 @mixin flex-self($value) {
-    @if      $value == start   {@extend %flex-self-start;}
-    @else if $value == center  {@extend %flex-self-center;}
-    @else if $value == end     {@extend %flex-self-end;}
-    @else if $value == stretch {@extend %flex-self-stretch;}
-    @else {@error 'Unknown flex-self (align-self) property: #{$value}';}
+  @if      $value == start   {@extend %flex-self-start;}
+  @else if $value == center  {@extend %flex-self-center;}
+  @else if $value == end     {@extend %flex-self-end;}
+  @else if $value == stretch {@extend %flex-self-stretch;}
+  @else {@error 'Unknown flex-self (align-self) property: #{$value}';}
 }
 
 @mixin flex-shrink($value) {
-    @if $value == none {
-        @include flex-shrink(0);
-    }
-    @else {
-        -ms-flex-negative: $value;
-        flex-shrink:       $value;
-    }
+  @if $value == none {
+    @include flex-shrink(0);
+  }
+  @else {
+    -ms-flex-negative: $value;
+    flex-shrink:       $value;
+  }
 }
 
 @mixin flex-order($value) {
-    -webkit-box-ordinal-group: $value + 1;
-    -ms-flex-order:            $value;
-    order:                     $value;
+  -webkit-box-ordinal-group: $value + 1;
+  -ms-flex-order:            $value;
+  order:                     $value;
 }
 
 /* whitespace */
 
 @mixin margin-v($value) {
-    margin-top:    $value;
-    margin-bottom: $value;
+  margin-top:    $value;
+  margin-bottom: $value;
 }
 
 @mixin margin-h($value) {
-    margin-left:  $value;
-    margin-right: $value;
+  margin-left:  $value;
+  margin-right: $value;
 }
 
 @mixin padding-v($value) {
-    padding-top:    $value;
-    padding-bottom: $value;
+  padding-top:    $value;
+  padding-bottom: $value;
 }
 
 @mixin padding-h($value) {
-    padding-left:  $value;
-    padding-right: $value;
+  padding-left:  $value;
+  padding-right: $value;
 }
 
 @mixin gaps-v($value) {
-    > :not(:last-child) {margin-bottom: $value;}
+  > :not(:last-child) {margin-bottom: $value;}
 }
 
 @mixin gaps-h($value) {
-    > :not(:last-child) {margin-right: $value;}
+  > :not(:last-child) {margin-right: $value;}
 }
 
 /* overflow */
 
 .overflow-hidden {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .overflow-x-scroll {
-    overflow-x: scroll;
-    overflow-y: hidden;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .overflow-y-scroll {
-    overflow-x: hidden;
-    overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 /* cursor */
@@ -320,14 +320,14 @@
 /* text-overflow */
 
 .text-ellipsis {
-    text-overflow: ellipsis;
-    @extend .wspace-nowrap;
-    @extend .overflow-hidden;
-    * {@extend .text-ellipsis;}
+  text-overflow: ellipsis;
+  @extend .wspace-nowrap;
+  @extend .overflow-hidden;
+  * {@extend .text-ellipsis;}
 
-    // Tentative workaround for a subtle input graphics bug in Blink. The issue
-    // occurs at the start of a line inside a text-ellipsis hierarchy.
-    input[type=radio]:first-child {margin-left: 1px;}
+  // Tentative workaround for a subtle input graphics bug in Blink. The issue
+  // occurs at the start of a line inside a text-ellipsis hierarchy.
+  input[type=radio]:first-child {margin-left: 1px;}
 }
 
 /* font-weight */
@@ -358,16 +358,16 @@
 .circle {border-radius: 50%;}
 
 .bg-center {
-    background-position: center center;
-    background-repeat: no-repeat;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .bg-cover {
-    @extend .bg-center;
-    background-size: cover;
+  @extend .bg-center;
+  background-size: cover;
 }
 
 .bg-contain {
-    @extend .bg-center;
-    background-size: contain;
+  @extend .bg-center;
+  background-size: contain;
 }

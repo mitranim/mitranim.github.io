@@ -1,26 +1,26 @@
 {{template "site-top.html" .}}
 <div role="main" id="main-content" class="flex col-start-stretch gaps-v-4">
-    <div class="fancy-typography gaps-v-2">
-        <h1>Blog Posts</h1>
+  <div class="fancy-typography gaps-v-2">
+    <h1>Blog Posts</h1>
 
-        {{range $post := listedPosts}}
-            <div class="gaps-v-1">
-                <h2><a href="{{$post.UrlFromSiteRoot | asAttr}}">{{$post.Title | asHtml}}</a></h2>
-                {{if $post.Description}}
-                    <p>{{$post.Description | asHtml}}</p>
-                {{end}}
-                {{if $post.TimeString}}
-                    <p class="fg-gray-close font-small">{{$post.TimeString}}</p>
-                {{end}}
-            </div>
-        {{else}}
-            <p>Oops! It appears there are no public posts yet.</p>
+    {{range $post := listedPosts}}
+      <div class="gaps-v-1">
+        <h2><a href="{{$post.UrlFromSiteRoot | asAttr}}">{{$post.Title | asHtml}}</a></h2>
+        {{if $post.Description}}
+          <p>{{$post.Description | asHtml}}</p>
         {{end}}
-    </div>
+        {{if $post.TimeString}}
+          <p class="fg-gray-close font-small">{{$post.TimeString}}</p>
+        {{end}}
+      </div>
+    {{else}}
+      <p>Oops! It appears there are no public posts yet.</p>
+    {{end}}
+  </div>
 
-    <div class="fancy-typography">
-        <h1>Feed Links</h1>
-        {{include "feed-links.html"}}
-    </div>
+  <div class="fancy-typography">
+    <h1>Feed Links</h1>
+    {{include "feed-links.html"}}
+  </div>
 </div>
 {{template "site-bottom.html" .}}

@@ -10,58 +10,58 @@ links MUST be absolute.
 <!doctype html>
 <html{{if .ColorScheme}} class="{{.ColorScheme | asAttr}}"{{end}}>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes" />
-    <link rel="icon" href="data:;base64,=" />
-    <link rel="stylesheet" type="text/css" href="{{linkWithHash "/styles/main.css" | asAttr}}" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes" />
+  <link rel="icon" href="data:;base64,=" />
+  <link rel="stylesheet" type="text/css" href="{{linkWithHash "/styles/main.css" | asAttr}}" />
 
-    <title>{{if .Title}}{{.Title | asHtml}}{{else}}about:mitranim{{end}}</title>
+  <title>{{if .Title}}{{.Title | asHtml}}{{else}}about:mitranim{{end}}</title>
 
-    <link rel="alternate" type="application/atom+xml" title="Mitranim's Posts (Atom)" href="/feed.xml" />
-    <link rel="alternate" type="application/rss+xml" title="Mitranim's Posts (RSS)" href="/feed_rss.xml" />
+  <link rel="alternate" type="application/atom+xml" title="Mitranim's Posts (Atom)" href="/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Mitranim's Posts (RSS)" href="/feed_rss.xml" />
 
-    <meta name="author" content="Nelo Mitranim" />
-    {{if .Title}}<meta property="og:title" content="{{.Title | asAttr}}" />{{end}}
-    {{if .Description}}<meta name="description" content="{{.Description | asAttr}}" />{{end}}
-    {{if .Image}}<meta property="og:image" content="/images/{{.Image | asAttr}}" />{{end}}
-    {{if .Type}}
-    <meta property="og:type" content="{{.Type | asAttr}}" />
-    <meta property="og:site_name" content="about:mitranim" />
-    {{end}}
+  <meta name="author" content="Nelo Mitranim" />
+  {{if .Title}}<meta property="og:title" content="{{.Title | asAttr}}" />{{end}}
+  {{if .Description}}<meta name="description" content="{{.Description | asAttr}}" />{{end}}
+  {{if .Image}}<meta property="og:image" content="/images/{{.Image | asAttr}}" />{{end}}
+  {{if .Type}}
+  <meta property="og:type" content="{{.Type | asAttr}}" />
+  <meta property="og:site_name" content="about:mitranim" />
+  {{end}}
 
-    {{if FLAGS.DEV}}
-    <meta http-equiv="cache-control" content="max-age=0" />
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="expires" content="0" />
-    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-    <meta http-equiv="pragma" content="no-cache" />
+  {{if not FLAGS.PROD}}
+  <meta http-equiv="cache-control" content="max-age=0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+  <meta http-equiv="pragma" content="no-cache" />
 
-    <script>
-        // Listen for websocket notifications and reload on any message.
-        // Automatically reconnect on connection loss.
-        // (Lack of backoff is intentional.)
-        {
-            function reinit() {
-                const url    = 'ws://' + window.location.host + '/ws'
-                const ws     = new WebSocket(url)
-                ws.onmessage = reload
-                ws.onclose   = reinitAfterDelay
-            }
-            function reload() {window.location.reload()}
-            function reinitAfterDelay() {setTimeout(reinit, 1000)}
-            reinit()
-        }
-    </script>
-    {{end}}
+  <script>
+    // Listen for websocket notifications and reload on any message.
+    // Automatically reconnect on connection loss.
+    // (Lack of backoff is intentional.)
+    {
+      function reinit() {
+        const url    = 'ws://' + window.location.host + '/ws'
+        const ws     = new WebSocket(url)
+        ws.onmessage = reload
+        ws.onclose   = reinitAfterDelay
+      }
+      function reload() {window.location.reload()}
+      function reinitAfterDelay() {setTimeout(reinit, 1000)}
+      reinit()
+    }
+  </script>
+  {{end}}
 </head>
 
 <body class="flex col-start-stretch relative" style="min-height: 100vh">
-    <!--
+  <!--
 
-    This JS code skips to the content without changing the URL or polluting the
-    browser history. It SEEMS to work with the MacOS VoiceOver. Haven't tested
-    assistive tech on other operating systems.
+  This JS code skips to the content without changing the URL or polluting the
+  browser history. It SEEMS to work with the MacOS VoiceOver. Haven't tested
+  assistive tech on other operating systems.
 
-    -->
-    <a href="#main-content" class="skip-to-content" onclick="event.preventDefault(); if (document.getElementById('main-content')) {document.getElementById('main-content').scrollIntoView()}">Skip to content</a>
+  -->
+  <a href="#main-content" class="skip-to-content" onclick="event.preventDefault(); if (document.getElementById('main-content')) {document.getElementById('main-content').scrollIntoView()}">Skip to content</a>
