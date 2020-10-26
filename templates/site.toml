@@ -31,6 +31,22 @@ colorScheme = "color-scheme-light"
 # ----
 
 [[posts]]
+path = "posts/spaces-tabs.html"
+inputPath = "posts/spaces-tabs.md"
+title = "Always Spaces, Never Tabs"
+description = "Objective arguments that decided my personal preference"
+publishedAt = 2020-10-23T06:48:15Z
+isListed = true
+
+[[posts]]
+path = "posts/lisp-sexpr-hacks.html"
+inputPath = "posts/lisp-sexpr-hacks.md"
+title = "Hacks around S-expressions in Lisps"
+description = "How far people are willing to go to get prefix and infix in a Lisp syntax"
+publishedAt = 2020-10-21T06:34:24Z
+isListed = true
+
+[[posts]]
 path = "posts/lang-var-minus.html"
 inputPath = "posts/lang-var-minus.md"
 title = "Language Design: Gotchas With Variadic Minus"
