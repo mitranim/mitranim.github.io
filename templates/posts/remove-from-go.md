@@ -200,7 +200,7 @@ Currently, `&` doesn't work with non-composite literals:
 _ = &"hello world!"
 ```
 
-Before `new` can be removed, `&` needs to be extended to support primitive literals. That would make it strictly more powerful than `new`.
+Before `new` can be removed, `&` needs to be extended to support primitive literals. That would make it strictly more powerful than `new`. (**Edit 2020-10-19**: sadly this wouldn't be enough; some types, such as interfaces, don't have literals and can never be instantiated with `&`, but can with `new`.)
 
 Allowing `&` on primitives would also make it easier to print Go data structures as code. Currently, pretty-printing libraries have to resort to ugly workarounds to support those types.
 
@@ -294,13 +294,13 @@ const san  = 30
 
 While writing this post, I tried to argue that complex numbers should be moved from built-ins to the standard library, but ended unconvinced.
 
-Arguments _pro_:
+Arguments for moving:
 
 * removing built-ins simplifies the language
 * can implement additional math functions as methods
 * can implement encoding and decoding methods for various formats
 
-Arguments _contra_:
+Arguments against moving:
 
 * breaks code
 * additional functions can be provided as a package, mirroring `math`

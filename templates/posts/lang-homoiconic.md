@@ -92,7 +92,7 @@ One decent upshot is that it simplifies macros. In Lisps, you can just quote a b
 (defmacro trivial () '(sum '(10 20 30)))
 ```
 
-All that's needed of macros is to return AST nodes. Programmatically manipulating an AST doesn't require special syntactic support. AST types could be defined somewhere in the standard library. Macros would import that module to use its types and functions. Non-trivial macros are already inscrutable, so we're not losing much readability.
+All that's needed of macros is to return AST nodes. Programmatically manipulating an AST doesn't require special syntactic support. Calling `map` or `head`/`rest` on an AST doesn't care about its text representation. AST types could be defined somewhere in the standard library. Macros would import that module to use its types and functions. Non-trivial macros are already inscrutable, so we're not losing much readability.
 
 ```lisp
 (import std:ast)

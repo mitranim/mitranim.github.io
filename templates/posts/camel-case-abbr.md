@@ -1,3 +1,5 @@
+**Edit 2020-10-21**: see the newer post [Language Design: Case Conventions](/posts/lang-case-conventions).
+
 Programming has the concept of an "identifier". Identifiers are used for keywords, variable names, etc. Most languages restrict identifiers to Latin letters, digits, and an underscore.
 
 An identifier may consist of several words without spaces. The commonly used [case styles](https://en.wikipedia.org/wiki/Letter_case) can distinguish individual words:
