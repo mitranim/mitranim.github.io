@@ -4,15 +4,15 @@
 
 _Objective_ arguments in favor of spaces over tabs:
 
-* Tabs break when copy-pasting. For example, terminals render tabs as spaces, usually as 8 (at least mine).
+* Tabs break when copy-pasting. For example, some terminals and websites render tabs as spaces, usually as 8.
 * Mixing tabs with spaces causes indentation to break in different editors. People _will_ mix them. Plenty of languages and editors don't have autoformatters. It will always stay this way.
-* Distinguishing tabs from spaces requires special editor support. (Code editors can render special harder-to-see symbols for whitespace.)
-* Spaces are both necessary and sufficient. Adding tabs is adding complexity.
+* Distinguishing tabs from spaces requires special editor support. (Rendering special whitespace symbols.)
+* Spaces are both necessary and sufficient. Tabs are not necessary and not sufficient (we don't use them for separating words). Adding them adds complexity.
 
 _Objective_ arguments in favor of tabs:
 
 * Configurable visual indentation level.
-* Fewer characters and keystrokes. Not relevant in specialized editors; Tab and Backspace insert and delete multiple spaces.
+* Fewer characters and keystrokes. (Note: in decent code editors, using spaces takes just as many keystrokes.)
 
 _Objective_ arguments in favor of 2 spaces over 4 spaces:
 
