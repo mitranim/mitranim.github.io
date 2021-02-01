@@ -412,7 +412,10 @@ TODO: check if the standard library has a better quoting function. Might be able
 to use `strconv.Quote`.
 */
 func codeBlockToRaw(input string) string {
-	return "{{raw (print `" + strings.Replace(input, "`", "` \"`\" `", -1) + "`)}}"
+	return fmt.Sprintf(
+		"{{raw (print `%v`)}}",
+		strings.Replace(input, "`", "` \"`\" `", -1),
+	)
 }
 
 func findTemplate(root *ht.Template, templateName string) (*ht.Template, error) {

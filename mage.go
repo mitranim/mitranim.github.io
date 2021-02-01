@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -188,70 +187,6 @@ func serve(rew http.ResponseWriter, req *http.Request) {
 	}
 
 	serveFile(rew, req)
-}
-
-/*
-Serves static files, resolving URL/HTML in a fashion similar to the default
-Nginx config, Github Pages, and Netlify.
-
-Note: this has a race condition between checking for a file's existence and
-actually serving it. In a production-grade version, this condition should
-probably be addressed. Serving a file is not an atomic operation; the file may
-be deleted or changed midway. This development server doesn't need to handle
-this problem.
-*/
-func serveFile(rew http.ResponseWriter, req *http.Request) {
-	switch req.Method {
-	case http.MethodGet, http.MethodHead, http.MethodOptions:
-	default:
-		http.Error(rew, "", http.StatusMethodNotAllowed)
-		return
-	}
-
-	reqPath := req.URL.Path
-	filePath := fpj(PUBLIC_DIR, reqPath)
-
-	/**
-	Ends with slash? Return error 404 for hygiene. Directory links must not end
-	with a slash. It's unnecessary, and GH Pages will do a 301 redirect to a
-	non-slash URL, which is a good feature but adds latency.
-	*/
-	if len(reqPath) > 1 && reqPath[len(reqPath)-1] == '/' {
-		goto notFound
-	}
-
-	if fileExists(filePath) {
-		http.ServeFile(rew, req, filePath)
-		return
-	}
-
-	// Has extension? Don't bother looking for +".html" or +"/index.html".
-	if path.Ext(reqPath) != "" {
-		goto notFound
-	}
-
-	// Try +".html".
-	{
-		candidatePath := filePath + ".html"
-		if fileExists(candidatePath) {
-			http.ServeFile(rew, req, candidatePath)
-			return
-		}
-	}
-
-	// Try +"/index.html".
-	{
-		candidatePath := fpj(filePath, "index.html")
-		if fileExists(candidatePath) {
-			http.ServeFile(rew, req, candidatePath)
-			return
-		}
-	}
-
-notFound:
-	// Minor issue: sends code 200 instead of 404 if "404.html" is found; not
-	// worth fixing for local development.
-	http.ServeFile(rew, req, fpj(PUBLIC_DIR, "404.html"))
 }
 
 var CLIENTS sync.Map // sync.Map<string, *Client>

@@ -9,8 +9,6 @@ Personal website, hosted via Github Pages at https://mitranim.com.
   * GraphicsMagick
   * DartSass
 
-Windows assumes Chocolatey: https://chocolatey.org.
-
 Go dependencies are installed automatically on launch.
 
 For Mage installation, see https://magefile.org.
@@ -24,6 +22,8 @@ Installing DartSass:
 
   * MacOS: `brew install sass/sass/sass`
   * Windows: `choco install sass`
+
+(`choco` refers to https://chocolatey.org; replace with package manager of your choice.)
 
 ## Build
 
