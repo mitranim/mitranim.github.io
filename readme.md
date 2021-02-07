@@ -5,13 +5,10 @@ Personal website, hosted via Github Pages at https://mitranim.com.
 ## Dependencies
 
   * Go
-  * Mage
   * GraphicsMagick
   * DartSass
 
 Go dependencies are installed automatically on launch.
-
-For Mage installation, see https://magefile.org.
 
 Installing GraphicsMagick:
 
@@ -29,10 +26,12 @@ Installing DartSass:
 
 Build, then watch and rebuild on changes:
 
-    mage clean build watch
+    go run . watch
+    # Or with https://github.com/mitranim/gow:
+    gow -v -c run . watch
 
 To deploy, _stop the other tasks_, then run this:
 
-    mage deploy
+    go run . deploy
 
-Deployment is exclusive with other tasks because it performs a clean build in "production mode".
+Deployment must be exclusive with other tasks because it performs a clean build in "production mode", and doesn't want anything else messing with storage.

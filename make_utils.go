@@ -1,5 +1,3 @@
-// +build mage
-
 package main
 
 import (
@@ -7,6 +5,7 @@ import (
 	"encoding/xml"
 	ht "html/template"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -14,24 +13,48 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 
+	"github.com/gorilla/websocket"
+	g "github.com/mitranim/gtg"
 	"github.com/pkg/errors"
 	"github.com/rjeczalik/notify"
 )
 
 const (
-	SERVER_PORT       = 52693
-	PUBLIC_DIR        = "public"
-	FS_MODE_FILE      = 0666
-	TEMPLATE_DIR      = "templates"
-	HUMAN_TIME_FORMAT = "Jan 02 2006"
+	SERVER_PORT           = 52693
+	PUBLIC_DIR            = "public"
+	FS_MODE_FILE          = 0666
+	TEMPLATE_DIR          = "templates"
+	HUMAN_TIME_FORMAT     = "Jan 02 2006"
+	ESC                   = "\x1b"
+	TERM_CLEAR_SOFT       = ESC + "c"
+	TERM_CLEAR_SCROLLBACK = ESC + "[3J"
+	TERM_CLEAR_HARD       = TERM_CLEAR_SOFT + TERM_CLEAR_SCROLLBACK
 )
 
 var (
-	logger = log.New(os.Stderr, "", 0)
-	fpj    = filepath.Join
+	info = log.New(os.Stderr, "", 0)
+	verb = log.New(os.Stderr, "", 0)
+	fpj  = filepath.Join
 )
+
+type Flags struct {
+	PROD bool
+	VERB bool
+}
+
+var FLAGS = Flags{
+	PROD: os.Getenv("PROD") == "true",
+	VERB: os.Getenv("VERB") == "" || os.Getenv("VERB") == "true",
+}
+
+func init() {
+	if !FLAGS.VERB {
+		verb.SetOutput(ioutil.Discard)
+	}
+}
 
 // "mkdir" is required for GraphicsMagick, which doesn't create directories.
 func makeImagePath(srcPath string) (string, error) {
@@ -156,18 +179,34 @@ func copyFile(srcPath string, outPath string) (err error) {
 	return errors.WithStack(err)
 }
 
-func logTime(prefix string, fun func() error) error {
-	t0 := time.Now()
+func withTiming(name string, fun func() error) error {
+	defer timing(name)()
+	return fun()
+}
 
-	err := fun()
-	if err != nil {
-		return err
+func taskTiming(fun g.TaskFunc) func() {
+	if FLAGS.VERB {
+		// return g.Timing(task)
+		return timing(fun.ShortName())
+	}
+	return noop
+}
+
+func timing(name string) func() {
+	if !FLAGS.VERB {
+		return noop
 	}
 
-	t1 := time.Now()
-	logger.Println(prefix, t1.Sub(t0))
-	return nil
+	t0 := time.Now()
+	verb.Printf("[%v] starting\n", name)
+
+	return func() {
+		t1 := time.Now()
+		verb.Printf("[%v] done in %v\n", name, t1.Sub(t0))
+	}
 }
+
+func noop() {}
 
 func globs(patterns ...string) ([]string, error) {
 	var out []string
@@ -258,4 +297,62 @@ notFound:
 	// Minor issue: sends code 200 instead of 404 if "404.html" is found; not
 	// worth fixing for local development.
 	http.ServeFile(rew, req, fpj(PUBLIC_DIR, "404.html"))
+}
+
+var CLIENTS sync.Map // sync.Map<string, *Client>
+
+// Note: Gorilla's websockets support only one concurrent reader and one
+// concurrent writer, and require external synchronization.
+type Client struct {
+	sync.Mutex
+	*websocket.Conn
+}
+
+func initClientConn(rew http.ResponseWriter, req *http.Request) {
+	up := websocket.Upgrader{CheckOrigin: skipOriginCheck}
+	conn, err := up.Upgrade(rew, req, nil)
+	if err != nil {
+		info.Printf("failed to init connection at %v: %v", req.RemoteAddr, errors.WithStack(err))
+		return
+	}
+
+	key := req.RemoteAddr
+	CLIENTS.Store(key, &Client{Conn: conn})
+	defer CLIENTS.Delete(key)
+
+	// Flush and ignore client messages, if any
+	for {
+		_, _, err := conn.ReadMessage()
+		if err != nil {
+			return
+		}
+	}
+}
+
+func notifyClients(msg []byte) {
+	CLIENTS.Range(func(_, val interface{}) bool {
+		go notifyClient(val.(*Client), msg)
+		return true
+	})
+}
+
+func notifyClient(client *Client, msg []byte) {
+	client.Lock()
+	defer client.Unlock()
+
+	err := client.WriteMessage(websocket.TextMessage, msg)
+	if err != nil {
+		info.Printf("failed to notify socket: %+v", errors.WithStack(err))
+	}
+}
+
+func skipOriginCheck(*http.Request) bool { return true }
+
+func clearTerminal() {
+	os.Stdout.Write([]byte(TERM_CLEAR_HARD))
+}
+
+func onFsEvent(task g.Task, event notify.EventInfo) {
+	clearTerminal()
+	// verb.Printf("[%v] FS event: %v", task.TaskFunc().ShortName(), event)
 }

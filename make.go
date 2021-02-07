@@ -1,9 +1,6 @@
-// +build mage
-
 /*
 See `readme.md` for dependencies and build commands.
 */
-
 package main
 
 import (
@@ -12,43 +9,39 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"sync"
 
-	"github.com/gorilla/websocket"
-	"github.com/magefile/mage/mg"
+	g "github.com/mitranim/gtg"
 	"github.com/pkg/errors"
 	"github.com/rjeczalik/notify"
 )
 
-type Flags struct {
-	PROD bool
+func main() {
+	g.MustRunCmd(Build, Watch, Deploy)
 }
-
-var FLAGS = Flags{
-	PROD: os.Getenv("PROD") == "true",
-}
-
-// Default command for `mage` without args.
-var Default = Build
 
 // Rebuild everything.
-func Build() {
-	mg.Deps(Static, Styles, Images, Templates)
+func Build(task g.Task) error {
+	defer taskTiming(Build)()
+	return g.Wait(task, g.Ser(Clean, g.Par(Static, Styles, Images, Pages)))
 }
 
 // Rebuild, then watch and rebuild on changes.
-func Watch() {
-	mg.Deps(StaticW, StylesW, ImagesW, TemplatesW, Server)
+func Watch(task g.Task) error {
+	return g.Wait(task, g.Ser(Clean, g.Par(StaticW, StylesW, ImagesW, PagesW, Server)))
 }
 
 // Remove built artifacts.
-func Clean() error {
+func Clean(task g.Task) error {
+	defer taskTiming(Clean)()
 	return os.RemoveAll(PUBLIC_DIR)
 }
 
 // Copy files from "./static" to the target directory.
-func Static() error {
+func Static(task g.Task) error {
+	defer taskTiming(Static)()
+
 	const DIR = "static"
+
 	return walkFiles(DIR, func(path string) error {
 		rel, err := filepath.Rel(DIR, path)
 		if err != nil {
@@ -59,12 +52,14 @@ func Static() error {
 }
 
 // Watch static files and rerun the static task on changes.
-func StaticW() error {
+func StaticW(task g.Task) error {
+	g.MustWait(task, g.Opt(Static))
+
 	return watch(fpj("static", "..."), notify.All, func(event notify.EventInfo) {
-		logger.Println("[static] FS event:", event)
-		err := Static()
+		onFsEvent(task, event)
+		err := Static(task)
 		if err != nil {
-			logger.Println("[static] error:", err)
+			info.Println("[static] error:", err)
 			return
 		}
 		notifyClients(nil)
@@ -72,7 +67,9 @@ func StaticW() error {
 }
 
 // Build styles; requires `dart-sass`.
-func Styles() error {
+func Styles(task g.Task) error {
+	defer taskTiming(Styles)()
+
 	var style string
 	if FLAGS.PROD {
 		style = "compressed"
@@ -98,12 +95,14 @@ because on errors it outputs to BOTH stdout and stderr. It's simpler and more
 reliable to do our own watching. Fortunately, the command is fast enough for our
 purposes.
 */
-func StylesW() error {
+func StylesW(task g.Task) error {
+	g.MustWait(task, g.Opt(Styles))
+
 	return watch(fpj("styles", "..."), notify.All, func(event notify.EventInfo) {
-		logger.Println("[styles] FS event:", event)
-		err := Styles()
+		onFsEvent(task, event)
+		err := Styles(task)
 		if err != nil {
-			logger.Println("[styles] error:", err)
+			info.Println("[styles] error:", err)
 			return
 		}
 		notifyClients(nil)
@@ -116,7 +115,9 @@ Resize and optimize images; requires GraphicsMagick.
 Doesn't use "filepath.Glob" because the latter can't find everything we need in
 a single call.
 */
-func Images() error {
+func Images(task g.Task) error {
+	defer taskTiming(Images)()
+
 	var batch string
 
 	err := walkFiles("images", func(srcPath string) error {
@@ -142,12 +143,14 @@ func Images() error {
 }
 
 // Watch and rebuild images.
-func ImagesW() error {
+func ImagesW(task g.Task) error {
+	g.MustWait(task, g.Opt(Images))
+
 	return watch(fpj("images", "..."), notify.Create|notify.Write, func(event notify.EventInfo) {
-		logger.Println("[images] FS event:", event)
+		onFsEvent(task, event)
 		err := convertImage(event.Path())
 		if err != nil {
-			logger.Println("[images] error:", err)
+			info.Println("[images] error:", err)
 			return
 		}
 		notifyClients(nil)
@@ -170,9 +173,9 @@ func convertImage(path string) (err error) {
 }
 
 // Serve static files and notify websocket clients about file changes.
-func Server() error {
+func Server(_ g.Task) error {
 	const port = SERVER_PORT
-	logger.Println("Starting server on", fmt.Sprintf("http://localhost:%v", port))
+	info.Println("[Server] starting on", fmt.Sprintf("http://localhost:%v", port))
 	return http.ListenAndServe(fmt.Sprintf(":%v", port), http.HandlerFunc(serve))
 }
 
@@ -189,62 +192,14 @@ func serve(rew http.ResponseWriter, req *http.Request) {
 	serveFile(rew, req)
 }
 
-var CLIENTS sync.Map // sync.Map<string, *Client>
-
-// Note: Gorilla's websockets support only one concurrent reader and one
-// concurrent writer, and require external synchronization.
-type Client struct {
-	*websocket.Conn
-	sync.Mutex
-}
-
-func initClientConn(rew http.ResponseWriter, req *http.Request) {
-	up := websocket.Upgrader{CheckOrigin: skipOriginCheck}
-	conn, err := up.Upgrade(rew, req, nil)
-	if err != nil {
-		logger.Printf("Failed to init connection at %v: %v", req.RemoteAddr, errors.WithStack(err))
-		return
-	}
-
-	key := req.RemoteAddr
-	CLIENTS.Store(key, &Client{Conn: conn})
-	defer CLIENTS.Delete(key)
-
-	// Flush and ignore client messages, if any
-	for {
-		_, _, err := conn.ReadMessage()
-		if err != nil {
-			return
-		}
-	}
-}
-
-func skipOriginCheck(*http.Request) bool { return true }
-
-func notifyClients(msg []byte) {
-	CLIENTS.Range(func(_, val interface{}) bool {
-		go notifyClient(val.(*Client), msg)
-		return true
-	})
-}
-
-func notifyClient(client *Client, msg []byte) {
-	client.Lock()
-	defer client.Unlock()
-
-	err := client.WriteMessage(websocket.TextMessage, msg)
-	if err != nil {
-		logger.Printf("Failed to notify socket: %+v", errors.WithStack(err))
-	}
-}
-
 // Build in "production" mode and deploy. Stop all other tasks before running
 // this!
-func Deploy() (err error) {
-	defer rec(&err)
-
+func Deploy(task g.Task) error {
 	FLAGS.PROD = true
-	mg.SerialDeps(Clean, Build)
+	g.MustWait(task, Clean)
+	g.MustWait(task, Build)
+
+	defer taskTiming(Deploy)()
 
 	originUrl, err := runCmdOut("git", "remote", "get-url", "origin")
 	must(err)

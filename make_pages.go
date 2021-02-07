@@ -1,5 +1,3 @@
-// +build mage
-
 package main
 
 import (
@@ -27,32 +25,35 @@ import (
 	chtml "github.com/alecthomas/chroma/formatters/html"
 	clexers "github.com/alecthomas/chroma/lexers"
 	cstyles "github.com/alecthomas/chroma/styles"
-	"github.com/magefile/mage/mg"
+	g "github.com/mitranim/gtg"
 	"github.com/pkg/errors"
 	"github.com/rjeczalik/notify"
 	bf "github.com/russross/blackfriday/v2"
 	"github.com/shurcooL/sanitized_anchor_name"
 )
 
-// Rebuild templates.
-func Templates() error {
-	mg.Deps(Styles)
-	return logTime("[templates] built in", buildSite)
+// Rebuild pages (HTML and feed XML).
+func Pages(task g.Task) error {
+	g.MustWait(task, Styles)
+	defer taskTiming(Pages)()
+	return buildSite()
 }
 
 /*
-Watch and rebuild templates.
+Watch and rebuild pages.
 
 If rebuilds become too slow because of too many files, this could reinitialize
-and re-render only the changed templates rather than everything. Keeping it
-simple for now.
+and re-render only the changed pages rather than everything. Keeping it simple
+for now.
 */
-func TemplatesW() error {
+func PagesW(task g.Task) error {
+	g.MustWait(task, g.Opt(Pages))
+
 	return watch(fpj(TEMPLATE_DIR, "..."), notify.All, func(event notify.EventInfo) {
-		logger.Println("[templates] FS event:", event)
-		err := Templates()
+		onFsEvent(task, event)
+		err := Pages(task)
 		if err != nil {
-			logger.Println("[templates] error:", err)
+			info.Println("[pages] error:", err)
 			return
 		}
 		notifyClients(nil)
@@ -245,7 +246,6 @@ func buildSite() (err error) {
 	defer rec(&err)
 
 	must(initSite())
-
 	for _, page := range SITE.Pages {
 		must(buildPage(page))
 	}
@@ -272,10 +272,10 @@ func buildSite() (err error) {
 func buildPage(page Page) (err error) {
 	defer rec(&err)
 
-	temp, err := findTemplate(TEMPLATES, page.Path)
+	tpl, err := findTemplate(TEMPLATES, page.Path)
 	must(err)
 
-	output, err := renderTemplate(temp, page)
+	output, err := renderTemplate(tpl, page)
 	must(err)
 
 	return writePublic(page.Path, output)
@@ -356,11 +356,11 @@ func initSite() (err error) {
 	_, err = toml.DecodeFile(SITE_FILE, &SITE)
 	must(errors.WithStack(err))
 
-	temp := ht.New("")
-	temp.Funcs(TEMPLATE_FUNCS)
+	tpl := ht.New("")
+	tpl.Funcs(TEMPLATE_FUNCS)
 
 	/**
-	The following code is similar to `temp.ParseGlob()`, but:
+	The following code is similar to `tpl.ParseGlob()`, but:
 		* accepts empty matches
 		* rejects duplicates
 		* preprocesses .md templates to preserve raw code blocks
@@ -377,7 +377,7 @@ func initSite() (err error) {
 	for _, fsPath := range matches {
 		virtPath := strings.TrimPrefix(filepath.ToSlash(fsPath), TEMPLATE_DIR+"/")
 
-		if temp.Lookup(virtPath) != nil {
+		if tpl.Lookup(virtPath) != nil {
 			return errors.Errorf("duplicate template %q", virtPath)
 		}
 
@@ -397,11 +397,11 @@ func initSite() (err error) {
 			content = codeBlockReg.ReplaceAllStringFunc(content, codeBlockToRaw)
 		}
 
-		_, err = temp.New(virtPath).Parse(content)
+		_, err = tpl.New(virtPath).Parse(content)
 		must(errors.WithStack(err))
 	}
 
-	TEMPLATES = temp
+	TEMPLATES = tpl
 	return nil
 }
 
@@ -419,15 +419,15 @@ func codeBlockToRaw(input string) string {
 }
 
 func findTemplate(root *ht.Template, templateName string) (*ht.Template, error) {
-	temp := root.Lookup(templateName)
-	if temp != nil {
-		return temp, nil
+	tpl := root.Lookup(templateName)
+	if tpl != nil {
+		return tpl, nil
 	}
 
 	var names []string
-	for _, temp := range root.Templates() {
-		if temp.Name() != "" {
-			names = append(names, temp.Name())
+	for _, tpl := range root.Templates() {
+		if tpl.Name() != "" {
+			names = append(names, tpl.Name())
 		}
 	}
 	return nil, errors.Errorf("template %q not found; known templates: %v", templateName, names)
@@ -438,12 +438,12 @@ func includeTemplate(templateName string) (ht.HTML, error) {
 }
 
 func includeTemplateWith(templateName string, data interface{}) (ht.HTML, error) {
-	temp, err := findTemplate(TEMPLATES, templateName)
+	tpl, err := findTemplate(TEMPLATES, templateName)
 	if err != nil {
 		return "", err
 	}
 
-	bytes, err := renderTemplate(temp, data)
+	bytes, err := renderTemplate(tpl, data)
 	if err != nil {
 		return "", err
 	}

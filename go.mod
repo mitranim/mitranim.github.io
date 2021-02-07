@@ -7,7 +7,7 @@ require (
 	github.com/alecthomas/chroma v0.7.1
 	github.com/davecgh/go-spew v1.1.1
 	github.com/gorilla/websocket v1.4.1
-	github.com/magefile/mage v1.9.0
+	github.com/mitranim/gtg v0.0.0-20210202115349-c9962ea21238
 	github.com/pkg/errors v0.9.1
 	github.com/rjeczalik/notify v0.9.2
 	github.com/russross/blackfriday/v2 v2.0.1
