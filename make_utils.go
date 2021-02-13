@@ -5,56 +5,43 @@ import (
 	"encoding/xml"
 	ht "html/template"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"os/exec"
-	"path"
 	"path/filepath"
 	"strings"
 	"sync"
-	"time"
 
 	"github.com/gorilla/websocket"
+	"github.com/mitranim/emptty"
 	g "github.com/mitranim/gtg"
+	"github.com/mitranim/try"
 	"github.com/pkg/errors"
 	"github.com/rjeczalik/notify"
 )
 
 const (
-	SERVER_PORT           = 52693
-	PUBLIC_DIR            = "public"
-	FS_MODE_FILE          = 0666
-	TEMPLATE_DIR          = "templates"
-	HUMAN_TIME_FORMAT     = "Jan 02 2006"
-	ESC                   = "\x1b"
-	TERM_CLEAR_SOFT       = ESC + "c"
-	TERM_CLEAR_SCROLLBACK = ESC + "[3J"
-	TERM_CLEAR_HARD       = TERM_CLEAR_SOFT + TERM_CLEAR_SCROLLBACK
+	SERVER_PORT       = 52693
+	PUBLIC_DIR        = "public"
+	FS_MODE_FILE      = 0666
+	TEMPLATE_DIR      = "templates"
+	HUMAN_TIME_FORMAT = "Jan 02 2006"
 )
 
 var (
-	info = log.New(os.Stderr, "", 0)
-	verb = log.New(os.Stderr, "", 0)
-	fpj  = filepath.Join
+	logger = log.New(os.Stderr, "", 0)
 )
 
 type Flags struct {
 	PROD bool
-	VERB bool
 }
 
 var FLAGS = Flags{
 	PROD: os.Getenv("PROD") == "true",
-	VERB: os.Getenv("VERB") == "" || os.Getenv("VERB") == "true",
 }
 
-func init() {
-	if !FLAGS.VERB {
-		verb.SetOutput(ioutil.Discard)
-	}
-}
+func fpj(path ...string) string { return filepath.Join(path...) }
 
 // "mkdir" is required for GraphicsMagick, which doesn't create directories.
 func makeImagePath(srcPath string) (string, error) {
@@ -71,11 +58,6 @@ func makeImagePath(srcPath string) (string, error) {
 	}
 
 	return outPath, nil
-}
-
-func fileExists(filePath string) bool {
-	stat, _ := os.Stat(filePath)
-	return stat != nil && !stat.IsDir()
 }
 
 func ignorePath(path string) bool {
@@ -107,27 +89,6 @@ func runCmdOut(command string, args ...string) (string, error) {
 	cmd.Stderr = os.Stderr
 	out, err := cmd.Output()
 	return string(bytes.TrimSpace(out)), errors.WithStack(err)
-}
-
-func must(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-func rec(ptr *error) {
-	val := recover()
-	if val == nil {
-		return
-	}
-
-	recErr, ok := val.(error)
-	if ok {
-		*ptr = recErr
-		return
-	}
-
-	panic(val)
 }
 
 func walkFiles(dir string, fun func(string) error) error {
@@ -162,51 +123,21 @@ func watch(pattern string, types notify.Event, fun func(event notify.EventInfo))
 }
 
 func copyFile(srcPath string, outPath string) (err error) {
-	defer rec(&err)
+	defer try.Rec(&err)
 
-	err = os.MkdirAll(filepath.Dir(outPath), os.ModePerm)
-	must(errors.WithStack(err))
+	try.To(os.MkdirAll(filepath.Dir(outPath), os.ModePerm))
 
 	src, err := os.Open(srcPath)
-	must(errors.WithStack(err))
+	try.To(err)
 	defer src.Close()
 
 	out, err := os.Create(outPath)
-	must(errors.WithStack(err))
+	try.To(err)
 	defer out.Close()
 
-	_, err = io.Copy(out, src)
-	return errors.WithStack(err)
+	_ = try.Int64(io.Copy(out, src))
+	return nil
 }
-
-func withTiming(name string, fun func() error) error {
-	defer timing(name)()
-	return fun()
-}
-
-func taskTiming(fun g.TaskFunc) func() {
-	if FLAGS.VERB {
-		// return g.Timing(task)
-		return timing(fun.ShortName())
-	}
-	return noop
-}
-
-func timing(name string) func() {
-	if !FLAGS.VERB {
-		return noop
-	}
-
-	t0 := time.Now()
-	verb.Printf("[%v] starting\n", name)
-
-	return func() {
-		t1 := time.Now()
-		verb.Printf("[%v] done in %v\n", name, t1.Sub(t0))
-	}
-}
-
-func noop() {}
 
 func globs(patterns ...string) ([]string, error) {
 	var out []string
@@ -235,70 +166,6 @@ func renderTemplate(temp *ht.Template, data interface{}) ([]byte, error) {
 	return buf.Bytes(), errors.WithStack(err)
 }
 
-/*
-Serves static files, resolving URL/HTML in a fashion similar to the default
-Nginx config, Github Pages, and Netlify.
-
-Note: this has a race condition between checking for a file's existence and
-actually serving it. In a production-grade version, this condition should
-probably be addressed. Serving a file is not an atomic operation; the file may
-be deleted or changed midway. This development server doesn't need to handle
-this problem.
-*/
-func serveFile(rew http.ResponseWriter, req *http.Request) {
-	switch req.Method {
-	case http.MethodGet, http.MethodHead, http.MethodOptions:
-	default:
-		http.Error(rew, "", http.StatusMethodNotAllowed)
-		return
-	}
-
-	reqPath := req.URL.Path
-	filePath := fpj(PUBLIC_DIR, reqPath)
-
-	/**
-	Ends with slash? Return error 404 for hygiene. Directory links must not end
-	with a slash. It's unnecessary, and GH Pages will do a 301 redirect to a
-	non-slash URL, which is a good feature but adds latency.
-	*/
-	if len(reqPath) > 1 && reqPath[len(reqPath)-1] == '/' {
-		goto notFound
-	}
-
-	if fileExists(filePath) {
-		http.ServeFile(rew, req, filePath)
-		return
-	}
-
-	// Has extension? Don't bother looking for +".html" or +"/index.html".
-	if path.Ext(reqPath) != "" {
-		goto notFound
-	}
-
-	// Try +".html".
-	{
-		candidatePath := filePath + ".html"
-		if fileExists(candidatePath) {
-			http.ServeFile(rew, req, candidatePath)
-			return
-		}
-	}
-
-	// Try +"/index.html".
-	{
-		candidatePath := fpj(filePath, "index.html")
-		if fileExists(candidatePath) {
-			http.ServeFile(rew, req, candidatePath)
-			return
-		}
-	}
-
-notFound:
-	// Minor issue: sends code 200 instead of 404 if "404.html" is found; not
-	// worth fixing for local development.
-	http.ServeFile(rew, req, fpj(PUBLIC_DIR, "404.html"))
-}
-
 var CLIENTS sync.Map // sync.Map<string, *Client>
 
 // Note: Gorilla's websockets support only one concurrent reader and one
@@ -312,7 +179,7 @@ func initClientConn(rew http.ResponseWriter, req *http.Request) {
 	up := websocket.Upgrader{CheckOrigin: skipOriginCheck}
 	conn, err := up.Upgrade(rew, req, nil)
 	if err != nil {
-		info.Printf("failed to init connection at %v: %v", req.RemoteAddr, errors.WithStack(err))
+		logger.Printf("failed to init connection at %v: %v", req.RemoteAddr, errors.WithStack(err))
 		return
 	}
 
@@ -342,17 +209,12 @@ func notifyClient(client *Client, msg []byte) {
 
 	err := client.WriteMessage(websocket.TextMessage, msg)
 	if err != nil {
-		info.Printf("failed to notify socket: %+v", errors.WithStack(err))
+		logger.Printf("failed to notify socket: %+v", errors.WithStack(err))
 	}
 }
 
 func skipOriginCheck(*http.Request) bool { return true }
 
-func clearTerminal() {
-	os.Stdout.Write([]byte(TERM_CLEAR_HARD))
-}
-
-func onFsEvent(task g.Task, event notify.EventInfo) {
-	clearTerminal()
-	// verb.Printf("[%v] FS event: %v", task.TaskFunc().ShortName(), event)
+func onFsEvent(_ g.Task, _ notify.EventInfo) {
+	emptty.ClearHard()
 }

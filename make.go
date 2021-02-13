@@ -11,6 +11,8 @@ import (
 	"strings"
 
 	g "github.com/mitranim/gtg"
+	"github.com/mitranim/srv"
+	"github.com/mitranim/try"
 	"github.com/pkg/errors"
 	"github.com/rjeczalik/notify"
 )
@@ -21,7 +23,7 @@ func main() {
 
 // Rebuild everything.
 func Build(task g.Task) error {
-	defer taskTiming(Build)()
+	defer g.TaskTiming(Build)()
 	return g.Wait(task, g.Ser(Clean, g.Par(Static, Styles, Images, Pages)))
 }
 
@@ -32,21 +34,18 @@ func Watch(task g.Task) error {
 
 // Remove built artifacts.
 func Clean(task g.Task) error {
-	defer taskTiming(Clean)()
+	defer g.TaskTiming(Clean)()
 	return os.RemoveAll(PUBLIC_DIR)
 }
 
 // Copy files from "./static" to the target directory.
 func Static(task g.Task) error {
-	defer taskTiming(Static)()
+	defer g.TaskTiming(Static)()
 
 	const DIR = "static"
 
 	return walkFiles(DIR, func(path string) error {
-		rel, err := filepath.Rel(DIR, path)
-		if err != nil {
-			return errors.WithStack(err)
-		}
+		rel := try.String(filepath.Rel(DIR, path))
 		return copyFile(path, fpj(PUBLIC_DIR, rel))
 	})
 }
@@ -59,7 +58,7 @@ func StaticW(task g.Task) error {
 		onFsEvent(task, event)
 		err := Static(task)
 		if err != nil {
-			info.Println("[static] error:", err)
+			logger.Println("[static] error:", err)
 			return
 		}
 		notifyClients(nil)
@@ -68,7 +67,7 @@ func StaticW(task g.Task) error {
 
 // Build styles; requires `dart-sass`.
 func Styles(task g.Task) error {
-	defer taskTiming(Styles)()
+	defer g.TaskTiming(Styles)()
 
 	var style string
 	if FLAGS.PROD {
@@ -102,7 +101,7 @@ func StylesW(task g.Task) error {
 		onFsEvent(task, event)
 		err := Styles(task)
 		if err != nil {
-			info.Println("[styles] error:", err)
+			logger.Println("[styles] error:", err)
 			return
 		}
 		notifyClients(nil)
@@ -116,7 +115,7 @@ Doesn't use "filepath.Glob" because the latter can't find everything we need in
 a single call.
 */
 func Images(task g.Task) error {
-	defer taskTiming(Images)()
+	defer g.TaskTiming(Images)()
 
 	var batch string
 
@@ -150,7 +149,7 @@ func ImagesW(task g.Task) error {
 		onFsEvent(task, event)
 		err := convertImage(event.Path())
 		if err != nil {
-			info.Println("[images] error:", err)
+			logger.Println("[images] error:", err)
 			return
 		}
 		notifyClients(nil)
@@ -158,16 +157,11 @@ func ImagesW(task g.Task) error {
 }
 
 func convertImage(path string) (err error) {
-	defer rec(&err)
+	defer try.Rec(&err)
 
-	cwd, err := os.Getwd()
-	must(errors.WithStack(err))
-
-	rel, err := filepath.Rel(cwd, path)
-	must(errors.WithStack(err))
-
-	outPath, err := makeImagePath(rel)
-	must(err)
+	cwd := try.String(os.Getwd())
+	rel := try.String(filepath.Rel(cwd, path))
+	outPath := try.String(makeImagePath(rel))
 
 	return runCmd("gm", "convert", rel, outPath)
 }
@@ -175,7 +169,7 @@ func convertImage(path string) (err error) {
 // Serve static files and notify websocket clients about file changes.
 func Server(_ g.Task) error {
 	const port = SERVER_PORT
-	info.Println("[Server] starting on", fmt.Sprintf("http://localhost:%v", port))
+	logger.Println("[Server] starting on", fmt.Sprintf("http://localhost:%v", port))
 	return http.ListenAndServe(fmt.Sprintf(":%v", port), http.HandlerFunc(serve))
 }
 
@@ -189,7 +183,7 @@ func serve(rew http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	serveFile(rew, req)
+	srv.FileServer(PUBLIC_DIR).ServeHTTP(rew, req)
 }
 
 // Build in "production" mode and deploy. Stop all other tasks before running
@@ -199,14 +193,10 @@ func Deploy(task g.Task) error {
 	g.MustWait(task, Clean)
 	g.MustWait(task, Build)
 
-	defer taskTiming(Deploy)()
+	defer g.TaskTiming(Deploy)()
 
-	originUrl, err := runCmdOut("git", "remote", "get-url", "origin")
-	must(err)
-
-	sourceBranch, err := runCmdOut("git", "symbolic-ref", "--short", "head")
-	must(err)
-
+	originUrl := try.String(runCmdOut("git", "remote", "get-url", "origin"))
+	sourceBranch := try.String(runCmdOut("git", "symbolic-ref", "--short", "head"))
 	const targetBranch = "master"
 
 	if sourceBranch == targetBranch {
@@ -214,19 +204,16 @@ func Deploy(task g.Task) error {
 			sourceBranch, targetBranch)
 	}
 
-	cwd, err := os.Getwd()
-	must(errors.WithStack(err))
-
-	must(os.Chdir(PUBLIC_DIR))
-	must(os.RemoveAll(".git"))
-	must(runCmd("git", "init"))
-	must(runCmd("git", "remote", "add", "origin", originUrl))
-	must(runCmd("git", "add", "-A", "."))
-	must(runCmd("git", "commit", "-a", "--allow-empty-message", "-m", ""))
-	must(runCmd("git", "branch", "-m", targetBranch))
-	must(runCmd("git", "push", "-f", "origin", targetBranch))
-	must(os.RemoveAll(".git"))
-	must(os.Chdir(cwd))
+	try.To(os.Chdir(PUBLIC_DIR))
+	try.To(os.RemoveAll(".git"))
+	try.To(runCmd("git", "init"))
+	try.To(runCmd("git", "remote", "add", "origin", originUrl))
+	try.To(runCmd("git", "add", "-A", "."))
+	try.To(runCmd("git", "commit", "-a", "--allow-empty-message", "-m", ""))
+	try.To(runCmd("git", "branch", "-m", targetBranch))
+	try.To(runCmd("git", "push", "-f", "origin", targetBranch))
+	try.To(os.RemoveAll(".git"))
+	try.To(os.Chdir(try.String(os.Getwd())))
 
 	return nil
 }

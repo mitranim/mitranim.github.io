@@ -26,6 +26,7 @@ import (
 	clexers "github.com/alecthomas/chroma/lexers"
 	cstyles "github.com/alecthomas/chroma/styles"
 	g "github.com/mitranim/gtg"
+	"github.com/mitranim/try"
 	"github.com/pkg/errors"
 	"github.com/rjeczalik/notify"
 	bf "github.com/russross/blackfriday/v2"
@@ -35,7 +36,7 @@ import (
 // Rebuild pages (HTML and feed XML).
 func Pages(task g.Task) error {
 	g.MustWait(task, Styles)
-	defer taskTiming(Pages)()
+	defer g.TaskTiming(Pages)()
 	return buildSite()
 }
 
@@ -53,7 +54,7 @@ func PagesW(task g.Task) error {
 		onFsEvent(task, event)
 		err := Pages(task)
 		if err != nil {
-			info.Println("[pages] error:", err)
+			logger.Println("[pages] error:", err)
 			return
 		}
 		notifyClients(nil)
@@ -243,82 +244,82 @@ func (self *fudgedBool) UnmarshalText(input []byte) error {
 }
 
 func buildSite() (err error) {
-	defer rec(&err)
+	defer try.Rec(&err)
 
-	must(initSite())
+	try.To(initSite())
 	for _, page := range SITE.Pages {
-		must(buildPage(page))
+		try.To(buildPage(page))
 	}
 
 	feed := siteFeed()
 	for i := range SITE.Posts {
 		post := &SITE.Posts[i]
-		must(maybeBuildPost(post))
-		must(maybeAppendPost(&feed.Items, *post))
+		try.To(maybeBuildPost(post))
+		try.To(maybeAppendPost(&feed.Items, *post))
 	}
 
 	content, err := xmlEncode(feed.AtomFeed())
-	must(err)
+	try.To(err)
 
-	must(writePublic("feed.xml", content))
+	try.To(writePublic("feed.xml", content))
 
 	content, err = xmlEncode(feed.RssFeed())
-	must(err)
+	try.To(err)
 
-	must(writePublic("feed_rss.xml", content))
+	try.To(writePublic("feed_rss.xml", content))
 	return nil
 }
 
 func buildPage(page Page) (err error) {
-	defer rec(&err)
+	defer try.Rec(&err)
 
 	tpl, err := findTemplate(TEMPLATES, page.Path)
-	must(err)
+	try.To(err)
 
 	output, err := renderTemplate(tpl, page)
-	must(err)
+	try.To(err)
 
 	return writePublic(page.Path, output)
 }
 
 func maybeBuildPost(post *Post) (err error) {
-	defer rec(&err)
+	defer try.Rec(&err)
 
 	if !post.ExistsAsFile() {
 		return nil
 	}
 
 	bodyTemp, err := findTemplate(TEMPLATES, "post-body.html")
-	must(err)
+	try.To(err)
 
 	// Used for the page and the feed entry, enclosed in different layouts.
 	post.HtmlBody, err = renderTemplate(bodyTemp, post)
-	must(err)
+	try.To(err)
 
 	layoutTemp, err := findTemplate(TEMPLATES, "post-layout.html")
-	must(err)
+	try.To(err)
 
 	content, err := renderTemplate(layoutTemp, post)
-	must(err)
+	try.To(err)
 
-	must(writePublic(post.Path, content))
+	try.To(writePublic(post.Path, content))
 
 	if post.ObsoletePath != "" {
 		meta := fmt.Sprintf(`<meta http-equiv="refresh" content="0;URL='%v'" />`, post.UrlFromSiteRoot())
-		must(writePublic(post.ObsoletePath, []byte(meta)))
+		try.To(writePublic(post.ObsoletePath, []byte(meta)))
 	}
 
 	return nil
 }
 
 func postToFeedItem(post Post) (_ FeedItem, err error) {
-	defer rec(&err)
+	defer try.Rec(&err)
 
 	feedPostLayoutTemp, err := findTemplate(TEMPLATES, "feed-post-layout.html")
-	must(err)
+	try.To(err)
 
 	feedPostContent, err := renderTemplate(feedPostLayoutTemp, post)
-	must(err)
+	try.To(err)
 
 	href := siteBase() + post.UrlFromSiteRoot()
 
@@ -350,11 +351,11 @@ func maybeAppendPost(feedItems *[]FeedItem, post Post) error {
 }
 
 func initSite() (err error) {
-	defer rec(&err)
+	defer try.Rec(&err)
 
 	zero(&SITE)
 	_, err = toml.DecodeFile(SITE_FILE, &SITE)
-	must(errors.WithStack(err))
+	try.To(errors.WithStack(err))
 
 	tpl := ht.New("")
 	tpl.Funcs(TEMPLATE_FUNCS)
@@ -372,7 +373,7 @@ func initSite() (err error) {
 		fpj(TEMPLATE_DIR, "**/*.html"),
 		fpj(TEMPLATE_DIR, "**/*.md"),
 	)
-	must(errors.WithStack(err))
+	try.To(errors.WithStack(err))
 
 	for _, fsPath := range matches {
 		virtPath := strings.TrimPrefix(filepath.ToSlash(fsPath), TEMPLATE_DIR+"/")
@@ -381,10 +382,8 @@ func initSite() (err error) {
 			return errors.Errorf("duplicate template %q", virtPath)
 		}
 
-		bytes, err := ioutil.ReadFile(fsPath)
-		must(errors.WithStack(err))
+		content := string(try.ByteSlice(ioutil.ReadFile(fsPath)))
 
-		content := string(bytes)
 		if filepath.Ext(fsPath) == ".md" {
 			/**
 			Modify the template to preserve content between ``` as-is. We
@@ -398,7 +397,7 @@ func initSite() (err error) {
 		}
 
 		_, err = tpl.New(virtPath).Parse(content)
-		must(errors.WithStack(err))
+		try.To(errors.WithStack(err))
 	}
 
 	TEMPLATES = tpl
@@ -558,18 +557,17 @@ func bfNodeFind(node *bf.Node, nodeType bf.NodeType) *bf.Node {
 	return out
 }
 
-func writePublic(path string, bytes []byte) error {
+func writePublic(path string, bytes []byte) (err error) {
+	defer try.Rec(&err)
+
 	path = fpj(PUBLIC_DIR, path)
+	try.To(os.MkdirAll(filepath.Dir(path), os.ModePerm))
+	try.To(ioutil.WriteFile(path, bytes, FS_MODE_FILE))
 
-	err := os.MkdirAll(filepath.Dir(path), os.ModePerm)
-	if err != nil {
-		return errors.WithStack(err)
-	}
-
-	err = ioutil.WriteFile(path, bytes, FS_MODE_FILE)
-	return errors.WithStack(err)
+	return nil
 }
 
+// https://feathericons.com
 var featherIconExternalLink = strings.TrimSpace(`
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true">
 	<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -1391,6 +1389,7 @@ func formatFloatPercent(value float64, prec int) string {
 
 func timePtr(inst time.Time) *time.Time { return &inst }
 
+// TODO move to `refut`.
 func zero(val interface{}) {
 	rval := reflect.ValueOf(val).Elem()
 	rval.Set(reflect.New(rval.Type()).Elem())

@@ -14,8 +14,14 @@ github.com/gorilla/websocket v1.4.1/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/ad
 github.com/mattn/go-colorable v0.0.9/go.mod h1:9vuHe8Xs5qXnSaW/c/ABM9alt+Vo+STaOChaDxuIBZU=
 github.com/mattn/go-isatty v0.0.4/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNxMWT7Zi4=
 github.com/mitchellh/mapstructure v1.1.2/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
-github.com/mitranim/gtg v0.0.0-20210202115349-c9962ea21238 h1:liFYYaSeuE4Ym/QWmDxwEj7lToyCs38VcUTH/LP6dGw=
-github.com/mitranim/gtg v0.0.0-20210202115349-c9962ea21238/go.mod h1:5yMuKtFcrEsmnL71yNTBkNkXKYtWOQeCtnCSPawfvHQ=
+github.com/mitranim/emptty v0.0.0-20210207132532-0c5a2266bc5e h1:X9HJg7sI1/HV+Jxq04YC/oaxOAATq8mzruaJGuhu+M8=
+github.com/mitranim/emptty v0.0.0-20210207132532-0c5a2266bc5e/go.mod h1:ZfN6pMq5Lqt+eLxavbfO6xnZTIobl+I/SSb6H1tdR9o=
+github.com/mitranim/gtg v0.0.0-20210207133758-861809172ad5 h1:UaF4HG/GJFPALQUJl68zcTOONJUg9L4+Y79GHet0eDg=
+github.com/mitranim/gtg v0.0.0-20210207133758-861809172ad5/go.mod h1:5yMuKtFcrEsmnL71yNTBkNkXKYtWOQeCtnCSPawfvHQ=
+github.com/mitranim/srv v0.0.0-20210207104346-0df64d1a7dff h1:eocqoz9dSI4w1RySMrJbG9U4rmYCd7dHXNgqtFD3SdA=
+github.com/mitranim/srv v0.0.0-20210207104346-0df64d1a7dff/go.mod h1:gl+FDnbdGUQzQGTaLN8KpJWTf1r1LEuPbcDz/rSOipA=
+github.com/mitranim/try v0.1.0 h1:sQz+G+V49NUfMNtzuiOaIIRuCKfxNmbcjlyKqNsUS7s=
+github.com/mitranim/try v0.1.0/go.mod h1:ipAI5o4KhJtrgYjpPyxFrpe2ef03QaneyOavKLcMORE=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
