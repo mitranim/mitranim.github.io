@@ -95,12 +95,6 @@ input[type=radio] {
   flex-shrink: 0;
 }
 
-// // Eliminates some minor layout glitches
-// form {
-//   display: flex;
-//   flex-direction: column;
-// }
-
 input[type=number] {
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
@@ -112,6 +106,7 @@ input[type=number] {
 /* hr */
 
 hr {
+  align-self: stretch;
   margin: 0;
   border: none;
 
@@ -157,6 +152,13 @@ pre {
 
 b, strong {
   font-weight: bolder;
+}
+
+/* table */
+
+// Blink centers "th" by default.
+th {
+  text-align: initial;
 }
 
 /* Misc */

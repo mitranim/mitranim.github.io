@@ -41,7 +41,7 @@ As a bonus, non-abbreviated `TitleCamelCase` is easier to automatically parse, c
 XmlHttpRequest -> xml_http_request -> XmlHttpRequest
 ```
 
-For automatic tools, parsing inconsistent abbreviation is not impossible; for example, my Sublime Text [plugin](https://github.com/mitranim/sublime-caser) for converting between cases can handle this. But there's just no good reason to make it harder.
+For automatic tools, parsing inconsistent abbreviation is not impossible; for example, my Sublime Text [plugin](https://github.com/mitranim/sublime-caser) for converting between cases can handle this. But it's still not reversible.
 
 Finally, having just _one_ choice means less thinking, which is good.
 

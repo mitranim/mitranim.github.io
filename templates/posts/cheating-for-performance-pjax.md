@@ -4,7 +4,7 @@ Optimizing website performance is tricky. There's plenty of articles delving dee
 
 What if I told you there's a way to dramatically speed up page transitions just by adding a library? With zero or few code changes? And it's overlooked by the contemporary blogosphere?
 
-<p class="font-large">
+<p class="size-large">
     <span>Demo time!</span>
     {{externalAnchor "https://mitranim.com/simple-pjax/" "https://mitranim.com/simple-pjax/"}}
 </p>
@@ -21,7 +21,7 @@ As you might have guessed, we're going to exploit clientside routing with `histo
 
 When you think about it, the status quo of content delivery on the web is _insane_. We're forcing visitors to make dozens of network connections and execute massive amounts of JavaScript on _each page load_ on the same site.
 
-<p class="font-large">👎 Typical page transition</p>
+<p class="size-large">👎 Typical page transition</p>
 
 <ol>
     <li>Link clicked</li>
@@ -45,7 +45,7 @@ When you think about it, the status quo of content delivery on the web is _insan
 
 With pushstate routing, we can do better.
 
-<p class="font-large">👍 Page transition with pjax</p>
+<p class="size-large">👍 Page transition with pjax</p>
 
 <ol>
     <li>Link clicked</li>

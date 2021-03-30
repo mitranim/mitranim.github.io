@@ -1,4 +1,4 @@
-{{template "site-top.html" .}}
+{{template "partials/site-top.html" .}}
 <div role="main" id="main-content" class="flex col-start-stretch gaps-v-4">
   <div class="fancy-typography gaps-v-2">
     <h1>Blog Posts</h1>
@@ -10,7 +10,7 @@
           <p>{{$post.Description | asHtml}}</p>
         {{end}}
         {{if $post.TimeString}}
-          <p class="fg-gray-close font-small">{{$post.TimeString}}</p>
+          <p class="fg-gray-close size-small">{{$post.TimeString}}</p>
         {{end}}
       </div>
     {{else}}
@@ -20,7 +20,7 @@
 
   <div class="fancy-typography">
     <h1>Feed Links</h1>
-    {{include "feed-links.html"}}
+    {{include "partials/feed-links.html"}}
   </div>
 </div>
-{{template "site-bottom.html" .}}
+{{template "partials/site-bottom.html" .}}

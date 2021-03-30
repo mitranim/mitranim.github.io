@@ -1,10 +1,10 @@
-{{template "site-top.html" .}}
-<div role="main" id="main-content" class="fancy-typography flex-1 flex col-start-stretch gaps-v-2">
+{{template "partials/site-top.html" .}}
+<div role="main" id="main" class="fancy-typography flex-1 flex col-start-stretch gaps-v-2">
   <article role="article" class="fancy-typography">
     <!-- Should be kept in sync with "MarkdownRenderer.RenderNode" logic for headings -->
     <h1>{{headingPrefix}}{{.Title}}</h1>
-    {{if .Description}}<p role="doc-subtitle" class="font-large font-italic">{{.Description}}</p>{{end}}
-    {{if .TimeString}}<p class="fg-gray-close font-small">{{.TimeString}}</p>{{end}}
+    {{if .Description}}<p role="doc-subtitle" class="size-large font-italic">{{.Description}}</p>{{end}}
+    {{if .TimeString}}<p class="fg-gray-close size-small">{{.TimeString}}</p>{{end}}
     {{.HtmlBody | asHtml}}
   </article>
 
@@ -17,7 +17,7 @@
       email to <a href="mailto:me@mitranim.com?subject=Re:%20{{.Title}}">me@mitranim.com</a>,
       or use the <a href="/#contacts">other contacts</a>.
     </p>
-    {{include "feed-links.html"}}
+    {{include "partials/feed-links.html"}}
   </div>
 </div>
-{{template "site-bottom.html" .}}
+{{template "partials/site-bottom.html" .}}

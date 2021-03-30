@@ -166,11 +166,14 @@ code, key, pre {
 
 /* Typography */
 
-.weight-bold    {@extend .weight-semibold;}
-.font-small     {font-size: 0.8rem;}
-.font-normal    {font-size: 1rem;}
-.font-large     {font-size: 1.4rem;}
-.font-giant     {font-size: 2rem;}
+// Override.
+.weight-bold {@extend .weight-semibold;}
+
+.size-small  {font-size: 0.8rem;}
+.size-normal {font-size: 1rem;}
+.size-large  {font-size: 1.4rem;}
+.size-giant  {font-size: 2rem;}
+
 .font-monospace {font-family: SF Mono, Menlo, Monaco, DejaVu Sans Mono, Consolas, monospace;}
 
 /* Layout */
@@ -251,7 +254,7 @@ code, key, pre {
 .gaps-h-2      {@include gaps-h(2rem);}
 .gaps-h-4      {@include gaps-h(4rem);}
 .gaps-v-letter {@include gaps-v(1ex);}           // TODO better letter height.
-.gaps-h-letter {@include gaps-v(calc(1em / 4));} // TODO better letter width.
+.gaps-h-letter {@include gaps-h(calc(1em / 4));} // TODO better letter width.
 
 .center-by-margins {
   margin-left: auto;
@@ -389,7 +392,7 @@ ul.fancy-list ul.fancy-list {
 [disabled] {@extend .cursor-not-allowed;}
 
 .navlink {
-  @extend .font-large;
+  @extend .size-large;
   @extend .padding-1;
   @extend .flex;
   @extend .row-center-center;
@@ -456,7 +459,7 @@ ul.fancy-list ul.fancy-list {
   position: absolute;
   top: 0;
   left: 0;
-  @extend .bg-gray-far;
+  @extend .bg-gray-close;
 
   // This visually hides the element while allowing it to receive focus.
   // `display: none` or `visibility: hidden` would have prevented focus.

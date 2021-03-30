@@ -7,7 +7,6 @@ import (
 	ht "html/template"
 	"image"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -52,12 +51,9 @@ func PagesW(task g.Task) error {
 
 	return watch(fpj(TEMPLATE_DIR, "..."), notify.All, func(event notify.EventInfo) {
 		onFsEvent(task, event)
-		err := Pages(task)
-		if err != nil {
-			logger.Println("[pages] error:", err)
-			return
+		if taskOk(task, Pages) {
+			notifyClients(nil)
 		}
-		notifyClients(nil)
 	})
 }
 
@@ -289,14 +285,14 @@ func maybeBuildPost(post *Post) (err error) {
 		return nil
 	}
 
-	bodyTemp, err := findTemplate(TEMPLATES, "post-body.html")
+	bodyTemp, err := findTemplate(TEMPLATES, "partials/post-body.html")
 	try.To(err)
 
 	// Used for the page and the feed entry, enclosed in different layouts.
 	post.HtmlBody, err = renderTemplate(bodyTemp, post)
 	try.To(err)
 
-	layoutTemp, err := findTemplate(TEMPLATES, "post-layout.html")
+	layoutTemp, err := findTemplate(TEMPLATES, "partials/post-layout.html")
 	try.To(err)
 
 	content, err := renderTemplate(layoutTemp, post)
@@ -315,7 +311,7 @@ func maybeBuildPost(post *Post) (err error) {
 func postToFeedItem(post Post) (_ FeedItem, err error) {
 	defer try.Rec(&err)
 
-	feedPostLayoutTemp, err := findTemplate(TEMPLATES, "feed-post-layout.html")
+	feedPostLayoutTemp, err := findTemplate(TEMPLATES, "partials/feed-post-layout.html")
 	try.To(err)
 
 	feedPostContent, err := renderTemplate(feedPostLayoutTemp, post)
@@ -382,7 +378,7 @@ func initSite() (err error) {
 			return errors.Errorf("duplicate template %q", virtPath)
 		}
 
-		content := string(try.ByteSlice(ioutil.ReadFile(fsPath)))
+		content := string(try.ByteSlice(os.ReadFile(fsPath)))
 
 		if filepath.Ext(fsPath) == ".md" {
 			/**
@@ -467,7 +463,7 @@ depend on an obscure API.
 */
 func tableOfContents(templateName string) (ht.HTML, error) {
 	pt := fpj(TEMPLATE_DIR, templateName)
-	content, err := ioutil.ReadFile(pt)
+	content, err := os.ReadFile(pt)
 	if err != nil {
 		return "", errors.WithStack(err)
 	}
@@ -562,7 +558,7 @@ func writePublic(path string, bytes []byte) (err error) {
 
 	path = fpj(PUBLIC_DIR, path)
 	try.To(os.MkdirAll(filepath.Dir(path), os.ModePerm))
-	try.To(ioutil.WriteFile(path, bytes, FS_MODE_FILE))
+	try.To(os.WriteFile(path, bytes, FS_MODE_FILE))
 
 	return nil
 }
@@ -667,7 +663,7 @@ func linkWithHash(assetPath string) (string, error) {
 
 	if out == "" {
 		path := fpj(PUBLIC_DIR, assetPath)
-		bytes, err := ioutil.ReadFile(path)
+		bytes, err := os.ReadFile(path)
 		if err != nil {
 			return "", errors.WithStack(err)
 		}
@@ -1353,7 +1349,7 @@ func imgBoxWithLink(src string, caption string, href string) (ht.HTML, error) {
 		Height:  conf.Height,
 	}
 
-	return includeTemplateWith("img-box.html", input)
+	return includeTemplateWith("partials/img-box.html", input)
 }
 
 func imgBox(src string, caption string) (ht.HTML, error) {

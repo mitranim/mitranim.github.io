@@ -56,12 +56,9 @@ func StaticW(task g.Task) error {
 
 	return watch(fpj("static", "..."), notify.All, func(event notify.EventInfo) {
 		onFsEvent(task, event)
-		err := Static(task)
-		if err != nil {
-			logger.Println("[static] error:", err)
-			return
+		if taskOk(task, Static) {
+			notifyClients(nil)
 		}
-		notifyClients(nil)
 	})
 }
 
@@ -75,6 +72,8 @@ func Styles(task g.Task) error {
 	} else {
 		style = "expanded"
 	}
+
+	// sass --no-source-map compressed styles/main.scss public/styles/main.css
 
 	return runCmd("sass",
 		"--no-source-map",
@@ -99,11 +98,9 @@ func StylesW(task g.Task) error {
 
 	return watch(fpj("styles", "..."), notify.All, func(event notify.EventInfo) {
 		onFsEvent(task, event)
-		err := Styles(task)
-		if err != nil {
-			logger.Println("[styles] error:", err)
-			return
-		}
+		_ = taskOk(task, Styles)
+		// Notify even in case of failure, to refresh and see the Sass compilation
+		// error, nicely included into the resulting style file.
 		notifyClients(nil)
 	})
 }
@@ -147,11 +144,14 @@ func ImagesW(task g.Task) error {
 
 	return watch(fpj("images", "..."), notify.Create|notify.Write, func(event notify.EventInfo) {
 		onFsEvent(task, event)
+		defer g.TaskTiming(ImagesW)()
+
 		err := convertImage(event.Path())
 		if err != nil {
 			logger.Println("[images] error:", err)
 			return
 		}
+
 		notifyClients(nil)
 	})
 }

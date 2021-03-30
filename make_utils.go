@@ -218,3 +218,12 @@ func skipOriginCheck(*http.Request) bool { return true }
 func onFsEvent(_ g.Task, _ notify.EventInfo) {
 	emptty.ClearHard()
 }
+
+func taskOk(task g.Task, fun g.TaskFunc) bool {
+	err := fun(task)
+	if err != nil {
+		logger.Println("["+fun.ShortName()+"] error:", err)
+		return false
+	}
+	return true
+}
