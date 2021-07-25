@@ -4,7 +4,7 @@ For simplicity, examples in this post use `()`, but the choice is arbitrary. It 
 
 ## TOC
 
-{{tableOfContents .InputPath}}
+{{mdToToc .MdTpl}}
 
 ## Delimiters
 

@@ -266,7 +266,7 @@ code, key, pre {
 .details summary {
   @extend .cursor-pointer;
   @extend .padding-1;
-  background-color: var(--color-gray-bg-far);
+  background-color: var(--color-gray-fg-far);
   .fancy-typography & ~ pre {margin-top: 0;}
 }
 

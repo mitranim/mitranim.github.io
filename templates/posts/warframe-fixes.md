@@ -6,7 +6,7 @@ The target audience for this post are Digital Extremes developers and game desig
 
 ## Table of Contents
 
-{{tableOfContents .InputPath}}
+{{mdToToc .MdTpl}}
 
 ## Bugs
 

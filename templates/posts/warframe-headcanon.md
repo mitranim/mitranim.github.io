@@ -39,13 +39,13 @@ Generating the ASCII figure:
 
 ## Table of Contents
 
-{{tableOfContents .InputPath}}
+{{mdToToc .MdTpl}}
 
 ## Non-primes existed in Orokin times {#non-primes}
 
-{{imgBoxWithLink "/images/warframe/braton.png" "Braton" "https://warframe.fandom.com/wiki/Braton"}}
+{{imgBoxLink "/images/warframe/braton.png" "Braton" "https://warframe.fandom.com/wiki/Braton"}}
 
-{{imgBoxWithLink "/images/warframe/braton_prime.png" "Braton Prime" "https://warframe.fandom.com/wiki/Braton_Prime"}}
+{{imgBoxLink "/images/warframe/braton_prime.png" "Braton Prime" "https://warframe.fandom.com/wiki/Braton_Prime"}}
 
 Prime warframes and weapons were made exclusively in the Orokin times, while non-primes can be manufactured from scratch right now. Non-primes could be cheap knock-offs of the originals, but they could also _be_ the originals, the prototypes, later refined with superior materials and designs {{emoji "✨" ""}}.
 
@@ -59,7 +59,7 @@ Infested versions of Corpus and Grineer ships tend to be dark, implying running 
 
 ## Mass-produced enemy units are ignorant about the Tenno threat level {#mass-ignorance}
 
-{{imgBoxWithLink "/images/warframe/jackal.jpg" "Jackal" "https://warframe.fandom.com/wiki/Jackal"}}
+{{imgBoxLink "/images/warframe/jackal.jpg" "Jackal" "https://warframe.fandom.com/wiki/Jackal"}}
 
 Corpus and Grineer infantry, as well as mass-produced bosses such as the Jackal, seem suicidally brave when facing Tenno.
 
@@ -108,7 +108,7 @@ What about the robots, such as the Jackal and the Raptors? One possibility is th
 
 ## Feral kavats and Tenno kavats are the animal equivalent of warframes {#kavats}
 
-{{imgBoxWithLink "/images/warframe/feral_kavat.png" "Feral Kavat" "https://warframe.fandom.com/wiki/Feral_Kavat"}}
+{{imgBoxLink "/images/warframe/feral_kavat.png" "Feral Kavat" "https://warframe.fandom.com/wiki/Feral_Kavat"}}
 
 On the Orokin Derelict, feral kavats have lived alongside the Infestation for hundreds of years. By now, all organic materials aboard, along with many inorganics, have been converted to Infested biomass. The kavats survive by feeding on it. There have to be repercussions. Their supposed "immunity" is not absolute; they've been gradually altered, fur being replaced by scales, tails and shoulders forming something resembling cysts, and so on. In Ballas's words: "Transformed, but only just".
 
@@ -120,7 +120,7 @@ Oh and consider the astronomical 120k Alloy Plate spent on the Incubator kavat m
 
 ## Vauban is some Corpus guy pretending to be a warframe {#vauban}
 
-{{imgBoxWithLink "/images/warframe/vauban_prime.png" "Vauban Prime" "https://warframe.fandom.com/wiki/Vauban/Prime"}}
+{{imgBoxLink "/images/warframe/vauban_prime.png" "Vauban Prime" "https://warframe.fandom.com/wiki/Vauban/Prime"}}
 
 Every Vauban ability involves deploying small gear such as grenades. In contrast, most warframe abilities involve conjuring things out of nothing; think Ember, Frost, Nova, Saryn, and more. Some do have integrated gear, such as exalted weapons and Protea's deployables. However, Vauban's 100% reliance on deployables should raise suspicion. If Corpus were to create a warframe-alike, this is _exactly_ how it would function!
 
@@ -168,7 +168,7 @@ Our Operator never makes any statements contradicting any of this, but even if t
 
 ## Hypothesis: Tenno are digital minds (busted) {#tenno-digital}
 
-{{imgBoxWithLink "/images/warframe/ordis.png" "Cephalon" "https://warframe.fandom.com/wiki/Cephalon"}}
+{{imgBoxLink "/images/warframe/ordis.png" "Cephalon" "https://warframe.fandom.com/wiki/Cephalon"}}
 
 This was my original headcanon about Tenno before playing the Second Dream.
 
@@ -182,7 +182,7 @@ This more or less gets busted by the Second Dream. See [operator peaceframes](#o
 
 ## Hypotheses about the Zariman children {#tenno-children}
 
-{{imgBoxWithLink "/images/warframe/vitruvian_zariman.jpg" "Zariman in the Vitruvian" "https://warframe.fandom.com/wiki/Zariman_Ten_Zero"}}
+{{imgBoxLink "/images/warframe/vitruvian_zariman.jpg" "Zariman in the Vitruvian" "https://warframe.fandom.com/wiki/Zariman_Ten_Zero"}}
 
 **Basis**. Ember's Codex entry: "Why would you put children on a military ship? — We didn't."
 
@@ -223,7 +223,7 @@ Perhaps everything was according to procedure. The Zariman's crew consisted of o
 
 ## Void entity hypotheses {#void-entity}
 
-{{imgBoxWithLink "/images/warframe/wall_hand.jpg" "Reaching out" "https://warframe.fandom.com/wiki/The_Man_in_The_Wall"}}
+{{imgBoxLink "/images/warframe/wall_hand.jpg" "Reaching out" "https://warframe.fandom.com/wiki/The_Man_in_The_Wall"}}
 
 "Void entity" refers to any of:
 
@@ -251,7 +251,7 @@ Alternatively, we might take their claims at face value. We "freed" Rell, now so
 
 ## Stalker hypotheses {#stalker}
 
-{{imgBoxWithLink "/images/warframe/stalker.png" "Stalker" "https://warframe.fandom.com/wiki/Stalker"}}
+{{imgBoxLink "/images/warframe/stalker.png" "Stalker" "https://warframe.fandom.com/wiki/Stalker"}}
 
 Known Stalker canon:
 
@@ -381,7 +381,7 @@ But what if Inaros is made of fast-moving, fast-replicating nano- or micro-bots?
 
 ## Orokin Drones are indoctrination devices
 
-{{imgBoxWithLink "/images/warframe/orokin_drone.png" "Orokin Drone" "https://warframe.fandom.com/wiki/Orokin_Drone"}}
+{{imgBoxLink "/images/warframe/orokin_drone.png" "Orokin Drone" "https://warframe.fandom.com/wiki/Orokin_Drone"}}
 
 In the Corrupted faction, all units are named "Corrupted X", except for these drones. Now consider, how exactly does an Orokin Tower's "neural sentry", likely a Cephalon, maintain the towers? How does it corrupt those who visit its domain? How does it maintain the state of corruption?
 

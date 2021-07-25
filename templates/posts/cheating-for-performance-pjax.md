@@ -6,7 +6,7 @@ What if I told you there's a way to dramatically speed up page transitions just 
 
 <p class="size-large">
     <span>Demo time!</span>
-    {{externalAnchor "https://mitranim.com/simple-pjax/" "https://mitranim.com/simple-pjax/"}}
+    {{exta "https://mitranim.com/simple-pjax/" "https://mitranim.com/simple-pjax/"}}
 </p>
 
 Who benefits from this?

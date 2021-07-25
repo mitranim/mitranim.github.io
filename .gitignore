@@ -5,7 +5,8 @@
 !/styles
 !/templates
 
-!/.gitignore
+!/.*ignore
+!/makefile
 !/*.go
 !/go.mod
 !/go.sum

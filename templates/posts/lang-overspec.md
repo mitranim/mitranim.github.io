@@ -4,7 +4,7 @@ One [possible solution](#solution) is included, with examples. Basically a varia
 
 ## TOC
 
-{{tableOfContents .InputPath}}
+{{mdToToc .MdTpl}}
 
 ## Problem
 
