@@ -9,7 +9,7 @@ func cmdPages() {
 }
 
 func makePages(site Site) {
-	for _, val := range site.Ipages {
+	for _, val := range site {
 		val.Make(site)
 	}
 }

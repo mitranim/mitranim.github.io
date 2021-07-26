@@ -43,6 +43,7 @@ var (
 	FLAGS        = Flags{PROD: os.Getenv("PROD") == "true"}
 	TARGET_BLANK = Attr{`target`, `_blank`}
 	REL_NOP      = Attr{`rel`, `noopener noreferrer`}
+	Ebui         = x.Ebui
 )
 
 type Flags struct{ PROD bool }
@@ -128,12 +129,6 @@ func trimLines(val string) string {
 }
 
 var reLines = regexp.MustCompile(`\s*(?:\r|\n)\s*`)
-
-func Ebui(fun func(E E)) Bui {
-	var bui Bui
-	fun(bui.E)
-	return bui
-}
 
 func randomHex() string {
 	const pre = `id`
