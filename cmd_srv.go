@@ -11,15 +11,14 @@ import (
 
 	"github.com/mitranim/srv"
 	"github.com/mitranim/try"
-	"github.com/pkg/errors"
 	"github.com/rjeczalik/notify"
 )
 
-func cmdSrv() error {
+func cmdSrv() {
 	events := make(chan notify.EventInfo, 1)
 	defer notify.Stop(events)
 	go srvWatch(events)
-	return srvServe()
+	srvServe()
 }
 
 func srvWatch(events chan notify.EventInfo) {
@@ -31,11 +30,10 @@ func srvWatch(events chan notify.EventInfo) {
 	}
 }
 
-func srvServe() error {
+func srvServe() {
 	const port = SERVER_PORT
 	fmt.Printf("[srv] listening on http://localhost:%v\n", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%v", port), srv.FileServer(PUBLIC_DIR))
-	return errors.WithStack(err)
+	try.To(http.ListenAndServe(fmt.Sprintf(":%v", port), srv.FileServer(PUBLIC_DIR)))
 }
 
 func afrMaybeSend(path string) {

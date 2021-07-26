@@ -4,7 +4,6 @@ import (
 	"strings"
 
 	"github.com/mitranim/try"
-	"github.com/pkg/errors"
 )
 
 /*
@@ -13,17 +12,15 @@ Resize and optimize images; requires GraphicsMagick.
 Doesn't use "filepath.Glob" because the latter can't find everything we need in
 a single call.
 */
-func cmdImages() (err error) {
-	defer try.Rec(&err)
+func cmdImages() {
 	defer timing("images")()
 
 	var batch string
 
-	try.To(walkFiles("images", func(srcPath string) error {
-		outPath := try.String(makeImagePath(srcPath))
+	walkFiles("images", func(srcPath string) {
+		outPath := makeImagePath(srcPath)
 		batch += "convert " + srcPath + " " + outPath + "\n"
-		return nil
-	}))
+	})
 
 	if batch == "" {
 		return
@@ -31,5 +28,5 @@ func cmdImages() (err error) {
 
 	cmd := makeCmd("gm", "batch", "-")
 	cmd.Stdin = strings.NewReader(batch)
-	return errors.WithStack(cmd.Run())
+	try.To(cmd.Run())
 }

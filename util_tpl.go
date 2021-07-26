@@ -1,9 +1,16 @@
 package main
 
+/*
+Templating is used for preprocessing Markdown: inserting SVG and some special
+tidbits of markup, such as TOC, external links, and more.
+
+This uses `text/template`, rather than `html/template`, because it's free of
+weird surprises. We do our own escaping via Gax.
+*/
+
 import (
 	tt "text/template"
 
-	"github.com/mitranim/try"
 	"github.com/pkg/errors"
 )
 
@@ -70,9 +77,4 @@ func emoji(emoji, label string) string {
 	return Ebui(func(E E) {
 		E(`span`, A{{`aria-label`, label}, aRole(`img`)}, emoji)
 	}).String()
-}
-
-func tryTpl(val *tt.Template, err error) *tt.Template {
-	try.To(err)
-	return val
 }

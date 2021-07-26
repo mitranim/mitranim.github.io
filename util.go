@@ -22,7 +22,6 @@ import (
 	"github.com/gotidy/ptr"
 	x "github.com/mitranim/gax"
 	"github.com/mitranim/try"
-	"github.com/pkg/errors"
 )
 
 const (
@@ -50,18 +49,14 @@ type Flags struct{ PROD bool }
 
 func fpj(path ...string) string { return filepath.Join(path...) }
 
-func tryTime(val time.Time, err error) time.Time {
-	try.To(err)
-	return val
-}
-
-func timeParse(input string) (time.Time, error) {
+func timeParse(input string) time.Time {
 	inst, err := time.Parse(time.RFC3339, input)
-	return inst, errors.WithStack(err)
+	try.To(err)
+	return inst
 }
 
-func tryTimePtr(val string) *time.Time {
-	return ptr.Time(tryTime(timeParse(val)))
+func timeParsePtr(val string) *time.Time {
+	return ptr.Time(timeParse(val))
 }
 
 func timeFmtHuman(date time.Time) string {
@@ -100,14 +95,10 @@ func baseName(pt string) string {
 	return trimExt(filepath.Base(pt))
 }
 
-func writePublic(path string, bytes []byte) (err error) {
-	defer try.Rec(&err)
-
+func writePublic(path string, bytes []byte) {
 	path = fpj(PUBLIC_DIR, path)
 	try.To(os.MkdirAll(filepath.Dir(path), os.ModePerm))
 	try.To(os.WriteFile(path, bytes, os.ModePerm))
-
-	return
 }
 
 func yearsElapsed() string {
@@ -129,7 +120,7 @@ func imgConfig(path string) image.Config {
 	return conf
 }
 
-func tryRead(path string) []byte { return try.ByteSlice(os.ReadFile(path)) }
+func readFile(path string) []byte { return try.ByteSlice(os.ReadFile(path)) }
 
 // Inefficient but not measurable in our case.
 func trimLines(val string) string {
@@ -151,10 +142,10 @@ func randomHex() string {
 	return hex.EncodeToString(buf[:])
 }
 
-func tplToBytes(temp *tt.Template, val interface{}) ([]byte, error) {
+func tplToBytes(temp *tt.Template, val interface{}) []byte {
 	var buf bytes.Buffer
-	err := temp.Execute(&buf, val)
-	return buf.Bytes(), errors.WithStack(err)
+	try.To(temp.Execute(&buf, val))
+	return buf.Bytes()
 }
 
 func makeCmd(command string, args ...string) *exec.Cmd {
@@ -168,25 +159,21 @@ func makeCmd(command string, args ...string) *exec.Cmd {
 Runs a command for side effects, connecting its stdout and stderr to the parent
 process.
 */
-func runCmd(command string, args ...string) error {
-	cmd := makeCmd(command, args...)
-	return errors.WithStack(cmd.Run())
+func runCmd(command string, args ...string) {
+	try.To(makeCmd(command, args...).Run())
 }
 
 /*
 Runs a command and returns its stdout. Stderr is connected to the parent
 process.
 */
-func runCmdOut(command string, args ...string) (string, error) {
+func runCmdOut(command string, args ...string) string {
 	cmd := exec.Command(command, args...)
 	cmd.Stderr = os.Stderr
-	out, err := cmd.Output()
-	return string(bytes.TrimSpace(out)), errors.WithStack(err)
+	return string(bytes.TrimSpace(try.ByteSlice(cmd.Output())))
 }
 
-func walkFiles(dir string, fun func(string) error) (err error) {
-	defer try.Rec(&err)
-
+func walkFiles(dir string, fun func(string)) {
 	try.To(filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		try.To(err)
 		if ignorePath(path) {
@@ -195,11 +182,9 @@ func walkFiles(dir string, fun func(string) error) (err error) {
 		if info.IsDir() {
 			return nil
 		}
-		try.To(fun(path))
+		fun(path)
 		return nil
 	}))
-
-	return
 }
 
 func ignorePath(path string) bool {
@@ -207,21 +192,20 @@ func ignorePath(path string) bool {
 }
 
 // "mkdir" is required for GraphicsMagick, which doesn't create directories.
-func makeImagePath(srcPath string) (_ string, err error) {
-	defer try.Rec(&err)
+func makeImagePath(srcPath string) string {
 	rel := try.String(filepath.Rel("images", srcPath))
 	outPath := fpj(PUBLIC_DIR, "images", rel)
 	try.To(os.MkdirAll(filepath.Dir(outPath), os.ModePerm))
-	return outPath, nil
+	return outPath
 }
 
-func xmlEncode(input interface{}) ([]byte, error) {
+func xmlEncode(input interface{}) []byte {
 	var buf bytes.Buffer
 	buf.WriteString(xml.Header)
 	enc := xml.NewEncoder(&buf)
 	enc.Indent("", "  ")
-	err := enc.Encode(input)
-	return buf.Bytes(), errors.WithStack(err)
+	try.To(enc.Encode(input))
+	return buf.Bytes()
 }
 
 func timing(name string) func() {

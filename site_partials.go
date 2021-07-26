@@ -71,13 +71,10 @@ func Html(page Ipage, fun func(E E)) []byte {
 				},
 				`Skip to content`,
 			)
-
 			Navbar(E, page)
-
 			E(`div`, A{aClass("limit-width flex col-start-stretch flex-1")}, func() {
 				fun(E)
 			})
-
 			Footer(E, page)
 		})
 	})
@@ -157,7 +154,7 @@ func FeedPostLayout(E E, page Post) {
 		// 		)
 		// 	}
 		// },
-		x.Bytes(tryMd(page.MdTpl, page)),
+		x.Bytes(mdTplToHtml(page.MdTpl, page)),
 	)
 }
 

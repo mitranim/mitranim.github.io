@@ -70,14 +70,13 @@ func mdToHtml(src []byte) []byte {
 	return bf.Run(src, mdOpts()...)
 }
 
-func tryMd(src []byte, val interface{}) []byte {
-	return mdToHtml(try.ByteSlice(mdTplToMd(string(src), val)))
+func mdTplToHtml(src []byte, val interface{}) []byte {
+	return mdToHtml(mdTplToMd(string(src), val))
 }
 
-func mdTplToMd(src string, val interface{}) (_ []byte, err error) {
-	defer try.Rec(&err)
+func mdTplToMd(src string, val interface{}) []byte {
 	tpl := makeTpl("")
-	try.To(tplParseMd(tpl, src))
+	tplParseMd(tpl, src)
 	return tplToBytes(tpl, val)
 }
 
@@ -225,14 +224,10 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 		text := string(node.Literal)
 		lexer := findLexer(tag, text)
 		iterator, err := lexer.Tokenise(nil, text)
-		if err != nil {
-			panic(errors.Wrap(err, "tokenizer error"))
-		}
+		try.To(errors.Wrap(err, "tokenizer error"))
 
 		err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
-		if err != nil {
-			panic(errors.Wrap(err, "formatter error"))
-		}
+		try.To(errors.Wrap(err, "formatter error"))
 
 		return bf.SkipChildren
 
@@ -360,7 +355,7 @@ func bfNodeFind(node *bf.Node, nodeType bf.NodeType) (out *bf.Node) {
 Modifies the template to preserve content between ``` as-is. We need it raw for
 Markdown and code highlighting.
 */
-func tplParseMd(tpl *tt.Template, cont string) error {
+func tplParseMd(tpl *tt.Template, cont string) {
 	funs := tt.FuncMap{}
 
 	text := replaceCodeBlocks(cont, func(val string) string {
@@ -370,7 +365,7 @@ func tplParseMd(tpl *tt.Template, cont string) error {
 	})
 
 	_, err := tpl.Funcs(funs).Parse(text)
-	return errors.WithStack(err)
+	try.To(err)
 }
 
 /*
