@@ -14,75 +14,60 @@ func Html(page Ipage, fun func(E E)) []byte {
 	E := bui.E
 
 	E(`html`, A{aClass(page.GetGlobalClass())}, func() {
-		E(`head`, nil, func() {
-			E(`meta`, A{{`charset`, `utf-8`}})
-			E(`meta`, A{{`http-equiv`, `X-UA-Compatible`}, aContent(`IE=edge,chrome=1`)})
-			E(`meta`, A{aName(`viewport`), aContent(`width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes`)})
-			E(`link`, A{aRel(`icon`), aHref(`data:;base64,=`)})
-			E(`link`, A{aRel(`stylesheet`), aType(`text/css`), aHref(`/styles/main.css`)})
+		E(`head`, nil, func() { HtmlHead(E, page) })
 
-			if page.GetTitle() != "" {
-				E(`title`, nil, page.GetTitle())
-			} else {
-				E(`title`, nil, `about:mitranim`)
-			}
-
-			E(
-				`link`,
-				A{aRel(`alternate`), aType(`application/atom+xml`), aTitle(`Mitranim's Posts (Atom)`), aHref(`/feed.xml`)},
-			)
-			E(
-				`link`,
-				A{aRel(`alternate`), aType(`application/rss+xml`), aTitle(`Mitranim's Posts (RSS)`), aHref(`/feed_rss.xml`)},
-			)
-			E(`meta`, A{aName(`author`), aContent(`Nelo Mitranim`)})
-			if page.GetTitle() != "" {
-				E(`meta`, A{aProperty(`og:title`), aContent(page.GetTitle())})
-			}
-			if page.GetDescription() != "" {
-				E(`meta`, A{aName(`description`), aContent(page.GetDescription())})
-			}
-			if page.GetImage() != "" {
-				E(`meta`, A{aProperty(`og:image`), aContent(path.Join(`/images`, page.GetImage()))})
-			}
-			if page.GetType() != "" {
-				E(`meta`, A{aProperty(`og:type`), aContent(page.GetType())})
-			}
-			E(`meta`, A{aProperty(`og:site_name`), aContent(`about:mitranim`)})
-
-			if !FLAGS.PROD {
-				E(`script`, A{aType(`module`), aSrc(`http://localhost:52692/afr/client.mjs`)})
-			}
-		})
-
-		E(`body`, A{aClass("flex col-sta-str"), aStyle("min-height: 100vh")}, func() {
-			/**
-			This JS code skips to the content without changing the URL or polluting the
-			browser history. It SEEMS to work with the MacOS VoiceOver. Haven't tested
-			assistive tech on other operating systems.
-			*/
-			E(
-				`a`,
-				A{
-					aHref(`#main`),
-					aClass("skip-to-content"),
-					{`onclick`, "document.getElementById('main')?.scrollIntoView(); event.preventDefault()"},
-				},
-				`Skip to content`,
-			)
-			Navbar(E, page)
-			E(`div`, A{aClass("limit-width flex col-sta-str flex-1")}, func() {
-				fun(E)
-			})
-			Footer(E, page)
-		})
+		E(`body`, A{aClass("flex col-sta-str"), aStyle("min-height: 100vh")},
+			SkipToContent,
+			fun,
+		)
 	})
 
 	return bui
 }
 
+func HtmlHead(E E, page Ipage) {
+	E(`meta`, A{{`charset`, `utf-8`}})
+	E(`meta`, A{{`http-equiv`, `X-UA-Compatible`}, aContent(`IE=edge,chrome=1`)})
+	E(`meta`, A{aName(`viewport`), aContent(`width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes`)})
+	E(`link`, A{aRel(`icon`), aHref(`data:;base64,=`)})
+	E(`link`, A{aRel(`stylesheet`), aType(`text/css`), aHref(`/styles/main.css`)})
+
+	if page.GetTitle() != "" {
+		E(`title`, nil, page.GetTitle())
+	} else {
+		E(`title`, nil, `about:mitranim`)
+	}
+
+	E(
+		`link`,
+		A{aRel(`alternate`), aType(`application/atom+xml`), aTitle(`Mitranim's Posts (Atom)`), aHref(`/feed.xml`)},
+	)
+	E(
+		`link`,
+		A{aRel(`alternate`), aType(`application/rss+xml`), aTitle(`Mitranim's Posts (RSS)`), aHref(`/feed_rss.xml`)},
+	)
+	E(`meta`, A{aName(`author`), aContent(`Nelo Mitranim`)})
+	if page.GetTitle() != "" {
+		E(`meta`, A{aProperty(`og:title`), aContent(page.GetTitle())})
+	}
+	if page.GetDescription() != "" {
+		E(`meta`, A{aName(`description`), aContent(page.GetDescription())})
+	}
+	if page.GetImage() != "" {
+		E(`meta`, A{aProperty(`og:image`), aContent(path.Join(`/images`, page.GetImage()))})
+	}
+	if page.GetType() != "" {
+		E(`meta`, A{aProperty(`og:type`), aContent(page.GetType())})
+	}
+	E(`meta`, A{aProperty(`og:site_name`), aContent(`about:mitranim`)})
+
+	if !FLAGS.PROD {
+		E(`script`, A{aType(`module`), aSrc(`http://localhost:52692/afr/client.mjs`)})
+	}
+}
+
 func Navbar(E E, page Ipage) {
-	E(`div`, A{aId(`top`), aClass("limit-width --unpadded flex row-sta-str mar-bot-2 gap-hor-1")}, func() {
+	E(`div`, A{aId(`top`), aClass("wid-lim --unpadded flex row-sta-str mar-bot-2 gap-hor-1")}, func() {
 		E(`nav`, A{aClass("flex row-sta-str")}, func() {
 			E(`a`, A{aHref("/"), cur(page, "index.html"), aClass("navlink --busy")}, `home`)
 			E(`a`, A{aHref("/works"), cur(page, "works.html"), aClass("navlink --busy")}, `works`)
@@ -100,7 +85,7 @@ func Navbar(E E, page Ipage) {
 
 func Footer(E E, page Ipage) {
 	E(`footer`, A{aStyle("margin-top: auto")}, func() {
-		E(`div`, A{aClass("limit-width flex row-bet-cen mar-top-4 mar-bot-2")}, func() {
+		E(`div`, A{aClass("wid-lim flex row-bet-cen mar-top-4 mar-bot-2")}, func() {
 			E(`span`, A{aClass("flex-1 flex row-sta-sta gap-hor-0x5")}, func() {
 				E(`span`, A{aClass("text-lef")}, yearsElapsed())
 				Exta(E, "https://github.com/mitranim/mitranim.github.io", "website source")
@@ -138,7 +123,7 @@ func FeedLinks(E E) {
 }
 
 func FeedPostLayout(E E, page Post) {
-	E(`article`, A{aRole(`main article`), aClass(`fancy-typography`)},
+	E(`article`, A{aRole(`main article`), aClass(`fan-typo`)},
 		/**
 		Unsure about including the description. The Atom or RSS feed item already
 		contains the desription as a separate element. The RSS readers I use tend
@@ -154,6 +139,23 @@ func FeedPostLayout(E E, page Post) {
 		// 	}
 		// },
 		x.Bytes(page.MakeMd()),
+	)
+}
+
+/**
+This JS code skips to the content without changing the URL or polluting the
+browser history. It SEEMS to work with the MacOS VoiceOver. Haven't tested
+assistive tech on other operating systems.
+*/
+func SkipToContent(E E) {
+	E(
+		`a`,
+		A{
+			aHref(`#main`),
+			aClass("skip-to-content"),
+			{`onclick`, "document.getElementById('main')?.scrollIntoView(); event.preventDefault()"},
+		},
+		`Skip to content`,
 	)
 }
 

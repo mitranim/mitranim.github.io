@@ -6,70 +6,76 @@ import (
 
 func Page404(site Site, page Page) []byte {
 	return Html(page, func(E E) {
-		E(`div`, A{aRole(`main`), aId(`main`), aClass("fancy-typography")}, func() {
+		Navbar(E, page)
+		E(`div`, A{aRole(`main`), aId(`main`), aClass("wid-lim fan-typo")}, func() {
 			E(`h2`, nil, page.GetTitle())
 			E(`p`, nil, `Sorry, this page is not found.`)
 			E(`p`, nil, func() {
 				E(`a`, A{aHref(`/`)}, `Return to homepage.`)
 			})
 		})
+		Footer(E, page)
 	})
 }
 
 func PageIndex(site Site, page Page) []byte {
 	return Html(page, func(E E) {
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("fancy-typography")},
+		Navbar(E, page)
+		E(`article`, A{aRole(`main article`), aId(`main`), aClass("wid-lim fan-typo")},
 			x.Bytes(page.MakeMd()),
 		)
+		Footer(E, page)
 	})
 }
 
 func PagePosts(site Site, page Page) []byte {
 	return Html(page, func(E E) {
-		E(`div`, A{aRole(`main`), aId(`main`), aClass("flex col-sta-str gap-ver-4")}, func() {
-			E(`div`, A{aClass("fancy-typography gap-ver-2")}, func() {
-				E(`h1`, nil, `Blog Posts`)
+		Navbar(E, page)
 
-				posts := site.ListedPosts()
+		E(`div`, A{aRole(`main`), aId(`main`), aClass("wid-lim fan-typo")}, func() {
+			E(`h1`, nil, `Blog Posts`)
 
-				if len(posts) > 0 {
-					for _, post := range posts {
-						E(`div`, A{aClass("gap-ver-1")}, func() {
-							E(`h2`, nil, func() {
-								E(`a`, A{aHref(post.UrlFromSiteRoot())}, post.Title)
-							})
-							if post.Description != "" {
-								E(`p`, nil, post.Description)
-							}
-							if post.TimeString() != "" {
-								E(`p`, A{aClass("fg-gray-close size-small")}, post.TimeString())
-							}
+			posts := site.ListedPosts()
+
+			if len(posts) > 0 {
+				for _, post := range posts {
+					E(`div`, A{aClass("mar-top-2 gap-ver-1")}, func() {
+						E(`h2`, nil, func() {
+							E(`a`, A{aHref(post.UrlFromSiteRoot())}, post.Title)
 						})
-					}
-				} else {
-					E(`p`, nil, `Oops! It appears there are no public posts yet.`)
+						if post.Description != "" {
+							E(`p`, nil, post.Description)
+						}
+						if post.TimeString() != "" {
+							E(`p`, A{aClass("fg-gray-close size-small")}, post.TimeString())
+						}
+					})
 				}
-			})
+			} else {
+				E(`p`, nil, `Oops! It appears there are no public posts yet.`)
+			}
 
-			E(`div`, A{aClass("fancy-typography")}, func() {
-				E(`h1`, nil, `Feed Links`)
-				FeedLinks(E)
-			})
+			E(`h1`, nil, `Feed Links`)
+			FeedLinks(E)
 		})
+
+		Footer(E, page)
 	})
 }
 
 func PageWorks(site Site, page Page) []byte {
 	return Html(page, func(E E) {
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("fancy-typography")},
+		Navbar(E, page)
+		E(`article`, A{aRole(`main article`), aId(`main`), aClass("wid-lim fan-typo")},
 			x.Bytes(page.MakeMd()),
 		)
+		Footer(E, page)
 	})
 }
 
 func PageResume(site Site, page Page) []byte {
 	return Html(page, func(E E) {
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("fancy-typography limit-width pad-top-1 pad-bot-2")},
+		E(`article`, A{aRole(`main article`), aId(`main`), aClass("wid-lim fan-typo pad-top-1 pad-bot-2")},
 			x.Bytes(page.MakeMd()),
 		)
 	})
@@ -77,16 +83,19 @@ func PageResume(site Site, page Page) []byte {
 
 func PageDemos(site Site, page Page) []byte {
 	return Html(page, func(E E) {
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("fancy-typography")},
+		Navbar(E, page)
+		E(`article`, A{aRole(`main article`), aId(`main`), aClass("wid-lim fan-typo")},
 			x.Bytes(page.MakeMd()),
 		)
+		Footer(E, page)
 	})
 }
 
 func PagePost(site Site, page Post) []byte {
 	return Html(page, func(E E) {
-		E(`div`, A{aRole(`main`), aId(`main`), aClass("fancy-typography flex-1 flex col-sta-str gap-ver-2")}, func(b *Bui) {
-			E(`article`, A{aRole("article"), aClass(`fancy-typography`)},
+		Navbar(E, page)
+		E(`div`, A{aRole(`main`), aId(`main`), aClass("wid-lim fan-typo flex-1 flex col-sta-str gap-ver-2")}, func(b *Bui) {
+			E(`article`, A{aRole("article"), aClass(`fan-typo`)},
 				func() {
 					// Should be kept in sync with "MdRen.RenderNode" logic for headings
 					E(`h1`, nil, x.Bytes(HEADING_PREFIX), page.Title)
@@ -118,5 +127,6 @@ func PagePost(site Site, page Post) []byte {
 				FeedLinks(E)
 			})
 		})
+		Footer(E, page)
 	})
 }

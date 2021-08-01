@@ -179,7 +179,7 @@ code, key, pre {@extend .code;}
   @extend .col-sta-str;
 }
 
-.limit-width {
+.wid-lim {
   width: 100%;
   @extend .mar-cen;
   max-width: var(--max-page-width);
@@ -194,7 +194,7 @@ code, key, pre {@extend .code;}
   @extend .cur-point;
   @extend .pad-1;
   background-color: var(--color-gray-fg-far);
-  .fancy-typography & ~ pre {margin-top: 0;}
+  .fan-typo & ~ pre {margin-top: 0;}
 }
 
 /* Misc */
@@ -215,7 +215,7 @@ code, key, pre {@extend .code;}
   opacity: 0.5;
 }
 
-.unstyled-list, .fancy-typography .unstyled-list {
+.unstyled-list, .fan-typo .unstyled-list {
   padding: 0;
   list-style-type: none;
   list-style-position: unset;
@@ -233,7 +233,8 @@ ul.fancy-list ul.fancy-list {
   list-style-type: circle;
 }
 
-.fancy-typography {
+// Short for "fancy typography".
+.fan-typo {
   h1 {font-size: var(--font-size-h1);}
   h2 {font-size: var(--font-size-h2);}
   h3 {font-size: var(--font-size-h3);}
@@ -481,7 +482,7 @@ Possible solutions:
 .img-box-caption {
   @extend .block;
   @include sb.pad-hor(0.5rem);
-  @include sb.pad-hor(0.25rem);
+  @include sb.pad-ver(0.25rem);
   @extend .text-cen;
   border-top: 1px solid var(--color-gray-fg-far);
   border-bottom-left-radius: inherit;

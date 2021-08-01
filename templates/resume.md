@@ -1,4 +1,4 @@
-<p class="text-rig gap-ver-let">
+<p class="gap-ver-let">
   <span class="block fg-blue" data-note="Updated: 2019-02-22"></span>
   <span class="block noprint">
     <button type="button" style="padding: 0" onclick="window.print()">

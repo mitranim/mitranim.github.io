@@ -43,7 +43,7 @@ var (
 		6: "h6",
 	}
 
-	DETAILS_START       = `<details class="details fancy-typography">`
+	DETAILS_START       = `<details class="details fan-typo">`
 	DETAILS_END         = `</details>`
 	SUMMARY_START       = `<summary>`
 	SUMMARY_END         = `</summary>`
