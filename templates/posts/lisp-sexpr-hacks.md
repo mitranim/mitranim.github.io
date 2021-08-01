@@ -16,7 +16,7 @@ symbol       |    atom
 ()           |    nil
 ```
 
-We could express pairs as `(a b)` without `.`, but at the cost of the "abbreviated" notation. The abbreviated notation allows to drop `.` as a shortcut for pairs that end with another pair or nil:
+The "abbreviated" notation omits `.` from pairs that end with another pair or nil, combining them into lists:
 
 ```
 (10)            ->    (10 . ())
@@ -25,7 +25,7 @@ We could express pairs as `(a b)` without `.`, but at the cost of the "abbreviat
 (10 20 . 30)    ->    (10 . (20 . 30))
 ```
 
-When talking about S-expressions as code, we usually mean the abbreviated notation, as in Lisps. Writing code in the base notation is out of the question, but pairs will come back to haunt us later.
+When talking about S-expressions as code, we usually mean the abbreviated notation, as in Lisps. Writing code in the base notation is out of the question, but pairs will come back to haunt us later. Example Lisp code:
 
 ```rkt
 (define add (lambda (a b) (+ a b)))
@@ -41,7 +41,7 @@ When talking about S-expressions as code, we usually mean the abbreviated notati
 
 We can express new concepts by adding meaning to symbols such as `lambda`, `if`, and so on. Each such "form" will have its internal "syntax", usually extremely simple, but we don't have to change the base notation. The cost of adding and learning new features is lower compared to other syntaxes. This also makes it easy to give _users_ the ability to extend it, via AST-based macros.
 
-Sidenote. Personally I like S-expressions as _syntax_, but advocate against dynamic typing and [homoiconity](/posts/lang-homoiconic). Instead, we could use S-expressions for statically typed languages.
+Sidenote. Personally I like the S-expression syntax, but advocate against dynamic typing and [homoiconity](/posts/lang-homoiconic) as seen in Lisps. We could and should use S-expressions for statically typed languages.
 
 ## Hacks
 
@@ -54,7 +54,7 @@ S-expressions require unary negation to be written like this:
 (- 10)
 ```
 
-But `-10` was too hard to give up, so they built `+-` _into number literals_. The language's parser supports `+10` `-10` where the operator is part of the number's syntax. Note that `+ 10` `- 10` (with a space) don't work that way. Needless to say, this special case doesn't extend to other unary operators such as bitwise negation.
+But `-10` was too hard to give up, so they built `+-` _into number literals_. The language's parser supports `+10` `-10` where the operator is part of the number's syntax. Note that `+ 10` `- 10` (with a space) don't work that way. Of course, this limited special case works _only_ for literal numbers, not variables, and doesn't extend to other unary operators such as bitwise negation.
 
 ### Prefix Operators
 
@@ -79,7 +79,7 @@ Writing `(quote)` and others was too much, so they added prefix shortcuts.
 `(add ,@exprs)     ->    (quasiquote (add (unquote-splicing exprs)))
 ```
 
-In general, Lisp prefix operators are aliases for other forms. They're converted after or during parsing text into AST. Parsing text and converting prefix operators is combined into a step called "reading", which returns a canonical AST.
+In general, all Lisp prefix operators are aliases for "expanded" forms. They're converted after or during parsing text into AST. Parsing text and converting prefix operators is combined into a step called "reading", which returns a canonical AST.
 
 [Clojure's reader](https://clojure.org/reference/reader) has more prefix operators, such as `@A` → `(deref A)`, and a somewhat-generalized `#`.
 
@@ -96,7 +96,7 @@ People have written large documents and reference implementations suggesting `{}
 
 Veiled in-joke or serious request? Can't tell...
 
-It can be observed that this proposal has no precedence, only grouping. Grouping is both necessary and sufficient. Precedence is not necessary and not sufficient. Programming languages have lots of operators that don't exist in math, and their precedence is inconsistent between languages. Precedence errors are so insidious that some languages, like Pony, ban most forms of operator mixing and enforce grouping. This proposal, while ludicrous in the context of Lisp, has at least one good idea at its core.
+It can be observed that this proposal has grouping, but no precedence. Grouping is both necessary and sufficient. Precedence is not necessary and not sufficient. Programming languages have lots of operators that don't exist in math, and their precedence is inconsistent between languages. Precedence errors are so insidious that some languages, like Pony, ban most forms of operator mixing and enforce grouping. This proposal, while ludicrous in the context of Lisp, has at least one good idea at its core.
 
 ### Racket Infix Hack
 

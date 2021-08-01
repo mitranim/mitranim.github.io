@@ -71,6 +71,7 @@ func initPosts() Site {
 				MdTpl:       readFile(fpj(TEMPLATE_DIR, "posts/lisp-sexpr-hacks.md")),
 			},
 			PublishedAt: timeParsePtr("2020-10-21T06:34:24Z"),
+			UpdatedAt:   timeParsePtr("2021-08-01T07:19:11Z"),
 			IsListed:    true,
 		},
 		Post{
