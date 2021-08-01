@@ -274,22 +274,21 @@ and calls `maybeAttr`.
 
 TODO consider moving to Gax.
 */
+//nolint:unused,deadcode
 func partialAttr(key string) func(string) Attr {
 	return func(val string) Attr { return maybeAttr(key, val) }
 }
 
-var (
-	aAlt      = partialAttr(`alt`)
-	aClass    = partialAttr(`class`)
-	aContent  = partialAttr(`content`)
-	aHref     = partialAttr(`href`)
-	aId       = partialAttr(`id`)
-	aName     = partialAttr(`name`)
-	aProperty = partialAttr(`property`)
-	aRel      = partialAttr(`rel`)
-	aRole     = partialAttr(`role`)
-	aSrc      = partialAttr(`src`)
-	aStyle    = partialAttr(`style`)
-	aTitle    = partialAttr(`title`)
-	aType     = partialAttr(`type`)
-)
+func aAlt(val string) Attr      { return maybeAttr(`alt`, val) }
+func aClass(val string) Attr    { return maybeAttr(`class`, val) }
+func aContent(val string) Attr  { return maybeAttr(`content`, val) }
+func aHref(val string) Attr     { return maybeAttr(`href`, val) }
+func aId(val string) Attr       { return maybeAttr(`id`, val) }
+func aName(val string) Attr     { return maybeAttr(`name`, val) }
+func aProperty(val string) Attr { return maybeAttr(`property`, val) }
+func aRel(val string) Attr      { return maybeAttr(`rel`, val) }
+func aRole(val string) Attr     { return maybeAttr(`role`, val) }
+func aSrc(val string) Attr      { return maybeAttr(`src`, val) }
+func aStyle(val string) Attr    { return maybeAttr(`style`, val) }
+func aTitle(val string) Attr    { return maybeAttr(`title`, val) }
+func aType(val string) Attr     { return maybeAttr(`type`, val) }

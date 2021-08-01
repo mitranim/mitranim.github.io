@@ -110,7 +110,9 @@ a[href] {cursor: pointer;}
 /* Lists */
 
 ul {list-style-type: disc;}
-ul, ol {list-style-position: inside;}
+
+/* Questionable. */
+/* ul, ol {list-style-position: inside;} */
 
 /* monospace */
 
