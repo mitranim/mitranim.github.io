@@ -4,13 +4,13 @@
 
 Nelo Mitranim.
 
-Autodidact. Senior software developer and architect. Main expertise: web applications (full stack). Open source and gaming enthusiast.
+Senior software developer and architect. Main expertise: web applications (full stack).
 
 Passionate about open source software. See [works](/works).
 
 # Languages
 
-Dominant choice: Go.
+Preferred choice: Go.
 
 Solid experience: Go, JS/Node, Clojure, Python.
 
@@ -20,24 +20,23 @@ Passing familiarity: Swift, C, Common Lisp, Scheme.
 
 # Databases
 
-Dominant choice: Postgres.
+Preferred choice: Postgres.
 
-Solid experience:
+Experience:
 
-  * SQL databases: Postgres
-  * document databases: ArangoDB, CouchDB
-  * Datomic ([https://www.datomic.com](https://www.datomic.com))
-  * Firebase ([https://firebase.google.com](https://firebase.google.com))
+  * SQL databases: Postgres ([http://postgresql.org](http://postgresql.org)).
+  * Datomic ([https://www.datomic.com](https://www.datomic.com)).
+  * Firebase ([https://firebase.google.com](https://firebase.google.com)).
+  * Document databases: ArangoDB, CouchDB.
 
 # Applications
 
 Solid experience:
 
-  * rich web applications (SPA)
-  * traditional web applications (SSR, forms)
-  * REST API backends
-  * websocket API backends with live notifications
-  * Ethereum apps; see [github.com/purelabio/eth](https://github.com/purelabio/eth)
+  * Hybrid SSR+SPA apps.
+  * API backends (REST/websocket).
+  * Traditional web apps (SSR + forms).
+  * Ethereum apps; see [github.com/purelabio/eth](https://github.com/purelabio/eth).
 
 # Misc
 
@@ -51,11 +50,9 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 # Contacts
 
-<span>{{include "svg-skype"}} Skype: [mitranim.web](skype:mitranim.web?chat)</span>
+<span>{{include "svg-discord"}} Discord: [`Mitranim#5870`](https://discordapp.com/users/105725121334915072)</span>
 
 <span>{{include "svg-paper-plane"}} Telegram: [Mitranim](https://telegram.me/Mitranim)</span>
-
-<span>{{include "svg-discord"}} Discord: `Mitranim#5870`</span>
 
 <span>{{include "svg-mobile-alt"}} Phone: [+7-926-044-00-49](tel:+7-926-044-00-49)</span>
 
@@ -67,8 +64,8 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 [{{include "svg-youtube"}} My Youtube](https://www.youtube.com/channel/UCt6dH_XZxJCgaa6vwqrwFxA)
 
-[{{include "svg-twitter"}} My Twitter](https://twitter.com/mitranim)
+<!-- [{{include "svg-twitter"}} My Twitter](https://twitter.com/mitranim) -->
 
-[{{include "svg-linkedin"}} My LinkedIn](https://linkedin.com/in/mitranim)
+<!-- [{{include "svg-linkedin"}} My LinkedIn](https://linkedin.com/in/mitranim) -->
 
-[{{include "svg-facebook"}} My Facebook](https://facebook.com/mitranim)
+<!-- [{{include "svg-facebook"}} My Facebook](https://facebook.com/mitranim) -->
