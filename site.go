@@ -1,14 +1,12 @@
 package main
 
-import (
-	"strings"
-	"time"
+func initSite() (out Site) {
+	out = append(out, initPages()...)
+	out = append(out, initPosts()...)
+	return
+}
 
-	"github.com/gotidy/ptr"
-	x "github.com/mitranim/gax"
-)
-
-func initSite() Site {
+func initPages() Site {
 	return Site{
 		Page{
 			Path:  "404.html",
@@ -50,6 +48,11 @@ func initSite() Site {
 			GlobalClass: "color-scheme-light",
 			Fun:         PageResume,
 		},
+	}
+}
+
+func initPosts() Site {
+	return Site{
 		Post{
 			Page: Page{
 				Path:        "posts/spaces-tabs.html",
@@ -245,234 +248,4 @@ func initSite() Site {
 			IsListed:    true,
 		},
 	}
-}
-
-type Site []Ipage
-
-func (self Site) Posts() (out []Post) {
-	for _, val := range self {
-		switch val := val.(type) {
-		case Post:
-			out = append(out, val)
-		}
-	}
-	return
-}
-
-func (self Site) ListedPosts() (out []Post) {
-	for _, val := range self.Posts() {
-		if val.IsListed {
-			out = append(out, val)
-		}
-	}
-	return
-}
-
-type Ipage interface {
-	GetPath() string
-	GetTitle() string
-	GetDescription() string
-	GetType() string
-	GetImage() string
-	GetGlobalClass() string
-	Make(Site)
-}
-
-type Page struct {
-	Path        string
-	Title       string
-	Description string
-	MdTpl       []byte
-	Type        string
-	Image       string
-	GlobalClass string
-	Fun         func(Site, Page) []byte
-}
-
-func (self Page) GetPath() string        { return self.Path }
-func (self Page) GetTitle() string       { return self.Title }
-func (self Page) GetDescription() string { return self.Description }
-func (self Page) GetType() string        { return self.Type }
-func (self Page) GetImage() string       { return self.Image }
-func (self Page) GetGlobalClass() string { return self.GlobalClass }
-
-func (self Page) Make(site Site) {
-	writePublic(self.Path, self.Fun(site, self))
-}
-
-type Post struct {
-	Page
-	RedirFrom   []string
-	PublishedAt *time.Time
-	UpdatedAt   *time.Time
-	IsListed    bool
-}
-
-func (self Post) ExistsAsFile() bool {
-	return self.PublishedAt != nil || !FLAGS.PROD
-}
-
-func (self Post) ExistsInFeeds() bool {
-	return self.ExistsAsFile() && bool(self.IsListed)
-}
-
-func (self Post) UrlFromSiteRoot() string {
-	return ensureLeadingSlash(trimExt(self.Path))
-}
-
-// Somewhat inefficient but shouldn't be measurable.
-func (self Post) TimeString() string {
-	var out []string
-
-	if self.PublishedAt != nil {
-		out = append(out, `published `+timeFmtHuman(*self.PublishedAt))
-		if self.UpdatedAt != nil {
-			out = append(out, `updated `+timeFmtHuman(*self.UpdatedAt))
-		}
-	}
-
-	return strings.Join(out, ", ")
-}
-
-func (self Post) Make(site Site) {
-	writePublic(self.Path, PagePost(site, self))
-
-	for _, path := range self.RedirFrom {
-		writePublic(path, Ebui(func(E E) {
-			E(`meta`, A{{`http-equiv`, `refresh`}, {`content`, `0;URL='` + self.UrlFromSiteRoot() + `'`}})
-		}))
-	}
-}
-
-func (self Post) FeedItem() FeedItem {
-	href := siteBase() + self.UrlFromSiteRoot()
-
-	return FeedItem{
-		XmlBase:     href,
-		Title:       self.Page.Title,
-		Link:        &FeedLink{Href: href},
-		Author:      FEED_AUTHOR,
-		Description: self.Page.Description,
-		Id:          href,
-		Published:   self.PublishedAt,
-		Updated:     timeCoalesce(self.PublishedAt, self.UpdatedAt, ptr.Time(time.Now().UTC())),
-		Content:     Ebui(func(E E) { FeedPostLayout(E, self) }).String(),
-	}
-}
-
-func Page404(site Site, page Page) []byte {
-	return Html(page, func(E E) {
-		E(`div`, A{aRole(`main`), aId(`main`), aClass("fancy-typography")}, func() {
-			E(`h2`, nil, page.GetTitle())
-			E(`p`, nil, `Sorry, this page is not found.`)
-			E(`p`, nil, func() {
-				E(`a`, A{aHref(`/`)}, `Return to homepage.`)
-			})
-		})
-	})
-}
-
-func PageIndex(site Site, page Page) []byte {
-	return Html(page, func(E E) {
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("fancy-typography")},
-			x.Bytes(mdTplToHtml(page.MdTpl, page)),
-		)
-	})
-}
-
-func PagePosts(site Site, page Page) []byte {
-	return Html(page, func(E E) {
-		E(`div`, A{aRole(`main`), aId(`main`), aClass("flex col-start-stretch gaps-v-4")}, func() {
-			E(`div`, A{aClass("fancy-typography gaps-v-2")}, func() {
-				E(`h1`, nil, `Blog Posts`)
-
-				posts := site.ListedPosts()
-
-				if len(posts) > 0 {
-					for _, post := range posts {
-						E(`div`, A{aClass("gaps-v-1")}, func() {
-							E(`h2`, nil, func() {
-								E(`a`, A{aHref(post.UrlFromSiteRoot())}, post.Title)
-							})
-							if post.Description != "" {
-								E(`p`, nil, post.Description)
-							}
-							if post.TimeString() != "" {
-								E(`p`, A{aClass("fg-gray-close size-small")}, post.TimeString())
-							}
-						})
-					}
-				} else {
-					E(`p`, nil, `Oops! It appears there are no public posts yet.`)
-				}
-			})
-
-			E(`div`, A{aClass("fancy-typography")}, func() {
-				E(`h1`, nil, `Feed Links`)
-				FeedLinks(E)
-			})
-		})
-	})
-}
-
-func PageWorks(site Site, page Page) []byte {
-	return Html(page, func(E E) {
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("fancy-typography")},
-			x.Bytes(mdTplToHtml(page.MdTpl, page)),
-		)
-	})
-}
-
-func PageResume(site Site, page Page) []byte {
-	return Html(page, func(E E) {
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("fancy-typography limit-width padding-t-1 padding-b-2")},
-			x.Bytes(mdTplToHtml(page.MdTpl, page)),
-		)
-	})
-}
-
-func PageDemos(site Site, page Page) []byte {
-	return Html(page, func(E E) {
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("fancy-typography")},
-			x.Bytes(mdTplToHtml(page.MdTpl, page)),
-		)
-	})
-}
-
-func PagePost(site Site, page Post) []byte {
-	return Html(page, func(E E) {
-		E(`div`, A{aRole(`main`), aId(`main`), aClass("fancy-typography flex-1 flex col-start-stretch gaps-v-2")}, func(b *Bui) {
-			E(`article`, A{aRole("article"), aClass(`fancy-typography`)},
-				func() {
-					// Should be kept in sync with "MdRen.RenderNode" logic for headings
-					E(`h1`, nil, x.Bytes(HEADING_PREFIX), page.Title)
-					if page.Description != "" {
-						E(`p`, A{aRole("doc-subtitle"), aClass("size-large font-italic")}, page.Description)
-					}
-					if page.TimeString() != "" {
-						E(`p`, A{aClass("fg-gray-close size-small")}, page.TimeString())
-					}
-				},
-				x.Bytes(mdTplToHtml(page.MdTpl, page)),
-			)
-
-			E(`hr`, A{aStyle("margin-top: auto")})
-
-			E(`div`, A{aClass("gaps-v-1")}, func() {
-				E(`p`, nil, func(b *Bui) {
-					text := b.EscString
-
-					text(`This blog currently doesn't support comments. Feel free to `)
-					Exta(E, "https://twitter.com/mitranim", "tweet")
-					text(` at me, email to `)
-					E(`a`, A{aHref(`mailto:me@mitranim.com?subject=Re: ` + page.Title)}, `me@mitranim.com`)
-					text(`, or use the `)
-					E(`a`, A{aHref("/#contacts")}, `other contacts.`)
-					text(`.`)
-				})
-
-				FeedLinks(E)
-			})
-		})
-	})
 }

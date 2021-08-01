@@ -1,5 +1,7 @@
-@import './reset';
-@import './baselib';
+@use './reset';
+@use './sb';
+
+@include sb.all;
 
 /* Vars */
 
@@ -95,23 +97,16 @@ $breakpoint-lg: 1024px;
 body {
   overflow-x: auto;
   overflow-y: scroll;
-  @extend .center-by-margins;
-  @extend .padding-h-1;
+  @extend .mar-cen;
+  @extend .pad-hor-1;
 }
 
-code, key, pre {
-  @extend .code;
-}
+code, key, pre {@extend .code;}
 
 /* Themes */
 
-.color-scheme-dark {
-  @include color-scheme-dark;
-}
-
-.color-scheme-light {
-  @include color-scheme-light;
-}
+.color-scheme-dark {@include color-scheme-dark;}
+.color-scheme-light {@include color-scheme-light;}
 
 .theme-red {
   background-color: var(--color-red);
@@ -167,7 +162,7 @@ code, key, pre {
 /* Typography */
 
 // Override.
-.weight-bold {@extend .weight-semibold;}
+.wei-bold {@extend .wei-semi;}
 
 .size-small  {font-size: 0.8rem;}
 .size-normal {font-size: 1rem;}
@@ -178,94 +173,26 @@ code, key, pre {
 
 /* Layout */
 
-.flex        {@extend %display-flex;}
-.inline-flex {@extend %display-inline-flex;}
-
-.row-start-start    {@include flex-layout(row, start, start);}
-.row-start-stretch  {@include flex-layout(row, start, stretch);}
-.row-center-center  {@include flex-layout(row, center, center);}
-.row-end-center     {@include flex-layout(row, end, center);}
-.row-between-center {@include flex-layout(row, between, center);}
-.col-start-start    {@include flex-layout(col, start, start);}
-.col-start-stretch  {@include flex-layout(col, start, stretch);}
-.col-start-end      {@include flex-layout(col, start, end);}
-
-.flex-1 {@include flex(1);}
-.flex-2 {@include flex(2);}
-.flex-3 {@include flex(3);}
-.flex-4 {@include flex(4);}
-.flex-5 {@include flex(5);}
-.flex-6 {@include flex(6);}
-.flex-7 {@include flex(7);}
-.flex-8 {@include flex(8);}
-.flex-9 {@include flex(9);}
-
-.flex-noshrink {@include flex-shrink(none);}
-
-.order-1 {@include flex-order(1);}
-.order-2 {@include flex-order(2);}
-.order-3 {@include flex-order(3);}
-.order-4 {@include flex-order(4);}
-.order-5 {@include flex-order(5);}
-.order-6 {@include flex-order(6);}
-.order-7 {@include flex-order(7);}
-.order-8 {@include flex-order(8);}
-.order-9 {@include flex-order(9);}
-
 .stretch-to-viewport {
   min-height: 100vh;
   @extend .flex;
-  @extend .col-start-stretch;
+  @extend .col-sta-str;
 }
 
 .limit-width {
   width: 100%;
-  @extend .center-by-margins;
+  @extend .mar-cen;
   max-width: var(--max-page-width);
-  &:not(.--unpadded) {@extend .padding-h-1;}
+  &:not(.--unpadded) {@extend .pad-hor-1;}
 }
 
 /* Whitespace */
 
-.margin-t-1  {margin-top:    1rem;}
-.margin-t-2  {margin-top:    2rem;}
-.margin-t-4  {margin-top:    4rem;}
-.margin-b-1  {margin-bottom: 1rem;}
-.margin-b-2  {margin-bottom: 2rem;}
-.margin-b-4  {margin-bottom: 4rem;}
-.margin-r-1  {margin-right:  1rem;}
-.margin-v-1  {@include margin-v(1rem);}
-.margin-v-2  {@include margin-v(2rem);}
-
-.padding-0x5 {padding: 0.5rem;}
-.padding-1   {padding: 1rem;}
-.padding-h-1 {@include padding-h(1rem);}
-.padding-t-1 {padding-top: 1rem;}
-.padding-b-2 {padding-bottom: 2rem;}
-
-.gaps-v-0x25   {@include gaps-v(0.25rem);}
-.gaps-v-0x5    {@include gaps-v(0.5rem);}
-.gaps-v-1      {@include gaps-v(1rem);}
-.gaps-v-2      {@include gaps-v(2rem);}
-.gaps-v-4      {@include gaps-v(4rem);}
-.gaps-h-0x25   {@include gaps-h(0.25rem);}
-.gaps-h-0x5    {@include gaps-h(0.5rem);}
-.gaps-h-1      {@include gaps-h(1rem);}
-.gaps-h-2      {@include gaps-h(2rem);}
-.gaps-h-4      {@include gaps-h(4rem);}
-.gaps-v-letter {@include gaps-v(1ex);}           // TODO better letter height.
-.gaps-h-letter {@include gaps-h(calc(1em / 4));} // TODO better letter width.
-
-.center-by-margins {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /* details/summary */
 
 .details summary {
-  @extend .cursor-pointer;
-  @extend .padding-1;
+  @extend .cur-point;
+  @extend .pad-1;
   background-color: var(--color-gray-fg-far);
   .fancy-typography & ~ pre {margin-top: 0;}
 }
@@ -336,7 +263,7 @@ ul.fancy-list ul.fancy-list {
   }
 
   hr {
-    @include margin-v(2rem);
+    @include sb.mar-ver(2rem);
     @extend .hr;
   }
 
@@ -345,7 +272,7 @@ ul.fancy-list ul.fancy-list {
     a {@extend .decorate-link;}
   }
 
-  pre {@extend .padding-1;}
+  pre {@extend .pad-1;}
 
   .heading-prefix {display: none;}
 
@@ -372,14 +299,14 @@ ul.fancy-list ul.fancy-list {
   padding: 1rem 1rem 1rem calc(1rem + var(--thick-border-width));
   border-left: var(--thick-border-width) solid var(--color-gray-fg-close);
   @extend .bg-code;
-  @extend .gaps-v-1;
+  @extend .gap-ver-1;
 
   // Tentative. Prevents the background from overlapping with floating images.
   clear: both;
 
   footer {
     @extend .block;
-    @extend .text-right;
+    @extend .text-rig;
 
     // Note: MacOS VoiceOver seems to read this emdash as "comma". WTF?
     &::before {
@@ -389,13 +316,13 @@ ul.fancy-list ul.fancy-list {
   }
 }
 
-[disabled] {@extend .cursor-not-allowed;}
+[disabled] {@extend .cur-not;}
 
 .navlink {
   @extend .size-large;
-  @extend .padding-1;
+  @extend .pad-1;
   @extend .flex;
-  @extend .row-center-center;
+  @extend .row-cen-cen;
   @extend .fg-link;
   &.--busy {
     @extend .busy-bg-gray-close;
@@ -456,7 +383,7 @@ ul.fancy-list ul.fancy-list {
 }
 
 .skip-to-content {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   @extend .bg-gray-close;
@@ -470,7 +397,7 @@ ul.fancy-list ul.fancy-list {
   padding: 0;
 
   &:focus {
-    @extend .padding-1;
+    @extend .pad-1;
     width: initial;
     height: initial;
     opacity: initial;
@@ -553,9 +480,9 @@ Possible solutions:
 
 .img-box-caption {
   @extend .block;
-  @include padding-h(0.5rem);
-  @include padding-v(0.25rem);
-  @extend .text-center;
+  @include sb.pad-hor(0.5rem);
+  @include sb.pad-hor(0.25rem);
+  @extend .text-cen;
   border-top: 1px solid var(--color-gray-fg-far);
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;

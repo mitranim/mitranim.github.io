@@ -48,11 +48,12 @@ styles:
 afr-w:
 	deno run -A --unstable --no-check https://deno.land/x/afr@0.5.1/afr.ts --port 52692 --verbose true
 
+# May compile twice on startup, should probably fix.
 .PHONY: cmd-w
-cmd-w: cmd
-	watchexec -r -c -p -d=0 -e=go -n -- make cmd
+cmd-w:
+	watchexec -r -c -d=0 -e=go,mod -n -- $(MAKE) cmd
 
-cmd: *.go
+cmd: *.go go.mod
 	go build -o cmd
 
 .PHONY: srv
@@ -77,7 +78,7 @@ images: cmd
 
 .PHONY: static-w
 static-w:
-	watchexec -r -d=0 -w=static -n -- make static
+	watchexec -r -d=0 -w=static -n -- $(MAKE) static
 
 .PHONY: static
 static:

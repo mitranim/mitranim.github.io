@@ -15,6 +15,7 @@ import (
 	"strings"
 	tt "text/template"
 	"time"
+	"unsafe"
 
 	_ "image/jpeg"
 	_ "image/png"
@@ -56,13 +57,8 @@ func timeParse(input string) time.Time {
 	return inst
 }
 
-func timeParsePtr(val string) *time.Time {
-	return ptr.Time(timeParse(val))
-}
-
-func timeFmtHuman(date time.Time) string {
-	return date.Format("Jan 02 2006")
-}
+func timeParsePtr(val string) *time.Time { return ptr.Time(timeParse(val)) }
+func timeFmtHuman(date time.Time) string { return date.Format("Jan 02 2006") }
 
 func timeCoalesce(vals ...*time.Time) *time.Time {
 	for _, val := range vals {
@@ -73,13 +69,8 @@ func timeCoalesce(vals ...*time.Time) *time.Time {
 	return nil
 }
 
-func trimLeadingSlash(val string) string {
-	return strings.TrimPrefix(val, "/")
-}
-
-func ensureLeadingSlash(val string) string {
-	return ensurePrefix(val, "/")
-}
+func trimLeadingSlash(val string) string   { return strings.TrimPrefix(val, "/") }
+func ensureLeadingSlash(val string) string { return ensurePrefix(val, "/") }
 
 func ensurePrefix(val, pre string) string {
 	if strings.HasPrefix(val, pre) {
@@ -88,13 +79,8 @@ func ensurePrefix(val, pre string) string {
 	return pre + val
 }
 
-func trimExt(pt string) string {
-	return strings.TrimSuffix(pt, filepath.Ext(pt))
-}
-
-func baseName(pt string) string {
-	return trimExt(filepath.Base(pt))
-}
+func trimExt(pt string) string  { return strings.TrimSuffix(pt, filepath.Ext(pt)) }
+func baseName(pt string) string { return trimExt(filepath.Base(pt)) }
 
 func writePublic(path string, bytes []byte) {
 	path = fpj(PUBLIC_DIR, path)
@@ -165,7 +151,7 @@ process.
 func runCmdOut(command string, args ...string) string {
 	cmd := exec.Command(command, args...)
 	cmd.Stderr = os.Stderr
-	return string(bytes.TrimSpace(try.ByteSlice(cmd.Output())))
+	return bytesToMutableString(bytes.TrimSpace(try.ByteSlice(cmd.Output())))
 }
 
 func walkFiles(dir string, fun func(string)) {
@@ -208,7 +194,19 @@ func timing(name string) func() {
 	log.Printf("[%v] starting", name)
 
 	return func() {
-		end := time.Now()
-		log.Printf("[%v] done in %v", name, end.Sub(start))
+		log.Printf("[%v] done in %v", name, time.Since(start))
 	}
+}
+
+func withTiming(str string, fun func()) {
+	defer timing(str)()
+	fun()
+}
+
+/*
+Allocation-free conversion. Reinterprets a byte slice as a string. Borrowed from
+the standard library. Reasonably safe.
+*/
+func bytesToMutableString(bytes []byte) string {
+	return *(*string)(unsafe.Pointer(&bytes))
 }

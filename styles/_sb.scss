@@ -1,0 +1,580 @@
+// https://github.com/mitranim/style-base
+
+/*
+Guideline.
+
+  * Small building blocks.
+
+  * Everything is optional.
+
+  * Any combination of 2+ properties must be available as a mixin first, and
+    then if possible, as a class.
+*/
+
+@mixin all {@include cls;}
+
+@mixin cls {
+  @include cls-flex;
+  @include cls-spacing;
+  @include cls-pos;
+  @include cls-dis;
+  @include cls-wid;
+  @include cls-hig;
+  @include cls-over;
+  @include cls-cur;
+  @include cls-vis;
+  @include cls-table;
+  @include cls-text-ali;
+  @include cls-vali;
+  @include cls-dec;
+  @include cls-trans;
+  @include cls-wspace;
+  @include cls-ellipsis;
+  @include cls-wei;
+  @include cls-font;
+  @include cls-round;
+  @include cls-bg;
+}
+
+@mixin cls-flex {
+  .flex     {@include dis-flex;}
+  .inl-flex {@include dis-inl-flex;}
+  .row      {@include flex-dir(row);}
+  .col      {@include flex-dir(col);}
+
+  .row-sta-sta {@include flex-layout(row, sta, sta);}
+  .row-sta-cen {@include flex-layout(row, sta, cen);}
+  .row-sta-end {@include flex-layout(row, sta, end);}
+  .row-sta-str {@include flex-layout(row, sta, str);}
+  .row-cen-sta {@include flex-layout(row, cen, sta);}
+  .row-cen-cen {@include flex-layout(row, cen, cen);}
+  .row-cen-end {@include flex-layout(row, cen, end);}
+  .row-cen-str {@include flex-layout(row, cen, str);}
+  .row-end-sta {@include flex-layout(row, end, sta);}
+  .row-end-cen {@include flex-layout(row, end, cen);}
+  .row-end-end {@include flex-layout(row, end, end);}
+  .row-end-str {@include flex-layout(row, end, str);}
+  .row-aro-sta {@include flex-layout(row, aro, sta);}
+  .row-aro-cen {@include flex-layout(row, aro, cen);}
+  .row-aro-end {@include flex-layout(row, aro, end);}
+  .row-aro-str {@include flex-layout(row, aro, str);}
+  .row-bet-sta {@include flex-layout(row, bet, sta);}
+  .row-bet-cen {@include flex-layout(row, bet, cen);}
+  .row-bet-end {@include flex-layout(row, bet, end);}
+  .row-bet-str {@include flex-layout(row, bet, str);}
+  .col-sta-sta {@include flex-layout(col, sta, sta);}
+  .col-sta-cen {@include flex-layout(col, sta, cen);}
+  .col-sta-end {@include flex-layout(col, sta, end);}
+  .col-sta-str {@include flex-layout(col, sta, str);}
+  .col-cen-sta {@include flex-layout(col, cen, sta);}
+  .col-cen-cen {@include flex-layout(col, cen, cen);}
+  .col-cen-end {@include flex-layout(col, cen, end);}
+  .col-cen-str {@include flex-layout(col, cen, str);}
+  .col-end-sta {@include flex-layout(col, end, sta);}
+  .col-end-cen {@include flex-layout(col, end, cen);}
+  .col-end-end {@include flex-layout(col, end, end);}
+  .col-end-str {@include flex-layout(col, end, str);}
+  .col-aro-sta {@include flex-layout(col, aro, sta);}
+  .col-aro-cen {@include flex-layout(col, aro, cen);}
+  .col-aro-end {@include flex-layout(col, aro, end);}
+  .col-aro-str {@include flex-layout(col, aro, str);}
+  .col-bet-sta {@include flex-layout(col, bet, sta);}
+  .col-bet-cen {@include flex-layout(col, bet, cen);}
+  .col-bet-end {@include flex-layout(col, bet, end);}
+  .col-bet-str {@include flex-layout(col, bet, str);}
+
+  .flex-0 {@include flex(0 0);}
+  .flex-1 {@include flex(1 0);}
+  .flex-2 {@include flex(2 0);}
+  .flex-3 {@include flex(3 0);}
+  .flex-4 {@include flex(4 0);}
+  .flex-5 {@include flex(5 0);}
+  .flex-6 {@include flex(6 0);}
+  .flex-7 {@include flex(7 0);}
+  .flex-8 {@include flex(8 0);}
+  .flex-9 {@include flex(9 0);}
+
+  .ord-0 {@include ord(0);}
+  .ord-1 {@include ord(1);}
+  .ord-2 {@include ord(2);}
+  .ord-3 {@include ord(3);}
+  .ord-4 {@include ord(4);}
+  .ord-5 {@include ord(5);}
+  .ord-6 {@include ord(6);}
+  .ord-7 {@include ord(7);}
+  .ord-8 {@include ord(8);}
+  .ord-9 {@include ord(9);}
+
+  .flex-noshrink {@include flex-shrink(0);}
+}
+
+@mixin dis-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin dis-inl-flex {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+@mixin flex-dir-row {
+  -webkit-box-orient:    horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction:    row;
+  flex-direction:        row;
+}
+
+@mixin flex-dir-col {
+  -webkit-box-orient:    vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction:    column;
+  flex-direction:        column;
+}
+
+@mixin flex-dir($val) {
+  @if      $val == row {@include flex-dir-row;}
+  @else if $val == col {@include flex-dir-col;}
+  @else {@error 'unknown flex-direction: #{$val}';}
+}
+
+@mixin flex-jus-sta {
+  -webkit-box-pack: start;
+  -ms-flex-pack:    start;
+  justify-content:  flex-start;
+}
+
+@mixin flex-jus-cen {
+  -webkit-box-pack: center;
+  -ms-flex-pack:    center;
+  justify-content:  center;
+}
+
+@mixin flex-jus-end {
+  -webkit-box-pack: end;
+  -ms-flex-pack:    end;
+  justify-content:  flex-end;
+}
+
+@mixin flex-jus-aro {
+  -ms-flex-pack:   distribute;
+  justify-content: space-around;
+}
+
+@mixin flex-jus-bet {
+  -webkit-box-pack: justify;
+  -ms-flex-pack:    justify;
+  justify-content:  space-between;
+}
+
+@mixin flex-jus($val) {
+  @if      $val == sta {@include flex-jus-sta;}
+  @else if $val == cen {@include flex-jus-cen;}
+  @else if $val == end {@include flex-jus-end;}
+  @else if $val == aro {@include flex-jus-aro;}
+  @else if $val == bet {@include flex-jus-bet;}
+  @else {@error 'unknown flex-jus (justify-content) property: #{$val}';}
+}
+
+@mixin flex-ali-sta {
+  -webkit-box-align: start;
+  -ms-flex-align:    start;
+  align-items:       flex-start;
+}
+
+@mixin flex-ali-cen {
+  -webkit-box-align: center;
+  -ms-flex-align:    center;
+  align-items:       center;
+}
+
+@mixin flex-ali-end {
+  -webkit-box-align: end;
+  -ms-flex-align:    end;
+  align-items:       flex-end;
+}
+
+@mixin flex-ali-str {
+  -webkit-box-align: stretch;
+  -ms-flex-align:    stretch;
+  align-items:       stretch;
+}
+
+@mixin flex-ali($val) {
+  @if      $val == sta {@include flex-ali-sta;}
+  @else if $val == cen {@include flex-ali-cen;}
+  @else if $val == end {@include flex-ali-end;}
+  @else if $val == str {@include flex-ali-str;}
+  @else {@error 'unknown flex-ali (align-items) property: #{$val}';}
+}
+
+@mixin flex-layout($dir: none, $jus: none, $ali: none) {
+  @if $dir != none {@include flex-dir($dir);}
+  @if $jus != none {@include flex-jus($jus);}
+  @if $ali != none {@include flex-ali($ali);}
+}
+
+@mixin flex-wrap($val: wrap) {
+  -ms-flex-wrap: $val;
+  flex-wrap:     $val;
+}
+
+@mixin flex-nowrap {
+  @include flex-wrap(nowrap);
+}
+
+@mixin flex($val) {
+  -webkit-box-flex: $val;
+  -ms-flex:         $val;
+  flex:             $val;
+}
+
+@mixin ali-self-sta {
+  -ms-flex-item-align: start;
+  align-self:          flex-start;
+}
+
+@mixin ali-self-cen {
+  -ms-flex-item-align: center;
+  -ms-grid-row-align:  center;
+  align-self:          center;
+}
+
+@mixin ali-self-end {
+  -ms-flex-item-align: end;
+  align-self:          flex-end;
+}
+
+@mixin ali-self-str {
+  -ms-flex-item-align: stretch;
+  -ms-grid-row-align:  stretch;
+  align-self:          stretch;
+}
+
+@mixin ali-self($val) {
+  @if      $val == sta {@include ali-self-sta;}
+  @else if $val == cen {@include ali-self-cen;}
+  @else if $val == end {@include ali-self-end;}
+  @else if $val == str {@include ali-self-str;}
+  @else {@error 'unknown ali-self (align-self) property: #{$val}';}
+}
+
+@mixin flex-shrink($val) {
+  -ms-flex-negative: $val;
+  flex-shrink:       $val;
+}
+
+@mixin ord($val) {
+  -webkit-box-ordinal-group: $val + 1;
+  -ms-flex-order:            $val;
+  order:                     $val;
+}
+
+@mixin cls-spacing {
+  @include cls-mar;
+  @include cls-pad;
+  @include cls-gap;
+}
+
+@mixin cls-mar {
+  .mar-top-0x5 {margin-top:    0.5rem;}
+  .mar-top-1   {margin-top:    1rem;}
+  .mar-top-2   {margin-top:    2rem;}
+  .mar-top-4   {margin-top:    4rem;}
+  .mar-bot-0x5 {margin-bottom: 0.5rem;}
+  .mar-bot-1   {margin-bottom: 1rem;}
+  .mar-bot-2   {margin-bottom: 2rem;}
+  .mar-bot-4   {margin-bottom: 4rem;}
+  .mar-rig-0x5 {margin-right:  0.5rem;}
+  .mar-rig-1   {margin-right:  1rem;}
+  .mar-rig-2   {margin-right:  2rem;}
+  .mar-rig-4   {margin-right:  4rem;}
+  .mar-lef-0x5 {margin-left:   0.5rem;}
+  .mar-lef-1   {margin-left:   1rem;}
+  .mar-lef-2   {margin-left:   2rem;}
+  .mar-lef-4   {margin-left:   4rem;}
+  .mar-ver-0x5 {@include mar-ver(0.5rem);}
+  .mar-ver-1   {@include mar-ver(1rem);}
+  .mar-ver-2   {@include mar-ver(2rem);}
+  .mar-ver-4   {@include mar-ver(4rem);}
+  .mar-hor-0x5 {@include mar-hor(0.5rem);}
+  .mar-hor-1   {@include mar-hor(1rem);}
+  .mar-hor-2   {@include mar-hor(2rem);}
+  .mar-hor-4   {@include mar-hor(4rem);}
+  .mar-0x5     {margin: 0.5rem;}
+  .mar-1       {margin: 1rem;}
+  .mar-2       {margin: 2rem;}
+  .mar-4       {margin: 4rem;}
+}
+
+@mixin cls-pad {
+  .pad-top-0x5 {padding-top:    0.5rem;}
+  .pad-top-1   {padding-top:    1rem;}
+  .pad-top-2   {padding-top:    2rem;}
+  .pad-top-4   {padding-top:    4rem;}
+  .pad-bot-0x5 {padding-bottom: 0.5rem;}
+  .pad-bot-1   {padding-bottom: 1rem;}
+  .pad-bot-2   {padding-bottom: 2rem;}
+  .pad-bot-4   {padding-bottom: 4rem;}
+  .pad-rig-0x5 {padding-right:  0.5rem;}
+  .pad-rig-1   {padding-right:  1rem;}
+  .pad-rig-2   {padding-right:  2rem;}
+  .pad-rig-4   {padding-right:  4rem;}
+  .pad-lef-0x5 {padding-left:   0.5rem;}
+  .pad-lef-1   {padding-left:   1rem;}
+  .pad-lef-2   {padding-left:   2rem;}
+  .pad-lef-4   {padding-left:   4rem;}
+  .pad-ver-0x5 {@include pad-ver(0.5rem);}
+  .pad-ver-1   {@include pad-ver(1rem);}
+  .pad-ver-2   {@include pad-ver(2rem);}
+  .pad-ver-4   {@include pad-ver(4rem);}
+  .pad-hor-0x5 {@include pad-hor(0.5rem);}
+  .pad-hor-1   {@include pad-hor(1rem);}
+  .pad-hor-2   {@include pad-hor(2rem);}
+  .pad-hor-4   {@include pad-hor(4rem);}
+  .pad-0x5     {padding: 0.5rem;}
+  .pad-1       {padding: 1rem;}
+  .pad-2       {padding: 2rem;}
+  .pad-4       {padding: 4rem;}
+}
+
+@mixin cls-gap {
+  .gap-ver-0x5 {@include gap-ver(0.5rem);}
+  .gap-ver-1   {@include gap-ver(1rem);}
+  .gap-ver-2   {@include gap-ver(2rem);}
+  .gap-ver-4   {@include gap-ver(4rem);}
+  .gap-hor-0x5 {@include gap-hor(0.5rem);}
+  .gap-hor-1   {@include gap-hor(1rem);}
+  .gap-hor-2   {@include gap-hor(2rem);}
+  .gap-hor-4   {@include gap-hor(4rem);}
+  .gap-ver-let {@include gap-ver(1ex);}           // TODO better letter height.
+  .gap-hor-let {@include gap-hor(calc(1em / 4));} // TODO better letter width.
+}
+
+@mixin mar-ver($val) {
+  margin-top:    $val;
+  margin-bottom: $val;
+}
+
+@mixin mar-hor($val) {
+  margin-left:  $val;
+  margin-right: $val;
+}
+
+@mixin pad-ver($val) {
+  padding-top:    $val;
+  padding-bottom: $val;
+}
+
+@mixin pad-hor($val) {
+  padding-left:  $val;
+  padding-right: $val;
+}
+
+@mixin gap-ver($val) {
+  > :not([hidden]) + :not([hidden]) {margin-top: $val;}
+}
+
+@mixin gap-hor($val) {
+  > :not([hidden]) + :not([hidden]) {margin-left: $val;}
+}
+
+@mixin cls-pos {
+  .rel     {position: relative;}
+  .abs     {position: absolute;}
+  .fix     {position: fixed;}
+  .static  {position: static;}
+  .sticky  {@include sticky;}
+  .mar-cen {@include mar-cen;}
+}
+
+@mixin sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+@mixin mar-cen {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin cls-dis {
+  .block      {display: block;}
+  .inl        {display: inline;}
+  .inl-block  {display: inline-block;}
+  .inl-table  {display: inline-table;}
+  .table      {display: table;}
+  .table-row  {display: table-row;}
+  .table-col  {display: table-column;}
+  .table-cell {display: table-cell;}
+  .list-item  {display: list-item;}
+}
+
+@mixin cls-wid {
+  .wid-25p   {width: 25%;}
+  .wid-50p   {width: 50%;}
+  .wid-75p   {width: 75%;}
+  .wid-100p  {width: 100%;}
+  .wid-100vw {width: 100vw;}
+}
+
+@mixin cls-hig {
+  .hig-25p   {height: 25%;}
+  .hig-50p   {height: 50%;}
+  .hig-75p   {height: 75%;}
+  .hig-100p  {height: 100%;}
+  .hig-100vh {height: 100vh;}
+}
+
+@mixin cls-over {
+  .over-hidden   {overflow: hidden;}
+  .over-x-scroll {@include over-x-scroll;}
+  .over-y-scroll {@include over-y-scroll;}
+}
+
+@mixin over-x-scroll {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+@mixin over-y-scroll {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+@mixin cls-cur {
+  .cur-auto  {cursor: auto;}
+  .cur-move  {cursor: move;}
+  .cur-text  {cursor: text;}
+  .cur-wait  {cursor: wait;}
+  .cur-help  {cursor: help;}
+  .cur-def   {cursor: default;}
+  .cur-point {cursor: pointer;}
+  .cur-zoom  {cursor: zoom-in;}
+  .cur-pro   {cursor: progress;}
+  .cur-cross {cursor: crosshair;}
+  .cur-not   {cursor: not-allowed;}
+  .cur-none  {pointer-events: none;}
+}
+
+// ".*-hidden" is unabbreviated for consistency with "[hidden]".
+// Others are unabbreviated for consistency with ".vis-hidden".
+@mixin cls-vis {
+  .vis-hidden   {visibility: hidden;}
+  .vis-visible  {visibility: visible;}
+  .vis-collapse {visibility: collapse;}
+}
+
+@mixin cls-table {
+  .table-fix {table-layout: fixed;}
+}
+
+// TODO: abbreviate "center"?
+@mixin cls-text-ali {
+  .text-lef {text-align: left;}
+  .text-rig {text-align: right;}
+  .text-cen {text-align: center;}
+  .text-jus {text-align: justify;}
+}
+
+@mixin cls-vali {
+  .vali-top      {vertical-align: top;}
+  .vali-mid      {vertical-align: middle;}
+  .vali-bot      {vertical-align: bottom;}
+  .vali-bas      {vertical-align: baseline;}
+  .vali-sub      {vertical-align: sub;}
+  .vali-sup      {vertical-align: super;}
+  .vali-text-top {vertical-align: text-top;}
+  .vali-text-bot {vertical-align: text-bottom;}
+}
+
+@mixin cls-dec {
+  .dec-none   {text-decoration: none;}
+  .dec-over   {text-decoration: overline;}
+  .dec-under  {text-decoration: underline;}
+  .dec-strike {text-decoration: line-through;}
+}
+
+@mixin cls-trans {
+  .trans-none  {text-transform: none;}
+  .trans-upper {text-transform: uppercase;}
+  .trans-lower {text-transform: lowercase;}
+  .trans-cap   {text-transform: capitalize;}
+}
+
+@mixin cls-wspace {
+  .wspace-pre      {white-space: pre;}
+  .wspace-normal   {white-space: normal;}
+  .wspace-nowrap   {white-space: nowrap;}
+  .wspace-pre-wrap {white-space: pre-wrap;}
+  .wspace-pre-line {white-space: pre-line;}
+}
+
+@mixin cls-ellipsis {
+  .ellipsis, .ellipsis * {@include ellipsis;}
+}
+
+// Correct usage requires two selectors, see `cls-ellipsis`.
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin cls-wei {
+  .wei-normal  {font-weight: normal;}
+  .wei-bold    {font-weight: bold;}
+  .wei-semi    {font-weight: 500;}
+  .wei-bolder  {font-weight: bolder;}
+  .wei-lighter {font-weight: lighter;}
+  .wei-100     {font-weight: 100;}
+  .wei-200     {font-weight: 200;}
+  .wei-300     {font-weight: 300;}
+  .wei-400     {font-weight: 400;}
+  .wei-500     {font-weight: 500;}
+  .wei-600     {font-weight: 600;}
+  .wei-700     {font-weight: 700;}
+  .wei-800     {font-weight: 800;}
+  .wei-900     {font-weight: 900;}
+
+  // Tentative.
+  .bold   {@extend .wei-bold;}
+  .bolder {@extend .wei-bolder;}
+}
+
+@mixin cls-font {
+  .font-normal  {font-style: normal;}
+  .font-italic  {font-style: italic;}
+  .font-oblique {font-style: oblique;}
+
+  // Tentative.
+  .italic  {@extend .font-italic;}
+  .oblique {@extend .font-oblique;}
+}
+
+@mixin cls-round {
+  .circle {border-radius: 50%;}
+}
+
+@mixin cls-bg {
+  .bg-cen {@include bg-cen;}
+  .bg-cov {@include bg-cov;}
+  .bg-con {@include bg-con;}
+}
+
+@mixin bg-cen {
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+@mixin bg-cov {
+  @include bg-cen;
+  background-size: cover;
+}
+
+@mixin bg-con {
+  @include bg-cen;
+  background-size: contain;
+}

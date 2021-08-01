@@ -51,12 +51,11 @@ func Html(page Ipage, fun func(E E)) []byte {
 			E(`meta`, A{aProperty(`og:site_name`), aContent(`about:mitranim`)})
 
 			if !FLAGS.PROD {
-				E(`meta`, A{{`http-equiv`, `cache-control`}, aContent(`max-age=0`)})
 				E(`script`, A{aType(`module`), aSrc(`http://localhost:52692/afr/client.mjs`)})
 			}
 		})
 
-		E(`body`, A{aClass("flex col-start-stretch relative"), aStyle("min-height: 100vh")}, func() {
+		E(`body`, A{aClass("flex col-sta-str"), aStyle("min-height: 100vh")}, func() {
 			/**
 			This JS code skips to the content without changing the URL or polluting the
 			browser history. It SEEMS to work with the MacOS VoiceOver. Haven't tested
@@ -72,7 +71,7 @@ func Html(page Ipage, fun func(E E)) []byte {
 				`Skip to content`,
 			)
 			Navbar(E, page)
-			E(`div`, A{aClass("limit-width flex col-start-stretch flex-1")}, func() {
+			E(`div`, A{aClass("limit-width flex col-sta-str flex-1")}, func() {
 				fun(E)
 			})
 			Footer(E, page)
@@ -83,8 +82,8 @@ func Html(page Ipage, fun func(E E)) []byte {
 }
 
 func Navbar(E E, page Ipage) {
-	E(`div`, A{aId(`top`), aClass("limit-width --unpadded flex row-start-stretch margin-b-2 gaps-h-1")}, func() {
-		E(`nav`, A{aClass("flex row-start-stretch")}, func() {
+	E(`div`, A{aId(`top`), aClass("limit-width --unpadded flex row-sta-str mar-bot-2 gap-hor-1")}, func() {
+		E(`nav`, A{aClass("flex row-sta-str")}, func() {
 			E(`a`, A{aHref("/"), cur(page, "index.html"), aClass("navlink --busy")}, `home`)
 			E(`a`, A{aHref("/works"), cur(page, "works.html"), aClass("navlink --busy")}, `works`)
 			E(`a`, A{aHref("/posts"), cur(page, "posts.html"), aClass("navlink --busy")}, `posts`)
@@ -93,7 +92,7 @@ func Navbar(E E, page Ipage) {
 
 		E(`span`, A{aClass(`flex-1`)})
 
-		E(`span`, A{aClass("fg-blue flex row-center-center padding-1 sm-hide")},
+		E(`span`, A{aClass("fg-blue flex row-cen-cen pad-1 sm-hide")},
 			`Updated: `+timeFmtHuman(time.Now().UTC()),
 		)
 	})
@@ -101,24 +100,24 @@ func Navbar(E E, page Ipage) {
 
 func Footer(E E, page Ipage) {
 	E(`footer`, A{aStyle("margin-top: auto")}, func() {
-		E(`div`, A{aClass("limit-width flex row-between-center margin-t-4 margin-b-2")}, func() {
-			E(`span`, A{aClass("flex-1 flex row-start-start gaps-h-0x5")}, func() {
-				E(`span`, A{aClass("text-left")}, yearsElapsed())
+		E(`div`, A{aClass("limit-width flex row-bet-cen mar-top-4 mar-bot-2")}, func() {
+			E(`span`, A{aClass("flex-1 flex row-sta-sta gap-hor-0x5")}, func() {
+				E(`span`, A{aClass("text-lef")}, yearsElapsed())
 				Exta(E, "https://github.com/mitranim/mitranim.github.io", "website source")
 			})
 
-			E(`span`, A{aClass("flex-1 text-center")}, func() {
+			E(`span`, A{aClass("flex-1 text-cen")}, func() {
 				if page.GetPath() != "index.html" {
 					E(`a`, A{aHref("/#contacts"), aClass("decorate-link")}, `touch me`)
 				}
 			})
 
-			E(`span`, A{aClass("flex-1 flex row-end-center gaps-h-0x5")}, func() {
+			E(`span`, A{aClass("flex-1 flex row-end-cen gap-hor-0x5")}, func() {
 				E(
 					`a`,
 					A{
 						aHref("#top"),
-						aClass("fill-gray-fg-close padding-1 busy-bg-gray-close"),
+						aClass("fill-gray-fg-close pad-1 busy-bg-gray-close"),
 						{`onclick`, "window.scrollTo(0, 0); event.preventDefault()"},
 						{`aria-label`, "scroll up"},
 					},
@@ -130,7 +129,7 @@ func Footer(E E, page Ipage) {
 }
 
 func FeedLinks(E E) {
-	E(`p`, A{aClass("inline-flex row-start-start gaps-h-0x5")}, func() {
+	E(`p`, A{aClass("inl-flex row-sta-sta gap-hor-0x5")}, func() {
 		E(`span`, nil, `Subscribe using one of:`)
 		Exta(E, "/feed.xml", "Atom")
 		Exta(E, "/feed_rss.xml", "RSS")
@@ -149,12 +148,12 @@ func FeedPostLayout(E E, page Post) {
 		*/
 		// func() {
 		// 	if page.Description != "" {
-		// 		E(`p`, A{aRole("doc-subtitle"), aClass("size-large font-italic")},
+		// 		E(`p`, A{aRole("doc-subtitle"), aClass("size-large italic")},
 		// 			sentence(page.Description),
 		// 		)
 		// 	}
 		// },
-		x.Bytes(mdTplToHtml(page.MdTpl, page)),
+		x.Bytes(page.MakeMd()),
 	)
 }
 
@@ -223,7 +222,7 @@ var partials = map[string]string{
 
 /** https://feathericons.com **/
 var SvgBook gax.String = `<svg class="svg-icon stroke-fg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`
-var SvgExternalLink = gax.Bytes(trimLines(`
+var SvgExternalLink = gax.String(trimLines(`
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true">
 	<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
 	<polyline points="15 3 21 3 21 9" />

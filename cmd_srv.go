@@ -32,8 +32,18 @@ func srvWatch(events chan notify.EventInfo) {
 
 func srvServe() {
 	const port = SERVER_PORT
-	fmt.Printf("[srv] listening on http://localhost:%v\n", port)
-	try.To(http.ListenAndServe(fmt.Sprintf(":%v", port), srv.FileServer(PUBLIC_DIR)))
+
+	log.Printf("[srv] listening on http://localhost:%v", port)
+
+	try.To(http.ListenAndServe(
+		fmt.Sprintf(":%v", port),
+		http.HandlerFunc(respond),
+	))
+}
+
+func respond(rew http.ResponseWriter, req *http.Request) {
+	rew.Header().Set("cache-control", "no-store, max-age=0")
+	srv.FileServer(PUBLIC_DIR).ServeHTTP(rew, req)
 }
 
 func afrMaybeSend(path string) {
@@ -49,6 +59,7 @@ func afrMaybeSend(path string) {
 			Path: path,
 		}))),
 	)
+	try.To(err)
 
 	res, err := http.DefaultClient.Do(req)
 	if res != nil && res.Body != nil {

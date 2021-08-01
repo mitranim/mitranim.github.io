@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	err := try.Unpanic(runMain)
+	err := try.Catch(runMain)
 	if err != nil {
 		fmt.Printf("%T: %+v\n", err, err)
 		os.Exit(1)
