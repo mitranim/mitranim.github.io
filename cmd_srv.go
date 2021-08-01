@@ -66,9 +66,10 @@ func afrMaybeSend(path string) {
 		res.Body.Close()
 	}
 
-	if err != nil {
-		// log.Println(`[srv] failed to send afr msg:`, err)
-	}
+	_ = err
+	// if err != nil {
+	// 	// log.Println(`[srv] failed to send afr msg:`, err)
+	// }
 }
 
 type AfrWatchMsg struct {

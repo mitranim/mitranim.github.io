@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/gotidy/ptr"
+	"github.com/mitranim/try"
 )
 
 /*
@@ -324,9 +325,9 @@ type AtomSummary struct {
 type AtomTime time.Time
 
 func (self AtomTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
-	enc.EncodeToken(start)
-	enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC3339)))
-	enc.EncodeToken(xml.EndElement{Name: start.Name})
+	try.To(enc.EncodeToken(start))
+	try.To(enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC3339))))
+	try.To(enc.EncodeToken(xml.EndElement{Name: start.Name}))
 	return nil
 }
 
@@ -411,8 +412,8 @@ type RssEnclosure struct {
 type RssTime time.Time
 
 func (self RssTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
-	enc.EncodeToken(start)
-	enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC1123Z)))
-	enc.EncodeToken(xml.EndElement{Name: start.Name})
+	try.To(enc.EncodeToken(start))
+	try.To(enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC1123Z))))
+	try.To(enc.EncodeToken(xml.EndElement{Name: start.Name}))
 	return nil
 }

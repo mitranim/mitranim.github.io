@@ -7,6 +7,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"image"
+	"io"
 	l "log"
 	"os"
 	"os/exec"
@@ -117,7 +118,6 @@ func trimLines(val string) string {
 var reLines = regexp.MustCompile(`\s*(?:\r|\n)\s*`)
 
 func randomHex() string {
-	const pre = `id`
 	var buf [32]byte
 	_ = try.Int(rand.Read(buf[:]))
 	return hex.EncodeToString(buf[:])
@@ -198,6 +198,7 @@ func timing(name string) func() {
 	}
 }
 
+//nolint:unused,deadcode
 func withTiming(str string, fun func()) {
 	defer timing(str)()
 	fun()
@@ -210,3 +211,6 @@ the standard library. Reasonably safe.
 func bytesToMutableString(bytes []byte) string {
 	return *(*string)(unsafe.Pointer(&bytes))
 }
+
+func ioWrite(out io.Writer, val []byte)       { try.Int(out.Write(val)) }
+func ioWriteString(out io.Writer, val string) { try.Int(io.WriteString(out, val)) }

@@ -85,6 +85,10 @@ static:
 	$(call MKDIR,"$(TAR)")
 	$(call CP,"$(STATIC)","$(TAR)")
 
+.PHONY: lint
+lint:
+	golangci-lint run
+
 .PHONY: deploy
 deploy: export PROD=true
 deploy: cmd build

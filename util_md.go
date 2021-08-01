@@ -54,7 +54,6 @@ var (
 	EXTERNAL_LINK_ATTRS = ` target="_blank" rel="noopener noreferrer"`
 	HREF_START          = ` href="`
 	HREF_END            = `"`
-	SPACE               = ` `
 	HASH_PREFIX         = `<span class="hash-prefix noprint" aria-hidden="true">#</span>`
 	HEADING_PREFIX      = `<span class="heading-prefix" aria-hidden="true"></span>`
 	BLOCKQUOTE_START    = `<blockquote class="blockquote">`
@@ -120,20 +119,20 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 			panic(errors.Errorf("unrecognized heading level: %v", headingLevel))
 		}
 		if entering {
-			io.WriteString(out, ANGLE_OPEN)
-			io.WriteString(out, tag)
+			ioWriteString(out, ANGLE_OPEN)
+			ioWriteString(out, tag)
 			if node.HeadingID != "" {
-				io.WriteString(out, ` id="`+node.HeadingID+`"`)
+				ioWriteString(out, ` id="`+node.HeadingID+`"`)
 			}
-			io.WriteString(out, ANGLE_CLOSE)
-			io.WriteString(out, HEADING_PREFIX)
+			ioWriteString(out, ANGLE_CLOSE)
+			ioWriteString(out, HEADING_PREFIX)
 		} else {
 			if node.HeadingID != "" {
-				io.WriteString(out, `<a href="#`+node.HeadingID+`" class="heading-anchor" aria-hidden="true"></a>`)
+				ioWriteString(out, `<a href="#`+node.HeadingID+`" class="heading-anchor" aria-hidden="true"></a>`)
 			}
-			io.WriteString(out, ANGLE_OPEN_SLASH)
-			io.WriteString(out, tag)
-			io.WriteString(out, ANGLE_CLOSE)
+			ioWriteString(out, ANGLE_OPEN_SLASH)
+			ioWriteString(out, tag)
+			ioWriteString(out, ANGLE_CLOSE)
 		}
 		return bf.GoToNext
 
@@ -154,25 +153,25 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 	*/
 	case bf.Link:
 		if entering {
-			io.WriteString(out, ANGLE_OPEN)
-			io.WriteString(out, ANCHOR_TAG)
-			io.WriteString(out, HREF_START)
-			out.Write(node.LinkData.Destination)
-			io.WriteString(out, HREF_END)
+			ioWriteString(out, ANGLE_OPEN)
+			ioWriteString(out, ANCHOR_TAG)
+			ioWriteString(out, HREF_START)
+			ioWrite(out, node.LinkData.Destination)
+			ioWriteString(out, HREF_END)
 			if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
-				io.WriteString(out, EXTERNAL_LINK_ATTRS)
+				ioWriteString(out, EXTERNAL_LINK_ATTRS)
 			}
-			io.WriteString(out, ANGLE_CLOSE)
+			ioWriteString(out, ANGLE_CLOSE)
 			if HASH_LINK_REG.Match(node.LinkData.Destination) {
-				io.WriteString(out, HASH_PREFIX)
+				ioWriteString(out, HASH_PREFIX)
 			}
 		} else {
 			if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
-				io.WriteString(out, string(SvgExternalLink))
+				ioWriteString(out, string(SvgExternalLink))
 			}
-			io.WriteString(out, ANGLE_OPEN_SLASH)
-			io.WriteString(out, ANCHOR_TAG)
-			io.WriteString(out, ANGLE_CLOSE)
+			ioWriteString(out, ANGLE_OPEN_SLASH)
+			ioWriteString(out, ANCHOR_TAG)
+			ioWriteString(out, ANGLE_CLOSE)
 		}
 		return bf.GoToNext
 
@@ -206,10 +205,10 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 			title := match[1]
 			lang := match[2]
 
-			io.WriteString(out, DETAILS_START)
-			io.WriteString(out, SUMMARY_START)
-			out.Write(title)
-			io.WriteString(out, SUMMARY_END)
+			ioWriteString(out, DETAILS_START)
+			ioWriteString(out, SUMMARY_START)
+			ioWrite(out, title)
+			ioWriteString(out, SUMMARY_END)
 
 			if len(lang) > 0 {
 				// As code
@@ -217,10 +216,10 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 				self.RenderNode(out, node, entering)
 			} else {
 				// As regular text
-				out.Write(mdToHtml(node.Literal))
+				ioWrite(out, mdToHtml(node.Literal))
 			}
 
-			io.WriteString(out, DETAILS_END)
+			ioWriteString(out, DETAILS_END)
 			return bf.SkipChildren
 		}
 
@@ -239,9 +238,9 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 
 	case bf.BlockQuote:
 		if entering {
-			io.WriteString(out, BLOCKQUOTE_START)
+			ioWriteString(out, BLOCKQUOTE_START)
 		} else {
-			io.WriteString(out, BLOCKQUOTE_END)
+			ioWriteString(out, BLOCKQUOTE_END)
 		}
 		return bf.GoToNext
 	}
