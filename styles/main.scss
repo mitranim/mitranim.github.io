@@ -12,13 +12,13 @@ $breakpoint-md: 960px;
 $breakpoint-lg: 1024px;
 
 %vars-misc {
-  --max-page-width: #{$breakpoint-lg};
-  --font-size-h1: 1.6rem;
-  --font-size-h2: 1.4rem;
-  --font-size-h3: 1.2rem;
-  --border-radius: 4px;
+  --max-page-width:     #{$breakpoint-lg};
+  --font-size-h1:       1.6rem;
+  --font-size-h2:       1.4rem;
+  --font-size-h3:       1.2rem;
+  --border-radius:      4px;
   --thick-border-width: 3px;
-  --img-box-size: 10em;
+  --img-box-size:       10em;
   --img-box-size-small: 6em;
 }
 
@@ -38,10 +38,10 @@ $breakpoint-lg: 1024px;
 @mixin color-scheme-dark {
   --color-bg:            hsl(200, 5%, 10%);
   --color-fg:            hsl(0, 0%, 90%);
-  --color-gray-bg-far:   darkslategray;
-  --color-gray-bg-close: hsl(0, 0%, 15%);
-  --color-gray-fg-far:   hsl(0, 0%, 40%);
-  --color-gray-fg-close: hsl(0, 0%, 70%);
+  --color-bg-far:        darkslategray;
+  --color-bg-close:      hsl(0, 0%, 15%);
+  --color-fg-far:        hsl(0, 0%, 40%);
+  --color-fg-close:      hsl(0, 0%, 70%);
   --color-red:           hsl(0, 70%, 30%);
   --color-blue:          hsl(207, 100%, 60%);
   --color-link:          hsl(230, 70%, 80%);
@@ -53,10 +53,10 @@ $breakpoint-lg: 1024px;
 @mixin color-scheme-light {
   --color-bg:            white;
   --color-fg:            black;
-  --color-gray-bg-far:   hsl(0, 0%, 46%);
-  --color-gray-bg-close: aliceblue;
-  --color-gray-fg-far:   hsl(0, 0%, 70%);
-  --color-gray-fg-close: hsl(0, 0%, 40%);
+  --color-bg-far:        hsl(0, 0%, 46%);
+  --color-bg-close:      aliceblue;
+  --color-fg-far:        hsl(0, 0%, 70%);
+  --color-fg-close:      hsl(0, 0%, 40%);
   --color-red:           hsl(3,   100%, 60%);
   --color-blue:          hsl(207, 100%, 42%);
   --color-link:          hsl(231, 40%, 40%);
@@ -113,14 +113,14 @@ code, key, pre {@extend .code;}
   color: white;
 }
 
-.bg-gray-far   {background-color: var(--color-gray-bg-far);}
-.bg-gray-close {background-color: var(--color-gray-bg-close);}
+.bg-gray-far   {background-color: var(--color-bg-far);}
+.bg-gray-close {background-color: var(--color-bg-close);}
 .bg-code       {background-color: var(--color-code-bg);}
 
-.busy-bg-gray-close:hover {background-color: var(--color-gray-bg-close);}
+.busy-bg-gray-close:hover {background-color: var(--color-bg-close);}
 
-.fg-gray-far   {color: var(--color-gray-fg-far);}
-.fg-gray-close {color: var(--color-gray-fg-close);}
+.fg-gray-far   {color: var(--color-fg-far);}
+.fg-gray-close {color: var(--color-fg-close);}
 .fg-blue       {color: var(--color-blue);}
 .fg-red        {color: var(--color-red);}
 
@@ -132,7 +132,7 @@ code, key, pre {@extend .code;}
 }
 
 .fill-fg            {fill: var(--color-fg);}
-.fill-gray-fg-close {fill: var(--color-gray-fg-close);}
+.fill-gray-fg-close {fill: var(--color-fg-close);}
 
 .stroke-fg {stroke: var(--color-fg);}
 
@@ -193,7 +193,7 @@ code, key, pre {@extend .code;}
 .details summary {
   @extend .cur-point;
   @extend .pad-1;
-  background-color: var(--color-gray-fg-far);
+  background-color: var(--color-fg-far);
   .fan-typo & ~ pre {margin-top: 0;}
 }
 
@@ -269,9 +269,12 @@ ul.fancy-list ul.fancy-list {
   }
 
   // Questionable restrictions.
-  p, ul, ol, h1, h2, h3, h4, h5, h6 {
-    a {@extend .decorate-link;}
-  }
+
+  // p, ul, ol, h1, h2, h3, h4, h5, h6 {
+  //   a {@extend .decorate-link;}
+  // }
+
+  a {@extend .decorate-link;}
 
   pre {@extend .pad-1;}
 
@@ -284,7 +287,7 @@ ul.fancy-list ul.fancy-list {
       position: absolute;
       right:    calc(100% + 1ch);
       display:  inline;
-      color:    var(--color-gray-fg-close);
+      color:    var(--color-fg-close);
     }
 
     h1 > .heading-prefix::before {content: '# ';}
@@ -294,11 +297,27 @@ ul.fancy-list ul.fancy-list {
     h5 > .heading-prefix::before {content: '##### ';}
     h6 > .heading-prefix::before {content: '###### ';}
   }
+
+  $table-border: 1px dashed var(--color-fg-far);
+
+  table {
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  thead, tr:not(:last-of-type) {border-bottom: $table-border;}
+
+  thead {@extend .bold, .bg-gray-close;}
+
+  th, td {
+    @extend .pad-0x5;
+    &:not(:first-of-type) {border-left: $table-border;}
+  }
 }
 
 .blockquote {
   padding: 1rem 1rem 1rem calc(1rem + var(--thick-border-width));
-  border-left: var(--thick-border-width) solid var(--color-gray-fg-close);
+  border-left: var(--thick-border-width) solid var(--color-fg-close);
   @extend .bg-code;
   @extend .gap-ver-1;
 
@@ -353,9 +372,8 @@ ul.fancy-list ul.fancy-list {
   // vertical-align: middle;
 }
 
-.sm-hide {
-  @media (max-width: $breakpoint-sm) {display: none;}
-}
+.sm-hide {@media (max-width: $breakpoint-sm) {display: none;}}
+.non-sm-hide {@media (min-width: $breakpoint-sm) {display: none;}}
 
 .heading-anchor {
   /*
@@ -435,7 +453,7 @@ large.
 
   margin: 0 0 1em 1em;
 
-  border: 1px solid var(--color-gray-fg-far);
+  border: 1px solid var(--color-fg-far);
 
   // Tentative.
   // @extend .rounded;
@@ -484,7 +502,7 @@ Possible solutions:
   @include sb.pad-hor(0.5rem);
   @include sb.pad-ver(0.25rem);
   @extend .text-cen;
-  border-top: 1px solid var(--color-gray-fg-far);
+  border-top: 1px solid var(--color-fg-far);
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;
 }

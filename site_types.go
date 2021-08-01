@@ -9,17 +9,17 @@ import (
 
 type Site []Ipage
 
-func (self Site) Posts() (out []Post) {
+func (self Site) Posts() (out []PagePost) {
 	for _, val := range self {
 		switch val := val.(type) {
-		case Post:
+		case PagePost:
 			out = append(out, val)
 		}
 	}
 	return
 }
 
-func (self Site) ListedPosts() (out []Post) {
+func (self Site) ListedPosts() (out []PagePost) {
 	for _, val := range self.Posts() {
 		if val.IsListed {
 			out = append(out, val)
@@ -46,8 +46,7 @@ type Page struct {
 	Type        string
 	Image       string
 	GlobalClass string
-	Fun         func(Site, Page) []byte
-	MdToHtml    []byte // Compiled once and reused, if necessary.
+	MdHtml      []byte // Compiled once and reused, if necessary.
 }
 
 func (self Page) GetPath() string        { return self.Path }
@@ -57,18 +56,17 @@ func (self Page) GetType() string        { return self.Type }
 func (self Page) GetImage() string       { return self.Image }
 func (self Page) GetGlobalClass() string { return self.GlobalClass }
 
-func (self Page) Make(site Site) {
-	writePublic(self.Path, self.Fun(site, self))
-}
+func (self Page) Write(body []byte) { writePublic(self.Path, body) }
+func (self Page) Make(site Site)    { panic("implement in subclass") }
 
-func (self Page) MakeMd() []byte {
-	if self.MdTpl != nil && self.MdToHtml == nil {
-		self.MdToHtml = mdTplToHtml(self.MdTpl, self)
+func (self Page) MdOnce(val interface{}) []byte {
+	if self.MdTpl != nil && self.MdHtml == nil {
+		self.MdHtml = mdTplToHtml(self.MdTpl, val)
 	}
-	return self.MdToHtml
+	return self.MdHtml
 }
 
-type Post struct {
+type PagePost struct {
 	Page
 	RedirFrom   []string
 	PublishedAt *time.Time
@@ -76,20 +74,20 @@ type Post struct {
 	IsListed    bool
 }
 
-func (self Post) ExistsAsFile() bool {
+func (self PagePost) ExistsAsFile() bool {
 	return self.PublishedAt != nil || !FLAGS.PROD
 }
 
-func (self Post) ExistsInFeeds() bool {
+func (self PagePost) ExistsInFeeds() bool {
 	return self.ExistsAsFile() && bool(self.IsListed)
 }
 
-func (self Post) UrlFromSiteRoot() string {
+func (self PagePost) UrlFromSiteRoot() string {
 	return ensureLeadingSlash(trimExt(self.Path))
 }
 
 // Somewhat inefficient but shouldn't be measurable.
-func (self Post) TimeString() string {
+func (self PagePost) TimeString() string {
 	var out []string
 
 	if self.PublishedAt != nil {
@@ -102,8 +100,8 @@ func (self Post) TimeString() string {
 	return strings.Join(out, ", ")
 }
 
-func (self Post) Make(site Site) {
-	writePublic(self.Path, PagePost(site, self))
+func (self PagePost) Make(site Site) {
+	writePublic(self.Path, self.Render(site))
 
 	for _, path := range self.RedirFrom {
 		writePublic(path, Ebui(func(E E) {
@@ -112,14 +110,14 @@ func (self Post) Make(site Site) {
 	}
 }
 
-func (self Post) MakeMd() []byte {
-	if self.MdTpl != nil && self.MdToHtml == nil {
-		self.MdToHtml = mdTplToHtml(self.MdTpl, self)
+func (self PagePost) MakeMd() []byte {
+	if self.MdTpl != nil && self.MdHtml == nil {
+		self.MdHtml = mdTplToHtml(self.MdTpl, self)
 	}
-	return self.MdToHtml
+	return self.MdHtml
 }
 
-func (self Post) FeedItem() FeedItem {
+func (self PagePost) FeedItem() FeedItem {
 	href := siteBase() + self.UrlFromSiteRoot()
 
 	return FeedItem{
@@ -133,4 +131,28 @@ func (self Post) FeedItem() FeedItem {
 		Updated:     timeCoalesce(self.PublishedAt, self.UpdatedAt, ptr.Time(time.Now().UTC())),
 		Content:     Ebui(func(E E) { FeedPostLayout(E, self) }).String(),
 	}
+}
+
+type Work struct {
+	Name  string
+	Link  string
+	Start string
+	End   string
+	Role  string
+	Tech  string
+	Desc  string
+}
+
+func (self Work) Meta() string {
+	return strJoin(`; `, self.Role, self.Tech, self.Range())
+}
+
+func (self Work) Range() string {
+	if self.Start != "" && self.End != "" {
+		return self.Start + EMDASH + self.End
+	}
+	if self.Start != "" && self.End == "" {
+		return self.Start + `+`
+	}
+	return ``
 }

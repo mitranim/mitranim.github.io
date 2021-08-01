@@ -64,6 +64,10 @@ var (
 	HASH_LINK_REG     = regexp.MustCompile(`^#`)
 )
 
+func stringMdToHtml(src string) string {
+	return bytesToMutableString(mdToHtml([]byte(src)))
+}
+
 func mdToHtml(src []byte) []byte {
 	return bf.Run(src, mdOpts()...)
 }
@@ -87,7 +91,7 @@ making them unique across multiple pages. We don't want that.
 func mdOpts() []bf.Option {
 	return []bf.Option{
 		bf.WithExtensions(
-			bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.HeadingIDs | bf.AutoHeadingIDs,
+			bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.HeadingIDs | bf.AutoHeadingIDs | bf.Tables,
 		),
 		bf.WithRenderer(&MdRen{bf.NewHTMLRenderer(bf.HTMLRendererParameters{
 			Flags: bf.CommonHTMLFlags,

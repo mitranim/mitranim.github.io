@@ -122,7 +122,7 @@ func FeedLinks(E E) {
 	})
 }
 
-func FeedPostLayout(E E, page Post) {
+func FeedPostLayout(E E, page PagePost) {
 	E(`article`, A{aRole(`main article`), aClass(`fan-typo`)},
 		/**
 		Unsure about including the description. The Atom or RSS feed item already
@@ -138,7 +138,7 @@ func FeedPostLayout(E E, page Post) {
 		// 		)
 		// 	}
 		// },
-		x.Bytes(page.MakeMd()),
+		x.Bytes(page.MdOnce(page)),
 	)
 }
 
@@ -278,6 +278,8 @@ TODO consider moving to Gax.
 func partialAttr(key string) func(string) Attr {
 	return func(val string) Attr { return maybeAttr(key, val) }
 }
+
+var aFade = A{aClass(`fg-gray-close`)}
 
 func aAlt(val string) Attr      { return maybeAttr(`alt`, val) }
 func aClass(val string) Attr    { return maybeAttr(`class`, val) }

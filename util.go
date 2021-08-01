@@ -9,6 +9,7 @@ import (
 	"image"
 	"io"
 	l "log"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -31,6 +32,7 @@ const (
 	PUBLIC_DIR   = "public"
 	TEMPLATE_DIR = "templates"
 	MAX_INT      = int(^uint(0) >> 1)
+	EMDASH       = "—"
 )
 
 type (
@@ -214,3 +216,30 @@ func bytesToMutableString(bytes []byte) string {
 
 func ioWrite(out io.Writer, val []byte)       { try.Int(out.Write(val)) }
 func ioWriteString(out io.Writer, val string) { try.Int(io.WriteString(out, val)) }
+
+func parseUrl(val string) Url {
+	out, err := url.Parse(val)
+	try.To(err)
+	return Url(*out)
+}
+
+// Unfucks `*url.URL` by making it a non-pointer. TODO move to separate lib.
+type Url url.URL
+
+func (self Url) Query() url.Values               { return (*url.URL)(&self).Query() }
+func (self Url) String() string                  { return (*url.URL)(&self).String() }
+func (self Url) MarshalText() ([]byte, error)    { return (*url.URL)(&self).MarshalBinary() }
+func (self *Url) UnmarshalText(val []byte) error { return (*url.URL)(self).UnmarshalBinary(val) }
+
+func strJoin(sep string, vals ...string) (out string) {
+	for _, val := range vals {
+		if val == "" {
+			continue
+		}
+		if out != "" {
+			out += sep
+		}
+		out += val
+	}
+	return
+}
