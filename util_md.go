@@ -6,7 +6,6 @@ import (
 	"strings"
 	tt "text/template"
 
-	"github.com/alecthomas/chroma"
 	chtml "github.com/alecthomas/chroma/formatters/html"
 	clexers "github.com/alecthomas/chroma/lexers"
 	cstyles "github.com/alecthomas/chroma/styles"
@@ -35,31 +34,31 @@ var (
 	*/
 	CHROMA_STYLE = cstyles.Monokai
 
-	HEADING_TAGS = [...][]byte{
-		1: []byte("h1"),
-		2: []byte("h2"),
-		3: []byte("h3"),
-		4: []byte("h4"),
-		5: []byte("h5"),
-		6: []byte("h6"),
+	HEADING_TAGS = [...]string{
+		1: "h1",
+		2: "h2",
+		3: "h3",
+		4: "h4",
+		5: "h5",
+		6: "h6",
 	}
 
-	DETAILS_START       = []byte(`<details class="details fancy-typography">`)
-	DETAILS_END         = []byte(`</details>`)
-	SUMMARY_START       = []byte(`<summary>`)
-	SUMMARY_END         = []byte(`</summary>`)
-	ANGLE_OPEN          = []byte("<")
-	ANGLE_OPEN_SLASH    = []byte("</")
-	ANGLE_CLOSE         = []byte(">")
-	ANCHOR_TAG          = []byte("a")
-	EXTERNAL_LINK_ATTRS = []byte(` target="_blank" rel="noopener noreferrer"`)
-	HREF_START          = []byte(` href="`)
-	HREF_END            = []byte(`"`)
-	SPACE               = []byte(` `)
-	HASH_PREFIX         = []byte(`<span class="hash-prefix noprint" aria-hidden="true">#</span>`)
-	HEADING_PREFIX      = []byte(`<span class="heading-prefix" aria-hidden="true"></span>`)
-	BLOCKQUOTE_START    = []byte(`<blockquote class="blockquote">`)
-	BLOCKQUOTE_END      = []byte(`</blockquote>`)
+	DETAILS_START       = `<details class="details fancy-typography">`
+	DETAILS_END         = `</details>`
+	SUMMARY_START       = `<summary>`
+	SUMMARY_END         = `</summary>`
+	ANGLE_OPEN          = "<"
+	ANGLE_OPEN_SLASH    = "</"
+	ANGLE_CLOSE         = ">"
+	ANCHOR_TAG          = "a"
+	EXTERNAL_LINK_ATTRS = ` target="_blank" rel="noopener noreferrer"`
+	HREF_START          = ` href="`
+	HREF_END            = `"`
+	SPACE               = ` `
+	HASH_PREFIX         = `<span class="hash-prefix noprint" aria-hidden="true">#</span>`
+	HEADING_PREFIX      = `<span class="heading-prefix" aria-hidden="true"></span>`
+	BLOCKQUOTE_START    = `<blockquote class="blockquote">`
+	BLOCKQUOTE_END      = `</blockquote>`
 
 	DETAIL_TAG_REG    = regexp.MustCompile(`details"([^"\s]*)"(\S*)?`)
 	EXTERNAL_LINK_REG = regexp.MustCompile(`^\w+://`)
@@ -71,7 +70,7 @@ func mdToHtml(src []byte) []byte {
 }
 
 func mdTplToHtml(src []byte, val interface{}) []byte {
-	return mdToHtml(mdTplToMd(string(src), val))
+	return mdToHtml(mdTplToMd(bytesToMutableString(src), val))
 }
 
 func mdTplToMd(src string, val interface{}) []byte {
@@ -117,24 +116,24 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 	case bf.Heading:
 		headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
 		tag := HEADING_TAGS[headingLevel]
-		if tag == nil {
+		if tag == "" {
 			panic(errors.Errorf("unrecognized heading level: %v", headingLevel))
 		}
 		if entering {
-			out.Write(ANGLE_OPEN)
-			out.Write(tag)
+			io.WriteString(out, ANGLE_OPEN)
+			io.WriteString(out, tag)
 			if node.HeadingID != "" {
-				out.Write([]byte(` id="` + node.HeadingID + `"`))
+				io.WriteString(out, ` id="`+node.HeadingID+`"`)
 			}
-			out.Write(ANGLE_CLOSE)
-			out.Write(HEADING_PREFIX)
+			io.WriteString(out, ANGLE_CLOSE)
+			io.WriteString(out, HEADING_PREFIX)
 		} else {
 			if node.HeadingID != "" {
-				out.Write([]byte(`<a href="#` + node.HeadingID + `" class="heading-anchor" aria-hidden="true"></a>`))
+				io.WriteString(out, `<a href="#`+node.HeadingID+`" class="heading-anchor" aria-hidden="true"></a>`)
 			}
-			out.Write(ANGLE_OPEN_SLASH)
-			out.Write(tag)
-			out.Write(ANGLE_CLOSE)
+			io.WriteString(out, ANGLE_OPEN_SLASH)
+			io.WriteString(out, tag)
+			io.WriteString(out, ANGLE_CLOSE)
 		}
 		return bf.GoToNext
 
@@ -155,25 +154,25 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 	*/
 	case bf.Link:
 		if entering {
-			out.Write(ANGLE_OPEN)
-			out.Write(ANCHOR_TAG)
-			out.Write(HREF_START)
+			io.WriteString(out, ANGLE_OPEN)
+			io.WriteString(out, ANCHOR_TAG)
+			io.WriteString(out, HREF_START)
 			out.Write(node.LinkData.Destination)
-			out.Write(HREF_END)
+			io.WriteString(out, HREF_END)
 			if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
-				out.Write(EXTERNAL_LINK_ATTRS)
+				io.WriteString(out, EXTERNAL_LINK_ATTRS)
 			}
-			out.Write(ANGLE_CLOSE)
+			io.WriteString(out, ANGLE_CLOSE)
 			if HASH_LINK_REG.Match(node.LinkData.Destination) {
-				out.Write(HASH_PREFIX)
+				io.WriteString(out, HASH_PREFIX)
 			}
 		} else {
 			if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
-				out.Write(SvgExternalLink)
+				io.WriteString(out, string(SvgExternalLink))
 			}
-			out.Write(ANGLE_OPEN_SLASH)
-			out.Write(ANCHOR_TAG)
-			out.Write(ANGLE_CLOSE)
+			io.WriteString(out, ANGLE_OPEN_SLASH)
+			io.WriteString(out, ANCHOR_TAG)
+			io.WriteString(out, ANGLE_CLOSE)
 		}
 		return bf.GoToNext
 
@@ -185,7 +184,11 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 		* supports special directives like rendering <details>
 	*/
 	case bf.CodeBlock:
-		tag := string(node.CodeBlockData.Info)
+		tag := node.CodeBlockData.Info
+
+		if len(tag) == 0 {
+			return self.HTMLRenderer.RenderNode(out, node, entering)
+		}
 
 		/**
 		Special magic for code blocks like these:
@@ -198,32 +201,35 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 		as <summary>. The lang tag is optional; if present, the block is
 		processed as code, otherwise as regular text.
 		*/
-		if DETAIL_TAG_REG.MatchString(tag) {
-			match := DETAIL_TAG_REG.FindStringSubmatch(tag)
+		if DETAIL_TAG_REG.Match(tag) {
+			match := DETAIL_TAG_REG.FindSubmatch(tag)
 			title := match[1]
 			lang := match[2]
 
-			out.Write(DETAILS_START)
-			out.Write(SUMMARY_START)
-			out.Write([]byte(title))
-			out.Write(SUMMARY_END)
+			io.WriteString(out, DETAILS_START)
+			io.WriteString(out, SUMMARY_START)
+			out.Write(title)
+			io.WriteString(out, SUMMARY_END)
 
-			if lang != "" {
+			if len(lang) > 0 {
 				// As code
-				node.CodeBlockData.Info = []byte(lang)
+				node.CodeBlockData.Info = lang
 				self.RenderNode(out, node, entering)
 			} else {
 				// As regular text
-				out.Write(bf.Run(node.Literal, mdOpts()...))
+				out.Write(mdToHtml(node.Literal))
 			}
 
-			out.Write(DETAILS_END)
+			io.WriteString(out, DETAILS_END)
 			return bf.SkipChildren
 		}
 
-		text := string(node.Literal)
-		lexer := findLexer(tag, text)
-		iterator, err := lexer.Tokenise(nil, text)
+		lexer := clexers.Get(bytesToMutableString(tag))
+		if lexer == nil {
+			panic(errors.Errorf(`no lexer for %q`, tag))
+		}
+
+		iterator, err := lexer.Tokenise(nil, bytesToMutableString(node.Literal))
 		try.To(errors.Wrap(err, "tokenizer error"))
 
 		err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
@@ -233,29 +239,12 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 
 	case bf.BlockQuote:
 		if entering {
-			out.Write(BLOCKQUOTE_START)
+			io.WriteString(out, BLOCKQUOTE_START)
 		} else {
-			out.Write(BLOCKQUOTE_END)
+			io.WriteString(out, BLOCKQUOTE_END)
 		}
 		return bf.GoToNext
 	}
-}
-
-/*
-TODO: instantiating some lexers is EXTREMELY SLOW (tens of milliseconds). This
-takes at least as much time as the rest of the build. The worst offender is JS.
-HTML also auto-detects and includes JS.
-*/
-func findLexer(tag string, text string) (out chroma.Lexer) {
-	if len(tag) > 0 {
-		out = clexers.Get(tag)
-	} else {
-		out = clexers.Analyse(text)
-	}
-	if out == nil {
-		out = clexers.Fallback
-	}
-	return out
 }
 
 /*
@@ -320,7 +309,7 @@ func mdHeadings(content []byte) []MdHeading {
 				heading.Text = textNode.Literal
 			}
 			if textNode != nil && heading.Id == "" {
-				heading.Id = sanitized_anchor_name.Create(string(textNode.Literal))
+				heading.Id = sanitized_anchor_name.Create(bytesToMutableString(textNode.Literal))
 			}
 
 			if len(heading.Text) > 0 && heading.Id != "" {
