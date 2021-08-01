@@ -72,7 +72,7 @@ func Navbar(E E, page Ipage) {
 			E(`a`, A{aHref("/"), cur(page, "index.html"), aClass("navlink --busy")}, `home`)
 			E(`a`, A{aHref("/works"), cur(page, "works.html"), aClass("navlink --busy")}, `works`)
 			E(`a`, A{aHref("/posts"), cur(page, "posts.html"), aClass("navlink --busy")}, `posts`)
-			E(`a`, A{aHref("/demos"), cur(page, "demos.html"), aClass("navlink --busy")}, `demos`)
+			// E(`a`, A{aHref("/demos"), cur(page, "demos.html"), aClass("navlink --busy")}, `demos`)
 		})
 
 		E(`span`, A{aClass(`flex-1`)})
