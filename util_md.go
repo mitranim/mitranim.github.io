@@ -15,6 +15,10 @@ import (
 	"github.com/shurcooL/sanitized_anchor_name"
 )
 
+type (
+	MdOpt = bf.HTMLRendererParameters
+)
+
 var (
 	CHROMA_FORMATTER = chtml.New()
 
@@ -64,19 +68,19 @@ var (
 	HASH_LINK_REG     = regexp.MustCompile(`^#`)
 )
 
-func stringMdToHtml(src string) string {
-	return bytesToMutableString(mdToHtml([]byte(src)))
+func stringMdToHtml(src string, opt *MdOpt) string {
+	return bytesToMutableString(mdToHtml(stringToBytesAlloc(src), opt))
 }
 
-func mdToHtml(src []byte) []byte {
-	return bf.Run(src, mdOpts()...)
+func mdToHtml(src []byte, opt *MdOpt) []byte {
+	return bf.Run(src, mdOpts(opt)...)
 }
 
-func mdTplToHtml(src []byte, val interface{}) []byte {
-	return mdToHtml(mdTplToMd(bytesToMutableString(src), val))
+func mdTplToHtml(src []byte, opt *MdOpt, val interface{}) []byte {
+	return mdToHtml(mdTplExec(bytesToMutableString(src), val), opt)
 }
 
-func mdTplToMd(src string, val interface{}) []byte {
+func mdTplExec(src string, val interface{}) []byte {
 	tpl := makeTpl("")
 	tplParseMd(tpl, src)
 	return tplToBytes(tpl, val)
@@ -88,14 +92,19 @@ stateful and is not meant to be reused between unrelated texts. In particular,
 reusing it between pages causes `bf.AutoHeadingIDs` to suffix heading IDs,
 making them unique across multiple pages. We don't want that.
 */
-func mdOpts() []bf.Option {
+func mdOpts(opt *MdOpt) []bf.Option {
+	if opt == nil {
+		opt = &MdOpt{}
+	}
+	if opt.Flags == 0 {
+		opt.Flags = bf.CommonHTMLFlags
+	}
+
 	return []bf.Option{
 		bf.WithExtensions(
 			bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.HeadingIDs | bf.AutoHeadingIDs | bf.Tables,
 		),
-		bf.WithRenderer(&MdRen{bf.NewHTMLRenderer(bf.HTMLRendererParameters{
-			Flags: bf.CommonHTMLFlags,
-		})}),
+		bf.WithRenderer(&MdRen{bf.NewHTMLRenderer(*opt)}),
 	}
 }
 
@@ -103,151 +112,165 @@ type MdRen struct{ *bf.HTMLRenderer }
 
 func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	switch node.Type {
+	case bf.Heading:
+		return self.RenderHeading(out, node, entering)
+	case bf.Link:
+		return self.RenderLink(out, node, entering)
+	case bf.CodeBlock:
+		return self.RenderCodeBlock(out, node, entering)
+	case bf.BlockQuote:
+		return self.RenderBlockQuote(out, node, entering)
 	default:
 		return self.HTMLRenderer.RenderNode(out, node, entering)
-
-	/**
-	Differences from default:
-
-		* Fancy prefix indicating heading level, hidden from screen readers;
-		  speaking it aloud is redundant because screen readers will indicate the
-		  heading level anyway.
-
-		* ID anchor suffix, hidden from screen readers; hearing it all the time
-		  quickly gets tiring.
-	*/
-	case bf.Heading:
-		headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
-		tag := HEADING_TAGS[headingLevel]
-		if tag == "" {
-			panic(errors.Errorf("unrecognized heading level: %v", headingLevel))
-		}
-		if entering {
-			ioWriteString(out, ANGLE_OPEN)
-			ioWriteString(out, tag)
-			if node.HeadingID != "" {
-				ioWriteString(out, ` id="`+node.HeadingID+`"`)
-			}
-			ioWriteString(out, ANGLE_CLOSE)
-			ioWriteString(out, HEADING_PREFIX)
-		} else {
-			if node.HeadingID != "" {
-				ioWriteString(out, `<a href="#`+node.HeadingID+`" class="heading-anchor" aria-hidden="true"></a>`)
-			}
-			ioWriteString(out, ANGLE_OPEN_SLASH)
-			ioWriteString(out, tag)
-			ioWriteString(out, ANGLE_CLOSE)
-		}
-		return bf.GoToNext
-
-	/**
-	Differences from default:
-
-		* external links get attributes like `target="_blank"` and an external
-		  link icon
-
-		* intra-page hash links, like `href="#blah"`, are prefixed with a hash
-		  symbol hidden from screen readers
-
-	"External href" is defined as "starts with a protocol".
-
-	Note: currently doesn't support some flags and extensions.
-
-	Note: somewhat duplicates `exta`.
-	*/
-	case bf.Link:
-		if entering {
-			ioWriteString(out, ANGLE_OPEN)
-			ioWriteString(out, ANCHOR_TAG)
-			ioWriteString(out, HREF_START)
-			ioWrite(out, node.LinkData.Destination)
-			ioWriteString(out, HREF_END)
-			if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
-				ioWriteString(out, EXTERNAL_LINK_ATTRS)
-			}
-			ioWriteString(out, ANGLE_CLOSE)
-			if HASH_LINK_REG.Match(node.LinkData.Destination) {
-				ioWriteString(out, HASH_PREFIX)
-			}
-		} else {
-			if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
-				ioWriteString(out, string(SvgExternalLink))
-			}
-			ioWriteString(out, ANGLE_OPEN_SLASH)
-			ioWriteString(out, ANCHOR_TAG)
-			ioWriteString(out, ANGLE_CLOSE)
-		}
-		return bf.GoToNext
-
-	/**
-	Differences from default:
-
-		* code highlighting
-
-		* supports special directives like rendering <details>
-	*/
-	case bf.CodeBlock:
-		tag := node.CodeBlockData.Info
-
-		if len(tag) == 0 {
-			return self.HTMLRenderer.RenderNode(out, node, entering)
-		}
-
-		/**
-		Special magic for code blocks like these:
-
-		```details"title"lang
-		(some text)
-		```
-
-		This gets wrapped in a <details> element, with the string in the middle
-		as <summary>. The lang tag is optional; if present, the block is
-		processed as code, otherwise as regular text.
-		*/
-		if DETAIL_TAG_REG.Match(tag) {
-			match := DETAIL_TAG_REG.FindSubmatch(tag)
-			title := match[1]
-			lang := match[2]
-
-			ioWriteString(out, DETAILS_START)
-			ioWriteString(out, SUMMARY_START)
-			ioWrite(out, title)
-			ioWriteString(out, SUMMARY_END)
-
-			if len(lang) > 0 {
-				// As code
-				node.CodeBlockData.Info = lang
-				self.RenderNode(out, node, entering)
-			} else {
-				// As regular text
-				ioWrite(out, mdToHtml(node.Literal))
-			}
-
-			ioWriteString(out, DETAILS_END)
-			return bf.SkipChildren
-		}
-
-		lexer := clexers.Get(bytesToMutableString(tag))
-		if lexer == nil {
-			panic(errors.Errorf(`no lexer for %q`, tag))
-		}
-
-		iterator, err := lexer.Tokenise(nil, bytesToMutableString(node.Literal))
-		try.To(errors.Wrap(err, "tokenizer error"))
-
-		err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
-		try.To(errors.Wrap(err, "formatter error"))
-
-		return bf.SkipChildren
-
-	case bf.BlockQuote:
-		if entering {
-			ioWriteString(out, BLOCKQUOTE_START)
-		} else {
-			ioWriteString(out, BLOCKQUOTE_END)
-		}
-		return bf.GoToNext
 	}
+}
+
+/**
+Differences from default:
+
+	* external links get attributes like `target="_blank"` and an external
+	  link icon
+
+	* intra-page hash links, like `href="#blah"`, are prefixed with a hash
+	  symbol hidden from screen readers
+
+"External href" is defined as "starts with a protocol".
+
+Note: currently doesn't support some flags and extensions.
+
+Note: somewhat duplicates `exta`.
+*/
+func (self *MdRen) RenderLink(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
+	if entering {
+		ioWriteString(out, ANGLE_OPEN)
+		ioWriteString(out, ANCHOR_TAG)
+		ioWriteString(out, HREF_START)
+		ioWrite(out, node.LinkData.Destination)
+		ioWriteString(out, HREF_END)
+		if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
+			ioWriteString(out, EXTERNAL_LINK_ATTRS)
+		}
+		ioWriteString(out, ANGLE_CLOSE)
+		if HASH_LINK_REG.Match(node.LinkData.Destination) {
+			ioWriteString(out, HASH_PREFIX)
+		}
+	} else {
+		if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
+			ioWriteString(out, string(SvgExternalLink))
+		}
+		ioWriteString(out, ANGLE_OPEN_SLASH)
+		ioWriteString(out, ANCHOR_TAG)
+		ioWriteString(out, ANGLE_CLOSE)
+	}
+	return bf.GoToNext
+}
+
+/**
+Differences from default:
+
+	* code highlighting
+
+	* supports special directives like rendering <details>
+*/
+func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
+	tag := node.CodeBlockData.Info
+
+	if len(tag) == 0 {
+		return self.HTMLRenderer.RenderNode(out, node, entering)
+	}
+
+	/**
+	Special magic for code blocks like these:
+
+	```details"title"lang
+	(some text)
+	```
+
+	This gets wrapped in a <details> element, with the string in the middle
+	as <summary>. The lang tag is optional; if present, the block is
+	processed as code, otherwise as regular text.
+	*/
+	if DETAIL_TAG_REG.Match(tag) {
+		match := DETAIL_TAG_REG.FindSubmatch(tag)
+		title := match[1]
+		lang := match[2]
+
+		ioWriteString(out, DETAILS_START)
+		ioWriteString(out, SUMMARY_START)
+		ioWrite(out, title)
+		ioWriteString(out, SUMMARY_END)
+
+		if len(lang) > 0 {
+			// As code
+			node.CodeBlockData.Info = lang
+			self.RenderNode(out, node, entering)
+		} else {
+			// As regular text
+			ioWrite(out, mdToHtml(node.Literal, nil))
+		}
+
+		ioWriteString(out, DETAILS_END)
+		return bf.SkipChildren
+	}
+
+	lexer := clexers.Get(bytesToMutableString(tag))
+	if lexer == nil {
+		panic(errors.Errorf(`no lexer for %q`, tag))
+	}
+
+	iterator, err := lexer.Tokenise(nil, bytesToMutableString(node.Literal))
+	try.To(errors.Wrap(err, "tokenizer error"))
+
+	err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
+	try.To(errors.Wrap(err, "formatter error"))
+
+	return bf.SkipChildren
+}
+
+/**
+Differences from default:
+
+	* Fancy prefix indicating heading level, hidden from screen readers;
+	  speaking it aloud is redundant because screen readers will indicate the
+	  heading level anyway.
+
+	* ID anchor suffix, hidden from screen readers; hearing it all the time
+	  quickly gets tiring.
+*/
+func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
+	headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
+	tag := HEADING_TAGS[headingLevel]
+	if tag == "" {
+		panic(errors.Errorf("unrecognized heading level: %v", headingLevel))
+	}
+
+	if entering {
+		ioWriteString(out, ANGLE_OPEN)
+		ioWriteString(out, tag)
+		if node.HeadingID != "" {
+			ioWriteString(out, ` id="`+node.HeadingID+`"`)
+		}
+		ioWriteString(out, ANGLE_CLOSE)
+		ioWriteString(out, HEADING_PREFIX)
+	} else {
+		if node.HeadingID != "" {
+			ioWriteString(out, `<a href="#`+node.HeadingID+`" class="heading-anchor" aria-hidden="true"></a>`)
+		}
+		ioWriteString(out, ANGLE_OPEN_SLASH)
+		ioWriteString(out, tag)
+		ioWriteString(out, ANGLE_CLOSE)
+	}
+
+	return bf.GoToNext
+}
+
+func (self *MdRen) RenderBlockQuote(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
+	if entering {
+		ioWriteString(out, BLOCKQUOTE_START)
+	} else {
+		ioWriteString(out, BLOCKQUOTE_END)
+	}
+	return bf.GoToNext
 }
 
 /*
@@ -293,7 +316,7 @@ func mdToToc(content []byte) string {
 func mdHeadings(content []byte) []MdHeading {
 	var out []MdHeading
 
-	node := bf.New(mdOpts()...).Parse(content)
+	node := bf.New(mdOpts(nil)...).Parse(content)
 
 	node.Walk(func(node *bf.Node, entering bool) bf.WalkStatus {
 		if node.Type == bf.Document {

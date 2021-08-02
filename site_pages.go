@@ -100,7 +100,7 @@ func (self PageWorks) Table() string {
 				for _, work := range self.Works {
 					E(`tr`, nil, func() {
 						E(`td`, nil, func() { Exta(E, parseUrl(work.Link).String(), work.Name) })
-						E(`td`, nil, gax.String(stringMdToHtml(work.Desc)))
+						E(`td`, nil, gax.String(stringMdToHtml(work.Desc, nil)))
 						E(`td`, aFade, work.Role)
 						E(`td`, aFade, work.Tech)
 						E(`td`, aFade, work.Start)
@@ -123,7 +123,7 @@ func (self PageWorks) List() string {
 					T(` `)
 					E(`span`, aFade, `(`, work.Meta(), `)`)
 					T(` `)
-					T(stringMdToHtml(work.Desc))
+					T(stringMdToHtml(work.Desc, nil))
 				})
 			}
 		})
@@ -132,10 +132,16 @@ func (self PageWorks) List() string {
 
 type PageResume struct{ Page }
 
-func (self PageResume) Make(_ Site) {
+func (self PageResume) Make(site Site) {
+	index := site.PageByType(PageIndex{}).(PageIndex)
+	works := site.PageByType(PageWorks{}).(PageWorks)
+
 	self.Write(Html(self, func(E E) {
 		E(`article`, A{aRole(`main article`), aId(`main`), aClass("wid-lim fan-typo pad-top-1 pad-bot-2")},
 			x.Bytes(self.MdOnce(self)),
+			x.Bytes(index.Md(index, nil)),
+			x.String(stringMdToHtml(`# Works`, nil)),
+			x.Bytes(works.Md(works, &MdOpt{HeadingLevelOffset: 1})),
 		)
 	}))
 }

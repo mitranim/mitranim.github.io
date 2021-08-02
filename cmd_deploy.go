@@ -20,14 +20,16 @@ func cmdDeploy() {
 			sourceBranch, targetBranch))
 	}
 
+	cwd := try.String(os.Getwd())
 	try.To(os.Chdir(PUBLIC_DIR))
+	defer os.Chdir(cwd)
+
 	try.To(os.RemoveAll(".git"))
-	runCmd("git", "init")
+	runCmd("git", "init", "-q", "-b", targetBranch)
 	runCmd("git", "remote", "add", "origin", originUrl)
 	runCmd("git", "add", "-A", ".")
-	runCmd("git", "commit", "-a", "--allow-empty-message", "-m", "")
+	runCmd("git", "commit", "-q", "-a", "--allow-empty-message", "-m", "")
 	runCmd("git", "branch", "-m", targetBranch)
 	runCmd("git", "push", "-f", "origin", targetBranch)
 	try.To(os.RemoveAll(".git"))
-	try.To(os.Chdir(try.String(os.Getwd())))
 }

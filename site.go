@@ -43,7 +43,7 @@ func initPages() Site {
 			Title:       "Resume",
 			Description: "Nelo Mitranim's resume",
 			MdTpl:       readFile(fpj(TEMPLATE_DIR, "resume.md")),
-			GlobalClass: "color-scheme-light",
+			// GlobalClass: "color-scheme-light",
 		}},
 	}
 }

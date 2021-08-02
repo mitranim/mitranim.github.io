@@ -1,6 +1,7 @@
 package main
 
 import (
+	"reflect"
 	"strings"
 	"time"
 
@@ -26,6 +27,15 @@ func (self Site) ListedPosts() (out []PagePost) {
 		}
 	}
 	return
+}
+
+func (self Site) PageByType(ref interface{}) Ipage {
+	for _, val := range self {
+		if reflect.TypeOf(val) == reflect.TypeOf(ref) {
+			return val
+		}
+	}
+	return nil
 }
 
 type Ipage interface {
@@ -61,9 +71,13 @@ func (self Page) Make(site Site)    { panic("implement in subclass") }
 
 func (self Page) MdOnce(val interface{}) []byte {
 	if self.MdTpl != nil && self.MdHtml == nil {
-		self.MdHtml = mdTplToHtml(self.MdTpl, val)
+		self.MdHtml = self.Md(val, nil)
 	}
 	return self.MdHtml
+}
+
+func (self Page) Md(val interface{}, opt *MdOpt) []byte {
+	return mdTplToHtml(self.MdTpl, opt, val)
 }
 
 type PagePost struct {
@@ -112,7 +126,7 @@ func (self PagePost) Make(site Site) {
 
 func (self PagePost) MakeMd() []byte {
 	if self.MdTpl != nil && self.MdHtml == nil {
-		self.MdHtml = mdTplToHtml(self.MdTpl, self)
+		self.MdHtml = mdTplToHtml(self.MdTpl, nil, self)
 	}
 	return self.MdHtml
 }
