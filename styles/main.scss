@@ -511,3 +511,14 @@ Possible solutions:
   @extend .bg-code;
   @extend .font-monospace;
 }
+
+:target {
+  animation-name: flash;
+  animation-duration: 1s;
+}
+
+@keyframes flash {
+  0% {}
+  20% {background-color: var(--color-fg-far);}
+  100% {}
+}

@@ -241,3 +241,5 @@ func strJoin(sep string, vals ...string) (out string) {
 	}
 	return
 }
+
+func chdir(val string) { try.To(os.Chdir(val)) }

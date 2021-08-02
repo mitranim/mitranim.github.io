@@ -21,8 +21,8 @@ func cmdDeploy() {
 	}
 
 	cwd := try.String(os.Getwd())
-	try.To(os.Chdir(PUBLIC_DIR))
-	defer os.Chdir(cwd)
+	chdir(PUBLIC_DIR)
+	defer chdir(cwd)
 
 	try.To(os.RemoveAll(".git"))
 	runCmd("git", "init", "-q", "-b", targetBranch)
