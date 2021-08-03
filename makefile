@@ -30,7 +30,7 @@ endif
 
 .PHONY: watch
 watch: clean
-	$(PAR) styles-w afr-w cmd-w srv pages-w images-w static-w
+	$(PAR) styles-w cmd-w afr srv pages-w images-w static-w
 
 .PHONY: build
 build: clean
@@ -44,9 +44,9 @@ styles-w:
 styles:
 	$(SASS) --style=$(SASS_STYLE)
 
-.PHONY: afr-w
-afr-w:
-	deno run -A --unstable --no-check https://deno.land/x/afr@0.5.1/afr.ts --port 52692 --verbose true
+.PHONY: afr
+afr:
+	afr -v -p 52692
 
 # May compile twice on startup, should probably fix.
 .PHONY: cmd-w
@@ -101,7 +101,8 @@ clean:
 .PHONY: deps
 deps:
 ifeq ($(OS), Windows_NT)
-	scoop install sass go deno watchexec
+	scoop install sass go watchexec
 else
-	brew install -q sass/sass/sass go deno watchexec
+	brew install -q sass/sass/sass go watchexec
 endif
+	go install github.com/mitranim/afr@latest
