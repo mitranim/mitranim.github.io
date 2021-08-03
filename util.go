@@ -35,19 +35,19 @@ const (
 	EMDASH       = "—"
 )
 
-type (
-	A    = x.A
-	E    = x.E
-	Bui  = x.Bui
-	Attr = x.Attr
+var (
+	log     = l.New(os.Stderr, "", 0)
+	FLAGS   = Flags{PROD: os.Getenv("PROD") == "true"}
+	TARBLAN = x.Attr{`target`, `_blank`}
+	RELNO   = x.Attr{`rel`, `noopener noreferrer`}
+	E       = x.E
+	F       = x.F
+	AP      = x.AP
 )
 
-var (
-	log          = l.New(os.Stderr, "", 0)
-	FLAGS        = Flags{PROD: os.Getenv("PROD") == "true"}
-	TARGET_BLANK = Attr{`target`, `_blank`}
-	REL_NOP      = Attr{`rel`, `noopener noreferrer`}
-	Ebui         = x.Ebui
+type (
+	Bui = x.Bui
+	B   = *Bui
 )
 
 type Flags struct{ PROD bool }

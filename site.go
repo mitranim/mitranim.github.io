@@ -1,13 +1,14 @@
 package main
 
-func initSite() (out Site) {
-	out = append(out, initPages()...)
-	out = append(out, initPosts()...)
-	return
+func initSite() Site {
+	return Site{
+		Pages: initSitePages(),
+		Posts: initSitePosts(),
+	}
 }
 
-func initPages() Site {
-	return Site{
+func initSitePages() []Ipage {
+	return []Ipage{
 		Page404{Page{
 			Path:  "404.html",
 			Title: "Page Not Found",
@@ -48,8 +49,8 @@ func initPages() Site {
 	}
 }
 
-func initPosts() Site {
-	return Site{
+func initSitePosts() []PagePost {
+	return []PagePost{
 		PagePost{
 			Page: Page{
 				Path:        "posts/spaces-tabs.html",

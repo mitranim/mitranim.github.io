@@ -8,20 +8,23 @@ import (
 	"github.com/gotidy/ptr"
 )
 
-type Site []Ipage
+type Site struct {
+	Pages []Ipage
+	Posts []PagePost
+}
 
-func (self Site) Posts() (out []PagePost) {
-	for _, val := range self {
-		switch val := val.(type) {
-		case PagePost:
-			out = append(out, val)
-		}
+func (self Site) All() (out []Ipage) {
+	for _, val := range self.Pages {
+		out = append(out, val)
+	}
+	for _, val := range self.Posts {
+		out = append(out, val)
 	}
 	return
 }
 
 func (self Site) ListedPosts() (out []PagePost) {
-	for _, val := range self.Posts() {
+	for _, val := range self.Posts {
 		if val.IsListed {
 			out = append(out, val)
 		}
@@ -30,7 +33,7 @@ func (self Site) ListedPosts() (out []PagePost) {
 }
 
 func (self Site) PageByType(ref interface{}) Ipage {
-	for _, val := range self {
+	for _, val := range self.Pages {
 		if reflect.TypeOf(val) == reflect.TypeOf(ref) {
 			return val
 		}
@@ -45,6 +48,7 @@ type Ipage interface {
 	GetType() string
 	GetImage() string
 	GetGlobalClass() string
+	GetLink() string
 	Make(Site)
 }
 
@@ -66,7 +70,7 @@ func (self Page) GetType() string        { return self.Type }
 func (self Page) GetImage() string       { return self.Image }
 func (self Page) GetGlobalClass() string { return self.GlobalClass }
 
-func (self Page) Write(body []byte) { writePublic(self.Path, body) }
+func (self Page) Write(body []byte) { writePublic(self.GetPath(), body) }
 func (self Page) Make(site Site)    { panic("implement in subclass") }
 
 func (self Page) MdOnce(val interface{}) []byte {
@@ -78,6 +82,10 @@ func (self Page) MdOnce(val interface{}) []byte {
 
 func (self Page) Md(val interface{}, opt *MdOpt) []byte {
 	return mdTplToHtml(self.MdTpl, opt, val)
+}
+
+func (self Page) GetLink() string {
+	return ensureLeadingSlash(trimExt(self.GetPath()))
 }
 
 type PagePost struct {
@@ -94,10 +102,6 @@ func (self PagePost) ExistsAsFile() bool {
 
 func (self PagePost) ExistsInFeeds() bool {
 	return self.ExistsAsFile() && bool(self.IsListed)
-}
-
-func (self PagePost) UrlFromSiteRoot() string {
-	return ensureLeadingSlash(trimExt(self.Path))
 }
 
 // Somewhat inefficient but shouldn't be measurable.
@@ -118,9 +122,9 @@ func (self PagePost) Make(site Site) {
 	writePublic(self.Path, self.Render(site))
 
 	for _, path := range self.RedirFrom {
-		writePublic(path, Ebui(func(E E) {
-			E(`meta`, A{{`http-equiv`, `refresh`}, {`content`, `0;URL='` + self.UrlFromSiteRoot() + `'`}})
-		}))
+		writePublic(path, F(
+			E(`meta`, AP(`http-equiv`, `refresh`, `content`, `0;URL='`+self.GetLink()+`'`)),
+		))
 	}
 }
 
@@ -132,7 +136,8 @@ func (self PagePost) MakeMd() []byte {
 }
 
 func (self PagePost) FeedItem() FeedItem {
-	href := siteBase() + self.UrlFromSiteRoot()
+	// Caution: `path.Join` breaks "//".
+	href := siteBase() + self.GetLink()
 
 	return FeedItem{
 		XmlBase:     href,
@@ -143,7 +148,7 @@ func (self PagePost) FeedItem() FeedItem {
 		Id:          href,
 		Published:   self.PublishedAt,
 		Updated:     timeCoalesce(self.PublishedAt, self.UpdatedAt, ptr.Time(time.Now().UTC())),
-		Content:     Ebui(func(E E) { FeedPostLayout(E, self) }).String(),
+		Content:     FeedPost(self).String(),
 	}
 }
 

@@ -68,7 +68,7 @@ func afrMaybeSend(path string) {
 
 	_ = err
 	// if err != nil {
-	// 	// log.Println(`[srv] failed to send afr msg:`, err)
+	// 	log.Println(`[srv] failed to send afr msg:`, err)
 	// }
 }
 

@@ -1,73 +1,76 @@
 package main
 
 import (
-	"github.com/mitranim/gax"
 	x "github.com/mitranim/gax"
 )
 
 type Page404 struct{ Page }
 
 func (self Page404) Make(_ Site) {
-	self.Write(Html(self, func(E E) {
-		Navbar(E, self)
-		E(`div`, A{aRole(`main`), aId(`main`), aClass("wid-lim fan-typo")}, func() {
-			E(`h2`, nil, self.GetTitle())
-			E(`p`, nil, `Sorry, this page is not found.`)
-			E(`p`, nil, func() {
-				E(`a`, A{aHref(`/`)}, `Return to homepage.`)
-			})
-		})
-		Footer(E, self)
-	}))
+	self.Write(Html(
+		self,
+		Header(self),
+		E(`div`, AP(`role`, `main`, `id`, `main`, `class`, `wid-lim fan-typo`),
+			E(`h2`, nil, self.GetTitle()),
+			E(`p`, nil, `Sorry, this page is not found.`),
+			E(`p`, nil, E(`a`, AP(`href`, `/`), `Return to homepage.`)),
+		),
+		Footer(self),
+	))
 }
 
 type PageIndex struct{ Page }
 
+func (self PageIndex) GetLink() string { return `/` }
+
 func (self PageIndex) Make(_ Site) {
-	self.Write(Html(self, func(E E) {
-		Navbar(E, self)
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("wid-lim fan-typo")},
-			x.Bytes(self.MdOnce(self)),
-		)
-		Footer(E, self)
-	}))
+	self.Write(Html(
+		self,
+		Header(self),
+		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo`),
+			Bui(self.MdOnce(self)),
+		),
+		Footer(self),
+	))
 }
 
 type PagePosts struct{ Page }
 
 func (self PagePosts) Make(site Site) {
-	self.Write(Html(self, func(E E) {
-		Navbar(E, self)
+	self.Write(Html(
+		self,
+		Header(self),
 
-		E(`div`, A{aRole(`main`), aId(`main`), aClass("wid-lim fan-typo")}, func() {
-			E(`h1`, nil, `Blog Posts`)
+		E(`div`, AP(`role`, `main`, `id`, `main`, `class`, `wid-lim fan-typo`),
+			E(`h1`, nil, `Blog Posts`),
 
-			posts := site.ListedPosts()
+			func(b B) {
+				posts := site.ListedPosts()
 
-			if len(posts) > 0 {
-				for _, post := range posts {
-					E(`div`, A{aClass("mar-top-2 gap-ver-1")}, func() {
-						E(`h2`, nil, func() {
-							E(`a`, A{aHref(post.UrlFromSiteRoot())}, post.Title)
+				if len(posts) > 0 {
+					for _, post := range posts {
+						b.E(`div`, AP(`class`, "mar-top-2 gap-ver-1"), func() {
+							b.E(`h2`, nil,
+								E(`a`, AP(`href`, post.GetLink()), post.Title),
+							)
+							if post.Description != "" {
+								b.E(`p`, nil, post.Description)
+							}
+							if post.TimeString() != "" {
+								b.E(`p`, AP(`class`, "fg-gray-close size-small"), post.TimeString())
+							}
 						})
-						if post.Description != "" {
-							E(`p`, nil, post.Description)
-						}
-						if post.TimeString() != "" {
-							E(`p`, A{aClass("fg-gray-close size-small")}, post.TimeString())
-						}
-					})
+					}
+				} else {
+					b.E(`p`, nil, `Oops! It appears there are no public posts yet.`)
 				}
-			} else {
-				E(`p`, nil, `Oops! It appears there are no public posts yet.`)
-			}
+			},
 
-			E(`h1`, nil, `Feed Links`)
-			FeedLinks(E)
-		})
-
-		Footer(E, self)
-	}))
+			E(`h1`, nil, `Feed Links`),
+			FeedLinks,
+		),
+		Footer(self),
+	))
 }
 
 type PageWorks struct {
@@ -76,58 +79,57 @@ type PageWorks struct {
 }
 
 func (self PageWorks) Make(_ Site) {
-	self.Write(Html(self, func(E E) {
-		Navbar(E, self)
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("wid-lim fan-typo")},
-			x.Bytes(self.MdOnce(self)),
-		)
-		Footer(E, self)
-	}))
+	self.Write(Html(
+		self,
+		Header(self),
+		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo`),
+			Bui(self.MdOnce(self)),
+		),
+		Footer(self),
+	))
 }
 
-func (self PageWorks) Table() string {
-	return Ebui(func(E E) {
-		E(`table`, A{aClass(`sm-hide`)}, func() {
-			E(`thead`, nil, func() {
-				E(`th`, nil, `Name`)
-				E(`th`, nil, `Desc`)
-				E(`th`, nil, `Role`)
-				E(`th`, nil, `Tech`)
-				E(`th`, nil, `Start`)
-				E(`th`, nil, `End`)
-			})
-			E(`tbody`, nil, func() {
+func (self PageWorks) Table() Bui {
+	return F(
+		E(`table`, AP(`class`, `sm-hide`),
+			E(`thead`, nil,
+				E(`th`, nil, `Name`),
+				E(`th`, nil, `Desc`),
+				E(`th`, nil, `Role`),
+				E(`th`, nil, `Tech`),
+				E(`th`, nil, `Start`),
+				E(`th`, nil, `End`),
+			),
+			E(`tbody`, nil, func(b B) {
 				for _, work := range self.Works {
-					E(`tr`, nil, func() {
-						E(`td`, nil, func() { Exta(E, parseUrl(work.Link).String(), work.Name) })
-						E(`td`, nil, gax.String(stringMdToHtml(work.Desc, nil)))
-						E(`td`, aFade, work.Role)
-						E(`td`, aFade, work.Tech)
-						E(`td`, aFade, work.Start)
-						E(`td`, aFade, work.End)
-					})
+					b.E(`tr`, nil,
+						E(`td`, nil, Exta(parseUrl(work.Link).String(), work.Name)),
+						E(`td`, nil, x.Str(stringMdToHtml(work.Desc, nil))),
+						E(`td`, aFade, work.Role),
+						E(`td`, aFade, work.Tech),
+						E(`td`, aFade, work.Start),
+						E(`td`, aFade, work.End),
+					)
 				}
-			})
-		})
-	}).String()
+			}),
+		),
+	)
 }
 
-func (self PageWorks) List() string {
-	return Ebui(func(E E) {
-		E(`ul`, A{aClass(`non-sm-hide`)}, func() {
+func (self PageWorks) List() Bui {
+	return F(
+		E(`ul`, AP(`class`, `non-sm-hide`), func(b B) {
 			for _, work := range self.Works {
-				E(`li`, nil, func(b *Bui) {
-					T := b.NonEscString
-
-					Exta(E, work.Link, work.Name)
-					T(` `)
-					E(`span`, aFade, `(`, work.Meta(), `)`)
-					T(` `)
-					T(stringMdToHtml(work.Desc, nil))
-				})
+				b.E(`li`, nil,
+					Exta(work.Link, work.Name),
+					` `,
+					E(`span`, aFade, `(`, work.Meta(), `)`),
+					` `,
+					x.Str(stringMdToHtml(work.Desc, nil)),
+				)
 			}
-		})
-	}).String()
+		}),
+	)
 }
 
 type PageResume struct{ Page }
@@ -136,64 +138,64 @@ func (self PageResume) Make(site Site) {
 	index := site.PageByType(PageIndex{}).(PageIndex)
 	works := site.PageByType(PageWorks{}).(PageWorks)
 
-	self.Write(Html(self, func(E E) {
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("wid-lim fan-typo pad-top-1 pad-bot-2")},
-			x.Bytes(self.MdOnce(self)),
-			x.Bytes(index.Md(index, nil)),
-			x.String(stringMdToHtml(`# Works`, nil)),
-			x.Bytes(works.Md(works, &MdOpt{HeadingLevelOffset: 1})),
-		)
-	}))
+	self.Write(Html(
+		self,
+		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo pad-top-1 pad-bot-2`),
+			Bui(self.MdOnce(self)),
+			Bui(index.Md(index, nil)),
+			x.Str(stringMdToHtml(`# Works`, nil)),
+			Bui(works.Md(works, &MdOpt{HeadingLevelOffset: 1})),
+		),
+	))
 }
 
 type PageDemos struct{ Page }
 
 func (self PageDemos) Make(_ Site) {
-	self.Write(Html(self, func(E E) {
-		Navbar(E, self)
-		E(`article`, A{aRole(`main article`), aId(`main`), aClass("wid-lim fan-typo")},
-			x.Bytes(self.MdOnce(self)),
-		)
-		Footer(E, self)
-	}))
+	self.Write(Html(
+		self,
+		Header(self),
+		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo`),
+			Bui(self.MdOnce(self)),
+		),
+		Footer(self),
+	))
 }
 
-func (self PagePost) Render(_ Site) []byte {
-	return Html(self, func(E E) {
-		Navbar(E, self)
-		E(`div`, A{aRole(`main`), aId(`main`), aClass("wid-lim fan-typo flex-1 flex col-sta-str gap-ver-2")}, func(b *Bui) {
-			E(`article`, A{aRole("article"), aClass(`fan-typo`)},
-				func() {
-					// Should be kept in sync with "MdRen.RenderNode" logic for headings
-					E(`h1`, nil, x.Bytes(HEADING_PREFIX), self.Title)
+func (self PagePost) Render(_ Site) Bui {
+	return Html(
+		self,
+		Header(self),
+		E(`div`, AP(`role`, `main`, `id`, `main`, `class`, `wid-lim fan-typo flex-1 flex col-sta-str gap-ver-2`),
+			E(`article`, AP(`role`, `article`, `class`, `fan-typo`),
+				// Should be kept in sync with "MdRen.RenderNode" logic for headings
+				E(`h1`, nil, Bui(HEADING_PREFIX), self.Title),
+				func(b B) {
 					if self.Description != "" {
-						E(`p`, A{aRole("doc-subtitle"), aClass("size-large italic")}, self.Description)
+						b.E(`p`, AP(`role`, "doc-subtitle", `class`, "size-large italic"), self.Description)
 					}
 					if self.TimeString() != "" {
-						E(`p`, A{aClass("fg-gray-close size-small")}, self.TimeString())
+						b.E(`p`, AP(`class`, "fg-gray-close size-small"), self.TimeString())
 					}
 				},
-				x.Bytes(self.MdOnce(self)),
-			)
+				Bui(self.MdOnce(self)),
+			),
 
-			E(`hr`, A{aStyle("margin-top: auto")})
+			E(`hr`, AP(`style`, `margin-top: auto`)),
 
-			E(`div`, A{aClass("gap-ver-1")}, func() {
-				E(`p`, nil, func(b *Bui) {
-					T := b.EscString
-
-					T(`This blog currently doesn't support comments. Feel free to `)
-					Exta(E, "https://twitter.com/mitranim", "tweet")
-					T(` at me, email to `)
-					E(`a`, A{aHref(`mailto:me@mitranim.com?subject=Re: ` + self.Title)}, `me@mitranim.com`)
-					T(`, or use the `)
-					E(`a`, A{aHref("/#contacts")}, `other contacts.`)
-					T(`.`)
-				})
-
-				FeedLinks(E)
-			})
-		})
-		Footer(E, self)
-	})
+			E(`div`, AP(`class`, "gap-ver-1"),
+				E(`p`, nil,
+					`This blog currently doesn't support comments. Feel free to `,
+					Exta("https://twitter.com/mitranim", "tweet"),
+					` at me, email to `,
+					E(`a`, AP(`href`, `mailto:me@mitranim.com?subject=Re: `+self.Title), `me@mitranim.com`),
+					`, or use the `,
+					E(`a`, AP(`href`, "/#contacts"), `other contacts`),
+					`.`,
+				),
+				FeedLinks,
+			),
+		),
+		Footer(self),
+	)
 }

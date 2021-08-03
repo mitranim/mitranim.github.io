@@ -346,8 +346,8 @@ ul.fancy-list ul.fancy-list {
   @extend .fg-link;
   &.--busy {
     @extend .busy-bg-gray-close;
-    &[aria-current=''], &[aria-current=true] {
-      box-shadow: inset 0 -var(--thick-border-width) 0 0;
+    &[aria-current=true], &[aria-current=page] {
+      box-shadow: inset 0 calc(-1 * var(--thick-border-width)) 0 0;
     }
   }
 }

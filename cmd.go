@@ -3,12 +3,15 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/mitranim/try"
 	"github.com/pkg/errors"
 )
 
 func main() {
+	time.Local = nil
+
 	err := try.Catch(runMain)
 	if err != nil {
 		fmt.Printf("%T: %+v\n", err, err)

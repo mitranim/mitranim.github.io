@@ -9,7 +9,7 @@ func cmdPages() {
 }
 
 func makePages(site Site) {
-	for _, val := range site {
+	for _, val := range site.All() {
 		val.Make(site)
 	}
 }
@@ -17,7 +17,7 @@ func makePages(site Site) {
 func makeFeeds(site Site) {
 	feed := siteFeed()
 
-	for _, post := range site.Posts() {
+	for _, post := range site.Posts {
 		if post.ExistsInFeeds() {
 			feed.Items = append(feed.Items, post.FeedItem())
 		}
