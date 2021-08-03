@@ -240,19 +240,13 @@ ul.fancy-list ul.fancy-list {
   h3 {font-size: var(--font-size-h3);}
 
   h1, h2, h3, h4, h5, h6 {
-    &:not(:first-child) {
-      margin-top: 2rem;
-    }
-    margin-bottom: 1rem;
+    &:not(:first-child) {@extend .mar-top-2;}
+    @extend .mar-bot-1;
   }
 
   > p, > pre, ul, ol {
-    &:not(:first-child) {
-      margin-top: 1rem;
-    }
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
+    &:not(:first-child) {@extend .mar-top-1;}
+    &:not(:last-child) {@extend .mar-bot-1;}
   }
 
   ul, ol {@extend .fancy-list;}
@@ -263,16 +257,10 @@ ul.fancy-list ul.fancy-list {
     }
   }
 
-  hr {
-    @include sb.mar-ver(2rem);
+  > hr:not(.--ungap) {
+    @extend .mar-ver-2;
     @extend .hr;
   }
-
-  // Questionable restrictions.
-
-  // p, ul, ol, h1, h2, h3, h4, h5, h6 {
-  //   a {@extend .decorate-link;}
-  // }
 
   a {@extend .decorate-link;}
 
