@@ -50,8 +50,8 @@ afr:
 
 # May compile twice on startup, should probably fix.
 .PHONY: cmd-w
-cmd-w:
-	watchexec -r -c -d=0 -e=go,mod -n -- $(MAKE) cmd
+cmd-w: cmd
+	watchexec -r -c -p -d=0 -e=go,mod -n -- $(MAKE) cmd
 
 cmd: *.go go.mod
 	go build -o cmd
