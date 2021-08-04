@@ -2,7 +2,11 @@ MAKEFLAGS := --silent
 PAR := $(MAKE) -j 128
 TAR := public
 STATIC := static
+BIN := ./bin
+CMD := $(BIN)/cmd
 SASS := sass --no-source-map -I . styles/main.scss:$(TAR)/styles/main.css
+WATCH := watchexec -r -p -c -d=0 -n
+WATCH_CMD := $(WATCH) --no-ignore -w=$(CMD)
 
 ifeq ($(PROD), true)
 	SASS_STYLE := compressed
@@ -25,7 +29,7 @@ endif
 ifeq ($(OS), Windows_NT)
 	CP = copy "$(1)"\* "$(2)" >nul
 else
-	CP = cp "$(1)"/* "$(2)"
+	CP = cp -r "$(1)"/* "$(2)"
 endif
 
 .PHONY: watch
@@ -48,42 +52,41 @@ styles:
 afr:
 	afr -v -p 52692
 
-# May compile twice on startup, should probably fix.
 .PHONY: cmd-w
-cmd-w: cmd
-	watchexec -r -c -p -d=0 -e=go,mod -n -- $(MAKE) cmd
+cmd-w: $(CMD)
+	$(WATCH) -e=go,mod -- $(MAKE) $(CMD)
 
-cmd: *.go go.mod
-	go build -o cmd
+$(CMD): *.go go.mod
+	go build -o $(CMD)
 
 .PHONY: srv
-srv: cmd
-	./cmd srv
+srv: $(CMD)
+	$(CMD) srv
 
 .PHONY: pages-w
-pages-w: cmd
-	watchexec -r -d=0 --no-ignore -w=cmd -w=templates -n -- ./cmd pages
+pages-w: pages
+	$(WATCH_CMD) -w=templates -- $(CMD) pages
 
 .PHONY: pages
-pages: cmd
-	./cmd pages
+pages: $(CMD)
+	$(CMD) pages
 
 .PHONY: images-w
-images-w:
-	watchexec -r -d=0 -w=images -n -- ./cmd images
+images-w: images
+	$(WATCH) -w=images -- $(CMD) images
 
 .PHONY: images
-images: cmd
-	./cmd images
+images: $(CMD)
+	$(CMD) images
 
 .PHONY: static-w
-static-w:
-	watchexec -r -d=0 -w=static -n -- $(MAKE) static
+static-w: static
+	$(WATCH) -w=static -- $(MAKE) static
 
 .PHONY: static
 static:
-	$(call MKDIR,"$(TAR)")
-	$(call CP,"$(STATIC)","$(TAR)")
+	$(call MKDIR,$(TAR))
+	$(call CP,$(STATIC),$(TAR))
 
 .PHONY: lint
 lint:
@@ -91,12 +94,12 @@ lint:
 
 .PHONY: deploy
 deploy: export PROD=true
-deploy: cmd build
-	./cmd deploy
+deploy: $(CMD) build
+	$(CMD) deploy
 
 .PHONY: clean
 clean:
-	$(call RM,"$(TAR)")
+	$(call RM,$(TAR))
 
 .PHONY: deps
 deps:
