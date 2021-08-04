@@ -38,11 +38,13 @@ const (
 var (
 	log     = l.New(os.Stderr, "", 0)
 	FLAGS   = Flags{PROD: os.Getenv("PROD") == "true"}
-	TARBLAN = x.Attr{`target`, `_blank`}
-	RELNO   = x.Attr{`rel`, `noopener noreferrer`}
 	E       = x.E
 	F       = x.F
+	A       = x.A
 	AP      = x.AP
+	TARBLAN = x.Attr{`target`, `_blank`}
+	RELNO   = x.Attr{`rel`, `noopener noreferrer`}
+	ABLAN   = A(TARBLAN, RELNO)
 )
 
 type (
@@ -210,7 +212,8 @@ func withTiming(str string, fun func()) {
 Allocation-free conversion. Reinterprets a byte slice as a string. Borrowed from
 the standard library. Reasonably safe.
 */
-func bytesToMutableString(val []byte) string  { return *(*string)(unsafe.Pointer(&val)) }
+func bytesToMutableString(val []byte) string { return *(*string)(unsafe.Pointer(&val)) }
+
 func stringToBytesAlloc(val string) []byte    { return []byte(val) }
 func ioWrite(out io.Writer, val []byte)       { try.Int(out.Write(val)) }
 func ioWriteString(out io.Writer, val string) { try.Int(io.WriteString(out, val)) }

@@ -9,8 +9,9 @@ import (
 	chtml "github.com/alecthomas/chroma/formatters/html"
 	clexers "github.com/alecthomas/chroma/lexers"
 	cstyles "github.com/alecthomas/chroma/styles"
+	x "github.com/mitranim/gax"
 	"github.com/mitranim/try"
-	"github.com/pkg/errors"
+	e "github.com/pkg/errors"
 	bf "github.com/russross/blackfriday/v2"
 	"github.com/shurcooL/sanitized_anchor_name"
 )
@@ -38,34 +39,14 @@ var (
 	*/
 	CHROMA_STYLE = cstyles.Monokai
 
-	HEADING_TAGS = [...]string{
-		1: "h1",
-		2: "h2",
-		3: "h3",
-		4: "h4",
-		5: "h5",
-		6: "h6",
-	}
+	HEADING_TAGS = [...]string{1: "h1", 2: "h2", 3: "h3", 4: "h4", 5: "h5", 6: "h6"}
 
-	DETAILS_START       = `<details class="details fan-typo">`
-	DETAILS_END         = `</details>`
-	SUMMARY_START       = `<summary>`
-	SUMMARY_END         = `</summary>`
-	ANGLE_OPEN          = "<"
-	ANGLE_OPEN_SLASH    = "</"
-	ANGLE_CLOSE         = ">"
-	ANCHOR_TAG          = "a"
-	EXTERNAL_LINK_ATTRS = ` target="_blank" rel="noopener noreferrer"`
-	HREF_START          = ` href="`
-	HREF_END            = `"`
-	HASH_PREFIX         = `<span class="hash-prefix noprint" aria-hidden="true">#</span>`
-	HEADING_PREFIX      = `<span class="heading-prefix" aria-hidden="true"></span>`
-	BLOCKQUOTE_START    = `<blockquote class="blockquote">`
-	BLOCKQUOTE_END      = `</blockquote>`
+	HEADING_PREFIX = F(
+		E(`span`, AP(`class`, `heading-prefix`, `aria-hidden`, `true`)),
+	)
 
-	DETAIL_TAG_REG    = regexp.MustCompile(`details"([^"\s]*)"(\S*)?`)
-	EXTERNAL_LINK_REG = regexp.MustCompile(`^\w+://`)
-	HASH_LINK_REG     = regexp.MustCompile(`^#`)
+	RE_DETAIL_TAG = regexp.MustCompile(`details"([^"\s]*)"(\S*)?`)
+	RE_PROTOCOL   = regexp.MustCompile(`^\w+://`)
 )
 
 func stringMdToHtml(src string, opt *MdOpt) string {
@@ -141,29 +122,35 @@ Note: currently doesn't support some flags and extensions.
 Note: somewhat duplicates `exta`.
 */
 func (self *MdRen) RenderLink(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
+	href := bytesToMutableString(node.LinkData.Destination)
+
 	if entering {
-		ioWriteString(out, ANGLE_OPEN)
-		ioWriteString(out, ANCHOR_TAG)
-		ioWriteString(out, HREF_START)
-		ioWrite(out, node.LinkData.Destination)
-		ioWriteString(out, HREF_END)
-		if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
-			ioWriteString(out, EXTERNAL_LINK_ATTRS)
+		attrs := AP(`href`, href)
+		if isLinkExternal(href) {
+			attrs = attrs.A(ABLAN...)
 		}
-		ioWriteString(out, ANGLE_CLOSE)
-		if HASH_LINK_REG.Match(node.LinkData.Destination) {
-			ioWriteString(out, HASH_PREFIX)
+
+		var b Bui
+		b.Begin(`a`, attrs)
+		if isLinkHash(href) {
+			b.E(`span`, AP(`class`, `hash-prefix noprint`, `aria-hidden`, `true`), `#`)
 		}
+		ioWrite(out, b)
 	} else {
-		if EXTERNAL_LINK_REG.Match(node.LinkData.Destination) {
-			ioWriteString(out, string(SvgExternalLink))
+		var b Bui
+		if isLinkExternal(href) {
+			b.F(SvgExternalLink)
 		}
-		ioWriteString(out, ANGLE_OPEN_SLASH)
-		ioWriteString(out, ANCHOR_TAG)
-		ioWriteString(out, ANGLE_CLOSE)
+		b.End(`a`)
+		ioWrite(out, b)
 	}
+
 	return bf.GoToNext
 }
+
+func isLinkExternal(val string) bool  { return hasLinkProtocol(val) }
+func hasLinkProtocol(val string) bool { return RE_PROTOCOL.MatchString(val) }
+func isLinkHash(val string) bool      { return strings.HasPrefix(val, `#`) }
 
 /**
 Differences from default:
@@ -190,39 +177,42 @@ func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) 
 	as <summary>. The lang tag is optional; if present, the block is
 	processed as code, otherwise as regular text.
 	*/
-	if DETAIL_TAG_REG.Match(tag) {
-		match := DETAIL_TAG_REG.FindSubmatch(tag)
+	match := RE_DETAIL_TAG.FindSubmatch(tag)
+	if match != nil {
 		title := match[1]
 		lang := match[2]
+		var b Bui
 
-		ioWriteString(out, DETAILS_START)
-		ioWriteString(out, SUMMARY_START)
-		ioWrite(out, title)
-		ioWriteString(out, SUMMARY_END)
+		b.E(
+			`details`,
+			AP(`class`, `details fan-typo`),
+			E(`summary`, nil, title),
+			func() {
+				if len(lang) > 0 {
+					// As code.
+					node.CodeBlockData.Info = lang
+					self.RenderNode((*x.NonEscWri)(&b), node, entering)
+				} else {
+					// As regular text.
+					b.NonEscBytes(mdToHtml(node.Literal, nil))
+				}
+			},
+		)
 
-		if len(lang) > 0 {
-			// As code
-			node.CodeBlockData.Info = lang
-			self.RenderNode(out, node, entering)
-		} else {
-			// As regular text
-			ioWrite(out, mdToHtml(node.Literal, nil))
-		}
-
-		ioWriteString(out, DETAILS_END)
+		ioWrite(out, b)
 		return bf.SkipChildren
 	}
 
 	lexer := clexers.Get(bytesToMutableString(tag))
 	if lexer == nil {
-		panic(errors.Errorf(`no lexer for %q`, tag))
+		panic(e.Errorf(`no lexer for %q`, tag))
 	}
 
 	iterator, err := lexer.Tokenise(nil, bytesToMutableString(node.Literal))
-	try.To(errors.Wrap(err, "tokenizer error"))
+	try.To(e.Wrap(err, "tokenizer error"))
 
 	err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
-	try.To(errors.Wrap(err, "formatter error"))
+	try.To(e.Wrap(err, "formatter error"))
 
 	return bf.SkipChildren
 }
@@ -241,24 +231,25 @@ func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf
 	headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
 	tag := HEADING_TAGS[headingLevel]
 	if tag == "" {
-		panic(errors.Errorf("unrecognized heading level: %v", headingLevel))
+		panic(e.Errorf("unrecognized heading level: %v", headingLevel))
 	}
 
 	if entering {
-		ioWriteString(out, ANGLE_OPEN)
-		ioWriteString(out, tag)
-		if node.HeadingID != "" {
-			ioWriteString(out, ` id="`+node.HeadingID+`"`)
-		}
-		ioWriteString(out, ANGLE_CLOSE)
-		ioWriteString(out, HEADING_PREFIX)
+		var b Bui
+		b.Begin(tag, A(aId(node.HeadingID)))
+		b.F(HEADING_PREFIX)
+		ioWrite(out, b)
 	} else {
+		var b Bui
 		if node.HeadingID != "" {
-			ioWriteString(out, `<a href="#`+node.HeadingID+`" class="heading-anchor" aria-hidden="true"></a>`)
+			b.E(`a`, AP(
+				`href`, `#`+node.HeadingID,
+				`class`, `heading-anchor`,
+				`aria-hidden`, `true`,
+			))
 		}
-		ioWriteString(out, ANGLE_OPEN_SLASH)
-		ioWriteString(out, tag)
-		ioWriteString(out, ANGLE_CLOSE)
+		b.End(tag)
+		ioWrite(out, b)
 	}
 
 	return bf.GoToNext
@@ -266,9 +257,9 @@ func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf
 
 func (self *MdRen) RenderBlockQuote(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	if entering {
-		ioWriteString(out, BLOCKQUOTE_START)
+		ioWriteString(out, `<blockquote class="blockquote">`)
 	} else {
-		ioWriteString(out, BLOCKQUOTE_END)
+		ioWriteString(out, `</blockquote>`)
 	}
 	return bf.GoToNext
 }
