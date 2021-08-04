@@ -157,7 +157,7 @@ var SkipToContent = E(
 func Exta(href, text string) x.Elem {
 	return E(
 		`a`,
-		AP(`href`, href, `class`, `decorate-link`).A(TARBLAN, RELNO),
+		AP(`href`, href, `class`, `decorate-link`).A(ABLAN...),
 		text,
 		SvgExternalLink,
 	)
@@ -193,7 +193,7 @@ func ImgBox(meta ImgMeta) x.Elem {
 
 	return E(`div`, AP(`class`, "img-box"), func(b B) {
 		if meta.Href != "" {
-			b.E(`a`, padderAttrs.AP(`href`, meta.Href).A(TARBLAN, RELNO), inner)
+			b.E(`a`, padderAttrs.AP(`href`, meta.Href).A(ABLAN...), inner)
 		} else {
 			b.E(`div`, padderAttrs, inner)
 		}
@@ -252,3 +252,10 @@ func cur(page Ipage, href string) x.Attr {
 }
 
 var aFade = AP(`class`, `fg-gray-close`)
+
+func aId(val string) x.Attr {
+	if val != "" {
+		return x.Attr{`id`, val}
+	}
+	return x.Attr{}
+}

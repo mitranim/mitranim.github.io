@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gotidy/ptr"
+	e "github.com/pkg/errors"
 )
 
 type Site struct {
@@ -70,8 +71,9 @@ func (self Page) GetType() string        { return self.Type }
 func (self Page) GetImage() string       { return self.Image }
 func (self Page) GetGlobalClass() string { return self.GlobalClass }
 
-func (self Page) Write(body []byte) { writePublic(self.GetPath(), body) }
-func (self Page) Make(site Site)    { panic("implement in subclass") }
+func (self Page) Make(site Site) {
+	panic(e.Errorf(`"Make" is not implemented for page %#v`, self))
+}
 
 func (self Page) MdOnce(val interface{}) []byte {
 	if self.MdTpl != nil && self.MdHtml == nil {
@@ -87,6 +89,8 @@ func (self Page) Md(val interface{}, opt *MdOpt) []byte {
 func (self Page) GetLink() string {
 	return ensureLeadingSlash(trimExt(self.GetPath()))
 }
+
+func pageWrite(page Ipage, body []byte) { writePublic(page.GetPath(), body) }
 
 type PagePost struct {
 	Page
@@ -119,7 +123,7 @@ func (self PagePost) TimeString() string {
 }
 
 func (self PagePost) Make(site Site) {
-	writePublic(self.Path, self.Render(site))
+	pageWrite(self, self.Render(site))
 
 	for _, path := range self.RedirFrom {
 		writePublic(path, F(

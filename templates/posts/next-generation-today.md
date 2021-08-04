@@ -1,4 +1,4 @@
-<p class="theme-red padding-1">
+<p class="theme-red pad-1">
     <b>Update (late 2015)</b>. I've come to consider the tech covered in this post to be garbage. What's actually good? I'll try to cover that in due time.
 </p>
 

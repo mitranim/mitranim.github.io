@@ -7,7 +7,7 @@ import (
 type Page404 struct{ Page }
 
 func (self Page404) Make(_ Site) {
-	self.Write(Html(
+	pageWrite(self, Html(
 		self,
 		Header(self),
 		E(`div`, AP(`role`, `main`, `id`, `main`, `class`, `wid-lim fan-typo`),
@@ -24,7 +24,7 @@ type PageIndex struct{ Page }
 func (self PageIndex) GetLink() string { return `/` }
 
 func (self PageIndex) Make(_ Site) {
-	self.Write(Html(
+	pageWrite(self, Html(
 		self,
 		Header(self),
 		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo`),
@@ -37,7 +37,7 @@ func (self PageIndex) Make(_ Site) {
 type PagePosts struct{ Page }
 
 func (self PagePosts) Make(site Site) {
-	self.Write(Html(
+	pageWrite(self, Html(
 		self,
 		Header(self),
 
@@ -79,7 +79,7 @@ type PageWorks struct {
 }
 
 func (self PageWorks) Make(_ Site) {
-	self.Write(Html(
+	pageWrite(self, Html(
 		self,
 		Header(self),
 		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo`),
@@ -138,7 +138,7 @@ func (self PageResume) Make(site Site) {
 	index := site.PageByType(PageIndex{}).(PageIndex)
 	works := site.PageByType(PageWorks{}).(PageWorks)
 
-	self.Write(Html(
+	pageWrite(self, Html(
 		self,
 		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo pad-top-1 pad-bot-2`),
 			Bui(self.MdOnce(self)),
@@ -152,7 +152,7 @@ func (self PageResume) Make(site Site) {
 type PageDemos struct{ Page }
 
 func (self PageDemos) Make(_ Site) {
-	self.Write(Html(
+	pageWrite(self, Html(
 		self,
 		Header(self),
 		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo`),
@@ -169,7 +169,7 @@ func (self PagePost) Render(_ Site) Bui {
 		E(`div`, AP(`role`, `main`, `id`, `main`, `class`, `wid-lim fan-typo`),
 			E(`article`, AP(`role`, `article`, `class`, `fan-typo`),
 				// Should be kept in sync with "MdRen.RenderNode" logic for headings
-				E(`h1`, nil, Bui(HEADING_PREFIX), self.Title),
+				E(`h1`, nil, HEADING_PREFIX, self.Title),
 				func(b B) {
 					if self.Description != "" {
 						b.E(`p`, AP(`role`, "doc-subtitle", `class`, "size-large italic"), self.Description)
