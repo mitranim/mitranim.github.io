@@ -252,6 +252,14 @@ func initSitePosts() []PagePost {
 func initWorks() []Work {
 	return []Work{
 		{
+			Name:  `ProstoPoi SSG`,
+			Link:  `https://github.com/mitranim/pp`,
+			Desc:  `Poi community website. Runs since 2014. Now converted from Django (Python) to static generation (JS), open sourced.`,
+			Role:  `implementer`,
+			Tech:  `JS`,
+			Start: `2021`,
+		},
+		{
 			Name:  `gax`,
 			Link:  `https://github.com/mitranim/gax`,
 			Desc:  `Simple system for writing HTML as Go code. Use normal Go conditionals, loops and functions. Benefit from typing and code analysis. Better performance than templating.`,
