@@ -1,0 +1,31 @@
+name: main
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "1.16.6"
+
+      # Would prefer dart-sass, but this is easier to setup for now.
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.4.0"
+      - run: npm i -g sass@1.37.5
+
+      - run: make build
+        env:
+          PROD: true
+
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          publish_branch: pages
+          publish_dir: public

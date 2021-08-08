@@ -11,7 +11,6 @@ import (
 	l "log"
 	"net/url"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -133,57 +132,6 @@ func tplToBytes(temp *tt.Template, val interface{}) []byte {
 	return buf.Bytes()
 }
 
-func makeCmd(command string, args ...string) *exec.Cmd {
-	cmd := exec.Command(command, args...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd
-}
-
-/*
-Runs a command for side effects, connecting its stdout and stderr to the parent
-process.
-*/
-func runCmd(command string, args ...string) {
-	try.To(makeCmd(command, args...).Run())
-}
-
-/*
-Runs a command and returns its stdout. Stderr is connected to the parent
-process.
-*/
-func runCmdOut(command string, args ...string) string {
-	cmd := exec.Command(command, args...)
-	cmd.Stderr = os.Stderr
-	return bytesToMutableString(bytes.TrimSpace(try.ByteSlice(cmd.Output())))
-}
-
-func walkFiles(dir string, fun func(string)) {
-	try.To(filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-		try.To(err)
-		if ignorePath(path) {
-			return nil
-		}
-		if info.IsDir() {
-			return nil
-		}
-		fun(path)
-		return nil
-	}))
-}
-
-func ignorePath(path string) bool {
-	return strings.EqualFold(filepath.Base(path), ".DS_Store")
-}
-
-// "mkdir" is required for GraphicsMagick, which doesn't create directories.
-func makeImagePath(srcPath string) string {
-	rel := try.String(filepath.Rel("images", srcPath))
-	outPath := fpj(PUBLIC_DIR, "images", rel)
-	try.To(os.MkdirAll(filepath.Dir(outPath), os.ModePerm))
-	return outPath
-}
-
 func xmlEncode(input interface{}) []byte {
 	var buf bytes.Buffer
 	buf.WriteString(xml.Header)
@@ -244,5 +192,3 @@ func strJoin(sep string, vals ...string) (out string) {
 	}
 	return
 }
-
-func chdir(val string) { try.To(os.Chdir(val)) }

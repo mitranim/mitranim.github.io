@@ -1,7 +1,6 @@
 MAKEFLAGS := --silent
 PAR := $(MAKE) -j 128
 TAR := public
-STATIC := static
 BIN := ./bin
 CMD := $(BIN)/cmd
 SASS := sass --no-source-map -I . styles/main.scss:$(TAR)/styles/main.css
@@ -34,11 +33,11 @@ endif
 
 .PHONY: watch
 watch: clean
-	$(PAR) styles-w cmd-w afr srv pages-w images-w static-w
+	$(PAR) styles-w cmd-w afr srv pages-w cp-w
 
 .PHONY: build
 build: clean
-	$(PAR) styles pages images static
+	$(PAR) styles pages cp
 
 .PHONY: styles-w
 styles-w:
@@ -72,31 +71,20 @@ pages-w: pages
 pages: $(CMD)
 	$(CMD) pages
 
-.PHONY: images-w
-images-w: images
-	$(WATCH) -w=images -- $(CMD) images
+.PHONY: cp-w
+cp-w: cp
+	$(WATCH) -w=static -w=images -- $(MAKE) cp
 
-.PHONY: images
-images: $(CMD)
-	$(CMD) images
-
-.PHONY: static-w
-static-w: static
-	$(WATCH) -w=static -- $(MAKE) static
-
-.PHONY: static
-static:
+.PHONY: cp
+cp:
 	$(call MKDIR,$(TAR))
-	$(call CP,$(STATIC),$(TAR))
+	$(call MKDIR,$(TAR)/images)
+	$(call CP,static,$(TAR))
+	$(call CP,images,$(TAR)/images)
 
 .PHONY: lint
 lint:
 	golangci-lint run
-
-.PHONY: deploy
-deploy: export PROD=true
-deploy: $(CMD) build
-	$(CMD) deploy
 
 .PHONY: clean
 clean:

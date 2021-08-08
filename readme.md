@@ -4,14 +4,12 @@ Personal website, hosted via Github Pages at https://mitranim.com.
 
 ## Build
 
-Installing global dependencies:
+Install global dependencies:
 
     make deps
 
-Development mode:
+Develop:
 
     make
 
-Deployment:
-
-    make deploy
+Deployment is automatic via Github Actions.

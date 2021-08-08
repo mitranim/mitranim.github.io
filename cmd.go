@@ -27,10 +27,6 @@ func runMain() {
 		cmdSrv()
 	case "pages":
 		cmdPages()
-	case "images":
-		cmdImages()
-	case "deploy":
-		cmdDeploy()
 	default:
 		panic(errors.Errorf(`unknown cmd %q`, cmd))
 	}

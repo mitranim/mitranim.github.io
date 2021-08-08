@@ -15,9 +15,7 @@ type Site struct {
 }
 
 func (self Site) All() (out []Ipage) {
-	for _, val := range self.Pages {
-		out = append(out, val)
-	}
+	out = append(out, self.Pages...)
 	for _, val := range self.Posts {
 		out = append(out, val)
 	}

@@ -334,7 +334,7 @@ func initWorks() []Work {
 		{
 			Name:  `srv`,
 			Link:  `https://github.com/mitranim/srv`,
-			Desc:  `Extremely simple Go tool that serves files out of a given folder, using a file resolution algorithm similar to GitHub Pages, Netlify, or the default Nginx config.`,
+			Desc:  `Extremely simple Go tool that serves files out of a given folder, using a file resolution algorithm similar to Github Pages, Netlify, or the default Nginx config.`,
 			Role:  `author`,
 			Tech:  `Go`,
 			Start: `2021`,
