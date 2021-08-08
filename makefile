@@ -50,7 +50,8 @@ styles:
 
 .PHONY: afr
 afr:
-	afr -v -p 52692
+	deno run -A --unstable --no-check https://deno.land/x/afr@0.5.1/afr.ts --port 52692
+# 	afr -v -p 52692
 
 .PHONY: cmd-w
 cmd-w: $(CMD)
@@ -104,8 +105,8 @@ clean:
 .PHONY: deps
 deps:
 ifeq ($(OS), Windows_NT)
-	scoop install sass go watchexec
+	scoop install sass go watchexec deno
 else
-	brew install -q sass/sass/sass go watchexec
+	brew install -q sass/sass/sass go watchexec deno
 endif
-	go install github.com/mitranim/afr@latest
+# 	go install github.com/mitranim/afr@latest
