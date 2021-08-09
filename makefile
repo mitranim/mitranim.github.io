@@ -3,7 +3,7 @@ PAR := $(MAKE) -j 128
 TAR := public
 BIN := ./bin
 CMD := $(BIN)/cmd
-SASS := sass --no-source-map -I . styles/main.scss:$(TAR)/styles/main.css
+SASS := sass --no-source-map -I submodules styles/main.scss:$(TAR)/styles/main.css
 WATCH := watchexec -r -p -c -d=0 -n
 WATCH_CMD := $(WATCH) --no-ignore -w=$(CMD)
 
@@ -90,6 +90,9 @@ lint:
 clean:
 	$(call RM,$(TAR))
 
+sub:
+	git submodule update --init --recursive --quiet
+
 .PHONY: deps
 deps:
 ifeq ($(OS), Windows_NT)
@@ -97,4 +100,5 @@ ifeq ($(OS), Windows_NT)
 else
 	brew install -q sass/sass/sass go watchexec deno
 endif
+	$(MAKE) sub
 # 	go install github.com/mitranim/afr@latest

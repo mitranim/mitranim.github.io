@@ -8,6 +8,10 @@ Install global dependencies:
 
     make deps
 
+...or just clone submodules:
+
+    make sub
+
 Develop:
 
     make

@@ -1,10 +1,11 @@
 /*
 
-!/.github
+!/.git*
 !/images
 !/static
 !/styles
 !/templates
+!/submodules
 
 !/.*ignore
 !/makefile
