@@ -192,3 +192,10 @@ func strJoin(sep string, vals ...string) (out string) {
 	}
 	return
 }
+
+func idToHash(val string) string {
+	if val == `` {
+		return ``
+	}
+	return `#` + val
+}

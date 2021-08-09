@@ -1,7 +1,6 @@
 /*
 
 !/.git*
-!/images
 !/static
 !/styles
 !/templates
@@ -13,3 +12,9 @@
 !/go.mod
 !/go.sum
 !/readme.md
+
+!/images
+/images/*
+!/images/*.jpg
+!/images/*.png
+!/images/*.svg

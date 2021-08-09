@@ -8,12 +8,17 @@ import (
 	x "github.com/mitranim/gax"
 )
 
+const (
+	ID_MAIN = `main`
+	ID_TOP  = `top`
+)
+
 func Html(page Ipage, children ...interface{}) Bui {
 	return F(
 		x.Str(x.Doctype),
 		E(`html`, AP(`class`, page.GetGlobalClass()),
 			E(`head`, nil, HtmlHead(page)),
-			E(`body`, AP(`class`, `flex col-sta-str`, `style`, `min-height: 100vh`),
+			E(`body`, AP(`id`, ID_TOP, `class`, `flex col-sta-str`, `style`, `min-height: 100vh`),
 				SkipToContent,
 				children,
 			),
@@ -67,7 +72,7 @@ func HtmlHead(page Ipage) Bui {
 }
 
 func Header(page Ipage) x.Elem {
-	return E(`header`, AP(`id`, `top`, `class`, "wid-lim --unpadded flex row-sta-str mar-bot-2 gap-hor-1"),
+	return E(`header`, AP(`class`, "wid-lim --unpadded flex row-sta-str mar-bot-2 gap-hor-1"),
 		E(`nav`, AP(`class`, `flex row-sta-str`),
 			E(`a`, AP(`href`, `/`, `class`, `navlink --busy`).A(cur(page, `/`)), `home`),
 			E(`a`, AP(`href`, `/works`, `class`, `navlink --busy`).A(cur(page, `/works`)), `works`),
@@ -100,9 +105,9 @@ func Footer(page Ipage) x.Elem {
 				E(
 					`a`,
 					AP(
-						`href`, `#top`,
+						`href`, idToHash(ID_TOP),
 						`class`, `fill-gray-fg-close pad-1 busy-bg-gray-close`,
-						`onclick`, `window.scrollTo(0, 0); event.preventDefault()`,
+						`onclick`, `event.preventDefault(); window.scrollTo(0, 0)`,
 						`aria-label`, `scroll up`,
 					),
 					SvgArrowUp,
@@ -147,9 +152,9 @@ assistive tech on other operating systems.
 var SkipToContent = E(
 	`a`,
 	AP(
-		`href`, `#main`,
+		`href`, idToHash(ID_MAIN),
 		`class`, `skip-to-content`,
-		`onclick`, `document.getElementById('main')?.scrollIntoView(); event.preventDefault()`,
+		`onclick`, `event.preventDefault(); if (document.getElementById('main')) {document.getElementById('main').scrollIntoView()}`,
 	),
 	`Skip to content`,
 )

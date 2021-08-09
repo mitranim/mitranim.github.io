@@ -241,7 +241,7 @@ ul.fancy-list ul.fancy-list {
 
   h1, h2, h3, h4, h5, h6 {
     &:not(:first-child) {@extend .mar-top-2;}
-    @extend .mar-bot-1;
+    @extend .mar-bot-1, .target-flash;
   }
 
   > p, > pre, ul, ol {
@@ -397,11 +397,11 @@ ul.fancy-list ul.fancy-list {
 
   // This visually hides the element while allowing it to receive focus.
   // `display: none` or `visibility: hidden` would have prevented focus.
+  padding: 0;
   width: 1px;
   height: 1px;
   opacity: 0;
   overflow: hidden;
-  padding: 0;
 
   &:focus {
     @extend .pad-1;
@@ -500,7 +500,7 @@ Possible solutions:
   @extend .font-monospace;
 }
 
-:target {
+.target-flash:target {
   animation-name: flash;
   animation-duration: 1s;
 }

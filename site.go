@@ -10,7 +10,7 @@ func (self Page404) Make(_ Site) {
 	pageWrite(self, Html(
 		self,
 		Header(self),
-		E(`div`, AP(`role`, `main`, `id`, `main`, `class`, `wid-lim fan-typo`),
+		E(`div`, AP(`role`, `main`, `id`, ID_MAIN, `class`, `wid-lim fan-typo`),
 			E(`h2`, nil, self.GetTitle()),
 			E(`p`, nil, `Sorry, this page is not found.`),
 			E(`p`, nil, E(`a`, AP(`href`, `/`), `Return to homepage.`)),
@@ -27,7 +27,7 @@ func (self PageIndex) Make(_ Site) {
 	pageWrite(self, Html(
 		self,
 		Header(self),
-		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo`),
+		E(`article`, AP(`role`, `main article`, `id`, ID_MAIN, `class`, `wid-lim fan-typo`),
 			Bui(self.MdOnce(self)),
 		),
 		Footer(self),
@@ -41,7 +41,7 @@ func (self PagePosts) Make(site Site) {
 		self,
 		Header(self),
 
-		E(`div`, AP(`role`, `main`, `id`, `main`, `class`, `wid-lim fan-typo`),
+		E(`div`, AP(`role`, `main`, `id`, ID_MAIN, `class`, `wid-lim fan-typo`),
 			E(`h1`, nil, `Blog Posts`),
 
 			func(b B) {
@@ -82,7 +82,7 @@ func (self PageWorks) Make(_ Site) {
 	pageWrite(self, Html(
 		self,
 		Header(self),
-		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo`),
+		E(`article`, AP(`role`, `main article`, `id`, ID_MAIN, `class`, `wid-lim fan-typo`),
 			Bui(self.MdOnce(self)),
 		),
 		Footer(self),
@@ -140,7 +140,7 @@ func (self PageResume) Make(site Site) {
 
 	pageWrite(self, Html(
 		self,
-		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo pad-top-1 pad-bot-2`),
+		E(`article`, AP(`role`, `main article`, `id`, ID_MAIN, `class`, `wid-lim fan-typo pad-top-1 pad-bot-2`),
 			Bui(self.MdOnce(self)),
 			Bui(index.Md(index, nil)),
 			x.Str(stringMdToHtml(`# Works`, nil)),
@@ -155,7 +155,7 @@ func (self PageDemos) Make(_ Site) {
 	pageWrite(self, Html(
 		self,
 		Header(self),
-		E(`article`, AP(`role`, `main article`, `id`, `main`, `class`, `wid-lim fan-typo`),
+		E(`article`, AP(`role`, `main article`, `id`, ID_MAIN, `class`, `wid-lim fan-typo`),
 			Bui(self.MdOnce(self)),
 		),
 		Footer(self),
@@ -166,7 +166,7 @@ func (self PagePost) Render(_ Site) Bui {
 	return Html(
 		self,
 		Header(self),
-		E(`div`, AP(`role`, `main`, `id`, `main`, `class`, `wid-lim fan-typo`),
+		E(`div`, AP(`role`, `main`, `id`, ID_MAIN, `class`, `wid-lim fan-typo`),
 			E(`article`, AP(`role`, `article`, `class`, `fan-typo`),
 				// Should be kept in sync with "MdRen.RenderNode" logic for headings
 				E(`h1`, nil, HEADING_PREFIX, self.Title),
