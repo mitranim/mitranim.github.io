@@ -252,6 +252,14 @@ func initSitePosts() []PagePost {
 func initWorks() []Work {
 	return []Work{
 		{
+			Name:  `sublime-scss`,
+			Link:  `https://github.com/mitranim/sublime-scss`,
+			Desc:  `Redesigned CSS and SCSS syntaxes for Sublime Text. Built on open-ended principles. Designed for forward compatibility.`,
+			Role:  `author`,
+			Tech:  `Sublime`,
+			Start: `2021`,
+		},
+		{
 			Name:  `ProstoPoi SSG`,
 			Link:  `https://github.com/mitranim/pp`,
 			Desc:  `Poi community website. Runs since 2014. Now converted from Django (Python) to static generation (JS), open sourced.`,
@@ -384,7 +392,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/sublime-sql`,
 			Desc:  `Sublime Text syntax definitions for SQL, rebuilt with better semantics. Currently only Postgres dialect.`,
 			Role:  `author`,
-			Tech:  `Sublime Text`,
+			Tech:  `Sublime`,
 			Start: `2021`,
 		},
 		{
@@ -392,7 +400,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/sublime-lisp`,
 			Desc:  `Lisp support for Sublime Text. Supports multiple dialects. Immature work in progress.`,
 			Role:  `author`,
-			Tech:  `Sublime Text`,
+			Tech:  `Sublime`,
 			Start: `2021`,
 		},
 		{
@@ -408,7 +416,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/sublime-forth`,
 			Desc:  `Sublime Text syntax for the Forth programming language.`,
 			Role:  `author`,
-			Tech:  `Sublime Text`,
+			Tech:  `Sublime`,
 			Start: `2021`,
 		},
 		{
@@ -416,7 +424,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/sublime-rebol`,
 			Desc:  `Immature syntax for Rebol/Red in Sublime Text.`,
 			Role:  `author`,
-			Tech:  `Sublime Text`,
+			Tech:  `Sublime`,
 			Start: `2020`,
 		},
 		{
@@ -529,7 +537,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/sublime-goasm`,
 			Desc:  `Syntax definition for Go assembly for Sublime Text.`,
 			Role:  `author`,
-			Tech:  `Sublime Text`,
+			Tech:  `Sublime`,
 			Start: `2018`,
 		},
 		{
@@ -537,7 +545,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/sublime-caser`,
 			Desc:  `Sublime Text plugin for converting typographic cases.`,
 			Role:  `author`,
-			Tech:  `Sublime Text`,
+			Tech:  `Sublime`,
 			Start: `2018`,
 		},
 		{
@@ -545,7 +553,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/sublime-gox`,
 			Desc:  `[Merged into ST] Sublime Text syntax for Go.`,
 			Role:  `author`,
-			Tech:  `Sublime Text`,
+			Tech:  `Sublime`,
 			Start: `2018`,
 		},
 		{
@@ -570,7 +578,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/sublime-themes`,
 			Desc:  `Custom color schemes for Sublime Text.`,
 			Role:  `author`,
-			Tech:  `Sublime Text`,
+			Tech:  `Sublime`,
 			Start: `2017`,
 		},
 		{
@@ -644,7 +652,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/sublime-clojure`,
 			Desc:  `[Merged into ST] Sublime Text syntax for Clojure.`,
 			Role:  `author`,
-			Tech:  `Sublime Text`,
+			Tech:  `Sublime`,
 			Start: `2017`,
 		},
 		{
