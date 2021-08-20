@@ -480,7 +480,7 @@ func initWorks() []Work {
 			Link:  `https://github.com/mitranim/untext`,
 			Desc:  `Missing feature of the Go standard library: unmarshal arbitrary string into arbitrary value.`,
 			Role:  `author`,
-			Tech:  `Gp`,
+			Tech:  `Go`,
 			Start: `2020`,
 		},
 		{

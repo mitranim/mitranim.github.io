@@ -19,7 +19,7 @@ func Html(page Ipage, children ...interface{}) Bui {
 		E(`html`, AP(`class`, page.GetGlobalClass()),
 			E(`head`, nil, HtmlHead(page)),
 			E(`body`, AP(`id`, ID_TOP, `class`, `flex col-sta-str`, `style`, `min-height: 100vh`),
-				SkipToContent,
+				// SkipToContent,
 				children,
 			),
 		),
@@ -145,9 +145,10 @@ func FeedPost(page PagePost) x.Elem {
 }
 
 /**
-This JS code skips to the content without changing the URL or polluting the
-browser history. It SEEMS to work with the MacOS VoiceOver. Haven't tested
-assistive tech on other operating systems.
+Must be revised. This should not be accidentally read by voiceover utils, and on
+click, it must skip to the content without changing the URL or polluting the
+browser history. Previously, it seemed to work with the MacOS VoiceOver, but
+right now on MacOS BigSur, it's flaky.
 */
 var SkipToContent = E(
 	`a`,
