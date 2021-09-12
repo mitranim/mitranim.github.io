@@ -2,7 +2,7 @@
 <feed xmlns="https://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2021-08-20T06:41:30Z</updated>
+  <updated>2021-09-12T08:26:07Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -170,13 +170,13 @@ namespace/identifier
 value.method
 </code></pre>
 
-<p>Still a hack, because <em>useful</em> applications of these symbols involve sub-parsing them. Conceptually, these are separate identifiers combined by an infix operator. The parser (or &ldquo;reader&rdquo;) should have parsed them for you, storing the pieces in the AST. That&rsquo;s what Clojure does: its symbols are classes with separate &ldquo;namespace&rdquo; and &ldquo;name&rdquo; parts. This indicates that they were combined prematurely.</p>
+<p>Still a hack, because <em>useful</em> applications of these symbols involve sub-parsing them. Conceptually, these are separate identifiers combined by an infix operator. The parser (or &ldquo;reader&rdquo;) should have parsed them for you, storing the pieces in the AST. That&rsquo;s what Clojure does: its symbols are classes with separate &ldquo;namespace&rdquo; and &ldquo;name&rdquo; parts.</p>
 
 <p>Sidenote. One simple alternative is to extend &ldquo;reader macros&rdquo; by supporting infix <code>:</code>, converting <code>one:two:three</code> to canonical <code>:(one two three)</code>. Lisps already special-case <code>.</code> in a similar way; <code>:</code> would have a higher precedence. As long as there&rsquo;s no other infix, this should parse unambiguously. Alternatively, we could ditch the pair syntax and use <code>.</code> for namespacing. Improper pairs could be printed as <code>(cons a b)</code>.</p>
 
 <p>The major downside of the solution above, aside from added complexity, is that it&rsquo;s non-extensible, as adding more infix would create parsing ambiguities, which we can&rsquo;t resolve because we can&rsquo;t afford <code>()</code> for grouping. I would appreciate a simple and flexible approach that doesn&rsquo;t seem hacky.</p>
 <h2 id="conclusion"><span class="heading-prefix" aria-hidden="true"></span>Conclusion<a href="#conclusion" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>If Lisp people didn&rsquo;t stick with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.</p>
+<p>If Lisp people haven&rsquo;t been able to stuck with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.</p>
 </article>]]></content>
     <published>2020-10-21T06:34:24Z</published>
     <updated>2020-10-21T06:34:24Z</updated>
@@ -1248,7 +1248,7 @@ ONE-TWO      -- upper kebab case
     <published>2019-01-17T07:00:00Z</published>
     <updated>2019-01-17T07:00:00Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/camel-case-abbr"></link>
-    <summary type="html"><![CDATA[CamelCase identifiers should avoid abbreviations, e.g. "JsonText" rather than "JSONText"]]></summary>
+    <summary type="html"><![CDATA[CamelCase identifiers should avoid abbreviations, e.g. `JsonText` rather than `JSONText`]]></summary>
     <author>
       <name>Nelo Mitranim</name>
       <email>me@mitranim.com</email>

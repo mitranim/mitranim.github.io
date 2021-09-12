@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Fri, 20 Aug 2021 06:41:30 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 12 Sep 2021 08:26:07 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/spaces-tabs">
       <title>Always Spaces, Never Tabs</title>
       <link>https://mitranim.com/posts/spaces-tabs</link>
@@ -164,13 +164,13 @@ namespace/identifier
 value.method
 </code></pre>
 
-<p>Still a hack, because <em>useful</em> applications of these symbols involve sub-parsing them. Conceptually, these are separate identifiers combined by an infix operator. The parser (or &ldquo;reader&rdquo;) should have parsed them for you, storing the pieces in the AST. That&rsquo;s what Clojure does: its symbols are classes with separate &ldquo;namespace&rdquo; and &ldquo;name&rdquo; parts. This indicates that they were combined prematurely.</p>
+<p>Still a hack, because <em>useful</em> applications of these symbols involve sub-parsing them. Conceptually, these are separate identifiers combined by an infix operator. The parser (or &ldquo;reader&rdquo;) should have parsed them for you, storing the pieces in the AST. That&rsquo;s what Clojure does: its symbols are classes with separate &ldquo;namespace&rdquo; and &ldquo;name&rdquo; parts.</p>
 
 <p>Sidenote. One simple alternative is to extend &ldquo;reader macros&rdquo; by supporting infix <code>:</code>, converting <code>one:two:three</code> to canonical <code>:(one two three)</code>. Lisps already special-case <code>.</code> in a similar way; <code>:</code> would have a higher precedence. As long as there&rsquo;s no other infix, this should parse unambiguously. Alternatively, we could ditch the pair syntax and use <code>.</code> for namespacing. Improper pairs could be printed as <code>(cons a b)</code>.</p>
 
 <p>The major downside of the solution above, aside from added complexity, is that it&rsquo;s non-extensible, as adding more infix would create parsing ambiguities, which we can&rsquo;t resolve because we can&rsquo;t afford <code>()</code> for grouping. I would appreciate a simple and flexible approach that doesn&rsquo;t seem hacky.</p>
 <h2 id="conclusion"><span class="heading-prefix" aria-hidden="true"></span>Conclusion<a href="#conclusion" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>If Lisp people didn&rsquo;t stick with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.</p>
+<p>If Lisp people haven&rsquo;t been able to stuck with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.</p>
 </article>]]></content:encoded>
       <author>me@mitranim.com (Nelo Mitranim)</author>
       <guid>https://mitranim.com/posts/lisp-sexpr-hacks</guid>
@@ -1155,7 +1155,7 @@ Generating the ASCII figure:
     <item xml:base="https://mitranim.com/posts/camel-case-abbr">
       <title>Don&#39;t Abbreviate in CamelCase</title>
       <link>https://mitranim.com/posts/camel-case-abbr</link>
-      <description>CamelCase identifiers should avoid abbreviations, e.g. &#34;JsonText&#34; rather than &#34;JSONText&#34;</description>
+      <description>CamelCase identifiers should avoid abbreviations, e.g. `JsonText` rather than `JSONText`</description>
       <content:encoded><![CDATA[<article role="main article" class="fan-typo"><p><strong>Edit 2020-10-21</strong>: see the newer post <a href="/posts/lang-case-conventions">Language Design: Case Conventions</a>.</p>
 
 <p>Programming has the concept of an &ldquo;identifier&rdquo;. Identifiers are used for keywords, variable names, etc. Most languages restrict identifiers to Latin letters, digits, and an underscore.</p>
