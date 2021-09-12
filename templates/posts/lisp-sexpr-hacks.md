@@ -131,7 +131,7 @@ namespace/identifier
 value.method
 ```
 
-Still a hack, because _useful_ applications of these symbols involve sub-parsing them. Conceptually, these are separate identifiers combined by an infix operator. The parser (or "reader") should have parsed them for you, storing the pieces in the AST. That's what Clojure does: its symbols are classes with separate "namespace" and "name" parts. This indicates that they were combined prematurely.
+Still a hack, because _useful_ applications of these symbols involve sub-parsing them. Conceptually, these are separate identifiers combined by an infix operator. The parser (or "reader") should have parsed them for you, storing the pieces in the AST. That's what Clojure does: its symbols are classes with separate "namespace" and "name" parts.
 
 Sidenote. One simple alternative is to extend "reader macros" by supporting infix `:`, converting `one:two:three` to canonical `:(one two three)`. Lisps already special-case `.` in a similar way; `:` would have a higher precedence. As long as there's no other infix, this should parse unambiguously. Alternatively, we could ditch the pair syntax and use `.` for namespacing. Improper pairs could be printed as `(cons a b)`.
 
@@ -139,4 +139,4 @@ The major downside of the solution above, aside from added complexity, is that i
 
 ## Conclusion
 
-If Lisp people didn't stick with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.
+If Lisp people haven't been able to stuck with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.
