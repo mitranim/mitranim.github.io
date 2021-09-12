@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"crypto/rand"
 	"encoding/hex"
 	"encoding/xml"
@@ -21,8 +20,8 @@ import (
 	_ "image/jpeg"
 	_ "image/png"
 
-	"github.com/gotidy/ptr"
 	x "github.com/mitranim/gax"
+	"github.com/mitranim/gt"
 	"github.com/mitranim/try"
 )
 
@@ -47,22 +46,23 @@ var (
 )
 
 type (
-	Bui = x.Bui
-	B   = *Bui
+	Bui  = x.Bui
+	B    = *Bui
+	Time = gt.NullTime
 )
 
 type Flags struct{ PROD bool }
 
 func fpj(path ...string) string { return filepath.Join(path...) }
 
-func timeParse(input string) time.Time {
-	inst, err := time.Parse(time.RFC3339, input)
-	try.To(err)
-	return inst
+func timeNow() Time { return gt.NullTimeNow().UTC() }
+
+func timeParse(src string) (val Time) {
+	try.To(val.Parse(src))
+	return
 }
 
-func timeParsePtr(val string) *time.Time { return ptr.Time(timeParse(val)) }
-func timeFmtHuman(date time.Time) string { return date.Format("Jan 02 2006") }
+func timeFmtHuman(date Time) string { return date.Format("Jan 02 2006") }
 
 func timeCoalesce(vals ...*time.Time) *time.Time {
 	for _, val := range vals {
@@ -126,19 +126,17 @@ func randomHex() string {
 	return hex.EncodeToString(buf[:])
 }
 
-func tplToBytes(temp *tt.Template, val interface{}) []byte {
-	var buf bytes.Buffer
+func tplToBytes(temp *tt.Template, val interface{}) (buf x.NonEscWri) {
 	try.To(temp.Execute(&buf, val))
-	return buf.Bytes()
+	return buf
 }
 
-func xmlEncode(input interface{}) []byte {
-	var buf bytes.Buffer
-	buf.WriteString(xml.Header)
+func xmlEncode(val interface{}) (buf x.NonEscWri) {
+	buf = append(buf, xml.Header...)
 	enc := xml.NewEncoder(&buf)
 	enc.Indent("", "  ")
-	try.To(enc.Encode(input))
-	return buf.Bytes()
+	try.To(enc.Encode(val))
+	return buf
 }
 
 func timing(name string) func() {

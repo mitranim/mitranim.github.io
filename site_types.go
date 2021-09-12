@@ -3,9 +3,7 @@ package main
 import (
 	"reflect"
 	"strings"
-	"time"
 
-	"github.com/gotidy/ptr"
 	e "github.com/pkg/errors"
 )
 
@@ -93,13 +91,13 @@ func pageWrite(page Ipage, body []byte) { writePublic(page.GetPath(), body) }
 type PagePost struct {
 	Page
 	RedirFrom   []string
-	PublishedAt *time.Time
-	UpdatedAt   *time.Time
+	PublishedAt Time
+	UpdatedAt   Time
 	IsListed    bool
 }
 
 func (self PagePost) ExistsAsFile() bool {
-	return self.PublishedAt != nil || !FLAGS.PROD
+	return !self.PublishedAt.IsZero() || !FLAGS.PROD
 }
 
 func (self PagePost) ExistsInFeeds() bool {
@@ -110,10 +108,10 @@ func (self PagePost) ExistsInFeeds() bool {
 func (self PagePost) TimeString() string {
 	var out []string
 
-	if self.PublishedAt != nil {
-		out = append(out, `published `+timeFmtHuman(*self.PublishedAt))
-		if self.UpdatedAt != nil {
-			out = append(out, `updated `+timeFmtHuman(*self.UpdatedAt))
+	if !self.PublishedAt.IsZero() {
+		out = append(out, `published `+timeFmtHuman(self.PublishedAt))
+		if !self.UpdatedAt.IsZero() {
+			out = append(out, `updated `+timeFmtHuman(self.UpdatedAt))
 		}
 	}
 
@@ -148,8 +146,8 @@ func (self PagePost) FeedItem() FeedItem {
 		Author:      FEED_AUTHOR,
 		Description: self.Page.Description,
 		Id:          href,
-		Published:   self.PublishedAt,
-		Updated:     timeCoalesce(self.PublishedAt, self.UpdatedAt, ptr.Time(time.Now().UTC())),
+		Published:   self.PublishedAt.MaybeTime(),
+		Updated:     timeCoalesce(self.PublishedAt.MaybeTime(), self.UpdatedAt.MaybeTime(), timeNow().MaybeTime()),
 		Content:     FeedPost(self).String(),
 	}
 }

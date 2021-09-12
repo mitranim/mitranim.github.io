@@ -33,7 +33,7 @@ endif
 
 .PHONY: watch
 watch: clean
-	$(PAR) styles-w cmd-w afr srv pages-w cp-w
+	$(PAR) styles-w cmd-w srv pages-w cp-w
 
 .PHONY: build
 build: clean
@@ -46,11 +46,6 @@ styles-w:
 .PHONY: styles
 styles:
 	$(SASS) --style=$(SASS_STYLE)
-
-.PHONY: afr
-afr:
-	deno run -A --unstable --no-check https://deno.land/x/afr@0.5.1/afr.ts --port 52692
-# 	afr -v -p 52692
 
 .PHONY: cmd-w
 cmd-w: $(CMD)
@@ -96,9 +91,8 @@ sub:
 .PHONY: deps
 deps:
 ifeq ($(OS), Windows_NT)
-	scoop install sass go watchexec deno
+	scoop install sass go watchexec
 else
-	brew install -q sass/sass/sass go watchexec deno
+	brew install -q sass/sass/sass go watchexec
 endif
 	$(MAKE) sub
-# 	go install github.com/mitranim/afr@latest

@@ -4,7 +4,6 @@ import (
 	"encoding/xml"
 	"time"
 
-	"github.com/gotidy/ptr"
 	"github.com/mitranim/try"
 )
 
@@ -131,7 +130,7 @@ func (self Feed) AtomFeed() AtomFeed {
 			Title:     item.Title,
 			Id:        item.Id,
 			Published: (*AtomTime)(item.Published),
-			Updated:   (*AtomTime)(timeCoalesce(item.Updated, item.Published, ptr.Time(time.Now().UTC()))),
+			Updated:   (*AtomTime)(timeCoalesce(item.Updated, item.Published, timeNow().MaybeTime())),
 			Summary:   &AtomSummary{Type: "html", Content: item.Description},
 		}
 
@@ -198,8 +197,8 @@ func (self Feed) RssFeed() RssFeed {
 			Title:          self.Title + " | RSS | mitranim",
 			Description:    self.Description,
 			ManagingEditor: author,
-			PubDate:        (*RssTime)(timeCoalesce(self.Published, ptr.Time(time.Now().UTC()))),
-			LastBuildDate:  (*RssTime)(timeCoalesce(self.Updated, self.Published, ptr.Time(time.Now().UTC()))),
+			PubDate:        (*RssTime)(timeCoalesce(self.Published, timeNow().MaybeTime())),
+			LastBuildDate:  (*RssTime)(timeCoalesce(self.Updated, self.Published, timeNow().MaybeTime())),
 			Copyright:      self.Copyright,
 			Image:          image,
 		},

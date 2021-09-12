@@ -1,78 +1,67 @@
 package main
 
 import (
-	"bytes"
-	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
 
+	"github.com/mitranim/afr"
+	"github.com/mitranim/rout"
 	"github.com/mitranim/srv"
 	"github.com/mitranim/try"
 	"github.com/rjeczalik/notify"
 )
 
+func init() { commands.Add(`srv`, cmdSrv) }
+
 func cmdSrv() {
+	srv := Server{Dir: PUBLIC_DIR}
+	go srv.Watch()
+	srv.Serve(SERVER_PORT)
+}
+
+type Server struct {
+	afr.Broad
+	Dir string
+}
+
+func (self *Server) Watch() {
 	events := make(chan notify.EventInfo, 1)
 	defer notify.Stop(events)
-	go srvWatch(events)
-	srvServe()
-}
 
-func srvWatch(events chan notify.EventInfo) {
-	dir := filepath.Join(try.String(os.Getwd()), PUBLIC_DIR)
+	dir := filepath.Join(try.String(os.Getwd()), self.Dir)
+
 	try.To(os.MkdirAll(dir, os.ModePerm))
 	try.To(notify.Watch(fpj(dir, `...`), events, notify.All))
+
 	for event := range events {
-		go afrMaybeSend(try.String(filepath.Rel(dir, event.Path())))
+		go self.Broad.SendMsg(afrChangeMsg(dir, event.Path()))
 	}
 }
 
-func srvServe() {
-	const port = SERVER_PORT
-
+func (self *Server) Serve(port int) {
 	log.Printf("[srv] listening on http://localhost:%v", port)
-
-	try.To(http.ListenAndServe(
-		fmt.Sprintf(":%v", port),
-		http.HandlerFunc(respond),
-	))
+	try.To(http.ListenAndServe(fmt.Sprintf(":%v", port), self))
 }
 
-func respond(rew http.ResponseWriter, req *http.Request) {
-	rew.Header().Set("cache-control", "no-store, max-age=0")
-	srv.FileServer(PUBLIC_DIR).ServeHTTP(rew, req)
+func (self *Server) ServeHTTP(rew http.ResponseWriter, req *http.Request) {
+	preventCaching(rew.Header())
+	rout.MakeRouter(rew, req).Serve(self.Route)
 }
 
-func afrMaybeSend(path string) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+func (self *Server) Route(r rout.R) {
+	r.Reg(`^/afr/`).Handler(&self.Broad)
+	r.Get().Handler(srv.FileServer(self.Dir))
+}
 
-	req, err := http.NewRequestWithContext(
-		ctx,
-		http.MethodPost,
-		`http://localhost:52692/afr/send`,
-		bytes.NewReader(try.ByteSlice(json.Marshal(AfrWatchMsg{
-			Type: `change`,
-			Path: path,
-		}))),
-	)
-	try.To(err)
+func preventCaching(head http.Header) {
+	head.Set(`Cache-Control`, `no-store, max-age=0`)
+}
 
-	res, err := http.DefaultClient.Do(req)
-	if res != nil && res.Body != nil {
-		res.Body.Close()
+func afrChangeMsg(base, path string) afr.Msg {
+	return afr.Msg{
+		Type: `change`,
+		Path: try.String(filepath.Rel(base, path)),
 	}
-
-	_ = err
-	// if err != nil {
-	// 	log.Println(`[srv] failed to send afr msg:`, err)
-	// }
-}
-
-type AfrWatchMsg struct {
-	Type string `json:"type"`
-	Path string `json:"path"`
 }

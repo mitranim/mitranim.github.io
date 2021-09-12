@@ -1,5 +1,7 @@
 package main
 
+func init() { commands.Add(`pages`, cmdPages) }
+
 func cmdPages() {
 	defer timing("pages")()
 

@@ -1,3 +1,5 @@
+github.com/alecthomas/chroma v0.9.3-0.20210819222803-2eba3ce9a1fd h1:s2mRyd3eyD8IzvKQ571jenu4N8vTmwZVmzB6thc5TPw=
+github.com/alecthomas/chroma v0.9.3-0.20210819222803-2eba3ce9a1fd/go.mod h1:EIjklCi6a5txo3HXoBzoNcseI9Ly9dG911kv1XWVEVc=
 github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964 h1:y5HC9v93H5EPKqaS1UYVg1uYah5Xf51mBfIoWehClUQ=
 github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964/go.mod h1:Xd9hchkHSWYkEqJwUGisez3G1QY8Ryz0sdWrLPMGjLk=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -7,10 +9,16 @@ github.com/dlclark/regexp2 v1.4.0 h1:F1rxgk7p4uKjwIQxBs9oAXe5CqrXlCduYEJvrF4u93E
 github.com/dlclark/regexp2 v1.4.0/go.mod h1:2pZnwuY/m+8K6iRw6wQdMtk+rH5tNGR1i55kozfMjCc=
 github.com/gotidy/ptr v1.3.0 h1:5wdrH1G8X4txy6fbWWRznr7k974wMWtePWP3p6s1API=
 github.com/gotidy/ptr v1.3.0/go.mod h1:vpltyHhOZE+NGXUiwpVl3wV9AGEBlxhdnaimPDxRLxg=
-github.com/mitranim/chroma v0.9.3-0.20210731070231-be6172b784ed h1:fmkdq080gK+WVhuPfXxQ5t9651A2dvetB+PFwHZgjJ0=
-github.com/mitranim/chroma v0.9.3-0.20210731070231-be6172b784ed/go.mod h1:EIjklCi6a5txo3HXoBzoNcseI9Ly9dG911kv1XWVEVc=
+github.com/mitranim/afr v0.6.1 h1:scTdjWoYnogLHLEZJglZPI2Vz7oQZxzCDZfzazi+Y20=
+github.com/mitranim/afr v0.6.1/go.mod h1:1Gk/0UvjWTJdQ8BBcwl7Y0YsjWYa3FEgxeGZYwsMPzk=
+github.com/mitranim/cmd v0.1.1 h1:iMY6zBQaTYaXbnCZQwa0fpEJE/Lgt519WaVdW+1k6y0=
+github.com/mitranim/cmd v0.1.1/go.mod h1:L3wDcJjmhcGOLadn3C1DXAbfXS+Z3eelIJmtLo1Gl7U=
 github.com/mitranim/gax v0.2.0 h1:gipczgajENSTIcO30K58M31+odBmMt6wOQqkch4kysk=
 github.com/mitranim/gax v0.2.0/go.mod h1:9HbNtV9o9xPEX+yHqB+xwGJOQZ2P+85op27BRciU/oU=
+github.com/mitranim/gt v0.1.2 h1:7P0faX57c0o1eUaKOkhuNP2pkQpquiujZ7oR67uSF44=
+github.com/mitranim/gt v0.1.2/go.mod h1:ZvvE+nu79IKTGRBKIgZw6a7abu0dYTZTTTc6I+VYjf8=
+github.com/mitranim/rout v0.3.0 h1:IBaXIMWdtDM66frnVKY94ClTIiWCmVCLbD3lKyftA2U=
+github.com/mitranim/rout v0.3.0/go.mod h1:pqzeuykvgmBwM72Tdewrgz9rJHanniiuJaKGLu1eV4E=
 github.com/mitranim/srv v0.0.0-20210207104346-0df64d1a7dff h1:eocqoz9dSI4w1RySMrJbG9U4rmYCd7dHXNgqtFD3SdA=
 github.com/mitranim/srv v0.0.0-20210207104346-0df64d1a7dff/go.mod h1:gl+FDnbdGUQzQGTaLN8KpJWTf1r1LEuPbcDz/rSOipA=
 github.com/mitranim/try v0.1.2 h1:50OBWvZUB3JhRktw1C4iRyyDn6+KMgG4QsFvLVBrI5Y=

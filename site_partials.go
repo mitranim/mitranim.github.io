@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"path"
-	"time"
 
 	x "github.com/mitranim/gax"
 )
@@ -65,7 +64,7 @@ func HtmlHead(page Ipage) Bui {
 			b.E(`meta`, AP(`property`, `og:site_name`, `content`, `about:mitranim`))
 
 			if !FLAGS.PROD {
-				b.E(`script`, AP(`type`, `module`, `src`, `http://localhost:52692/afr/client.mjs`))
+				b.E(`script`, AP(`type`, `module`, `src`, `http://localhost:52693/afr/client.mjs`))
 			}
 		},
 	)
@@ -82,7 +81,7 @@ func Header(page Ipage) x.Elem {
 		E(`span`, AP(`class`, `flex-1`)),
 
 		E(`span`, AP(`class`, "fg-blue flex row-cen-cen pad-1 sm-hide"),
-			`Updated: `+timeFmtHuman(time.Now().UTC()),
+			`Updated: `+timeFmtHuman(timeNow()),
 		),
 	)
 }
