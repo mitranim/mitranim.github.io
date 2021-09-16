@@ -22,6 +22,7 @@ var TPL_FUNS = tt.FuncMap{
 	"emoji":      emoji,
 	"exta":       exta,
 	"mdToToc":    mdToToc,
+	"today":      today,
 }
 
 func makeTpl(name string) *tt.Template {
@@ -72,4 +73,8 @@ func emoji(emoji, label string) fmt.Stringer {
 	}
 
 	return E(`span`, AP(`aria-label`, label, `role`, `img`), emoji)
+}
+
+func today() string {
+	return timeFmtHuman(timeNow())
 }

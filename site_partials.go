@@ -81,7 +81,7 @@ func Header(page Ipage) x.Elem {
 		E(`span`, AP(`class`, `flex-1`)),
 
 		E(`span`, AP(`class`, "fg-blue flex row-cen-cen pad-1 sm-hide"),
-			`Updated: `+timeFmtHuman(timeNow()),
+			`Updated: `+today(),
 		),
 	)
 }
