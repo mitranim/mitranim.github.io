@@ -39,14 +39,11 @@ var (
 	*/
 	CHROMA_STYLE = cstyles.Monokai
 
-	HEADING_TAGS = [...]string{1: "h1", 2: "h2", 3: "h3", 4: "h4", 5: "h5", 6: "h6"}
-
-	HEADING_PREFIX = F(
-		E(`span`, AP(`class`, `heading-prefix`, `aria-hidden`, `true`)),
-	)
-
-	RE_DETAIL_TAG = regexp.MustCompile(`details"([^"\s]*)"(\S*)?`)
-	RE_PROTOCOL   = regexp.MustCompile(`^\w+://`)
+	HEADING_TAGS            = [...]string{1: "h1", 2: "h2", 3: "h3", 4: "h4", 5: "h5", 6: "h6"}
+	HEADING_PREFIX          = F(E(`span`, AP(`class`, `heading-prefix`, `aria-hidden`, `true`)))
+	RE_DETAIL_TAG           = regexp.MustCompile(`details"([^"\r\n]*)"(\S*)?`)
+	RE_PROTOCOL             = regexp.MustCompile(`^\w+://`)
+	DETAIL_SUMMARY_FALLBACK = stringToBytesAlloc(`Click for details`)
 )
 
 func stringMdToHtml(src string, opt *MdOpt) string {
@@ -180,13 +177,16 @@ func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) 
 	match := RE_DETAIL_TAG.FindSubmatch(tag)
 	if match != nil {
 		title := match[1]
+		if len(title) == 0 {
+			title = DETAIL_SUMMARY_FALLBACK
+		}
 		lang := match[2]
 		var b Bui
 
 		b.E(
 			`details`,
 			AP(`class`, `details fan-typo`),
-			E(`summary`, nil, title),
+			E(`summary`, nil, Bui(mdToHtml(title, nil))),
 			func() {
 				if len(lang) > 0 {
 					// As code.
