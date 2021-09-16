@@ -53,6 +53,16 @@ func initSitePosts() []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Path:        `posts/goex.html`,
+				Title:       `Use Exceptions in Go`,
+				Description: `Go secretly favors exceptions. Using them has tremendous benefits.`,
+				MdTpl:       readFile(fpj(TEMPLATE_DIR, `posts/goex.md`)),
+			},
+			PublishedAt: timeParse(`2021-09-07T16:17:36Z`),
+			IsListed:    !FLAGS.PROD,
+		},
+		PagePost{
+			Page: Page{
 				Path:        `posts/spaces-tabs.html`,
 				Title:       `Always Spaces, Never Tabs`,
 				Description: `Objective arguments that decided my personal preference`,
