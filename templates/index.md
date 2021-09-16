@@ -4,23 +4,23 @@
 
 Nelo Mitranim.
 
-Senior software developer and architect. Main expertise: web applications (full stack).
+Lead software developer and architect. Main expertise: web applications (full stack).
 
 Passionate about open source software. See [works](/works).
 
 # Languages
 
-Preferred choice: Go.
+Preferred: Go.
 
-Solid experience: Go, JS/Node, Clojure, Python.
+Solid experience: Go, JS/Deno/Node, Clojure, Python.
 
-Limited experience: Rust, Haskell, Erlang.
+Limited experience: Rust, Haskell.
 
-Passing familiarity: Swift, C, Common Lisp, Scheme.
+Passing familiarity: Swift, C, Common Lisp, Scheme, Erlang.
 
 # Databases
 
-Preferred choice: Postgres.
+Preferred: Postgres.
 
 Experience:
 
