@@ -193,7 +193,8 @@ code, key, pre {@extend .code;}
 .details summary {
   @extend .cur-point;
   @extend .pad-1;
-  background-color: var(--color-fg-far);
+  background-color: var(--color-bg-close);
+  &::marker {color: var(--color-link);}
   .fan-typo & ~ pre {margin-top: 0;}
 }
 
@@ -249,11 +250,13 @@ ul.fancy-list ul.fancy-list {
     &:not(:last-child) {@extend .mar-bot-1;}
   }
 
-  ul, ol {@extend .fancy-list;}
-
-  ul > li, ol > li {
-    &:not(:last-child) {
+  ul, ol {
+    @extend .fancy-list;
+    > li:not(:last-child) {
       margin-bottom: 0.5rem;
+    }
+    p, pre, ul, ol {
+      &:not(:first-child) {@extend .mar-top-0x5;}
     }
   }
 
