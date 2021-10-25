@@ -167,10 +167,10 @@ func (self Work) Meta() string {
 }
 
 func (self Work) Range() string {
-	if self.Start != "" && self.End != "" {
+	if self.Start != `` && self.End != `` {
 		return self.Start + EMDASH + self.End
 	}
-	if self.Start != "" && self.End == "" {
+	if self.Start != `` && self.End == `` {
 		return self.Start + `+`
 	}
 	return ``

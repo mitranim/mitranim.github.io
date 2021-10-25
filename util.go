@@ -34,7 +34,7 @@ const (
 )
 
 var (
-	log     = l.New(os.Stderr, "", 0)
+	log     = l.New(os.Stderr, ``, 0)
 	FLAGS   = Flags{PROD: os.Getenv("PROD") == "true"}
 	E       = x.E
 	F       = x.F
@@ -115,7 +115,7 @@ func readFile(path string) []byte { return try.ByteSlice(os.ReadFile(path)) }
 
 // Inefficient but not measurable in our case.
 func trimLines(val string) string {
-	return strings.TrimSpace(strings.Join(reLines.Split(val, -1), ""))
+	return strings.TrimSpace(strings.Join(reLines.Split(val, -1), ``))
 }
 
 var reLines = regexp.MustCompile(`\s*(?:\r|\n)\s*`)
@@ -134,7 +134,7 @@ func tplToBytes(temp *tt.Template, val interface{}) (buf x.NonEscWri) {
 func xmlEncode(val interface{}) (buf x.NonEscWri) {
 	buf = append(buf, xml.Header...)
 	enc := xml.NewEncoder(&buf)
-	enc.Indent("", "  ")
+	enc.Indent(``, "  ")
 	try.To(enc.Encode(val))
 	return buf
 }
@@ -180,10 +180,10 @@ func (self *Url) UnmarshalText(val []byte) error { return (*url.URL)(self).Unmar
 
 func strJoin(sep string, vals ...string) (out string) {
 	for _, val := range vals {
-		if val == "" {
+		if val == `` {
 			continue
 		}
-		if out != "" {
+		if out != `` {
 			out += sep
 		}
 		out += val

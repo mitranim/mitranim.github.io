@@ -53,10 +53,10 @@ func (self PagePosts) Make(site Site) {
 							b.E(`h2`, nil,
 								E(`a`, AP(`href`, post.GetLink()), post.Title),
 							)
-							if post.Description != "" {
+							if post.Description != `` {
 								b.E(`p`, nil, post.Description)
 							}
-							if post.TimeString() != "" {
+							if post.TimeString() != `` {
 								b.E(`p`, AP(`class`, "fg-gray-close size-small"), post.TimeString())
 							}
 						})
@@ -171,10 +171,10 @@ func (self PagePost) Render(_ Site) Bui {
 				// Should be kept in sync with "MdRen.RenderNode" logic for headings
 				E(`h1`, nil, HEADING_PREFIX, self.Title),
 				func(b B) {
-					if self.Description != "" {
+					if self.Description != `` {
 						b.E(`p`, AP(`role`, "doc-subtitle", `class`, "size-large italic"), self.Description)
 					}
-					if self.TimeString() != "" {
+					if self.TimeString() != `` {
 						b.E(`p`, AP(`class`, "fg-gray-close size-small"), self.TimeString())
 					}
 				},

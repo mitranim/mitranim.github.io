@@ -141,7 +141,7 @@ func (self Feed) AtomFeed() AtomFeed {
 				Rel:  item.Link.Rel,
 				Type: item.Link.Type,
 			}
-			if link.Rel == "" {
+			if link.Rel == `` {
 				link.Rel = "alternate"
 			}
 			linkRel = link.Rel
@@ -229,7 +229,7 @@ func (self Feed) RssFeed() RssFeed {
 			rssItem.Source = item.Source.Href
 		}
 
-		if item.Enclosure != nil && item.Enclosure.Type != "" && item.Enclosure.Length != "" {
+		if item.Enclosure != nil && item.Enclosure.Type != `` && item.Enclosure.Length != `` {
 			rssItem.Enclosure = &RssEnclosure{
 				Url:    item.Enclosure.Url,
 				Type:   item.Enclosure.Type,

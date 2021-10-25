@@ -34,7 +34,7 @@ func HtmlHead(page Ipage) Bui {
 		E(`link`, AP(`rel`, `stylesheet`, `type`, `text/css`, `href`, `/styles/main.css`)),
 
 		func(b B) {
-			if page.GetTitle() != "" {
+			if page.GetTitle() != `` {
 				b.E(`title`, nil, page.GetTitle())
 			} else {
 				b.E(`title`, nil, `about:mitranim`)
@@ -49,16 +49,16 @@ func HtmlHead(page Ipage) Bui {
 				AP(`rel`, `alternate`, `type`, `application/rss+xml`, `title`, `Mitranim's Posts (RSS)`, `href`, `/feed_rss.xml`),
 			)
 			b.E(`meta`, AP(`name`, `author`, `content`, `Nelo Mitranim`))
-			if page.GetTitle() != "" {
+			if page.GetTitle() != `` {
 				b.E(`meta`, AP(`property`, `og:title`, `content`, page.GetTitle()))
 			}
-			if page.GetDescription() != "" {
+			if page.GetDescription() != `` {
 				b.E(`meta`, AP(`name`, `description`, `content`, page.GetDescription()))
 			}
-			if page.GetImage() != "" {
+			if page.GetImage() != `` {
 				b.E(`meta`, AP(`property`, `og:image`, `content`, path.Join(`/images`, page.GetImage())))
 			}
-			if page.GetType() != "" {
+			if page.GetType() != `` {
 				b.E(`meta`, AP(`property`, `og:type`, `content`, page.GetType()))
 			}
 			b.E(`meta`, AP(`property`, `og:site_name`, `content`, `about:mitranim`))
@@ -133,7 +133,7 @@ func FeedPost(page PagePost) x.Elem {
 		making this redundant.
 		*/
 		// func(b B) {
-		// 	if page.Description != "" {
+		// 	if page.Description != `` {
 		// 		b.E(`p`, AP(`role`, "doc-subtitle", `class`, "size-large italic"),
 		// 			sentence(page.Description),
 		// 		)
@@ -181,7 +181,7 @@ Note: using <figure> and <figcaption> would cause the MacOS VoiceOver to read
 the caption twice when reading the content sequentially.
 */
 func ImgBox(meta ImgMeta) x.Elem {
-	if meta.Caption == "" {
+	if meta.Caption == `` {
 		meta.Caption = baseName(meta.Src)
 	}
 
@@ -197,7 +197,7 @@ func ImgBox(meta ImgMeta) x.Elem {
 	))
 
 	return E(`div`, AP(`class`, "img-box"), func(b B) {
-		if meta.Href != "" {
+		if meta.Href != `` {
 			b.E(`a`, padderAttrs.AP(`href`, meta.Href).A(ABLAN...), inner)
 		} else {
 			b.E(`div`, padderAttrs, inner)
@@ -259,7 +259,7 @@ func cur(page Ipage, href string) x.Attr {
 var aFade = AP(`class`, `fg-gray-close`)
 
 func aId(val string) x.Attr {
-	if val != "" {
+	if val != `` {
 		return x.Attr{`id`, val}
 	}
 	return x.Attr{}

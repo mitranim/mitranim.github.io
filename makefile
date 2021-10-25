@@ -33,22 +33,22 @@ endif
 
 .PHONY: watch
 watch: clean
-	$(PAR) styles-w cmd-w srv pages-w cp-w
+	$(PAR) styles_w cmd_w srv pages_w cp_w
 
 .PHONY: build
 build: clean
 	$(PAR) styles pages cp
 
-.PHONY: styles-w
-styles-w:
+.PHONY: styles_w
+styles_w:
 	$(SASS) --style=$(SASS_STYLE) --watch
 
 .PHONY: styles
 styles:
 	$(SASS) --style=$(SASS_STYLE)
 
-.PHONY: cmd-w
-cmd-w: $(CMD)
+.PHONY: cmd_w
+cmd_w: $(CMD)
 	$(WATCH) -e=go,mod -- $(MAKE) $(CMD)
 
 $(CMD): *.go go.mod
@@ -58,16 +58,16 @@ $(CMD): *.go go.mod
 srv: $(CMD)
 	$(CMD) srv
 
-.PHONY: pages-w
-pages-w: pages
+.PHONY: pages_w
+pages_w: pages
 	$(WATCH_CMD) -w=templates -- $(CMD) pages
 
 .PHONY: pages
 pages: $(CMD)
 	$(CMD) pages
 
-.PHONY: cp-w
-cp-w: cp
+.PHONY: cp_w
+cp_w: cp
 	$(WATCH) -w=static -w=images -- $(MAKE) cp
 
 .PHONY: cp

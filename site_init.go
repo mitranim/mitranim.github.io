@@ -336,7 +336,7 @@ func initWorks() []Work {
 		{
 			Name:  `jtg`,
 			Link:  `https://github.com/mitranim/jtg`,
-			Desc:  "`JS Task Group`. Simple JS-based replacement for Make, Gulp, etc.",
+			Desc:  `"JS Task Group". Simple JS-based replacement for Make, Gulp, etc.`,
 			Role:  `author`,
 			Tech:  `JS`,
 			Start: `2021`,
@@ -448,7 +448,7 @@ func initWorks() []Work {
 		{
 			Name:  `jel`,
 			Link:  `https://github.com/mitranim/jel`,
-			Desc:  "`JSON Expession Language`. Expresses a whitelisted subset of SQL with simple JSON structures.",
+			Desc:  `"JSON Expession Language". Expresses a whitelisted subset of SQL with simple JSON structures.`,
 			Role:  `author`,
 			Tech:  `Go`,
 			Start: `2020`,

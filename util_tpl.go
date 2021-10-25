@@ -42,7 +42,7 @@ func exta(href string, text string) fmt.Stringer {
 }
 
 func imgBox(src string, caption string) fmt.Stringer {
-	return imgBoxLink(src, caption, "")
+	return imgBoxLink(src, caption, ``)
 }
 
 /*
@@ -64,11 +64,11 @@ func imgBoxLink(src string, caption string, href string) fmt.Stringer {
 }
 
 func emoji(emoji, label string) fmt.Stringer {
-	if emoji == "" {
+	if emoji == `` {
 		return nil
 	}
 
-	if label == "" {
+	if label == `` {
 		return E(`span`, AP(`aria-hidden`, `true`), emoji)
 	}
 

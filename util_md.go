@@ -59,7 +59,7 @@ func mdTplToHtml(src []byte, opt *MdOpt, val interface{}) []byte {
 }
 
 func mdTplExec(src string, val interface{}) []byte {
-	tpl := makeTpl("")
+	tpl := makeTpl(``)
 	tplParseMd(tpl, src)
 	return tplToBytes(tpl, val)
 }
@@ -230,7 +230,7 @@ Differences from default:
 func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
 	tag := HEADING_TAGS[headingLevel]
-	if tag == "" {
+	if tag == `` {
 		panic(e.Errorf("unrecognized heading level: %v", headingLevel))
 	}
 
@@ -241,7 +241,7 @@ func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf
 		ioWrite(out, b)
 	} else {
 		var b Bui
-		if node.HeadingID != "" {
+		if node.HeadingID != `` {
 			b.E(`a`, AP(
 				`href`, `#`+node.HeadingID,
 				`class`, `heading-anchor`,
@@ -325,11 +325,11 @@ func mdHeadings(content []byte) []MdHeading {
 			if textNode != nil && len(heading.Text) == 0 {
 				heading.Text = textNode.Literal
 			}
-			if textNode != nil && heading.Id == "" {
+			if textNode != nil && heading.Id == `` {
 				heading.Id = sanitized_anchor_name.Create(bytesToMutableString(textNode.Literal))
 			}
 
-			if len(heading.Text) > 0 && heading.Id != "" {
+			if len(heading.Text) > 0 && heading.Id != `` {
 				out = append(out, heading)
 			}
 		}
