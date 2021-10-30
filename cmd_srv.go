@@ -2,15 +2,14 @@ package main
 
 import (
 	"fmt"
+	"io/fs"
 	"net/http"
-	"os"
-	"path/filepath"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/mitranim/afr"
 	"github.com/mitranim/rout"
 	"github.com/mitranim/srv"
 	"github.com/mitranim/try"
-	"github.com/rjeczalik/notify"
 )
 
 func init() { commands.Add(`srv`, cmdSrv) }
@@ -27,16 +26,28 @@ type Server struct {
 }
 
 func (self *Server) Watch() {
-	events := make(chan notify.EventInfo, 1)
-	defer notify.Stop(events)
+	watcher, err := fsnotify.NewWatcher()
+	try.To(err)
+	defer watcher.Close()
 
-	dir := filepath.Join(try.String(os.Getwd()), self.Dir)
+	walkDirs(self.Dir, func(path string, ent fs.DirEntry) {
+		try.To(watcher.Add(path))
+	})
 
-	try.To(os.MkdirAll(dir, os.ModePerm))
-	try.To(notify.Watch(fpj(dir, `...`), events, notify.All))
+	for {
+		select {
+		case event, ok := <-watcher.Events:
+			if !ok {
+				return
+			}
+			go self.Broad.SendMsg(afr.Msg{Type: `change`, Path: event.Name})
 
-	for event := range events {
-		go self.Broad.SendMsg(afrChangeMsg(dir, event.Path()))
+		case err, ok := <-watcher.Errors:
+			if !ok {
+				return
+			}
+			log.Printf("[srv] watch error: %+v", err)
+		}
 	}
 }
 
@@ -51,17 +62,10 @@ func (self *Server) ServeHTTP(rew http.ResponseWriter, req *http.Request) {
 }
 
 func (self *Server) Route(r rout.R) {
-	r.Reg(`^/afr/`).Handler(&self.Broad)
+	r.Begin(`/afr`).Handler(&self.Broad)
 	r.Get().Handler(srv.FileServer(self.Dir))
 }
 
 func preventCaching(head http.Header) {
 	head.Set(`Cache-Control`, `no-store, max-age=0`)
-}
-
-func afrChangeMsg(base, path string) afr.Msg {
-	return afr.Msg{
-		Type: `change`,
-		Path: try.String(filepath.Rel(base, path)),
-	}
 }

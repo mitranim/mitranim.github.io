@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"image"
 	"io"
+	"io/fs"
 	l "log"
 	"net/url"
 	"os"
@@ -196,4 +197,18 @@ func idToHash(val string) string {
 		return ``
 	}
 	return `#` + val
+}
+
+func walkDirs(path string, fun func(string, fs.DirEntry)) {
+	if fun == nil {
+		return
+	}
+
+	try.To(fs.WalkDir(os.DirFS(try.String(os.Getwd())), path, func(path string, ent fs.DirEntry, err error) error {
+		try.To(err)
+		if ent.IsDir() {
+			fun(path, ent)
+		}
+		return nil
+	}))
 }
