@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Thu, 16 Sep 2021 11:12:57 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 Oct 2021 16:47:36 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/spaces-tabs">
       <title>Always Spaces, Never Tabs</title>
       <link>https://mitranim.com/posts/spaces-tabs</link>
@@ -42,7 +42,7 @@
 <ul>
 <li>Easier to distinguish from line wrapping. In some editors, when line wrapping is enabled, the secondary lines are intended by 1. With 2-space indentation, you can tell them apart.</li>
 </ul>
-<h2 id="relativity"><span class="heading-prefix" aria-hidden="true"></span>Relativity<a href="#relativity" class="heading-anchor" aria-hidden="true"></a></h2>
+<h2 id="bias"><span class="heading-prefix" aria-hidden="true"></span>Bias<a href="#bias" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>Your preference is influenced by your display pixel density, resolution, OS, font family, font size, eyesight, and habits. Someone with a very large but low-DPI display is likely to prefer 4 spaces. Someone who writes code on a small display, in an IDE that uses 20% of the screen area for the actual code, is likely to prefer 2 spaces.</p>
 
 <p>If you don&rsquo;t have a strong preference, 2 spaces seems like a better default, based on the arguments above.</p>
