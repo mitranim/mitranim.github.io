@@ -456,7 +456,7 @@ func initWorks() []Work {
 		{
 			Name:  `sqlb`,
 			Link:  `https://github.com/mitranim/sqlb`,
-			Desc:  `SQL query builder in Go. Oriented towards plain SQL. Supports composition.`,
+			Desc:  `SQL query builder in Go. Highly flexible and efficient.`,
 			Role:  `author`,
 			Tech:  `Go`,
 			Start: `2020`,

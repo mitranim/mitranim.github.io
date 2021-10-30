@@ -56,7 +56,7 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 <span>{{include "svg-mobile-alt"}} Phone: [+7-926-044-00-49](tel:+7-926-044-00-49)</span>
 
-<span>@ Email: [me@mitranim.com](mailto:me@mitranim.com)</span>; tend to be **unresponsive** on email, please consider IM first.
+<span>@ Email: [me@mitranim.com](mailto:me@mitranim.com)</span>; I'm **unresponsive** on email, please try IM first!
 
 # Links
 
