@@ -83,6 +83,8 @@ func outer() (err error) {
 
 In modern Go (1.17 and higher), there is barely any difference. Defer/panic/recover is usable even in CPU-heavy hotspot code.
 
+Generating stacktraces has a _far_ larger cost. The examples in this post use `github.com/mitranim/try` which automatically adds stacktraces by using `github.com/pkg/errors`. If you're using stacktraces with error values, that cost is already dominant, compared to the cost of defer/panic/recover.
+
 ## Stacktraces
 
 Stacktraces are essential to debugging, with or without exceptions.
