@@ -1,5 +1,5 @@
-@use 'style-base/reset';
-@use 'style-base/sb';
+@use 'sb/reset';
+@use 'sb/sb';
 
 @include sb.all;
 

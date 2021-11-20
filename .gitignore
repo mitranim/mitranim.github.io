@@ -4,7 +4,7 @@
 !/static
 !/styles
 !/templates
-!/submodules
+!/modules
 
 !/.*ignore
 !/makefile

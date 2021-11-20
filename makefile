@@ -2,7 +2,7 @@ MAKEFLAGS := --silent
 PAR := $(MAKE) -j 128
 TAR := public
 CMD := ./bin/cmd
-SASS := sass --no-source-map -I submodules styles/main.scss:$(TAR)/styles/main.css
+SASS := sass --no-source-map -I modules styles/main.scss:$(TAR)/styles/main.css
 GO_FLAGS := -tags=$(tags) -mod=mod
 WATCH := watchexec -c -r -d=0 -n
 W_CMD := --no-ignore -w=$(CMD)
@@ -93,7 +93,8 @@ clean_tar:
 clean: clean_tar
 	$(call RM,$(CMD))
 
-sub:
+.PHONY: mod
+mod:
 	git submodule update --init --recursive --quiet
 
 .PHONY: deps
@@ -103,4 +104,4 @@ ifeq ($(OS), Windows_NT)
 else
 	brew install -q sass/sass/sass go watchexec
 endif
-	$(MAKE) sub
+	$(MAKE) mod

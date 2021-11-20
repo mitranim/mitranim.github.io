@@ -10,7 +10,7 @@ Install global dependencies:
 
 ...or just clone submodules:
 
-    make sub
+    make mod
 
 Develop:
 
