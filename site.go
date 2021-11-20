@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/url"
+
 	x "github.com/mitranim/gax"
 )
 
@@ -182,18 +184,40 @@ func (self PagePost) Render(_ Site) Bui {
 			),
 
 			E(`hr`, nil),
+			PostsFooterLess,
 
-			E(`p`, nil,
-				`This blog currently doesn't support comments. Feel free to `,
-				Exta("https://twitter.com/mitranim", "tweet"),
-				` at me, email to `,
-				E(`a`, AP(`href`, `mailto:me@mitranim.com?subject=Re: `+self.Title), `me@mitranim.com`),
-				`, or use the `,
-				E(`a`, AP(`href`, "/#contacts"), `other contacts`),
-				`.`,
-			),
 			FeedLinks,
 		),
 		Footer(self),
 	)
+}
+
+// nolint:deadcode
+func PostsFooterMore(page Ipage) x.Elem {
+	return E(`p`, nil,
+		`This blog currently doesn't support comments. Feel free to `,
+		Exta("https://twitter.com/mitranim", "tweet"),
+		` at me, email to `,
+		E(`a`, AP(`href`, mailto(page.GetTitle())), EMAIL),
+		`, or use the `,
+		E(`a`, AP(`href`, "/#contacts"), `other contacts`),
+		`.`,
+	)
+}
+
+var PostsFooterLess = E(`p`, nil,
+	`This blog currently doesn't support comments. Write to me via `,
+	E(`a`, AP(`href`, "/#contacts"), `contacts`),
+	`.`,
+)
+
+func mailto(subj string) string {
+	return MAILTO.WithQuery(emailSubj(subj)).String()
+}
+
+func emailSubj(val string) url.Values {
+	if val != `` {
+		return url.Values{`subject`: {`Re: ` + val}}
+	}
+	return nil
 }

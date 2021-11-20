@@ -8,7 +8,10 @@ import (
 )
 
 var (
-	FEED_AUTHOR = &FeedAuthor{Name: "Nelo Mitranim", Email: "me@mitranim.com"}
+	FEED_AUTHOR = &FeedAuthor{
+		Name:  `Nelo Mitranim`,
+		Email: EMAIL,
+	}
 )
 
 func siteBase() string {

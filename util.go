@@ -31,6 +31,7 @@ const (
 	PUBLIC_DIR   = "public"
 	TEMPLATE_DIR = "templates"
 	EMDASH       = "—"
+	EMAIL        = `me@mitranim.com`
 )
 
 var (
@@ -42,6 +43,7 @@ var (
 	TARBLAN = x.Attr{`target`, `_blank`}
 	RELNO   = x.Attr{`rel`, `noopener noreferrer`}
 	ABLAN   = A(TARBLAN, RELNO)
+	MAILTO  = gt.ParseNullUrl(`mailto:` + EMAIL)
 )
 
 type (

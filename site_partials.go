@@ -143,6 +143,7 @@ func FeedPost(page PagePost) x.Elem {
 	)
 }
 
+// nolint:deadcode
 /**
 Must be revised. This should not be accidentally read by voiceover utils, and on
 click, it must skip to the content without changing the URL or polluting the
