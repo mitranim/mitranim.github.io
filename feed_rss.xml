@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Sat, 20 Nov 2021 11:53:25 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Nov 2021 11:58:04 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/goex">
       <title>Use Exceptions in Go</title>
       <link>https://mitranim.com/posts/goex</link>
@@ -90,6 +90,8 @@
 }
 </pre><h2 id="performance"><span class="heading-prefix" aria-hidden="true"></span>Performance<a href="#performance" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>In modern Go (1.17 and higher), there is barely any difference. Defer/panic/recover is usable even in CPU-heavy hotspot code.</p>
+
+<p>Generating stacktraces has a <em>far</em> larger cost. The examples in this post use <code>github.com/mitranim/try</code> which automatically adds stacktraces by using <code>github.com/pkg/errors</code>. If you&rsquo;re using stacktraces with error values, that cost is already dominant, compared to the cost of defer/panic/recover.</p>
 <h2 id="stacktraces"><span class="heading-prefix" aria-hidden="true"></span>Stacktraces<a href="#stacktraces" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>Stacktraces are essential to debugging, with or without exceptions.</p>
 
