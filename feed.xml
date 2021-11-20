@@ -2,7 +2,7 @@
 <feed xmlns="https://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2021-11-20T11:49:48Z</updated>
+  <updated>2021-11-20T11:53:25Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -10,6 +10,174 @@
   </author>
   <link rel="alternate" type="text/html" href="https://mitranim.com/posts"></link>
   <link rel="self" type="application/atom+xml" href="https://mitranim.com/feed.xml"></link>
+  <entry xml:base="https://mitranim.com/posts/goex">
+    <title>Use Exceptions in Go</title>
+    <id>https://mitranim.com/posts/goex</id>
+    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><ul>
+<li><a href="#myths-to-debunk"><span class="hash-prefix noprint" aria-hidden="true">#</span>Myths to Debunk</a></li>
+<li><a href="#observations"><span class="hash-prefix noprint" aria-hidden="true">#</span>Observations</a></li>
+<li><a href="#performance"><span class="hash-prefix noprint" aria-hidden="true">#</span>Performance</a></li>
+<li><a href="#stacktraces"><span class="hash-prefix noprint" aria-hidden="true">#</span>Stacktraces</a></li>
+</ul>
+
+<p>This post is informed by years of Go, months of Go with exceptions, and years of other languages.</p>
+<h2 id="myths-to-debunk"><span class="heading-prefix" aria-hidden="true"></span>Myths to Debunk<a href="#myths-to-debunk" class="heading-anchor" aria-hidden="true"></a></h2><blockquote class="blockquote">
+<p>&ldquo;Go doesn&rsquo;t have exceptions&rdquo;.</p>
+</blockquote>
+<p>Go has panics. Panics are exceptions.</p>
+<blockquote class="blockquote">
+<p>&ldquo;Errors-as-values is simpler than exceptions&rdquo;.</p>
+</blockquote>
+<p>Decent argument that doesn&rsquo;t apply to Go. Go already has both.</p>
+<blockquote class="blockquote">
+<p>&ldquo;All errors are in function signatures&rdquo;.</p>
+</blockquote>
+<p>The stdlib has many documented panics. New releases frequently add more. Panics are not in function signatures.</p>
+<blockquote class="blockquote">
+<p>&ldquo;Panics are reserved for unrecoverable errors&rdquo;.</p>
+</blockquote>
+<p>Untrue in Go. Panics are recoverable and actionable. For example, HTTP servers respond with 500 and error details instead of crashing.</p>
+<blockquote class="blockquote">
+<p>&ldquo;Explicit errors lead to more reliable code.&rdquo;</p>
+</blockquote>
+<p>Decent argument that doesn&rsquo;t apply to Go. Go has panics. Reliable code <em>must</em> handle panics in addition to error values. Code that assumes &ldquo;no panics&rdquo; will have leaks, data corruption, and other unexpected states.</p>
+<blockquote class="blockquote">
+<p>&ldquo;Panics are expensive&rdquo;.</p>
+</blockquote>
+<p>Actually cheap enough.</p>
+<h2 id="observations"><span class="heading-prefix" aria-hidden="true"></span>Observations<a href="#observations" class="heading-anchor" aria-hidden="true"></a></h2>
+<ul>
+<li>&ldquo;Just panics&rdquo; is objectively simpler than &ldquo;error values and panics&rdquo;. 1 is objectively less than 2.</li>
+<li>&ldquo;Just panics&rdquo; is more reliable than &ldquo;error values and panics&rdquo;. You only need to handle 1, not 2.</li>
+<li>Requires some un-doctrination, after years of trying to believe in error values.</li>
+<li>Performance is nearly the same.</li>
+<li>Avoids mishandling of <code>err</code> variables.</li>
+<li>Exceptions and stacktraces are orthogonal. You want both.</li>
+</ul>
+
+<p>Combination of <code>defer</code> <code>panic</code> <code>recover</code> allows terse and flexible exception handling.</p>
+
+<p>Brevity:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/mitranim/try&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">outer</span>() {
+  <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">try</span>.<span style="color:#a6e22e">Detail</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">failed to do X</span><span style="color:#e6db74">`</span>)
+  <span style="color:#a6e22e">someFunc</span>()
+  <span style="color:#a6e22e">anotherFunc</span>()
+  <span style="color:#a6e22e">moreFunc</span>()
+}
+</pre>
+<p>Same without panics:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/mitranim/try&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">outer</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+  <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">try</span>.<span style="color:#a6e22e">WithMessage</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">err</span>, <span style="color:#e6db74">`</span><span style="color:#e6db74">failed to do X</span><span style="color:#e6db74">`</span>)
+
+  <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">someFunc</span>()
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#66d9ef">return</span>
+  }
+
+  <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">anotherFunc</span>()
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#66d9ef">return</span>
+  }
+
+  <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">moreFunc</span>()
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#66d9ef">return</span>
+  }
+
+  <span style="color:#66d9ef">return</span>
+}
+</pre><h2 id="performance"><span class="heading-prefix" aria-hidden="true"></span>Performance<a href="#performance" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>In modern Go (1.17 and higher), there is barely any difference. Defer/panic/recover is usable even in CPU-heavy hotspot code.</p>
+<h2 id="stacktraces"><span class="heading-prefix" aria-hidden="true"></span>Stacktraces<a href="#stacktraces" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Stacktraces are essential to debugging, with or without exceptions.</p>
+
+<ul>
+<li>Exceptions and stacktraces are orthogonal.</li>
+<li>Exceptions don&rsquo;t require stacktraces.</li>
+<li>You <em>always</em> want stacktraces.
+
+<ul>
+<li>Many languages elide them for performance, but you still want them.</li>
+</ul></li>
+<li>Lack of stacktraces causes developers to <em>manually emulate stacktraces</em>.</li>
+</ul>
+
+<p>Some real Go code, written by experienced developers, has errors annotated with function names, like this:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">someFunc</span>() <span style="color:#66d9ef">error</span> {
+  <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">anotherFunc</span>()
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">someFunc: %w</span><span style="color:#e6db74">`</span>, <span style="color:#a6e22e">err</span>)
+  }
+
+  <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">moreFunc</span>()
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">someFunc: %w</span><span style="color:#e6db74">`</span>, <span style="color:#a6e22e">err</span>)
+  }
+
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+</pre>
+<p>You can simplify this with <code>defer</code>:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/mitranim/try&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">someFunc</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+  <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">try</span>.<span style="color:#a6e22e">WithMessage</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">err</span>, <span style="color:#e6db74">`</span><span style="color:#e6db74">someFunc</span><span style="color:#e6db74">`</span>)
+
+  <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">anotherFunc</span>()
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+  }
+
+  <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">moreFunc</span>()
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+  }
+
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">anotherFunc</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+  <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">try</span>.<span style="color:#a6e22e">WithMessage</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">err</span>, <span style="color:#e6db74">`</span><span style="color:#e6db74">anotherFunc</span><span style="color:#e6db74">`</span>)
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">someErroringOperation</span>()
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">moreFunc</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+  <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">try</span>.<span style="color:#a6e22e">WithMessage</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">err</span>, <span style="color:#e6db74">`</span><span style="color:#e6db74">moreFunc</span><span style="color:#e6db74">`</span>)
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">anotherErroringOperation</span>()
+}
+</pre>
+<p>🔔 Alarm bells should be ringing in your head. This emulates a stacktrace, doing manually what other languages have automated decades ago.</p>
+
+<p>So stop doing that. Automate your stacktraces, and shorten your code:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/mitranim/try&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">someFunc</span>() {
+  <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">try</span>.<span style="color:#a6e22e">Detail</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">failed to do X</span><span style="color:#e6db74">`</span>)
+  <span style="color:#a6e22e">anotherFunc</span>()
+  <span style="color:#a6e22e">moreFunc</span>()
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">anotherFunc</span>() {
+  <span style="color:#a6e22e">try</span>.<span style="color:#a6e22e">To</span>(<span style="color:#a6e22e">someErroringOperation</span>())
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">moreFunc</span>() {
+  <span style="color:#a6e22e">try</span>.<span style="color:#a6e22e">To</span>(<span style="color:#a6e22e">anothrErroringOperation</span>())
+}
+</pre></article>]]></content>
+    <published>2021-11-20T11:47:36Z</published>
+    <updated>2021-11-20T11:47:36Z</updated>
+    <link rel="alternate" href="https://mitranim.com/posts/goex"></link>
+    <summary type="html"><![CDATA[Go secretly favors exceptions. Use them.]]></summary>
+    <author>
+      <name>Nelo Mitranim</name>
+      <email>me@mitranim.com</email>
+    </author>
+  </entry>
   <entry xml:base="https://mitranim.com/posts/spaces-tabs">
     <title>Always Spaces, Never Tabs</title>
     <id>https://mitranim.com/posts/spaces-tabs</id>
