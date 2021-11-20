@@ -1,12 +1,14 @@
 {{mdToToc .MdTpl}}
 
-## Myths
+This post is informed by years of Go, months of Go with exceptions, and years of other languages.
+
+## Myths to Debunk
 
 > "Go doesn't have exceptions".
 
 Go has panics. Panics are exceptions.
 
-> "Errors as values are simpler than exceptions".
+> "Errors-as-values is simpler than exceptions".
 
 Decent argument that doesn't apply to Go. Go already has both.
 
@@ -20,18 +22,18 @@ Untrue in Go. Panics are recoverable and actionable. For example, HTTP servers r
 
 > "Explicit errors lead to more reliable code."
 
-Decent argument that doesn't apply to Go. Go has panics. Reliable code _must_ handle panics. Code that assumes "no panics" will have leaks, data corruption, and other unexpected states.
+Decent argument that doesn't apply to Go. Go has panics. Reliable code _must_ handle panics in addition to error values. Code that assumes "no panics" will have leaks, data corruption, and other unexpected states.
 
 > "Panics are expensive".
 
-Cheap enough for most code. Just minimize them in bottlenecks.
+Actually cheap enough.
 
 ## Observations
 
-* "Just panics" is simpler than "error values and panics". 1 < 2.
-* "Just panics" is more reliable than "error values and panics".
-* Requires some un-doctrination.
-* Performance is fine.
+* "Just panics" is objectively simpler than "error values and panics". 1 is objectively less than 2.
+* "Just panics" is more reliable than "error values and panics". You only need to handle 1, not 2.
+* Requires some un-doctrination, after years of trying to believe in error values.
+* Performance is nearly the same.
 * Avoids mishandling of `err` variables.
 * Exceptions and stacktraces are orthogonal. You want both.
 
@@ -40,6 +42,21 @@ Combination of `defer` `panic` `recover` allows terse and flexible exception han
 Brevity:
 
 ```golang
+import "github.com/mitranim/try"
+
+func outer() {
+  defer try.Detail(`failed to do X`)
+  someFunc()
+  anotherFunc()
+  moreFunc()
+}
+```
+
+Same without panics:
+
+```golang
+import "github.com/mitranim/try"
+
 func outer() (err error) {
   defer try.WithMessage(&err, `failed to do X`)
 
@@ -62,28 +79,13 @@ func outer() (err error) {
 }
 ```
 
-```golang
-func outer() {
-  defer try.Detail(`failed to do X`)
-  someFunc()
-  anotherFunc()
-  moreFunc()
-}
-```
-
 ## Performance
 
-Exceptions are slightly more expensive than checks and returns. In CPU-heavy hotspot code, the overhead can be noticeable. In IO-heavy control code, the overhead is often not measurable, and has the biggest benefit, since most IO operations are failable.
-
-TLDR: OK for most code, avoid in bottlenecks.
-
-## Compatibility
-
-Libraries should use error values rather than panics.
+In modern Go (1.17 and higher), there is barely any difference. Defer/panic/recover is usable even in CPU-heavy hotspot code.
 
 ## Stacktraces
 
-Stacktraces must be mentioned because they're essential.
+Stacktraces are essential to debugging, with or without exceptions.
 
 * Exceptions and stacktraces are orthogonal.
 * Exceptions don't require stacktraces.
@@ -132,13 +134,33 @@ func someFunc() (err error) {
 
 func anotherFunc() (err error) {
   defer try.WithMessage(&err, `anotherFunc`)
-  return something()
+  return someErroringOperation()
 }
 
 func moreFunc() (err error) {
   defer try.WithMessage(&err, `moreFunc`)
-  return something()
+  return anotherErroringOperation()
 }
 ```
 
 🔔 Alarm bells should be ringing in your head. This emulates a stacktrace, doing manually what other languages have automated decades ago.
+
+So stop doing that. Automate your stacktraces, and shorten your code:
+
+```golang
+import "github.com/mitranim/try"
+
+func someFunc() {
+  defer try.Detail(`failed to do X`)
+  anotherFunc()
+  moreFunc()
+}
+
+func anotherFunc() {
+  try.To(someErroringOperation())
+}
+
+func moreFunc() {
+  try.To(anothrErroringOperation())
+}
+```

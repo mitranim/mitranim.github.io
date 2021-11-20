@@ -58,8 +58,8 @@ func initSitePosts() []PagePost {
 				Description: `Go secretly favors exceptions. Use them.`,
 				MdTpl:       readFile(fpj(TEMPLATE_DIR, `posts/goex.md`)),
 			},
-			PublishedAt: timeParse(`2021-09-07T16:17:36Z`),
-			IsListed:    !FLAGS.PROD,
+			PublishedAt: timeParse(`2021-11-20T11:47:36Z`),
+			IsListed:    true,
 		},
 		PagePost{
 			Page: Page{
