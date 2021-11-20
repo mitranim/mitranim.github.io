@@ -35,6 +35,10 @@ $breakpoint-lg: 1024px;
   --color-rss:      #f26522;
 }
 
+// TODO rename:
+//   * "--color" -> "--c"
+//   * "close"   -> "near"
+//   * "visited" -> "vis"
 @mixin color-scheme-dark {
   --color-bg:            hsl(200, 5%, 10%);
   --color-fg:            hsl(0, 0%, 90%);

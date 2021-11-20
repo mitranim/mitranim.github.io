@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"math"
 	"regexp"
 	"strings"
 	tt "text/template"
@@ -10,6 +11,7 @@ import (
 	clexers "github.com/alecthomas/chroma/lexers"
 	cstyles "github.com/alecthomas/chroma/styles"
 	x "github.com/mitranim/gax"
+	"github.com/mitranim/gt"
 	"github.com/mitranim/try"
 	e "github.com/pkg/errors"
 	bf "github.com/russross/blackfriday/v2"
@@ -127,19 +129,19 @@ func (self *MdRen) RenderLink(out io.Writer, node *bf.Node, entering bool) bf.Wa
 			attrs = attrs.A(ABLAN...)
 		}
 
-		var b Bui
-		b.Begin(`a`, attrs)
+		var bui Bui
+		bui.Begin(`a`, attrs)
 		if isLinkHash(href) {
-			b.E(`span`, AP(`class`, `hash-prefix noprint`, `aria-hidden`, `true`), `#`)
+			bui.E(`span`, AP(`class`, `hash-prefix noprint`, `aria-hidden`, `true`), `#`)
 		}
-		ioWrite(out, b)
+		ioWrite(out, bui)
 	} else {
-		var b Bui
+		var bui Bui
 		if isLinkExternal(href) {
-			b.F(SvgExternalLink)
+			bui.F(SvgExternalLink)
 		}
-		b.End(`a`)
-		ioWrite(out, b)
+		bui.End(`a`)
+		ioWrite(out, bui)
 	}
 
 	return bf.GoToNext
@@ -180,10 +182,11 @@ func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) 
 		if len(title) == 0 {
 			title = DETAIL_SUMMARY_FALLBACK
 		}
-		lang := match[2]
-		var b Bui
 
-		b.E(
+		lang := match[2]
+		var bui Bui
+
+		bui.E(
 			`details`,
 			AP(`class`, `details fan-typo`),
 			E(`summary`, nil, Bui(mdToHtml(title, nil))),
@@ -191,15 +194,15 @@ func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) 
 				if len(lang) > 0 {
 					// As code.
 					node.CodeBlockData.Info = lang
-					self.RenderNode((*x.NonEscWri)(&b), node, entering)
+					self.RenderNode((*x.NonEscWri)(&bui), node, entering)
 				} else {
 					// As regular text.
-					b.NonEscBytes(mdToHtml(node.Literal, nil))
+					bui.NonEscBytes(mdToHtml(node.Literal, nil))
 				}
 			},
 		)
 
-		ioWrite(out, b)
+		ioWrite(out, bui)
 		return bf.SkipChildren
 	}
 
@@ -235,21 +238,21 @@ func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf
 	}
 
 	if entering {
-		var b Bui
-		b.Begin(tag, A(aId(node.HeadingID)))
-		b.F(HEADING_PREFIX)
-		ioWrite(out, b)
+		var bui Bui
+		bui.Begin(tag, A(aId(node.HeadingID)))
+		bui.F(HEADING_PREFIX)
+		ioWrite(out, bui)
 	} else {
-		var b Bui
+		var bui Bui
 		if node.HeadingID != `` {
-			b.E(`a`, AP(
+			bui.E(`a`, AP(
 				`href`, `#`+node.HeadingID,
 				`class`, `heading-anchor`,
 				`aria-hidden`, `true`,
 			))
 		}
-		b.End(tag)
-		ioWrite(out, b)
+		bui.End(tag)
+		ioWrite(out, bui)
 	}
 
 	return bf.GoToNext
@@ -280,27 +283,26 @@ instead of reading from disk, but reading from disk is simpler and doesn't
 depend on an obscure API.
 */
 func mdToToc(content []byte) string {
-	var buf strings.Builder
 	headings := mdHeadings(content)
-
-	levelOffset := MAX_INT
+	levelOffset := math.MaxInt
 	for _, val := range headings {
 		if val.Level < levelOffset {
 			levelOffset = val.Level
 		}
 	}
 
+	var buf gt.Raw
 	for _, val := range headings {
 		for i := val.Level - levelOffset; i > 0; i-- {
-			buf.WriteString("  ")
+			buf = append(buf, `  `...)
 		}
-		buf.WriteString("* [")
-		buf.Write(val.Text)
-		buf.WriteString("](#")
-		buf.WriteString(val.Id)
-		buf.WriteString(")\n")
+		buf = append(buf, `* [`...)
+		buf = append(buf, val.Text...)
+		buf = append(buf, `](#`...)
+		buf = append(buf, val.Id...)
+		buf = append(buf, `)`...)
+		buf = append(buf, "\n"...)
 	}
-
 	return buf.String()
 }
 

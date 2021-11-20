@@ -10,8 +10,8 @@ require (
 	github.com/mitranim/afr v0.6.1
 	github.com/mitranim/cmd v0.1.1
 	github.com/mitranim/gax v0.2.0
-	github.com/mitranim/gt v0.1.9
-	github.com/mitranim/rout v0.4.0
+	github.com/mitranim/gt v0.1.15
+	github.com/mitranim/rout v0.5.0
 	github.com/mitranim/srv v0.0.0-20210207104346-0df64d1a7dff
 	github.com/mitranim/try v0.1.5
 	github.com/pkg/errors v0.9.1

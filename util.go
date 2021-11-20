@@ -8,7 +8,7 @@ import (
 	"image"
 	"io"
 	"io/fs"
-	l "log"
+	"log"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -30,12 +30,10 @@ const (
 	SERVER_PORT  = 52693
 	PUBLIC_DIR   = "public"
 	TEMPLATE_DIR = "templates"
-	MAX_INT      = int(^uint(0) >> 1)
 	EMDASH       = "—"
 )
 
 var (
-	log     = l.New(os.Stderr, ``, 0)
 	FLAGS   = Flags{PROD: os.Getenv("PROD") == "true"}
 	E       = x.E
 	F       = x.F

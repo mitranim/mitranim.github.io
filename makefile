@@ -1,11 +1,12 @@
 MAKEFLAGS := --silent
 PAR := $(MAKE) -j 128
 TAR := public
-BIN := ./bin
-CMD := $(BIN)/cmd
+CMD := ./bin/cmd
 SASS := sass --no-source-map -I submodules styles/main.scss:$(TAR)/styles/main.css
-WATCH := watchexec -r -p -c -d=0 -n
-WATCH_CMD := $(WATCH) --no-ignore -w=$(CMD)
+GO_FLAGS := -tags=$(tags) -mod=mod
+WATCH := watchexec -c -r -d=0 -n
+W_CMD := --no-ignore -w=$(CMD)
+W_GO := -e=go,mod
 
 ifeq ($(PROD), true)
 	SASS_STYLE := compressed
@@ -32,12 +33,34 @@ else
 endif
 
 .PHONY: watch
-watch: clean
-	$(PAR) styles_w cmd_w srv pages_w cp_w
+watch: clean cmd
+	$(PAR) cmd_w srv pages_w styles_w cp_w
 
 .PHONY: build
-build: clean
+build: clean_tar
 	$(PAR) styles pages cp
+
+.PHONY: cmd_w
+cmd_w: cmd
+	$(WATCH) $(W_GO) -p -- $(MAKE) cmd
+
+.PHONY: cmd
+cmd: $(CMD)
+
+$(CMD): *.go go.mod
+	go build $(GO_FLAGS) -o $(CMD)
+
+.PHONY: srv
+srv: cmd
+	$(CMD) srv
+
+.PHONY: pages_w
+pages_w:
+	$(WATCH) $(W_CMD) -w=templates -- $(CMD) pages
+
+.PHONY: pages
+pages: cmd
+	$(CMD) pages
 
 .PHONY: styles_w
 styles_w:
@@ -47,27 +70,8 @@ styles_w:
 styles:
 	$(SASS) --style=$(SASS_STYLE)
 
-.PHONY: cmd_w
-cmd_w: $(CMD)
-	$(WATCH) -e=go,mod -- $(MAKE) $(CMD)
-
-$(CMD): *.go go.mod
-	go build -o $(CMD)
-
-.PHONY: srv
-srv: $(CMD)
-	$(CMD) srv
-
-.PHONY: pages_w
-pages_w: pages
-	$(WATCH_CMD) -w=templates -- $(CMD) pages
-
-.PHONY: pages
-pages: $(CMD)
-	$(CMD) pages
-
 .PHONY: cp_w
-cp_w: cp
+cp_w:
 	$(WATCH) -w=static -w=images -- $(MAKE) cp
 
 .PHONY: cp
@@ -81,9 +85,13 @@ cp:
 lint:
 	golangci-lint run
 
-.PHONY: clean
-clean:
+.PHONY: clean_tar
+clean_tar:
 	$(call RM,$(TAR))
+
+.PHONY: clean
+clean: clean_tar
+	$(call RM,$(CMD))
 
 sub:
 	git submodule update --init --recursive --quiet

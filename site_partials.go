@@ -71,7 +71,7 @@ func HtmlHead(page Ipage) Bui {
 }
 
 func Header(page Ipage) x.Elem {
-	return E(`header`, AP(`class`, "wid-lim --unpadded flex row-sta-str mar-bot-2 gap-hor-1"),
+	return E(`header`, AP(`class`, `wid-lim --unpadded flex row-sta-str mar-bot-2 gap-hor-1`),
 		E(`nav`, AP(`class`, `flex row-sta-str`),
 			E(`a`, AP(`href`, `/`, `class`, `navlink --busy`).A(cur(page, `/`)), `home`),
 			E(`a`, AP(`href`, `/works`, `class`, `navlink --busy`).A(cur(page, `/works`)), `works`),
@@ -80,27 +80,27 @@ func Header(page Ipage) x.Elem {
 
 		E(`span`, AP(`class`, `flex-1`)),
 
-		E(`span`, AP(`class`, "fg-blue flex row-cen-cen pad-1 sm-hide"),
+		E(`span`, AP(`class`, `fg-blue flex row-cen-cen pad-1 sm-hide`),
 			`Updated: `+today(),
 		),
 	)
 }
 
 func Footer(page Ipage) x.Elem {
-	return E(`footer`, AP(`style`, "margin-top: auto"),
-		E(`div`, AP(`class`, "wid-lim flex row-bet-cen mar-top-4 mar-bot-2"),
-			E(`span`, AP(`class`, "flex-1 flex row-sta-sta gap-hor-0x5"),
-				E(`span`, AP(`class`, "text-lef"), yearsElapsed()),
-				Exta("https://github.com/mitranim/mitranim.github.io", "website source"),
+	return E(`footer`, AP(`style`, `margin-top: auto`),
+		E(`div`, AP(`class`, `wid-lim flex row-bet-cen mar-top-4 mar-bot-2`),
+			E(`span`, AP(`class`, `flex-1 flex row-sta-sta gap-hor-0x5`),
+				E(`span`, AP(`class`, `text-lef`), yearsElapsed()),
+				Exta(`https://github.com/mitranim/mitranim.github.io`, `website source`),
 			),
 
-			E(`span`, AP(`class`, "flex-1 text-cen"), func(b B) {
-				if page.GetPath() != "index.html" {
-					b.E(`a`, AP(`href`, "/#contacts", `class`, "decorate-link"), `touch me`)
+			E(`span`, AP(`class`, `flex-1 text-cen`), func(b B) {
+				if page.GetPath() != `index.html` {
+					b.E(`a`, AP(`href`, `/#contacts`, `class`, `decorate-link`), `touch me`)
 				}
 			}),
 
-			E(`span`, AP(`class`, "flex-1 flex row-end-cen gap-hor-0x5"),
+			E(`span`, AP(`class`, `flex-1 flex row-end-cen gap-hor-0x5`),
 				E(
 					`a`,
 					AP(
@@ -134,7 +134,7 @@ func FeedPost(page PagePost) x.Elem {
 		*/
 		// func(b B) {
 		// 	if page.Description != `` {
-		// 		b.E(`p`, AP(`role`, "doc-subtitle", `class`, "size-large italic"),
+		// 		b.E(`p`, AP(`role`, `doc-subtitle`, `class`, `size-large italic`),
 		// 			sentence(page.Description),
 		// 		)
 		// 	}
@@ -196,32 +196,32 @@ func ImgBox(meta ImgMeta) x.Elem {
 		`class`, `img-box-img`,
 	))
 
-	return E(`div`, AP(`class`, "img-box"), func(b B) {
+	return E(`div`, AP(`class`, `img-box`), func(b B) {
 		if meta.Href != `` {
 			b.E(`a`, padderAttrs.AP(`href`, meta.Href).A(ABLAN...), inner)
 		} else {
 			b.E(`div`, padderAttrs, inner)
 		}
-		b.E(`span`, AP(`class`, "img-box-caption", `aria-hidden`, `true`), meta.Caption)
+		b.E(`span`, AP(`class`, `img-box-caption`, `aria-hidden`, `true`), meta.Caption)
 	})
 }
 
 var partials = map[string]string{
-	"svg-book":          string(SvgBook),
-	"svg-external-link": string(SvgExternalLink),
-	"svg-skype":         string(SvgSkype),
-	"svg-mobile-alt":    string(SvgMobileAlt),
-	"svg-paper-plane":   string(SvgPaperPlane),
-	"svg-github":        string(SvgGithub),
-	"svg-youtube":       string(SvgYoutube),
-	"svg-twitter":       string(SvgTwitter),
-	"svg-linkedin":      string(SvgLinkedin),
-	"svg-facebook":      string(SvgFacebook),
-	"svg-discord":       string(SvgDiscord),
-	"svg-arrow-up":      string(SvgArrowUp),
-	"svg-rss":           string(SvgRss),
-	"svg-rss-square":    string(SvgRssSquare),
-	"svg-print":         string(SvgPrint),
+	`svg-book`:          string(SvgBook),
+	`svg-external-link`: string(SvgExternalLink),
+	`svg-skype`:         string(SvgSkype),
+	`svg-mobile-alt`:    string(SvgMobileAlt),
+	`svg-paper-plane`:   string(SvgPaperPlane),
+	`svg-github`:        string(SvgGithub),
+	`svg-youtube`:       string(SvgYoutube),
+	`svg-twitter`:       string(SvgTwitter),
+	`svg-linkedin`:      string(SvgLinkedin),
+	`svg-facebook`:      string(SvgFacebook),
+	`svg-discord`:       string(SvgDiscord),
+	`svg-arrow-up`:      string(SvgArrowUp),
+	`svg-rss`:           string(SvgRss),
+	`svg-rss-square`:    string(SvgRssSquare),
+	`svg-print`:         string(SvgPrint),
 }
 
 /** https://feathericons.com **/

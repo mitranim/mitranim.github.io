@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/fs"
+	"log"
 	"net/http"
 
 	"github.com/fsnotify/fsnotify"
