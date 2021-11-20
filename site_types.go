@@ -88,6 +88,7 @@ func (self Page) GetLink() string {
 
 func pageWrite(page Ipage, body []byte) { writePublic(page.GetPath(), body) }
 
+// TODO: add `.WrittenAt`, which often doesn't match `.PublishedAt`.
 type PagePost struct {
 	Page
 	RedirFrom   []string

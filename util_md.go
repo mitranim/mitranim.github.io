@@ -49,7 +49,7 @@ var (
 )
 
 func stringMdToHtml(src string, opt *MdOpt) string {
-	return bytesToMutableString(mdToHtml(stringToBytesAlloc(src), opt))
+	return bytesString(mdToHtml(stringToBytesAlloc(src), opt))
 }
 
 func mdToHtml(src []byte, opt *MdOpt) []byte {
@@ -57,7 +57,7 @@ func mdToHtml(src []byte, opt *MdOpt) []byte {
 }
 
 func mdTplToHtml(src []byte, opt *MdOpt, val interface{}) []byte {
-	return mdToHtml(mdTplExec(bytesToMutableString(src), val), opt)
+	return mdToHtml(mdTplExec(bytesString(src), val), opt)
 }
 
 func mdTplExec(src string, val interface{}) []byte {
@@ -121,7 +121,7 @@ Note: currently doesn't support some flags and extensions.
 Note: somewhat duplicates `exta`.
 */
 func (self *MdRen) RenderLink(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
-	href := bytesToMutableString(node.LinkData.Destination)
+	href := bytesString(node.LinkData.Destination)
 
 	if entering {
 		attrs := AP(`href`, href)
@@ -206,12 +206,12 @@ func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) 
 		return bf.SkipChildren
 	}
 
-	lexer := clexers.Get(bytesToMutableString(tag))
+	lexer := clexers.Get(bytesString(tag))
 	if lexer == nil {
 		panic(e.Errorf(`no lexer for %q`, tag))
 	}
 
-	iterator, err := lexer.Tokenise(nil, bytesToMutableString(node.Literal))
+	iterator, err := lexer.Tokenise(nil, bytesString(node.Literal))
 	try.To(e.Wrap(err, "tokenizer error"))
 
 	err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
@@ -328,7 +328,7 @@ func mdHeadings(content []byte) []MdHeading {
 				heading.Text = textNode.Literal
 			}
 			if textNode != nil && heading.Id == `` {
-				heading.Id = sanitized_anchor_name.Create(bytesToMutableString(textNode.Literal))
+				heading.Id = sanitized_anchor_name.Create(bytesString(textNode.Literal))
 			}
 
 			if len(heading.Text) > 0 && heading.Id != `` {

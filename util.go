@@ -157,7 +157,7 @@ func withTiming(str string, fun func()) {
 Allocation-free conversion. Reinterprets a byte slice as a string. Borrowed from
 the standard library. Reasonably safe.
 */
-func bytesToMutableString(val []byte) string { return *(*string)(unsafe.Pointer(&val)) }
+func bytesString(val []byte) string { return *(*string)(unsafe.Pointer(&val)) }
 
 func stringToBytesAlloc(val string) []byte    { return []byte(val) }
 func ioWrite(out io.Writer, val []byte)       { try.Int(out.Write(val)) }

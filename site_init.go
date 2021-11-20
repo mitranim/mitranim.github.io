@@ -55,7 +55,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/goex.html`,
 				Title:       `Use Exceptions in Go`,
-				Description: `Go secretly favors exceptions. Using them has tremendous benefits.`,
+				Description: `Go secretly favors exceptions. Use them.`,
 				MdTpl:       readFile(fpj(TEMPLATE_DIR, `posts/goex.md`)),
 			},
 			PublishedAt: timeParse(`2021-09-07T16:17:36Z`),
@@ -261,6 +261,46 @@ func initSitePosts() []PagePost {
 
 func initWorks() []Work {
 	return []Work{
+		{
+			Name:  `gr`,
+			Link:  `https://github.com/mitranim/gr`,
+			Desc:  `Short for "Go Request-Response". Shortcuts for making HTTP requests and reading HTTP responses in Go.`,
+			Role:  `author`,
+			Tech:  `Go`,
+			Start: `2021`,
+		},
+		{
+			Name:  `ded`,
+			Link:  `https://github.com/mitranim/ded`,
+			Desc:  `Experimental tool for deduplicating concurrent background operations in Go, with limited-time caching.`,
+			Role:  `author`,
+			Tech:  `Go`,
+			Start: `2021`,
+		},
+		{
+			Name:  `gt`,
+			Link:  `https://github.com/mitranim/gt`,
+			Desc:  `Short for "Go Types". Important data types missing from the Go standard library.`,
+			Role:  `author`,
+			Tech:  `Go`,
+			Start: `2021`,
+		},
+		{
+			Name:  `cc`,
+			Link:  `https://github.com/mitranim/cc`,
+			Desc:  `Tiny Go tool for running multiple functions concurrently and collecting their results into an error slice.`,
+			Role:  `author`,
+			Tech:  `Go`,
+			Start: `2021`,
+		},
+		{
+			Name:  `cmd`,
+			Link:  `https://github.com/mitranim/cmd`,
+			Desc:  "Missing feature of the Go standard library: ability to define subcommands while using `flag`.",
+			Role:  `author`,
+			Tech:  `Go`,
+			Start: `2021`,
+		},
 		{
 			Name:  `sublime-scss`,
 			Link:  `https://github.com/mitranim/sublime-scss`,
@@ -478,8 +518,8 @@ func initWorks() []Work {
 			Start: `2020`,
 		},
 		{
-			Name:  `reqdec`,
-			Link:  `https://github.com/mitranim/reqdec`,
+			Name:  `rd`,
+			Link:  `https://github.com/mitranim/rd`,
 			Desc:  `Tool for decoding HTTP requests into Go structs. Transparently supports multiple formats: JSON, URL-encoded, multipart.`,
 			Role:  `author`,
 			Tech:  `Go`,
@@ -494,9 +534,9 @@ func initWorks() []Work {
 			Start: `2020`,
 		},
 		{
-			Name:  `refut`,
-			Link:  `https://github.com/mitranim/refut`,
-			Desc:  "Reflect utils: utilities missing from the `reflect` package in the Go standard library.",
+			Name:  `rf`,
+			Link:  `https://github.com/mitranim/rf`,
+			Desc:  "Important utilities missing from the `reflect` package in the Go standard library.",
 			Role:  `author`,
 			Tech:  `Go`,
 			Start: `2020`,
@@ -567,8 +607,8 @@ func initWorks() []Work {
 			Start: `2018`,
 		},
 		{
-			Name:  `style-base`,
-			Link:  `https://github.com/mitranim/style-base`,
+			Name:  `sb`,
+			Link:  `https://github.com/mitranim/sb`,
 			Desc:  `Minimal CSS foundation.`,
 			Role:  `author`,
 			Tech:  `CSS`,
