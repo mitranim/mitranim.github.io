@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Sat, 20 Nov 2021 11:58:04 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Nov 2021 12:10:33 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/goex">
       <title>Use Exceptions in Go</title>
       <link>https://mitranim.com/posts/goex</link>
