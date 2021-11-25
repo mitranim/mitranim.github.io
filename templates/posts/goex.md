@@ -1,6 +1,6 @@
 {{mdToToc .MdTpl}}
 
-This post is informed by years of Go, months of Go with exceptions, and years of other languages.
+This post is informed by years of Go and months of Go with exceptions.
 
 ## Myths to Debunk
 
@@ -26,7 +26,7 @@ Decent argument that doesn't apply to Go. Go has panics. Reliable code _must_ ha
 
 > "Panics are expensive".
 
-Actually cheap enough.
+Actually they're cheap enough.
 
 ## Observations
 

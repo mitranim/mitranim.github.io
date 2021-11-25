@@ -54,11 +54,12 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/goex.html`,
-				Title:       `Use Exceptions in Go`,
+				Title:       `Shorten your Go code by using exceptions`,
 				Description: `Go secretly favors exceptions. Use them.`,
 				MdTpl:       readFile(fpj(TEMPLATE_DIR, `posts/goex.md`)),
 			},
 			PublishedAt: timeParse(`2021-11-20T11:47:36Z`),
+			UpdatedAt:   timeParse(`2021-11-25T10:45:52Z`),
 			IsListed:    true,
 		},
 		PagePost{
