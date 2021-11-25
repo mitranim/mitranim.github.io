@@ -2,7 +2,7 @@
 <feed xmlns="https://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2021-11-20T12:10:33Z</updated>
+  <updated>2021-11-25T10:47:02Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -11,7 +11,7 @@
   <link rel="alternate" type="text/html" href="https://mitranim.com/posts"></link>
   <link rel="self" type="application/atom+xml" href="https://mitranim.com/feed.xml"></link>
   <entry xml:base="https://mitranim.com/posts/goex">
-    <title>Use Exceptions in Go</title>
+    <title>Shorten your Go code by using exceptions</title>
     <id>https://mitranim.com/posts/goex</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><ul>
 <li><a href="#myths-to-debunk"><span class="hash-prefix noprint" aria-hidden="true">#</span>Myths to Debunk</a></li>
@@ -20,7 +20,7 @@
 <li><a href="#stacktraces"><span class="hash-prefix noprint" aria-hidden="true">#</span>Stacktraces</a></li>
 </ul>
 
-<p>This post is informed by years of Go, months of Go with exceptions, and years of other languages.</p>
+<p>This post is informed by years of Go and months of Go with exceptions.</p>
 <h2 id="myths-to-debunk"><span class="heading-prefix" aria-hidden="true"></span>Myths to Debunk<a href="#myths-to-debunk" class="heading-anchor" aria-hidden="true"></a></h2><blockquote class="blockquote">
 <p>&ldquo;Go doesn&rsquo;t have exceptions&rdquo;.</p>
 </blockquote>
@@ -44,7 +44,7 @@
 <blockquote class="blockquote">
 <p>&ldquo;Panics are expensive&rdquo;.</p>
 </blockquote>
-<p>Actually cheap enough.</p>
+<p>Actually they&rsquo;re cheap enough.</p>
 <h2 id="observations"><span class="heading-prefix" aria-hidden="true"></span>Observations<a href="#observations" class="heading-anchor" aria-hidden="true"></a></h2>
 <ul>
 <li>&ldquo;Just panics&rdquo; is objectively simpler than &ldquo;error values and panics&rdquo;. 1 is objectively less than 2.</li>
