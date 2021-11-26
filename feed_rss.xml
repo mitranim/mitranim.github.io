@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Thu, 25 Nov 2021 10:47:02 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 26 Nov 2021 19:31:48 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/goex">
       <title>Shorten your Go code by using exceptions</title>
       <link>https://mitranim.com/posts/goex</link>
@@ -18,7 +18,9 @@
 <li><a href="#stacktraces"><span class="hash-prefix noprint" aria-hidden="true">#</span>Stacktraces</a></li>
 </ul>
 
-<p>This post is informed by years of Go and months of Go with exceptions.</p>
+<p>This post is informed by many years of Go, and months of Go with exceptions. <strong>I am well aware</strong> of many arguments for error values. Some of them are debunked below.</p>
+
+<p>Reddit discussion: <a href="https://www.reddit.com/r/golang/comments/r2h31i/shorten_your_go_code_by_using_exceptions/" target="_blank" rel="noopener noreferrer">https://www.reddit.com/r/golang/comments/r2h31i/shorten_your_go_code_by_using_exceptions/<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p>
 <h2 id="myths-to-debunk"><span class="heading-prefix" aria-hidden="true"></span>Myths to Debunk<a href="#myths-to-debunk" class="heading-anchor" aria-hidden="true"></a></h2><blockquote class="blockquote">
 <p>&ldquo;Go doesn&rsquo;t have exceptions&rdquo;.</p>
 </blockquote>
@@ -98,10 +100,11 @@
 <ul>
 <li>Exceptions and stacktraces are orthogonal.</li>
 <li>Exceptions don&rsquo;t require stacktraces.</li>
-<li>You <em>always</em> want stacktraces.
+<li>You <em>always</em> want stacktraces for debugging.
 
 <ul>
 <li>Many languages elide them for performance, but you still want them.</li>
+<li>Don&rsquo;t show stacktraces to your users. They should be printed only in debug logging.</li>
 </ul></li>
 <li>Lack of stacktraces causes developers to <em>manually emulate stacktraces</em>.</li>
 </ul>
