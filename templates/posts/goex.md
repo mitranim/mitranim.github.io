@@ -1,6 +1,8 @@
 {{mdToToc .MdTpl}}
 
-This post is informed by years of Go and months of Go with exceptions.
+This post is informed by many years of Go, and months of Go with exceptions. **I am well aware** of many arguments for error values. Some of them are debunked below.
+
+Reddit discussion: https://www.reddit.com/r/golang/comments/r2h31i/shorten_your_go_code_by_using_exceptions/
 
 ## Myths to Debunk
 
@@ -91,8 +93,9 @@ Stacktraces are essential to debugging, with or without exceptions.
 
 * Exceptions and stacktraces are orthogonal.
 * Exceptions don't require stacktraces.
-* You _always_ want stacktraces.
+* You _always_ want stacktraces for debugging.
   * Many languages elide them for performance, but you still want them.
+  * Don't show stacktraces to your users. They should be printed only in debug logging.
 * Lack of stacktraces causes developers to _manually emulate stacktraces_.
 
 Some real Go code, written by experienced developers, has errors annotated with function names, like this:
