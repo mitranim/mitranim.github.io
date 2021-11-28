@@ -1,6 +1,6 @@
 {{mdToToc .MdTpl}}
 
-This post is informed by many years of Go, and months of Go with exceptions. **I am well aware** of many arguments for error values. Some of them are debunked below.
+This post is informed by many years of Go, and months of Go with exceptions. **I am well aware** of many arguments for error values. Some of them are addressed below.
 
 Reddit discussion: https://www.reddit.com/r/golang/comments/r2h31i/shorten_your_go_code_by_using_exceptions/
 
@@ -24,7 +24,7 @@ Untrue in Go. Panics are recoverable and actionable. For example, HTTP servers r
 
 > "Explicit errors lead to more reliable code."
 
-Decent argument that doesn't apply to Go. Go has panics. Reliable code _must_ handle panics in addition to error values. Code that assumes "no panics" will have leaks, data corruption, and other unexpected states.
+Decent argument that doesn't apply to Go. Go has panics. Reliable code _must_ handle panics in addition to error values. Code that assumes "no panics" or "panics always crash the process" will have leaks, data corruption, and other unexpected states.
 
 > "Panics are expensive".
 
