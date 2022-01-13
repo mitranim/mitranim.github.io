@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Sun, 28 Nov 2021 09:45:03 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Jan 2022 13:13:33 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/goex">
       <title>Shorten your Go code by using exceptions</title>
       <link>https://mitranim.com/posts/goex</link>
@@ -24,11 +24,11 @@
 <h2 id="myths-to-debunk"><span class="heading-prefix" aria-hidden="true"></span>Myths to Debunk<a href="#myths-to-debunk" class="heading-anchor" aria-hidden="true"></a></h2><blockquote class="blockquote">
 <p>&ldquo;Go doesn&rsquo;t have exceptions&rdquo;.</p>
 </blockquote>
-<p>Go has panics. Panics are exceptions.</p>
+<p>Go has panics, which are exceptions.</p>
 <blockquote class="blockquote">
 <p>&ldquo;Errors-as-values is simpler than exceptions&rdquo;.</p>
 </blockquote>
-<p>Decent argument that doesn&rsquo;t apply to Go. Go already has both.</p>
+<p>Decent argument that doesn&rsquo;t apply to Go. Go already has both. We don&rsquo;t get to choose to use just one.</p>
 <blockquote class="blockquote">
 <p>&ldquo;All errors are in function signatures&rdquo;.</p>
 </blockquote>
@@ -93,7 +93,7 @@
 </pre><h2 id="performance"><span class="heading-prefix" aria-hidden="true"></span>Performance<a href="#performance" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>In modern Go (1.17 and higher), there is barely any difference. Defer/panic/recover is usable even in CPU-heavy hotspot code.</p>
 
-<p>Generating stacktraces has a <em>far</em> larger cost. The examples in this post use <code>github.com/mitranim/try</code> which automatically adds stacktraces by using <code>github.com/pkg/errors</code>. If you&rsquo;re using stacktraces with error values, that cost is already dominant, compared to the cost of defer/panic/recover.</p>
+<p>Generating stacktraces has a far larger cost. The examples in this post use <code>github.com/mitranim/try</code> which automatically adds stacktraces by using <code>github.com/pkg/errors</code>. If you&rsquo;re using stacktraces with error values, that cost is already dominant, compared to the cost of defer/panic/recover.</p>
 <h2 id="stacktraces"><span class="heading-prefix" aria-hidden="true"></span>Stacktraces<a href="#stacktraces" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>Stacktraces are essential to debugging, with or without exceptions.</p>
 
@@ -195,7 +195,7 @@
 
 <ul>
 <li>Configurable visual indentation level.</li>
-<li>Fewer characters and keystrokes. (Note: in decent code editors, using spaces takes just as many keystrokes.)</li>
+<li>Fewer characters. Sometimes fewer keystrokes. (Note: in decent code editors, using spaces takes just as many keystrokes.)</li>
 </ul>
 
 <p><em>Objective</em> arguments in favor of 2 spaces over 4 spaces:</p>
