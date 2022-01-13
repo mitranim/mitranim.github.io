@@ -53,6 +53,16 @@ func initSitePosts() []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Path:        `posts/andromeda.html`,
+				Title:       `Game Impressions: Mass Effect Andromeda`,
+				Description: `Enjoyed, highly recommended`,
+				MdTpl:       readFile(fpj(TEMPLATE_DIR, `posts/andromeda.md`)),
+			},
+			PublishedAt: timeParse(`2022-01-13T13:09:11Z`),
+			IsListed:    false,
+		},
+		PagePost{
+			Page: Page{
 				Path:        `posts/goex.html`,
 				Title:       `Shorten your Go code by using exceptions`,
 				Description: `Go secretly favors exceptions. Use them.`,

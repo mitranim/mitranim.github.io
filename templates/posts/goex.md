@@ -8,11 +8,11 @@ Reddit discussion: https://www.reddit.com/r/golang/comments/r2h31i/shorten_your_
 
 > "Go doesn't have exceptions".
 
-Go has panics. Panics are exceptions.
+Go has panics, which are exceptions.
 
 > "Errors-as-values is simpler than exceptions".
 
-Decent argument that doesn't apply to Go. Go already has both.
+Decent argument that doesn't apply to Go. Go already has both. We don't get to choose to use just one.
 
 > "All errors are in function signatures".
 
@@ -85,7 +85,7 @@ func outer() (err error) {
 
 In modern Go (1.17 and higher), there is barely any difference. Defer/panic/recover is usable even in CPU-heavy hotspot code.
 
-Generating stacktraces has a _far_ larger cost. The examples in this post use `github.com/mitranim/try` which automatically adds stacktraces by using `github.com/pkg/errors`. If you're using stacktraces with error values, that cost is already dominant, compared to the cost of defer/panic/recover.
+Generating stacktraces has a far larger cost. The examples in this post use `github.com/mitranim/try` which automatically adds stacktraces by using `github.com/pkg/errors`. If you're using stacktraces with error values, that cost is already dominant, compared to the cost of defer/panic/recover.
 
 ## Stacktraces
 

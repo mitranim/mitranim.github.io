@@ -12,7 +12,7 @@ _Objective_ arguments in favor of spaces over tabs:
 _Objective_ arguments in favor of tabs:
 
 * Configurable visual indentation level.
-* Fewer characters and keystrokes. (Note: in decent code editors, using spaces takes just as many keystrokes.)
+* Fewer characters. Sometimes fewer keystrokes. (Note: in decent code editors, using spaces takes just as many keystrokes.)
 
 _Objective_ arguments in favor of 2 spaces over 4 spaces:
 

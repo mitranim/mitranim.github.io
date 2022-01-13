@@ -170,7 +170,7 @@ func (self PagePost) Render(_ Site) Bui {
 		Header(self),
 		E(`div`, AP(`role`, `main`, `id`, ID_MAIN, `class`, `wid-lim fan-typo`),
 			E(`article`, AP(`role`, `article`, `class`, `fan-typo`),
-				// Should be kept in sync with "MdRen.RenderNode" logic for headings
+				// Should be kept in sync with `MdRen.RenderNode` logic for headings.
 				E(`h1`, nil, HEADING_PREFIX, self.Title),
 				func(b B) {
 					if self.Description != `` {

@@ -22,9 +22,12 @@ Passing familiarity: Swift, C, Common Lisp, Scheme, Erlang.
 
 Preferred: Postgres.
 
-Experience:
+Solid experience:
 
   * SQL databases: Postgres ([http://postgresql.org](http://postgresql.org)).
+
+Experience:
+
   * Datomic ([https://www.datomic.com](https://www.datomic.com)).
   * Firebase ([https://firebase.google.com](https://firebase.google.com)).
   * Document databases: ArangoDB, CouchDB.
@@ -33,9 +36,10 @@ Experience:
 
 Solid experience:
 
+  * API backends (REST/websocket/GRPC).
   * Hybrid SSR+SPA apps.
-  * API backends (REST/websocket).
   * Traditional web apps (SSR + forms).
+  * Dynamic web apps (SPA).
   * Ethereum apps; see [github.com/purelabio/eth](https://github.com/purelabio/eth).
 
 # Misc
