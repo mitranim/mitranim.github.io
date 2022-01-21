@@ -119,6 +119,11 @@ func trimLines(val string) string {
 	return strings.TrimSpace(strings.Join(reLines.Split(val, -1), ``))
 }
 
+func isDir(path string) bool {
+	stat, _ := os.Stat(path)
+	return stat != nil && stat.IsDir()
+}
+
 var reLines = regexp.MustCompile(`\s*(?:\r|\n)\s*`)
 
 func randomHex() string {

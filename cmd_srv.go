@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"log"
 	"net/http"
+	"path/filepath"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/mitranim/afr"
@@ -31,7 +32,8 @@ func (self *Server) Watch() {
 	try.To(err)
 	defer watcher.Close()
 
-	walkDirs(self.Dir, func(path string, ent fs.DirEntry) {
+	dir := self.Dir
+	walkDirs(dir, func(path string, ent fs.DirEntry) {
 		try.To(watcher.Add(path))
 	})
 
@@ -41,7 +43,15 @@ func (self *Server) Watch() {
 			if !ok {
 				return
 			}
-			go self.Broad.SendMsg(afr.Msg{Type: `change`, Path: event.Name})
+
+			path := event.Name
+
+			if event.Op&fsnotify.Create != 0 && isDir(path) {
+				try.To(watcher.Add(path))
+				continue
+			}
+
+			go self.Broad.SendMsg(afrChangeMsg(dir, path))
 
 		case err, ok := <-watcher.Errors:
 			if !ok {
@@ -69,4 +79,11 @@ func (self *Server) Route(r rout.R) {
 
 func preventCaching(head http.Header) {
 	head.Set(`Cache-Control`, `no-store, max-age=0`)
+}
+
+func afrChangeMsg(base, path string) afr.Msg {
+	return afr.Msg{
+		Type: `change`,
+		Path: try.String(filepath.Rel(base, path)),
+	}
 }
