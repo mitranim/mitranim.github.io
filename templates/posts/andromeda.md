@@ -9,6 +9,7 @@ Very good. Solid sequel. Worthy successor. Note: the game got patched, addressin
   * Good background work.
   * Many cool ideas. Easy to overlook.
   * Many competent characters.
+  * Few plot holes. Many potential holes are successfully plugged.
 * Good mechanics.
   * Advancements over ME1/2/3.
 * Sold on the premise.
@@ -26,13 +27,13 @@ Very good. Solid sequel. Worthy successor. Note: the game got patched, addressin
 
 * Love the ambient music.
 * Hate the combat music.
-  * Developers: please give us an option to disable automatic combat music.
+  * Developers: please let us disable automatic combat music.
 
 ## Companions
 
 Competently done but lack charisma compared to ME1/2/3.
 
-Enjoyed squad banter. Would prefer not limited to Nomad.
+Enjoyed squad banter. Would prefer it not limited to Nomad.
 
 ```details"Subjective grades: click to expand"
 * Cora. Writing: neutral; voice acting: neutral; character: [flanderized](https://tvtropes.org/pmwiki/pmwiki.php/Main/Flanderization) asariboo; appearance: Tumblr diversity hire (unfuck with [mods](#mods)).
@@ -49,7 +50,7 @@ Enjoyed squad banter. Would prefer not limited to Nomad.
 
 ## Kinesthetics
 
-👍 Enjoyable:
+### Enjoyable 👍
 
 * Movement options: jetpack, dodge, aim hover.
   * Default too limited. Unfuck with [mods](#mods).
@@ -57,16 +58,17 @@ Enjoyed squad banter. Would prefer not limited to Nomad.
 * Ability to remap all hotkeys including UI actions.
 * Quality of Ryder animations.
   * Finally got specialized female animations missing from ME2/3.
+    * Buggy: many moves start male, switch to female mid-animation.
 * Auto-cover.
 
-👎 Annoying:
+### Annoying 👎
 
 * Hold button to interact (partially unfuck with [mods](#mods)).
 * Loot popup (unfuck with [mods](#mods)).
 * UI animations and delays.
 * Voice interruptions.
   * Developers: always implement a voice queue!
-* Unskippable things: various cutscenes, parts of dialogs, space transitions, etc.
+* Unskippable things: various cutscenes, some dialogs, Tempest transitions, etc.
 * Delayed jump animation.
 * Slow recovery from landing and dodging.
 * Lack of animation canceling.
@@ -88,7 +90,11 @@ Enjoyed squad banter. Would prefer not limited to Nomad.
 * Updated dialog options remain greyed-out.
 * Banter triggering on fast travel before loading finishes.
 * UI bugs that crash or softlock the game.
-* Lack of life support recovery inside Nomad.
+* Limited life support recovery inside Nomad. Makes no sense.
+* Despawn when falling X meters (unfuck with [mods](#mods)).
+* Kadara doors (unfuck with [mods](#mods)).
+* Slow loading of character previews.
+* Lackluster voices for female krogan and salarians.
 
 ## Mods
 
