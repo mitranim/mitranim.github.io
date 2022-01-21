@@ -216,9 +216,7 @@ code, key, pre {@extend .code;}
   @extend .busy-underdash;
 }
 
-.hash-prefix {
-  opacity: 0.5;
-}
+.hash-prefix {opacity: 0.5;}
 
 .unstyled-list, .fan-typo .unstyled-list {
   padding: 0;
@@ -226,20 +224,15 @@ code, key, pre {@extend .code;}
   list-style-position: unset;
 }
 
-.fancy-list {
-  padding-left: 1rem;
-}
-
-ul.fancy-list {
-  list-style-type: disc;
-}
-
-ul.fancy-list ul.fancy-list {
-  list-style-type: circle;
-}
+.fancy-list {padding-left: 1rem;}
+ul.fancy-list {list-style-type: disc;}
+ul.fancy-list ul.fancy-list {list-style-type: circle;}
 
 // Short for "fancy typography".
 .fan-typo {
+  // Required for collapsing top and bottom margins.
+  @extend .block;
+
   h1 {font-size: var(--font-size-h1);}
   h2 {font-size: var(--font-size-h2);}
   h3 {font-size: var(--font-size-h3);}
@@ -249,30 +242,12 @@ ul.fancy-list ul.fancy-list {
     @extend .mar-bot-1, .target-flash;
   }
 
-  > p, > pre, ul, ol {
-    &:not(:first-child) {@extend .mar-top-1;}
-    &:not(:last-child) {@extend .mar-bot-1;}
-  }
-
-  ul, ol {
-    @extend .fancy-list;
-    > li:not(:last-child) {
-      margin-bottom: 0.5rem;
-    }
-    p, pre, ul, ol {
-      &:not(:first-child) {@extend .mar-top-0x5;}
-    }
-  }
-
-  > hr:not(.--ungap) {
-    @extend .mar-ver-2;
-    @extend .hr;
-  }
-
+  > * {@extend .mar-bot-1;}
+  ul, ol {@extend .fancy-list;}
+  li {@extend .mar-top-0x5;}
+  > hr:not(.--ungap) {@extend .mar-ver-2, .hr;}
   a {@extend .decorate-link;}
-
   pre {@extend .pad-1;}
-
   .heading-prefix {display: none;}
 
   @media (min-width: $breakpoint-lg + 1px) {
@@ -301,7 +276,6 @@ ul.fancy-list ul.fancy-list {
   }
 
   thead, tr:not(:last-of-type) {border-bottom: $table-border;}
-
   thead {@extend .bold, .bg-gray-close;}
 
   th, td {
@@ -349,13 +323,9 @@ ul.fancy-list ul.fancy-list {
 
 // Motivation: pseudoelements are ignored when copy-pasting or printing.
 // This should be used for cosmetic text.
-[data-note]::before {
-  content: attr(data-note);
-}
+[data-note]::before {content: attr(data-note);}
 
-@media print {
-  .noprint:not(:root) {display: none;}
-}
+@media print {.noprint:not(:root) {display: none;}}
 
 .svg-icon {
   width: 1em;
@@ -419,9 +389,7 @@ ul.fancy-list ul.fancy-list {
   }
 }
 
-.rounded {
-  border-radius: var(--border-radius);
-}
+.rounded {border-radius: var(--border-radius);}
 
 .abs-fit-top {
   position: absolute;
