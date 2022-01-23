@@ -54,12 +54,12 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/andromeda.html`,
-				Title:       `[Draft] Game Impressions: Mass Effect Andromeda`,
+				Title:       `Game Impressions: Mass Effect Andromeda`,
 				Description: `Enjoyed, highly recommended`,
 				MdTpl:       readFile(fpj(TEMPLATE_DIR, `posts/andromeda.md`)),
 			},
-			PublishedAt: timeParse(`2022-01-13T13:09:11Z`),
-			IsListed:    !FLAGS.PROD,
+			PublishedAt: timeParse(`2022-01-23T07:43:31Z`),
+			IsListed:    true,
 		},
 		PagePost{
 			Page: Page{
