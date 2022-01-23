@@ -242,7 +242,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
     @extend .mar-bot-1, .target-flash;
   }
 
-  > * {@extend .mar-bot-1;}
+  > :not(:last-child) {@extend .mar-bot-1;}
   ul, ol {@extend .fancy-list;}
   li {@extend .mar-top-0x5;}
   > hr:not(.--ungap) {@extend .mar-ver-2, .hr;}
