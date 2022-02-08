@@ -273,6 +273,30 @@ func initSitePosts() []PagePost {
 func initWorks() []Work {
 	return []Work{
 		{
+			Name:  `ur`,
+			Link:  `https://github.com/mitranim/ur`,
+			Desc:  `Superior URL and query implementation for JS. Similar to built-in URL but actually usable.`,
+			Role:  `author`,
+			Tech:  `JS`,
+			Start: `2022`,
+		},
+		{
+			Name:  `test`,
+			Link:  `https://github.com/mitranim/test`,
+			Desc:  `Superior testing and benchmarking library for JS. Runs in all environments. High benchmark accuracy.`,
+			Role:  `author`,
+			Tech:  `JS`,
+			Start: `2021`,
+		},
+		{
+			Name:  `oas`,
+			Link:  `https://github.com/mitranim/oas`,
+			Desc:  `OpenAPI specs for your Go server, generated at server runtime using reflection.`,
+			Role:  `author`,
+			Tech:  `Go`,
+			Start: `2021`,
+		},
+		{
 			Name:  `gr`,
 			Link:  `https://github.com/mitranim/gr`,
 			Desc:  `Short for "Go Request-Response". Shortcuts for making HTTP requests and reading HTTP responses in Go.`,
@@ -814,11 +838,10 @@ func initWorks() []Work {
 		{
 			Name:  `xhttp`,
 			Link:  `https://github.com/mitranim/xhttp`,
-			Desc:  `Isomorphic library for making HTTP requests in Node.js and browsers. Superseded by abortable fetch.`,
+			Desc:  `Shortcuts for the native JS fetch/Request/Response API. Provides a fluent builder-style API for request building and response reading.`,
 			Role:  `author`,
 			Tech:  `JS`,
 			Start: `2014`,
-			End:   `2021`,
 		},
 		{
 			Name:  `stylific`,
