@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Tue, 08 Feb 2022 06:06:11 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 06 Mar 2022 05:48:41 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/andromeda">
       <title>Game Impressions: Mass Effect Andromeda</title>
       <link>https://mitranim.com/posts/andromeda</link>
@@ -536,7 +536,7 @@ value.method
 
 <p>The major downside of the solution above, aside from added complexity, is that it&rsquo;s non-extensible, as adding more infix would create parsing ambiguities, which we can&rsquo;t resolve because we can&rsquo;t afford <code>()</code> for grouping. I would appreciate a simple and flexible approach that doesn&rsquo;t seem hacky.</p>
 <h2 id="conclusion"><span class="heading-prefix" aria-hidden="true"></span>Conclusion<a href="#conclusion" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>If Lisp people haven&rsquo;t been able to stuck with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.</p>
+<p>If Lisp people haven&rsquo;t been able to stick with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.</p>
 </article>]]></content:encoded>
       <author>me@mitranim.com (Nelo Mitranim)</author>
       <guid>https://mitranim.com/posts/lisp-sexpr-hacks</guid>
