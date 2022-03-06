@@ -16,13 +16,13 @@ import (
 )
 
 var TPL_FUNS = tt.FuncMap{
-	"include":    include,
-	"imgBox":     imgBox,
-	"imgBoxLink": imgBoxLink,
-	"emoji":      emoji,
-	"exta":       exta,
-	"mdToToc":    mdToToc,
-	"today":      today,
+	`include`:    include,
+	`imgBox`:     imgBox,
+	`imgBoxLink`: imgBoxLink,
+	`emoji`:      emoji,
+	`exta`:       exta,
+	`mdToToc`:    mdToToc,
+	`today`:      today,
 }
 
 func makeTpl(name string) *tt.Template {

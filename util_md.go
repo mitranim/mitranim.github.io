@@ -41,7 +41,7 @@ var (
 	*/
 	CHROMA_STYLE = cstyles.Monokai
 
-	HEADING_TAGS            = [...]string{1: "h1", 2: "h2", 3: "h3", 4: "h4", 5: "h5", 6: "h6"}
+	HEADING_TAGS            = [...]string{1: `h1`, 2: `h2`, 3: `h3`, 4: `h4`, 5: `h5`, 6: `h6`}
 	HEADING_PREFIX          = F(E(`span`, AP(`class`, `heading-prefix`, `aria-hidden`, `true`)))
 	RE_DETAIL_TAG           = regexp.MustCompile(`details"([^"\r\n]*)"(\S*)?`)
 	RE_PROTOCOL             = regexp.MustCompile(`^\w+://`)
@@ -212,10 +212,10 @@ func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) 
 	}
 
 	iterator, err := lexer.Tokenise(nil, bytesString(node.Literal))
-	try.To(e.Wrap(err, "tokenizer error"))
+	try.To(e.Wrap(err, `tokenizer error`))
 
 	err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
-	try.To(e.Wrap(err, "formatter error"))
+	try.To(e.Wrap(err, `formatter error`))
 
 	return bf.SkipChildren
 }
@@ -234,7 +234,7 @@ func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf
 	headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
 	tag := HEADING_TAGS[headingLevel]
 	if tag == `` {
-		panic(e.Errorf("unrecognized heading level: %v", headingLevel))
+		panic(e.Errorf(`unrecognized heading level: %v`, headingLevel))
 	}
 
 	if entering {
@@ -369,7 +369,7 @@ func tplParseMd(tpl *tt.Template, cont string) {
 	text := replaceCodeBlocks(cont, func(val string) string {
 		id := `id` + randomHex()
 		funs[id] = func() string { return val }
-		return "{{" + id + "}}"
+		return `{{` + id + `}}`
 	})
 
 	_, err := tpl.Funcs(funs).Parse(text)

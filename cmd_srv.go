@@ -57,14 +57,14 @@ func (self *Server) Watch() {
 			if !ok {
 				return
 			}
-			log.Printf("[srv] watch error: %+v", err)
+			log.Printf(`[srv] watch error: %+v`, err)
 		}
 	}
 }
 
 func (self *Server) Serve(port int) {
-	log.Printf("[srv] listening on http://localhost:%v", port)
-	try.To(http.ListenAndServe(fmt.Sprintf(":%v", port), self))
+	log.Printf(`[srv] listening on http://localhost:%v`, port)
+	try.To(http.ListenAndServe(fmt.Sprintf(`:%v`, port), self))
 }
 
 func (self *Server) ServeHTTP(rew http.ResponseWriter, req *http.Request) {

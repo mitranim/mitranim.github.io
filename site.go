@@ -51,7 +51,7 @@ func (self PagePosts) Make(site Site) {
 
 				if len(posts) > 0 {
 					for _, post := range posts {
-						b.E(`div`, AP(`class`, "mar-top-2 gap-ver-1"), func() {
+						b.E(`div`, AP(`class`, `mar-top-2 gap-ver-1`), func() {
 							b.E(`h2`, nil,
 								E(`a`, AP(`href`, post.GetLink()), post.Title),
 							)
@@ -59,7 +59,7 @@ func (self PagePosts) Make(site Site) {
 								b.E(`p`, nil, post.Description)
 							}
 							if post.TimeString() != `` {
-								b.E(`p`, AP(`class`, "fg-gray-close size-small"), post.TimeString())
+								b.E(`p`, AP(`class`, `fg-gray-close size-small`), post.TimeString())
 							}
 						})
 					}
@@ -174,10 +174,10 @@ func (self PagePost) Render(_ Site) Bui {
 				E(`h1`, nil, HEADING_PREFIX, self.Title),
 				func(b B) {
 					if self.Description != `` {
-						b.E(`p`, AP(`role`, "doc-subtitle", `class`, "size-large italic"), self.Description)
+						b.E(`p`, AP(`role`, `doc-subtitle`, `class`, `size-large italic`), self.Description)
 					}
 					if self.TimeString() != `` {
-						b.E(`p`, AP(`class`, "fg-gray-close size-small"), self.TimeString())
+						b.E(`p`, AP(`class`, `fg-gray-close size-small`), self.TimeString())
 					}
 				},
 				Bui(self.MdOnce(self)),
@@ -196,18 +196,18 @@ func (self PagePost) Render(_ Site) Bui {
 func PostsFooterMore(page Ipage) x.Elem {
 	return E(`p`, nil,
 		`This blog currently doesn't support comments. Feel free to `,
-		Exta("https://twitter.com/mitranim", "tweet"),
+		Exta(`https://twitter.com/mitranim`, `tweet`),
 		` at me, email to `,
 		E(`a`, AP(`href`, mailto(page.GetTitle())), EMAIL),
 		`, or use the `,
-		E(`a`, AP(`href`, "/#contacts"), `other contacts`),
+		E(`a`, AP(`href`, `/#contacts`), `other contacts`),
 		`.`,
 	)
 }
 
 var PostsFooterLess = E(`p`, nil,
 	`This blog currently doesn't support comments. Write to me via `,
-	E(`a`, AP(`href`, "/#contacts"), `contacts`),
+	E(`a`, AP(`href`, `/#contacts`), `contacts`),
 	`.`,
 )
 

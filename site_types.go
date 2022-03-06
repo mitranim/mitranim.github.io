@@ -116,7 +116,7 @@ func (self PagePost) TimeString() string {
 		}
 	}
 
-	return strings.Join(out, ", ")
+	return strings.Join(out, `, `)
 }
 
 func (self PagePost) Make(site Site) {

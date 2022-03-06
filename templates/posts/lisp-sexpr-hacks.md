@@ -139,4 +139,4 @@ The major downside of the solution above, aside from added complexity, is that i
 
 ## Conclusion
 
-If Lisp people haven't been able to stuck with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.
+If Lisp people haven't been able to stick with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.

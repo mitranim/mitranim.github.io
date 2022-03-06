@@ -3,7 +3,7 @@ package main
 func init() { commands.Add(`pages`, cmdPages) }
 
 func cmdPages() {
-	defer timing("pages")()
+	defer timing(`pages`)()
 
 	site := initSite()
 	makePages(site)
@@ -25,6 +25,6 @@ func makeFeeds(site Site) {
 		}
 	}
 
-	writePublic("feed.xml", xmlEncode(feed.AtomFeed()))
-	writePublic("feed_rss.xml", xmlEncode(feed.RssFeed()))
+	writePublic(`feed.xml`, xmlEncode(feed.AtomFeed()))
+	writePublic(`feed_rss.xml`, xmlEncode(feed.RssFeed()))
 }

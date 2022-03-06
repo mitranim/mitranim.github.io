@@ -46,7 +46,7 @@ func (self FeedAuthor) RssAuthor() string {
 	if len(self.Email) > 0 {
 		str := self.Email
 		if len(self.Name) > 0 {
-			str += " (" + self.Name + ")"
+			str += ` (` + self.Name + `)`
 		}
 		return str
 	}
@@ -83,9 +83,9 @@ type FeedEnclosure struct {
 
 func (self Feed) AtomFeed() AtomFeed {
 	feed := AtomFeed{
-		Xmlns:    "https://www.w3.org/2005/Atom",
+		Xmlns:    `https://www.w3.org/2005/Atom`,
 		XmlBase:  self.XmlBase,
-		Title:    self.Title + " | Atom | mitranim",
+		Title:    self.Title + ` | Atom | mitranim`,
 		Subtitle: self.Description,
 		Updated:  (*AtomTime)(self.Updated),
 		Rights:   self.Copyright,
@@ -131,7 +131,7 @@ func (self Feed) AtomFeed() AtomFeed {
 			Id:        item.Id,
 			Published: (*AtomTime)(item.Published),
 			Updated:   (*AtomTime)(timeCoalesce(item.Updated, item.Published, timeNow().MaybeTime())),
-			Summary:   &AtomSummary{Type: "html", Content: item.Description},
+			Summary:   &AtomSummary{Type: `html`, Content: item.Description},
 		}
 
 		var linkRel string
@@ -142,16 +142,16 @@ func (self Feed) AtomFeed() AtomFeed {
 				Type: item.Link.Type,
 			}
 			if link.Rel == `` {
-				link.Rel = "alternate"
+				link.Rel = `alternate`
 			}
 			linkRel = link.Rel
 			entry.Links = append(entry.Links, link)
 		}
 
-		if item.Enclosure != nil && linkRel != "enclosure" {
+		if item.Enclosure != nil && linkRel != `enclosure` {
 			entry.Links = append(entry.Links, AtomLink{
 				Href:   item.Enclosure.Url,
-				Rel:    "enclosure",
+				Rel:    `enclosure`,
 				Type:   item.Enclosure.Type,
 				Length: item.Enclosure.Length,
 			})
@@ -159,7 +159,7 @@ func (self Feed) AtomFeed() AtomFeed {
 
 		// If there's content, assume it's html
 		if len(item.Content) > 0 {
-			entry.Content = &AtomContent{Type: "html", Content: item.Content}
+			entry.Content = &AtomContent{Type: `html`, Content: item.Content}
 		}
 
 		if len(name) > 0 || len(email) > 0 {
@@ -190,11 +190,11 @@ func (self Feed) RssFeed() RssFeed {
 	}
 
 	feed := RssFeed{
-		Version:          "2.0",
-		ContentNamespace: "http://purl.org/rss/1.0/modules/content/",
+		Version:          `2.0`,
+		ContentNamespace: `http://purl.org/rss/1.0/modules/content/`,
 		XmlBase:          self.XmlBase,
 		Channel: &RssChannel{
-			Title:          self.Title + " | RSS | mitranim",
+			Title:          self.Title + ` | RSS | mitranim`,
 			Description:    self.Description,
 			ManagingEditor: author,
 			PubDate:        (*RssTime)(timeCoalesce(self.Published, timeNow().MaybeTime())),

@@ -28,14 +28,14 @@ import (
 
 const (
 	SERVER_PORT  = 52693
-	PUBLIC_DIR   = "public"
-	TEMPLATE_DIR = "templates"
-	EMDASH       = "—"
+	PUBLIC_DIR   = `public`
+	TEMPLATE_DIR = `templates`
+	EMDASH       = `—`
 	EMAIL        = `me@mitranim.com`
 )
 
 var (
-	FLAGS   = Flags{PROD: os.Getenv("PROD") == "true"}
+	FLAGS   = Flags{PROD: os.Getenv(`PROD`) == `true`}
 	E       = x.E
 	F       = x.F
 	A       = x.A
@@ -63,7 +63,7 @@ func timeParse(src string) (val Time) {
 	return
 }
 
-func timeFmtHuman(date Time) string { return date.Format("Jan 02 2006") }
+func timeFmtHuman(date Time) string { return date.Format(`Jan 02 2006`) }
 
 func timeCoalesce(vals ...*time.Time) *time.Time {
 	for _, val := range vals {
@@ -74,8 +74,8 @@ func timeCoalesce(vals ...*time.Time) *time.Time {
 	return nil
 }
 
-func trimLeadingSlash(val string) string   { return strings.TrimPrefix(val, "/") }
-func ensureLeadingSlash(val string) string { return ensurePrefix(val, "/") }
+func trimLeadingSlash(val string) string   { return strings.TrimPrefix(val, `/`) }
+func ensureLeadingSlash(val string) string { return ensurePrefix(val, `/`) }
 
 func ensurePrefix(val, pre string) string {
 	if strings.HasPrefix(val, pre) {
@@ -97,7 +97,7 @@ func yearsElapsed() string {
 	start := 2014
 	now := time.Now().UTC().Year()
 	if now > start {
-		return fmt.Sprintf("%v—%v", start, now)
+		return fmt.Sprintf(`%v—%v`, start, now)
 	}
 	return fmt.Sprint(start)
 }
@@ -140,17 +140,17 @@ func tplToBytes(temp *tt.Template, val interface{}) (buf x.NonEscWri) {
 func xmlEncode(val interface{}) (buf x.NonEscWri) {
 	buf = append(buf, xml.Header...)
 	enc := xml.NewEncoder(&buf)
-	enc.Indent(``, "  ")
+	enc.Indent(``, `  `)
 	try.To(enc.Encode(val))
 	return buf
 }
 
 func timing(name string) func() {
 	start := time.Now()
-	log.Printf("[%v] starting", name)
+	log.Printf(`[%v] starting`, name)
 
 	return func() {
-		log.Printf("[%v] done in %v", name, time.Since(start))
+		log.Printf(`[%v] done in %v`, name, time.Since(start))
 	}
 }
 

@@ -371,7 +371,7 @@ func initWorks() []Work {
 		{
 			Name:  `jol`,
 			Link:  `https://github.com/mitranim/jol`,
-			Desc:  `JS Collection Classes. Tiny extensions on JS built-in classes, with nice features such as easy-to-use typed collections, dictionary with structured keys; and more.`,
+			Desc:  `JS Collection Classes. Tiny extensions on JS built-in classes, with nice features such as easy-to-use typed collections, dictionary with structured keys, and more.`,
 			Role:  `author`,
 			Tech:  `JS`,
 			Start: `2021`,
@@ -595,7 +595,7 @@ func initWorks() []Work {
 		{
 			Name:  `eth`,
 			Link:  `https://github.com/purelabio/eth`,
-			Desc:  "Client library for interacting with Ethereum from Go. Superior alternative to the `official` client libraries provided with `go-ethereum`.",
+			Desc:  "Client library for interacting with Ethereum from Go. Superior alternative to the \"official\" client libraries provided with `go-ethereum`.",
 			Role:  `author`,
 			Tech:  `Go`,
 			Start: `2018`,
