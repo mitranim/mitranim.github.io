@@ -48,8 +48,6 @@ Favorite pastimes: [open source development](/works), computer games, anime.
 
 Enthusiastic about software, physics, biology, philosophy, culture, computer games, anime, science fiction.
 
-Location: Moscow, Russia (open to offers to move out).
-
 Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF.)
 
 # Contacts
