@@ -100,17 +100,17 @@ func (self PageWorks) Table() Bui {
 				E(`th`, nil, `Role`),
 				E(`th`, nil, `Tech`),
 				E(`th`, nil, `Start`),
-				E(`th`, nil, `End`),
+				E(`th`, nil, `Status/End`),
 			),
 			E(`tbody`, nil, func(b B) {
 				for _, work := range self.Works {
 					b.E(`tr`, nil,
 						E(`td`, nil, Exta(parseUrl(work.Link).String(), work.Name)),
 						E(`td`, nil, x.Str(stringMdToHtml(work.Desc, nil))),
-						E(`td`, aFade, work.Role),
-						E(`td`, aFade, work.Tech),
-						E(`td`, aFade, work.Start),
-						E(`td`, aFade, work.End),
+						E(`td`, AP(`class`, `fg-gray-close`), work.Role),
+						E(`td`, AP(`class`, `fg-gray-close`), work.Tech),
+						E(`td`, AP(`class`, `fg-gray-close`), work.Start),
+						E(`td`, AP(`class`, `fg-gray-close wspace-nowrap`), work.StatusEnd),
 					)
 				}
 			}),
@@ -125,7 +125,7 @@ func (self PageWorks) List() Bui {
 				b.E(`li`, nil,
 					Exta(work.Link, work.Name),
 					` `,
-					E(`span`, aFade, `(`, work.Meta(), `)`),
+					E(`span`, AP(`class`, `fg-gray-close`), `(`, work.Meta, `)`),
 					` `,
 					x.Str(stringMdToHtml(work.Desc, nil)),
 				)

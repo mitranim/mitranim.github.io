@@ -393,3 +393,13 @@ var replaceCodeBlocks = reFencedCodeBlock.ReplaceAllStringFunc
 var reFencedCodeBlock = regexp.MustCompile(
 	"```((?:[^`]|`[^`]|``[^`])*)```",
 )
+
+func mdLink(text, link string) string {
+	if link == `` {
+		return text
+	}
+	if text == `` {
+		return link
+	}
+	return `[` + text + `](` + link + `)`
+}

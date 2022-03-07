@@ -217,3 +217,28 @@ func walkDirs(path string, fun func(string, fs.DirEntry)) {
 		return nil
 	}))
 }
+
+func buiChild(bui B, val interface{}) bool {
+	size := len(*bui)
+	bui.Child(val)
+	return len(*bui) > size
+}
+
+type SemiList []Bui
+
+func (self SemiList) Render(b B) {
+	has := false
+
+	for _, val := range self {
+		if len(val) == 0 {
+			continue
+		}
+
+		if has {
+			b.T(`; `)
+		}
+
+		has = true
+		val.Render(b)
+	}
+}

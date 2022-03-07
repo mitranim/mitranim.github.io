@@ -5,6 +5,7 @@ import (
 	"path"
 
 	x "github.com/mitranim/gax"
+	e "github.com/pkg/errors"
 )
 
 const (
@@ -161,6 +162,14 @@ var SkipToContent = E(
 )
 
 func Exta(href, text string) x.Elem {
+	if href == `` {
+		panic(e.New(`unexpected empty link`))
+	}
+
+	if text == `` {
+		text = href
+	}
+
 	return E(
 		`a`,
 		AP(`href`, href, `class`, `decorate-link`).A(ABLAN...),
@@ -256,8 +265,6 @@ func cur(page Ipage, href string) x.Attr {
 	}
 	return x.Attr{}
 }
-
-var aFade = AP(`class`, `fg-gray-close`)
 
 func aId(val string) x.Attr {
 	if val != `` {

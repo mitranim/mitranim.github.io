@@ -1,7 +1,7 @@
 package main
 
 import (
-	"reflect"
+	r "reflect"
 	"strings"
 
 	e "github.com/pkg/errors"
@@ -31,7 +31,7 @@ func (self Site) ListedPosts() (out []PagePost) {
 
 func (self Site) PageByType(ref interface{}) Ipage {
 	for _, val := range self.Pages {
-		if reflect.TypeOf(val) == reflect.TypeOf(ref) {
+		if r.TypeOf(val) == r.TypeOf(ref) {
 			return val
 		}
 	}
@@ -154,20 +154,31 @@ func (self PagePost) FeedItem() FeedItem {
 }
 
 type Work struct {
-	Name  string
-	Link  string
-	Start string
-	End   string
-	Role  string
-	Tech  string
-	Desc  string
+	Name string
+	Link string
+	Role string
+	Tech string
+	Desc string
+	Lifecycle
 }
 
-func (self Work) Meta() string {
-	return strJoin(`; `, self.Role, self.Tech, self.Range())
+func (self Work) Meta(b B) {
+	SemiList{
+		F(self.Role),
+		F(self.Tech),
+		F(self.Range()),
+		F(self.StatusLink),
+	}.Render(b)
 }
 
-func (self Work) Range() string {
+type Lifecycle struct {
+	Start  string
+	End    string
+	Status string
+	Link   string
+}
+
+func (self Lifecycle) Range() string {
 	if self.Start != `` && self.End != `` {
 		return self.Start + EMDASH + self.End
 	}
@@ -175,4 +186,22 @@ func (self Work) Range() string {
 		return self.Start + `+`
 	}
 	return ``
+}
+
+func (self Lifecycle) StatusLink(b B) {
+	if self.Link != `` {
+		b.Child(Exta(self.Link, self.Status))
+		return
+	}
+
+	if self.Status != `` {
+		b.Child(self.Status)
+		return
+	}
+}
+
+func (self Lifecycle) StatusEnd(b B) {
+	if !buiChild(b, self.StatusLink) {
+		b.Child(self.End)
+	}
 }

@@ -9,8 +9,6 @@
 
 Sorted by start time. Some "old" things are actively used and developed. Some private projects are excluded.
 
-<!-- TODO: try to make compatible with screen readers. -->
-
 {{.Table}}
 
 {{.List}}
