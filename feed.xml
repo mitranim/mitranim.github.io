@@ -2,7 +2,7 @@
 <feed xmlns="https://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2022-03-08T06:18:28Z</updated>
+  <updated>2022-03-08T06:39:28Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -10,6 +10,36 @@
   </author>
   <link rel="alternate" type="text/html" href="https://mitranim.com/posts"></link>
   <link rel="self" type="application/atom+xml" href="https://mitranim.com/feed.xml"></link>
+  <entry xml:base="https://mitranim.com/posts/anime-impressions-evangelion">
+    <title>Anime impressions: Evangelion</title>
+    <id>https://mitranim.com/posts/anime-impressions-evangelion</id>
+    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><blockquote class="blockquote"><p>By psycho, of psychos, for psychos</p>
+</blockquote>
+<p>Evangelion requires special preparation for full enjoyment.</p>
+
+<p>The most important thing to know is that Evangelion is not about meka action and not about optimistically beating the odds. It&rsquo;s about emotional turmoil, about an unshielded psyche suffering on contact with the world, conveyed through a unique narrative device of artificially stripping most characters of their social mask, their emotional shield. The story merely provides context, and the meka action theme is just a wrapper to attract viewers. Psychic turmoil and captiring the failings of the human psyche that we usually fail to notice, or hide from ourselves and each other, is what the author is <em>really</em> about.</p>
+
+<p>Almost all important characters are socially maladjusted and display traits of various psychoses. Some appear emotionally healthy, then easily break under pressure. This can feel unrealistic and galling to a viewer with a healthy social circle. I recommend to interpret this as a narrative device. Characters are artificially &ldquo;unmasked&rdquo;, stripped of their social interface, the critic, the &ldquo;super-ego&rdquo; that dictates social behavior. Instead of showing a character&rsquo;s psyche and inner turmoil separately from their actions, Evangelion tends to show it <em>through</em> their actions, often unrealistic for a normal, socially adjusted human.</p>
+
+<p>Character development inverts your expectations. Typical expectation is that characters progressively get more skillful, competent, powerful, and emotionally stable. In Evangelion, characters get progressively more psychotic and emotionally decrepit. When they get to know each other, instead of forming bonds of friendship and love, they become more wary and afraid of each other. The show explicitly points out how humans need each other for emotional comfort, but also run the risk of hurting each other due to carelessness and differences, and has no shortage of examples.</p>
+
+<p>Many bizarre and psychotic actions can only be understood by relating them to your own emotional experiences. Figuring them out can be a lot of fun. One can view Evangelion as a psychedelic puzzle book. It captures various failings of the human psyche and asks you to recognize them in your own feelings and experiences. It offers you a chance to empathize with failings we often keep hidden under the social interface, which are broadly on display here.</p>
+
+<p>The main protagonist is the most useless, cowardly wimp. Evangelion inverts the usual expectation of the hero growing stronger to beat the ever-greater odds, as the character only gets more pathetic as the plot goes on. The show even toys with our expectations by pretending that the character gets over his troubles, only to snap him again, several times. Evangelion seems to make a special point of building the most guilt-ridden, unwilling, passive &ldquo;hero&rdquo; imaginable and dragging him, often literally, into responsibility over the lives of others, complete with the consequences. I haven&rsquo;t been able to understand this &ldquo;point&rdquo; yet, neither logically nor emotionally.</p>
+
+<p>The original series fails to conclude the plot. The last two episodes leave it mysterious, open to speculation and interpretation, and focus exclusively on inner psyche. This can be enjoyable if the viewer is prepared in advance. Otherwise, it can be frustrating. The actual conclusion is &ldquo;End of Evangelion&rdquo;, a &ldquo;movie&rdquo; released many years after, that continues directly from the third-last episode and concludes the &ldquo;real world&rdquo; action, with a healthy dose of psychic puzzles.</p>
+
+<p>Many important details are only briefly alluded to, and need to be deciphered. The series rewards watching carefully, paying attention to details, thinking back, and thinking ahead. There&rsquo;s plenty of fun to be had by thinking about the implications of many plot details, events, technologies, and more, that are left unexplored on-screen. The show on the screen is like a compressed archive that can be decompressed in your head into a greater sum total of information, getting the most out of it.</p>
+</article>]]></content>
+    <published>2022-03-08T06:31:41Z</published>
+    <updated>2022-03-08T06:31:41Z</updated>
+    <link rel="alternate" href="https://mitranim.com/posts/anime-impressions-evangelion"></link>
+    <summary type="html"><![CDATA[Thoughts on Neon Genesis Evangelion, End of Evangelion.]]></summary>
+    <author>
+      <name>Nelo Mitranim</name>
+      <email>me@mitranim.com</email>
+    </author>
+  </entry>
   <entry xml:base="https://mitranim.com/posts/anime">
     <title>Anime impressions and recommendations</title>
     <id>https://mitranim.com/posts/anime</id>
@@ -25,7 +55,7 @@
 <h2 id="recommended-with-reservations"><span class="heading-prefix" aria-hidden="true"></span>Recommended with reservations<a href="#recommended-with-reservations" class="heading-anchor" aria-hidden="true"></a></h2>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Mushishi" target="_blank" rel="noopener noreferrer"><strong>Mushishi</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires tolerance to body horror.</li>
-<li><a href="https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion" target="_blank" rel="noopener noreferrer"><strong>Neon Genesis Evangelion</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires special preparation and coaching to get the most out of it.</li>
+<li><a href="https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion" target="_blank" rel="noopener noreferrer"><strong>Neon Genesis Evangelion</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires special preparation and coaching, such as <a href="/posts/anime-impressions-evangelion">mine</a>, to get the most out of it.</li>
 <li><a href="https://en.wikipedia.org/wiki/The_%22Hentai%22_Prince_and_the_Stony_Cat" target="_blank" rel="noopener noreferrer"><strong>Perverted Prince and Stony Cat / Hentai Ouji to Warawanai Neko</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires tolerance to embarrassment. Don&rsquo;t get confused by the name; this is a lighthearted romantic comedy about children.</li>
 </ul>
 <h2 id="lukewarm"><span class="heading-prefix" aria-hidden="true"></span>Lukewarm<a href="#lukewarm" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -65,7 +95,7 @@
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/andromeda">
-    <title>Game Impressions: Mass Effect Andromeda</title>
+    <title>Game impressions: Mass Effect Andromeda</title>
     <id>https://mitranim.com/posts/andromeda</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Very good. Solid sequel. Worthy successor. Note: the game got patched, addressing many release problems such as faces.</p>
 
@@ -439,7 +469,7 @@
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/spaces-tabs">
-    <title>Always Spaces, Never Tabs</title>
+    <title>Always spaces, never tabs</title>
     <id>https://mitranim.com/posts/spaces-tabs</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>TLDR</strong>: always spaces, never tabs; 2 spaces rather than 4.</p>
 <h2 id="arguments"><span class="heading-prefix" aria-hidden="true"></span>Arguments<a href="#arguments" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -616,7 +646,7 @@ value.method
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/lang-var-minus">
-    <title>Language Design: Gotchas With Variadic Minus</title>
+    <title>Language design: gotchas with variadic minus</title>
     <id>https://mitranim.com/posts/lang-var-minus</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>TLDR</strong>: variadic <code>-</code>, as seen in Lisps, has gotchas; it may be allowed syntactically, but not as a variadic function.</p>
 
@@ -700,7 +730,7 @@ B - C    |    Subtraction.
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/lang-case-conventions">
-    <title>Language Design: Case Conventions</title>
+    <title>Language design: case conventions</title>
     <id>https://mitranim.com/posts/lang-case-conventions</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>TLDR</strong>: Identifiers in programming languages should use only <code>snake_case</code>, <code>Title_snake_case</code>, <code>UPPER_SNAKE_CASE</code>, ignore abbreviations, and be limited to ASCII alphanumerics with <code>_</code>.</p>
 
@@ -809,7 +839,7 @@ One123Two   &lt;-&gt; one 123 two
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/lang-homoiconic">
-    <title>Language Design: Homoiconicity</title>
+    <title>Language design: homoiconicity</title>
     <id>https://mitranim.com/posts/lang-homoiconic</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>TLDR</strong>: Homoiconicity simplifies what was already trivial, while leading to poor design choices.</p>
 <h2 id="disclaimer"><span class="heading-prefix" aria-hidden="true"></span>Disclaimer<a href="#disclaimer" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -901,7 +931,7 @@ blah
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/warframe-headcanon">
-    <title>Warframe Headcanon (Spoilers)</title>
+    <title>Warframe headcanon (spoilers)</title>
     <id>https://mitranim.com/posts/warframe-headcanon</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Collection of headcanon for <a href="https://warframe.com" target="_blank" rel="noopener noreferrer">Warframe<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <strong>co-authored by friends</strong> and myself. This post contains <strong>massive unmarked spoilers</strong>. By the nature of headcanon, this should only be read by someone who&rsquo;s completed all story quests. If you haven&rsquo;t, <strong>get out now</strong> and return once you have. <span aria-hidden="true">🙂</span></p>
 
@@ -1338,7 +1368,7 @@ Generating the ASCII figure:
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/tips-and-tricks-doom-2016">
-    <title>Tips and Tricks: Doom 2016</title>
+    <title>Tips and tricks: Doom 2016</title>
     <id>https://mitranim.com/posts/tips-and-tricks-doom-2016</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Note: check the accompanying post <a href="/posts/game-impressions-doom-2016">Game Impressions: Doom 2016</a> for my thoughts on the game and an analysis of what makes it enjoyable.</p>
 
@@ -1464,7 +1494,7 @@ Generating the ASCII figure:
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/game-impressions-doom-2016">
-    <title>Game Impressions: Doom 2016</title>
+    <title>Game impressions: Doom 2016</title>
     <id>https://mitranim.com/posts/game-impressions-doom-2016</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Spent the past week absorbed into Doom 2016. My &ldquo;let&rsquo;s play&rdquo; is being gradually released on Youtube: <a href="https://www.youtube.com/playlist?list=PLfygJGWNJ-9Vqxy5svyBTy0jIS8ggtDXd" target="_blank" rel="noopener noreferrer">playlist link<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. This post summarizes my impressions.</p>
 
@@ -1604,7 +1634,7 @@ Generating the ASCII figure:
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/astrotips">
-    <title>Announcing Astrotips: Video Guides on Astroneer</title>
+    <title>Announcing Astrotips: video guides on Astroneer</title>
     <id>https://mitranim.com/posts/astrotips</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>For the last month or so, I&rsquo;ve been absorbed by Astroneer (link: <a href="https://astroneer.space" target="_blank" rel="noopener noreferrer">https://astroneer.space<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>). It&rsquo;s an amazing game that released just recently (Feb 6).</p>
 
@@ -1624,7 +1654,7 @@ Generating the ASCII figure:
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/camel-case-abbr">
-    <title>Don&#39;t Abbreviate in CamelCase</title>
+    <title>Don&#39;t abbreviate in camelCase</title>
     <id>https://mitranim.com/posts/camel-case-abbr</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>Edit 2020-10-21</strong>: see the newer post <a href="/posts/lang-case-conventions">Language Design: Case Conventions</a>.</p>
 
@@ -1683,7 +1713,7 @@ ONE-TWO      -- upper kebab case
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/remove-from-go">
-    <title>Things I Would Remove From Go</title>
+    <title>Things I would remove from Go</title>
     <id>https://mitranim.com/posts/remove-from-go</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>The <a href="https://golang.org" target="_blank" rel="noopener noreferrer">Go programming language<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> espouses <a href="https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html" target="_blank" rel="noopener noreferrer">&ldquo;less is more&rdquo;<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. It prefers fewer features and &ldquo;one way of doing things&rdquo;. However, it still has some fat to lose! This article highlights what I consider unnecessary, and suggests the path to gradual deprecation and removal.</p>
 
@@ -1929,7 +1959,7 @@ ONE-TWO      -- upper kebab case
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/back-from-hiatus-2019">
-    <title>Back from Hiatus (2019)</title>
+    <title>Back from hiatus (2019)</title>
     <id>https://mitranim.com/posts/back-from-hiatus-2019</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Welcome and/or welcome back!</p>
 
@@ -1957,7 +1987,7 @@ ONE-TWO      -- upper kebab case
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/cheating-for-performance-pjax">
-    <title>Cheating for Performance with Pjax</title>
+    <title>Cheating for performance with pjax</title>
     <id>https://mitranim.com/posts/cheating-for-performance-pjax</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><h2 id="overview"><span class="heading-prefix" aria-hidden="true"></span>Overview<a href="#overview" class="heading-anchor" aria-hidden="true"></a></h2><p>Optimizing website performance is tricky. There&rsquo;s plenty of articles delving deep into technical detail, like <a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=en" target="_blank" rel="noopener noreferrer">this great guide<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> by Google. Naturally, when you make it that hard, most people aren&rsquo;t going to bother.</p>
 
@@ -2085,7 +2115,7 @@ ONE-TWO      -- upper kebab case
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/cheating-for-website-performance">
-    <title>Cheating for Website Performance</title>
+    <title>Cheating for website performance</title>
     <id>https://mitranim.com/posts/cheating-for-website-performance</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Have been turning into a bit of a performance nut lately. This is what I&rsquo;ve
 found useful for speeding up websites. These are mostly frontend optimizations;
@@ -2217,7 +2247,7 @@ use a caching proxy / CDN like CloudFlare to reduce latency for static content.<
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/keeping-things-simple">
-    <title>Keeping Things Simple</title>
+    <title>Keeping things simple</title>
     <id>https://mitranim.com/posts/keeping-things-simple</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Lately I&rsquo;ve been trying to figure out how to write shorter programs. Or, more generally, how to design simple solutions.</p>
 
@@ -2254,7 +2284,7 @@ use a caching proxy / CDN like CloudFlare to reduce latency for static content.<
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/old-posts">
-    <title>Old Posts</title>
+    <title>Old posts</title>
     <id>https://mitranim.com/posts/old-posts</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><a href="https://medium.com/@mitranim/better-mtg-online-82ac42d79970" target="_blank" rel="noopener noreferrer">Better MtG Online<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p>
 
