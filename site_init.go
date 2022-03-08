@@ -53,6 +53,16 @@ func initSitePosts() []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Path:        `posts/anime-impressions-parasyte.html`,
+				Title:       `Anime impressions: Parasyte`,
+				Description: `Thoughts and analysis on this surprisingly deep anime. Spoilers!`,
+				MdTpl:       readTemplate(`posts/anime-impressions-parasyte.md`),
+			},
+			PublishedAt: timeParse(`2022-03-08T07:02:11Z`),
+			IsListed:    true,
+		},
+		PagePost{
+			Page: Page{
 				Path:        `posts/anime-impressions-evangelion.html`,
 				Title:       `Anime impressions: Evangelion`,
 				Description: `How to watch: Neon Genesis Evangelion, End of Evangelion.`,
@@ -75,7 +85,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/andromeda.html`,
 				Title:       `Game impressions: Mass Effect Andromeda`,
-				Description: `Enjoyed, highly recommended`,
+				Description: `Enjoyed, highly recommended.`,
 				MdTpl:       readTemplate(`posts/andromeda.md`),
 			},
 			PublishedAt: timeParse(`2022-01-23T07:43:31Z`),
@@ -96,7 +106,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/spaces-tabs.html`,
 				Title:       `Always spaces, never tabs`,
-				Description: `Objective arguments that decided my personal preference`,
+				Description: `Objective arguments that decided my personal preference.`,
 				MdTpl:       readTemplate(`posts/spaces-tabs.md`),
 			},
 			PublishedAt: timeParse(`2020-10-23T06:48:15Z`),
@@ -106,7 +116,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/lisp-sexpr-hacks.html`,
 				Title:       `Hacks around S-expressions in Lisps`,
-				Description: `How far people are willing to go to get prefix and infix in a Lisp syntax`,
+				Description: `How far people are willing to go to get prefix and infix in a Lisp syntax.`,
 				MdTpl:       readTemplate(`posts/lisp-sexpr-hacks.md`),
 			},
 			PublishedAt: timeParse(`2020-10-21T06:34:24Z`),
@@ -117,7 +127,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/lang-var-minus.html`,
 				Title:       `Language design: gotchas with variadic minus`,
-				Description: `Treating the minus operator as a function can be tricky and dangerous`,
+				Description: `Treating the minus operator as a function can be tricky and dangerous.`,
 				MdTpl:       readTemplate(`posts/lang-var-minus.md`),
 			},
 			PublishedAt: timeParse(`2020-10-17T07:20:06Z`),
@@ -127,7 +137,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/lang-case-conventions.html`,
 				Title:       `Language design: case conventions`,
-				Description: `Objective arguments to solve case conventions and move on`,
+				Description: `Objective arguments to solve case conventions and move on.`,
 				MdTpl:       readTemplate(`posts/lang-case-conventions.md`),
 			},
 			PublishedAt: timeParse(`2020-10-16T15:30:41Z`),
@@ -137,7 +147,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/lang-homoiconic.html`,
 				Title:       `Language design: homoiconicity`,
-				Description: `Thoughts on homoiconicity, an interesting language quality seen in Lisps`,
+				Description: `Thoughts on homoiconicity, an interesting language quality seen in Lisps.`,
 				MdTpl:       readTemplate(`posts/lang-homoiconic.md`),
 			},
 			PublishedAt: timeParse(`2020-10-16T12:41:58Z`),
@@ -147,7 +157,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/warframe-headcanon.html`,
 				Title:       `Warframe headcanon (spoilers)`,
-				Description: `Collection of Warframe headcanon co-authored with friends`,
+				Description: `Collection of Warframe headcanon co-authored with friends.`,
 				MdTpl:       readTemplate(`posts/warframe-headcanon.md`),
 			},
 			PublishedAt: timeParse(`2020-10-10T12:25:32Z`),
@@ -155,10 +165,9 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
-				Path:        `posts/thoughts-on-the-egg.html`,
-				Title:       `Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt`,
-				Description: ``,
-				MdTpl:       readTemplate(`posts/thoughts-on-the-egg.md`),
+				Path:  `posts/thoughts-on-the-egg.html`,
+				Title: `Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt`,
+				MdTpl: readTemplate(`posts/thoughts-on-the-egg.md`),
 			},
 			PublishedAt: timeParse(`2020-04-30T08:25:16Z`),
 			IsListed:    true,
@@ -167,7 +176,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/gameplay-conjecture.html`,
 				Title:       `Gameplay conjecture`,
-				Description: `Amount of gameplay ≈ amount of required decisions`,
+				Description: `Amount of gameplay ≈ amount of required decisions.`,
 				MdTpl:       readTemplate(`posts/gameplay-conjecture.md`),
 			},
 			IsListed: !FLAGS.PROD,
@@ -176,7 +185,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/tips-and-tricks-doom-2016.html`,
 				Title:       `Tips and tricks: Doom 2016`,
-				Description: `General tips, notes on difficulty, enemies, runes, weapons`,
+				Description: `General tips, notes on difficulty, enemies, runes, weapons.`,
 				MdTpl:       readTemplate(`posts/tips-and-tricks-doom-2016.md`),
 			},
 			PublishedAt: timeParse(`2019-04-25T12:00:00Z`),
@@ -186,7 +195,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/game-impressions-doom-2016.html`,
 				Title:       `Game impressions: Doom 2016`,
-				Description: `I really like Doom 2016, here's why`,
+				Description: `I really like Doom 2016, here's why.`,
 				MdTpl:       readTemplate(`posts/game-impressions-doom-2016.md`),
 			},
 			PublishedAt: timeParse(`2019-04-25T11:00:00Z`),
@@ -196,7 +205,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/astrotips.html`,
 				Title:       `Announcing Astrotips: video guides on Astroneer`,
-				Description: `A series of video guides, tips and tricks on Astroneer, an amazing space exploration and building game`,
+				Description: `A series of video guides, tips and tricks on Astroneer, an amazing space exploration and building game.`,
 				MdTpl:       readTemplate(`posts/astrotips.md`),
 			},
 			PublishedAt: timeParse(`2019-02-22T11:00:00Z`),
@@ -206,7 +215,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/camel-case-abbr.html`,
 				Title:       `Don't abbreviate in camelCase`,
-				Description: "CamelCase identifiers should avoid abbreviations, e.g. `JsonText` rather than `JSONText`",
+				Description: "CamelCase identifiers should avoid abbreviations, e.g. `JsonText` rather than `JSONText`.",
 				MdTpl:       readTemplate(`posts/camel-case-abbr.md`),
 			},
 			PublishedAt: timeParse(`2019-01-17T07:00:00Z`),
@@ -216,7 +225,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/remove-from-go.html`,
 				Title:       `Things I would remove from Go`,
-				Description: `If less is more, Go could gain by losing weight`,
+				Description: `If less is more, Go could gain by losing weight.`,
 				MdTpl:       readTemplate(`posts/remove-from-go.md`),
 			},
 			PublishedAt: timeParse(`2019-01-15T01:00:00Z`),
@@ -226,7 +235,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/back-from-hiatus-2019.html`,
 				Title:       `Back from hiatus (2019)`,
-				Description: `Back to blogging after three and a half years`,
+				Description: `Back to blogging after three and a half years.`,
 				MdTpl:       readTemplate(`posts/back-from-hiatus-2019.md`),
 			},
 			PublishedAt: timeParse(`2019-01-15T00:00:00Z`),
@@ -236,7 +245,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/cheating-for-performance-pjax.html`,
 				Title:       `Cheating for performance with pjax`,
-				Description: `Faster page transitions, for free`,
+				Description: `Faster page transitions, for free.`,
 				MdTpl:       readTemplate(`posts/cheating-for-performance-pjax.md`),
 			},
 			RedirFrom:   []string{`thoughts/cheating-for-performance-pjax.html`},
@@ -247,7 +256,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/cheating-for-website-performance.html`,
 				Title:       `Cheating for website performance`,
-				Description: `Frontend tips for speeding up websites`,
+				Description: `Frontend tips for speeding up websites.`,
 				MdTpl:       readTemplate(`posts/cheating-for-website-performance.md`),
 			},
 			RedirFrom:   []string{`thoughts/cheating-for-website-performance.html`},
@@ -258,7 +267,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/keeping-things-simple.html`,
 				Title:       `Keeping things simple`,
-				Description: `Musings on simplicity in programming`,
+				Description: `Musings on simplicity in programming.`,
 				MdTpl:       readTemplate(`posts/keeping-things-simple.md`),
 			},
 			RedirFrom:   []string{`thoughts/keeping-things-simple.html`},
@@ -269,7 +278,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/next-generation-today.html`,
 				Title:       `Next generation today`,
-				Description: `EcmaScript 2015/2016 workflow with current web frameworks`,
+				Description: `EcmaScript 2015/2016 workflow with current web frameworks.`,
 				MdTpl:       readTemplate(`posts/next-generation-today.md`),
 			},
 			RedirFrom:   []string{`thoughts/next-generation-today.html`},
@@ -280,7 +289,7 @@ func initSitePosts() []PagePost {
 			Page: Page{
 				Path:        `posts/old-posts.html`,
 				Title:       `Old posts`,
-				Description: `some old stuff from around the net`,
+				Description: `Some old stuff from around the net.`,
 				MdTpl:       readTemplate(`posts/old-posts.md`),
 			},
 			RedirFrom:   []string{`thoughts/old-posts.html`},
