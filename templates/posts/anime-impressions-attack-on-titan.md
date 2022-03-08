@@ -9,7 +9,7 @@ Also, it doesn't have scantily clad girls, and protagonists are not high school 
 
 Oh, and when characters do act stupid, they get brutally punished.
 
-Rewatching Attack on Titan season 1, it's really good at subtle hints. The best way to watch is to pause, pay attention, and think a lot. It really rewards thinking it through and figuring things out. Some episodes are so packed with this, it takes longer for me to think about an episode than watch it. Of course this is just a bonus if you're actively looking for clues, can just enjoy the action.
+Rewatching Attack on Titan season 1, it's really good at subtle hints. The best way to watch is to pause, pay attention, and think a lot. It really rewards thinking through and figuring things out. Some episodes are so packed with this, it takes longer for me to think about an episode than watch it. Of course this is just a bonus if you're actively looking for clues, can just enjoy the action.
 
 Glad I went back and rewatched Attack on Titan season 1 and 2. There were hints at important plot points that I didn't catch the first time around, but did on the second watch. Took the time, figured it out, got rewarded by being right by later reveals.
 

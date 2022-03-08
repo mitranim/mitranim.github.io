@@ -242,3 +242,7 @@ func (self SemiList) Render(b B) {
 		val.Render(b)
 	}
 }
+
+func readTemplate(path string) []byte {
+	return readFile(fpj(TEMPLATE_DIR, path))
+}
