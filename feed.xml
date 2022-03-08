@@ -2,7 +2,7 @@
 <feed xmlns="https://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2022-03-08T06:39:28Z</updated>
+  <updated>2022-03-08T06:40:22Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -34,7 +34,7 @@
     <published>2022-03-08T06:31:41Z</published>
     <updated>2022-03-08T06:31:41Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/anime-impressions-evangelion"></link>
-    <summary type="html"><![CDATA[Thoughts on Neon Genesis Evangelion, End of Evangelion.]]></summary>
+    <summary type="html"><![CDATA[How to watch: Neon Genesis Evangelion, End of Evangelion.]]></summary>
     <author>
       <name>Nelo Mitranim</name>
       <email>me@mitranim.com</email>
