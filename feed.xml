@@ -2,7 +2,7 @@
 <feed xmlns="https://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2022-03-07T08:13:35Z</updated>
+  <updated>2022-03-08T06:18:28Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -10,6 +10,60 @@
   </author>
   <link rel="alternate" type="text/html" href="https://mitranim.com/posts"></link>
   <link rel="self" type="application/atom+xml" href="https://mitranim.com/feed.xml"></link>
+  <entry xml:base="https://mitranim.com/posts/anime">
+    <title>Anime impressions and recommendations</title>
+    <id>https://mitranim.com/posts/anime</id>
+    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><h2 id="recommended-without-reservations"><span class="heading-prefix" aria-hidden="true"></span>Recommended without reservations<a href="#recommended-without-reservations" class="heading-anchor" aria-hidden="true"></a></h2><ul>
+<li><a href="https://en.wikipedia.org/wiki/Attack_on_Titan" target="_blank" rel="noopener noreferrer"><strong>Attack on Titan</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; avoids many anime tropes; written like a detective story, rewards watching slowly and thinking ahead; full of competent characters who think ahead.</li>
+<li><a href="https://en.wikipedia.org/wiki/Death_Note" target="_blank" rel="noopener noreferrer"><strong>Death Note</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; not subject to anime tropes; detective story that rewards watching slowly and thinking ahead; has very competent characters who think ahead.</li>
+<li><a href="https://en.wikipedia.org/wiki/Code_Geass" target="_blank" rel="noopener noreferrer"><strong>Code Geass</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with coolness; competent writing; has competent characters who think ahead; avoids some common anime tropes but falls prey to others; prone to deus ex machina and angst ex machina; watch with English dubs, they&rsquo;re better than the original.</li>
+<li><a href="https://en.wikipedia.org/wiki/Parasyte" target="_blank" rel="noopener noreferrer"><strong>Parasyte</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Very competent writing; explores deep moral topics, gives you something to think about; has competent characters who think ahead; avoids most anime tropes; rewards watching slowly and thinking about the implications.</li>
+<li><a href="https://en.wikipedia.org/wiki/Naruto" target="_blank" rel="noopener noreferrer"><strong>Naruto</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with cool characters and action scenes; the plot keeps getting deeper and more convoluted; great music, tone, atmosphere; saturated with optimistic morals about never giving up; about half of the anime is fillers, skip most of them for better enjoyment.</li>
+<li><a href="https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood" target="_blank" rel="noopener noreferrer"><strong>Full Metal Alchemist Brotherhood</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Somewhat unique theme; has various flaws, but manages to avert many common anime tropes; some mediocre parts, some really good parts.</li>
+<li><a href="https://en.wikipedia.org/wiki/Hellsing" target="_blank" rel="noopener noreferrer"><strong>Hellsing OVA</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> (2001-2002). Stylish vampire action; solid atmosphere and music; avoids many anime tropes.</li>
+</ul>
+<h2 id="recommended-with-reservations"><span class="heading-prefix" aria-hidden="true"></span>Recommended with reservations<a href="#recommended-with-reservations" class="heading-anchor" aria-hidden="true"></a></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Mushishi" target="_blank" rel="noopener noreferrer"><strong>Mushishi</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires tolerance to body horror.</li>
+<li><a href="https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion" target="_blank" rel="noopener noreferrer"><strong>Neon Genesis Evangelion</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires special preparation and coaching to get the most out of it.</li>
+<li><a href="https://en.wikipedia.org/wiki/The_%22Hentai%22_Prince_and_the_Stony_Cat" target="_blank" rel="noopener noreferrer"><strong>Perverted Prince and Stony Cat / Hentai Ouji to Warawanai Neko</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires tolerance to embarrassment. Don&rsquo;t get confused by the name; this is a lighthearted romantic comedy about children.</li>
+</ul>
+<h2 id="lukewarm"><span class="heading-prefix" aria-hidden="true"></span>Lukewarm<a href="#lukewarm" class="heading-anchor" aria-hidden="true"></a></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Vampire_Hunter_D:_Bloodlust" target="_blank" rel="noopener noreferrer"><strong>Vampire Hunter D Bloodlust</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. High-quality production, but mostly senseless violence.</li>
+<li><a href="https://en.wikipedia.org/wiki/One_Piece" target="_blank" rel="noopener noreferrer"><strong>One Piece</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Like Naruto but dumber, uglier, with worse music, and still unfinished.</li>
+<li><a href="https://en.wikipedia.org/wiki/FLCL" target="_blank" rel="noopener noreferrer"><strong>FLCL</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Nonsensical mash of metaphors and angst.</li>
+<li><strong>FLCL Progressive</strong>. Like the original but with more angst.</li>
+</ul>
+<h2 id="neutral"><span class="heading-prefix" aria-hidden="true"></span>Neutral<a href="#neutral" class="heading-anchor" aria-hidden="true"></a></h2>
+<ul>
+<li><strong>A Certain Magical Index</strong>. The anime is unfinished, needs season 4. The anime is compressed and doesn&rsquo;t make sense at times, especially in season 3. Obnoxious &ldquo;small world&rdquo; syndrome.</li>
+<li><strong>Tokyo Ghoul</strong>: anime followed by manga. The anime sets the tone, but is horribly butchered and incomplete. You need to read the manga to actually finish the story.</li>
+<li><strong>Great Teacher Onizuka</strong>.</li>
+<li><strong>Full Metal Panic</strong>. Not to be confused with &ldquo;Fullmetal Alchemist&rdquo; which is unrelated. Combines embarrassing romantic comedy with military action. Full of dumb anime tropes. The anime is unfinished, lacking at least one season.</li>
+<li><strong>Shinmai Maou no Testament</strong>. Has better music than the story deserves.</li>
+</ul>
+<h2 id="not-recommended"><span class="heading-prefix" aria-hidden="true"></span>Not recommended<a href="#not-recommended" class="heading-anchor" aria-hidden="true"></a></h2>
+<ul>
+<li><strong>Cowboy Bebop</strong>. Pretentious and nonsensical.</li>
+<li><strong>Ergo Proxy</strong>. Pretentious and nonsensical.</li>
+<li><strong>Trigun</strong>. Lots of violence without style.</li>
+<li><strong>Ninja Scroll</strong>. Senseless darkness and violence.</li>
+<li><strong>Bleach</strong>: the anime is incomplete and ends on the crappiest arc, missing the coolest final arc. If ever finalized, this might rate as &ldquo;neutral&rdquo;.</li>
+<li><strong>Black Butler</strong>. The anime horribly butchers the source material.</li>
+<li><strong>Ranma</strong>. Garbage source material, adaptation even worse.</li>
+<li><strong>Mahou Sensei Negima</strong>. Could only handle a few episodes.</li>
+</ul>
+</article>]]></content>
+    <published>2022-03-08T05:48:55Z</published>
+    <updated>2022-03-08T05:48:55Z</updated>
+    <link rel="alternate" href="https://mitranim.com/posts/anime"></link>
+    <summary type="html"><![CDATA[Periodically-updated gist. Check later for more.]]></summary>
+    <author>
+      <name>Nelo Mitranim</name>
+      <email>me@mitranim.com</email>
+    </author>
+  </entry>
   <entry xml:base="https://mitranim.com/posts/andromeda">
     <title>Game Impressions: Mass Effect Andromeda</title>
     <id>https://mitranim.com/posts/andromeda</id>
