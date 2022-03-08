@@ -11,7 +11,7 @@
 ## Recommended with reservations
 
 * [**Mushishi**](https://en.wikipedia.org/wiki/Mushishi). Requires tolerance to body horror.
-* [**Neon Genesis Evangelion**](https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion). Requires special preparation and coaching to get the most out of it.
+* [**Neon Genesis Evangelion**](https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion). Requires special preparation and coaching, such as [mine](/posts/anime-impressions-evangelion), to get the most out of it.
 * [**Perverted Prince and Stony Cat / Hentai Ouji to Warawanai Neko**](https://en.wikipedia.org/wiki/The_%22Hentai%22_Prince_and_the_Stony_Cat). Requires tolerance to embarrassment. Don't get confused by the name; this is a lighthearted romantic comedy about children.
 
 ## Lukewarm

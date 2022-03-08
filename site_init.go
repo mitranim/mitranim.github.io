@@ -53,6 +53,16 @@ func initSitePosts() []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Path:        `posts/anime-impressions-evangelion.html`,
+				Title:       `Anime impressions: Evangelion`,
+				Description: `How to watch: Neon Genesis Evangelion, End of Evangelion.`,
+				MdTpl:       readTemplate(`posts/anime-impressions-evangelion.md`),
+			},
+			PublishedAt: timeParse(`2022-03-08T06:31:41Z`),
+			IsListed:    true,
+		},
+		PagePost{
+			Page: Page{
 				Path:        `posts/anime.html`,
 				Title:       `Anime impressions and recommendations`,
 				Description: `Periodically-updated gist. Check later for more.`,
@@ -64,7 +74,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/andromeda.html`,
-				Title:       `Game Impressions: Mass Effect Andromeda`,
+				Title:       `Game impressions: Mass Effect Andromeda`,
 				Description: `Enjoyed, highly recommended`,
 				MdTpl:       readTemplate(`posts/andromeda.md`),
 			},
@@ -85,7 +95,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/spaces-tabs.html`,
-				Title:       `Always Spaces, Never Tabs`,
+				Title:       `Always spaces, never tabs`,
 				Description: `Objective arguments that decided my personal preference`,
 				MdTpl:       readTemplate(`posts/spaces-tabs.md`),
 			},
@@ -106,7 +116,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/lang-var-minus.html`,
-				Title:       `Language Design: Gotchas With Variadic Minus`,
+				Title:       `Language design: gotchas with variadic minus`,
 				Description: `Treating the minus operator as a function can be tricky and dangerous`,
 				MdTpl:       readTemplate(`posts/lang-var-minus.md`),
 			},
@@ -116,7 +126,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/lang-case-conventions.html`,
-				Title:       `Language Design: Case Conventions`,
+				Title:       `Language design: case conventions`,
 				Description: `Objective arguments to solve case conventions and move on`,
 				MdTpl:       readTemplate(`posts/lang-case-conventions.md`),
 			},
@@ -126,7 +136,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/lang-homoiconic.html`,
-				Title:       `Language Design: Homoiconicity`,
+				Title:       `Language design: homoiconicity`,
 				Description: `Thoughts on homoiconicity, an interesting language quality seen in Lisps`,
 				MdTpl:       readTemplate(`posts/lang-homoiconic.md`),
 			},
@@ -136,7 +146,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/warframe-headcanon.html`,
-				Title:       `Warframe Headcanon (Spoilers)`,
+				Title:       `Warframe headcanon (spoilers)`,
 				Description: `Collection of Warframe headcanon co-authored with friends`,
 				MdTpl:       readTemplate(`posts/warframe-headcanon.md`),
 			},
@@ -156,7 +166,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/gameplay-conjecture.html`,
-				Title:       `Gameplay Conjecture`,
+				Title:       `Gameplay conjecture`,
 				Description: `Amount of gameplay ≈ amount of required decisions`,
 				MdTpl:       readTemplate(`posts/gameplay-conjecture.md`),
 			},
@@ -165,7 +175,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/tips-and-tricks-doom-2016.html`,
-				Title:       `Tips and Tricks: Doom 2016`,
+				Title:       `Tips and tricks: Doom 2016`,
 				Description: `General tips, notes on difficulty, enemies, runes, weapons`,
 				MdTpl:       readTemplate(`posts/tips-and-tricks-doom-2016.md`),
 			},
@@ -175,7 +185,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/game-impressions-doom-2016.html`,
-				Title:       `Game Impressions: Doom 2016`,
+				Title:       `Game impressions: Doom 2016`,
 				Description: `I really like Doom 2016, here's why`,
 				MdTpl:       readTemplate(`posts/game-impressions-doom-2016.md`),
 			},
@@ -185,7 +195,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/astrotips.html`,
-				Title:       `Announcing Astrotips: Video Guides on Astroneer`,
+				Title:       `Announcing Astrotips: video guides on Astroneer`,
 				Description: `A series of video guides, tips and tricks on Astroneer, an amazing space exploration and building game`,
 				MdTpl:       readTemplate(`posts/astrotips.md`),
 			},
@@ -195,7 +205,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/camel-case-abbr.html`,
-				Title:       `Don't Abbreviate in CamelCase`,
+				Title:       `Don't abbreviate in camelCase`,
 				Description: "CamelCase identifiers should avoid abbreviations, e.g. `JsonText` rather than `JSONText`",
 				MdTpl:       readTemplate(`posts/camel-case-abbr.md`),
 			},
@@ -205,7 +215,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/remove-from-go.html`,
-				Title:       `Things I Would Remove From Go`,
+				Title:       `Things I would remove from Go`,
 				Description: `If less is more, Go could gain by losing weight`,
 				MdTpl:       readTemplate(`posts/remove-from-go.md`),
 			},
@@ -215,7 +225,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/back-from-hiatus-2019.html`,
-				Title:       `Back from Hiatus (2019)`,
+				Title:       `Back from hiatus (2019)`,
 				Description: `Back to blogging after three and a half years`,
 				MdTpl:       readTemplate(`posts/back-from-hiatus-2019.md`),
 			},
@@ -225,7 +235,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/cheating-for-performance-pjax.html`,
-				Title:       `Cheating for Performance with Pjax`,
+				Title:       `Cheating for performance with pjax`,
 				Description: `Faster page transitions, for free`,
 				MdTpl:       readTemplate(`posts/cheating-for-performance-pjax.md`),
 			},
@@ -236,7 +246,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/cheating-for-website-performance.html`,
-				Title:       `Cheating for Website Performance`,
+				Title:       `Cheating for website performance`,
 				Description: `Frontend tips for speeding up websites`,
 				MdTpl:       readTemplate(`posts/cheating-for-website-performance.md`),
 			},
@@ -247,7 +257,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/keeping-things-simple.html`,
-				Title:       `Keeping Things Simple`,
+				Title:       `Keeping things simple`,
 				Description: `Musings on simplicity in programming`,
 				MdTpl:       readTemplate(`posts/keeping-things-simple.md`),
 			},
@@ -258,7 +268,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/next-generation-today.html`,
-				Title:       `Next Generation Today`,
+				Title:       `Next generation today`,
 				Description: `EcmaScript 2015/2016 workflow with current web frameworks`,
 				MdTpl:       readTemplate(`posts/next-generation-today.md`),
 			},
@@ -269,7 +279,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/old-posts.html`,
-				Title:       `Old Posts`,
+				Title:       `Old posts`,
 				Description: `some old stuff from around the net`,
 				MdTpl:       readTemplate(`posts/old-posts.md`),
 			},
