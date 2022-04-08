@@ -83,7 +83,7 @@ type FeedEnclosure struct {
 
 func (self Feed) AtomFeed() AtomFeed {
 	feed := AtomFeed{
-		Xmlns:    `https://www.w3.org/2005/Atom`,
+		Xmlns:    `http://www.w3.org/2005/Atom`,
 		XmlBase:  self.XmlBase,
 		Title:    self.Title + ` | Atom | mitranim`,
 		Subtitle: self.Description,
@@ -125,13 +125,18 @@ func (self Feed) AtomFeed() AtomFeed {
 			email = item.Author.Email
 		}
 
+		var sum *AtomSummary
+		if item.Description != `` {
+			sum = &AtomSummary{Type: `html`, Content: item.Description}
+		}
+
 		entry := AtomEntry{
 			XmlBase:   item.XmlBase,
 			Title:     item.Title,
 			Id:        item.Id,
 			Published: (*AtomTime)(item.Published),
 			Updated:   (*AtomTime)(timeCoalesce(item.Updated, item.Published, timeNow().MaybeTime())),
-			Summary:   &AtomSummary{Type: `html`, Content: item.Description},
+			Summary:   sum,
 		}
 
 		var linkRel string
