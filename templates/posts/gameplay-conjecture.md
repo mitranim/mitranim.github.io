@@ -1,4 +1,7 @@
+Updated definition: amount of decisions (brain) + amount of effort in muscle memory.
+
 ## Overview
+
 
 This may sound incredibly obvious: more challenging games are more engaging. For a given definition of "challenge".
 

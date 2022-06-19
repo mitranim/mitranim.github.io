@@ -12,7 +12,7 @@ import (
 	"fmt"
 	tt "text/template"
 
-	e "github.com/pkg/errors"
+	"github.com/mitranim/gg"
 )
 
 var TPL_FUNS = tt.FuncMap{
@@ -32,7 +32,7 @@ func makeTpl(name string) *tt.Template {
 func include(key string) string {
 	out, ok := partials[key]
 	if !ok {
-		panic(e.Errorf(`unknown include %q`, key))
+		panic(gg.Errf(`unknown include %q`, key))
 	}
 	return out
 }

@@ -1,15 +1,12 @@
 package main
 
 import (
-	"crypto/rand"
-	"encoding/hex"
 	"encoding/xml"
 	"fmt"
 	"image"
 	"io"
 	"io/fs"
 	"log"
-	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -22,8 +19,8 @@ import (
 	_ "image/png"
 
 	x "github.com/mitranim/gax"
+	"github.com/mitranim/gg"
 	"github.com/mitranim/gt"
-	"github.com/mitranim/try"
 )
 
 const (
@@ -50,6 +47,7 @@ type (
 	Bui  = x.Bui
 	B    = *Bui
 	Time = gt.NullTime
+	Url  = gt.NullUrl
 )
 
 type Flags struct{ PROD bool }
@@ -59,20 +57,11 @@ func fpj(path ...string) string { return filepath.Join(path...) }
 func timeNow() Time { return gt.NullTimeNow().UTC() }
 
 func timeParse(src string) (val Time) {
-	try.To(val.Parse(src))
+	gg.Try(val.Parse(src))
 	return
 }
 
-func timeFmtHuman(date Time) string { return date.Format(`Jan 02 2006`) }
-
-func timeCoalesce(vals ...*time.Time) *time.Time {
-	for _, val := range vals {
-		if val != nil && !val.IsZero() {
-			return val
-		}
-	}
-	return nil
-}
+func timeFmtHuman(date Time) string { return date.Format(`2006-Jan-02`) }
 
 func trimLeadingSlash(val string) string   { return strings.TrimPrefix(val, `/`) }
 func ensureLeadingSlash(val string) string { return ensurePrefix(val, `/`) }
@@ -89,8 +78,8 @@ func baseName(pt string) string { return trimExt(filepath.Base(pt)) }
 
 func writePublic(path string, bytes []byte) {
 	path = fpj(PUBLIC_DIR, path)
-	try.To(os.MkdirAll(filepath.Dir(path), os.ModePerm))
-	try.To(os.WriteFile(path, bytes, os.ModePerm))
+	gg.Try(os.MkdirAll(filepath.Dir(path), os.ModePerm))
+	gg.Try(os.WriteFile(path, bytes, os.ModePerm))
 }
 
 func yearsElapsed() string {
@@ -103,16 +92,12 @@ func yearsElapsed() string {
 }
 
 func imgConfig(path string) image.Config {
-	file, err := os.Open(path)
-	try.To(err)
+	file := gg.Try1(os.Open(path))
 	defer file.Close()
 
-	conf, _, err := image.DecodeConfig(file)
-	try.To(err)
+	conf, _ := gg.Try2(image.DecodeConfig(file))
 	return conf
 }
-
-func readFile(path string) []byte { return try.ByteSlice(os.ReadFile(path)) }
 
 // Inefficient but not measurable in our case.
 func trimLines(val string) string {
@@ -126,22 +111,16 @@ func isDir(path string) bool {
 
 var reLines = regexp.MustCompile(`\s*(?:\r|\n)\s*`)
 
-func randomHex() string {
-	var buf [32]byte
-	_ = try.Int(rand.Read(buf[:]))
-	return hex.EncodeToString(buf[:])
-}
-
-func tplToBytes(temp *tt.Template, val interface{}) (buf x.NonEscWri) {
-	try.To(temp.Execute(&buf, val))
+func tplToBytes(temp *tt.Template, val any) (buf x.NonEscWri) {
+	gg.Try(temp.Execute(&buf, val))
 	return buf
 }
 
-func xmlEncode(val interface{}) (buf x.NonEscWri) {
+func xmlEncode(val any) (buf x.NonEscWri) {
 	buf = append(buf, xml.Header...)
 	enc := xml.NewEncoder(&buf)
 	enc.Indent(``, `  `)
-	try.To(enc.Encode(val))
+	gg.Try(enc.Encode(val))
 	return buf
 }
 
@@ -166,34 +145,14 @@ the standard library. Reasonably safe.
 */
 func bytesString(val []byte) string { return *(*string)(unsafe.Pointer(&val)) }
 
-func stringToBytesAlloc(val string) []byte    { return []byte(val) }
-func ioWrite(out io.Writer, val []byte)       { try.Int(out.Write(val)) }
-func ioWriteString(out io.Writer, val string) { try.Int(io.WriteString(out, val)) }
+func stringToBytesAlloc(val string) []byte { return []byte(val) }
 
-func parseUrl(val string) Url {
-	out, err := url.Parse(val)
-	try.To(err)
-	return Url(*out)
+func ioWrite[Out io.Writer, Src gg.Text](out Out, src Src) {
+	gg.Try1(out.Write(gg.ToBytes(src)))
 }
 
-// Unfucks `*url.URL` by making it a non-pointer. TODO move to separate lib.
-type Url url.URL
-
-func (self Url) Query() url.Values               { return (*url.URL)(&self).Query() }
-func (self Url) String() string                  { return (*url.URL)(&self).String() }
-func (self Url) MarshalText() ([]byte, error)    { return (*url.URL)(&self).MarshalBinary() }
-func (self *Url) UnmarshalText(val []byte) error { return (*url.URL)(self).UnmarshalBinary(val) }
-
-func strJoin(sep string, vals ...string) (out string) {
-	for _, val := range vals {
-		if val == `` {
-			continue
-		}
-		if out != `` {
-			out += sep
-		}
-		out += val
-	}
+func urlParse(src string) (out Url) {
+	gg.Try(out.Parse(src))
 	return
 }
 
@@ -209,8 +168,8 @@ func walkDirs(path string, fun func(string, fs.DirEntry)) {
 		return
 	}
 
-	try.To(fs.WalkDir(os.DirFS(try.String(os.Getwd())), path, func(path string, ent fs.DirEntry, err error) error {
-		try.To(err)
+	gg.Try(fs.WalkDir(os.DirFS(gg.Try1(os.Getwd())), path, func(path string, ent fs.DirEntry, err error) error {
+		gg.Try(err)
 		if ent.IsDir() {
 			fun(path, ent)
 		}
@@ -218,7 +177,7 @@ func walkDirs(path string, fun func(string, fs.DirEntry)) {
 	}))
 }
 
-func buiChild(bui B, val interface{}) bool {
+func buiChild(bui B, val any) bool {
 	size := len(*bui)
 	bui.Child(val)
 	return len(*bui) > size
@@ -244,5 +203,5 @@ func (self SemiList) Render(b B) {
 }
 
 func readTemplate(path string) []byte {
-	return readFile(fpj(TEMPLATE_DIR, path))
+	return gg.ReadFile[[]byte](fpj(TEMPLATE_DIR, path))
 }

@@ -11,9 +11,8 @@ import (
 	clexers "github.com/alecthomas/chroma/lexers"
 	cstyles "github.com/alecthomas/chroma/styles"
 	x "github.com/mitranim/gax"
+	"github.com/mitranim/gg"
 	"github.com/mitranim/gt"
-	"github.com/mitranim/try"
-	e "github.com/pkg/errors"
 	bf "github.com/russross/blackfriday/v2"
 	"github.com/shurcooL/sanitized_anchor_name"
 )
@@ -56,11 +55,11 @@ func mdToHtml(src []byte, opt *MdOpt) []byte {
 	return bf.Run(src, mdOpts(opt)...)
 }
 
-func mdTplToHtml(src []byte, opt *MdOpt, val interface{}) []byte {
+func mdTplToHtml(src []byte, opt *MdOpt, val any) []byte {
 	return mdToHtml(mdTplExec(bytesString(src), val), opt)
 }
 
-func mdTplExec(src string, val interface{}) []byte {
+func mdTplExec(src string, val any) []byte {
 	tpl := makeTpl(``)
 	tplParseMd(tpl, src)
 	return tplToBytes(tpl, val)
@@ -208,14 +207,14 @@ func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) 
 
 	lexer := clexers.Get(bytesString(tag))
 	if lexer == nil {
-		panic(e.Errorf(`no lexer for %q`, tag))
+		panic(gg.Errf(`no lexer for %q`, tag))
 	}
 
 	iterator, err := lexer.Tokenise(nil, bytesString(node.Literal))
-	try.To(e.Wrap(err, `tokenizer error`))
+	gg.Try(gg.Wrapf(err, `tokenizer error`))
 
 	err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
-	try.To(e.Wrap(err, `formatter error`))
+	gg.Try(gg.Wrapf(err, `formatter error`))
 
 	return bf.SkipChildren
 }
@@ -234,7 +233,7 @@ func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf
 	headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
 	tag := HEADING_TAGS[headingLevel]
 	if tag == `` {
-		panic(e.Errorf(`unrecognized heading level: %v`, headingLevel))
+		panic(gg.Errf(`unrecognized heading level: %v`, headingLevel))
 	}
 
 	if entering {
@@ -260,9 +259,9 @@ func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf
 
 func (self *MdRen) RenderBlockQuote(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	if entering {
-		ioWriteString(out, `<blockquote class="blockquote">`)
+		ioWrite(out, `<blockquote class="blockquote">`)
 	} else {
-		ioWriteString(out, `</blockquote>`)
+		ioWrite(out, `</blockquote>`)
 	}
 	return bf.GoToNext
 }
@@ -291,24 +290,20 @@ func mdToToc(content []byte) string {
 		}
 	}
 
-	var buf gt.Raw
+	var buf gg.Buf
 	for _, val := range headings {
-		for i := val.Level - levelOffset; i > 0; i-- {
-			buf = append(buf, `  `...)
-		}
-		buf = append(buf, `* [`...)
-		buf = append(buf, val.Text...)
-		buf = append(buf, `](#`...)
-		buf = append(buf, val.Id...)
-		buf = append(buf, `)`...)
-		buf = append(buf, "\n"...)
+		buf.AppendStringN(`  `, val.Level-levelOffset)
+		buf.AppendString(`* [`)
+		buf.AppendBytes(val.Text)
+		buf.AppendString(`](#`)
+		buf.AppendString(val.Id)
+		buf.AppendString(`)`)
+		buf.AppendNewline()
 	}
 	return buf.String()
 }
 
-func mdHeadings(content []byte) []MdHeading {
-	var out []MdHeading
-
+func mdHeadings(content []byte) (out []MdHeading) {
 	node := bf.New(mdOpts(nil)...).Parse(content)
 
 	node.Walk(func(node *bf.Node, entering bool) bf.WalkStatus {
@@ -339,7 +334,7 @@ func mdHeadings(content []byte) []MdHeading {
 		return bf.SkipChildren
 	})
 
-	return out
+	return
 }
 
 type MdHeading struct {
@@ -367,13 +362,12 @@ func tplParseMd(tpl *tt.Template, cont string) {
 	funs := tt.FuncMap{}
 
 	text := replaceCodeBlocks(cont, func(val string) string {
-		id := `id` + randomHex()
+		id := `id` + gt.RandomUuid().String()
 		funs[id] = func() string { return val }
 		return `{{` + id + `}}`
 	})
 
-	_, err := tpl.Funcs(funs).Parse(text)
-	try.To(err)
+	gg.Try1(tpl.Funcs(funs).Parse(text))
 }
 
 /*

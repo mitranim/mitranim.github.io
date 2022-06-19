@@ -1,5 +1,7 @@
 Very good. Solid sequel. Worthy successor. Note: the game got patched, addressing many release problems such as faces.
 
+Multiplayer is non-functional. This article is about single player only.
+
 {{mdToToc .MdTpl}}
 
 ## Overview

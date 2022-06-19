@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/mitranim/cmd"
+	"github.com/mitranim/gg"
 )
 
 var commands = cmd.Map{}
@@ -12,6 +13,7 @@ var commands = cmd.Map{}
 func init() {
 	time.Local = nil
 	log.SetFlags(0)
+	gg.TraceBaseDir = gg.Cwd()
 }
 
 func main() {

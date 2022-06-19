@@ -1,3 +1,5 @@
+<!-- TODO: switch to `gg` -->
+
 This post is informed by many years of Go, and months of Go with exceptions. **I am well aware** of many arguments for error values. Some of them are addressed below.
 
 Reddit discussion: https://www.reddit.com/r/golang/comments/r2h31i/shorten_your_go_code_by_using_exceptions/

@@ -249,6 +249,10 @@ One logical conclusion is that Rell, MITW, and our mysterious visitor are one an
 
 Alternatively, we might take their claims at face value. We "freed" Rell, now something other than Rell haunts us. It logically follows that Rell had its attention, and now we've attracted its attention.
 
+### There is not one man-in-the-wall but many
+
+Let's say the Void has no "will" or "representative" of its own, but is able to "split"/duplicate people, where one "half"/copy stays in the Void, powering your powers. There is not a _single_ MITW but many. Albrecht Entrati had his own. We have our own. At the end of New War, the MITW we "saw" was merely an illusion created by the limits of what our mind could comprehend. A small facet of the whole.
+
 ## Stalker hypotheses {#stalker}
 
 {{imgBoxLink "/images/warframe/stalker.png" "Stalker" "https://warframe.fandom.com/wiki/Stalker"}}

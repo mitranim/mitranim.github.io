@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/gotidy/ptr"
+	"github.com/mitranim/gg"
 )
 
 var (
@@ -14,11 +14,11 @@ var (
 	}
 )
 
-func siteBase() string {
+func siteBase() Url {
 	if FLAGS.PROD {
-		return `https://mitranim.com`
+		return urlParse(`https://mitranim.com`)
 	}
-	return fmt.Sprintf(`http://localhost:%v`, SERVER_PORT)
+	return urlParse(fmt.Sprintf(`http://localhost:%v`, SERVER_PORT))
 }
 
 func siteFeed() Feed {
@@ -26,21 +26,21 @@ func siteFeed() Feed {
 
 	return Feed{
 		Title:   `Software, Tech, Philosophy, Games`,
-		XmlBase: base,
+		XmlBase: base.String(),
 		AltLink: &FeedLink{
 			Rel:  `alternate`,
 			Type: `text/html`,
-			Href: base + `/posts`,
+			Href: base.WithPath(`/posts`).String(),
 		},
 		SelfLink: &FeedLink{
 			Rel:  `self`,
 			Type: `application/atom+xml`,
-			Href: base + `/feed.xml`,
+			Href: base.WithPath(`/feed.xml`).String(),
 		},
 		Author:      FEED_AUTHOR,
-		Published:   ptr.Time(time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC)),
-		Updated:     ptr.Time(time.Now()),
-		Id:          base + `/posts`,
+		Published:   gg.Ptr(time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC)),
+		Updated:     gg.Ptr(time.Now()),
+		Id:          base.WithPath(`/posts`).String(),
 		Description: `Random thoughts about technology`,
 		Items:       nil,
 	}

@@ -105,7 +105,7 @@ func (self PageWorks) Table() Bui {
 			E(`tbody`, nil, func(b B) {
 				for _, work := range self.Works {
 					b.E(`tr`, nil,
-						E(`td`, nil, Exta(parseUrl(work.Link).String(), work.Name)),
+						E(`td`, nil, Exta(urlParse(work.Link).String(), work.Name)),
 						E(`td`, nil, x.Str(stringMdToHtml(work.Desc, nil))),
 						E(`td`, AP(`class`, `fg-gray-close`), work.Role),
 						E(`td`, AP(`class`, `fg-gray-close`), work.Tech),
@@ -137,8 +137,8 @@ func (self PageWorks) List() Bui {
 type PageResume struct{ Page }
 
 func (self PageResume) Make(site Site) {
-	index := site.PageByType(PageIndex{}).(PageIndex)
-	works := site.PageByType(PageWorks{}).(PageWorks)
+	index := PageByType[PageIndex](site)
+	works := PageByType[PageWorks](site)
 
 	pageWrite(self, Html(
 		self,

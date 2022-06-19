@@ -5,7 +5,7 @@ import (
 	"path"
 
 	x "github.com/mitranim/gax"
-	e "github.com/pkg/errors"
+	"github.com/mitranim/gg"
 )
 
 const (
@@ -13,7 +13,7 @@ const (
 	ID_TOP  = `top`
 )
 
-func Html(page Ipage, children ...interface{}) Bui {
+func Html(page Ipage, children ...any) Bui {
 	return F(
 		x.Str(x.Doctype),
 		E(`html`, AP(`class`, page.GetGlobalClass()),
@@ -163,7 +163,7 @@ var SkipToContent = E(
 
 func Exta(href, text string) x.Elem {
 	if href == `` {
-		panic(e.New(`unexpected empty link`))
+		panic(gg.Errf(`unexpected empty link`))
 	}
 
 	if text == `` {

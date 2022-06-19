@@ -9,9 +9,9 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/mitranim/afr"
+	"github.com/mitranim/gg"
 	"github.com/mitranim/rout"
 	"github.com/mitranim/srv"
-	"github.com/mitranim/try"
 )
 
 func init() { commands.Add(`srv`, cmdSrv) }
@@ -28,13 +28,12 @@ type Server struct {
 }
 
 func (self *Server) Watch() {
-	watcher, err := fsnotify.NewWatcher()
-	try.To(err)
+	watcher := gg.Try1(fsnotify.NewWatcher())
 	defer watcher.Close()
 
 	dir := self.Dir
 	walkDirs(dir, func(path string, ent fs.DirEntry) {
-		try.To(watcher.Add(path))
+		gg.Try(watcher.Add(path))
 	})
 
 	for {
@@ -47,7 +46,7 @@ func (self *Server) Watch() {
 			path := event.Name
 
 			if event.Op&fsnotify.Create != 0 && isDir(path) {
-				try.To(watcher.Add(path))
+				gg.Try(watcher.Add(path))
 				continue
 			}
 
@@ -64,7 +63,7 @@ func (self *Server) Watch() {
 
 func (self *Server) Serve(port int) {
 	log.Printf(`[srv] listening on http://localhost:%v`, port)
-	try.To(http.ListenAndServe(fmt.Sprintf(`:%v`, port), self))
+	gg.Try(http.ListenAndServe(fmt.Sprintf(`:%v`, port), self))
 }
 
 func (self *Server) ServeHTTP(rew http.ResponseWriter, req *http.Request) {
@@ -84,6 +83,6 @@ func preventCaching(head http.Header) {
 func afrChangeMsg(base, path string) afr.Msg {
 	return afr.Msg{
 		Type: `change`,
-		Path: try.String(filepath.Rel(base, path)),
+		Path: gg.Try1(filepath.Rel(base, path)),
 	}
 }

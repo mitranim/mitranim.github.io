@@ -1,6 +1,6 @@
 # Overview
 
-Doom Eternal (henceforth DE) by id Software (henceforth ID)
+Doom Eternal (henceforth DE) by id Software (henceforth IDS)
 
 Read my Doom 2016 [impressions]() and [tips & tricks]() articles.
 
@@ -13,6 +13,8 @@ My tips for making Marauders fun:
 * Dash to retreat. Marauders run faster than other monsters, and will come to you first. This gives you a few seconds of one-on-one. Break line of sight while retreating to avoid their projectiles. When they spawn a wolf, retreating also makes it easier to kill the summon before engaging the Marauder.
 
 * Keep the fodder demons around to replenish your supplies. Killing a Marauder might require your entire stock of Ballista and Super Shotgun ammo, and without fodder demons to resupply from, you might prematurely run out, which is fatal against this opponent. Make sure to also Flame Belch the fodder for armor. Use Ice Bombs and Frag Grenades to kill them without swapping guns; those cooldowns aren't useful against the Marauder himself anyway.
+
+* In the vulnerability window, rapid-swap one-shot weapons such as Super Shotgun and Ballista. Swapping is faster than reloading.
 
 **Buff totems and Arch-Viles**.
 
@@ -32,9 +34,9 @@ Special 👍 for allowing _instant_ quickscope shots with Precision Bolt.
 
 # Aesthetics and Narrative
 
-**Maykr architecture** feels like a careful mix of Tenno, Orokin, and Sentient stuff from Warframe. I wonder if ID artists got influenced by it.
+**Maykr architecture** feels like a careful mix of Tenno, Orokin, and Sentient stuff from Warframe. I wonder if IDS artists got influenced by those.
 
-**Quake**. Aesthetically, Doom Eternal is mixed with Quake thanks to the Sentinel architecture, which combines gothic themes with high tech. They also call portals "slipgates", which is lifted straight out of Quake. Historically, Doom's aesthetic was a stark contrast between spacefaring high tech and demonic magics. Doom Eternal blurs all the lines. YMMV; I suppose in the absense of single-player Quake games, we got Doom Eternal which is both Doom _and_ Quake.
+**Quake**. Aesthetically, Doom Eternal is mixed with Quake thanks to the Sentinel architecture, which combines gothic themes with high tech. They also call portals "slipgates", which is lifted straight from Quake. Historically, Doom's aesthetic was a stark contrast between spacefaring high tech and demonic magics. Doom Eternal blurs all the lines. YMMV; I suppose in the absense of single-player Quake games, we got Doom Eternal which is both Doom _and_ Quake.
 
 # Nitpicks
 

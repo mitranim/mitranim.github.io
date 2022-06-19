@@ -4,7 +4,7 @@ import (
 	r "reflect"
 	"strings"
 
-	e "github.com/pkg/errors"
+	"github.com/mitranim/gg"
 )
 
 type Site struct {
@@ -20,22 +20,14 @@ func (self Site) All() (out []Ipage) {
 	return
 }
 
-func (self Site) ListedPosts() (out []PagePost) {
-	for _, val := range self.Posts {
-		if val.IsListed {
-			out = append(out, val)
-		}
-	}
-	return
+func (self Site) ListedPosts() []PagePost {
+	return gg.Filter(self.Posts, PagePost.GetIsListed)
 }
 
-func (self Site) PageByType(ref interface{}) Ipage {
-	for _, val := range self.Pages {
-		if r.TypeOf(val) == r.TypeOf(ref) {
-			return val
-		}
-	}
-	return nil
+func PageByType[A Ipage](site Site) A {
+	return gg.Find(site.Pages, func(val Ipage) bool {
+		return r.TypeOf(val) == gg.Type[A]()
+	}).(A)
 }
 
 type Ipage interface {
@@ -68,17 +60,17 @@ func (self Page) GetImage() string       { return self.Image }
 func (self Page) GetGlobalClass() string { return self.GlobalClass }
 
 func (self Page) Make(site Site) {
-	panic(e.Errorf(`"Make" is not implemented for page %#v`, self))
+	panic(gg.Errf(`"Make" is not implemented for page %#v`, self))
 }
 
-func (self Page) MdOnce(val interface{}) []byte {
+func (self Page) MdOnce(val any) []byte {
 	if self.MdTpl != nil && self.MdHtml == nil {
 		self.MdHtml = self.Md(val, nil)
 	}
 	return self.MdHtml
 }
 
-func (self Page) Md(val interface{}, opt *MdOpt) []byte {
+func (self Page) Md(val any, opt *MdOpt) []byte {
 	return mdTplToHtml(self.MdTpl, opt, val)
 }
 
@@ -86,7 +78,7 @@ func (self Page) GetLink() string {
 	return ensureLeadingSlash(trimExt(self.GetPath()))
 }
 
-func pageWrite(page Ipage, body []byte) { writePublic(page.GetPath(), body) }
+func pageWrite[A Ipage](page A, body []byte) { writePublic(page.GetPath(), body) }
 
 // TODO: add `.WrittenAt`, which often doesn't match `.PublishedAt`.
 type PagePost struct {
@@ -137,8 +129,7 @@ func (self PagePost) MakeMd() []byte {
 }
 
 func (self PagePost) FeedItem() FeedItem {
-	// Caution: `path.Join` breaks "//".
-	href := siteBase() + self.GetLink()
+	href := siteBase().WithPath(self.GetLink()).String()
 
 	return FeedItem{
 		XmlBase:     href,
@@ -148,10 +139,12 @@ func (self PagePost) FeedItem() FeedItem {
 		Description: self.Page.Description,
 		Id:          href,
 		Published:   self.PublishedAt.MaybeTime(),
-		Updated:     timeCoalesce(self.PublishedAt.MaybeTime(), self.UpdatedAt.MaybeTime(), timeNow().MaybeTime()),
+		Updated:     gg.Or(self.PublishedAt, self.UpdatedAt, timeNow()).MaybeTime(),
 		Content:     FeedPost(self).String(),
 	}
 }
+
+func (self PagePost) GetIsListed() bool { return self.IsListed }
 
 type Work struct {
 	Name string

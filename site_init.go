@@ -89,6 +89,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/andromeda.md`),
 			},
 			PublishedAt: timeParse(`2022-01-23T07:43:31Z`),
+			UpdatedAt:   timeParse(`2022-06-19T11:03:04Z`),
 			IsListed:    true,
 		},
 		PagePost{
@@ -161,6 +162,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/warframe-headcanon.md`),
 			},
 			PublishedAt: timeParse(`2020-10-10T12:25:32Z`),
+			UpdatedAt:   timeParse(`2022-05-04T10:40:25Z`),
 			IsListed:    true,
 		},
 		PagePost{
@@ -301,6 +303,14 @@ func initSitePosts() []PagePost {
 
 func initWorks() []Work {
 	return []Work{
+		{
+			Name:      `gg`,
+			Link:      `https://github.com/mitranim/gg`,
+			Desc:      `Essential tools missing from the Go standard library.`,
+			Role:      `author`,
+			Tech:      `Go`,
+			Lifecycle: Lifecycle{Start: `2022`},
+		},
 		{
 			Name:      `js`,
 			Link:      `https://github.com/mitranim/js`,

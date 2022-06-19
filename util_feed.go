@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 	"time"
 
-	"github.com/mitranim/try"
+	"github.com/mitranim/gg"
 )
 
 /*
@@ -135,7 +135,7 @@ func (self Feed) AtomFeed() AtomFeed {
 			Title:     item.Title,
 			Id:        item.Id,
 			Published: (*AtomTime)(item.Published),
-			Updated:   (*AtomTime)(timeCoalesce(item.Updated, item.Published, timeNow().MaybeTime())),
+			Updated:   (*AtomTime)(gg.Or(item.Updated, item.Published, timeNow().MaybeTime())),
 			Summary:   sum,
 		}
 
@@ -202,8 +202,8 @@ func (self Feed) RssFeed() RssFeed {
 			Title:          self.Title + ` | RSS | mitranim`,
 			Description:    self.Description,
 			ManagingEditor: author,
-			PubDate:        (*RssTime)(timeCoalesce(self.Published, timeNow().MaybeTime())),
-			LastBuildDate:  (*RssTime)(timeCoalesce(self.Updated, self.Published, timeNow().MaybeTime())),
+			PubDate:        (*RssTime)(gg.Or(self.Published, timeNow().MaybeTime())),
+			LastBuildDate:  (*RssTime)(gg.Or(self.Updated, self.Published, timeNow().MaybeTime())),
 			Copyright:      self.Copyright,
 			Image:          image,
 		},
@@ -329,9 +329,9 @@ type AtomSummary struct {
 type AtomTime time.Time
 
 func (self AtomTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
-	try.To(enc.EncodeToken(start))
-	try.To(enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC3339))))
-	try.To(enc.EncodeToken(xml.EndElement{Name: start.Name}))
+	gg.Try(enc.EncodeToken(start))
+	gg.Try(enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC3339))))
+	gg.Try(enc.EncodeToken(xml.EndElement{Name: start.Name}))
 	return nil
 }
 
@@ -416,8 +416,8 @@ type RssEnclosure struct {
 type RssTime time.Time
 
 func (self RssTime) MarshalXML(enc *xml.Encoder, start xml.StartElement) error {
-	try.To(enc.EncodeToken(start))
-	try.To(enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC1123Z))))
-	try.To(enc.EncodeToken(xml.EndElement{Name: start.Name}))
+	gg.Try(enc.EncodeToken(start))
+	gg.Try(enc.EncodeToken(xml.CharData(time.Time(self).Format(time.RFC1123Z))))
+	gg.Try(enc.EncodeToken(xml.EndElement{Name: start.Name}))
 	return nil
 }

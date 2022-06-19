@@ -39,3 +39,4 @@
 * **Black Butler**. The anime horribly butchers the source material.
 * **Ranma**. Garbage source material, adaptation even worse.
 * **Mahou Sensei Negima**. Could only handle a few episodes.
+* **FLCL Alternative**. Complete disappointment. Boring.
