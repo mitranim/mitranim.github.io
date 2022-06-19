@@ -14,7 +14,7 @@ jobs:
 
       - uses: actions/setup-go@v2
         with:
-          go-version: "1.17.0"
+          go-version: "1.18.0"
 
       # Would prefer dart-sass, but this is easier to setup for now.
       - uses: actions/setup-node@v2
