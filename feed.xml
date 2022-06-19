@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="https://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2022-03-08T07:06:36Z</updated>
+  <updated>2022-06-19T11:14:22Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -101,10 +101,10 @@
   <entry xml:base="https://mitranim.com/posts/anime">
     <title>Anime impressions and recommendations</title>
     <id>https://mitranim.com/posts/anime</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><h2 id="recommended-without-reservations"><span class="heading-prefix" aria-hidden="true"></span>Recommended without reservations<a href="#recommended-without-reservations" class="heading-anchor" aria-hidden="true"></a></h2><ul>
+    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><h2 id="recommended"><span class="heading-prefix" aria-hidden="true"></span>Recommended<a href="#recommended" class="heading-anchor" aria-hidden="true"></a></h2><ul>
 <li><a href="https://en.wikipedia.org/wiki/Attack_on_Titan" target="_blank" rel="noopener noreferrer"><strong>Attack on Titan</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; avoids many anime tropes; written like a detective story, rewards watching slowly and thinking ahead; full of competent characters who think ahead.</li>
 <li><a href="https://en.wikipedia.org/wiki/Death_Note" target="_blank" rel="noopener noreferrer"><strong>Death Note</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; not subject to anime tropes; detective story that rewards watching slowly and thinking ahead; has very competent characters who think ahead.</li>
-<li><a href="https://en.wikipedia.org/wiki/Code_Geass" target="_blank" rel="noopener noreferrer"><strong>Code Geass</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with coolness; competent writing; has competent characters who think ahead; avoids some common anime tropes but falls prey to others; prone to deus ex machina and angst ex machina; watch with English dubs, they&rsquo;re better than the original.</li>
+<li><a href="https://en.wikipedia.org/wiki/Code_Geass" target="_blank" rel="noopener noreferrer"><strong>Code Geass</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with coolness; competent writing; has competent characters who think ahead; avoids some common anime tropes but falls prey to others; prone to deus ex machina and angst ex machina; watch with English dubs (voices), they&rsquo;re better than the originals.</li>
 <li><a href="https://en.wikipedia.org/wiki/Parasyte" target="_blank" rel="noopener noreferrer"><strong>Parasyte</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Very competent writing; explores deep moral topics, gives you something to think about; has competent characters who think ahead; avoids most anime tropes; rewards watching slowly and thinking about the implications. Read <a href="/posts/anime-impressions-parasyte">my analysis</a>.</li>
 <li><a href="https://en.wikipedia.org/wiki/Naruto" target="_blank" rel="noopener noreferrer"><strong>Naruto</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with cool characters and action scenes; the plot keeps getting deeper and more convoluted; great music, tone, atmosphere; saturated with optimistic morals about never giving up; about half of the anime is fillers, skip most of them for better enjoyment.</li>
 <li><a href="https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood" target="_blank" rel="noopener noreferrer"><strong>Full Metal Alchemist Brotherhood</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Somewhat unique theme; has various flaws, but manages to avert many common anime tropes; some mediocre parts, some really good parts.</li>
@@ -125,7 +125,7 @@
 </ul>
 <h2 id="neutral"><span class="heading-prefix" aria-hidden="true"></span>Neutral<a href="#neutral" class="heading-anchor" aria-hidden="true"></a></h2>
 <ul>
-<li><strong>A Certain Magical Index</strong>. The anime is unfinished, needs season 4. The anime is compressed and doesn&rsquo;t make sense at times, especially in season 3. Obnoxious &ldquo;small world&rdquo; syndrome.</li>
+<li><strong>A Certain Magical Index</strong>. The anime is unfinished, needs season 4. The anime is compressed and doesn&rsquo;t make sense at times, especially in season 3. Obnoxious <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/ItsASmallWorldAfterAll" target="_blank" rel="noopener noreferrer">&ldquo;small world&rdquo;<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> syndrome.</li>
 <li><strong>Tokyo Ghoul</strong>: anime followed by manga. The anime sets the tone, but is horribly butchered and incomplete. You need to read the manga to actually finish the story.</li>
 <li><strong>Great Teacher Onizuka</strong>.</li>
 <li><strong>Full Metal Panic</strong>. Not to be confused with &ldquo;Fullmetal Alchemist&rdquo; which is unrelated. Combines embarrassing romantic comedy with military action. Full of dumb anime tropes. The anime is unfinished, lacking at least one season.</li>
@@ -141,6 +141,7 @@
 <li><strong>Black Butler</strong>. The anime horribly butchers the source material.</li>
 <li><strong>Ranma</strong>. Garbage source material, adaptation even worse.</li>
 <li><strong>Mahou Sensei Negima</strong>. Could only handle a few episodes.</li>
+<li><strong>FLCL Alternative</strong>. Complete disappointment. Boring.</li>
 </ul>
 </article>]]></content>
     <published>2022-03-08T05:48:55Z</published>
@@ -156,6 +157,8 @@
     <title>Game impressions: Mass Effect Andromeda</title>
     <id>https://mitranim.com/posts/andromeda</id>
     <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Very good. Solid sequel. Worthy successor. Note: the game got patched, addressing many release problems such as faces.</p>
+
+<p>Multiplayer is non-functional. This article is about single player only.</p>
 
 <ul>
 <li><a href="#overview"><span class="hash-prefix noprint" aria-hidden="true">#</span>Overview</a></li>
@@ -356,7 +359,9 @@
   <entry xml:base="https://mitranim.com/posts/goex">
     <title>Shorten your Go code by using exceptions</title>
     <id>https://mitranim.com/posts/goex</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>This post is informed by many years of Go, and months of Go with exceptions. <strong>I am well aware</strong> of many arguments for error values. Some of them are addressed below.</p>
+    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><!-- TODO: switch to `gg` -->
+
+<p>This post is informed by many years of Go, and months of Go with exceptions. <strong>I am well aware</strong> of many arguments for error values. Some of them are addressed below.</p>
 
 <p>Reddit discussion: <a href="https://www.reddit.com/r/golang/comments/r2h31i/shorten_your_go_code_by_using_exceptions/" target="_blank" rel="noopener noreferrer">https://www.reddit.com/r/golang/comments/r2h31i/shorten_your_go_code_by_using_exceptions/<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p>
 
@@ -1054,6 +1059,7 @@ Generating the ASCII figure:
 <ul>
 <li><a href="#void-entity-manmade"><span class="hash-prefix noprint" aria-hidden="true">#</span>The Void entity is manmade</a></li>
 <li><a href="#mitw-rell"><span class="hash-prefix noprint" aria-hidden="true">#</span>Man-in-the-wall vs. Rell</a></li>
+<li><a href="#there-is-not-one-man-in-the-wall-but-many"><span class="hash-prefix noprint" aria-hidden="true">#</span>There is not one man-in-the-wall but many</a></li>
 </ul></li>
 <li><a href="#stalker"><span class="hash-prefix noprint" aria-hidden="true">#</span>Stalker hypotheses</a>
 
@@ -1274,6 +1280,8 @@ Generating the ASCII figure:
 <p>One logical conclusion is that Rell, MITW, and our mysterious visitor are one and the same. We &ldquo;freed&rdquo; Rell, now he haunts us. One solid counter-argument is that Rell&rsquo;s autistic personality drastically differs from the visitor&rsquo;s extravagant, gallivanting demeanor. This could be explained by a split personality, where only one half is autistic; a stretch, but not implausible, especially considering Rell no longer has a bio-brain.</p>
 
 <p>Alternatively, we might take their claims at face value. We &ldquo;freed&rdquo; Rell, now something other than Rell haunts us. It logically follows that Rell had its attention, and now we&rsquo;ve attracted its attention.</p>
+<h3 id="there-is-not-one-man-in-the-wall-but-many"><span class="heading-prefix" aria-hidden="true"></span>There is not one man-in-the-wall but many<a href="#there-is-not-one-man-in-the-wall-but-many" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>Let&rsquo;s say the Void has no &ldquo;will&rdquo; or &ldquo;representative&rdquo; of its own, but is able to &ldquo;split&rdquo;/duplicate people, where one &ldquo;half&rdquo;/copy stays in the Void, powering your powers. There is not a <em>single</em> MITW but many. Albrecht Entrati had his own. We have our own. At the end of New War, the MITW we &ldquo;saw&rdquo; was merely an illusion created by the limits of what our mind could comprehend. A small facet of the whole.</p>
 <h2 id="stalker"><span class="heading-prefix" aria-hidden="true"></span>Stalker hypotheses<a href="#stalker" class="heading-anchor" aria-hidden="true"></a></h2>
 <div class="img-box"><a class="img-box-padder" style="padding-top: calc(320/320*100%)" href="https://warframe.fandom.com/wiki/Stalker" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/stalker.png" alt="Stalker" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Stalker</span></div>
 
@@ -1419,7 +1427,6 @@ Generating the ASCII figure:
     <published>2020-04-30T08:25:16Z</published>
     <updated>2020-04-30T08:25:16Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/thoughts-on-the-egg"></link>
-    <summary type="html"></summary>
     <author>
       <name>Nelo Mitranim</name>
       <email>me@mitranim.com</email>
