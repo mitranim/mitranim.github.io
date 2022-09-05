@@ -143,6 +143,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/lang-case-conventions.md`),
 			},
 			PublishedAt: timeParse(`2020-10-16T15:30:41Z`),
+			UpdatedAt:   timeParse(`2022-09-05T11:44:28Z`),
 			IsListed:    true,
 		},
 		PagePost{

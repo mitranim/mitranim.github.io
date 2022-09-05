@@ -11,6 +11,7 @@ _Objective_ arguments in favor of `snake_case` over `camelCase`:
 * Works in case-insensitive systems such as SQL.
 * Can remap `_` to type without Shift. (I did.)
 * Unambiguously convertible when numbers are involved.
+* Refactoring requires only 1 renaming instead of 2.
 
 Conversion:
 
