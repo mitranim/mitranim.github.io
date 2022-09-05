@@ -2,16 +2,17 @@
 
 * [**Attack on Titan**](https://en.wikipedia.org/wiki/Attack_on_Titan). Extremely competent writing; avoids many anime tropes; written like a detective story, rewards watching slowly and thinking ahead; full of competent characters who think ahead.
 * [**Death Note**](https://en.wikipedia.org/wiki/Death_Note). Extremely competent writing; not subject to anime tropes; detective story that rewards watching slowly and thinking ahead; has very competent characters who think ahead.
-* [**Code Geass**](https://en.wikipedia.org/wiki/Code_Geass). Saturated with coolness; competent writing; has competent characters who think ahead; avoids some common anime tropes but falls prey to others; prone to deus ex machina and angst ex machina; watch with English dubs (voices), they're better than the originals.
-* [**Parasyte**](https://en.wikipedia.org/wiki/Parasyte). Very competent writing; explores deep moral topics, gives you something to think about; has competent characters who think ahead; avoids most anime tropes; rewards watching slowly and thinking about the implications. Read [my analysis](/posts/anime-impressions-parasyte).
+* [**Code Geass**](https://en.wikipedia.org/wiki/Code_Geass). Saturated with coolness; competent writing; competent characters who think ahead; avoids some common anime tropes but falls prey to others; prone to deus ex machina and angst ex machina; watch with English dubs (voices), they're better than the originals.
+* [**Parasyte**](https://en.wikipedia.org/wiki/Parasyte). Very competent writing; explores deep moral topics, gives you something to think about; competent characters who think ahead; avoids most anime tropes; rewards watching slowly and thinking about the implications. Read [my analysis](/posts/anime-impressions-parasyte) after watching.
 * [**Naruto**](https://en.wikipedia.org/wiki/Naruto). Saturated with cool characters and action scenes; the plot keeps getting deeper and more convoluted; great music, tone, atmosphere; saturated with optimistic morals about never giving up; about half of the anime is fillers, skip most of them for better enjoyment.
 * [**Full Metal Alchemist Brotherhood**](https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood). Somewhat unique theme; has various flaws, but manages to avert many common anime tropes; some mediocre parts, some really good parts.
-* [**Hellsing OVA**](https://en.wikipedia.org/wiki/Hellsing) (2001-2002). Stylish vampire action; solid atmosphere and music; avoids many anime tropes.
+  * Not to be confused with _Full Metal Alchemist (2002)_.
+* [**Hellsing OVA**](https://en.wikipedia.org/wiki/Hellsing) (2001-2002). Stylish vampire action; solid atmosphere and music; avoids many anime tropes. Avoid "Hellsing Ultimate" which is inferior.
 
 ## Recommended with reservations
 
-* [**Mushishi**](https://en.wikipedia.org/wiki/Mushishi). Requires tolerance to body horror.
-* [**Neon Genesis Evangelion**](https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion). Requires special preparation and coaching, such as [mine](/posts/anime-impressions-evangelion), to get the most out of it.
+* [**Mushishi**](https://en.wikipedia.org/wiki/Mushishi). Collection of relaxed, meditative stories about bizarre microbes with strange effects on human lives. Set in Edo/Meiji-period Japan. Requires tolerance to body horror.
+* [**Neon Genesis Evangelion**](https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion). Requires special preparation and coaching to get the most out of it. Read [my analysis / coaching](/posts/anime-impressions-evangelion) before watching.
 * [**Perverted Prince and Stony Cat / Hentai Ouji to Warawanai Neko**](https://en.wikipedia.org/wiki/The_%22Hentai%22_Prince_and_the_Stony_Cat). Requires tolerance to embarrassment. Don't get confused by the name; this is a lighthearted romantic comedy about children.
 
 ## Lukewarm
@@ -33,10 +34,10 @@
 
 * **Cowboy Bebop**. Pretentious and nonsensical.
 * **Ergo Proxy**. Pretentious and nonsensical.
-* **Trigun**. Lots of violence without style.
+* **Trigun**. Lots of senseless violence without style.
 * **Ninja Scroll**. Senseless darkness and violence.
-* **Bleach**: the anime is incomplete and ends on the crappiest arc, missing the coolest final arc. If ever finalized, this might rate as "neutral".
-* **Black Butler**. The anime horribly butchers the source material.
-* **Ranma**. Garbage source material, adaptation even worse.
-* **Mahou Sensei Negima**. Could only handle a few episodes.
+* **Bleach**: the anime is incomplete and ends on the crappiest arc, missing the coolest final arc. You have to read the manga. If the anime is ever finalized, this might rate as "neutral".
+* **Black Butler**. The anime horribly butchers the source material, which is mediocre to begin with.
+* **Ranma**. Unwatchable garbage.
+* **Mahou Sensei Negima**. Unwatchable. Could only handle a few episodes.
 * **FLCL Alternative**. Complete disappointment. Boring.
