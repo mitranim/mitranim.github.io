@@ -56,9 +56,7 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 <span>{{include "svg-paper-plane"}} Telegram: [Mitranim](https://telegram.me/Mitranim)</span>
 
-<span>{{include "svg-mobile-alt"}} Phone: [+7-926-044-00-49](tel:+7-926-044-00-49)</span>
-
-<span>@ Email: [me@mitranim.com](mailto:me@mitranim.com)</span>; I'm **unresponsive** on email, please try IM first!
+<span>@ Email: [me@mitranim.com](mailto:me@mitranim.com)</span>; I am **slow** on email, please try messengers first.
 
 # Links
 

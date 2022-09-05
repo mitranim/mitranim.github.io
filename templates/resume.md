@@ -13,5 +13,3 @@ me@mitranim.com
 <br />
 https://mitranim.com
 <br />
-+7-926-044-00-49
-<br />
