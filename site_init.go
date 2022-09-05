@@ -59,6 +59,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/anime-impressions-parasyte.md`),
 			},
 			PublishedAt: timeParse(`2022-03-08T07:02:11Z`),
+			UpdatedAt:   timeParse(`2022-09-05T11:40:59Z`),
 			IsListed:    true,
 		},
 		PagePost{
