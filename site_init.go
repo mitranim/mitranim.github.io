@@ -53,6 +53,13 @@ func initSitePosts() []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Path:  `posts/steins-gate.html`,
+				Title: `[Draft] Impressions: Steins Gate series (games and anime)`,
+				MdTpl: readTemplate(`posts/steins-gate.md`),
+			},
+		},
+		PagePost{
+			Page: Page{
 				Path:        `posts/anime-impressions-parasyte.html`,
 				Title:       `Anime impressions: Parasyte`,
 				Description: `Thoughts and analysis on this surprisingly deep anime. Spoilers!`,
