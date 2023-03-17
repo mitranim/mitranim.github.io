@@ -24,49 +24,47 @@ $breakpoint-lg: 1024px;
 
 // Source: https://brandcolors.net.
 %vars-brand-colors {
-  --color-skype:    #00aff0;
-  --color-github:   #4183c4;
-  --color-youtube:  #ff0000;
-  --color-twitter:  #55acee;
-  --color-linkedin: #0976b4;
-  --color-facebook: #3b5998;
-  --color-feedly:   #2bb24c;
-  --color-discord:  #7289da;
-  --color-rss:      #f26522;
+  --c-skype:    #00aff0;
+  --c-github:   #4183c4;
+  --c-youtube:  #ff0000;
+  --c-twitter:  #55acee;
+  --c-linkedin: #0976b4;
+  --c-facebook: #3b5998;
+  --c-feedly:   #2bb24c;
+  --c-discord:  #7289da;
+  --c-rss:      #f26522;
 }
 
-// TODO rename:
-//   * "--color" -> "--c"
-//   * "close"   -> "near"
-//   * "visited" -> "vis"
+// Defined as mixin, rather than pseudo-class, for compatibility with `@media`.
 @mixin color-scheme-dark {
-  --color-bg:            hsl(200, 5%, 10%);
-  --color-fg:            hsl(0, 0%, 90%);
-  --color-bg-far:        darkslategray;
-  --color-bg-close:      hsl(0, 0%, 15%);
-  --color-fg-far:        hsl(0, 0%, 40%);
-  --color-fg-close:      hsl(0, 0%, 70%);
-  --color-red:           hsl(0, 70%, 30%);
-  --color-blue:          hsl(207, 100%, 60%);
-  --color-link:          hsl(230, 70%, 80%);
-  --color-link-visited:  hsl(260, 45%, 65%);
-  --color-code-bg:       hsl(70, 8%, 15%); // Same as chroma's Monokai background
-  --color-hr:            hsl(0, 0%, 63%);
+  --c-bg:           hsl(200, 5%, 10%);
+  --c-fg:           hsl(0, 0%, 90%);
+  --c-bg-far:       darkslategray;
+  --c-bg-near:      hsl(0, 0%, 15%);
+  --c-fg-far:       hsl(0, 0%, 40%);
+  --c-fg-near:      hsl(0, 0%, 70%);
+  --c-red:          hsl(0, 70%, 30%);
+  --c-blue:         hsl(207, 100%, 60%);
+  --c-link:         hsl(230, 70%, 80%);
+  --c-link-visited: hsl(260, 45%, 65%);
+  --c-code-bg:      hsl(70, 8%, 15%); // Same as chroma's Monokai background
+  --c-hr:           hsl(0, 0%, 63%);
 }
 
+// Defined as mixin, rather than pseudo-class, for compatibility with `@media`.
 @mixin color-scheme-light {
-  --color-bg:            white;
-  --color-fg:            black;
-  --color-bg-far:        hsl(0, 0%, 46%);
-  --color-bg-close:      aliceblue;
-  --color-fg-far:        hsl(0, 0%, 70%);
-  --color-fg-close:      hsl(0, 0%, 40%);
-  --color-red:           hsl(3,   100%, 60%);
-  --color-blue:          hsl(207, 100%, 42%);
-  --color-link:          hsl(231, 40%, 40%);
-  --color-link-visited:  hsl(260, 60%, 25%);
-  --color-code-bg:       hsl(60, 33%, 97%);
-  --color-hr:            hsl(0, 0%, 63%);
+  --c-bg:           white;
+  --c-fg:           black;
+  --c-bg-far:       hsl(0, 0%, 46%);
+  --c-bg-near:      aliceblue;
+  --c-fg-far:       hsl(0, 0%, 70%);
+  --c-fg-near:      hsl(0, 0%, 40%);
+  --c-red:          hsl(3,   100%, 60%);
+  --c-blue:         hsl(207, 100%, 42%);
+  --c-link:         hsl(231, 40%, 40%);
+  --c-link-visited: hsl(260, 60%, 25%);
+  --c-code-bg:      hsl(60, 33%, 97%);
+  --c-hr:           hsl(0, 0%, 63%);
 }
 
 /* Global */
@@ -80,8 +78,8 @@ $breakpoint-lg: 1024px;
 
   /* Colors */
 
-  background-color: var(--color-bg);
-  color: var(--color-fg);
+  background-color: var(--c-bg);
+  color: var(--c-fg);
 
   /* Vars */
 
@@ -113,55 +111,53 @@ code, key, pre {@extend .code;}
 .color-scheme-light {@include color-scheme-light;}
 
 .theme-red {
-  background-color: var(--color-red);
+  background-color: var(--c-red);
   color: white;
 }
 
-.bg-gray-far   {background-color: var(--color-bg-far);}
-.bg-gray-close {background-color: var(--color-bg-close);}
-.bg-code       {background-color: var(--color-code-bg);}
+.bg-gray-far  {background-color: var(--c-bg-far);}
+.bg-gray-near {background-color: var(--c-bg-near);}
+.bg-code      {background-color: var(--c-code-bg);}
 
-.busy-bg-gray-close:hover {background-color: var(--color-bg-close);}
+.busy-bg-gray-near:hover {background-color: var(--c-bg-near);}
 
-.fg-gray-far   {color: var(--color-fg-far);}
-.fg-gray-close {color: var(--color-fg-close);}
-.fg-blue       {color: var(--color-blue);}
-.fg-red        {color: var(--color-red);}
+.fg-gray-far  {color: var(--c-fg-far);}
+.fg-gray-near {color: var(--c-fg-near);}
+.fg-blue      {color: var(--c-blue);}
+.fg-red       {color: var(--c-red);}
 
 .fg-link {
-  color: var(--color-link);
-  &:visited {
-    color: var(--color-link-visited);
-  }
+  color: var(--c-link);
+  &:visited {color: var(--c-link-visited);}
 }
 
-.fill-fg            {fill: var(--color-fg);}
-.fill-gray-fg-close {fill: var(--color-fg-close);}
+.fill-fg           {fill: var(--c-fg);}
+.fill-gray-fg-near {fill: var(--c-fg-near);}
 
-.stroke-fg {stroke: var(--color-fg);}
+.stroke-fg {stroke: var(--c-fg);}
 
-.fg-facebook {color: var(--color-facebook);}
-.fg-github   {color: var(--color-github);}
-.fg-linkedin {color: var(--color-linkedin);}
-.fg-skype    {color: var(--color-skype);}
-.fg-twitter  {color: var(--color-twitter);}
-.fg-feedly   {color: var(--color-feedly);}
-.fg-rss      {color: var(--color-rss);}
-.fg-feedly   {color: var(--color-feedly);}
-.fg-youtube  {color: var(--color-youtube);}
+.fg-facebook {color: var(--c-facebook);}
+.fg-github   {color: var(--c-github);}
+.fg-linkedin {color: var(--c-linkedin);}
+.fg-skype    {color: var(--c-skype);}
+.fg-twitter  {color: var(--c-twitter);}
+.fg-feedly   {color: var(--c-feedly);}
+.fg-rss      {color: var(--c-rss);}
+.fg-feedly   {color: var(--c-feedly);}
+.fg-youtube  {color: var(--c-youtube);}
 
-.fill-facebook {fill: var(--color-facebook);}
-.fill-github   {fill: var(--color-github);}
-.fill-linkedin {fill: var(--color-linkedin);}
-.fill-skype    {fill: var(--color-skype);}
-.fill-twitter  {fill: var(--color-twitter);}
-.fill-feedly   {fill: var(--color-feedly);}
-.fill-rss      {fill: var(--color-rss);}
-.fill-feedly   {fill: var(--color-feedly);}
-.fill-youtube  {fill: var(--color-youtube);}
-.fill-discord  {fill: var(--color-discord);}
+.fill-facebook {fill: var(--c-facebook);}
+.fill-github   {fill: var(--c-github);}
+.fill-linkedin {fill: var(--c-linkedin);}
+.fill-skype    {fill: var(--c-skype);}
+.fill-twitter  {fill: var(--c-twitter);}
+.fill-feedly   {fill: var(--c-feedly);}
+.fill-rss      {fill: var(--c-rss);}
+.fill-feedly   {fill: var(--c-feedly);}
+.fill-youtube  {fill: var(--c-youtube);}
+.fill-discord  {fill: var(--c-discord);}
 
-.hr {color: var(--color-hr);}
+.hr {color: var(--c-hr);}
 
 /* Typography */
 
@@ -197,8 +193,8 @@ code, key, pre {@extend .code;}
 .details summary {
   @extend .cur-point;
   @extend .pad-1;
-  background-color: var(--color-bg-close);
-  &::marker {color: var(--color-link);}
+  background-color: var(--c-bg-near);
+  &::marker {color: var(--c-link);}
   .fan-typo & ~ pre {margin-top: 0;}
 }
 
@@ -257,7 +253,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
       position: absolute;
       right:    calc(100% + 1ch);
       display:  inline;
-      color:    var(--color-fg-close);
+      color:    var(--c-fg-near);
     }
 
     h1 > .heading-prefix::before {content: '# ';}
@@ -268,7 +264,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
     h6 > .heading-prefix::before {content: '###### ';}
   }
 
-  $table-border: 1px dashed var(--color-fg-far);
+  $table-border: 1px dashed var(--c-fg-far);
 
   table {
     table-layout: fixed;
@@ -276,7 +272,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
   }
 
   thead, tr:not(:last-of-type) {border-bottom: $table-border;}
-  thead {@extend .bold, .bg-gray-close;}
+  thead {@extend .bold, .bg-gray-near;}
 
   th, td {
     @extend .pad-0x5;
@@ -286,7 +282,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
 
 .blockquote {
   padding: 1rem 1rem 1rem calc(1rem + var(--thick-border-width));
-  border-left: var(--thick-border-width) solid var(--color-fg-close);
+  border-left: var(--thick-border-width) solid var(--c-fg-near);
   @extend .bg-code;
   @extend .gap-ver-1;
 
@@ -314,7 +310,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
   @extend .row-cen-cen;
   @extend .fg-link;
   &.--busy {
-    @extend .busy-bg-gray-close;
+    @extend .busy-bg-gray-near;
     &[aria-current=true], &[aria-current=page] {
       box-shadow: inset 0 calc(-1 * var(--thick-border-width)) 0 0;
     }
@@ -370,7 +366,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle;}
   position: fixed;
   top: 0;
   left: 0;
-  @extend .bg-gray-close;
+  @extend .bg-gray-near;
 
   // This visually hides the element while allowing it to receive focus.
   // `display: none` or `visibility: hidden` would have prevented focus.
@@ -416,7 +412,7 @@ large.
 
   margin: 0 0 1em 1em;
 
-  border: 1px solid var(--color-fg-far);
+  border: 1px solid var(--c-fg-far);
 
   // Tentative.
   // @extend .rounded;
@@ -465,7 +461,7 @@ Possible solutions:
   @include sb.pad-hor(0.5rem);
   @include sb.pad-ver(0.25rem);
   @extend .text-cen;
-  border-top: 1px solid var(--color-fg-far);
+  border-top: 1px solid var(--c-fg-far);
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;
 }
@@ -482,6 +478,6 @@ Possible solutions:
 
 @keyframes flash {
   0% {}
-  20% {background-color: var(--color-fg-far);}
+  20% {background-color: var(--c-fg-far);}
   100% {}
 }

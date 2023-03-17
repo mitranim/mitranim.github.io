@@ -59,7 +59,7 @@ func (self PagePosts) Make(site Site) {
 								bui.E(`p`, nil, post.Description)
 							}
 							if post.TimeString() != `` {
-								bui.E(`p`, AP(`class`, `fg-gray-close size-small`), post.TimeString())
+								bui.E(`p`, AP(`class`, `fg-gray-near size-small`), post.TimeString())
 							}
 						})
 					}
@@ -107,10 +107,10 @@ func (self PageWorks) Table() Bui {
 					bui.E(`tr`, nil,
 						E(`td`, nil, Exta(urlParse(work.Link).String(), work.Name)),
 						E(`td`, nil, x.Str(stringMdToHtml(work.Desc, nil))),
-						E(`td`, AP(`class`, `fg-gray-close`), work.Role),
-						E(`td`, AP(`class`, `fg-gray-close`), work.Tech),
-						E(`td`, AP(`class`, `fg-gray-close`), work.Start),
-						E(`td`, AP(`class`, `fg-gray-close wspace-nowrap`), work.StatusEnd),
+						E(`td`, AP(`class`, `fg-gray-near`), work.Role),
+						E(`td`, AP(`class`, `fg-gray-near`), work.Tech),
+						E(`td`, AP(`class`, `fg-gray-near`), work.Start),
+						E(`td`, AP(`class`, `fg-gray-near wspace-nowrap`), work.StatusEnd),
 					)
 				}
 			}),
@@ -125,7 +125,7 @@ func (self PageWorks) List() Bui {
 				bui.E(`li`, nil,
 					Exta(work.Link, work.Name),
 					` `,
-					E(`span`, AP(`class`, `fg-gray-close`), `(`, work.Meta, `)`),
+					E(`span`, AP(`class`, `fg-gray-near`), `(`, work.Meta, `)`),
 					` `,
 					x.Str(stringMdToHtml(work.Desc, nil)),
 				)
@@ -177,7 +177,7 @@ func (self PagePost) Render(_ Site) Bui {
 						bui.E(`p`, AP(`role`, `doc-subtitle`, `class`, `size-large italic`), self.Description)
 					}
 					if self.TimeString() != `` {
-						bui.E(`p`, AP(`class`, `fg-gray-close size-small`), self.TimeString())
+						bui.E(`p`, AP(`class`, `fg-gray-near size-small`), self.TimeString())
 					}
 				},
 				Bui(self.MdOnce(self)),

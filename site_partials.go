@@ -106,7 +106,7 @@ func Footer(page Ipage) x.Elem {
 					`a`,
 					AP(
 						`href`, idToHash(ID_TOP),
-						`class`, `fill-gray-fg-close pad-1 busy-bg-gray-close`,
+						`class`, `fill-gray-fg-near pad-1 busy-bg-gray-near`,
 						`onclick`, `event.preventDefault(); window.scrollTo(0, 0)`,
 						`aria-label`, `scroll up`,
 					),
