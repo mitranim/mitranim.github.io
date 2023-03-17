@@ -53,6 +53,16 @@ func initSitePosts() []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Path:        `posts/divinity-original-sin-2.html`,
+				Title:       `Divinity Original Sin 2: How to Play and Enjoy`,
+				Description: `Mod recommendations and gameplay suggestions. Spoiler-free!`,
+				MdTpl:       readTemplate(`posts/divinity-original-sin-2.md`),
+			},
+			PublishedAt: timeParse(`2023-03-17T12:01:03Z`),
+			IsListed:    true,
+		},
+		PagePost{
+			Page: Page{
 				Path:  `posts/steins-gate.html`,
 				Title: `[Draft] Impressions: Steins Gate series (games and anime)`,
 				MdTpl: readTemplate(`posts/steins-gate.md`),
