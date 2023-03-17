@@ -59,8 +59,8 @@ Enjoyed squad banter. Would prefer it not limited to Nomad.
 * Hotkeys for everything.
 * Ability to remap all hotkeys including UI actions.
 * Quality of Ryder animations.
-  * Finally got specialized female animations missing from ME2/3.
-    * Buggy: many moves start male, switch to female mid-animation.
+  * Has specialized female animations which were missing from ME2/3.
+    * Buggy: many moves start with the male animation, switch to female mid-animation.
 * Auto-cover.
 
 ### Annoying 👎

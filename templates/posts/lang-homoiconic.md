@@ -110,3 +110,8 @@ But instead, the language could convert quoted code into types from the AST modu
 ```
 
 What got simplified wasn't your code. It was the implementation of macro support in the language. Meanwhile, you got saddled with unnecessary data types and an inferior AST!
+
+<!--
+TODO: mention the loss of references to original source code when AST data
+types are too primitive to be able to store that.
+-->

@@ -31,7 +31,7 @@ Innocent bystanders will rightfully raise eyebrows {{Emoji "🤨" ""}}. This ind
 
 ## Fixed
 
-I recommend fixed-size indentation. The Lisp `let` is particularly bad for indentation, so let's replace it.
+I recommend fixed-size indentation. The Lisp `let` is particularly bad for indentation, so let's avoid it.
 
 ```scm
 (define (some-func . args)

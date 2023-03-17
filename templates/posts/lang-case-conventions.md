@@ -12,6 +12,7 @@ _Objective_ arguments in favor of `snake_case` over `camelCase`:
 * Can remap `_` to type without Shift. (I did.)
 * Unambiguously convertible when numbers are involved.
 * Refactoring requires only 1 renaming instead of 2.
+* Compatible with writing systems without case distinction (only uppercase, only lowercase, hieroglyphs, etc).
 
 Conversion:
 
@@ -34,6 +35,7 @@ _Objective_ arguments in favor of `Title_snake_case` over `TitleCamelCase`:
 * Can remap `_` to type without Shift. Titled identifiers require only one Shift press. (I did.)
 * Consistent with `snake_case` in a language that uses it for lowercase identifiers.
 * Unambiguously convertible when numbers are involved.
+* Compatible with writing systems without case distinction.
 
 Conversion:
 
@@ -75,7 +77,7 @@ Example from work.
 
 At some point, we at Purelab were using Clojure and Datomic to build apps. Clojure symbols (Lisp equivalent of identifiers) use `kebab-case` and may contain operator characters such as `-?`. Booleans are expected to end with a question: `hidden?` instead of `is_hidden`.
 
-Datomic has its own idiosyncrasy: column names are global and include the entity type. So, instead of this:
+Datomic has its own idiosyncrasy: column names are globally scoped and include the entity type. So, instead of this:
 
 ```sql
 create table persons (is_email_verified bool not null default false);
@@ -84,8 +86,10 @@ create table persons (is_email_verified bool not null default false);
 ...you use this:
 
 ```clj
-{:db/ident     :person/email-verified?
- :db/valueType :db.type/boolean}
+{
+  :db/ident     :person/email-verified?
+  :db/valueType :db.type/boolean
+}
 ```
 
 For simplicity, let's suppose we use Postgres, and have a JS client. You have to either break the SQL and JS conventions by quoting the field:
@@ -106,10 +110,10 @@ person['email-verified?']
 
 ## Footnote on Lisp symbols
 
-Lisps allow identifiers like `email-verified?` because they don't distinguish identifiers and operators. They just have "symbols". This has various problems.
+Lisps allow identifiers like `email-verified?` because they don't distinguish identifiers and operators, or more generally, alphanumerics and special characters. They just have "symbols". This has various problems.
 
 * People define custom operators, creating inscrutable code. Popular in Haskell. What the hell is `>>=`? With `bind`, you can at least start _guessing_ the purpose, or pronounce it, or google it, what a feat!
-* Leads to hacks like embedding `: / .` in symbols to implement namespacing (Common Lisp, Clojure). This requires re-parsing the symbol, something the AST should have done for you. Clojure symbols are classes with "namespace" and "name" parts, indicating that they were combined prematurely. The AST should split alphanumerics and operators from the start.
+* Leads to hacks like embedding `: / .` in symbols to implement namespacing (Common Lisp, Clojure). This requires re-parsing the symbol, something the AST should have done for you. Clojure symbols are classes with "namespace" and "name" parts, indicating that they were combined prematurely in the symbol type. The AST should separate alphanumerics and operators from the start.
 
 ## Conclusion
 

@@ -14,15 +14,15 @@ We're not allowed to break existing code under Go1. However, it seems plausible 
 ## Table of Contents
 
 * [Language](#language)
-    * [Remove `:=` in favor of `var`](#prefer-var)
-    * [Remove parenthesized lists](#remove-paren-lists)
-    * [Maybe remove `iota`](#remove-iota)
-    * [Remove `new` in favor of `&`](#remove-new)
-    * [Remove dot-import](#remove-dot-import)
-    * [Remove if-assignment](#remove-if-assignment)
-    * [Remove short float syntax](#remove-short-float-syntax)
+  * [Remove `:=` in favor of `var`](#prefer-var)
+  * [Remove parenthesized lists](#remove-paren-lists)
+  * [Maybe remove `iota`](#remove-iota)
+  * [Remove `new` in favor of `&`](#remove-new)
+  * [Remove dot-import](#remove-dot-import)
+  * [Remove if-assignment](#remove-if-assignment)
+  * [Remove short float syntax](#remove-short-float-syntax)
 * [Tools](#tools)
-    * [Gofmt: align adjacent assignments](#gofmt-declarations)
+  * [Gofmt: align adjacent assignments](#gofmt-declarations)
 * [Misc](#misc)
 
 ## Language Changes {#language}
@@ -72,7 +72,7 @@ _ := 123    // doesn't compile
 
 ```go
 one,
-    two := someExpression
+  two := someExpression
 ```
 
 Scoping the variable names as declarations with `:=` requires multiline lookahead or backtracking, neither of which is supported in the modern Sublime Text syntax engine.
@@ -81,7 +81,7 @@ With `var`, this can be properly scoped without multiline lookahead or backtrack
 
 ```go
 var one,
-    two = someExpression
+  two = someExpression
 ```
 
 #### Migration
@@ -91,14 +91,14 @@ Completely embracing `var` requires an addition to the language. Various forms o
 ```go
 // compiles ok
 select {
-    case err := <-errChan:
-    case msg := <-msgChan:
+  case err := <-errChan:
+  case msg := <-msgChan:
 }
 
 // doesn't compile
 select {
-    case var err = <-errChan:
-    case var msg = <-msgChan:
+  case var err = <-errChan:
+  case var msg = <-msgChan:
 }
 ```
 
@@ -116,9 +116,9 @@ Currently, parenthesized lists have exactly _one_ non-aesthetic reason to exist:
 
 ```go
 import (
-    "bytes"
-    "encoding"
-    "encoding/base64"
+  "bytes"
+  "encoding"
+  "encoding/base64"
 )
 ```
 
@@ -143,30 +143,30 @@ and:
 
 ```go
 var (
-    one = _
-    two = _
+  one = _
+  two = _
 )
 ```
 
 Worse, it occasionally leads to menial conversions between the two. That's a waste of brainpower and typing. Let's say you have a single var:
 
 ```go
-const ichi = 10
+const one = 10
 ```
 
 Now you're adding another:
 
 ```go
-const ichi = 10
-const ni = 20
+const one = 10
+const two = 20
 ```
 
 You might be compelled to convert to the list style:
 
 ```go
 const (
-    echi = 10
-    ni   = 20
+  one = 10
+  two = 20
 )
 ```
 
@@ -200,11 +200,11 @@ Currently, `&` doesn't work with non-composite literals:
 _ = &"hello world!"
 ```
 
-Before `new` can be removed, `&` needs to be extended to support primitive literals. That would make it strictly more powerful than `new`. (**Edit 2020-10-19**: sadly this wouldn't be enough; some types, such as interfaces, don't have literals and can never be instantiated with `&`, but can with `new`.)
+Before `new` can be removed, `&` needs to be extended to support primitive literals. That would make it strictly more powerful than `new`. (**Edit 2020-10-19**: some types, such as interfaces, don't have literals and can never be instantiated with `&`, but can with `new`.)
 
 Allowing `&` on primitives would also make it easier to print Go data structures as code. Currently, pretty-printing libraries have to resort to ugly workarounds to support those types.
 
-Note that most code can already be converted to `&`. Code like `new(string)` or `new(int)` should be extremely rare in the wild.
+Note that most code can already be converted to `&`. Code like `new(string)` or `new(int)` should be rare in the wild.
 
 For Go1, extending `&` to primitive literals would be a safe, backwards-compatible change.
 
@@ -216,7 +216,7 @@ Dot-import splurges all exported definitions from another package into the curre
 import . "fmt"
 
 func main() {
-    Println("hello world!")
+  Println("hello world!")
 }
 ```
 
@@ -246,8 +246,8 @@ If subscoping the variable is vital, just use a block. This also allows you to s
 
 ```go
 {
-    var ok = _
-    if ok { _ }
+  var ok = _
+  if ok { _ }
 }
 ```
 
@@ -272,22 +272,22 @@ Currently, `gofmt` aligns adjacent assignments only in parenthesized lists:
 
 ```go
 const (
-    ichi = 10
-    ni   = 20
-    san  = 30
+  one   = 10
+  two   = 20
+  three = 30
 )
 
-const ichi = 10
-const ni = 20
-const san = 30
+const one = 10
+const two = 20
+const three = 30
 ```
 
 After [removing parenthesized lists](#remove-paren-lists), we probably want `gofmt` to align adjacent non-parenthesized assignments:
 
 ```go
-const ichi = 10
-const ni   = 20
-const san  = 30
+const one = 10
+const two = 20
+const three = 30
 ```
 
 ## Misc {#misc}

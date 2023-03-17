@@ -9,16 +9,20 @@
 
 * Single-line works better without syntax highlighting, or when colorblind.
 
-* Multiline comments cause an argument whether the body should be indented. Some prefer it unindented, which bothers some others.
+* Multiline comments cause arguments whether the body should be indented. Some prefer it indented, some unindented.
 
 * Multiline comments allow some code to become single line and then multi line without loss of information. Untrue for comments that use ASCII art, Markdown formatting, etc.
 
-* With only single-line comments, editing a large comment block requires special editor support for breaking lines.
+* Editing large single-line comments requires more micromanagement or special editor support for automatic insertion and deletion of comment prefix.
 
 * Multi-line comments are easier to edit without special editor support, particularly when joining and breaking lines at the right width.
 
-* Multi-line comments lend themselves to hacks like `/* sql */` preceding a string acting as a tag for syntax highlighting.
+* Multi-line comments lend themselves to syntax hacks such as using a comment as a tag for syntax highlighting, for example `/* sql */` preceding an SQL string.
 
-Inherent conflicts:
+* Multi-line comments are more compatible with indentation shortcuts in editors: preserve indent when creating the next line, indent-unindent, bullets.
+
+* Multi-line comments are more compatible with embedding code or pseudo-code, such as special annotations parsed by external tools.
+
+Inherent tradeoffs:
 
 * For any large comment with multiple line breaks: single-line is easier to read without special support, harder to write without special support; multi-line is easier to write without special support, harder to read without special support.
