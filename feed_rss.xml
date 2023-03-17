@@ -6,7 +6,275 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Mon, 05 Sep 2022 11:46:45 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Mar 2023 12:03:12 +0000</lastBuildDate>
+    <item xml:base="https://mitranim.com/posts/divinity-original-sin-2">
+      <title>Divinity Original Sin 2: How to Play and Enjoy</title>
+      <link>https://mitranim.com/posts/divinity-original-sin-2</link>
+      <description>Mod recommendations and gameplay suggestions. Spoiler-free!</description>
+      <content:encoded><![CDATA[<article role="main article" class="fan-typo"><p>This post is about the game <em>Divinity Original Sin 2</em> by Larian Studios, and how to customize it for maximum enjoyment. Links: <a href="https://store.steampowered.com/app/435150/Divinity_Original_Sin_2__Definitive_Edition/" target="_blank" rel="noopener noreferrer">on Steam<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <a href="https://www.gog.com/en/game/divinity_original_sin_2" target="_blank" rel="noopener noreferrer">on GoG<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
+
+<ul>
+<li><a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>Mods</a>
+
+<ul>
+<li><a href="#built-in-mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>Built-in mods</a></li>
+<li><a href="#external-mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>External mods</a></li>
+</ul></li>
+<li><a href="#cheats"><span class="hash-prefix noprint" aria-hidden="true">#</span>Cheats</a>
+
+<ul>
+<li><a href="#save-editor"><span class="hash-prefix noprint" aria-hidden="true">#</span>Save editor</a></li>
+</ul></li>
+<li><a href="#speedhacks"><span class="hash-prefix noprint" aria-hidden="true">#</span>Speedhacks</a></li>
+<li><a href="#strats"><span class="hash-prefix noprint" aria-hidden="true">#</span>Strats</a></li>
+</ul>
+<h2 id="mods"><span class="heading-prefix" aria-hidden="true"></span>Mods<a href="#mods" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Like most games, DOS2 requires some unfucking via mods. Unlike most games, it has a very nice selection of mods, both built-in and external.</p>
+<h3 id="built-in-mods"><span class="heading-prefix" aria-hidden="true"></span>Built-in mods<a href="#built-in-mods" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>In-game, these are called &ldquo;gift bags&rdquo; and have a dedicated UI section.</p>
+
+<ul>
+<li>Recommended for first playthrough:
+
+<ul>
+<li>&ldquo;Animal Empathy&rdquo; if playing with 2 or 1 characters</li>
+<li>&ldquo;Enhanced Spirit Vision&rdquo;</li>
+<li>&ldquo;Fort Joy Magic Mirror&rdquo;</li>
+<li>&ldquo;Endless Runner&rdquo;</li>
+<li>&ldquo;Hagglers&rdquo; (but <a href="#cheats"><span class="hash-prefix noprint" aria-hidden="true">#</span>cheating</a> gold is better)</li>
+<li>&ldquo;Sourcerous Sundries&rdquo; (but automatic item leveling is better, see <a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>mods</a>)</li>
+</ul></li>
+<li>Recommended for other playthroughs, to save time:
+
+<ul>
+<li>&ldquo;Source Meditation&rdquo;</li>
+</ul></li>
+</ul>
+<h3 id="external-mods"><span class="heading-prefix" aria-hidden="true"></span>External mods<a href="#external-mods" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>Trust me, this is well worth the effort.</p>
+
+<ul>
+<li>Some mods require <a href="https://github.com/Norbyte/ositools" target="_blank" rel="noopener noreferrer">Norbyte Script Extender<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li>Some mods are only available on Steam Workshop:
+
+<ul>
+<li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1759050800" target="_blank" rel="noopener noreferrer">Serve the Covenant Option (Non-Undead Workaround)<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1516400152" target="_blank" rel="noopener noreferrer">Physical Wands and Staves<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+</ul></li>
+<li>Other mods are available on Nexus, which is compatible with the GoG version of the game. Install them via Vortex, Nexus&rsquo; mod manager.
+
+<ul>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/54" target="_blank" rel="noopener noreferrer">The Cheat Commander<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/82" target="_blank" rel="noopener noreferrer">Scoundrel Skills for All Weapons<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/252" target="_blank" rel="noopener noreferrer">No Equipping Requirements<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/172" target="_blank" rel="noopener noreferrer">Lend me your skillbook bro<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/225" target="_blank" rel="noopener noreferrer">Learn Skills Automatically - No Skill Books<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/316" target="_blank" rel="noopener noreferrer">Increase Companion Dialogue Timer<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/241" target="_blank" rel="noopener noreferrer">Book of Origins<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/38" target="_blank" rel="noopener noreferrer">Better Item Borders<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.
+
+<ul>
+<li>Not compatible with Vortex, requires manual install, still worth it.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/233" target="_blank" rel="noopener noreferrer">Automatic Item Leveling<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.
+
+<ul>
+<li>By adding Sorcerous Sundries to the game, the developers have pretty much admitted that item levels are a flawed concept.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/331" target="_blank" rel="noopener noreferrer">Annoying NPC dialogue removed<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+</ul></li>
+</ul>
+<h2 id="cheats"><span class="heading-prefix" aria-hidden="true"></span>Cheats<a href="#cheats" class="heading-anchor" aria-hidden="true"></a></h2>
+<ul>
+<li>If, like me, you don&rsquo;t enjoy the game&rsquo;s economy, it&rsquo;s easy to opt out by cheating gold, in any of these ways:
+
+<ul>
+<li>&ldquo;Cheat Commander&rdquo;, see <a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>mods</a></li>
+<li><a href="http://www.cheatengine.org" target="_blank" rel="noopener noreferrer">Cheat Engine<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="#save-editor"><span class="hash-prefix noprint" aria-hidden="true">#</span>Save editor</a></li>
+</ul></li>
+<li>Cheat inventory capacity by cheating character strength, unless party has a character with high strength.</li>
+<li>Cheat civil abilities if playing with 2 or 1 characters.
+
+<ul>
+<li>Points are gained extremely slowly.</li>
+<li>Balanced for party of 4.</li>
+<li>Unaffected by Lone Wolf talent.</li>
+<li>Possible to hoard gear with +civil abilities, but micromanagement is tiring, and is basically a waste of time.</li>
+</ul></li>
+<li>Also see <a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>mods</a>.</li>
+</ul>
+<h3 id="save-editor"><span class="heading-prefix" aria-hidden="true"></span>Save editor<a href="#save-editor" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>Link: <a href="https://github.com/NovFR/DoS-2-Savegame-Editor" target="_blank" rel="noopener noreferrer">https://github.com/NovFR/DoS-2-Savegame-Editor<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
+
+<ul>
+<li>Use to customize your gear to select the right stats.</li>
+<li>Avoids the tedium of looking for the &ldquo;right&rdquo; randomly generated items.</li>
+<li>Avoids the annoyance of having the wrong stats despite making the right choices.</li>
+<li>Can be used without restarting the game. Simply wait for a save file to be fully generated, then load that save.</li>
+</ul>
+<h2 id="speedhacks"><span class="heading-prefix" aria-hidden="true"></span>Speedhacks<a href="#speedhacks" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Characters run extremely slowly and have extremely long casting animations. Speedhacks are practically required.</p>
+
+<ul>
+<li>Use <a href="https://cheatengine.org" target="_blank" rel="noopener noreferrer">Cheat Engine<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li>Setup hotkeys for speed increments, well worth it.
+
+<ul>
+<li>Suggested increments: 1, 1.5, 2, 3, 4.</li>
+</ul></li>
+<li>I mostly use x1.5 or x2.</li>
+</ul>
+
+<p>Make sure to kill Cheat Engine before launching any multiplayer game, otherwise you might get unfairly banned.</p>
+<h2 id="strats"><span class="heading-prefix" aria-hidden="true"></span>Strats<a href="#strats" class="heading-anchor" aria-hidden="true"></a></h2>
+<ul>
+<li>Try different party sizes.
+
+<ul>
+<li>The game is perfectly suited for party sizes of 4, 2, and 1.</li>
+<li>Different gameplay experiences.</li>
+<li>Different story experiences.</li>
+<li>Don&rsquo;t worry about difficulty.
+
+<ul>
+<li>Characters can pick the Lone Wolf talent, which dramatically raises their power in a party of 1 or 2.</li>
+<li>Fewer characters = better gear.</li>
+<li>Fewer characters → combat advantage: your turns are more condensed, less spread out.</li>
+<li>Solo character has access to cheesier strategies, such as wasting entire enemy turns by turning invisible.</li>
+</ul></li>
+<li>Can adjust on the fly during a playthrough.</li>
+<li>Suggestion: playthrough with 4, then playthrough with 2, then playthrough with 1. My personal preference is 1.</li>
+</ul></li>
+<li>Avatar tier list (note: avatar dialogs and story choices are different from companion dialogs and story choices):
+
+<ul>
+<li>Fane:
+
+<ul>
+<li>Integral to main plot.</li>
+<li>Dialogs with some NPCs reveal additional story background that is otherwise unavailable.</li>
+<li>Personal preference: I like the voice acting, the attitude.</li>
+<li>Undead: interesting mechanics, option to become Sworn for additional story choices and power.</li>
+</ul></li>
+<li>Lohse:
+
+<ul>
+<li>Cool personal story and resolution.</li>
+<li>Personal preference: I like the voice acting, the attitude, the lines.</li>
+</ul></li>
+<li>Sebille:
+
+<ul>
+<li>Interesting story options and additional context related to elves.</li>
+<li>Personal preference: I like the voice acting, the attitude.</li>
+</ul></li>
+<li>Custom:
+
+<ul>
+<li>Subjective: female lizard = best fashion and animations.</li>
+<li>Undead = interesting mechanics; Fane is a good pick, but custom lets you choose another species and gender for alternative fashion and animations.</li>
+</ul></li>
+<li>Red Prince:
+
+<ul>
+<li>Aplomb, attitude.</li>
+</ul></li>
+<li>Ifan: never tried.</li>
+<li>Beast: never tried.</li>
+</ul></li>
+<li>Character tag tier list:
+
+<ul>
+<li>Scholar: most useful, just like IRL.</li>
+<li>Jester: most fun.</li>
+<li>Mystic: useful once or twice.</li>
+</ul></li>
+<li>Use fast travel. Setup a hotkey for the waypoints menu.</li>
+<li>SAVE A LOT. Keep named manual saves in addition to quick and auto saves.</li>
+<li>Game rewards violence over peace:
+
+<ul>
+<li>Whenever a peaceful solution leads to NPCs leaving the area, committing suicide, or otherwise not being killed by you, the &ldquo;correct&rdquo; solution is to kill the NPCs yourself.</li>
+<li>Many peaceful solutions reward <em>no</em> XP.</li>
+<li>Combat is interesting. Avoiding combat is boring.</li>
+<li>Most NPCs drop XP and loot when killed. Leaving them alive rewards nothing.
+
+<ul>
+<li>Non-fighter citizens and traders usually don&rsquo;t drop XP, but they are a minority.</li>
+</ul></li>
+<li>Many players, including myself, consider it standard procedure to &ldquo;clear&rdquo; the map at the end of every act, killing most NPCs.
+
+<ul>
+<li>Community term: &ldquo;murderhobo&rdquo;.</li>
+<li>Do this only if you enjoy maximization, overleveling, overpowering.</li>
+<li>Overleveling takes the fun out of combat.</li>
+<li>Not required for completing the game and having fun.</li>
+<li>Requires knowledge which NPCs do and don&rsquo;t transfer to future acts. Avoid this on the first playthrough.</li>
+</ul></li>
+</ul></li>
+<li>Don&rsquo;t be shy about disabling music when you find it grating.</li>
+<li>Ability to talk to animals is <em>essential</em>. They have amazingly written and voiced dialogs. Start with the Pet Pal talent, or enable the built-in mod (&ldquo;gift bag&rdquo;) Animal Empathy.</li>
+<li>Useful external resources:
+
+<ul>
+<li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1137514488" target="_blank" rel="noopener noreferrer">https://steamcommunity.com/sharedfiles/filedetails/?id=1137514488<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://divinityoriginalsin2.wiki.fextralife.com" target="_blank" rel="noopener noreferrer">https://divinityoriginalsin2.wiki.fextralife.com<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+</ul></li>
+<li>Tips for mage builds:
+
+<ul>
+<li>Learn and use elemental combos!</li>
+<li>Raise the Loremaster ability to see enemy elemental resistances.</li>
+<li>Tips for Tactician difficulty:
+
+<ul>
+<li>Element tier list, from lower enemy resistance to higher:</li>
+<li>Physical.</li>
+<li>Air and Earth.</li>
+<li>Water and Fire.</li>
+<li>Poison.</li>
+<li>Geomancer and Aerothurge are <em>far</em> more reliably useful than Pyrokinetic and Hydrosophist. Very few enemies have a higher resistance to Air and Earth while having a lower resistance to Fire and Water. The only area in the entire game where most enemies are resistant to both elements is Wrecker&rsquo;s Cave in Act 2. Respec your character into Pyrokinetic or Necromancy for this area, then revert. There are also two troll fights, one in Act 2 and one in Act 3, where you want either Meteor Shower (Pyrokinetic 5) or Grasp of the Starved (Necromancy 3). You don&rsquo;t need to change your entire setup, just do a quick partial respec into one of these spells. Spam them via Apotheosis + Skin Graft.</li>
+<li>As it happens, Aerothurge is also incredibly useful for <em>all</em> Lone Wolf characters, making this school easier to focus in.</li>
+</ul></li>
+<li>Necromancy is <em>not</em> the only way to deal physical damage.</li>
+<li>Use scrolls!</li>
+<li>Dual wands are a decent alternative to spells. Spells are mostly for AoE. On single targets, dual wands are often good enough.
+
+<ul>
+<li>Dual wands of the same level as your character, of epic or higher quality, socketed with giant-quality gems of the same element, deal approximately 70% damage for 2 AP, while many &ldquo;standard&rdquo; spells deal 100% damage for 2 or 3 AP in an AoE. However, wand attacks are spammable, and can be decent at applying statuses.</li>
+</ul></li>
+<li>Air dual wands are good at stunlocking targets, especially if wet.</li>
+</ul></li>
+<li>Tips and tricks.
+
+<ul>
+<li>Adding Fire damage to any weapon, even to a wand or staff with another element, allows it to ignite surfaces. Useful for clearing poison and oil.</li>
+<li>Broken strats:
+
+<ul>
+<li>Shooting from farther away than enemy engagement range.</li>
+<li>Radial projectile spells: Pyroclastic Eruption, Dust Blast, Superconductor. <em>Especially</em> Pyroclastic Eruption.</li>
+<li>Telekinesis + superheavy object. Damage scales with weight. Find an indestructible chest and fill it with everything heavy that you find along the way: elemental barrels, useless packages and boxes, other chests, and so on. Don&rsquo;t forget to move your chest to your ship when progressing to the next act!</li>
+<li>Soul Mate on undead or decaying targets, followed by healing yourself. Damage can crit with the Savage Sortilege talent. Soul Mate scroll can be crafted to avoid investing into Summoning.</li>
+<li>Stealth exterminations. When you kill an NPC with a <em>single</em> attack, while staying out of sight of its allies, you don&rsquo;t engage in combat. This way you can clear difficult enemy groups one-by-one.</li>
+<li>Engaging in conversation pauses buffs and debuffs. This allows pre-buffing before combat. Especially effective with party of 1 or 2.</li>
+</ul></li>
+</ul></li>
+<li>Profiles:
+
+<ul>
+<li>I suggest allocating two profiles: solo and multiplayer.</li>
+<li>I tried allocating a new profile for each new solo playthrough, but you have to readjust the settings every time. Not worth it.</li>
+</ul></li>
+</ul>
+
+<!-- TODO update gist, point to this post: https://gist.github.com/mitranim/3b3cfaf5f578842ff8b08cc9dc61fbf5 -->
+</article>]]></content:encoded>
+      <author>me@mitranim.com (Nelo Mitranim)</author>
+      <guid>https://mitranim.com/posts/divinity-original-sin-2</guid>
+      <pubDate>Fri, 17 Mar 2023 12:01:03 +0000</pubDate>
+    </item>
     <item xml:base="https://mitranim.com/posts/anime-impressions-parasyte">
       <title>Anime impressions: Parasyte</title>
       <link>https://mitranim.com/posts/anime-impressions-parasyte</link>
@@ -92,17 +360,19 @@
       <link>https://mitranim.com/posts/anime</link>
       <description>Periodically-updated gist. Check later for more.</description>
       <content:encoded><![CDATA[<article role="main article" class="fan-typo"><h2 id="recommended"><span class="heading-prefix" aria-hidden="true"></span>Recommended<a href="#recommended" class="heading-anchor" aria-hidden="true"></a></h2><ul>
-<li><a href="https://en.wikipedia.org/wiki/Attack_on_Titan" target="_blank" rel="noopener noreferrer"><strong>Attack on Titan</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; avoids many anime tropes; written like a detective story, rewards watching slowly and thinking ahead; full of competent characters who think ahead.</li>
-<li><a href="https://en.wikipedia.org/wiki/Death_Note" target="_blank" rel="noopener noreferrer"><strong>Death Note</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; not subject to anime tropes; detective story that rewards watching slowly and thinking ahead; has very competent characters who think ahead.</li>
-<li><a href="https://en.wikipedia.org/wiki/Code_Geass" target="_blank" rel="noopener noreferrer"><strong>Code Geass</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with coolness; competent writing; competent characters who think ahead; avoids some common anime tropes but falls prey to others; prone to deus ex machina and angst ex machina; watch with English dubs (voices), they&rsquo;re better than the originals.</li>
-<li><a href="https://en.wikipedia.org/wiki/Parasyte" target="_blank" rel="noopener noreferrer"><strong>Parasyte</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Very competent writing; explores deep moral topics, gives you something to think about; competent characters who think ahead; avoids most anime tropes; rewards watching slowly and thinking about the implications. Read <a href="/posts/anime-impressions-parasyte">my analysis</a> after watching.</li>
-<li><a href="https://en.wikipedia.org/wiki/Naruto" target="_blank" rel="noopener noreferrer"><strong>Naruto</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with cool characters and action scenes; the plot keeps getting deeper and more convoluted; great music, tone, atmosphere; saturated with optimistic morals about never giving up; about half of the anime is fillers, skip most of them for better enjoyment.</li>
+<li><a href="https://en.wikipedia.org/wiki/Attack_on_Titan" target="_blank" rel="noopener noreferrer"><strong>Attack on Titan</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; avoids many anime tropes; written like a detective story, rewards watching slowly and thinking ahead; full of competent characters who use their heads (in the first 3 seasons).</li>
+<li><a href="https://en.wikipedia.org/wiki/Death_Note" target="_blank" rel="noopener noreferrer"><strong>Death Note</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; not subject to anime tropes; detective story that rewards watching slowly and thinking ahead; has very competent characters who use their heads to the fullest.</li>
+<li><a href="https://en.wikipedia.org/wiki/Code_Geass" target="_blank" rel="noopener noreferrer"><strong>Code Geass</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with coolness; competent writing; competent characters who use their heads; avoids some common anime tropes but falls prey to others; prone to deus ex machina and angst ex machina; watch with English dubs (voices), they&rsquo;re better than the originals.</li>
+<li><a href="https://en.wikipedia.org/wiki/Parasyte" target="_blank" rel="noopener noreferrer"><strong>Parasyte</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Very competent writing; explores deep moral topics, gives you something to think about; competent characters who use their heads; avoids most anime tropes; rewards watching slowly and thinking about the implications. Read <a href="/posts/anime-impressions-parasyte">my analysis</a> after watching.</li>
+<li><a href="https://en.wikipedia.org/wiki/Naruto" target="_blank" rel="noopener noreferrer"><strong>Naruto</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with cool characters and action scenes; the plot keeps getting deeper and more convoluted; great music, tone, atmosphere; saturated with optimistic morals about never giving up; about half of the anime is fillers, skip most of them for better enjoyment. I hate the ending, but the rest of the anime is well worth it.</li>
 <li><a href="https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood" target="_blank" rel="noopener noreferrer"><strong>Full Metal Alchemist Brotherhood</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Somewhat unique theme; has various flaws, but manages to avert many common anime tropes; some mediocre parts, some really good parts.
 
 <ul>
 <li>Not to be confused with <em>Full Metal Alchemist (2002)</em>.</li>
 </ul></li>
 <li><a href="https://en.wikipedia.org/wiki/Hellsing" target="_blank" rel="noopener noreferrer"><strong>Hellsing OVA</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> (2001-2002). Stylish vampire action; solid atmosphere and music; avoids many anime tropes. Avoid &ldquo;Hellsing Ultimate&rdquo; which is inferior.</li>
+<li><a href="https://en.wikipedia.org/wiki/Detroit_Metal_City" target="_blank" rel="noopener noreferrer"><strong>Detroit Metal City</strong> (OVA)<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Short and humorous tale of death metal.</li>
+<li><a href="https://en.wikipedia.org/wiki/One_Outs" target="_blank" rel="noopener noreferrer"><strong>One Outs</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. I have no interest in baseball or sports, but this anime managed to engage me anyway. It&rsquo;s about using intellect and guile to succeed in sports.</li>
 </ul>
 <h2 id="recommended-with-reservations"><span class="heading-prefix" aria-hidden="true"></span>Recommended with reservations<a href="#recommended-with-reservations" class="heading-anchor" aria-hidden="true"></a></h2>
 <ul>
@@ -120,17 +390,17 @@
 <h2 id="neutral"><span class="heading-prefix" aria-hidden="true"></span>Neutral<a href="#neutral" class="heading-anchor" aria-hidden="true"></a></h2>
 <ul>
 <li><strong>A Certain Magical Index</strong>. The anime is unfinished, needs season 4. The anime is compressed and doesn&rsquo;t make sense at times, especially in season 3. Obnoxious <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/ItsASmallWorldAfterAll" target="_blank" rel="noopener noreferrer">&ldquo;small world&rdquo;<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> syndrome.</li>
-<li><strong>Tokyo Ghoul</strong>: anime followed by manga. The anime sets the tone, but is horribly butchered and incomplete. You need to read the manga to actually finish the story.</li>
+<li><strong>Tokyo Ghoul</strong>: start with the anime, then read the manga. The anime sets the tone well, but is horribly butchered and incomplete. You need to read the manga to actually finish the story.</li>
 <li><strong>Great Teacher Onizuka</strong>.</li>
 <li><strong>Full Metal Panic</strong>. Not to be confused with &ldquo;Fullmetal Alchemist&rdquo; which is unrelated. Combines embarrassing romantic comedy with military action. Full of dumb anime tropes. The anime is unfinished, lacking at least one season.</li>
 <li><strong>Shinmai Maou no Testament</strong>. Has better music than the story deserves.</li>
 </ul>
 <h2 id="not-recommended"><span class="heading-prefix" aria-hidden="true"></span>Not recommended<a href="#not-recommended" class="heading-anchor" aria-hidden="true"></a></h2>
 <ul>
-<li><strong>Cowboy Bebop</strong>. Pretentious and nonsensical.</li>
-<li><strong>Ergo Proxy</strong>. Pretentious and nonsensical.</li>
+<li><strong>Cowboy Bebop</strong>. Pretentious nonsense.</li>
+<li><strong>Ergo Proxy</strong>. Pretentious nonsense.</li>
 <li><strong>Trigun</strong>. Lots of senseless violence without style.</li>
-<li><strong>Ninja Scroll</strong>. Senseless darkness and violence.</li>
+<li><strong>Ninja Scroll</strong>. Senseless darkness and violence without style.</li>
 <li><strong>Bleach</strong>: the anime is incomplete and ends on the crappiest arc, missing the coolest final arc. You have to read the manga. If the anime is ever finalized, this might rate as &ldquo;neutral&rdquo;.</li>
 <li><strong>Black Butler</strong>. The anime horribly butchers the source material, which is mediocre to begin with.</li>
 <li><strong>Ranma</strong>. Unwatchable garbage.</li>
@@ -233,8 +503,8 @@
 <li>Quality of Ryder animations.
 
 <ul>
-<li>Finally got specialized female animations missing from ME2/3.</li>
-<li>Buggy: many moves start male, switch to female mid-animation.</li>
+<li>Has specialized female animations which were missing from ME2/3.</li>
+<li>Buggy: many moves start with the male animation, switch to female mid-animation.</li>
 </ul></li>
 <li>Auto-cover.</li>
 </ul>
@@ -778,6 +1048,7 @@ B - C    |    Subtraction.
 <li>Can remap <code>_</code> to type without Shift. (I did.)</li>
 <li>Unambiguously convertible when numbers are involved.</li>
 <li>Refactoring requires only 1 renaming instead of 2.</li>
+<li>Compatible with writing systems without case distinction (only uppercase, only lowercase, hieroglyphs, etc).</li>
 </ul>
 
 <p>Conversion:</p>
@@ -799,6 +1070,7 @@ one123Two   &lt;-&gt; one 123 two
 <li>Can remap <code>_</code> to type without Shift. Titled identifiers require only one Shift press. (I did.)</li>
 <li>Consistent with <code>snake_case</code> in a language that uses it for lowercase identifiers.</li>
 <li>Unambiguously convertible when numbers are involved.</li>
+<li>Compatible with writing systems without case distinction.</li>
 </ul>
 
 <p>Conversion:</p>
@@ -840,12 +1112,14 @@ One123Two   &lt;-&gt; one 123 two
 
 <p>At some point, we at Purelab were using Clojure and Datomic to build apps. Clojure symbols (Lisp equivalent of identifiers) use <code>kebab-case</code> and may contain operator characters such as <code>-?</code>. Booleans are expected to end with a question: <code>hidden?</code> instead of <code>is_hidden</code>.</p>
 
-<p>Datomic has its own idiosyncrasy: column names are global and include the entity type. So, instead of this:</p>
+<p>Datomic has its own idiosyncrasy: column names are globally scoped and include the entity type. So, instead of this:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> persons (is_email_verified bool <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">false</span>);
 </pre>
 <p>&hellip;you use this:</p>
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822">{<span style="color:#e6db74">:db/ident</span>     <span style="color:#e6db74">:person/email-verified?</span>
- <span style="color:#e6db74">:db/valueType</span> <span style="color:#e6db74">:db.type/boolean</span>}
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822">{
+  <span style="color:#e6db74">:db/ident</span>     <span style="color:#e6db74">:person/email-verified?</span>
+  <span style="color:#e6db74">:db/valueType</span> <span style="color:#e6db74">:db.type/boolean</span>
+}
 </pre>
 <p>For simplicity, let&rsquo;s suppose we use Postgres, and have a JS client. You have to either break the SQL and JS conventions by quoting the field:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> persons (<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">email-verified?</span><span style="color:#e6db74">&#34;</span> bool <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">false</span>);
@@ -854,11 +1128,11 @@ One123Two   &lt;-&gt; one 123 two
 <p>&hellip;or break the Clojure convention by using the interoperable format:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#e6db74">:is_email_verified</span>
 </pre><h2 id="footnote-on-lisp-symbols"><span class="heading-prefix" aria-hidden="true"></span>Footnote on Lisp symbols<a href="#footnote-on-lisp-symbols" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>Lisps allow identifiers like <code>email-verified?</code> because they don&rsquo;t distinguish identifiers and operators. They just have &ldquo;symbols&rdquo;. This has various problems.</p>
+<p>Lisps allow identifiers like <code>email-verified?</code> because they don&rsquo;t distinguish identifiers and operators, or more generally, alphanumerics and special characters. They just have &ldquo;symbols&rdquo;. This has various problems.</p>
 
 <ul>
 <li>People define custom operators, creating inscrutable code. Popular in Haskell. What the hell is <code>&gt;&gt;=</code>? With <code>bind</code>, you can at least start <em>guessing</em> the purpose, or pronounce it, or google it, what a feat!</li>
-<li>Leads to hacks like embedding <code>: / .</code> in symbols to implement namespacing (Common Lisp, Clojure). This requires re-parsing the symbol, something the AST should have done for you. Clojure symbols are classes with &ldquo;namespace&rdquo; and &ldquo;name&rdquo; parts, indicating that they were combined prematurely. The AST should split alphanumerics and operators from the start.</li>
+<li>Leads to hacks like embedding <code>: / .</code> in symbols to implement namespacing (Common Lisp, Clojure). This requires re-parsing the symbol, something the AST should have done for you. Clojure symbols are classes with &ldquo;namespace&rdquo; and &ldquo;name&rdquo; parts, indicating that they were combined prematurely in the symbol type. The AST should separate alphanumerics and operators from the start.</li>
 </ul>
 <h2 id="conclusion"><span class="heading-prefix" aria-hidden="true"></span>Conclusion<a href="#conclusion" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>When making a language, follow the conventions listed at the top. Let&rsquo;s solve this forever and move on.</p>
@@ -950,6 +1224,11 @@ blah
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822">(defmacro trivial () <span style="color:#f92672">&#39;</span>(sum <span style="color:#f92672">&#39;</span>(<span style="color:#ae81ff">10</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">30</span>)))
 </pre>
 <p>What got simplified wasn&rsquo;t your code. It was the implementation of macro support in the language. Meanwhile, you got saddled with unnecessary data types and an inferior AST!</p>
+
+<!--
+TODO: mention the loss of references to original source code when AST data
+types are too primitive to be able to store that.
+-->
 </article>]]></content:encoded>
       <author>me@mitranim.com (Nelo Mitranim)</author>
       <guid>https://mitranim.com/posts/lang-homoiconic</guid>
@@ -1785,25 +2064,25 @@ ONE-TWO      -- upper kebab case
 </span></pre>
 <p>7. <code>var</code> is also better for code highlighting. While writing a Go <a href="https://github.com/mitranim/sublime-gox" target="_blank" rel="noopener noreferrer">syntax definition<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> for Sublime Text, I found that it&rsquo;s impossible to correctly scope the following:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#a6e22e">one</span>,
-    <span style="color:#a6e22e">two</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">someExpression</span>
+  <span style="color:#a6e22e">two</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">someExpression</span>
 </pre>
 <p>Scoping the variable names as declarations with <code>:=</code> requires multiline lookahead or backtracking, neither of which is supported in the modern Sublime Text syntax engine.</p>
 
 <p>With <code>var</code>, this can be properly scoped without multiline lookahead or backtracking:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">one</span>,
-    <span style="color:#a6e22e">two</span> = <span style="color:#a6e22e">someExpression</span>
+  <span style="color:#a6e22e">two</span> = <span style="color:#a6e22e">someExpression</span>
 </pre><h4 id="migration"><span class="heading-prefix" aria-hidden="true"></span>Migration<a href="#migration" class="heading-anchor" aria-hidden="true"></a></h4>
 <p>Completely embracing <code>var</code> requires an addition to the language. Various forms of <code>if</code>, <code>for</code>, <code>select</code>, and <code>switch</code> currently support <code>:=</code> but not <code>var</code>:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#75715e">// compiles ok
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> {
-    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">errChan</span>:
-    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">msg</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">msgChan</span>:
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">errChan</span>:
+  <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">msg</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">msgChan</span>:
 }
 
 <span style="color:#75715e">// doesn&#39;t compile
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> {
-    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> = <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">errChan</span>:
-    <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">msg</span> = <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">msgChan</span>:
+  <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> = <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">errChan</span>:
+  <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">msg</span> = <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">msgChan</span>:
 }
 </pre>
 <p>For Go1, adding the missing <code>var</code> support would be a safe, backwards-compatible change.</p>
@@ -1816,9 +2095,9 @@ ONE-TWO      -- upper kebab case
 
 <p><code>import</code> is traditionally listed, so the keyword doesn&rsquo;t repeat:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> (
-    <span style="color:#e6db74">&#34;bytes&#34;</span>
-    <span style="color:#e6db74">&#34;encoding&#34;</span>
-    <span style="color:#e6db74">&#34;encoding/base64&#34;</span>
+  <span style="color:#e6db74">&#34;bytes&#34;</span>
+  <span style="color:#e6db74">&#34;encoding&#34;</span>
+  <span style="color:#e6db74">&#34;encoding/base64&#34;</span>
 )
 </pre><pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;bytes&#34;</span>
 <span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;encoding&#34;</span>
@@ -1834,21 +2113,21 @@ ONE-TWO      -- upper kebab case
 </pre>
 <p>and:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">var</span> (
-    <span style="color:#a6e22e">one</span> = <span style="color:#a6e22e">_</span>
-    <span style="color:#a6e22e">two</span> = <span style="color:#a6e22e">_</span>
+  <span style="color:#a6e22e">one</span> = <span style="color:#a6e22e">_</span>
+  <span style="color:#a6e22e">two</span> = <span style="color:#a6e22e">_</span>
 )
 </pre>
 <p>Worse, it occasionally leads to menial conversions between the two. That&rsquo;s a waste of brainpower and typing. Let&rsquo;s say you have a single var:</p>
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ichi</span> = <span style="color:#ae81ff">10</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">one</span> = <span style="color:#ae81ff">10</span>
 </pre>
 <p>Now you&rsquo;re adding another:</p>
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ichi</span> = <span style="color:#ae81ff">10</span>
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ni</span> = <span style="color:#ae81ff">20</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">one</span> = <span style="color:#ae81ff">10</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">two</span> = <span style="color:#ae81ff">20</span>
 </pre>
 <p>You might be compelled to convert to the list style:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> (
-    <span style="color:#a6e22e">echi</span> = <span style="color:#ae81ff">10</span>
-    <span style="color:#a6e22e">ni</span>   = <span style="color:#ae81ff">20</span>
+  <span style="color:#a6e22e">one</span> = <span style="color:#ae81ff">10</span>
+  <span style="color:#a6e22e">two</span> = <span style="color:#ae81ff">20</span>
 )
 </pre>
 <p>We&rsquo;ve now wasted some brainpower and typing. Without lists, this would not have happened.</p>
@@ -1871,11 +2150,11 @@ ONE-TWO      -- upper kebab case
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#75715e">// doesn&#39;t compile
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span> = <span style="color:#f92672">&amp;</span><span style="color:#e6db74">&#34;hello world!&#34;</span>
 </pre>
-<p>Before <code>new</code> can be removed, <code>&amp;</code> needs to be extended to support primitive literals. That would make it strictly more powerful than <code>new</code>. (<strong>Edit 2020-10-19</strong>: sadly this wouldn&rsquo;t be enough; some types, such as interfaces, don&rsquo;t have literals and can never be instantiated with <code>&amp;</code>, but can with <code>new</code>.)</p>
+<p>Before <code>new</code> can be removed, <code>&amp;</code> needs to be extended to support primitive literals. That would make it strictly more powerful than <code>new</code>. (<strong>Edit 2020-10-19</strong>: some types, such as interfaces, don&rsquo;t have literals and can never be instantiated with <code>&amp;</code>, but can with <code>new</code>.)</p>
 
 <p>Allowing <code>&amp;</code> on primitives would also make it easier to print Go data structures as code. Currently, pretty-printing libraries have to resort to ugly workarounds to support those types.</p>
 
-<p>Note that most code can already be converted to <code>&amp;</code>. Code like <code>new(string)</code> or <code>new(int)</code> should be extremely rare in the wild.</p>
+<p>Note that most code can already be converted to <code>&amp;</code>. Code like <code>new(string)</code> or <code>new(int)</code> should be rare in the wild.</p>
 
 <p>For Go1, extending <code>&amp;</code> to primitive literals would be a safe, backwards-compatible change.</p>
 <h3 id="remove-dot-import"><span class="heading-prefix" aria-hidden="true"></span>Remove dot-import: <code>import . &quot;some-package&quot;</code><a href="#remove-dot-import" class="heading-anchor" aria-hidden="true"></a></h3>
@@ -1883,7 +2162,7 @@ ONE-TWO      -- upper kebab case
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> . <span style="color:#e6db74">&#34;fmt&#34;</span>
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;hello world!&#34;</span>)
+  <span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;hello world!&#34;</span>)
 }
 </pre>
 <p>Having read a considerable amount of code in multiple languages with this import style, I&rsquo;m convinced that it&rsquo;s always a bad idea. Subjectively, it makes the code harder to understand and harder to track down the definitions. Objectively, it makes the code more fragile against changes.</p>
@@ -1902,11 +2181,11 @@ ONE-TWO      -- upper kebab case
 </pre>
 <p>If subscoping the variable is vital, just use a block. This also allows you to subscope more than one variable.</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822">{
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">_</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> { <span style="color:#a6e22e">_</span> }
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">_</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> { <span style="color:#a6e22e">_</span> }
 }
 </pre><h3 id="remove-short-float-syntax"><span class="heading-prefix" aria-hidden="true"></span>Remove short float syntax<a href="#remove-short-float-syntax" class="heading-anchor" aria-hidden="true"></a></h3>
-<p><span class="fg-gray-close">(This entry was added on 2020-06-11.)</span></p>
+<p><span class="fg-gray-near">(This entry was added on 2020-06-11.)</span></p>
 
 <p>In Go, the following forms are equivalent:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#ae81ff">0.123</span>
@@ -1916,19 +2195,19 @@ ONE-TWO      -- upper kebab case
 <h2 id="tools"><span class="heading-prefix" aria-hidden="true"></span>Tool Changes<a href="#tools" class="heading-anchor" aria-hidden="true"></a></h2><h3 id="gofmt-declarations"><span class="heading-prefix" aria-hidden="true"></span>Gofmt: align adjacent non-listed <code>var</code>, <code>const</code>, <code>type</code>, <code>import</code><a href="#gofmt-declarations" class="heading-anchor" aria-hidden="true"></a></h3>
 <p>Currently, <code>gofmt</code> aligns adjacent assignments only in parenthesized lists:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> (
-    <span style="color:#a6e22e">ichi</span> = <span style="color:#ae81ff">10</span>
-    <span style="color:#a6e22e">ni</span>   = <span style="color:#ae81ff">20</span>
-    <span style="color:#a6e22e">san</span>  = <span style="color:#ae81ff">30</span>
+  <span style="color:#a6e22e">one</span>   = <span style="color:#ae81ff">10</span>
+  <span style="color:#a6e22e">two</span>   = <span style="color:#ae81ff">20</span>
+  <span style="color:#a6e22e">three</span> = <span style="color:#ae81ff">30</span>
 )
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ichi</span> = <span style="color:#ae81ff">10</span>
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ni</span> = <span style="color:#ae81ff">20</span>
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">san</span> = <span style="color:#ae81ff">30</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">one</span> = <span style="color:#ae81ff">10</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">two</span> = <span style="color:#ae81ff">20</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">three</span> = <span style="color:#ae81ff">30</span>
 </pre>
 <p>After <a href="#remove-paren-lists"><span class="hash-prefix noprint" aria-hidden="true">#</span>removing parenthesized lists</a>, we probably want <code>gofmt</code> to align adjacent non-parenthesized assignments:</p>
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ichi</span> = <span style="color:#ae81ff">10</span>
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ni</span>   = <span style="color:#ae81ff">20</span>
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">san</span>  = <span style="color:#ae81ff">30</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">one</span> = <span style="color:#ae81ff">10</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">two</span> = <span style="color:#ae81ff">20</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">three</span> = <span style="color:#ae81ff">30</span>
 </pre><h2 id="misc"><span class="heading-prefix" aria-hidden="true"></span>Misc<a href="#misc" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>While writing this post, I tried to argue that complex numbers should be moved from built-ins to the standard library, but ended unconvinced.</p>
 
