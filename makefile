@@ -70,6 +70,16 @@ styles_w:
 styles:
 	$(SASS) --style=$(SASS_STYLE)
 
+.PHONY: test_w
+test_w:
+	$(WATCH) $(W_GO) -- $(MAKE) test
+
+# The pattern `*_test.go` is needed here due to a bug/gotcha in Go's test
+# runner.
+.PHONY: test
+test:
+	go test -count=1 -failfast -short -run="$(run)" *_test.go
+
 .PHONY: cp_w
 cp_w:
 	$(WATCH) -w=static -w=images -- $(MAKE) cp

@@ -1,4 +1,4 @@
-Collection of headcanon for [Warframe](https://warframe.com), **co-authored by friends** and myself. This post contains **massive unmarked spoilers**. By the nature of headcanon, this should only be read by someone who's completed all story quests. If you haven't, **get out now** and return once you have. {{emoji "🙂" ""}}
+Collection of headcanon for [Warframe](https://warframe.com), **co-authored by friends** and myself. This post contains **massive unmarked spoilers**. By the nature of headcanon, this should only be read by someone who's completed all story quests. If you haven't, **get out now** and return once you have. {{Emoji "🙂" ""}}
 
 <!--
 Generating the ASCII figure:
@@ -47,7 +47,7 @@ Generating the ASCII figure:
 
 {{imgBoxLink "/images/warframe/braton_prime.png" "Braton Prime" "https://warframe.fandom.com/wiki/Braton_Prime"}}
 
-Prime warframes and weapons were made exclusively in the Orokin times, while non-primes can be manufactured from scratch right now. Non-primes could be cheap knock-offs of the originals, but they could also _be_ the originals, the prototypes, later refined with superior materials and designs {{emoji "✨" ""}}.
+Prime warframes and weapons were made exclusively in the Orokin times, while non-primes can be manufactured from scratch right now. Non-primes could be cheap knock-offs of the originals, but they could also _be_ the originals, the prototypes, later refined with superior materials and designs {{Emoji "✨" ""}}.
 
 The Old War cutscenes feature prime warframes and weapons. However, the Leverian, Chains of Harrow, and the Deadlock Protocol specifically place non-primes in the Orokin era. Both Harrow and Protea, found in their respective quests, are non-primes that have stuck around for hundreds of years.
 

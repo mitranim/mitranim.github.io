@@ -105,7 +105,7 @@ When first learning JS, I was confused by the differences between `{}` for block
 }
 ```
 
-Both of these define a "scope" with "variables" within `{}`. But a block uses `=;`, while an object uses `:,`. What?! This was a headscratcher {{emoji "🤯" ""}}. They could have used the same syntax!
+Both of these define a "scope" with "variables" within `{}`. But a block uses `=;`, while an object uses `:,`. What?! This was a headscratcher {{Emoji "🤯" ""}}. They could have used the same syntax!
 
 ```
 {

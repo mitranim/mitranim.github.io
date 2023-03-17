@@ -155,13 +155,13 @@ type Work struct {
 	Lifecycle
 }
 
-func (self Work) Meta(b B) {
-	SemiList{
+func (self Work) Meta(bui B) {
+	SemicolonList{
 		F(self.Role),
 		F(self.Tech),
 		F(self.Range()),
 		F(self.StatusLink),
-	}.Render(b)
+	}.Render(bui)
 }
 
 type Lifecycle struct {
@@ -181,20 +181,20 @@ func (self Lifecycle) Range() string {
 	return ``
 }
 
-func (self Lifecycle) StatusLink(b B) {
+func (self Lifecycle) StatusLink(bui B) {
 	if self.Link != `` {
-		b.Child(Exta(self.Link, self.Status))
+		bui.Child(Exta(self.Link, self.Status))
 		return
 	}
 
 	if self.Status != `` {
-		b.Child(self.Status)
+		bui.Child(self.Status)
 		return
 	}
 }
 
-func (self Lifecycle) StatusEnd(b B) {
-	if !buiChild(b, self.StatusLink) {
-		b.Child(self.End)
+func (self Lifecycle) StatusEnd(bui B) {
+	if !buiChild(bui, self.StatusLink) {
+		bui.Child(self.End)
 	}
 }

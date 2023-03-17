@@ -46,25 +46,25 @@ func (self PagePosts) Make(site Site) {
 		E(`div`, AP(`role`, `main`, `id`, ID_MAIN, `class`, `wid-lim fan-typo`),
 			E(`h1`, nil, `Blog Posts`),
 
-			func(b B) {
+			func(bui B) {
 				posts := site.ListedPosts()
 
 				if len(posts) > 0 {
 					for _, post := range posts {
-						b.E(`div`, AP(`class`, `mar-top-2 gap-ver-1`), func() {
-							b.E(`h2`, nil,
+						bui.E(`div`, AP(`class`, `mar-top-2 gap-ver-1`), func() {
+							bui.E(`h2`, nil,
 								E(`a`, AP(`href`, post.GetLink()), post.Title),
 							)
 							if post.Description != `` {
-								b.E(`p`, nil, post.Description)
+								bui.E(`p`, nil, post.Description)
 							}
 							if post.TimeString() != `` {
-								b.E(`p`, AP(`class`, `fg-gray-close size-small`), post.TimeString())
+								bui.E(`p`, AP(`class`, `fg-gray-close size-small`), post.TimeString())
 							}
 						})
 					}
 				} else {
-					b.E(`p`, nil, `Oops! It appears there are no public posts yet.`)
+					bui.E(`p`, nil, `Oops! It appears there are no public posts yet.`)
 				}
 			},
 
@@ -102,9 +102,9 @@ func (self PageWorks) Table() Bui {
 				E(`th`, nil, `Start`),
 				E(`th`, nil, `Status/End`),
 			),
-			E(`tbody`, nil, func(b B) {
+			E(`tbody`, nil, func(bui B) {
 				for _, work := range self.Works {
-					b.E(`tr`, nil,
+					bui.E(`tr`, nil,
 						E(`td`, nil, Exta(urlParse(work.Link).String(), work.Name)),
 						E(`td`, nil, x.Str(stringMdToHtml(work.Desc, nil))),
 						E(`td`, AP(`class`, `fg-gray-close`), work.Role),
@@ -120,9 +120,9 @@ func (self PageWorks) Table() Bui {
 
 func (self PageWorks) List() Bui {
 	return F(
-		E(`ul`, AP(`class`, `non-sm-hide`), func(b B) {
+		E(`ul`, AP(`class`, `non-sm-hide`), func(bui B) {
 			for _, work := range self.Works {
-				b.E(`li`, nil,
+				bui.E(`li`, nil,
 					Exta(work.Link, work.Name),
 					` `,
 					E(`span`, AP(`class`, `fg-gray-close`), `(`, work.Meta, `)`),
@@ -172,12 +172,12 @@ func (self PagePost) Render(_ Site) Bui {
 			E(`article`, AP(`role`, `article`, `class`, `fan-typo`),
 				// Should be kept in sync with `MdRen.RenderNode` logic for headings.
 				E(`h1`, nil, HEADING_PREFIX, self.Title),
-				func(b B) {
+				func(bui B) {
 					if self.Description != `` {
-						b.E(`p`, AP(`role`, `doc-subtitle`, `class`, `size-large italic`), self.Description)
+						bui.E(`p`, AP(`role`, `doc-subtitle`, `class`, `size-large italic`), self.Description)
 					}
 					if self.TimeString() != `` {
-						b.E(`p`, AP(`class`, `fg-gray-close size-small`), self.TimeString())
+						bui.E(`p`, AP(`class`, `fg-gray-close size-small`), self.TimeString())
 					}
 				},
 				Bui(self.MdOnce(self)),

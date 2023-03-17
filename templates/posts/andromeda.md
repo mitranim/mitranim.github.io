@@ -37,7 +37,7 @@ Competently done but lack charisma compared to ME1/2/3.
 
 Enjoyed squad banter. Would prefer it not limited to Nomad.
 
-```details"Subjective grades: click to expand"
+```details || Subjective grades: click to expand
 * Cora. Writing: neutral; voice acting: neutral; character: [flanderized](https://tvtropes.org/pmwiki/pmwiki.php/Main/Flanderization) asariboo; appearance: Tumblr diversity hire (unfuck with [mods](#mods)).
 * Liam. Writing: neutral; voice acting: like; character: dislike. Jacob 3.0, more immature.
 * Vetra. Writing: like; voice acting: like.

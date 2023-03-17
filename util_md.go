@@ -42,7 +42,8 @@ var (
 
 	HEADING_TAGS            = [...]string{1: `h1`, 2: `h2`, 3: `h3`, 4: `h4`, 5: `h5`, 6: `h6`}
 	HEADING_PREFIX          = F(E(`span`, AP(`class`, `heading-prefix`, `aria-hidden`, `true`)))
-	RE_DETAIL_TAG           = regexp.MustCompile(`details"([^"\r\n]*)"(\S*)?`)
+	RE_DETAIL_TAG_PREFIX    = regexp.MustCompile(`^details\b`)
+	RE_DETAIL_TAG           = regexp.MustCompile(`^details(?:\s*[|]\s*(\w*)\s*[|]\s*(.*))?`)
 	RE_PROTOCOL             = regexp.MustCompile(`^\w+://`)
 	DETAIL_SUMMARY_FALLBACK = stringToBytesAlloc(`Click for details`)
 )
@@ -117,7 +118,7 @@ Differences from default:
 
 Note: currently doesn't support some flags and extensions.
 
-Note: somewhat duplicates `exta`.
+Note: somewhat duplicates `Exta`.
 */
 func (self *MdRen) RenderLink(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	href := bytesString(node.LinkData.Destination)
@@ -159,52 +160,61 @@ Differences from default:
 */
 func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	tag := node.CodeBlockData.Info
-
 	if len(tag) == 0 {
 		return self.HTMLRenderer.RenderNode(out, node, entering)
 	}
+	if RE_DETAIL_TAG_PREFIX.Match(tag) {
+		return self.RenderCodeBlockDetails(out, node, entering)
+	}
+	return self.RenderCodeBlockHighlighted(out, node, entering)
+}
 
-	/**
-	Special magic for code blocks like these:
+/**
+Special magic for code blocks like these:
 
-	```details"title"lang
-	(some text)
-	```
+```details | lang | summary
+(some text)
+```
 
-	This gets wrapped in a <details> element, with the string in the middle
-	as <summary>. The lang tag is optional; if present, the block is
-	processed as code, otherwise as regular text.
-	*/
+This gets wrapped in a <details> element with the given <summary>. The lang tag
+is optional; if present, the block is processed as code, otherwise as regular
+text.
+*/
+func (self *MdRen) RenderCodeBlockDetails(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
+	tag := node.CodeBlockData.Info
 	match := RE_DETAIL_TAG.FindSubmatch(tag)
-	if match != nil {
-		title := match[1]
-		if len(title) == 0 {
-			title = DETAIL_SUMMARY_FALLBACK
-		}
-
-		lang := match[2]
-		var bui Bui
-
-		bui.E(
-			`details`,
-			AP(`class`, `details fan-typo`),
-			E(`summary`, nil, Bui(mdToHtml(title, nil))),
-			func() {
-				if len(lang) > 0 {
-					// As code.
-					node.CodeBlockData.Info = lang
-					self.RenderNode((*x.NonEscWri)(&bui), node, entering)
-				} else {
-					// As regular text.
-					bui.NonEscBytes(mdToHtml(node.Literal, nil))
-				}
-			},
-		)
-
-		ioWrite(out, bui)
-		return bf.SkipChildren
+	if match == nil {
+		panic(gg.Errf(`invalid code block tag %q`, tag))
 	}
 
+	lang, summary := match[1], match[2]
+	if len(summary) == 0 {
+		summary = DETAIL_SUMMARY_FALLBACK
+	}
+
+	var bui Bui
+	bui.E(
+		`details`,
+		AP(`class`, `details fan-typo`),
+		E(`summary`, nil, Bui(mdToHtml(summary, nil))),
+		func() {
+			if len(lang) > 0 {
+				// As code.
+				node.CodeBlockData.Info = lang
+				self.RenderCodeBlockHighlighted((*x.NonEscWri)(&bui), node, entering)
+			} else {
+				// As regular text.
+				bui.NonEscBytes(mdToHtml(node.Literal, nil))
+			}
+		},
+	)
+
+	ioWrite(out, bui)
+	return bf.SkipChildren
+}
+
+func (self *MdRen) RenderCodeBlockHighlighted(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
+	tag := node.CodeBlockData.Info
 	lexer := clexers.Get(bytesString(tag))
 	if lexer == nil {
 		panic(gg.Errf(`no lexer for %q`, tag))

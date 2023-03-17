@@ -27,7 +27,7 @@ The main _objective_ problems with this style are:
 
 Lisp programmers will point at editor plugins, such as Lisp indentation in Emacs, or more recent algorithms such as Parinfer. (Sidenote: Parinfer handles more than indentation, but _all_ of the problems it handles are self-inflicted just like indentation.)
 
-Innocent bystanders will rightfully raise eyebrows. {{emoji "🤨" ""}} One convention relies on syntax quirks
+Innocent bystanders will rightfully raise eyebrows {{Emoji "🤨" ""}}. This indicates bad design and bad conventions.
 
 ## Fixed
 

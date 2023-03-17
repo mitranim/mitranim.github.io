@@ -196,7 +196,7 @@ tsd install angular -r -s
 
 Create an `src/app/lib.d.ts` with the following:
 
-```details"src/app/lib.d.ts"ts
+```details | ts | src/app/lib.d.ts
 declare module 'ng-decorate' {
     export var Attribute: typeof ngDecorate.Attribute;
     export var Ambient: typeof ngDecorate.Ambient;
@@ -329,7 +329,7 @@ npm i --save-dev browser-sync gulp gulp-concat gulp-load-plugins gulp-ng-html2js
 
 Create a `gulpfile.js` with the following:
 
-```details"gulpfile.js"js
+```details | js | gulpfile.js
 'use strict';
 
 var gulp = require('gulp');
@@ -599,7 +599,7 @@ version of the [foliant demo](https://mitranim.com/demos/foliant/) because I'm l
 
 Create a file `src/app/word-generator/word-generator.html` with:
 
-```details"src/app/word-generator/word-generator.html"html
+```details | html | src/app/word-generator/word-generator.html
 <div layout="gaps-1-v">
     <!-- Left column: source words -->
     <div flex="1" class="gaps-1-v">
@@ -844,7 +844,7 @@ Now let's wrap this up by adding real functionality to the element.
 
 Modify your `src/app/boot.ts`:
 
-```details"src/app/boot.ts"ts
+```details | ts | src/app/boot.ts
 import {app} from 'app';
 
 // Pull the application together.
@@ -871,7 +871,7 @@ import {app} from 'app';
 
 Replace the contents of `src/app/word-generator/word-generator.ts` with this:
 
-```details"src/app/word-generator/word-generator.ts"ts
+```details | ts | src/app/word-generator/word-generator.ts
 import Traits from 'foliant';
 import {Component} from 'ng-decorate';
 import {Words} from 'models/all';
@@ -1018,7 +1018,7 @@ when building for production.
 
 Modify your `src/html/index.html`:
 
-```details"src/html/index.html"html
+```details | html | src/html/index.html
 <!DOCTYPE html>
 <html>
     <head>

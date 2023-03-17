@@ -34,38 +34,38 @@ func HtmlHead(page Ipage) Bui {
 		E(`link`, AP(`rel`, `icon`, `href`, `data:;base64,=`)),
 		E(`link`, AP(`rel`, `stylesheet`, `type`, `text/css`, `href`, `/styles/main.css`)),
 
-		func(b B) {
+		func(bui B) {
 			if page.GetTitle() != `` {
-				b.E(`title`, nil, page.GetTitle())
+				bui.E(`title`, nil, page.GetTitle())
 			} else {
-				b.E(`title`, nil, `about:mitranim`)
+				bui.E(`title`, nil, `about:mitranim`)
 			}
 
-			b.E(
+			bui.E(
 				`link`,
 				AP(`rel`, `alternate`, `type`, `application/atom+xml`, `title`, `Mitranim's Posts (Atom)`, `href`, `/feed.xml`),
 			)
-			b.E(
+			bui.E(
 				`link`,
 				AP(`rel`, `alternate`, `type`, `application/rss+xml`, `title`, `Mitranim's Posts (RSS)`, `href`, `/feed_rss.xml`),
 			)
-			b.E(`meta`, AP(`name`, `author`, `content`, `Nelo Mitranim`))
+			bui.E(`meta`, AP(`name`, `author`, `content`, `Nelo Mitranim`))
 			if page.GetTitle() != `` {
-				b.E(`meta`, AP(`property`, `og:title`, `content`, page.GetTitle()))
+				bui.E(`meta`, AP(`property`, `og:title`, `content`, page.GetTitle()))
 			}
 			if page.GetDescription() != `` {
-				b.E(`meta`, AP(`name`, `description`, `content`, page.GetDescription()))
+				bui.E(`meta`, AP(`name`, `description`, `content`, page.GetDescription()))
 			}
 			if page.GetImage() != `` {
-				b.E(`meta`, AP(`property`, `og:image`, `content`, path.Join(`/images`, page.GetImage())))
+				bui.E(`meta`, AP(`property`, `og:image`, `content`, path.Join(`/images`, page.GetImage())))
 			}
 			if page.GetType() != `` {
-				b.E(`meta`, AP(`property`, `og:type`, `content`, page.GetType()))
+				bui.E(`meta`, AP(`property`, `og:type`, `content`, page.GetType()))
 			}
-			b.E(`meta`, AP(`property`, `og:site_name`, `content`, `about:mitranim`))
+			bui.E(`meta`, AP(`property`, `og:site_name`, `content`, `about:mitranim`))
 
 			if !FLAGS.PROD {
-				b.E(`script`, AP(`type`, `module`, `src`, `http://localhost:52693/afr/client.mjs`))
+				bui.E(`script`, AP(`type`, `module`, `src`, `http://localhost:52693/afr/client.mjs`))
 			}
 		},
 	)
@@ -95,9 +95,9 @@ func Footer(page Ipage) x.Elem {
 				Exta(`https://github.com/mitranim/mitranim.github.io`, `website source`),
 			),
 
-			E(`span`, AP(`class`, `flex-1 text-cen`), func(b B) {
+			E(`span`, AP(`class`, `flex-1 text-cen`), func(bui B) {
 				if page.GetPath() != `index.html` {
-					b.E(`a`, AP(`href`, `/#contacts`, `class`, `decorate-link`), `touch me`)
+					bui.E(`a`, AP(`href`, `/#contacts`, `class`, `decorate-link`), `touch me`)
 				}
 			}),
 
@@ -126,31 +126,33 @@ var FeedLinks = E(`p`, AP(`class`, `inl-flex row-sta-sta gap-hor-0x5`),
 
 func FeedPost(page PagePost) x.Elem {
 	return E(`article`, AP(`role`, `main article`, `class`, `fan-typo`),
-		/**
-		Unsure about including the description. The Atom or RSS feed item already
-		contains the desription as a separate element. The RSS readers I use tend
-		to show it in feed item previews, but not when viewing the article.
-		However, other readers may include the description into the article,
-		making this redundant.
-		*/
-		// func(b B) {
-		// 	if page.Description != `` {
-		// 		b.E(`p`, AP(`role`, `doc-subtitle`, `class`, `size-large italic`),
-		// 			sentence(page.Description),
-		// 		)
-		// 	}
-		// },
+		FeedPostDesc(page),
 		Bui(page.MdOnce(page)),
 	)
 }
 
-// nolint:deadcode
+/*
+Unsure if we want this. The Atom or RSS `FeedItem` already contains the
+desription as a separate field. The RSS readers I use tend to show it in feed
+item previews, but not when viewing the article. However, other readers may
+include the description into the article, making this redundant.
+*/
+func FeedPostDesc(page PagePost) any {
+	if true || page.Description == `` {
+		return nil
+	}
+	return E(`p`, AP(`role`, `doc-subtitle`, `class`, `size-large italic`),
+		page.Description,
+	)
+}
+
 /**
 Must be revised. This should not be accidentally read by voiceover utils, and on
 click, it must skip to the content without changing the URL or polluting the
 browser history. Previously, it seemed to work with the MacOS VoiceOver, but
 right now on MacOS BigSur, it's flaky.
 */
+// nolint:deadcode
 var SkipToContent = E(
 	`a`,
 	AP(
@@ -166,14 +168,10 @@ func Exta(href, text string) x.Elem {
 		panic(gg.Errf(`unexpected empty link`))
 	}
 
-	if text == `` {
-		text = href
-	}
-
 	return E(
 		`a`,
 		AP(`href`, href, `class`, `decorate-link`).A(ABLAN...),
-		text,
+		gg.Or(text, href),
 		SvgExternalLink,
 	)
 }
@@ -206,13 +204,13 @@ func ImgBox(meta ImgMeta) x.Elem {
 		`class`, `img-box-img`,
 	))
 
-	return E(`div`, AP(`class`, `img-box`), func(b B) {
+	return E(`div`, AP(`class`, `img-box`), func(bui B) {
 		if meta.Href != `` {
-			b.E(`a`, padderAttrs.AP(`href`, meta.Href).A(ABLAN...), inner)
+			bui.E(`a`, padderAttrs.AP(`href`, meta.Href).A(ABLAN...), inner)
 		} else {
-			b.E(`div`, padderAttrs, inner)
+			bui.E(`div`, padderAttrs, inner)
 		}
-		b.E(`span`, AP(`class`, `img-box-caption`, `aria-hidden`, `true`), meta.Caption)
+		bui.E(`span`, AP(`class`, `img-box-caption`, `aria-hidden`, `true`), meta.Caption)
 	})
 }
 
@@ -259,16 +257,16 @@ var SvgRss x.Str = `<svg class="svg-icon fill-fg" viewBox="0 0 448 512" width="1
 var SvgRssSquare x.Str = `<svg class="svg-icon fill-fg" viewBox="0 0 448 512" width="1em" height="1em"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM112 416c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm157.533 0h-34.335c-6.011 0-11.051-4.636-11.442-10.634-5.214-80.05-69.243-143.92-149.123-149.123-5.997-.39-10.633-5.431-10.633-11.441v-34.335c0-6.535 5.468-11.777 11.994-11.425 110.546 5.974 198.997 94.536 204.964 204.964.352 6.526-4.89 11.994-11.425 11.994zm103.027 0h-34.334c-6.161 0-11.175-4.882-11.427-11.038-5.598-136.535-115.204-246.161-251.76-251.76C68.882 152.949 64 147.935 64 141.774V107.44c0-6.454 5.338-11.664 11.787-11.432 167.83 6.025 302.21 141.191 308.205 308.205.232 6.449-4.978 11.787-11.432 11.787z"/></svg>`
 var SvgPrint x.Str = `<svg class="svg-icon fill-fg" viewBox="0 0 512 512" width="1em" height="1em"><path d="M464 192h-16V81.941a24 24 0 0 0-7.029-16.97L383.029 7.029A24 24 0 0 0 366.059 0H88C74.745 0 64 10.745 64 24v168H48c-26.51 0-48 21.49-48 48v132c0 6.627 5.373 12 12 12h52v104c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24V384h52c6.627 0 12-5.373 12-12V240c0-26.51-21.49-48-48-48zm-80 256H128v-96h256v96zM128 224V64h192v40c0 13.2 10.8 24 24 24h40v96H128zm304 72c-13.254 0-24-10.746-24-24s10.746-24 24-24 24 10.746 24 24-10.746 24-24 24z"/></svg>`
 
-func cur(page Ipage, href string) x.Attr {
+func cur(page Ipage, href string) (_ x.Attr) {
 	if page.GetLink() == href {
 		return x.Attr{`aria-current`, `page`}
 	}
-	return x.Attr{}
+	return
 }
 
-func aId(val string) x.Attr {
+func aId(val string) (_ x.Attr) {
 	if val != `` {
 		return x.Attr{`id`, val}
 	}
-	return x.Attr{}
+	return
 }

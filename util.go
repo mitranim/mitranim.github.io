@@ -183,9 +183,9 @@ func buiChild(bui B, val any) bool {
 	return len(*bui) > size
 }
 
-type SemiList []Bui
+type SemicolonList []Bui
 
-func (self SemiList) Render(b B) {
+func (self SemicolonList) Render(bui B) {
 	has := false
 
 	for _, val := range self {
@@ -194,11 +194,11 @@ func (self SemiList) Render(b B) {
 		}
 
 		if has {
-			b.T(`; `)
+			bui.T(`; `)
 		}
 
 		has = true
-		val.Render(b)
+		val.Render(bui)
 	}
 }
 

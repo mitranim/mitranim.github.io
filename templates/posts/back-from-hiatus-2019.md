@@ -10,4 +10,4 @@ In 2019, I intend to blog regularly. I have a huge backlog of topics to cover an
 * game and anime impressions
 * game design from player perspective
 
-Subscribe via {{exta "/feed.xml" "Atom"}} or {{exta "/feed_rss.xml" "RSS"}} and enjoy!
+Subscribe via {{Exta "/feed.xml" "Atom"}} or {{Exta "/feed_rss.xml" "RSS"}} and enjoy!
