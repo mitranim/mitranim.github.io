@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2023-03-17T12:03:12Z</updated>
+  <updated>2023-03-20T23:41:32Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -10,6 +10,327 @@
   </author>
   <link rel="alternate" type="text/html" href="https://mitranim.com/posts"></link>
   <link rel="self" type="application/atom+xml" href="https://mitranim.com/feed.xml"></link>
+  <entry xml:base="https://mitranim.com/posts/witcher">
+    <title>Witcher Franchise: How to Enjoy</title>
+    <id>https://mitranim.com/posts/witcher</id>
+    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>TLDR: this is about the Witcher franchise, particularly about the games, how to read, play, and enjoy. Spoiler-free.</p>
+
+<ul>
+<li><a href="#order"><span class="hash-prefix noprint" aria-hidden="true">#</span>Order</a></li>
+<li><a href="#book"><span class="hash-prefix noprint" aria-hidden="true">#</span>Book</a></li>
+<li><a href="#witcher-1"><span class="hash-prefix noprint" aria-hidden="true">#</span>Witcher 1</a></li>
+<li><a href="#witcher-2"><span class="hash-prefix noprint" aria-hidden="true">#</span>Witcher 2</a></li>
+<li><a href="#witcher-3"><span class="hash-prefix noprint" aria-hidden="true">#</span>Witcher 3</a>
+
+<ul>
+<li><a href="#version"><span class="hash-prefix noprint" aria-hidden="true">#</span>Version</a></li>
+<li><a href="#graphics"><span class="hash-prefix noprint" aria-hidden="true">#</span>Graphics</a></li>
+<li><a href="#launch-flags"><span class="hash-prefix noprint" aria-hidden="true">#</span>Launch Flags</a></li>
+<li><a href="#config-tweaks"><span class="hash-prefix noprint" aria-hidden="true">#</span>Config Tweaks</a></li>
+<li><a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>Mods</a></li>
+<li><a href="#misc-tips"><span class="hash-prefix noprint" aria-hidden="true">#</span>Misc Tips</a></li>
+<li><a href="#combat-tips"><span class="hash-prefix noprint" aria-hidden="true">#</span>Combat Tips</a></li>
+<li><a href="#console"><span class="hash-prefix noprint" aria-hidden="true">#</span>Console</a>
+
+<ul>
+<li><a href="#console-gwent"><span class="hash-prefix noprint" aria-hidden="true">#</span>Console: Gwent</a></li>
+<li><a href="#console-beard"><span class="hash-prefix noprint" aria-hidden="true">#</span>Console: Beard</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#speedhacks"><span class="hash-prefix noprint" aria-hidden="true">#</span>Speedhacks</a></li>
+</ul>
+<h2 id="order"><span class="heading-prefix" aria-hidden="true"></span>Order<a href="#order" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>The in-universe events happen in this order, and should be read and played in the same order.</p>
+
+<ul>
+<li>The <a href="#book"><span class="hash-prefix noprint" aria-hidden="true">#</span>book</a>. The original compilation, <em>without</em> &ldquo;Season of Storms&rdquo; or any later works.</li>
+<li><a href="#witcher-1"><span class="hash-prefix noprint" aria-hidden="true">#</span>Witcher 1</a>.</li>
+<li><a href="#witcher-2"><span class="hash-prefix noprint" aria-hidden="true">#</span>Witcher 2</a>.</li>
+<li><a href="#witcher-3"><span class="hash-prefix noprint" aria-hidden="true">#</span>Witcher 3</a>.</li>
+</ul>
+<h2 id="book"><span class="heading-prefix" aria-hidden="true"></span>Book<a href="#book" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>I can highly recommend the Russian version of the book. The original is in Polish, which should be comparable. I haven&rsquo;t tried the English version, or &ldquo;Season of Storms&rdquo; or any later works, and can&rsquo;t vouch for their quality.</p>
+
+<p>Look for an EPUB version and use a decent reader. Avoid unusable formats like PDF.</p>
+<h2 id="witcher-1"><span class="heading-prefix" aria-hidden="true"></span>Witcher 1<a href="#witcher-1" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>It&rsquo;s been a long time since I played it, so my ability to provide advice is limited to the following:</p>
+
+<ul>
+<li>Check the game&rsquo;s <a href="https://www.pcgamingwiki.com/wiki/Witcher" target="_blank" rel="noopener noreferrer">page on PC Gaming Wiki<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> and follow its recommendations.
+
+<ul>
+<li>The article provides help with various issues, and recommends various modifications, including graphical improvements.</li>
+</ul></li>
+<li>Use <a href="#speedhacks"><span class="hash-prefix noprint" aria-hidden="true">#</span>speedhacks</a> to minimize slog.</li>
+</ul>
+<h2 id="witcher-2"><span class="heading-prefix" aria-hidden="true"></span>Witcher 2<a href="#witcher-2" class="heading-anchor" aria-hidden="true"></a></h2>
+<ul>
+<li>Check the game&rsquo;s <a href="https://www.pcgamingwiki.com/wiki/Witcher_2" target="_blank" rel="noopener noreferrer">page on PC Gaming Wiki<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> and follow its recommendations.</li>
+<li>Prepare for 2 playthroughs. A <em>huge</em> chunk of the game&rsquo;s content is split between mutually exclusive paths: Roche/Kaedwen and Iorveth/Scoia&rsquo;tael. As a result, the game requires 2 runs to fully complete.
+
+<ul>
+<li>If you intend to setup a &ldquo;perfect&rdquo; save for importing into Witcher 3, it should be on the Roche/Kaedwen path. There is no benefit to importing the other one.</li>
+</ul></li>
+<li>Essential mods:
+
+<ul>
+<li>Unfuck config files, as recommended in the PCGW article linked above.</li>
+<li><a href="https://www.nexusmods.com/witcher2/mods/889" target="_blank" rel="noopener noreferrer">AI Upscale Textures<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires also editing config files.</li>
+<li><a href="https://www.nexusmods.com/witcher2/mods/265" target="_blank" rel="noopener noreferrer">Zero Weight<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li>Cheat gold (via Cheat Engine), when ferrying loot to vendors gets old.</li>
+<li>Cheat XP on subsequent playthroughs as a form of &ldquo;new game plus&rdquo;.</li>
+<li>Optionally cheat talent points.</li>
+<li>Use <a href="#speedhacks"><span class="hash-prefix noprint" aria-hidden="true">#</span>speedhacks</a> to minimize slog.</li>
+</ul></li>
+</ul>
+<h2 id="witcher-3"><span class="heading-prefix" aria-hidden="true"></span>Witcher 3<a href="#witcher-3" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Check the game&rsquo;s <a href="https://www.pcgamingwiki.com/wiki/Witcher_3" target="_blank" rel="noopener noreferrer">page on PC Gaming Wiki<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> and follow its recommendations. Also read forth. The rest of this article is all about Witcher 3.</p>
+<h3 id="version"><span class="heading-prefix" aria-hidden="true"></span>Version<a href="#version" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>At the time of writing, Witcher 3 has a &ldquo;classic edition&rdquo; (<em>CE</em>, version 1.32) and a &ldquo;next gen&rdquo; edition (<em>NGE</em>, version 4+). Steam installs NGE by default, but also allows to choose CE. I&rsquo;ve played only NGE, and have no opinion on CE. The <a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>mods</a> listed below are all compatible with NGE. Some of them may not exist for CE.</p>
+<h3 id="graphics"><span class="heading-prefix" aria-hidden="true"></span>Graphics<a href="#graphics" class="heading-anchor" aria-hidden="true"></a></h3>
+<ul>
+<li>In the game&rsquo;s own custom launcher, switch from DirectX 12 to DirectX 11.
+
+<ul>
+<li>In the versions that I&rsquo;ve played (NGE 4.0 and slightly above), DX12 has significantly worse performance, with no observable benefit.</li>
+</ul></li>
+<li>Disable all forms of blur.</li>
+<li>If your display has a decent DPI (120 and higher), disable anti-aliasing.
+
+<ul>
+<li>In this game, many forms of AA make the picture much blurrier, while other forms of AA make no observable change to the picture, with no in-between.</li>
+</ul></li>
+<li>If your GPU has enough memory, crank up texture quality.</li>
+<li>The other settings are mostly expendable in favor of FPS. Tweak them to ensure a comfortable framerate.</li>
+</ul>
+<h3 id="launch-flags"><span class="heading-prefix" aria-hidden="true"></span>Launch Flags<a href="#launch-flags" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>After <a href="#graphics"><span class="hash-prefix noprint" aria-hidden="true">#</span>switching</a> from DX12 to DX11, disable the launcher by adding <code>--launcher-skip</code> to the game&rsquo;s launch flags.</p>
+<h3 id="config-tweaks"><span class="heading-prefix" aria-hidden="true"></span>Config Tweaks<a href="#config-tweaks" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>Check the <a href="https://www.pcgamingwiki.com/wiki/Witcher_3" target="_blank" rel="noopener noreferrer">PCGW article<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> to find the location of the <code>user.settings</code> file for your system and game version. Note that when running DX12, you would be using the file <code>dx12user.settings</code>, but you should really <a href="#graphics"><span class="hash-prefix noprint" aria-hidden="true">#</span>switch</a> to DX11 for better performance. When editing this file, you can simply append entries. The game reorders the content automatically.</p>
+
+<p>By default, the game has extremely obnoxious videos on the loading screen. Add the following to disable them.</p>
+
+<pre><code>[LoadingScreen/Debug]
+DisableVideos=true
+</code></pre>
+
+<p>Add the following to enable the console. Afterwards, it can be summoned by the <code>~</code> key, unless you change the key by editing config files. See <a href="#console"><span class="hash-prefix noprint" aria-hidden="true">#</span>console</a> tips below.</p>
+
+<pre><code>[General]
+DBGConsoleOn=true
+</code></pre>
+<h3 id="mods"><span class="heading-prefix" aria-hidden="true"></span>Mods<a href="#mods" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>This section may seem daunting, but trust me, modding the game is <strong>well worth the effort</strong>!</p>
+
+<p>Most mods can be installed and updated via <a href="https://www.nexusmods.com/about/vortex/" target="_blank" rel="noopener noreferrer">Vortex<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, the mod manager from <a href="https://www.nexusmods.com" target="_blank" rel="noopener noreferrer">Nexus<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. I&rsquo;ve been using Vortex without issues. However, the authors of Witcher 3 mods tend to recommend against Vortex, and in favor of <a href="https://github.com/stefan3372/The-WItcher-3-Mod-manager" target="_blank" rel="noopener noreferrer">the Witcher 3 Mod Manager<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, which I haven&rsquo;t tried.</p>
+
+<p>Some mods require manual install. Some require additional tweaks in <code>input.settings</code>. Some require invoking the Menu Filelist Updater which is listed below. Check each mod&rsquo;s description for setup instructions.</p>
+
+<ul>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7171" target="_blank" rel="noopener noreferrer">Menu Filelist Updater<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Some mods have an ingame menu which can be enabled by editing a specific config file. This small program updates the config for you.</li>
+<li><a href="https://github.com/Aelto/tw3-menufilelist-updater" target="_blank" rel="noopener noreferrer">Source repository<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7329" target="_blank" rel="noopener noreferrer">Brothers in Arms<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Community patch that fixes lots of bugs and restores significant amounts of missing content.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/358" target="_blank" rel="noopener noreferrer">Skip Movies<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/2019" target="_blank" rel="noopener noreferrer">Instant Tooltips<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Needs higher load priority than Smooth GUI. They both work.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7730" target="_blank" rel="noopener noreferrer">Smooth GUI<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li>Increase or remove inventory weight limit. Pick one of these mods:
+
+<ul>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7159" target="_blank" rel="noopener noreferrer">No Inventory Weight Limit<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/2948" target="_blank" rel="noopener noreferrer">9000 Weight Saddlebags<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/3095" target="_blank" rel="noopener noreferrer">Item Levels Normalized<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/1542" target="_blank" rel="noopener noreferrer">Remove Item Level Requirements<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/342" target="_blank" rel="noopener noreferrer">Indestructible Items<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/2428" target="_blank" rel="noopener noreferrer">Instant Witcher Senses<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7407" target="_blank" rel="noopener noreferrer">Sprint in Witcher Senses<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/3665" target="_blank" rel="noopener noreferrer">Jump while in Wicher Senses<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/351" target="_blank" rel="noopener noreferrer">No Witcher Sense Zoom FX plus Toggle and Range<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Combine two files: <code>NoWitcherSenseFX</code> and <code>WitcherSenseDoubleRange</code>.</li>
+<li><code>NoWitcherSenseFX</code> is particularly important because in addition to making witcher sense more usable, it fixes an annoying NGE bug where witcher sense SFX gradually breaks music.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7198" target="_blank" rel="noopener noreferrer">AutoLoot All-in-One<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Allows to instantly loot containers with 1 keypress, disable theft mechanic, make hotkey to loot everything around you. Configurable.</li>
+<li>Edit <code>input.settings</code> to configure a hotkey. I use <code>IK_Mouse5=(Action=AutoLootRadius)</code>. The hotkey must be placed in multiple sections.</li>
+<li>When configuring this mod through ingame menus, when configuring notifications, set &ldquo;Use Action Log Notification&rdquo; to &ldquo;false&rdquo; because this breaks the ingame action log completely.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7175" target="_blank" rel="noopener noreferrer">Stack Your Items<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7219" target="_blank" rel="noopener noreferrer">Disable Fall Damage<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7586" target="_blank" rel="noopener noreferrer">Next Gen Movement Input Lag Fix<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7591" target="_blank" rel="noopener noreferrer">BetterMovement<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Allows to sprint x2 faster and swim x5 faster, configurable.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/5510" target="_blank" rel="noopener noreferrer">Alternate Horse Sprint<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Allows separate keys for canter and gallop.</li>
+<li>Requires editing <code>input.settings</code>. Beware: in settings, terms &ldquo;canter&rdquo; and &ldquo;gallop&rdquo; are reversed!</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/385" target="_blank" rel="noopener noreferrer">Galloping In Cities<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7393" target="_blank" rel="noopener noreferrer">Sensible Map Borders<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7333" target="_blank" rel="noopener noreferrer">Any skill in Mutation Slots<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/324" target="_blank" rel="noopener noreferrer">Fast Travel from Anywhere<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>To avoid breaking quest triggers, avoid fast traveling during scripted sequences.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/3050" target="_blank" rel="noopener noreferrer">Loot Bags Glow without Witcher Senses<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/3703" target="_blank" rel="noopener noreferrer">Improved Fist Fights<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Makes fist fights more plausible and less boring. Makes Geralt about as strong as opponents are. Usually on high difficulties Geralt is x10 weaker.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/943" target="_blank" rel="noopener noreferrer">All Quest Objectives On Map<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Needs higher load priority than Smooth GUI. They both work.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7179" target="_blank" rel="noopener noreferrer">Missing Gwent Cards Tracker<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Makes the book &ldquo;Miraculous Guide to Gwent&rdquo; <em>actually</em> a miraculous guide to finding the missing cards.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7616" target="_blank" rel="noopener noreferrer">The Two Gwent Stores<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Allows to quickly get all Gwent cards that aren&rsquo;t acquired through quests. Can be considered a cheat.</li>
+<li>I prefer to simply add Gwent cards via a <a href="#console-gwent"><span class="hash-prefix noprint" aria-hidden="true">#</span>console command</a> and skip this mod.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7509" target="_blank" rel="noopener noreferrer">Oils Potions Bombs Tab by Default<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/4619" target="_blank" rel="noopener noreferrer">Smart Alcohol Refill Selection<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/5631" target="_blank" rel="noopener noreferrer">Slimmer Griffin Armor<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Requires manual install. Well worth it. The Grandmaster version of this gear has been my favorite ever since installing the mod.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7239" target="_blank" rel="noopener noreferrer">Less Junk<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Questionable. Doesn&rsquo;t stop you from finding too much junk.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7858" target="_blank" rel="noopener noreferrer">Cut-Throat Razor<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Alternatively, shave via <a href="#console-beard"><span class="hash-prefix noprint" aria-hidden="true">#</span>console</a>.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7213" target="_blank" rel="noopener noreferrer">Omelet Quest<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Restores a rather fun piece of content that was unfairly cut from the game.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7831" target="_blank" rel="noopener noreferrer">Unlimited Enchanting<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Significantly improves the HoS runesmith, allowing arbitrary enchants on arbitrary gear pieces.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/8022" target="_blank" rel="noopener noreferrer">No Automatic Trophy Switch<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+</ul>
+
+<p>Potentially interesting mods that I haven&rsquo;t tried:</p>
+
+<ul>
+<li><a href="https://www.nexusmods.com/witcher3/mods/3605" target="_blank" rel="noopener noreferrer">No Levels<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/5104" target="_blank" rel="noopener noreferrer">Essential Weapon Rework<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/4287" target="_blank" rel="noopener noreferrer">Gwent Redux<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>I think Gwent is already well-balanced for PvE and does not need a rework.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7290" target="_blank" rel="noopener noreferrer">Friendly HUD<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>May cause weird issues unrelated to the HUD.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7930" target="_blank" rel="noopener noreferrer">Uniform Horse Armour Stats<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7229" target="_blank" rel="noopener noreferrer">Improved Horse Controls<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/1710" target="_blank" rel="noopener noreferrer">Sort Everything<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Has conflicts with Smooth GUI, requires tweaking mod load order.</li>
+</ul></li>
+<li><a href="https://www.nexusmods.com/witcher3/mods/7919" target="_blank" rel="noopener noreferrer">Fix Ciri Invulnerability<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+
+<ul>
+<li>Requires manual install.</li>
+</ul></li>
+</ul>
+<h3 id="misc-tips"><span class="heading-prefix" aria-hidden="true"></span>Misc Tips<a href="#misc-tips" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>When starting a new game, either import a Witcher 2 save (if you&rsquo;ve made the right choices), or choose &ldquo;<em>do</em> simulate Witcher 2 save&rdquo;. If you choose the latter, at some point in Witcher 3 you will be questioned to determine various Witcher 2 choices that have an effect in Witcher 3.</p>
+
+<p>Disable tutorial popups ASAP. You&rsquo;ll learn the game just fine without them, and I personally found them extremely obnoxious. They also break the tourney horse race in B&amp;W.</p>
+
+<p>Ignore damage numbers in skill tooltips. Damage of Signs scales with enemy health (current health for Aard, maximum health for other Signs). Tooltips always lie. Experiment with everything.</p>
+
+<p>You get less XP for lower-level enemies and quests. My suggestion: don&rsquo;t think about it. You&rsquo;ll end up at roughly the same maximum level regardless of completion order. The developers did this to prevent overleveling, which would make combat too easy and less fun.</p>
+<h3 id="combat-tips"><span class="heading-prefix" aria-hidden="true"></span>Combat Tips<a href="#combat-tips" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>Use the Fleet Footed ability, and learn when to use Alt (small dodge) and when to use Space (dodge roll). Both are extremely useful.</p>
+
+<p>Loading screen tips tell you that light armor is best for stamina regen. This is misleading. Medium armor with Griffin School Techiques is far better for stamina regen.</p>
+
+<p>Fighting multiple opponents may feel very different from fighting one. They don&rsquo;t coordinate attacks and may attack from offscreen. This forces you to dodge or parry more often, making combat significantly slower. Learn to enjoy this. Prolonging combat is a positive rather than a negative, because it makes transitions between ambient and combat music less grating on the ears. Many combat tracks in Witcher 3 can be annoying at the start, especially if heard frequently, but eventually pick up and become interesting. Long combat makes the music better.</p>
+
+<p>Initially, Signs are underwhelming. Their effects are weak and stamina regen is slow. However, Signs become extremely strong with high Sign intensity and stamina regen, obtainable later in the game via slottable greater mutagens, HoS enchants, B&amp;W mutations, Grandmaster Griffin gear. A magic-oriented build has been my favorite in multiple NG+ playthroughs.</p>
+<h3 id="console"><span class="heading-prefix" aria-hidden="true"></span>Console<a href="#console" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>See <a href="#config-tweaks"><span class="hash-prefix noprint" aria-hidden="true">#</span>config tweaks</a> for enabling the console. Also see this outdated but still useful reference: <a href="https://commands.gg/witcher3" target="_blank" rel="noopener noreferrer">https://commands.gg/witcher3<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Some particularly useful commands are highlighted below.</p>
+<h4 id="console-gwent"><span class="heading-prefix" aria-hidden="true"></span>Console: Gwent<a href="#console-gwent" class="heading-anchor" aria-hidden="true"></a></h4>
+<p>The following command adds almost every Gwent card, in its maximum total obtainable amount:</p>
+
+<pre><code>addgwintcards
+</code></pre>
+
+<p>Limitations:</p>
+
+<ul>
+<li>Increasing the total amount of cards increases lag in some parts of the Gwent UI. I suggest using this command 0 times in NG and 1 or 2 times in NG+.</li>
+<li>Does not add cards which are present in the base North deck. Can be added by running <code>additem</code> with the appropriate item codes, which can be found on the Witcher wiki. See the <a href="https://witcher.fandom.com/wiki/Gwent" target="_blank" rel="noopener noreferrer">Gwent<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> article.</li>
+</ul>
+<h4 id="console-beard"><span class="heading-prefix" aria-hidden="true"></span>Console: Beard<a href="#console-beard" class="heading-anchor" aria-hidden="true"></a></h4>
+<p>Shave:</p>
+
+<pre><code>setbeard(0)
+</code></pre>
+
+<p>Maximum beard:</p>
+
+<pre><code>setbeard(1)
+</code></pre>
+<h2 id="speedhacks"><span class="heading-prefix" aria-hidden="true"></span>Speedhacks<a href="#speedhacks" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Witcher 1 and Witcher 2 can feel like a slog when backtracking or otherwise running around, with no ingame way to speed that up. Speedhacks are highly recommended.</p>
+
+<ul>
+<li>Install <a href="https://cheatengine.org" target="_blank" rel="noopener noreferrer">Cheat Engine<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li>Configure hotkeys for various speeds, such as x1 x1.5 x2 x3 or whatever you prefer.</li>
+</ul>
+
+<p>Important: kill Cheat Engine before starting any multiplayer game. Some of them spy on your system to detect programs such as Cheat Engine, and may ban you merely for running it. However, Witcher games are purely single-player and don&rsquo;t have such issues.</p>
+</article>]]></content>
+    <published>2023-03-20T23:40:42Z</published>
+    <updated>2023-03-20T23:40:42Z</updated>
+    <link rel="alternate" href="https://mitranim.com/posts/witcher"></link>
+    <summary type="html"><![CDATA[Essential tips and tricks for Witcher games. Spoiler-free!]]></summary>
+    <author>
+      <name>Nelo Mitranim</name>
+      <email>me@mitranim.com</email>
+    </author>
+  </entry>
   <entry xml:base="https://mitranim.com/posts/divinity-original-sin-2">
     <title>Divinity Original Sin 2: How to Play and Enjoy</title>
     <id>https://mitranim.com/posts/divinity-original-sin-2</id>
@@ -63,7 +384,7 @@
 <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1759050800" target="_blank" rel="noopener noreferrer">Serve the Covenant Option (Non-Undead Workaround)<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
 <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1516400152" target="_blank" rel="noopener noreferrer">Physical Wands and Staves<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
 </ul></li>
-<li>Other mods are available on Nexus, which is compatible with the GoG version of the game. Install them via Vortex, Nexus&rsquo; mod manager.
+<li>Other mods are available on Nexus, which is compatible with the GoG version of the game. Install them via <a href="https://www.nexusmods.com/about/vortex/" target="_blank" rel="noopener noreferrer">Vortex<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, Nexus&rsquo; mod manager.
 
 <ul>
 <li><a href="https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/54" target="_blank" rel="noopener noreferrer">The Cheat Commander<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
@@ -120,10 +441,10 @@
 
 <ul>
 <li>Use <a href="https://cheatengine.org" target="_blank" rel="noopener noreferrer">Cheat Engine<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
-<li>Setup hotkeys for speed increments, well worth it.
+<li>Setup hotkeys for speed increments. The effort pays off very quickly.
 
 <ul>
-<li>Suggested increments: 1, 1.5, 2, 3, 4.</li>
+<li>Suggested increments: x1, x1.5, x2, x3, x4.</li>
 </ul></li>
 <li>I mostly use x1.5 or x2.</li>
 </ul>
@@ -270,8 +591,6 @@
 <li>I tried allocating a new profile for each new solo playthrough, but you have to readjust the settings every time. Not worth it.</li>
 </ul></li>
 </ul>
-
-<!-- TODO update gist, point to this post: https://gist.github.com/mitranim/3b3cfaf5f578842ff8b08cc9dc61fbf5 -->
 </article>]]></content>
     <published>2023-03-17T12:01:03Z</published>
     <updated>2023-03-17T12:01:03Z</updated>
