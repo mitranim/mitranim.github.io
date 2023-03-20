@@ -53,6 +53,16 @@ func initSitePosts() []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Path:        `posts/witcher.html`,
+				Title:       `Witcher Franchise: How to Enjoy`,
+				Description: `Essential tips and tricks for Witcher games. Spoiler-free!`,
+				MdTpl:       readTemplate(`posts/witcher.md`),
+			},
+			PublishedAt: timeParse(`2023-03-20T23:40:42Z`),
+			IsListed:    true,
+		},
+		PagePost{
+			Page: Page{
 				Path:        `posts/divinity-original-sin-2.html`,
 				Title:       `Divinity Original Sin 2: How to Play and Enjoy`,
 				Description: `Mod recommendations and gameplay suggestions. Spoiler-free!`,

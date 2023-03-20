@@ -28,7 +28,7 @@ Trust me, this is well worth the effort.
 * Some mods are only available on Steam Workshop:
   * [Serve the Covenant Option (Non-Undead Workaround)](https://steamcommunity.com/sharedfiles/filedetails/?id=1759050800).
   * [Physical Wands and Staves](https://steamcommunity.com/sharedfiles/filedetails/?id=1516400152).
-* Other mods are available on Nexus, which is compatible with the GoG version of the game. Install them via Vortex, Nexus' mod manager.
+* Other mods are available on Nexus, which is compatible with the GoG version of the game. Install them via [Vortex](https://www.nexusmods.com/about/vortex/), Nexus' mod manager.
   * [The Cheat Commander](https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/54).
   * [Scoundrel Skills for All Weapons](https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/82).
   * [No Equipping Requirements](https://www.nexusmods.com/divinityoriginalsin2definitiveedition/mods/252).
@@ -70,8 +70,8 @@ Link: https://github.com/NovFR/DoS-2-Savegame-Editor.
 Characters run extremely slowly and have extremely long casting animations. Speedhacks are practically required.
 
 * Use [Cheat Engine](https://cheatengine.org).
-* Setup hotkeys for speed increments, well worth it.
-  * Suggested increments: 1, 1.5, 2, 3, 4.
+* Setup hotkeys for speed increments. The effort pays off very quickly.
+  * Suggested increments: x1, x1.5, x2, x3, x4.
 * I mostly use x1.5 or x2.
 
 Make sure to kill Cheat Engine before launching any multiplayer game, otherwise you might get unfairly banned.
@@ -159,5 +159,3 @@ Make sure to kill Cheat Engine before launching any multiplayer game, otherwise 
 * Profiles:
   * I suggest allocating two profiles: solo and multiplayer.
   * I tried allocating a new profile for each new solo playthrough, but you have to readjust the settings every time. Not worth it.
-
-<!-- TODO update gist, point to this post: https://gist.github.com/mitranim/3b3cfaf5f578842ff8b08cc9dc61fbf5 -->
