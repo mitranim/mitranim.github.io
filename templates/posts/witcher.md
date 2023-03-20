@@ -182,7 +182,7 @@ Loading screen tips tell you that light armor is best for stamina regen. This is
 
 Fighting multiple opponents may feel very different from fighting one. They don't coordinate attacks and may attack from offscreen. This forces you to dodge or parry more often, making combat significantly slower. Learn to enjoy this. Prolonging combat is a positive rather than a negative, because it makes transitions between ambient and combat music less grating on the ears. Many combat tracks in Witcher 3 can be annoying at the start, especially if heard frequently, but eventually pick up and become interesting. Long combat makes the music better.
 
-Initially, Signs are underwhelming. Their effects are weak and stamina regen is slow. However, Signs become extremely strong with high Sign intensity and stamina regen, obtainable later in the game via slottable greater mutagens, HoS enchants, B&W mutations, Grandmaster Griffin gear. A magic-oriented build has been my favorite in multiple NG+ playthroughs.
+Initially, Signs are underwhelming. Their effects are weak and stamina regen is slow. However, Signs become extremely strong with high Sign intensity and stamina regen, obtainable later in the game via slottable greater mutagens, HoS enchants, B&W mutations, Grandmaster Griffin gear. A magic-oriented build has been my favorite in multiple New Game+ playthroughs.
 
 ### Console
 
@@ -196,8 +196,8 @@ The following command adds almost every Gwent card, in its maximum total obtaina
 
 Limitations:
 
-* Increasing the total amount of cards increases lag in some parts of the Gwent UI. I suggest using this command 0 times in NG and 1 or 2 times in NG+.
 * Does not add cards which are present in the base North deck. Can be added by running `additem` with the appropriate item codes, which can be found on the Witcher wiki. See the [Gwent](https://witcher.fandom.com/wiki/Gwent) article.
+* Increasing the total amount of cards increases lag in some parts of the Gwent UI. I suggest using this command 0 times in the first playthrough and 1 or 2 times in New Game+.
 
 #### Console: Beard
 
