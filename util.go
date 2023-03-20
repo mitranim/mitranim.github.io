@@ -13,7 +13,6 @@ import (
 	"strings"
 	tt "text/template"
 	"time"
-	"unsafe"
 
 	_ "image/jpeg"
 	_ "image/png"
@@ -138,14 +137,6 @@ func withTiming(str string, fun func()) {
 	defer timing(str)()
 	fun()
 }
-
-/*
-Allocation-free conversion. Reinterprets a byte slice as a string. Borrowed from
-the standard library. Reasonably safe.
-*/
-func bytesString(val []byte) string { return *(*string)(unsafe.Pointer(&val)) }
-
-func stringToBytesAlloc(val string) []byte { return []byte(val) }
 
 func ioWrite[Out io.Writer, Src gg.Text](out Out, src Src) {
 	gg.Try1(out.Write(gg.ToBytes(src)))

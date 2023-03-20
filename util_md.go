@@ -2,7 +2,6 @@ package main
 
 import (
 	"io"
-	"math"
 	"regexp"
 	"strings"
 	tt "text/template"
@@ -14,7 +13,7 @@ import (
 	"github.com/mitranim/gg"
 	"github.com/mitranim/gt"
 	bf "github.com/russross/blackfriday/v2"
-	"github.com/shurcooL/sanitized_anchor_name"
+	san "github.com/shurcooL/sanitized_anchor_name"
 )
 
 type (
@@ -40,16 +39,17 @@ var (
 	*/
 	CHROMA_STYLE = cstyles.Monokai
 
+	MD_INDENT               = `  `
 	HEADING_TAGS            = [...]string{1: `h1`, 2: `h2`, 3: `h3`, 4: `h4`, 5: `h5`, 6: `h6`}
 	HEADING_PREFIX          = F(E(`span`, AP(`class`, `heading-prefix`, `aria-hidden`, `true`)))
 	RE_DETAIL_TAG_PREFIX    = regexp.MustCompile(`^details\b`)
 	RE_DETAIL_TAG           = regexp.MustCompile(`^details(?:\s*[|]\s*(\w*)\s*[|]\s*(.*))?`)
 	RE_PROTOCOL             = regexp.MustCompile(`^\w+://`)
-	DETAIL_SUMMARY_FALLBACK = stringToBytesAlloc(`Click for details`)
+	DETAIL_SUMMARY_FALLBACK = gg.ToBytes(`Click for details`)
 )
 
 func stringMdToHtml(src string, opt *MdOpt) string {
-	return bytesString(mdToHtml(stringToBytesAlloc(src), opt))
+	return gg.ToString(mdToHtml(gg.ToBytes(src), opt))
 }
 
 func mdToHtml(src []byte, opt *MdOpt) []byte {
@@ -57,7 +57,7 @@ func mdToHtml(src []byte, opt *MdOpt) []byte {
 }
 
 func mdTplToHtml(src []byte, opt *MdOpt, val any) []byte {
-	return mdToHtml(mdTplExec(bytesString(src), val), opt)
+	return mdToHtml(mdTplExec(gg.ToString(src), val), opt)
 }
 
 func mdTplExec(src string, val any) []byte {
@@ -121,7 +121,7 @@ Note: currently doesn't support some flags and extensions.
 Note: somewhat duplicates `Exta`.
 */
 func (self *MdRen) RenderLink(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
-	href := bytesString(node.LinkData.Destination)
+	href := gg.ToString(node.LinkData.Destination)
 
 	if entering {
 		attrs := AP(`href`, href)
@@ -215,12 +215,12 @@ func (self *MdRen) RenderCodeBlockDetails(out io.Writer, node *bf.Node, entering
 
 func (self *MdRen) RenderCodeBlockHighlighted(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	tag := node.CodeBlockData.Info
-	lexer := clexers.Get(bytesString(tag))
+	lexer := clexers.Get(gg.ToString(tag))
 	if lexer == nil {
 		panic(gg.Errf(`no lexer for %q`, tag))
 	}
 
-	iterator, err := lexer.Tokenise(nil, bytesString(node.Literal))
+	iterator, err := lexer.Tokenise(nil, gg.ToString(node.Literal))
 	gg.Try(gg.Wrapf(err, `tokenizer error`))
 
 	err = CHROMA_FORMATTER.Format(out, CHROMA_STYLE, iterator)
@@ -293,21 +293,16 @@ depend on an obscure API.
 */
 func mdToToc(content []byte) string {
 	headings := mdHeadings(content)
-	levelOffset := math.MaxInt
-	for _, val := range headings {
-		if val.Level < levelOffset {
-			levelOffset = val.Level
-		}
+	offset := gg.MinPrimBy(headings, MdHeading.GetLevel)
+
+	for ind := range headings {
+		tar := &headings[ind]
+		tar.Level = gg.MaxPrim(0, tar.Level-offset)
 	}
 
 	var buf gg.Buf
 	for _, val := range headings {
-		buf.AppendStringN(`  `, val.Level-levelOffset)
-		buf.AppendString(`* [`)
-		buf.AppendBytes(val.Text)
-		buf.AppendString(`](#`)
-		buf.AppendString(val.Id)
-		buf.AppendString(`)`)
+		buf = val.Append(buf)
 		buf.AppendNewline()
 	}
 	return buf.String()
@@ -323,9 +318,9 @@ func mdHeadings(content []byte) (out []MdHeading) {
 
 		if node.Type == bf.Heading {
 			heading := MdHeading{
-				Level: node.HeadingData.Level,
 				Text:  node.Literal,
 				Id:    node.HeadingData.HeadingID,
+				Level: node.HeadingData.Level,
 			}
 
 			textNode := bfNodeFind(node, bf.Text)
@@ -333,10 +328,9 @@ func mdHeadings(content []byte) (out []MdHeading) {
 				heading.Text = textNode.Literal
 			}
 			if textNode != nil && heading.Id == `` {
-				heading.Id = sanitized_anchor_name.Create(bytesString(textNode.Literal))
+				heading.Id = san.Create(gg.ToString(textNode.Literal))
 			}
-
-			if len(heading.Text) > 0 && heading.Id != `` {
+			if heading.IsValid() {
 				out = append(out, heading)
 			}
 		}
@@ -348,9 +342,46 @@ func mdHeadings(content []byte) (out []MdHeading) {
 }
 
 type MdHeading struct {
-	Level int
 	Text  []byte
 	Id    string
+	Level int
+}
+
+func (self MdHeading) IsValid() bool {
+	return len(self.Text) > 0 && self.Id != ``
+}
+
+func (self MdHeading) GetLevel() int { return self.Level }
+
+func (self MdHeading) Append(buf gg.Buf) gg.Buf {
+	buf = self.AppendIndent(buf)
+	buf = self.AppendContent(buf)
+	return buf
+}
+
+func (self MdHeading) AppendIndent(buf gg.Buf) gg.Buf {
+	switch self.Level {
+	case 0:
+	case 1:
+		buf.AppendString(MD_INDENT)
+	default:
+		/**
+		We should be able to simply use `self.Level` here. However, there's a quirk
+		either in Markdown itself or in the Markdown library we use that forces
+		this workaround.
+		*/
+		buf.AppendStringN(MD_INDENT, 1+(self.Level*2))
+	}
+	return buf
+}
+
+func (self MdHeading) AppendContent(buf gg.Buf) gg.Buf {
+	buf.AppendString(`* [`)
+	buf.AppendBytes(self.Text)
+	buf.AppendString(`](#`)
+	buf.AppendString(self.Id)
+	buf.AppendString(`)`)
+	return buf
 }
 
 func bfNodeFind(node *bf.Node, nodeType bf.NodeType) (out *bf.Node) {
