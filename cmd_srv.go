@@ -68,12 +68,12 @@ func (self *Server) Serve(port int) {
 
 func (self *Server) ServeHTTP(rew http.ResponseWriter, req *http.Request) {
 	preventCaching(rew.Header())
-	rout.MakeRouter(rew, req).Serve(self.Route)
+	rout.MakeRou(rew, req).Serve(self.Route)
 }
 
-func (self *Server) Route(r rout.R) {
-	r.Begin(`/afr`).Handler(&self.Broad)
-	r.Get().Handler(srv.FileServer(self.Dir))
+func (self *Server) Route(rou rout.Rou) {
+	rou.Sta(`/afr`).Handler(&self.Broad)
+	rou.Get().Handler(srv.FileServer(self.Dir))
 }
 
 func preventCaching(head http.Header) {

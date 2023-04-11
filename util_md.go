@@ -302,7 +302,7 @@ func mdToToc(content []byte) string {
 
 	var buf gg.Buf
 	for _, val := range headings {
-		buf = val.Append(buf)
+		buf = val.AppendTo(buf)
 		buf.AppendNewline()
 	}
 	return buf.String()
@@ -353,13 +353,13 @@ func (self MdHeading) IsValid() bool {
 
 func (self MdHeading) GetLevel() int { return self.Level }
 
-func (self MdHeading) Append(buf gg.Buf) gg.Buf {
-	buf = self.AppendIndent(buf)
-	buf = self.AppendContent(buf)
+func (self MdHeading) AppendTo(buf gg.Buf) gg.Buf {
+	buf = self.AppendIndentTo(buf)
+	buf = self.AppendContentTo(buf)
 	return buf
 }
 
-func (self MdHeading) AppendIndent(buf gg.Buf) gg.Buf {
+func (self MdHeading) AppendIndentTo(buf gg.Buf) gg.Buf {
 	switch self.Level {
 	case 0:
 	case 1:
@@ -375,7 +375,7 @@ func (self MdHeading) AppendIndent(buf gg.Buf) gg.Buf {
 	return buf
 }
 
-func (self MdHeading) AppendContent(buf gg.Buf) gg.Buf {
+func (self MdHeading) AppendContentTo(buf gg.Buf) gg.Buf {
 	buf.AppendString(`* [`)
 	buf.AppendBytes(self.Text)
 	buf.AppendString(`](#`)
