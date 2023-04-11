@@ -1,4 +1,4 @@
-Very good. Solid sequel. Worthy successor. Note: the game got patched, addressing many release problems such as faces.
+Very good. Solid sequel. Worthy successor. Got patched, addressing many release problems such as faces. Requires additional [mods](#mods) to unfuck.
 
 Multiplayer is non-functional. This article is about single player only.
 

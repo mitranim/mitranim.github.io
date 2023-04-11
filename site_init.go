@@ -59,6 +59,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/witcher.md`),
 			},
 			PublishedAt: timeParse(`2023-03-20T23:40:42Z`),
+			UpdatedAt:   timeParse(`2023-04-11T15:44:49Z`),
 			IsListed:    true,
 		},
 		PagePost{
@@ -191,7 +192,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/warframe-headcanon.md`),
 			},
 			PublishedAt: timeParse(`2020-10-10T12:25:32Z`),
-			UpdatedAt:   timeParse(`2022-05-04T10:40:25Z`),
+			UpdatedAt:   timeParse(`2023-04-11T15:43:24Z`),
 			IsListed:    true,
 		},
 		PagePost{

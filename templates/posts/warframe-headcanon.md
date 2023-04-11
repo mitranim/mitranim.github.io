@@ -57,6 +57,10 @@ One sensible explanation is that most warframes and weapons started off as non-p
 
 Infested versions of Corpus and Grineer ships tend to be dark, implying running on reserve power. Reserve power implies reserve reactors. We supposedly sabotage a ship's main reactor, but does that really detonate the entire ship, or kill the crew due to failing life support? One would expect that after so many raids, they would start installing reserve reactors and decoy reactors, possibly in a ship section that can be jettisoned away. It's just more economical compared to losing entire ships.
 
+(Added 2023-04-11.)
+
+However, if Tenno found this out, cover would be blown. They would start going after real reactors. Corpus and Grineer would be back to square 1. To prevent this, it makes sense to explode ships for real if any Tenno are still present when the fake timer runs out. They even encourage this, by using the oh-so-special caches to bait Tenno into staying until the explosion. By sacrificing a few ships, they spread the word, and then the other Tenno are less motivated to stick around and find out what really happens, which is... nothing.
+
 ## Mass-produced enemy units are ignorant about the Tenno threat level {#mass-ignorance}
 
 {{imgBoxLink "/images/warframe/jackal.jpg" "Jackal" "https://warframe.fandom.com/wiki/Jackal"}}
@@ -390,3 +394,43 @@ But what if Inaros is made of fast-moving, fast-replicating nano- or micro-bots?
 In the Corrupted faction, all units are named "Corrupted X", except for these drones. Now consider, how exactly does an Orokin Tower's "neural sentry", likely a Cephalon, maintain the towers? How does it corrupt those who visit its domain? How does it maintain the state of corruption?
 
 It must have tools, mobile drones acting as its eyes and arms. It must have indoctrination devices, numerous and mobile. When deploying squads of Corrupted into remote areas, those eyes, arms, and indoctrination devices must be deployed with them to relay the combat situation, orders, and ensure continuous loyalty. It stands to reason that these drones are responsible for it.
+
+## Warframes are silent and communicate only with gestures
+
+(Added 2023-04-11.)
+
+Tenno only ever speak in human form. We never hear or see warframes actually speaking. In Leverian legends, warframes are always silent. We can conclude that they never speak. So how do they communicate? Tenno may be considered telepaths, but they seem to use telepathy only for transference, and on one confusing occasion for Teshin. So either they have some kinda text holo-projectors that we've never heard about, or they use signs and gestures.
+
+## Some capture targets are turned into warframes after interrogation
+
+(Added 2023-04-11.)
+
+Various sources, such as the Sacrifice, tell us that warframes are made by infecting humans with the Helminth Infestation strain, transforming them, and near-erasing their minds. Tenno routinely manufacture new warframes, often to immediately feed them back to Helminth. They require a constant supply of fresh victims. The ones most conveniently available on hand are the capture targets.
+
+## Lech Kril may be infected with a special Infestation strain, similar to warframes
+
+(Added 2023-04-11.)
+
+Lech Kril wears an armor suit that hides their entire body and face and has some unusual piping, is extremely durable and strong, has powers involving supercooling and superheating, and communicates in the same screeching "language" as some Infestation bosses. It's plausible that Lech Kril is a Grineer equivalent of a Warframe, except their mind is not completely lost.
+
+## Orbiter decorations may be holo-projections
+
+(Added 2023-04-11.)
+
+Maybe you place tiny electron cloud projectors, maybe the Orbiter has them already built-in and you simply configure its software, or maybe it's all augmented reality in your HUD.
+
+## Failed hacking kills you with reverse hacking
+
+(Added 2023-04-11.)
+
+Dying by failing to hack is actually because the security system hacks you back, shutting down the warframe and requiring a reboot.
+
+## We routinely erase Nihil's memories
+
+(Added 2023-04-11.)
+
+Nihil oubliette fight: we wipe his memory after every fight, and he thinks it's the first one every time. Later we could restore his memory all at once, spectactularly blowing his mind and making him implode.
+
+## Treasurers are impostors and thieves
+
+Treasurers scurry away, pretending to safeguard Granum Crowns from us, while showering us with tasteful insults and accusations of Crown thievery. Tenno **rob** rather than steal. Treasurers' words seem like projection. If they were really trying to safeguard Crowns from us, they only needed to... not show up. Yet they come with alarming regularity. One possible conclusion is that they steal Granum Crowns from Nef Anyo's ships on behalf of Parvos, while trying to frame Tenno for it.

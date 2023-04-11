@@ -1,5 +1,3 @@
-TLDR: this is about the Witcher franchise, particularly about the games, how to read, play, and enjoy. Spoiler-free.
-
 {{mdToToc .MdTpl}}
 
 ## Order
@@ -174,9 +172,11 @@ Ignore damage numbers in skill tooltips. Damage of Signs scales with enemy healt
 
 You get less XP for lower-level enemies and quests. My suggestion: don't think about it. You'll end up at roughly the same maximum level regardless of completion order. The developers did this to prevent overleveling, which would make combat too easy and less fun.
 
+As soon as is practical, raise combat and Gwent difficulty to max. Makes things more interesting.
+
 ### Combat Tips
 
-Use the Fleet Footed ability, and learn when to use Alt (small dodge) and when to use Space (dodge roll). Both are extremely useful.
+Use the Fleet Footed ability, and learn when to use small dodge (default <key>Alt</key>) and when to use dodge roll (default <key>Space</key>). Both are extremely useful.
 
 Loading screen tips tell you that light armor is best for stamina regen. This is misleading. Medium armor with Griffin School Techiques is far better for stamina regen.
 
