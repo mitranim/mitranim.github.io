@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2023-04-11T15:50:11Z</updated>
+  <updated>2023-06-19T18:57:13Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -13,7 +13,7 @@
   <entry xml:base="https://mitranim.com/posts/witcher">
     <title>Witcher Franchise: How to Enjoy</title>
     <id>https://mitranim.com/posts/witcher</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><ul>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><ul>
 <li><a href="#order"><span class="hash-prefix noprint" aria-hidden="true">#</span>Order</a></li>
 <li><a href="#book"><span class="hash-prefix noprint" aria-hidden="true">#</span>Book</a></li>
 <li><a href="#witcher-1"><span class="hash-prefix noprint" aria-hidden="true">#</span>Witcher 1</a></li>
@@ -54,6 +54,7 @@
 <p>It&rsquo;s been a long time since I played it, so my ability to provide advice is limited to the following:</p>
 
 <ul>
+<li>According to rumors, a remake is in the works. Consider waiting until it&rsquo;s released (and patched, and modded).</li>
 <li>Check the game&rsquo;s <a href="https://www.pcgamingwiki.com/wiki/Witcher" target="_blank" rel="noopener noreferrer">page on PC Gaming Wiki<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> and follow its recommendations.
 
 <ul>
@@ -67,18 +68,22 @@
 <li>Prepare for 2 playthroughs. A <em>huge</em> chunk of the game&rsquo;s content is split between mutually exclusive paths: Roche/Kaedwen and Iorveth/Scoia&rsquo;tael. As a result, the game requires 2 runs to fully complete.
 
 <ul>
-<li>If you intend to setup a &ldquo;perfect&rdquo; save for importing into Witcher 3, it should be on the Roche/Kaedwen path. There is no benefit to importing the other one.</li>
+<li>If you intend to setup a &ldquo;perfect&rdquo; save for importing into Witcher 3, it should be on the Roche/Kaedwen path. In Witcher 3, Roche is present, while Iorveth was cut due to production constraints.</li>
 </ul></li>
-<li>Essential mods:
+<li>Essential tweaks:
 
 <ul>
 <li>Unfuck config files, as recommended in the PCGW article linked above.</li>
 <li><a href="https://www.nexusmods.com/witcher2/mods/889" target="_blank" rel="noopener noreferrer">AI Upscale Textures<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires also editing config files.</li>
 <li><a href="https://www.nexusmods.com/witcher2/mods/265" target="_blank" rel="noopener noreferrer">Zero Weight<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
+<li>Use <a href="#speedhacks"><span class="hash-prefix noprint" aria-hidden="true">#</span>speedhacks</a> to minimize slog.</li>
+</ul></li>
+<li>Optional tweaks:
+
+<ul>
 <li>Cheat gold (via Cheat Engine), when ferrying loot to vendors gets old.</li>
 <li>Cheat XP on subsequent playthroughs as a form of &ldquo;new game plus&rdquo;.</li>
-<li>Optionally cheat talent points.</li>
-<li>Use <a href="#speedhacks"><span class="hash-prefix noprint" aria-hidden="true">#</span>speedhacks</a> to minimize slog.</li>
+<li>Cheat talent points if you feel the default system is too restrictive.</li>
 </ul></li>
 </ul>
 <h2 id="witcher-3"><span class="heading-prefix" aria-hidden="true"></span>Witcher 3<a href="#witcher-3" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -334,7 +339,7 @@ DBGConsoleOn=true
   <entry xml:base="https://mitranim.com/posts/divinity-original-sin-2">
     <title>Divinity Original Sin 2: How to Play and Enjoy</title>
     <id>https://mitranim.com/posts/divinity-original-sin-2</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>This post is about the game <em>Divinity Original Sin 2</em> by Larian Studios, and how to customize it for maximum enjoyment. Links: <a href="https://store.steampowered.com/app/435150/Divinity_Original_Sin_2__Definitive_Edition/" target="_blank" rel="noopener noreferrer">on Steam<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <a href="https://www.gog.com/en/game/divinity_original_sin_2" target="_blank" rel="noopener noreferrer">on GoG<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>This post is about the game <em>Divinity Original Sin 2</em> by Larian Studios, and how to customize it for maximum enjoyment. Links: <a href="https://store.steampowered.com/app/435150/Divinity_Original_Sin_2__Definitive_Edition/" target="_blank" rel="noopener noreferrer">on Steam<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <a href="https://www.gog.com/en/game/divinity_original_sin_2" target="_blank" rel="noopener noreferrer">on GoG<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
 
 <ul>
 <li><a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>Mods</a>
@@ -604,7 +609,7 @@ DBGConsoleOn=true
   <entry xml:base="https://mitranim.com/posts/anime-impressions-parasyte">
     <title>Anime impressions: Parasyte</title>
     <id>https://mitranim.com/posts/anime-impressions-parasyte</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Link: <a href="https://en.wikipedia.org/wiki/Parasyte" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Parasyte<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Link: <a href="https://en.wikipedia.org/wiki/Parasyte" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Parasyte<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
 
 <p><strong>Very competent writing</strong>. The writers did their homework on biology and ethics, and it shows. Very well thought out. Deeply thought-provoking. Carefully averts common anime tropes. Not your typical &ldquo;shonen&rdquo; anime.</p>
 
@@ -662,7 +667,7 @@ DBGConsoleOn=true
   <entry xml:base="https://mitranim.com/posts/anime-impressions-evangelion">
     <title>Anime impressions: Evangelion</title>
     <id>https://mitranim.com/posts/anime-impressions-evangelion</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><blockquote class="blockquote"><p>By psycho, of psychos, for psychos</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><blockquote class="blockquote"><p>By psycho, of psychos, for psychos</p>
 </blockquote>
 <p>Evangelion requires special preparation for full enjoyment.</p>
 
@@ -692,7 +697,7 @@ DBGConsoleOn=true
   <entry xml:base="https://mitranim.com/posts/anime">
     <title>Anime impressions and recommendations</title>
     <id>https://mitranim.com/posts/anime</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><h2 id="recommended"><span class="heading-prefix" aria-hidden="true"></span>Recommended<a href="#recommended" class="heading-anchor" aria-hidden="true"></a></h2><ul>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><h2 id="recommended"><span class="heading-prefix" aria-hidden="true"></span>Recommended<a href="#recommended" class="heading-anchor" aria-hidden="true"></a></h2><ul>
 <li><a href="https://en.wikipedia.org/wiki/Attack_on_Titan" target="_blank" rel="noopener noreferrer"><strong>Attack on Titan</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; avoids many anime tropes; written like a detective story, rewards watching slowly and thinking ahead; full of competent characters who use their heads (in the first 3 seasons).</li>
 <li><a href="https://en.wikipedia.org/wiki/Death_Note" target="_blank" rel="noopener noreferrer"><strong>Death Note</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Extremely competent writing; not subject to anime tropes; detective story that rewards watching slowly and thinking ahead; has very competent characters who use their heads to the fullest.</li>
 <li><a href="https://en.wikipedia.org/wiki/Code_Geass" target="_blank" rel="noopener noreferrer"><strong>Code Geass</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Saturated with coolness; competent writing; competent characters who use their heads; avoids some common anime tropes but falls prey to others; prone to deus ex machina and angst ex machina; watch with English dubs (voices), they&rsquo;re better than the originals.</li>
@@ -705,13 +710,14 @@ DBGConsoleOn=true
 </ul></li>
 <li><a href="https://en.wikipedia.org/wiki/Hellsing" target="_blank" rel="noopener noreferrer"><strong>Hellsing OVA</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> (2001-2002). Stylish vampire action; solid atmosphere and music; avoids many anime tropes. Avoid &ldquo;Hellsing Ultimate&rdquo; which is inferior.</li>
 <li><a href="https://en.wikipedia.org/wiki/Detroit_Metal_City" target="_blank" rel="noopener noreferrer"><strong>Detroit Metal City</strong> (OVA)<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Short and humorous tale of death metal.</li>
-<li><a href="https://en.wikipedia.org/wiki/One_Outs" target="_blank" rel="noopener noreferrer"><strong>One Outs</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. I have no interest in baseball or sports, but this anime managed to engage me anyway. It&rsquo;s about using intellect and guile to succeed in sports.</li>
+<li><a href="https://en.wikipedia.org/wiki/One_Outs" target="_blank" rel="noopener noreferrer"><strong>One Outs</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. About using intellect and guile to succeed in baseball. I have no interest in baseball or sports, but this anime managed to engage me anyway.</li>
 </ul>
 <h2 id="recommended-with-reservations"><span class="heading-prefix" aria-hidden="true"></span>Recommended with reservations<a href="#recommended-with-reservations" class="heading-anchor" aria-hidden="true"></a></h2>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Mushishi" target="_blank" rel="noopener noreferrer"><strong>Mushishi</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Collection of relaxed, meditative stories about bizarre microbes with strange effects on human lives. Set in Edo/Meiji-period Japan. Requires tolerance to body horror.</li>
-<li><a href="https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion" target="_blank" rel="noopener noreferrer"><strong>Neon Genesis Evangelion</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires special preparation and coaching to get the most out of it. Read <a href="/posts/anime-impressions-evangelion">my analysis / coaching</a> before watching.</li>
+<li><a href="https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion" target="_blank" rel="noopener noreferrer"><strong>Neon Genesis Evangelion</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires special preparation and coaching to get the most out of it. Read my <a href="/posts/anime-impressions-evangelion">analysis / coaching</a> before watching.</li>
 <li><a href="https://en.wikipedia.org/wiki/The_%22Hentai%22_Prince_and_the_Stony_Cat" target="_blank" rel="noopener noreferrer"><strong>Perverted Prince and Stony Cat / Hentai Ouji to Warawanai Neko</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Requires tolerance to embarrassment. Don&rsquo;t get confused by the name; this is a lighthearted romantic comedy about children.</li>
+<li><a href="https://en.wikipedia.org/wiki/Trinity_Seven" target="_blank" rel="noopener noreferrer"><strong>Trinity Seven</strong><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. <em>Requires reading the manga</em>. The anime sets the tone well, but is very incomplete. Start by watching the anime, and once it&rsquo;s over, restart by reading the manga.</li>
 </ul>
 <h2 id="lukewarm"><span class="heading-prefix" aria-hidden="true"></span>Lukewarm<a href="#lukewarm" class="heading-anchor" aria-hidden="true"></a></h2>
 <ul>
@@ -734,7 +740,7 @@ DBGConsoleOn=true
 <li><strong>Ergo Proxy</strong>. Pretentious nonsense.</li>
 <li><strong>Trigun</strong>. Lots of senseless violence without style.</li>
 <li><strong>Ninja Scroll</strong>. Senseless darkness and violence without style.</li>
-<li><strong>Bleach</strong>: the anime is incomplete and ends on the crappiest arc, missing the coolest final arc. You have to read the manga. If the anime is ever finalized, this might rate as &ldquo;neutral&rdquo;.</li>
+<li><strong>Bleach</strong>: the anime is incomplete and ends before the coolest final arc. You have to read the manga to finish it. If the anime is ever finalized, this might rate as &ldquo;neutral&rdquo;.</li>
 <li><strong>Black Butler</strong>. The anime horribly butchers the source material, which is mediocre to begin with.</li>
 <li><strong>Ranma</strong>. Unwatchable garbage.</li>
 <li><strong>Mahou Sensei Negima</strong>. Unwatchable. Could only handle a few episodes.</li>
@@ -753,7 +759,7 @@ DBGConsoleOn=true
   <entry xml:base="https://mitranim.com/posts/andromeda">
     <title>Game impressions: Mass Effect Andromeda</title>
     <id>https://mitranim.com/posts/andromeda</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Very good. Solid sequel. Worthy successor. Got patched, addressing many release problems such as faces. Requires additional <a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>mods</a> to unfuck.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Very good. Solid sequel. Worthy successor. Got patched, addressing many release problems such as faces. Requires additional <a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>mods</a> to unfuck.</p>
 
 <p>Multiplayer is non-functional. This article is about single player only.</p>
 
@@ -815,7 +821,7 @@ DBGConsoleOn=true
 <p>Competently done but lack charisma compared to ME1/2/3.</p>
 
 <p>Enjoyed squad banter. Would prefer it not limited to Nomad.</p>
-<details class="details fan-typo"><summary><p>Subjective grades: click to expand</p>
+<details class="details typography"><summary><p>Subjective grades: click to expand</p>
 </summary><ul>
 <li>Cora. Writing: neutral; voice acting: neutral; character: <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/Flanderization" target="_blank" rel="noopener noreferrer">flanderized<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> asariboo; appearance: Tumblr diversity hire (unfuck with <a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>mods</a>).</li>
 <li>Liam. Writing: neutral; voice acting: like; character: dislike. Jacob 3.0, more immature.</li>
@@ -956,7 +962,7 @@ DBGConsoleOn=true
   <entry xml:base="https://mitranim.com/posts/goex">
     <title>Shorten your Go code by using exceptions</title>
     <id>https://mitranim.com/posts/goex</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><!-- TODO: switch to `gg` -->
+    <content type="html"><![CDATA[<article role="main article" class="typography"><!-- TODO: switch to `gg` -->
 
 <p>This post is informed by many years of Go, and months of Go with exceptions. <strong>I am well aware</strong> of many arguments for error values. Some of them are addressed below.</p>
 
@@ -1131,7 +1137,7 @@ DBGConsoleOn=true
   <entry xml:base="https://mitranim.com/posts/spaces-tabs">
     <title>Always spaces, never tabs</title>
     <id>https://mitranim.com/posts/spaces-tabs</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>TLDR</strong>: always spaces, never tabs; 2 spaces rather than 4.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p><strong>TLDR</strong>: always spaces, never tabs; 2 spaces rather than 4.</p>
 <h2 id="arguments"><span class="heading-prefix" aria-hidden="true"></span>Arguments<a href="#arguments" class="heading-anchor" aria-hidden="true"></a></h2>
 <p><em>Objective</em> arguments in favor of spaces over tabs:</p>
 
@@ -1185,7 +1191,7 @@ Some people use variable indentation. See the post [Use Fixed-Size Indentation](
   <entry xml:base="https://mitranim.com/posts/lisp-sexpr-hacks">
     <title>Hacks around S-expressions in Lisps</title>
     <id>https://mitranim.com/posts/lisp-sexpr-hacks</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>TLDR</strong>: nobody wants to write pure S-expressions, and Lisps are full of hacks around them.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p><strong>TLDR</strong>: nobody wants to write pure S-expressions, and Lisps are full of hacks around them.</p>
 
 <p>Disclaimer: Lisps have decades of history and many dialects with a variety of hacks. The following is just what I happened to come across. There might be more.</p>
 
@@ -1308,7 +1314,7 @@ value.method
   <entry xml:base="https://mitranim.com/posts/lang-var-minus">
     <title>Language design: gotchas with variadic minus</title>
     <id>https://mitranim.com/posts/lang-var-minus</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>TLDR</strong>: variadic <code>-</code>, as seen in Lisps, has gotchas; it may be allowed syntactically, but not as a variadic function.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p><strong>TLDR</strong>: variadic <code>-</code>, as seen in Lisps, has gotchas; it may be allowed syntactically, but not as a variadic function.</p>
 
 <p><code>-</code> tends to be overloaded with two different operations: negation and subtraction. Negation is always unary. Subtraction can be variadic. Unary subtraction is an identity function that returns the first argument unchanged <em>without negating it</em>.</p>
 
@@ -1392,7 +1398,7 @@ B - C    |    Subtraction.
   <entry xml:base="https://mitranim.com/posts/lang-case-conventions">
     <title>Language design: case conventions</title>
     <id>https://mitranim.com/posts/lang-case-conventions</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>TLDR</strong>: Identifiers in programming languages should use only <code>snake_case</code>, <code>Title_snake_case</code>, <code>UPPER_SNAKE_CASE</code>, ignore abbreviations, and be limited to ASCII alphanumerics with <code>_</code>.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p><strong>TLDR</strong>: Identifiers in programming languages should use only <code>snake_case</code>, <code>Title_snake_case</code>, <code>UPPER_SNAKE_CASE</code>, ignore abbreviations, and be limited to ASCII alphanumerics with <code>_</code>.</p>
 
 <p>This post will also touch on the structure of identifiers.</p>
 
@@ -1506,7 +1512,7 @@ One123Two   &lt;-&gt; one 123 two
   <entry xml:base="https://mitranim.com/posts/lang-homoiconic">
     <title>Language design: homoiconicity</title>
     <id>https://mitranim.com/posts/lang-homoiconic</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>TLDR</strong>: Homoiconicity simplifies what was already trivial, while leading to poor design choices.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p><strong>TLDR</strong>: Homoiconicity simplifies what was already trivial, while leading to poor design choices.</p>
 <h2 id="disclaimer"><span class="heading-prefix" aria-hidden="true"></span>Disclaimer<a href="#disclaimer" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>While this post is highly critical, it comes from a fan. I used Clojure for years, dabbled in other Lisps, wrote a few parsers and compilers. Even if this concept is not good language design, it&rsquo;s still pretty cool.</p>
 <h2 id="definition"><span class="heading-prefix" aria-hidden="true"></span>Definition<a href="#definition" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -1603,7 +1609,7 @@ types are too primitive to be able to store that.
   <entry xml:base="https://mitranim.com/posts/warframe-headcanon">
     <title>Warframe headcanon (spoilers)</title>
     <id>https://mitranim.com/posts/warframe-headcanon</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Collection of headcanon for <a href="https://warframe.com" target="_blank" rel="noopener noreferrer">Warframe<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <strong>co-authored by friends</strong> and myself. This post contains <strong>massive unmarked spoilers</strong>. By the nature of headcanon, this should only be read by someone who&rsquo;s completed all story quests. If you haven&rsquo;t, <strong>get out now</strong> and return once you have. <span aria-hidden="true">🙂</span></p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Collection of headcanon for <a href="https://warframe.com" target="_blank" rel="noopener noreferrer">Warframe<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <strong>co-authored by friends</strong> and myself. This post contains <strong>massive unmarked spoilers</strong>. By the nature of headcanon, this should only be read by someone who&rsquo;s completed all story quests. If you haven&rsquo;t, <strong>get out now</strong> and return once you have. <span aria-hidden="true">🙂</span></p>
 
 <!--
 Generating the ASCII figure:
@@ -1715,7 +1721,7 @@ Generating the ASCII figure:
 <h2 id="decoy-reactors"><span class="heading-prefix" aria-hidden="true"></span>Corpus and Grineer ships have decoy reactors for Tenno sabotage raids<a href="#decoy-reactors" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>Infested versions of Corpus and Grineer ships tend to be dark, implying running on reserve power. Reserve power implies reserve reactors. We supposedly sabotage a ship&rsquo;s main reactor, but does that really detonate the entire ship, or kill the crew due to failing life support? One would expect that after so many raids, they would start installing reserve reactors and decoy reactors, possibly in a ship section that can be jettisoned away. It&rsquo;s just more economical compared to losing entire ships.</p>
 
-<p>(Added 2023-04-11.)</p>
+<p class="fg-gray-near">(Added 2023-04-11.)</p>
 
 <p>However, if Tenno found this out, cover would be blown. They would start going after real reactors. Corpus and Grineer would be back to square 1. To prevent this, it makes sense to explode ships for real if any Tenno are still present when the fake timer runs out. They even encourage this, by using the oh-so-special caches to bait Tenno into staying until the explosion. By sacrificing a few ships, they spread the word, and then the other Tenno are less motivated to stick around and find out what really happens, which is&hellip; nothing.</p>
 <h2 id="mass-ignorance"><span class="heading-prefix" aria-hidden="true"></span>Mass-produced enemy units are ignorant about the Tenno threat level<a href="#mass-ignorance" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -1802,7 +1808,7 @@ Generating the ASCII figure:
 </blockquote>
 <p>So, what if rather than being a warframe, Vauban combines armor and various weapon systems to allow a regular human to act like one, living out the fantasy? &ldquo;Hey look guys, I&rsquo;m totally a warframe!&rdquo;</p>
 
-<p>A friend suggested that perhaps Vauban is made so expensive in order to bankrupt the Corpus who&rsquo;re baited to manufacture it. (See the Codex entry above.) Alternatively, it&rsquo;s the cost of continuously manufacturing the expendable supplies, unnecessary for most warframes.</p>
+<p>A friend suggested that perhaps Vauban is made so expensive in order to bankrupt the Corpus who&rsquo;re baited to manufacture it. (See the Codex entry above.) Alternatively, it&rsquo;s the cost of continuously manufacturing the consumable supplies, unnecessary for most warframes.</p>
 <h2 id="tenno-peaceframes"><span class="heading-prefix" aria-hidden="true"></span>Human-looking Tenno associates are &ldquo;peaceframes&rdquo;<a href="#tenno-peaceframes" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>Relays have many human-looking Tenno or Tenno associates. They can be relay staff, syndicate members, and Tenno rescue targets which Lotus specifically calls &ldquo;Tenno operatives&rdquo;. More importantly, they&rsquo;re found in something labeled &ldquo;warframe cryopods&rdquo;.</p>
 
@@ -1985,9 +1991,9 @@ Generating the ASCII figure:
 <h2 id="hostages"><span class="heading-prefix" aria-hidden="true"></span>Hostages get recaptured all the time because we leave them behind<a href="#hostages" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>At the end of Rescue missions, we rush to the landing craft and fly away, as the hostage just stands there in the extraction zone. If we really wanted to extract them, we&rsquo;d put them in a pokeball, like Capture targets. Of course they get recaptured. That&rsquo;s why you can rerun the mission!</p>
 <h2 id="teshin-kuva"><span class="heading-prefix" aria-hidden="true"></span>Teshin can command himself by using the Kuva Scepter<a href="#teshin-kuva" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>Like any Dax, Teshin is hardwired to obey anyone who wields the Kuva Scepter. So, what happens if the Dax themselves wields it? By now, Teshin could put together a perfectly-functional Kuva Scepter. Run a few Synthesis missions, get Simaris standing, buy the Broken Scepter blueprint. Grab some Kuva from his endless stash (see Steel Path rewards), stick it on the Broken Scepter, get a full Kuva Scepter.</p>
+<p>After the War Within, Teshin could have put together a perfectly-functional Kuva Scepter. All he needs is to run a few Synthesis missions, get Simaris standing, buy the Broken Scepter blueprint, grab some Kuva from his endless stash (see Steel Path rewards), and stick it on the Broken Scepter.</p>
 
-<p>Wielding the Scepter should give Teshin the perk &ldquo;Iron Will&rdquo;, a perfect self-geas, a self-command you can&rsquo;t refuse.</p>
+<p>Like any Dax, Teshin is hardwired to obey anyone who wields a Kuva Scepter. So, what happens if a Dax wields it themselves? This should give Teshin the perk &ldquo;Iron Will&rdquo;, a perfect self-geas, a self-command you can&rsquo;t refuse.</p>
 <h2 id="inaros-makeup"><span class="heading-prefix" aria-hidden="true"></span>Inaros is made of nanobots<a href="#inaros-makeup" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>Inaros&rsquo; sand theme doesn&rsquo;t make much sense among high-tech war machines made of living metal. Its visual appearance also doesn&rsquo;t convey particularly high durability; the deluxe skin improves on that, but doesn&rsquo;t look particularly tougher than, say, Chroma or deluxe Frost.</p>
 
@@ -1999,30 +2005,32 @@ Generating the ASCII figure:
 
 <p>It must have tools, mobile drones acting as its eyes and arms. It must have indoctrination devices, numerous and mobile. When deploying squads of Corrupted into remote areas, those eyes, arms, and indoctrination devices must be deployed with them to relay the combat situation, orders, and ensure continuous loyalty. It stands to reason that these drones are responsible for it.</p>
 <h2 id="warframes-are-silent-and-communicate-only-with-gestures"><span class="heading-prefix" aria-hidden="true"></span>Warframes are silent and communicate only with gestures<a href="#warframes-are-silent-and-communicate-only-with-gestures" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>(Added 2023-04-11.)</p>
+<p class="fg-gray-near">(Added 2023-04-11.)</p>
 
 <p>Tenno only ever speak in human form. We never hear or see warframes actually speaking. In Leverian legends, warframes are always silent. We can conclude that they never speak. So how do they communicate? Tenno may be considered telepaths, but they seem to use telepathy only for transference, and on one confusing occasion for Teshin. So either they have some kinda text holo-projectors that we&rsquo;ve never heard about, or they use signs and gestures.</p>
 <h2 id="some-capture-targets-are-turned-into-warframes-after-interrogation"><span class="heading-prefix" aria-hidden="true"></span>Some capture targets are turned into warframes after interrogation<a href="#some-capture-targets-are-turned-into-warframes-after-interrogation" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>(Added 2023-04-11.)</p>
+<p class="fg-gray-near">(Added 2023-04-11.)</p>
 
 <p>Various sources, such as the Sacrifice, tell us that warframes are made by infecting humans with the Helminth Infestation strain, transforming them, and near-erasing their minds. Tenno routinely manufacture new warframes, often to immediately feed them back to Helminth. They require a constant supply of fresh victims. The ones most conveniently available on hand are the capture targets.</p>
 <h2 id="lech-kril-may-be-infected-with-a-special-infestation-strain-similar-to-warframes"><span class="heading-prefix" aria-hidden="true"></span>Lech Kril may be infected with a special Infestation strain, similar to warframes<a href="#lech-kril-may-be-infected-with-a-special-infestation-strain-similar-to-warframes" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>(Added 2023-04-11.)</p>
+<p class="fg-gray-near">(Added 2023-04-11.)</p>
 
 <p>Lech Kril wears an armor suit that hides their entire body and face and has some unusual piping, is extremely durable and strong, has powers involving supercooling and superheating, and communicates in the same screeching &ldquo;language&rdquo; as some Infestation bosses. It&rsquo;s plausible that Lech Kril is a Grineer equivalent of a Warframe, except their mind is not completely lost.</p>
 <h2 id="orbiter-decorations-may-be-holo-projections"><span class="heading-prefix" aria-hidden="true"></span>Orbiter decorations may be holo-projections<a href="#orbiter-decorations-may-be-holo-projections" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>(Added 2023-04-11.)</p>
+<p class="fg-gray-near">(Added 2023-04-11.)</p>
 
 <p>Maybe you place tiny electron cloud projectors, maybe the Orbiter has them already built-in and you simply configure its software, or maybe it&rsquo;s all augmented reality in your HUD.</p>
 <h2 id="failed-hacking-kills-you-with-reverse-hacking"><span class="heading-prefix" aria-hidden="true"></span>Failed hacking kills you with reverse hacking<a href="#failed-hacking-kills-you-with-reverse-hacking" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>(Added 2023-04-11.)</p>
+<p class="fg-gray-near">(Added 2023-04-11.)</p>
 
 <p>Dying by failing to hack is actually because the security system hacks you back, shutting down the warframe and requiring a reboot.</p>
 <h2 id="we-routinely-erase-nihil-s-memories"><span class="heading-prefix" aria-hidden="true"></span>We routinely erase Nihil&rsquo;s memories<a href="#we-routinely-erase-nihil-s-memories" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>(Added 2023-04-11.)</p>
+<p class="fg-gray-near">(Added 2023-04-11.)</p>
 
-<p>Nihil oubliette fight: we wipe his memory after every fight, and he thinks it&rsquo;s the first one every time. Later we could restore his memory all at once, spectactularly blowing his mind and making him implode.</p>
+<p>Nihil oubliette fight: we wipe his memory after every fight, and he thinks it&rsquo;s the first every time. Later we could restore his memory all at once, spectactularly blowing his mind and making him implode.</p>
 <h2 id="treasurers-are-impostors-and-thieves"><span class="heading-prefix" aria-hidden="true"></span>Treasurers are impostors and thieves<a href="#treasurers-are-impostors-and-thieves" class="heading-anchor" aria-hidden="true"></a></h2>
+<p class="fg-gray-near">(Added 2023-04-11.)</p>
+
 <p>Treasurers scurry away, pretending to safeguard Granum Crowns from us, while showering us with tasteful insults and accusations of Crown thievery. Tenno <strong>rob</strong> rather than steal. Treasurers&rsquo; words seem like projection. If they were really trying to safeguard Crowns from us, they only needed to&hellip; not show up. Yet they come with alarming regularity. One possible conclusion is that they steal Granum Crowns from Nef Anyo&rsquo;s ships on behalf of Parvos, while trying to frame Tenno for it.</p>
 </article>]]></content>
     <published>2020-10-10T12:25:32Z</published>
@@ -2037,7 +2045,7 @@ Generating the ASCII figure:
   <entry xml:base="https://mitranim.com/posts/thoughts-on-the-egg">
     <title>Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt</title>
     <id>https://mitranim.com/posts/thoughts-on-the-egg</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><iframe width="560" height="315" src="https://www.youtube.com/embed/h6fcK_fRYaI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><iframe width="560" height="315" src="https://www.youtube.com/embed/h6fcK_fRYaI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p><a href="http://www.galactanet.com/oneoff/theegg_mod.html" target="_blank" rel="noopener noreferrer">Text link<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p>
 
@@ -2079,7 +2087,7 @@ Generating the ASCII figure:
   <entry xml:base="https://mitranim.com/posts/tips-and-tricks-doom-2016">
     <title>Tips and tricks: Doom 2016</title>
     <id>https://mitranim.com/posts/tips-and-tricks-doom-2016</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Note: check the accompanying post <a href="/posts/game-impressions-doom-2016">Game Impressions: Doom 2016</a> for my thoughts on the game and an analysis of what makes it enjoyable.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Note: check the accompanying post <a href="/posts/game-impressions-doom-2016">Game Impressions: Doom 2016</a> for my thoughts on the game and an analysis of what makes it enjoyable.</p>
 
 <p>This is about single player only; I haven&rsquo;t tried the PvP.</p>
 <h2 id="table-of-contents"><span class="heading-prefix" aria-hidden="true"></span>Table of Contents<a href="#table-of-contents" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -2205,7 +2213,7 @@ Generating the ASCII figure:
   <entry xml:base="https://mitranim.com/posts/game-impressions-doom-2016">
     <title>Game impressions: Doom 2016</title>
     <id>https://mitranim.com/posts/game-impressions-doom-2016</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Spent the past week absorbed into Doom 2016. My &ldquo;let&rsquo;s play&rdquo; is being gradually released on Youtube: <a href="https://www.youtube.com/playlist?list=PLfygJGWNJ-9Vqxy5svyBTy0jIS8ggtDXd" target="_blank" rel="noopener noreferrer">playlist link<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. This post summarizes my impressions.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Spent the past week absorbed into Doom 2016. My &ldquo;let&rsquo;s play&rdquo; is being gradually released on Youtube: <a href="https://www.youtube.com/playlist?list=PLfygJGWNJ-9Vqxy5svyBTy0jIS8ggtDXd" target="_blank" rel="noopener noreferrer">playlist link<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. This post summarizes my impressions.</p>
 
 <p>I&rsquo;ve tried to phrase this from my subjective perspective: &ldquo;what I like&rdquo; rather than &ldquo;what&rsquo;s good&rdquo;, because everyone likes different things. The accompanying post <a href="/posts/tips-and-tricks-doom-2016">Tips and Tricks: Doom 2016</a> contains advice on how to play, while this post analyzes the game&rsquo;s design. This is about single player only; I haven&rsquo;t tried the PvP.</p>
 <h2 id="table-of-contents"><span class="heading-prefix" aria-hidden="true"></span>Table of Contents<a href="#table-of-contents" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -2345,7 +2353,7 @@ Generating the ASCII figure:
   <entry xml:base="https://mitranim.com/posts/astrotips">
     <title>Announcing Astrotips: video guides on Astroneer</title>
     <id>https://mitranim.com/posts/astrotips</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>For the last month or so, I&rsquo;ve been absorbed by Astroneer (link: <a href="https://astroneer.space" target="_blank" rel="noopener noreferrer">https://astroneer.space<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>). It&rsquo;s an amazing game that released just recently (Feb 6).</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>For the last month or so, I&rsquo;ve been absorbed by Astroneer (link: <a href="https://astroneer.space" target="_blank" rel="noopener noreferrer">https://astroneer.space<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>). It&rsquo;s an amazing game that released just recently (Feb 6).</p>
 
 <p>I&rsquo;ve started making video guides on it, tending towards more advanced aspects of the game that could otherwise go unnoticed or hard to figure out. The series, called Astrotips, has just started. Subscribe to my Youtube channel for regular updates. See you there!</p>
 
@@ -2365,7 +2373,7 @@ Generating the ASCII figure:
   <entry xml:base="https://mitranim.com/posts/camel-case-abbr">
     <title>Don&#39;t abbreviate in camelCase</title>
     <id>https://mitranim.com/posts/camel-case-abbr</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><strong>Edit 2020-10-21</strong>: see the newer post <a href="/posts/lang-case-conventions">Language Design: Case Conventions</a>.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p><strong>Edit 2020-10-21</strong>: see the newer post <a href="/posts/lang-case-conventions">Language Design: Case Conventions</a>.</p>
 
 <p>Programming has the concept of an &ldquo;identifier&rdquo;. Identifiers are used for keywords, variable names, etc. Most languages restrict identifiers to Latin letters, digits, and an underscore.</p>
 
@@ -2424,7 +2432,7 @@ ONE-TWO      -- upper kebab case
   <entry xml:base="https://mitranim.com/posts/remove-from-go">
     <title>Things I would remove from Go</title>
     <id>https://mitranim.com/posts/remove-from-go</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>The <a href="https://golang.org" target="_blank" rel="noopener noreferrer">Go programming language<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> espouses <a href="https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html" target="_blank" rel="noopener noreferrer">&ldquo;less is more&rdquo;<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. It prefers fewer features and &ldquo;one way of doing things&rdquo;. However, it still has some fat to lose! This article highlights what I consider unnecessary, and suggests the path to gradual deprecation and removal.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>The <a href="https://golang.org" target="_blank" rel="noopener noreferrer">Go programming language<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> espouses <a href="https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html" target="_blank" rel="noopener noreferrer">&ldquo;less is more&rdquo;<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. It prefers fewer features and &ldquo;one way of doing things&rdquo;. However, it still has some fat to lose! This article highlights what I consider unnecessary, and suggests the path to gradual deprecation and removal.</p>
 
 <p>Goes without saying: <strong>this is an opinion piece</strong>. If we disagree, that&rsquo;s cool!</p>
 
@@ -2670,7 +2678,7 @@ ONE-TWO      -- upper kebab case
   <entry xml:base="https://mitranim.com/posts/back-from-hiatus-2019">
     <title>Back from hiatus (2019)</title>
     <id>https://mitranim.com/posts/back-from-hiatus-2019</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Welcome and/or welcome back!</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Welcome and/or welcome back!</p>
 
 <p>This place is intended as a blog about programming and tech in general, possibly with a sprinkling of philosophy and entertainment. There was a burst of activity in 2015, followed by three and a half years of hiatus.</p>
 
@@ -2684,7 +2692,7 @@ ONE-TWO      -- upper kebab case
 <li>game design from player perspective</li>
 </ul>
 
-<p>Subscribe via <a href="/feed.xml" class="decorate-link" target="_blank" rel="noopener noreferrer">Atom<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> or <a href="/feed_rss.xml" class="decorate-link" target="_blank" rel="noopener noreferrer">RSS<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> and enjoy!</p>
+<p>Subscribe via <a href="/feed.xml" class="link-deco" target="_blank" rel="noopener noreferrer">Atom<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> or <a href="/feed_rss.xml" class="link-deco" target="_blank" rel="noopener noreferrer">RSS<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> and enjoy!</p>
 </article>]]></content>
     <published>2019-01-15T00:00:00Z</published>
     <updated>2019-01-15T00:00:00Z</updated>
@@ -2698,13 +2706,13 @@ ONE-TWO      -- upper kebab case
   <entry xml:base="https://mitranim.com/posts/cheating-for-performance-pjax">
     <title>Cheating for performance with pjax</title>
     <id>https://mitranim.com/posts/cheating-for-performance-pjax</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><h2 id="overview"><span class="heading-prefix" aria-hidden="true"></span>Overview<a href="#overview" class="heading-anchor" aria-hidden="true"></a></h2><p>Optimizing website performance is tricky. There&rsquo;s plenty of articles delving deep into technical detail, like <a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=en" target="_blank" rel="noopener noreferrer">this great guide<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> by Google. Naturally, when you make it that hard, most people aren&rsquo;t going to bother.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><h2 id="overview"><span class="heading-prefix" aria-hidden="true"></span>Overview<a href="#overview" class="heading-anchor" aria-hidden="true"></a></h2><p>Optimizing website performance is tricky. There&rsquo;s plenty of articles delving deep into technical detail, like <a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=en" target="_blank" rel="noopener noreferrer">this great guide<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> by Google. Naturally, when you make it that hard, most people aren&rsquo;t going to bother.</p>
 
 <p>What if I told you there&rsquo;s a way to dramatically speed up page transitions just by adding a library? With zero or few code changes? And it&rsquo;s overlooked by the contemporary blogosphere?</p>
 
 <p class="size-large">
     <span>Demo time!</span>
-    <a href="https://mitranim.com/simple-pjax/" class="decorate-link" target="_blank" rel="noopener noreferrer">https://mitranim.com/simple-pjax/<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+    <a href="https://mitranim.com/simple-pjax/" class="link-deco" target="_blank" rel="noopener noreferrer">https://mitranim.com/simple-pjax/<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
 </p>
 
 <p>Who benefits from this?</p>
@@ -2826,7 +2834,7 @@ ONE-TWO      -- upper kebab case
   <entry xml:base="https://mitranim.com/posts/cheating-for-website-performance">
     <title>Cheating for website performance</title>
     <id>https://mitranim.com/posts/cheating-for-website-performance</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Have been turning into a bit of a performance nut lately. This is what I&rsquo;ve
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Have been turning into a bit of a performance nut lately. This is what I&rsquo;ve
 found useful for speeding up websites. These are mostly frontend optimizations;
 I&rsquo;m not going to delve into server performance here.</p>
 <h2 id="table-of-contents"><span class="heading-prefix" aria-hidden="true"></span>Table of Contents<a href="#table-of-contents" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -2958,7 +2966,7 @@ use a caching proxy / CDN like CloudFlare to reduce latency for static content.<
   <entry xml:base="https://mitranim.com/posts/keeping-things-simple">
     <title>Keeping things simple</title>
     <id>https://mitranim.com/posts/keeping-things-simple</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p>Lately I&rsquo;ve been trying to figure out how to write shorter programs. Or, more generally, how to design simple solutions.</p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Lately I&rsquo;ve been trying to figure out how to write shorter programs. Or, more generally, how to design simple solutions.</p>
 
 <p>I often hear that &ldquo;less is more&rdquo;, that you should <a href="https://en.wikipedia.org/wiki/KISS_principle" target="_blank" rel="noopener noreferrer">KISS<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> and follow <a href="https://en.wikipedia.org/wiki/YAGNI" target="_blank" rel="noopener noreferrer">YAGNI<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, yada yada. A small program is easy to understand and cover with tests. A simple API is pleasant to use. But that&rsquo;s still abstract. What&rsquo;s a practical recipe for keeping things small? We might define two attack vectors:</p>
 
@@ -2995,7 +3003,7 @@ use a caching proxy / CDN like CloudFlare to reduce latency for static content.<
   <entry xml:base="https://mitranim.com/posts/old-posts">
     <title>Old posts</title>
     <id>https://mitranim.com/posts/old-posts</id>
-    <content type="html"><![CDATA[<article role="main article" class="fan-typo"><p><a href="https://medium.com/@mitranim/better-mtg-online-82ac42d79970" target="_blank" rel="noopener noreferrer">Better MtG Online<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p><a href="https://medium.com/@mitranim/better-mtg-online-82ac42d79970" target="_blank" rel="noopener noreferrer">Better MtG Online<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p>
 
 <p>Silly proposal to change Magic the Gathering Online.</p>
 
