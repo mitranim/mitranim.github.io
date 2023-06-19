@@ -69,6 +69,11 @@ func initSitePages() []Ipage {
 			Title:       `Blog Posts`,
 			Description: `Random notes and thoughts`,
 		}},
+		PageGames{Page{
+			Path:        `games.html`,
+			Title:       `Game Recommendations`,
+			Description: `Collection of games I've played, with impressions and recommendations`,
+		}},
 		PageDemos{Page{
 			Path:        `demos.html`,
 			Title:       `Demos`,
@@ -117,10 +122,10 @@ func (self PagePosts) Make(site Site) {
 			E(`h1`, nil, `Blog Posts`),
 
 			func(bui B) {
-				posts := site.ListedPosts()
+				src := site.ListedPosts()
 
-				if len(posts) > 0 {
-					for _, post := range posts {
+				if len(src) > 0 {
+					for _, post := range src {
 						bui.E(`div`, AP(`class`, `post-preview`), func() {
 							bui.E(`h2`, nil,
 								E(`a`, AP(`href`, post.GetLink()), post.Title),

@@ -7,6 +7,7 @@ import (
 type Site struct {
 	Pages []Ipage
 	Posts []PagePost
+	Games Games
 }
 
 func (self Site) All() (out []Ipage) {
@@ -25,5 +26,6 @@ func initSite() Site {
 	return Site{
 		Pages: initSitePages(),
 		Posts: initSitePosts(),
+		Games: initSiteGames(),
 	}
 }

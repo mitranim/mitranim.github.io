@@ -83,6 +83,7 @@ func Header[A Ipage](page A) x.Elem {
 			E(`a`, AP(`class`, link).A(Cur(page, `/`)...), `home`),
 			E(`a`, AP(`class`, link).A(Cur(page, `/works`)...), `works`),
 			E(`a`, AP(`class`, link).A(Cur(page, `/posts`)...), `posts`),
+			E(`a`, AP(`class`, link).A(Cur(page, `/games`)...), `games`),
 		),
 
 		E(`span`, AP(`class`, `flex-1`)),
@@ -290,4 +291,21 @@ func aId(val string) (_ x.Attr) {
 		return x.Attr{`id`, val}
 	}
 	return
+}
+
+func NoscriptInteractivity() x.Elem {
+	return E(`noscript`, AP(`class`, `block fg-blue`),
+		`This page has interactive features that require JavaScript. Consider enabling JS.`,
+	)
+}
+
+func Script(src string) x.Elem {
+	return E(`script`, AP(`src`, src, `type`, `module`))
+}
+
+func AttrsHidden(ok bool) x.Attrs {
+	if ok {
+		return AP(`hidden`, `true`)
+	}
+	return nil
 }

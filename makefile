@@ -63,6 +63,14 @@ pages_w:
 pages: cmd
 	$(CMD) pages
 
+.PHONY: games_steam_w
+games_steam_w:
+	$(WATCH) $(W_CMD) -w=misc/steam_apps.json -- $(CMD) games_steam
+
+.PHONY: games_steam
+games_steam: cmd
+	$(CMD) games_steam
+
 .PHONY: styles_w
 styles_w:
 	$(SASS) --style=$(SASS_STYLE) --watch

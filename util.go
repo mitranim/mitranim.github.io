@@ -43,7 +43,7 @@ var (
 )
 
 type (
-	B    = *x.Bui
+	B    = *x.Bui // TODO drop.
 	Time = gt.NullTime
 	Url  = gt.NullUrl
 )
@@ -192,4 +192,18 @@ func (self SemicolonList) Render(bui B) {
 
 func readTemplate(path string) []byte {
 	return gg.ReadFile[[]byte](fpj(TEMPLATE_DIR, path))
+}
+
+// Syntactic shortcut with type inference.
+func Slice[A any](val ...A) []A { return val }
+
+func errUnrecognized[A any](val A) error {
+	return gg.Errf(`unrecognized %[1]T %[1]q`, val)
+}
+
+type Ord uint64
+
+func (self *Ord) Next() uint64 {
+	*self = gg.Inc(*self)
+	return uint64(*self)
 }

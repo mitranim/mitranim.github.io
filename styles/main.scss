@@ -51,6 +51,10 @@ $bord: 1px solid var(--c-bord);
   --c-link-visited:   hsl(260deg 45% 65%);
   --c-code-bg:        hsl(70deg 8% 15%); // Same as chroma's Monokai background
   --c-hr:             hsl(0deg 0% 63%);
+  --c-fg-tag:         var(--c-fg);
+  --c-bg-tag:         hsl(220deg 20% 20%);
+  --c-bg-tag-active:  hsl(220deg 30% 25%);
+  --c-bg-tag-checked: hsl(150deg 30% 25%);
 }
 
 // Defined as mixin, rather than pseudo-class, for compatibility with `@media`.
@@ -67,6 +71,10 @@ $bord: 1px solid var(--c-bord);
   --c-link-visited:   hsl(260deg 60% 25%);
   --c-code-bg:        hsl(60deg 33% 97%);
   --c-hr:             hsl(0deg 0% 63%);
+  --c-fg-tag:         var(--c-fg);
+  --c-bg-tag:         hsl(250deg 60% 96%);
+  --c-bg-tag-active:  hsl(250deg 20% 90%);
+  --c-bg-tag-checked: hsl(150deg 70% 85%);
 }
 
 /* Global */
@@ -185,6 +193,26 @@ code, key, pre {@extend .code}
 
 // TODO convert to theme.
 .bg-gray-near-busy:hover {@extend .bg-gray-near}
+
+// TODO better colors.
+// TODO better name.
+// Note: box-shadow should be compatible with default focus outlines.
+.theme-tag-like {
+  @extend .fg;
+  color: var(--c-fg-tag);
+  background-color: var(--c-bg-tag);
+
+  &.--busy {
+    &:hover {background-color: var(--c-bg-tag-active)}
+
+    @include aria-checked {
+      background-color: var(--c-bg-tag-checked);
+      @include shad(1px, var(--c-fg-far));
+    }
+
+    &:active {@include shad(3px, var(--c-fg-far))}
+  }
+}
 
 /* Typography */
 
@@ -421,29 +449,29 @@ ul.fancy-list ul.fancy-list {list-style-type: circle}
   }
 }
 
-// Unused, TODO use or remove.
-.skip-to-content {
-  position: fixed;
-  top: 0;
-  left: 0;
-  @extend .bg-gray-near;
-
-  // This visually hides the element while allowing it to receive focus.
-  // `display: none` or `visibility: hidden` would have prevented focus.
-  padding: 0;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  overflow: hidden;
-
-  &:focus {
-    @extend .pad-1;
-    width: initial;
-    height: initial;
-    opacity: initial;
-    overflow: initial;
-  }
-}
+// // Unused, TODO use or remove.
+// .skip-to-content {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   @extend .bg-gray-near;
+//
+//   // This visually hides the element while allowing it to receive focus.
+//   // `display: none` or `visibility: hidden` would have prevented focus.
+//   padding: 0;
+//   width: 1px;
+//   height: 1px;
+//   opacity: 0;
+//   overflow: hidden;
+//
+//   &:focus {
+//     @extend .pad-1;
+//     width: initial;
+//     height: initial;
+//     opacity: initial;
+//     overflow: initial;
+//   }
+// }
 
 .rounded {border-radius: var(--border-radius)}
 
@@ -548,6 +576,66 @@ Possible solutions:
 
 .line-1 {line-height: 1}
 .line-comfy {line-height: 1.4}
+
+// TODO better name.
+.tag-like {
+  @extend .inl-block, .wspace-pre, .line-1, .pad-tiny, .cur-auto, .theme-tag-like;
+  line-height: 1;
+  &.--busy {@extend .cur-point}
+}
+
+// TODO better name.
+.tag-likes {@extend .flex, .row, .wrap, .gap-tiny}
+
+.tag {
+  @extend .tag-like;
+  &::before {
+    content: '#';
+    @extend .fg-gray-near;
+  }
+}
+
+.time-sink {
+  @extend .tag-like;
+
+  &.--safe {
+    @extend .fg-blue;
+    &::before {content: '⏳'}
+  }
+
+  &.--danger {
+    @extend .fg-red;
+    &::before {content: '⌛️'}
+  }
+}
+
+.aspect-common {aspect-ratio: 16/9}
+
+.aspect-steam-img {aspect-ratio: 16/7}
+
+.img-preview {@extend .flex, .obj-cov, .aspect-common}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+  gap: 1rem;
+}
+
+.game-grid-item {
+  @extend .flex, .col, .bord;
+
+  --space: 0.5rem;
+  gap: var(--space);
+  padding-bottom: var(--space);
+
+  > * {@include sb.pad-hor(var(--space))}
+  > img:first-child {@extend .obj-cov, .aspect-steam-img, .pad-0}
+}
+
+.filter-placeholder {
+  @extend .flex, .row-cen-cen, .fg-gray-near;
+  grid-column: 1/-1;
+}
 
 .help[aria-label] {
   @extend .cur-help;
