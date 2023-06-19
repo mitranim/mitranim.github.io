@@ -19,6 +19,7 @@ Look for an EPUB version and use a decent reader. Avoid unusable formats like PD
 
 It's been a long time since I played it, so my ability to provide advice is limited to the following:
 
+* According to rumors, a remake is in the works. Consider waiting until it's released (and patched, and modded).
 * Check the game's [page on PC Gaming Wiki](https://www.pcgamingwiki.com/wiki/Witcher) and follow its recommendations.
   * The article provides help with various issues, and recommends various modifications, including graphical improvements.
 * Use [speedhacks](#speedhacks) to minimize slog.
@@ -27,15 +28,16 @@ It's been a long time since I played it, so my ability to provide advice is limi
 
 * Check the game's [page on PC Gaming Wiki](https://www.pcgamingwiki.com/wiki/Witcher_2) and follow its recommendations.
 * Prepare for 2 playthroughs. A _huge_ chunk of the game's content is split between mutually exclusive paths: Roche/Kaedwen and Iorveth/Scoia'tael. As a result, the game requires 2 runs to fully complete.
-  * If you intend to setup a "perfect" save for importing into Witcher 3, it should be on the Roche/Kaedwen path. There is no benefit to importing the other one.
-* Essential mods:
+  * If you intend to setup a "perfect" save for importing into Witcher 3, it should be on the Roche/Kaedwen path. In Witcher 3, Roche is present, while Iorveth was cut due to production constraints.
+* Essential tweaks:
   * Unfuck config files, as recommended in the PCGW article linked above.
   * [AI Upscale Textures](https://www.nexusmods.com/witcher2/mods/889). Requires also editing config files.
   * [Zero Weight](https://www.nexusmods.com/witcher2/mods/265).
+  * Use [speedhacks](#speedhacks) to minimize slog.
+* Optional tweaks:
   * Cheat gold (via Cheat Engine), when ferrying loot to vendors gets old.
   * Cheat XP on subsequent playthroughs as a form of "new game plus".
-  * Optionally cheat talent points.
-  * Use [speedhacks](#speedhacks) to minimize slog.
+  * Cheat talent points if you feel the default system is too restrictive.
 
 ## Witcher 3
 
