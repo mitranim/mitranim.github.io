@@ -52,7 +52,7 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 # Contacts
 
-<span>{{include "svg-discord"}} Discord: [`Mitranim#5870`](https://discordapp.com/users/105725121334915072)</span>
+<span>{{include "svg-discord"}} Discord: [`mitranim`](https://discord.com/users/105725121334915072)</span>
 
 <span>{{include "svg-paper-plane"}} Telegram: [Mitranim](https://telegram.me/Mitranim)</span>
 
