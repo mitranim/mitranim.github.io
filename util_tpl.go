@@ -9,6 +9,7 @@ weird surprises. We do our own escaping via Gax.
 */
 
 import (
+	"net/url"
 	tt "text/template"
 
 	x "github.com/mitranim/gax"
@@ -22,7 +23,7 @@ var TPL_FUNS = tt.FuncMap{
 	`mdToToc`:    mdToToc,
 	`today`:      today,
 	`Emoji`:      Emoji,
-	`Exta`:       Exta,
+	`LinkExt`:    LinkExt,
 }
 
 func makeTpl(name string) *tt.Template {
@@ -70,3 +71,14 @@ func Emoji(emoji, label string) any {
 }
 
 func today() string { return timeFmtHuman(timeNow()) }
+
+func mailto(subj string) string {
+	return MAILTO.WithQuery(emailSubj(subj)).String()
+}
+
+func emailSubj(val string) url.Values {
+	if val != `` {
+		return url.Values{`subject`: {`Re: ` + val}}
+	}
+	return nil
+}

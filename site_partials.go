@@ -13,20 +13,24 @@ const (
 	ID_TOP  = `top`
 )
 
-func Html(page Ipage, children ...any) Bui {
+func HtmlCommon[A Ipage](page A, chi ...any) x.Bui {
+	return Html(page, Header(page), chi, Footer(page))
+}
+
+func Html[A Ipage](page A, chi ...any) x.Bui {
 	return F(
 		x.Str(x.Doctype),
 		E(`html`, AP(`class`, page.GetGlobalClass()),
 			E(`head`, nil, HtmlHead(page)),
-			E(`body`, AP(`id`, ID_TOP, `class`, `flex col-sta-str`, `style`, `min-height: 100vh`),
+			E(`body`, AP(`id`, ID_TOP),
 				// SkipToContent,
-				children,
+				chi,
 			),
 		),
 	)
 }
 
-func HtmlHead(page Ipage) Bui {
+func HtmlHead[A Ipage](page A) x.Bui {
 	return F(
 		E(`meta`, AP(`charset`, `utf-8`)),
 		E(`meta`, AP(`http-equiv`, `X-UA-Compatible`, `content`, `IE=edge,chrome=1`)),
@@ -71,33 +75,41 @@ func HtmlHead(page Ipage) Bui {
 	)
 }
 
-func Header(page Ipage) x.Elem {
-	return E(`header`, AP(`class`, `wid-lim --unpadded flex row-sta-str mar-bot-2 gap-hor-1`),
+func Header[A Ipage](page A) x.Elem {
+	const link = `header-link --busy`
+
+	return E(`header`, AP(`class`, `header`),
 		E(`nav`, AP(`class`, `flex row-sta-str`),
-			E(`a`, AP(`href`, `/`, `class`, `navlink --busy`).A(cur(page, `/`)), `home`),
-			E(`a`, AP(`href`, `/works`, `class`, `navlink --busy`).A(cur(page, `/works`)), `works`),
-			E(`a`, AP(`href`, `/posts`, `class`, `navlink --busy`).A(cur(page, `/posts`)), `posts`),
+			E(`a`, AP(`class`, link).A(Cur(page, `/`)...), `home`),
+			E(`a`, AP(`class`, link).A(Cur(page, `/works`)...), `works`),
+			E(`a`, AP(`class`, link).A(Cur(page, `/posts`)...), `posts`),
 		),
 
 		E(`span`, AP(`class`, `flex-1`)),
 
-		E(`span`, AP(`class`, `fg-blue flex row-cen-cen pad-1 sm-hide`),
+		E(`span`, AP(`class`, `fg-blue flex row-cen-cen pad-header-link sm-hide`),
 			`Updated: `+today(),
 		),
 	)
 }
 
-func Footer(page Ipage) x.Elem {
-	return E(`footer`, AP(`style`, `margin-top: auto`),
-		E(`div`, AP(`class`, `wid-lim flex row-bet-cen mar-top-4 mar-bot-2`),
+func MainContent(chi ...any) x.Elem { return E(`div`, AttrsMain(), chi...) }
+
+func AttrsMain() x.Attrs { return AP(`role`, `main`, `id`, ID_MAIN) }
+
+func AttrsMainArticleMd() x.Attrs { return AttrsMain().Add(`class`, `article`) }
+
+func Footer[A Ipage](page A) x.Elem {
+	return E(`footer`, AP(`class`, `footer`),
+		E(`div`, AP(`class`, `footer-body`),
 			E(`span`, AP(`class`, `flex-1 flex row-sta-sta gap-hor-0x5`),
 				E(`span`, AP(`class`, `text-lef`), yearsElapsed()),
-				Exta(`https://github.com/mitranim/mitranim.github.io`, `website source`),
+				LinkExt(`https://github.com/mitranim/mitranim.github.io`, `website source`),
 			),
 
 			E(`span`, AP(`class`, `flex-1 text-cen`), func(bui B) {
-				if page.GetPath() != `index.html` {
-					bui.E(`a`, AP(`href`, `/#contacts`, `class`, `decorate-link`), `touch me`)
+				if page.GetLink() != `/` {
+					bui.E(`a`, AP(`href`, `/#contacts`, `class`, `link-deco`), `touch me`)
 				}
 			}),
 
@@ -106,7 +118,7 @@ func Footer(page Ipage) x.Elem {
 					`a`,
 					AP(
 						`href`, idToHash(ID_TOP),
-						`class`, `fill-gray-fg-near pad-1 busy-bg-gray-near`,
+						`class`, `fill-gray-fg-near pad-1 bg-gray-near-busy`,
 						`onclick`, `event.preventDefault(); window.scrollTo(0, 0)`,
 						`aria-label`, `scroll up`,
 					),
@@ -119,15 +131,15 @@ func Footer(page Ipage) x.Elem {
 
 var FeedLinks = E(`p`, AP(`class`, `inl-flex row-sta-sta gap-hor-0x5`),
 	E(`span`, nil, `Subscribe using one of:`),
-	Exta(`/feed.xml`, `Atom`),
-	Exta(`/feed_rss.xml`, `RSS`),
-	Exta(`https://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml`, `Feedly`),
+	LinkExt(`/feed.xml`, `Atom`),
+	LinkExt(`/feed_rss.xml`, `RSS`),
+	LinkExt(`https://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml`, `Feedly`),
 )
 
 func FeedPost(page PagePost) x.Elem {
-	return E(`article`, AP(`role`, `main article`, `class`, `fan-typo`),
+	return E(`article`, AP(`role`, `main article`, `class`, `typography`),
 		FeedPostDesc(page),
-		Bui(page.MdOnce(page)),
+		page.MdOnce(page),
 	)
 }
 
@@ -163,15 +175,18 @@ var SkipToContent = E(
 	`Skip to content`,
 )
 
-func Exta(href, text string) x.Elem {
+func LinkExt(href, text string) x.Elem {
 	if href == `` {
 		panic(gg.Errf(`unexpected empty link`))
 	}
 
 	return E(
 		`a`,
-		AP(`href`, href, `class`, `decorate-link`).A(ABLAN...),
+		AP(`href`, href, `class`, `link-deco`).A(ABLAN...),
 		gg.Or(text, href),
+		// We would prefer to use CSS `::after` with SVG as `background-image`, but
+		// it doesn't seem to be able to inherit `currentColor`. Inline SVG avoids
+		// that issue.
 		SvgExternalLink,
 	)
 }
@@ -232,7 +247,12 @@ var partials = map[string]string{
 	`svg-print`:         string(SvgPrint),
 }
 
-/** https://feathericons.com **/
+/*
+Source: https://feathericons.com
+
+TODO consider using an SVG sprite. In particular, we repeat `SvgExternalLink` so
+many times on some pages, that a sprite may reduce total size.
+*/
 var SvgBook x.Str = `<svg class="svg-icon stroke-fg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`
 var SvgExternalLink = x.Str(trimLines(`
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true">
@@ -242,7 +262,7 @@ var SvgExternalLink = x.Str(trimLines(`
 </svg>
 `))
 
-/** https://github.com/FortAwesome/Font-Awesome **/
+/* Source: https://github.com/FortAwesome/Font-Awesome */
 var SvgSkype x.Str = `<svg class="svg-icon fill-skype" viewBox="0 0 448 512" width="1em" height="1em"><path d="M424.7 299.8c2.9-14 4.7-28.9 4.7-43.8 0-113.5-91.9-205.3-205.3-205.3-14.9 0-29.7 1.7-43.8 4.7C161.3 40.7 137.7 32 112 32 50.2 32 0 82.2 0 144c0 25.7 8.7 49.3 23.3 68.2-2.9 14-4.7 28.9-4.7 43.8 0 113.5 91.9 205.3 205.3 205.3 14.9 0 29.7-1.7 43.8-4.7 19 14.6 42.6 23.3 68.2 23.3 61.8 0 112-50.2 112-112 .1-25.6-8.6-49.2-23.2-68.1zm-194.6 91.5c-65.6 0-120.5-29.2-120.5-65 0-16 9-30.6 29.5-30.6 31.2 0 34.1 44.9 88.1 44.9 25.7 0 42.3-11.4 42.3-26.3 0-18.7-16-21.6-42-28-62.5-15.4-117.8-22-117.8-87.2 0-59.2 58.6-81.1 109.1-81.1 55.1 0 110.8 21.9 110.8 55.4 0 16.9-11.4 31.8-30.3 31.8-28.3 0-29.2-33.5-75-33.5-25.7 0-42 7-42 22.5 0 19.8 20.8 21.8 69.1 33 41.4 9.3 90.7 26.8 90.7 77.6 0 59.1-57.1 86.5-112 86.5z"/></svg>`
 var SvgMobileAlt x.Str = `<svg class="svg-icon fill-fg" viewBox="0 0 320 512" width="1em" height="1em"><path d="M272 0H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h224c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zM160 480c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm112-108c0 6.6-5.4 12-12 12H60c-6.6 0-12-5.4-12-12V60c0-6.6 5.4-12 12-12h200c6.6 0 12 5.4 12 12v312z"/></svg>`
 var SvgPaperPlane x.Str = `<svg class="svg-icon fill-fg" viewBox="0 0 512 512" width="1em" height="1em"><path d="M440 6.5L24 246.4c-34.4 19.9-31.1 70.8 5.7 85.9L144 379.6V464c0 46.4 59.2 65.5 86.6 28.6l43.8-59.1 111.9 46.2c5.9 2.4 12.1 3.6 18.3 3.6 8.2 0 16.3-2.1 23.6-6.2 12.8-7.2 21.6-20 23.9-34.5l59.4-387.2c6.1-40.1-36.9-68.8-71.5-48.9zM192 464v-64.6l36.6 15.1L192 464zm212.6-28.7l-153.8-63.5L391 169.5c10.7-15.5-9.5-33.5-23.7-21.2L155.8 332.6 48 288 464 48l-59.4 387.3z"/></svg>`
@@ -257,11 +277,12 @@ var SvgRss x.Str = `<svg class="svg-icon fill-fg" viewBox="0 0 448 512" width="1
 var SvgRssSquare x.Str = `<svg class="svg-icon fill-fg" viewBox="0 0 448 512" width="1em" height="1em"><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM112 416c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm157.533 0h-34.335c-6.011 0-11.051-4.636-11.442-10.634-5.214-80.05-69.243-143.92-149.123-149.123-5.997-.39-10.633-5.431-10.633-11.441v-34.335c0-6.535 5.468-11.777 11.994-11.425 110.546 5.974 198.997 94.536 204.964 204.964.352 6.526-4.89 11.994-11.425 11.994zm103.027 0h-34.334c-6.161 0-11.175-4.882-11.427-11.038-5.598-136.535-115.204-246.161-251.76-251.76C68.882 152.949 64 147.935 64 141.774V107.44c0-6.454 5.338-11.664 11.787-11.432 167.83 6.025 302.21 141.191 308.205 308.205.232 6.449-4.978 11.787-11.432 11.787z"/></svg>`
 var SvgPrint x.Str = `<svg class="svg-icon fill-fg" viewBox="0 0 512 512" width="1em" height="1em"><path d="M464 192h-16V81.941a24 24 0 0 0-7.029-16.97L383.029 7.029A24 24 0 0 0 366.059 0H88C74.745 0 64 10.745 64 24v168H48c-26.51 0-48 21.49-48 48v132c0 6.627 5.373 12 12 12h52v104c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24V384h52c6.627 0 12-5.373 12-12V240c0-26.51-21.49-48-48-48zm-80 256H128v-96h256v96zM128 224V64h192v40c0 13.2 10.8 24 24 24h40v96H128zm304 72c-13.254 0-24-10.746-24-24s10.746-24 24-24 24 10.746 24 24-10.746 24-24 24z"/></svg>`
 
-func cur(page Ipage, href string) (_ x.Attr) {
+// Short fur "current link".
+func Cur(page Ipage, href string) x.Attrs {
 	if page.GetLink() == href {
-		return x.Attr{`aria-current`, `page`}
+		return AP(`href`, href, `aria-current`, `page`)
 	}
-	return
+	return AP(`href`, href)
 }
 
 func aId(val string) (_ x.Attr) {

@@ -12,6 +12,8 @@
 !/go.mod
 !/go.sum
 !/readme.md
+/*_mock.go
+/mock_*.go
 
 !/images
 /images/*

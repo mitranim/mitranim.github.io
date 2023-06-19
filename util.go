@@ -39,12 +39,11 @@ var (
 	TARBLAN = x.Attr{`target`, `_blank`}
 	RELNO   = x.Attr{`rel`, `noopener noreferrer`}
 	ABLAN   = A(TARBLAN, RELNO)
-	MAILTO  = gt.ParseNullUrl(`mailto:` + EMAIL)
+	MAILTO  = urlParse(`mailto:` + EMAIL)
 )
 
 type (
-	Bui  = x.Bui
-	B    = *Bui
+	B    = *x.Bui
 	Time = gt.NullTime
 	Url  = gt.NullUrl
 )
@@ -142,10 +141,7 @@ func ioWrite[Out io.Writer, Src gg.Text](out Out, src Src) {
 	gg.Try1(out.Write(gg.ToBytes(src)))
 }
 
-func urlParse(src string) (out Url) {
-	gg.Try(out.Parse(src))
-	return
-}
+func urlParse(src string) Url { return gg.ParseTo[Url](src) }
 
 func idToHash(val string) string {
 	if val == `` {
@@ -174,8 +170,9 @@ func buiChild(bui B, val any) bool {
 	return len(*bui) > size
 }
 
-type SemicolonList []Bui
+type SemicolonList []x.Bui
 
+// Implement `gax.Ren`.
 func (self SemicolonList) Render(bui B) {
 	has := false
 
@@ -185,7 +182,7 @@ func (self SemicolonList) Render(bui B) {
 		}
 
 		if has {
-			bui.T(`; `)
+			bui.Text(`; `)
 		}
 
 		has = true

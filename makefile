@@ -2,7 +2,8 @@ MAKEFLAGS := --silent
 PAR := $(MAKE) -j 128
 TAR := public
 CMD := ./bin/cmd
-SASS := sass --no-source-map -I modules styles/main.scss:$(TAR)/styles/main.css
+MOD := modules
+SASS := sass --no-source-map -I $(MOD) styles/main.scss:$(TAR)/styles/main.css
 GO_FLAGS := -tags=$(tags) -mod=mod
 WATCH := watchexec -c -r -d=0 -n
 W_CMD := --no-ignore -w=$(CMD)
@@ -106,6 +107,11 @@ clean: clean_tar
 .PHONY: mod
 mod:
 	git submodule update --init --recursive --quiet
+
+# Usage: `mod set commit=<hash>`.
+.PHONY: mod_set
+mod_set:
+	cd $(MOD)/sb && git checkout $(commit)
 
 .PHONY: deps
 deps:

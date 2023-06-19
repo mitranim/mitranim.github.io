@@ -48,22 +48,41 @@ var (
 	DETAIL_SUMMARY_FALLBACK = gg.ToBytes(`Click for details`)
 )
 
-func stringMdToHtml(src string, opt *MdOpt) string {
-	return gg.ToString(mdToHtml(gg.ToBytes(src), opt))
+func MdToHtmlStr[A gg.Text](src A) x.Str {
+	return gg.ToText[x.Str](MdToHtml(src, nil))
 }
 
-func mdToHtml(src []byte, opt *MdOpt) []byte {
-	return bf.Run(src, mdOpts(opt)...)
+func MdToHtml[A gg.Text](src A, opt *MdOpt) x.Bui {
+	return bf.Run(gg.ToBytes(src), mdOpts(opt)...)
 }
 
-func mdTplToHtml(src []byte, opt *MdOpt, val any) []byte {
-	return mdToHtml(mdTplExec(gg.ToString(src), val), opt)
+/*
+Known implementation issue. We currently parse and render each Markdown template
+3 or 4 times:
+
+	* Escape code blocks to prevent "text/template" from messing them up
+	  (see `tplParseMd`).
+
+	* Parse and render via "text/template" (see `tplParseMd`).
+
+	* (Optional.) Parse as Markdown to extract headings (see `mdToToc`).
+
+	* Parse as Markdown and render to HTML.
+
+An ideal implementation would parse and render exactly once, but we're not ready
+for that.
+*/
+func MdTplToHtml(src []byte, opt *MdOpt, val any) x.Bui {
+	if len(src) == 0 {
+		return nil
+	}
+	return MdToHtml(mdTplExec(gg.ToString(src), val), opt)
 }
 
-func mdTplExec(src string, val any) []byte {
+func mdTplExec(src string, val any) x.Bui {
 	tpl := makeTpl(``)
 	tplParseMd(tpl, src)
-	return tplToBytes(tpl, val)
+	return gg.ToText[x.Bui](tplToBytes(tpl, val))
 }
 
 /*
@@ -118,28 +137,34 @@ Differences from default:
 
 Note: currently doesn't support some flags and extensions.
 
-Note: somewhat duplicates `Exta`.
+Note: somewhat duplicates `LinkExt`.
 */
 func (self *MdRen) RenderLink(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	href := gg.ToString(node.LinkData.Destination)
 
 	if entering {
 		attrs := AP(`href`, href)
+
 		if isLinkExternal(href) {
 			attrs = attrs.A(ABLAN...)
 		}
 
-		var bui Bui
+		var bui x.Bui
 		bui.Begin(`a`, attrs)
 		if isLinkHash(href) {
 			bui.E(`span`, AP(`class`, `hash-prefix noprint`, `aria-hidden`, `true`), `#`)
 		}
 		ioWrite(out, bui)
 	} else {
-		var bui Bui
+		var bui x.Bui
+
+		// We would prefer to use CSS `::after` with SVG as `background-image`, but
+		// it doesn't seem to be able to inherit `currentColor`. Inline SVG avoids
+		// that issue.
 		if isLinkExternal(href) {
 			bui.F(SvgExternalLink)
 		}
+
 		bui.End(`a`)
 		ioWrite(out, bui)
 	}
@@ -192,19 +217,19 @@ func (self *MdRen) RenderCodeBlockDetails(out io.Writer, node *bf.Node, entering
 		summary = DETAIL_SUMMARY_FALLBACK
 	}
 
-	var bui Bui
+	var bui x.Bui
 	bui.E(
 		`details`,
-		AP(`class`, `details fan-typo`),
-		E(`summary`, nil, Bui(mdToHtml(summary, nil))),
+		AP(`class`, `details typography`),
+		E(`summary`, nil, MdToHtml(summary, nil)),
 		func() {
 			if len(lang) > 0 {
 				// As code.
 				node.CodeBlockData.Info = lang
 				self.RenderCodeBlockHighlighted((*x.NonEscWri)(&bui), node, entering)
 			} else {
-				// As regular text.
-				bui.NonEscBytes(mdToHtml(node.Literal, nil))
+				// As regular markup.
+				bui.NonEscBytes(MdToHtml(node.Literal, nil))
 			}
 		},
 	)
@@ -247,12 +272,12 @@ func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf
 	}
 
 	if entering {
-		var bui Bui
+		var bui x.Bui
 		bui.Begin(tag, A(aId(node.HeadingID)))
 		bui.F(HEADING_PREFIX)
 		ioWrite(out, bui)
 	} else {
-		var bui Bui
+		var bui x.Bui
 		if node.HeadingID != `` {
 			bui.E(`a`, AP(
 				`href`, `#`+node.HeadingID,
@@ -282,17 +307,9 @@ Scans the given Markdown template and generates a TOC from the headings.
 Note: the Markdown library we're using has its own TOC feature, but it's
 unusable for our purposes. Fortunately, it exposes the parser and AST, allowing
 us to extract the heading data.
-
-Note: we currently render markdown content as a Go template, which includes
-parsing it for the TOC, then we render it as markdown, which involves parsing it
-again. An ideal implementation would parse only once.
-
-We could technically find the template by name and call `.Tree.Root.String()`
-instead of reading from disk, but reading from disk is simpler and doesn't
-depend on an obscure API.
 */
-func mdToToc(content []byte) string {
-	headings := mdHeadings(content)
+func mdToToc(src []byte) string {
+	headings := mdHeadings(src)
 	offset := gg.MinPrimBy(headings, MdHeading.GetLevel)
 
 	for ind := range headings {
@@ -308,36 +325,33 @@ func mdToToc(content []byte) string {
 	return buf.String()
 }
 
-func mdHeadings(content []byte) (out []MdHeading) {
-	node := bf.New(mdOpts(nil)...).Parse(content)
-
-	node.Walk(func(node *bf.Node, entering bool) bf.WalkStatus {
+func mdHeadings(src []byte) (out []MdHeading) {
+	bf.New(mdOpts(nil)...).Parse(src).Walk(func(node *bf.Node, entering bool) bf.WalkStatus {
 		if node.Type == bf.Document {
 			return bf.GoToNext
 		}
-
-		if node.Type == bf.Heading {
-			heading := MdHeading{
-				Text:  node.Literal,
-				Id:    node.HeadingData.HeadingID,
-				Level: node.HeadingData.Level,
-			}
-
-			textNode := bfNodeFind(node, bf.Text)
-			if textNode != nil && len(heading.Text) == 0 {
-				heading.Text = textNode.Literal
-			}
-			if textNode != nil && heading.Id == `` {
-				heading.Id = san.Create(gg.ToString(textNode.Literal))
-			}
-			if heading.IsValid() {
-				out = append(out, heading)
-			}
+		if !entering || node.Type != bf.Heading {
+			return bf.SkipChildren
 		}
 
+		heading := MdHeading{
+			Text:  node.Literal,
+			Id:    node.HeadingData.HeadingID,
+			Level: node.HeadingData.Level,
+		}
+
+		textNode := bfNodeFind(node, bf.Text)
+		if textNode != nil && len(heading.Text) == 0 {
+			heading.Text = textNode.Literal
+		}
+		if textNode != nil && heading.Id == `` {
+			heading.Id = san.Create(gg.ToString(textNode.Literal))
+		}
+		if heading.IsValid() {
+			out = append(out, heading)
+		}
 		return bf.SkipChildren
 	})
-
 	return
 }
 
@@ -396,19 +410,25 @@ func bfNodeFind(node *bf.Node, nodeType bf.NodeType) (out *bf.Node) {
 }
 
 /*
-Modifies the template to preserve content between ``` as-is. We need it raw for
-Markdown and code highlighting.
+Wrapper for `tt.Template.Parse` that preserves text in code blocks. Text in code
+blocks may contain `{{`. We want to render it literally, without any special
+handling, but `tt.Template.Parse` would treat it as special syntax, leading to
+errors. As a workaround, we remove the content of code blocks before parsing
+the template, and configure the template object to restore that content when
+rendering.
+
+TODO better approach.
 */
-func tplParseMd(tpl *tt.Template, cont string) {
+func tplParseMd(tpl *tt.Template, src string) {
 	funs := tt.FuncMap{}
 
-	text := replaceCodeBlocks(cont, func(val string) string {
+	src = replaceCodeBlocks(src, func(val string) string {
 		id := `id` + gt.RandomUuid().String()
 		funs[id] = func() string { return val }
 		return `{{` + id + `}}`
 	})
 
-	gg.Try1(tpl.Funcs(funs).Parse(text))
+	gg.Try1(tpl.Funcs(funs).Parse(src))
 }
 
 /*
