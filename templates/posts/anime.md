@@ -9,13 +9,14 @@
   * Not to be confused with _Full Metal Alchemist (2002)_.
 * [**Hellsing OVA**](https://en.wikipedia.org/wiki/Hellsing) (2001-2002). Stylish vampire action; solid atmosphere and music; avoids many anime tropes. Avoid "Hellsing Ultimate" which is inferior.
 * [**Detroit Metal City** (OVA)](https://en.wikipedia.org/wiki/Detroit_Metal_City). Short and humorous tale of death metal.
-* [**One Outs**](https://en.wikipedia.org/wiki/One_Outs). I have no interest in baseball or sports, but this anime managed to engage me anyway. It's about using intellect and guile to succeed in sports.
+* [**One Outs**](https://en.wikipedia.org/wiki/One_Outs). About using intellect and guile to succeed in baseball. I have no interest in baseball or sports, but this anime managed to engage me anyway.
 
 ## Recommended with reservations
 
 * [**Mushishi**](https://en.wikipedia.org/wiki/Mushishi). Collection of relaxed, meditative stories about bizarre microbes with strange effects on human lives. Set in Edo/Meiji-period Japan. Requires tolerance to body horror.
-* [**Neon Genesis Evangelion**](https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion). Requires special preparation and coaching to get the most out of it. Read [my analysis / coaching](/posts/anime-impressions-evangelion) before watching.
+* [**Neon Genesis Evangelion**](https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion). Requires special preparation and coaching to get the most out of it. Read my [analysis / coaching](/posts/anime-impressions-evangelion) before watching.
 * [**Perverted Prince and Stony Cat / Hentai Ouji to Warawanai Neko**](https://en.wikipedia.org/wiki/The_%22Hentai%22_Prince_and_the_Stony_Cat). Requires tolerance to embarrassment. Don't get confused by the name; this is a lighthearted romantic comedy about children.
+* [**Trinity Seven**](https://en.wikipedia.org/wiki/Trinity_Seven). _Requires reading the manga_. The anime sets the tone well, but is very incomplete. Start by watching the anime, and once it's over, restart by reading the manga.
 
 ## Lukewarm
 
@@ -38,7 +39,7 @@
 * **Ergo Proxy**. Pretentious nonsense.
 * **Trigun**. Lots of senseless violence without style.
 * **Ninja Scroll**. Senseless darkness and violence without style.
-* **Bleach**: the anime is incomplete and ends on the crappiest arc, missing the coolest final arc. You have to read the manga. If the anime is ever finalized, this might rate as "neutral".
+* **Bleach**: the anime is incomplete and ends before the coolest final arc. You have to read the manga to finish it. If the anime is ever finalized, this might rate as "neutral".
 * **Black Butler**. The anime horribly butchers the source material, which is mediocre to begin with.
 * **Ranma**. Unwatchable garbage.
 * **Mahou Sensei Negima**. Unwatchable. Could only handle a few episodes.
