@@ -9,7 +9,7 @@ func initSiteGames() []Game {
 			Name:     `FTL: Faster Than Light`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/212680`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/212680/header.jpg`),
-			Desc:     `One of the greatest roguelikes. Highly influential, and highly enjoyable. One run ≈ 2-3 hours.`,
+			Desc:     `One of the greatest roguelikes. Highly influential, and highly enjoyable. Start on Easy difficulty. One run ≈ 2-3 hours.`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagWindows, TagMac, TagConsole, TagMobile,
@@ -48,6 +48,20 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Name:     `Undertale`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/391540`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/391540/header.jpg`),
+			Desc:     `Touching, uplifting story. _Highly_ recommended. Don't let pixel art deter you.`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows, TagMac,
+				Tag2d,
+				TagSolo, TagPve,
+				TagRolePlay, TagStory, TagFantasy, TagPacifist, TagPhilosophical,
+			),
+			IsListed: true,
+		},
+		{
 			Name:     `Astroneer`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/361420`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/361420/header.jpg`),
@@ -59,20 +73,6 @@ func initSiteGames() []Game {
 				TagSolo, TagCoop, TagPve,
 				TagCrafting, TagBuilding, TagExploration, TagSpace, TagSciFi, TagOpenWorld,
 				TagGrind, TagPacifist,
-			),
-			IsListed: true,
-		},
-		{
-			Name:     `Undertale`,
-			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/391540`),
-			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/391540/header.jpg`),
-			Desc:     `Touching, uplifting story. _Highly_ recommended. Don't let pixel art deter you.`,
-			TimeSink: TimeSinkSafe,
-			Tags: Slice(
-				TagPc, TagConsole, TagWindows, TagMac,
-				Tag2d,
-				TagSolo, TagPve,
-				TagRolePlay, TagStory, TagFantasy, TagPacifist, TagPhilosophical,
 			),
 			IsListed: true,
 		},
@@ -236,7 +236,7 @@ func initSiteGames() []Game {
 			Name:     `Mass Effect: Andromeda`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/1238000`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/1238000/header.jpg`),
-			Desc:     `Worthy successor to previous ME titles. Requires unfucking. Read [my recommendations](/posts/andromeda).`,
+			Desc:     `Worthy successor to previous ME titles. Excellent sci-fi RPG in its own right. Requires unfucking. Read [my recommendations](/posts/andromeda).`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagWindows, TagConsole,
@@ -293,7 +293,7 @@ func initSiteGames() []Game {
 			Name:     `Control`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/870780`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/870780/header.jpg`),
-			Desc:     `Strange third-person shooter/magic hybrid invoking various "paranormal" sci-fi tropes. If you liked "Понедельник начинается в субботу", the setting may feel familiar.`,
+			Desc:     `Shooter / magic hybrid in a setting where all the paranormal sci-fi tropes are real. If you've read "Понедельник начинается в субботу", this may feel familiar.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagWindows, TagConsole,
@@ -307,7 +307,7 @@ func initSiteGames() []Game {
 			Name:     `Warframe`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/230410`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/230410/header.jpg`),
-			Desc:     `Third person shooter/melee hybrid with deep mechanics and bewildering diversity of toys. Read [stupid headcanon](/posts/warframe-headcanon) authored by me and friends (spoilers!).`,
+			Desc:     `Third person shooter/melee hybrid with deep mechanics and a bewildering bevy of toys. Read [stupid headcanon](/posts/warframe-headcanon) authored by me and friends (spoilers!).`,
 			TimeSink: TimeSinkExtreme,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
