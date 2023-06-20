@@ -1,3 +1,4 @@
+import 'https://cdn.jsdelivr.net/npm/@ungap/custom-elements@1.0.0/es.js'
 import * as l from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/lang.mjs'
 import * as d from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/dom.mjs'
 import * as u from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/url.mjs'
@@ -54,9 +55,12 @@ class TagLike extends d.MixNode(HTMLButtonElement) {
   }
 
   static refresh(url) {
-    for (const val of document.querySelectorAll(this.localName)) val.refresh(url)
+    for (const val of findAll(this)) val.refresh(url)
   }
 }
+
+function find(cls) {return d.descendant(document.body, cls)}
+function findAll(cls) {return d.descendants(document.body, cls)}
 
 class Loc extends u.Loc {
   // TODO consider adding to `@mitranim/js/url.mjs`→`Query`.
@@ -71,28 +75,25 @@ class Loc extends u.Loc {
 
 class TimeSink extends TagLike {
   static customName = `btn-time-sink`
-  static {dr.reg(this)}
   static queryKey() {return `time_sinks`}
 }
+dr.reg(TimeSink)
 
 class Tag extends TagLike {
   static customName = `btn-tag`
-  static {dr.reg(this)}
   static queryKey() {return `tags`}
 }
+dr.reg(Tag)
 
 class TagLikes extends d.MixNode(HTMLElement) {
-  static {dr.reg(this)}
-
   items() {return this.descs(TagLike)}
   checked() {return i.filter(this.items(), TagLike.isChecked)}
   vals() {return i.map(this.items(), TagLike.val)}
   checkedVals() {return i.map(this.checked(), TagLike.val)}
 }
+dr.reg(TagLikes)
 
 class FilterList extends d.MixNode(HTMLElement) {
-  static {dr.reg(this)}
-
   items() {return this.descs(FilterItem)}
 
   placeholder() {return this.desc(FilterPlaceholder)}
@@ -108,15 +109,14 @@ class FilterList extends d.MixNode(HTMLElement) {
   }
 
   static refresh(url) {
-    for (const val of document.querySelectorAll(this.localName)) val.refresh(url)
+    for (const val of findAll(this)) val.refresh(url)
   }
 }
+dr.reg(FilterList)
 
 function isVisible(val) {return !d.reqElement(val).hidden}
 
 class FilterItem extends d.MixNode(HTMLElement) {
-  static {dr.reg(this)}
-
   timeSinks() {return this.descs(TimeSink)}
   tags() {return this.descs(Tag)}
 
@@ -160,10 +160,9 @@ class FilterItem extends d.MixNode(HTMLElement) {
     }
   }
 }
+dr.reg(FilterItem)
 
 class FilterPlaceholder extends d.MixNode(HTMLParagraphElement) {
-  static {dr.reg(this)}
-
   refresh(found) {
     l.reqBool(found)
 
@@ -176,6 +175,7 @@ class FilterPlaceholder extends d.MixNode(HTMLParagraphElement) {
     this.hidden = false
   }
 }
+dr.reg(FilterPlaceholder)
 
 function main() {
   const loc = Loc.current()
@@ -184,4 +184,11 @@ function main() {
   FilterList.refresh(loc)
 }
 
-main()
+/*
+This detection and delay are hacks for Safari, where custom element classes that
+extend built-in classes other than `HTMLElement` seem to be registered
+asynchronously by the polyfill we're using. In browsers with full custom
+element v1 support, such as Chrome, we can run this synchronously.
+*/
+if (find(Tag)) main()
+else globalThis.requestAnimationFrame(main)
