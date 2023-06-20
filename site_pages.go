@@ -126,17 +126,7 @@ func (self PagePosts) Make(site Site) {
 
 				if len(src) > 0 {
 					for _, post := range src {
-						bui.E(`div`, AP(`class`, `post-preview`), func() {
-							bui.E(`h2`, nil,
-								E(`a`, AP(`href`, post.GetLink()), post.Title),
-							)
-							if post.Description != `` {
-								bui.E(`p`, nil, post.Description)
-							}
-							if post.TimeString() != `` {
-								bui.E(`p`, AP(`class`, `fg-gray-near size-small`), post.TimeString())
-							}
-						})
+						self.PostPreview(bui, post)
 					}
 				} else {
 					bui.E(`p`, nil, `Oops! It appears there are no public posts yet.`)
@@ -147,6 +137,20 @@ func (self PagePosts) Make(site Site) {
 			FeedLinks,
 		),
 	))
+}
+
+func (self PagePosts) PostPreview(bui B, src PagePost) {
+	bui.E(`div`, AP(`class`, `post-preview`), func() {
+		bui.E(`h2`, nil,
+			E(`a`, AP(`href`, src.GetLink()), src.Title),
+		)
+		if src.Description != `` {
+			bui.E(`p`, nil, src.Description)
+		}
+		if src.TimeString() != `` {
+			bui.E(`p`, AP(`class`, `fg-gray-near size-small`), src.TimeString())
+		}
+	})
 }
 
 type PageWorks struct {
@@ -201,6 +205,121 @@ func (self PageWorks) List() x.Bui {
 				)
 			}
 		}),
+	)
+}
+
+type PageGames struct{ Page }
+
+func (self PageGames) Make(site Site) {
+	PageWrite(self, HtmlCommon(
+		self,
+		E(`div`, AttrsMain().Set(`class`, `article`),
+			self.Head(),
+			self.Content(site),
+		),
+	))
+}
+
+func (self PageGames) Head() x.Ren {
+	return F(
+		E(`h1`, nil, `Game Recommendations (work in progress)`),
+		MdToHtmlStr(`
+
+This list is carefully selected. There are many other games I've greatly
+enjoyed, which I would not recommend right now, either because they're too
+outdated (e.g. Etherlords 2), or because the online community that made them
+great no longer exists (e.g. WoW).
+
+Even if you prefer MacOS or Linux for general use, you should use a dedicated
+Windows system for games. Many games don't exist on other platforms, or take
+years to release a port, usually with compatibility issues and poor
+performance. Many games have essential mods only available on Windows. Windows
+also allows a much better selection of hardware.
+
+Always, _always_ check [PC Gaming Wiki](https://pcgamingwiki.com) for essential
+tweaks and mods for any given game.
+
+`),
+	)
+}
+
+func (self PageGames) Content(site Site) x.Ren {
+	src := site.Games.Listed()
+	inner := self.Grid(src)
+
+	if gg.IsEmpty(src) {
+		return inner
+	}
+
+	return F(
+		NoscriptInteractivity().AttrAdd(`class`, `mar-bot-1`),
+		self.TimeSinks(src),
+		self.Tags(src),
+		inner,
+		Script(`scripts/games.mjs`),
+	)
+}
+
+func (self PageGames) TimeSinks(src Games) x.Ren {
+	vals := src.TimeSinks()
+	if gg.IsEmpty(vals) {
+		return nil
+	}
+
+	return E(
+		`tag-likes`,
+		AP(`class`, `tag-likes`, `data-role`, `filter`),
+		// TODO clicking this should clear the filter.
+		E(`span`, AP(`class`, `help`, `aria-label`, `combined by logical "or"`), `Time sinks:`),
+		vals,
+	)
+}
+
+func (self PageGames) Tags(src Games) x.Ren {
+	vals := src.Tags()
+	if gg.IsEmpty(vals) {
+		return nil
+	}
+
+	return E(
+		`tag-likes`,
+		AP(`class`, `tag-likes`, `data-role`, `filter`),
+		// TODO clicking this should clear the filter.
+		E(`span`, AP(`class`, `help`, `aria-label`, `combined by logical "and"`), `Tags:`),
+		vals,
+	)
+}
+
+func (self PageGames) Grid(src Games) x.Ren {
+	return E(`filter-list`, AP(`class`, `game-grid`),
+		self.Placeholder(AttrsHidden(gg.IsNotEmpty(src))...),
+		gg.Map(src, self.GridItem),
+	)
+}
+
+func (self PageGames) GridItem(src Game) x.Ren {
+	return E(`filter-item`, AP(`class`, `game-grid-item`),
+		func(bui B) {
+			bui.E(`img`, AP(`src`, src.Img.String()))
+			bui.E(`h3`, nil, src.RenderName())
+			if gg.IsNotZero(src.Desc) {
+				bui.E(`div`, nil, MdToHtmlStr(src.Desc))
+			}
+			if gg.IsNotZero(src.TimeSink) || gg.IsNotEmpty(src.Tags) {
+				bui.E(`div`, AP(`class`, `tag-likes`),
+					src.TimeSink,
+					src.Tags,
+				)
+			}
+		},
+	)
+}
+
+func (self PageGames) Placeholder(src ...x.Attr) x.Ren {
+	return E(
+		`p`,
+		AP(`is`, `filter-placeholder`, `class`, `filter-placeholder`).A(src...),
+		`Oops! It appears there are no game recommendations yet.`,
 	)
 }
 

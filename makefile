@@ -3,7 +3,6 @@ PAR := $(MAKE) -j 128
 TAR := public
 CMD := ./bin/cmd
 MOD := modules
-SASS := sass --no-source-map -I $(MOD) styles/main.scss:$(TAR)/styles/main.css
 GO_FLAGS := -tags=$(tags) -mod=mod
 WATCH := watchexec -c -r -d=0 -n
 W_CMD := --no-ignore -w=$(CMD)
@@ -14,6 +13,8 @@ ifeq ($(PROD), true)
 else
 	SASS_STYLE := expanded
 endif
+
+SASS := sass --no-source-map -I $(MOD) --style=$(SASS_STYLE) styles/main.scss:$(TAR)/styles/main.css
 
 ifeq ($(OS), Windows_NT)
 	RM = if exist "$(1)" rmdir /s /q "$(1)"
@@ -73,11 +74,11 @@ games_steam: cmd
 
 .PHONY: styles_w
 styles_w:
-	$(SASS) --style=$(SASS_STYLE) --watch
+	$(SASS) --watch
 
 .PHONY: styles
 styles:
-	$(SASS) --style=$(SASS_STYLE)
+	$(SASS)
 
 .PHONY: test_w
 test_w:
