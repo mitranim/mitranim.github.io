@@ -568,7 +568,7 @@ func makeSiteGames() (out GameColl) {
 				TagPc, TagConsole, TagWindows,
 				Tag3d, TagFirstPerson,
 				TagSolo, TagPve,
-				TagShooter, TagSciFi, TagStory, TagTimeTravel, TagPhilosophical,
+				TagShooter, TagSciFi, TagStory, TagTimeTravel,
 			),
 			IsListed: true,
 		},

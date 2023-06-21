@@ -246,7 +246,7 @@ tweaks and mods for any given game. For many games, it's also worth using
 
 func (self PageGames) Content(site Site) x.Ren {
 	src := site.Games.Listed()
-	inner := self.Grid(src)
+	inner := self.GameGrid(src)
 
 	if gg.IsEmpty(src) {
 		return inner
@@ -291,20 +291,20 @@ func (self PageGames) Tags(src Games) x.Ren {
 	)
 }
 
-func (self PageGames) Grid(src Games) x.Ren {
+func (self PageGames) GameGrid(src Games) x.Ren {
 	return E(`filter-list`, AP(`class`, `game-grid`),
 		self.Placeholder(AttrsHidden(gg.IsNotEmpty(src))...),
-		gg.Map(src, self.GridItem),
+		gg.Map(src, self.GameGridItem),
 	)
 }
 
-func (self PageGames) GridItem(src Game) x.Ren {
+func (self PageGames) GameGridItem(src Game) x.Ren {
 	return E(`filter-item`, AP(`class`, `game-grid-item`),
 		func(bui B) {
 			bui.E(`img`, AP(`src`, src.Img.String()))
 			bui.E(`h3`, nil, src.RenderName())
 			if gg.IsNotZero(src.Desc) {
-				bui.E(`div`, nil, MdToHtmlStr(src.Desc))
+				bui.Child(MdToHtmlStr(src.Desc))
 			}
 			if gg.IsNotZero(src.TimeSink) || gg.IsNotEmpty(src.Tags) {
 				bui.E(`div`, AP(`class`, `tag-likes`),
