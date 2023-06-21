@@ -2,10 +2,49 @@ package main
 
 import "github.com/mitranim/gt"
 
+func initSiteGames() GameColl {
+	return makeSiteGames().SortedByKeys(
+		`astroneer`,
+		`subnautica`,
+		`subnautica_below_zero`,
+		`undertale`,
+		`ftl`,
+		`slay_the_spire`,
+		`beneath_oresa`,
+		`talos_principle`,
+		`steins_gate`,
+		`darkest_dungeon`,
+		`divinity_original_sin_2`,
+		`horizon_zero_dawn`,
+		`mass_effect_trilogy`,
+		`mass_effect_andromeda`,
+		`deux_ex_human_revolution`,
+		`deus_ex_mankind_divided`,
+		`metal_gear_rising_revengeance`,
+		`nier_automata`,
+		`prey`,
+		`control`,
+		`witcher_2`,
+		`witcher_3`,
+		`warframe`,
+		`no_mans_sky`,
+		`jedi_fallen_order`,
+		`kotor`,
+		`kotor_2`,
+		`portal`,
+		`portal_2`,
+		`half_life`,
+		`half_life_2`,
+		`half_life_2_episode_one`,
+		`half_life_2_episode_two`,
+	)
+}
+
 // Sketch, wildly incomplete.
-func initSiteGames() []Game {
-	return []Game{
+func makeSiteGames() (out GameColl) {
+	out.AddUniq(Games{
 		{
+			Id:       `ftl`,
 			Name:     `FTL: Faster Than Light`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/212680`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/212680/header.jpg`),
@@ -20,6 +59,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `slay_the_spire`,
 			Name:     `Slay the Spire`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/646570`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/646570/header.jpg`),
@@ -34,6 +74,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `beneath_oresa`,
 			Name:     `Beneath Oresa`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/1803400`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/1803400/header.jpg`),
@@ -48,6 +89,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `undertale`,
 			Name:     `Undertale`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/391540`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/391540/header.jpg`),
@@ -62,10 +104,11 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `astroneer`,
 			Name:     `Astroneer`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/361420`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/361420/header.jpg`),
-			Desc:     `Planetary exploration, survival, resource gathering, building, terraforming.`,
+			Desc:     `Planetary exploration, survival, resource gathering, building, terraforming. Watch my [video guides](https://www.youtube.com/playlist?list=PLfygJGWNJ-9WaNWXim4P7lLwZ0ooSWLQ4)!`,
 			TimeSink: TimeSinkDanger,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
@@ -77,10 +120,11 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `horizon_zero_dawn`,
 			Name:     `Horizon Zero Dawn`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/1151640`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/1151640/header.jpg`),
-			Desc:     `True masterpiece! Excellent game design, story, characters, dialogs, music, graphics, UI, and more!`,
+			Desc:     `True masterpiece of an RPG, set in a post-apocalyptic world where advanced robots roam the wilds. Excellent game design, story, characters, dialogues, music, graphics, UI, marred only by atrocious mouse handling.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
@@ -92,6 +136,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `subnautica`,
 			Name:     `Subnautica`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/264710`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/264710/header.jpg`),
@@ -106,6 +151,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `subnautica_below_zero`,
 			Name:     `Subnautica: Below Zero`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/848450`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/848450/header.jpg`),
@@ -120,10 +166,11 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `divinity_original_sin_2`,
 			Name:     `Divinity Original Sin 2`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/435150`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/435150/header.jpg`),
-			Desc:     `Marvelous RPG with deep mechanics, amazing writing, characters, dialogs, story, music, and more. Check my [tips & tricks](/posts/divinity-original-sin-2)!`,
+			Desc:     `Marvelous RPG with deep mechanics, amazing writing, characters, dialogues, story, music, and more. Check my [tips & tricks](/posts/divinity-original-sin-2)!`,
 			TimeSink: TimeSinkDanger,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
@@ -135,6 +182,50 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `talos_principle`,
+			Name:     `Talos Principle`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/257510`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/257510/header.jpg`),
+			Desc:     `Well-designed puzzle game with amazingly deep and thought-provoking monologues and dialogues. Excellent relaxing music. Take your time, play it slow, and _think_.`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagWindows, TagMac, TagConsole, TagMobile,
+				Tag3d, TagFirstPerson, TagThirdPerson,
+				TagSolo, TagPuzzle, TagSciFi, TagPacifist, TagPhilosophical,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `portal`,
+			Name:     `Portal`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/400`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/400/header.jpg`),
+			Desc:     `Highly influential and acclaimed puzzle game. Excellent in its minimalism. For added context, I recommend playing _Half-Life 2_ first; _Portal_ takes place in the same world, at the same time.`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagSolo,
+				TagFirstPerson, TagPuzzle, TagSciFi, TagPacifist, TagPhilosophical,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `portal_2`,
+			Name:     `Portal 2`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/620`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/620/header.jpg`),
+			Desc:     `Sequel to _Portal_, with more mechanics and a longer campaign. Well-made, well-rounded, even if not particularly revolutionary.`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagFirstPerson,
+				TagSolo, TagCoop,
+				TagPuzzle, TagSciFi, TagPacifist,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `darkest_dungeon`,
 			Name:     `Darkest Dungeon`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/262060`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/262060/header.jpg`),
@@ -149,79 +240,11 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
-			Name:     `Talos Principle`,
-			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/257510`),
-			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/257510/header.jpg`),
-			Desc:     `Well-designed puzzle game with amazingly deep and thought-provoking monologues and dialogues. Excellent relaxing music. Take your time, play it slow, and _think_.`,
-			TimeSink: TimeSinkSafe,
-			Tags: Slice(
-				TagPc, TagWindows, TagMac, TagConsole, TagMobile,
-				Tag3d, TagFirstPerson, TagThirdPerson,
-				TagSolo, TagPuzzle, TagSciFi, TagPacifist, TagPhilosophical,
-			),
-			IsListed: true,
-		},
-		{
-			Name:     `Portal`,
-			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/400`),
-			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/400/header.jpg`),
-			Desc:     `Highly influential and acclaimed puzzle game. Excellent in its minimalism. For added context, I recommend playing _Half-Life 2_ first; _Portal_ takes place in the same world, at the same time.`,
-			TimeSink: TimeSinkSafe,
-			Tags: Slice(
-				TagPc, TagConsole, TagWindows,
-				Tag3d, TagSolo,
-				TagFirstPerson, TagPuzzle, TagSciFi, TagPacifist, TagPhilosophical,
-			),
-			IsListed: true,
-		},
-		{
-			Name:     `Portal 2`,
-			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/620`),
-			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/620/header.jpg`),
-			Desc:     `Sequel to _Portal_, with more mechanics and a longer campaign.`,
-			TimeSink: TimeSinkSafe,
-			Tags: Slice(
-				TagPc, TagConsole, TagWindows,
-				Tag3d, TagFirstPerson,
-				TagSolo, TagCoop,
-				TagPuzzle, TagSciFi, TagPacifist,
-			),
-			IsListed: true,
-		},
-		{
-			Name:     `Witcher 2: Assassins of Kings`,
-			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/20920`),
-			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/20920/header.jpg`),
-			Desc:     `RPG following after the events of the original _Witcher_ books. Excellent writing, characters, dialogs, music. Requires unfucking, check [my recommendations](/posts/witcher).`,
-			TimeSink: TimeSinkModerate,
-			Tags: Slice(
-				TagPc, TagWindows, TagConsole,
-				Tag3d, TagThirdPerson,
-				TagSolo, TagPve,
-				TagMelee, TagMagic, TagStory, TagRolePlay, TagFantasy, TagCrafting,
-			),
-			IsListed: true,
-		},
-		{
-			Name:     `Witcher 3: Wild Hunt`,
-			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/292030`),
-			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg`),
-			Desc:     `Legendary RPG beloved by all. Excellent writing, characters, dialogs, music, combat mechanics, and more, and it is **HUGE**. Requires unfucking, read [my recommendations](/posts/witcher).`,
-			TimeSink: TimeSinkDanger,
-			Tags: Slice(
-				TagPc, TagWindows, TagConsole,
-				Tag3d, TagThirdPerson,
-				TagSolo, TagPve,
-				TagMelee, TagMagic, TagStory, TagRolePlay, TagFantasy,
-				TagOpenWorld, TagExploration, TagCrafting,
-			),
-			IsListed: true,
-		},
-		{
+			Id:       `mass_effect_trilogy`,
 			Name:     `Mass Effect Trilogy (Legendary Edition)`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/1328670`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/1328670/header.jpg`),
-			Desc:     `One of the greatest sci-fi RPG experiences ever made. Huge influence on other games and on many people's lives. Mechanics and graphics are outdated by modern standards, but the setting, characters, dialogs, story, music and more are timeless.`,
+			Desc:     `One of the greatest sci-fi RPG experiences ever made. Huge influence on other games and on many people's lives. Mechanics and graphics are outdated by modern standards, but the setting, characters, dialogues, story, music and more are timeless.`,
 			TimeSink: TimeSinkDanger,
 			Tags: Slice(
 				TagPc, TagWindows, TagConsole,
@@ -233,6 +256,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `mass_effect_andromeda`,
 			Name:     `Mass Effect: Andromeda`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/1238000`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/1238000/header.jpg`),
@@ -248,10 +272,45 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `deux_ex_human_revolution`,
+			Name:     `Deus Ex: Human Revolution`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/238010`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/238010/header.jpg`),
+			Desc:     `Marvelous RPG set in near future, exploring themes of human cyborg augmentation, secret societies, and more. Worthy successor to the original _Deus Ex_. I wrote a [review](https://blog-blogger.mitranim.com/2012/11/a-thank-you-to-eidos-montreal-for-dehr.html) that's closer to a love letter!`,
+			TimeSink: TimeSinkModerate,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagFirstPerson, TagThirdPerson,
+				TagSolo, TagPve,
+				TagShooter, TagSciFi,
+				TagRolePlay, TagStory, TagStealth,
+				TagPacifist, TagPhilosophical,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `deus_ex_mankind_divided`,
+			Name:     `Deus Ex: Mankind Divided`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/337000`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/337000/header.jpg`),
+			Desc:     `Excellent sequel to _DEHR_. More of the same, with massively improved graphics and lowered stakes. Great writing, dialogues, characters, music, atmosphere, gameplay. Highly satisfying to a _Deus Ex_ fan.`,
+			TimeSink: TimeSinkModerate,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagFirstPerson, TagThirdPerson,
+				TagSolo, TagPve,
+				TagShooter, TagSciFi,
+				TagRolePlay, TagStory, TagStealth,
+				TagPacifist, TagPhilosophical,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `metal_gear_rising_revengeance`,
 			Name:     `Metal Gear Rising: Revengeance`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/235460`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/235460/header.jpg`),
-			Desc:     `Badass melee slasher with cyborgs, vibroblades, giant robots, metal music, and some surprisingly thoughtful dialogs. Requires a gamepad.`,
+			Desc:     `Badass melee slasher with cyborgs, vibroblades, giant robots, metal music, and some surprisingly thoughtful dialogues. Requires a gamepad.`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagWindows, TagConsole,
@@ -262,7 +321,8 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
-			Name:     `NieR:Automata`,
+			Id:       `nier_automata`,
+			Name:     `Nier Automata`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/524220`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/524220/header.jpg`),
 			Desc:     `Surprisingly thought-provoking and touching. Brought me to tears. _Avoid external spoilers!_ Go for "true ending". Use original Japanese voiceovers and English subtitles. Requires unfucking via external tools, check [PCGW](https://www.pcgamingwiki.com/wiki/Nier_Automata). Requires a gamepad.`,
@@ -276,6 +336,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `prey`,
 			Name:     `Prey`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/480490`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/480490/header.jpg`),
@@ -285,11 +346,12 @@ func initSiteGames() []Game {
 				TagPc, TagWindows, TagConsole,
 				Tag3d, TagFirstPerson,
 				TagSolo, TagPve,
-				TagShooter, TagSciFi, TagSpace, TagStory, TagPhilosophical,
+				TagShooter, TagSciFi, TagSpace, TagCrafting, TagStory, TagPhilosophical,
 			),
 			IsListed: true,
 		},
 		{
+			Id:       `control`,
 			Name:     `Control`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/870780`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/870780/header.jpg`),
@@ -304,10 +366,42 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `witcher_2`,
+			Name:     `Witcher 2: Assassins of Kings`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/20920`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/20920/header.jpg`),
+			Desc:     `RPG following after the events of the original _Witcher_ books. Excellent writing, characters, dialogues, music. Requires unfucking, check [my recommendations](/posts/witcher).`,
+			TimeSink: TimeSinkModerate,
+			Tags: Slice(
+				TagPc, TagWindows, TagConsole,
+				Tag3d, TagThirdPerson,
+				TagSolo, TagPve,
+				TagMelee, TagMagic, TagStory, TagRolePlay, TagFantasy, TagCrafting,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `witcher_3`,
+			Name:     `Witcher 3: Wild Hunt`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/292030`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg`),
+			Desc:     `Legendary RPG beloved by all. Excellent writing, characters, dialogues, music, combat mechanics, and more, and it is **HUGE**. Requires unfucking, read [my recommendations](/posts/witcher).`,
+			TimeSink: TimeSinkDanger,
+			Tags: Slice(
+				TagPc, TagWindows, TagConsole,
+				Tag3d, TagThirdPerson,
+				TagSolo, TagPve,
+				TagMelee, TagMagic, TagStory, TagRolePlay, TagFantasy,
+				TagOpenWorld, TagExploration, TagCrafting,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `warframe`,
 			Name:     `Warframe`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/230410`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/230410/header.jpg`),
-			Desc:     `Third person shooter/melee hybrid with deep mechanics and a bewildering bevy of toys. Read [stupid headcanon](/posts/warframe-headcanon) authored by me and friends (spoilers!).`,
+			Desc:     `Third person shooter / melee hybrid with deep mechanics and a bewildering bevy of toys. Read [stupid headcanon](/posts/warframe-headcanon) authored by me and friends (spoilers!).`,
 			TimeSink: TimeSinkExtreme,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
@@ -318,6 +412,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `no_mans_sky`,
 			Name:     `No Man's Sky`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/275850`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/275850/header.jpg`),
@@ -333,6 +428,56 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `kotor`,
+			Name:     `Star Wars: Knights of the Old Republic`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/32370`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/32370/header.jpg`),
+			Desc:     `Classic SW RPG with excellent writing and dialogues. Uses simplified D&D mechanics. Dated but well worth it. Avoid spoilers!`,
+			TimeSink: TimeSinkModerate,
+			Tags: Slice(
+				TagPc, TagConsole, TagMobile,
+				TagWindows, TagMac,
+				Tag3d, TagThirdPerson,
+				TagSolo, TagPve,
+				TagMelee, TagMagic, TagTurnBased, TagSciFi, TagFantasy, TagParty,
+				TagRolePlay, TagStory,
+				// TODO: `TagPhilosophical` for Kotor 2.
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `kotor_2`,
+			Name:     `Star Wars: Knights of the Old Republic 2: the Sith Lords`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/208580`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/208580/header.jpg`),
+			Desc:     `Thoughtful sequel exploring the fallout of your "heroic deeds" in the previous game. Excellent writing and dialogues. Requires community patch.`,
+			TimeSink: TimeSinkModerate,
+			Tags: Slice(
+				TagPc, TagConsole, TagMobile,
+				TagWindows, TagMac,
+				Tag3d, TagThirdPerson,
+				TagSolo, TagPve,
+				TagMelee, TagMagic, TagTurnBased, TagSciFi, TagFantasy, TagParty,
+				TagRolePlay, TagStory, TagPhilosophical,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `steins_gate`,
+			Name:     `Steins Gate`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/412830`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/412830/header.jpg`),
+			Desc:     `One of the greatest time travel stories. Gripping, coherent, based on well-researched science, brimming with otaku references, a true geek party! Also watch the anime: _Steins Gate_, then _Steins Gate 0_. Use essential [community patch](https://sonome.dareno.me/projects/sghd.html).`,
+			TimeSink: TimeSinkModerate,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows, Tag2d,
+				TagSolo, TagPuzzle, TagSciFi, TagStory,
+				TagPacifist, TagPhilosophical,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `half_life`,
 			Name:     `Half-Life: Source`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/280`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/280/header.jpg`),
@@ -346,10 +491,11 @@ func initSiteGames() []Game {
 			IsListed: false,
 		},
 		{
+			Id:       `half_life_2`,
 			Name:     `Half-Life 2`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/220`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/220/header.jpg`),
-			Desc:     `Highly influential first-person shooter with fluid on-the-fly story narration. Somewhat primitive by modern standards, but I still recommend this, especially if you plan to play _Portal_.`,
+			Desc:     `Influential first-person shooter with fluid on-the-fly story narration. Somewhat primitive by modern standards, but still recommended, especially if you plan to play _Portal_.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagWindows,
@@ -360,6 +506,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `half_life_2_episode_one`,
 			Name:     `Half-Life 2: Episode One`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/380`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/380/header.jpg`),
@@ -374,6 +521,7 @@ func initSiteGames() []Game {
 			IsListed: true,
 		},
 		{
+			Id:       `half_life_2_episode_two`,
 			Name:     `Half-Life 2: Episode Two`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/420`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/420/header.jpg`),
@@ -387,5 +535,22 @@ func initSiteGames() []Game {
 			),
 			IsListed: true,
 		},
-	}
+		{
+			Id:       `jedi_fallen_order`,
+			Name:     `Star Wars: Jedi: Fallen Order`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/1172380`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/1172380/header.jpg`),
+			Desc:     `Apprentice Jedi exploring various planets and fighting stormtroopers. Mechanically similar to Dark Souls. Somewhat simplistic but well-delivered. Graphics require unfucking via ReShade.`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagThirdPerson,
+				TagSolo, TagPve,
+				TagMelee, TagMagic, TagSciFi, TagFantasy,
+				TagExploration, TagOpenWorld, TagStory,
+			),
+			IsListed: true,
+		},
+	}...)
+	return
 }

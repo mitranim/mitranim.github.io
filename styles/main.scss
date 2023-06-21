@@ -595,6 +595,8 @@ Possible solutions:
 
 .tag {
   @extend .tag-like;
+
+  // TODO consider making this part of the content for copy/paste compat.
   &::before {
     content: '#';
     @extend .fg-gray-near;
@@ -606,11 +608,13 @@ Possible solutions:
 
   &.--safe {
     @extend .fg-blue;
+    // TODO consider making this part of the content for copy/paste compat.
     &::before {content: '⏳'}
   }
 
   &.--danger {
     @extend .fg-red;
+    // TODO consider making this part of the content for copy/paste compat.
     &::before {content: '⌛️'}
   }
 }

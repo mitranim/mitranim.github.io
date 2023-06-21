@@ -4,11 +4,32 @@ import (
 	"github.com/mitranim/gg"
 )
 
+type GameColl struct{ gg.Coll[string, Game] }
+
+func (self GameColl) SortedByKeys(src ...string) GameColl {
+	self.ValidateOrd(src...)
+	self.Coll = gg.CollOf[string, Game](gg.Map(src, self.GetReq)...)
+	return self
+}
+
+func (self GameColl) ValidateOrd(src ...string) {
+	keys := gg.Reject(self.Pks(), gg.SetOf(src...).Has)
+
+	if gg.IsNotEmpty(keys) {
+		panic(gg.Errf(`entity keys missing from ordering: %q`, keys))
+	}
+}
+
+func (self GameColl) Listed() Games {
+	return gg.Filter(self.Slice, Game.GetIsListed)
+}
+
+// TODO consider moving to `gg.Coll`.
+func (self GameColl) Pks() []string {
+	return gg.Map(self.Slice, gg.ValidPk[string, Game])
+}
+
 type Games []Game
-
-func (self Games) Listed() Games { return gg.Filter(self, Game.GetIsListed) }
-
-func (self Games) HasListed() bool { return gg.Some(self, Game.GetIsListed) }
 
 func (self Games) TimeSinks() []TimeSink {
 	return gg.Sorted(gg.Compact(gg.MapUniq(self, Game.GetTimeSink)))
@@ -19,6 +40,7 @@ func (self Games) Tags() []Tag {
 }
 
 type Game struct {
+	Id       string
 	Name     string
 	Link     Url
 	Img      Url
@@ -26,6 +48,14 @@ type Game struct {
 	TimeSink TimeSink
 	Tags     []Tag
 	IsListed bool
+}
+
+// Implement `gg.Pker`.
+func (self Game) Pk() string {
+	if gg.IsZero(self.Id) && gg.IsNotZero(self.Name) {
+		panic(gg.Errf(`missing id in %q`, self.Name))
+	}
+	return self.Id
 }
 
 func (self Game) GetIsListed() bool { return self.IsListed }

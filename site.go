@@ -7,7 +7,7 @@ import (
 type Site struct {
 	Pages []Ipage
 	Posts []PagePost
-	Games Games
+	Games GameColl
 }
 
 func (self Site) All() (out []Ipage) {
