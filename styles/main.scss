@@ -11,6 +11,7 @@ $breakpoint-sm: 600px;
 $breakpoint-md: 960px;
 $breakpoint-lg: 1024px;
 $bord: 1px solid var(--c-bord);
+$pad-header-link: 1rem;
 
 %vars-misc {
   --max-page-width:     #{$breakpoint-lg};
@@ -260,7 +261,7 @@ code, key, pre {@extend .code}
   @extend .flex, .row-sta-str, .mar-bot-1, .gap-hor-1;
 
   // A little questionable, but ensures consistent text alignemnt.
-  ~ * {@extend %pad-header-link-hor}
+  ~ * {@include sb.pad-hor($pad-header-link)}
 }
 
 .header-link {
@@ -274,11 +275,16 @@ code, key, pre {@extend .code}
   }
 }
 
-%pad-header-link-hor {@extend .pad-hor-1}
-.pad-header-link {@extend .pad-ver-1, %pad-header-link-hor}
+.pad-header-link {padding: $pad-header-link}
 
-.footer {@extend .mar-top-auto, .pad-top-2}
-.footer-body {@extend .flex, .row-bet-cen}
+.footer {
+  @extend .mar-top-auto, .pad-top-2, .flex, .row-bet-cen;
+
+  // Override and adapt header's auto-padding rule for siblings.
+  // This allows the "scroll to top" arrow to be aligned similarly to navlinks.
+  .header ~ & {@extend .pad-hor-0}
+  > :first-child {padding-left: $pad-header-link}
+}
 
 .underline-busy {
   @include underline(underline dashed 1px);
@@ -629,7 +635,7 @@ Possible solutions:
   padding-bottom: var(--space);
 
   > * {@include sb.pad-hor(var(--space))}
-  > img:first-child {@extend .obj-cov, .aspect-steam-img, .pad-0}
+  > img:first-child {@extend .wid-100p, .obj-cov, .aspect-steam-img, .pad-0}
 }
 
 .filter-placeholder {
@@ -650,11 +656,12 @@ Possible solutions:
     content: attr(aria-label);
     color: var(--c-bg);
     background-color: var(--c-fg);
-    bottom: 100%;
-    left: 0;
     // Note: changing this to `inherit` breaks `.help`.
     text-decoration: unset;
   }
+
+  &::after {bottom: 100%; left: 0}
+  &.aria-label-top-rig::after {bottom: 100%; left: unset; right: 0}
 }
 
 .post-previews {@extend .flex, .col, .gap-2, .typography}

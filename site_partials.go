@@ -102,29 +102,26 @@ func AttrsMainArticleMd() x.Attrs { return AttrsMain().Add(`class`, `article`) }
 
 func Footer[A Ipage](page A) x.Elem {
 	return E(`footer`, AP(`class`, `footer`),
-		E(`div`, AP(`class`, `footer-body`),
-			E(`span`, AP(`class`, `flex-1 flex row-sta-sta gap-hor-0x5`),
-				E(`span`, AP(`class`, `text-lef`), yearsElapsed()),
-				LinkExt(`https://github.com/mitranim/mitranim.github.io`, `website source`),
-			),
+		E(`span`, AP(`class`, `flex-1 flex row-sta-cen gap-hor-0x5`),
+			E(`span`, AP(`class`, `text-lef`), yearsElapsed()),
+			LinkExt(`https://github.com/mitranim/mitranim.github.io`, `code`).AttrAdd(`class`, `wspace-nowrap`),
+		),
 
-			E(`span`, AP(`class`, `flex-1 text-cen`), func(bui B) {
-				if page.GetLink() != `/` {
-					bui.E(`a`, AP(`href`, `/#contacts`, `class`, `link-deco`), `touch me`)
-				}
-			}),
+		E(`span`, AP(`class`, `flex-1 text-cen`), func(bui B) {
+			if page.GetLink() != `/` {
+				bui.E(`a`, AP(`href`, `/#contacts`, `class`, `link-deco`), `touch me`)
+			}
+		}),
 
-			E(`span`, AP(`class`, `flex-1 flex row-end-cen gap-hor-0x5`),
-				E(
-					`a`,
-					AP(
-						`href`, idToHash(ID_TOP),
-						`class`, `fill-gray-fg-near pad-1 bg-gray-near-busy`,
-						`onclick`, `event.preventDefault(); window.scrollTo(0, 0)`,
-						`aria-label`, `scroll up`,
-					),
-					SvgArrowUp,
+		E(`span`, AP(`class`, `flex-1 flex row-end-cen`),
+			E(
+				`a`,
+				AP(
+					`href`, idToHash(ID_TOP),
+					`class`, `fill-gray-fg-near pad-header-link bg-gray-near-busy`,
+					`onclick`, `event.preventDefault(); window.scrollTo(0, 0)`,
 				),
+				SvgArrowUp,
 			),
 		),
 	)
