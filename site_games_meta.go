@@ -160,6 +160,7 @@ var (
 	TagRoguelike   = Tag{`roguelike`, TagOrd.Next()}
 	TagGrind       = Tag{`grind`, TagOrd.Next()}
 	TagStealth     = Tag{`stealth`, TagOrd.Next()}
+	TagTimeTravel  = Tag{`time_travel`, TagOrd.Next()}
 
 	TagPacifist      = Tag{`pacifist`, TagOrd.Next()}
 	TagPhilosophical = Tag{`philosophical`, TagOrd.Next()}

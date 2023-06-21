@@ -222,7 +222,7 @@ func (self PageGames) Make(site Site) {
 
 func (self PageGames) Head() x.Ren {
 	return F(
-		E(`h1`, nil, `Game Recommendations (work in progress)`),
+		E(`h1`, nil, self.Title),
 		MdToHtmlStr(`
 
 This list is carefully selected. There are many other games I've greatly
@@ -237,7 +237,8 @@ performance. Many games have essential mods only available on Windows. Windows
 also allows a much better selection of hardware.
 
 Always, _always_ check [PC Gaming Wiki](https://pcgamingwiki.com) for essential
-tweaks and mods for any given game.
+tweaks and mods for any given game. For many games, it's also worth using
+[Nexus Mods](https://nexusmods.com) for mods, but beware of spoilers.
 
 `),
 	)
