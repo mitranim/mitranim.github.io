@@ -309,7 +309,7 @@ func (self PageGames) GameGridItem(src Game) x.Ren {
 			if gg.IsNotZero(src.TimeSink) || gg.IsNotEmpty(src.Tags) {
 				bui.E(`div`, AP(`class`, `tag-likes`),
 					src.TimeSink,
-					src.Tags,
+					gg.Sorted(src.Tags),
 				)
 			}
 		},

@@ -33,10 +33,12 @@ func initSiteGames() GameColl {
 		`witcher_2`,
 		`witcher_3`,
 		`jedi_fallen_order`,
-		`kotor`,
-		`kotor_2`,
 		`portal`,
 		`portal_2`,
+		`kotor`,
+		`kotor_2`,
+		`nwn`,
+		`bastion`,
 		`half_life`,
 		`half_life_2`,
 		`half_life_2_episode_one`,
@@ -102,7 +104,7 @@ func makeSiteGames() (out GameColl) {
 			Desc:     `Touching, uplifting story. _Highly_ recommended. Don't let pixel art deter you.`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
-				TagPc, TagConsole, TagWindows, TagMac,
+				TagPc, TagConsole, TagMobile, TagWindows, TagMac,
 				Tag2d,
 				TagSolo, TagPve,
 				TagRolePlay, TagStory, TagFantasy, TagPacifist, TagPhilosophical,
@@ -447,7 +449,6 @@ func makeSiteGames() (out GameColl) {
 				TagSolo, TagPve,
 				TagMelee, TagMagic, TagTurnBased, TagSciFi, TagFantasy, TagParty,
 				TagRolePlay, TagStory,
-				// TODO: `TagPhilosophical` for Kotor 2.
 			),
 			IsListed: true,
 		},
@@ -516,7 +517,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Half-Life 2: Episode One`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/380`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/380/header.jpg`),
-			Desc:     `Continues the story of _Half-Life 2_.`,
+			Desc:     `Continues the story of _Half-Life 2_, followed by _Episode Two_.`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagWindows,
@@ -562,7 +563,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Singularity`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/42670`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/42670/header.jpg`),
-			Desc:     `Well-written time travel story and a competent first-person shooter. Set on an abandoned Soviet research island. Bilingual bonus for Russian speakers. Compact, can be completed in one day.`,
+			Desc:     `Well-wrought time travel story and a competent first-person shooter. Set on an abandoned Soviet research island. Very atmospheric. Bilingual bonus for Russian speakers.`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
@@ -645,6 +646,44 @@ func makeSiteGames() (out GameColl) {
 			),
 			IsListed: true,
 		},
+		{
+			Id:       `nwn`,
+			Name:     `Neverwinter Nights`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/704450`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/704450/header.jpg`),
+			Desc:     `Classic RPG using D&D mechanics. Don't be deterred by boring OG campaign; expansions get better, and there's fun in the mechanics. Use console commands to un-slog.`,
+			TimeSink: TimeSinkModerate,
+			Tags: Slice(
+				TagPc, TagWindows,
+				Tag3d, TagThirdPerson, TagIsometric,
+				TagSolo, TagCoop, TagPve,
+				TagMelee, TagMagic, TagTurnBased, TagFantasy, TagParty, TagRolePlay, TagStory,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `bastion`,
+			Name:     `Bastion`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/107100`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/107100/header.jpg`),
+			Desc:     `Charming top-down adventure game. Touching story, music, narration. Originally for mobile devices, simplistic but worth a playthrough regardless.`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagConsole, TagMobile, TagWindows, TagMac,
+				Tag2d, TagThirdPerson, TagIsometric,
+				TagSolo, TagPve, TagFantasy, TagStory,
+			),
+			IsListed: true,
+		},
+		// {
+		// 	Id:       `star_craft_2`,
+		// 	Name:     `StarCraft 2`,
+		// 	Link:     gt.ParseNullUrl(`https://starcraft2.com`),
+		// 	Img:      gt.ParseNullUrl(``), // Needs an image.
+		// 	Desc:     ``,
+		// 	TimeSink: TimeSinkModerate,
+		// 	IsListed: false,
+		// },
 	}...)
 	return
 }
