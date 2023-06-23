@@ -133,8 +133,10 @@ code, key, pre {@extend .code}
 
 @mixin shad($wid, $col) {box-shadow: 0 0 0 $wid $col}
 
-@mixin underline($val) {
-  text-decoration: $val;
+@mixin underline($style, $wid: 1px) {
+  text-decoration-line: underline;
+  text-decoration-style: $style;
+  text-decoration-thickness: $wid;
   text-underline-offset: calc(1ex / 2);
 }
 
@@ -287,7 +289,8 @@ code, key, pre {@extend .code}
 }
 
 .underline-busy {
-  @include underline(underline dashed 1px);
+  @include underline(dashed);
+  text-underline-offset: calc(1ex / 2);
   &:hover {text-decoration-style: solid}
 }
 
@@ -649,7 +652,7 @@ Possible solutions:
 
 .help[aria-label] {
   @extend .cur-help;
-  @include underline(underline dotted 1px);
+  @include underline(dotted);
 }
 
 [aria-label]:hover {
