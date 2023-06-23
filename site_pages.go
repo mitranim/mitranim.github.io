@@ -118,7 +118,7 @@ type PagePosts struct{ Page }
 func (self PagePosts) Make(site Site) {
 	PageWrite(self, HtmlCommon(
 		self,
-		E(`div`, AttrsMain().Set(`class`, `post-previews`),
+		E(`div`, AttrsMain().Add(`class`, `post-previews`),
 			E(`h1`, nil, `Blog Posts`),
 
 			func(bui B) {
@@ -213,7 +213,7 @@ type PageGames struct{ Page }
 func (self PageGames) Make(site Site) {
 	PageWrite(self, HtmlCommon(
 		self,
-		E(`div`, AttrsMain().Set(`class`, `article`),
+		E(`div`, AttrsMain().Add(`class`, `article`),
 			self.Head(),
 			self.Content(site),
 		),
@@ -332,8 +332,7 @@ func (self PageResume) Make(site Site) {
 
 	PageWrite(self, Html(
 		self,
-		// Top padding is a replacement for the missing header.
-		E(`article`, AttrsMainArticleMd().Add(`class`, `pad-top-1`),
+		E(`article`, AttrsMainArticleMd().Add(`class`, `pad-body`),
 			self.MdOnce(self),
 			index.Md(index, nil),
 			MdToHtmlStr(`# Works`),
@@ -367,9 +366,10 @@ func (self PagePost) Render(_ Site) x.Bui {
 			},
 			self.MdOnce(self),
 		),
-		E(`hr`, AP(`class`, `hr mar-ver-1`)),
-		PostsFooterLess,
-		FeedLinks,
+		// TODO avoid spamming horizontal padding classes.
+		E(`hr`, AP(`class`, `hr mar-ver-1 pad-hor-body`)),
+		PostsFooterLess.AttrAdd(`class`, `pad-hor-body`),
+		FeedLinks.AttrAdd(`class`, `pad-hor-body`),
 	)
 }
 

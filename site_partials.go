@@ -88,7 +88,7 @@ func Header[A Ipage](page A) x.Elem {
 
 		E(`span`, AP(`class`, `flex-1`)),
 
-		E(`span`, AP(`class`, `fg-blue flex row-cen-cen pad-header-link sm-hide`),
+		E(`span`, AP(`class`, `fg-blue flex row-cen-cen pad-body sm-hide`),
 			`Updated: `+today(),
 		),
 	)
@@ -96,13 +96,15 @@ func Header[A Ipage](page A) x.Elem {
 
 func MainContent(chi ...any) x.Elem { return E(`div`, AttrsMain(), chi...) }
 
-func AttrsMain() x.Attrs { return AP(`role`, `main`, `id`, ID_MAIN) }
+func AttrsMain() x.Attrs {
+	return AP(`role`, `main`, `id`, ID_MAIN, `class`, `main`)
+}
 
 func AttrsMainArticleMd() x.Attrs { return AttrsMain().Add(`class`, `article`) }
 
 func Footer[A Ipage](page A) x.Elem {
-	return E(`footer`, AP(`class`, `footer`),
-		E(`span`, AP(`class`, `flex-1 flex row-sta-cen gap-hor-0x5`),
+	return E(`footer`, AP(`class`, `footer pad-bot-body`),
+		E(`span`, AP(`class`, `flex-1 flex row-sta-cen gap-hor-0x5 pad-lef-body`),
 			E(`span`, AP(`class`, `text-lef`), yearsElapsed()),
 			LinkExt(`https://github.com/mitranim/mitranim.github.io`, `code`).AttrAdd(`class`, `wspace-nowrap`),
 		),
@@ -118,7 +120,7 @@ func Footer[A Ipage](page A) x.Elem {
 				`a`,
 				AP(
 					`href`, idToHash(ID_TOP),
-					`class`, `fill-gray-fg-near pad-header-link bg-gray-near-busy`,
+					`class`, `fill-gray-fg-near pad-body bg-gray-near-busy`,
 					`onclick`, `event.preventDefault(); window.scrollTo(0, 0)`,
 				),
 				SvgArrowUp,
