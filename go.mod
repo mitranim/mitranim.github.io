@@ -10,6 +10,7 @@ require (
 	github.com/mitranim/cmd v0.1.1
 	github.com/mitranim/gax v0.3.1
 	github.com/mitranim/gg v0.1.17
+	github.com/mitranim/goh v0.1.11
 	github.com/mitranim/gt v0.1.21
 	github.com/mitranim/rout v0.7.1
 	github.com/mitranim/srv v0.0.0-20210207104346-0df64d1a7dff

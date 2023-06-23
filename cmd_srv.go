@@ -10,6 +10,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/mitranim/afr"
 	"github.com/mitranim/gg"
+	"github.com/mitranim/goh"
 	"github.com/mitranim/rout"
 	"github.com/mitranim/srv"
 )
@@ -73,7 +74,15 @@ func (self *Server) ServeHTTP(rew http.ResponseWriter, req *http.Request) {
 
 func (self *Server) Route(rou rout.Rou) {
 	rou.Sta(`/afr`).Handler(&self.Broad)
-	rou.Get().Handler(srv.FileServer(self.Dir))
+	rou.Get().Func(self.Fallback)
+}
+
+func (self *Server) Fallback(rew http.ResponseWriter, req *http.Request) {
+	// Allows local import overrides.
+	if (goh.File{Path: req.URL.Path}).ServedHTTP(rew, req) {
+		return
+	}
+	srv.FileServer(self.Dir).ServeHTTP(rew, req)
 }
 
 func preventCaching(head http.Header) {

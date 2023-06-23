@@ -106,7 +106,7 @@ func (self TimeSink) Render(bui B) {
 	bui.E(
 		`button`,
 		AP(
-			`is`, `btn-time-sink`,
+			`is`, `time-sink`,
 			`type`, `button`,
 			`class`, gg.SpacedOpt(`time-sink`, self.Mode()),
 		),
@@ -181,7 +181,7 @@ func (self Tag) Render(bui B) {
 	}
 	bui.E(
 		`button`,
-		AP(`is`, `btn-tag`, `type`, `button`, `class`, `tag`),
+		AP(`is`, `a-tag`, `type`, `button`, `class`, `tag`),
 		self.String(),
 	)
 }

@@ -3,9 +3,6 @@ import * as l from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/lang.mjs'
 import * as d from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/dom.mjs'
 import * as u from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/url.mjs'
 import * as i from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/iter.mjs'
-import * as dr from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/dom_reg.mjs'
-
-dr.Reg.main.setDefiner(customElements)
 
 class TagLike extends d.MixNode(HTMLButtonElement) {
   connectedCallback() {
@@ -19,7 +16,12 @@ class TagLike extends d.MixNode(HTMLButtonElement) {
 
     const loc = Loc.current()
     this.mutUrl(loc)
-    loc.push()
+
+    // Push would be better for desktop, but replace seems nicer for mobile,
+    // particularly when this page is opened in a webview from another app.
+    // When using push, after modifying filters, it may take multiple
+    // slide-left attempts to back out of the webview.
+    loc.replace()
 
     this.constructor.refresh(loc)
     FilterList.refresh(loc)
@@ -74,16 +76,14 @@ class Loc extends u.Loc {
 }
 
 class TimeSink extends TagLike {
-  static customName = `btn-time-sink`
   static queryKey() {return `time_sinks`}
 }
-dr.reg(TimeSink)
+customElements.define(`time-sink`, TimeSink, {extends: `button`})
 
 class Tag extends TagLike {
-  static customName = `btn-tag`
   static queryKey() {return `tags`}
 }
-dr.reg(Tag)
+customElements.define(`a-tag`, Tag, {extends: `button`})
 
 class TagLikes extends d.MixNode(HTMLElement) {
   items() {return this.descs(TagLike)}
@@ -91,7 +91,7 @@ class TagLikes extends d.MixNode(HTMLElement) {
   vals() {return i.map(this.items(), TagLike.val)}
   checkedVals() {return i.map(this.checked(), TagLike.val)}
 }
-dr.reg(TagLikes)
+customElements.define(`tag-likes`, TagLikes)
 
 class FilterList extends d.MixNode(HTMLElement) {
   items() {return this.descs(FilterItem)}
@@ -112,7 +112,7 @@ class FilterList extends d.MixNode(HTMLElement) {
     for (const val of findAll(this)) val.refresh(url)
   }
 }
-dr.reg(FilterList)
+customElements.define(`filter-list`, FilterList)
 
 function isVisible(val) {return !d.reqElement(val).hidden}
 
@@ -160,7 +160,7 @@ class FilterItem extends d.MixNode(HTMLElement) {
     }
   }
 }
-dr.reg(FilterItem)
+customElements.define(`filter-item`, FilterItem)
 
 class FilterPlaceholder extends d.MixNode(HTMLParagraphElement) {
   refresh(found) {
@@ -175,7 +175,7 @@ class FilterPlaceholder extends d.MixNode(HTMLParagraphElement) {
     this.hidden = false
   }
 }
-dr.reg(FilterPlaceholder)
+customElements.define(`filter-placeholder`, FilterPlaceholder, {extends: `p`})
 
 function main() {
   const loc = Loc.current()
