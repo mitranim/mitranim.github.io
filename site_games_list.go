@@ -25,6 +25,7 @@ func initSiteGames() GameColl {
 		`prey`,
 		`control`,
 		`doom_2016`,
+		`doom_eternal`,
 		`singularity`,
 		`borderlands`,
 		`borderlands_tps`,
@@ -39,6 +40,9 @@ func initSiteGames() GameColl {
 		`kotor_2`,
 		`nwn`,
 		`bastion`,
+		`darksiders`,
+		`darksiders_2`,
+		`darksiders_3`,
 		`half_life`,
 		`half_life_2`,
 		`half_life_2_episode_one`,
@@ -48,7 +52,14 @@ func initSiteGames() GameColl {
 	)
 }
 
-// Sketch, wildly incomplete.
+/*
+TODO:
+
+	* Automate downloading of images. We should serve them ourselves to avoid
+	  content breakage due to future changes on other web services. However, for
+	  frequently-updated games, banner images change over time, so we should
+	  prioritize external images when they exist.
+*/
 func makeSiteGames() (out GameColl) {
 	out.AddUniq(Games{
 		{
@@ -138,8 +149,8 @@ func makeSiteGames() (out GameColl) {
 				TagPc, TagConsole, TagWindows,
 				Tag3d, TagThirdPerson,
 				TagSolo, TagPve,
-				TagOpenWorld, TagExploration, TagShooter, TagRolePlay, TagStory, TagSciFi,
-				TagCrafting,
+				TagOpenWorld, TagExploration, TagShooter, TagCrafting,
+				TagRolePlay, TagStory, TagSciFi,
 			),
 			IsListed: true,
 		},
@@ -154,7 +165,8 @@ func makeSiteGames() (out GameColl) {
 				TagPc, TagWindows, TagMac,
 				Tag3d, TagFirstPerson,
 				TagSolo, TagPve,
-				TagSciFi, TagExploration, TagCrafting, TagBuilding, TagUnderwater, TagStory, TagPacifist,
+				TagSciFi, TagExploration, TagCrafting, TagBuilding, TagUnderwater,
+				TagStory, TagPacifist,
 			),
 			IsListed: true,
 		},
@@ -169,7 +181,8 @@ func makeSiteGames() (out GameColl) {
 				TagPc, TagWindows, TagMac,
 				Tag3d, TagFirstPerson,
 				TagSolo, TagPve,
-				TagSciFi, TagExploration, TagCrafting, TagBuilding, TagUnderwater, TagStory, TagPacifist,
+				TagSciFi, TagExploration, TagCrafting, TagBuilding, TagUnderwater,
+				TagStory, TagPacifist,
 			),
 			IsListed: true,
 		},
@@ -194,7 +207,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Talos Principle`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/257510`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/257510/header.jpg`),
-			Desc:     `Well-designed puzzle game with amazingly deep and thought-provoking monologues and dialogues. Excellent relaxing music. Take your time, play it slow, and _think_.`,
+			Desc:     `Well-designed puzzle game with amazingly deep and thought-provoking monologues and dialogues. Excellent relaxing music. Take your time, play it slow, and _think_. Make sure to play _Road to Gehenna_ too!`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagWindows, TagMac, TagConsole, TagMobile,
@@ -333,7 +346,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Nier Automata`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/524220`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/524220/header.jpg`),
-			Desc:     `Surprisingly thought-provoking and touching. Brought me to tears. _Avoid external spoilers!_ Go for "true ending". Use original Japanese voiceovers and English subtitles. Requires unfucking via external tools, check [PCGW](https://www.pcgamingwiki.com/wiki/Nier_Automata). Requires a gamepad.`,
+			Desc:     `Post-apocalyptic story of androids and alien machine lifeforms. Thought-provoking and touching. Brought me to tears. _Avoid external spoilers!_ Go for "true ending". Use original Japanese voiceovers. Requires external tools, check [PCGW](https://www.pcgamingwiki.com/wiki/Nier_Automata). Requires a gamepad.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagWindows, TagConsole,
@@ -637,7 +650,21 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Doom (2016)`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/379720`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/379720/header.jpg`),
-			Desc:     `Excellent first-person shooter. Competent sequel to the classic Doom games. Doesn't outstay its welcome. Read my [impressions](/posts/game-impressions-doom-2016) and [tips & tricks](/posts/tips-and-tricks-doom-2016)!`,
+			Desc:     `Excellent shootfest against demonic monsters. Competent sequel to the classic Doom games. Doesn't outstay its welcome. Read my [impressions](/posts/game-impressions-doom-2016) and [tips & tricks](/posts/tips-and-tricks-doom-2016)!`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagFirstPerson,
+				TagSolo, TagPve, TagShooter, TagSciFi,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `doom_eternal`,
+			Name:     `Doom Eternal`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/782330`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/782330/header.jpg`),
+			Desc:     `Competent sequel to _Doom (2016)_. More of the same, with refined mechanics, improved UI, excellent new environments, and various retcons in the plot.`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
@@ -651,7 +678,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Neverwinter Nights`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/704450`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/704450/header.jpg`),
-			Desc:     `Classic RPG using D&D mechanics. Don't be deterred by boring OG campaign; expansions get better, and there's fun in the mechanics. Use console commands to un-slog.`,
+			Desc:     `Classic RPG using D&D 3.5 rules in pseudo real time. Don't be deterred by boring OG campaign; expansions get better, and there's fun in the mechanics. Use console commands to un-slog.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagWindows,
@@ -666,7 +693,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Bastion`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/107100`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/107100/header.jpg`),
-			Desc:     `Charming top-down adventure game. Touching story, music, narration. Originally for mobile devices, simplistic but worth a playthrough regardless.`,
+			Desc:     `Charming top-down adventure game in a unique post-apocalyptic setting. Touching story, music, narration. Originally for mobile devices, simplistic but worth a playthrough regardless.`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagConsole, TagMobile, TagWindows, TagMac,
@@ -675,6 +702,52 @@ func makeSiteGames() (out GameColl) {
 			),
 			IsListed: true,
 		},
+		{
+			Id:       `darksiders`,
+			Name:     `Darksiders`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/462780`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/462780/header.jpg`),
+			Desc:     `Zelda-style adventure in post-apocalyptic environments populated by demons and angels. Badass characters, competent delivery. Mechanics are somewhat simplistic but ambitiously varied.`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagThirdPerson,
+				TagSolo, TagPve, TagPuzzle, TagMelee, TagFantasy,
+				TagExploration, TagOpenWorld, TagStory,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `darksiders_2`,
+			Name:     `Darksiders 2`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/388410`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/388410/header.jpg`),
+			Desc:     `Competent sequel with its own stylish environments, great music, mood, and much improved combat mechanics. Worth a playthrough if you liked _Darksiders 1_.`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagThirdPerson,
+				TagSolo, TagPve, TagPuzzle, TagMelee, TagMagic, TagFantasy,
+				TagExploration, TagOpenWorld, TagStory,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `darksiders_3`,
+			Name:     `Darksiders 3`,
+			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/606280`),
+			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/606280/header.jpg`),
+			Desc:     `A Darksiders game closer to DMC in terms of combat, with minor Dark Souls influences. Questionable writing, atrocious ending sequence. Otherwise well made.`,
+			TimeSink: TimeSinkSafe,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagThirdPerson,
+				TagSolo, TagPve, TagPuzzle, TagMelee, TagFantasy,
+				TagExploration, TagOpenWorld, TagStory,
+			),
+			IsListed: true,
+		},
+
 		// {
 		// 	Id:       `star_craft_2`,
 		// 	Name:     `StarCraft 2`,
