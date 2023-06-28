@@ -191,7 +191,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Divinity Original Sin 2`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/435150`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/435150/header.jpg`),
-			Desc:     `Marvelous RPG with deep mechanics, amazing writing, characters, dialogues, story, music, and more. Check my [tips & tricks](/posts/divinity-original-sin-2)!`,
+			Desc:     `Marvelous RPG with deep mechanics, amazing writing, characters, voices, dialogues, story, music, and more. Check my [tips & tricks](/posts/divinity-original-sin-2)!`,
 			TimeSink: TimeSinkDanger,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
@@ -207,7 +207,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Talos Principle`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/257510`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/257510/header.jpg`),
-			Desc:     `Well-designed puzzle game with amazingly deep and thought-provoking monologues and dialogues. Excellent relaxing music. Take your time, play it slow, and _think_. Make sure to play _Road to Gehenna_ too!`,
+			Desc:     `Well-designed puzzle game with amazingly deep and thought-provoking monologues and dialogues. Excellent relaxing music. Take your time, play it slow, and _think_. (And DLC too!)`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagWindows, TagMac, TagConsole, TagMobile,
@@ -250,7 +250,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Darkest Dungeon`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/262060`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/262060/header.jpg`),
-			Desc:     `Turn-based, party-based dungeon crawler inspired by Lovecraftian horror stories, with fairly unique mechanics.`,
+			Desc:     `Turn-based, party-based dungeon crawler inspired by Lovecraftian horror stories, with fairly unique mechanics and an over-arching narration for _everything_, especially your blunders.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagWindows, TagMac, TagConsole, TagMobile,
@@ -367,7 +367,7 @@ func makeSiteGames() (out GameColl) {
 				TagPc, TagWindows, TagConsole,
 				Tag3d, TagFirstPerson,
 				TagSolo, TagPve,
-				TagShooter, TagSciFi, TagSpace, TagCrafting, TagStory, TagPhilosophical,
+				TagShooter, TagMagic, TagSciFi, TagSpace, TagCrafting, TagStory, TagPhilosophical,
 			),
 			IsListed: true,
 		},
@@ -422,13 +422,14 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Warframe`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/230410`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/230410/header.jpg`),
-			Desc:     `Third person shooter / melee hybrid with deep mechanics and a bewildering bevy of toys. Read [stupid headcanon](/posts/warframe-headcanon) authored by me and friends (spoilers!).`,
+			Desc:     `Third person shooter / melee hybrid with deep mechanics and a bewildering bevy of features and toys. Read [stupid headcanon](/posts/warframe-headcanon) authored by me and friends (spoilers!).`,
 			TimeSink: TimeSinkExtreme,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
 				Tag3d, TagThirdPerson,
 				TagSolo, TagCoop, TagPve,
-				TagShooter, TagMelee, TagCrafting, TagBuilding, TagGrind, TagSciFi,
+				TagShooter, TagMelee, TagMagic,
+				TagCrafting, TagBuilding, TagGrind, TagOpenWorld, TagSciFi,
 			),
 			IsListed: true,
 		},
@@ -470,7 +471,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Star Wars: Knights of the Old Republic 2: the Sith Lords`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/208580`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/208580/header.jpg`),
-			Desc:     `Thoughtful sequel exploring the fallout of your "heroic deeds" in the previous game. Excellent writing and dialogues. Requires community patch.`,
+			Desc:     `Thoughtful sequel exploring the fallout of your "heroic deeds" in the previous game. Excellent writing and dialogues. Requires community patches, see [PCGW](https://www.pcgamingwiki.com/wiki/Star_Wars:_Knights_of_the_Old_Republic_II_-_The_Sith_Lords).`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagConsole, TagMobile,
@@ -516,7 +517,7 @@ func makeSiteGames() (out GameColl) {
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/220`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/220/header.jpg`),
 			Desc:     `Influential first-person shooter with fluid on-the-fly story narration. Somewhat primitive by modern standards, but still recommended, especially if you plan to play _Portal_.`,
-			TimeSink: TimeSinkModerate,
+			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagWindows,
 				Tag3d, TagFirstPerson,
@@ -560,7 +561,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Star Wars: Jedi: Fallen Order`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/1172380`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/1172380/header.jpg`),
-			Desc:     `Apprentice Jedi exploring various planets and fighting stormtroopers. Mechanically similar to Dark Souls. Somewhat simplistic but well-delivered. Graphics require unfucking via ReShade.`,
+			Desc:     `Apprentice Jedi exploring various planets, fighting stormtroopers and monsters. Mechanically similar to Dark Souls. Somewhat simplistic but well-delivered. Graphics require unfucking via ReShade ([link](https://www.nexusmods.com/starwarsjedifallenorder/mods/3); tweak ingame for best results).`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
@@ -693,7 +694,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Bastion`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/107100`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/107100/header.jpg`),
-			Desc:     `Charming top-down adventure game in a unique post-apocalyptic setting. Touching story, music, narration. Originally for mobile devices, simplistic but worth a playthrough regardless.`,
+			Desc:     `Charming top-down adventure game in a unique post-apocalyptic setting. Touching story, mood, music, narration. Originally for mobile devices, simplistic but worth a playthrough for its charm.`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagConsole, TagMobile, TagWindows, TagMac,

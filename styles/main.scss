@@ -128,6 +128,12 @@ code, key, pre {@extend .code}
 
 @mixin shad($wid, $col) {box-shadow: 0 0 0 $wid $col}
 
+/*
+TODO consider moving to `sb`.
+
+Note: we're not using the `underline` property shorthand because it's not fully
+supported in Safari/iOS at the time of writing.
+*/
 @mixin underline($style, $wid: 1px) {
   text-decoration-line: underline;
   text-decoration-style: $style;
@@ -245,13 +251,6 @@ code, key, pre {@extend .code}
 .gap-hor-tiny {@include sb.gap-hor(0.3rem)}
 .gap-ver-tiny {@include sb.gap-ver(0.3rem)}
 
-/* details/summary */
-
-.details summary {
-  @extend .cur-point, .pad-1, .bg-gray-near;
-  &::marker {@extend .fg-link}
-}
-
 /* Misc */
 
 .pad-body {padding: $pad-body}
@@ -358,6 +357,19 @@ ul.fancy-list ul.fancy-list {list-style-type: circle}
     h5 > .heading-prefix::before {content: '##### '}
     h6 > .heading-prefix::before {content: '###### '}
   }
+}
+
+/*
+Incomplete. Requires additional indications of interactivity before this can be
+usable.
+*/
+.summary-text {
+  &::marker {@extend .fg-link}
+}
+
+// Needs a better interactive theme.
+.summary {
+  @extend .summary-text, .cur-point, .pad-1, .bg-gray-near;
 }
 
 .table {
@@ -575,7 +587,7 @@ Possible solutions:
 
 // TODO better name.
 .tag-like {
-  @extend .inl-block, .wspace-pre, .line-1, .pad-tiny, .cur-auto, .theme-tag-like;
+  @extend .wspace-pre, .line-1, .pad-tiny, .cur-auto, .theme-tag-like;
   line-height: 1;
   &.--busy {@extend .cur-point}
 }

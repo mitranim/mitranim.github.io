@@ -246,17 +246,17 @@ tweaks and mods for any given game. For many games, it's also worth using
 
 func (self PageGames) Content(site Site) x.Ren {
 	src := site.Games.Listed()
-	inner := self.GameGrid(src)
 
 	if gg.IsEmpty(src) {
-		return inner
+		return self.PlaceholderEmpty()
 	}
 
 	return F(
 		NoscriptInteractivity().AttrAdd(`class`, `mar-bot-1`),
+		// self.Glossary(),
 		self.TimeSinks(src),
 		self.Tags(src),
-		inner,
+		self.GameGrid(src),
 		Script(`scripts/games.mjs`),
 	)
 }
@@ -293,7 +293,7 @@ func (self PageGames) Tags(src Games) x.Ren {
 
 func (self PageGames) GameGrid(src Games) x.Ren {
 	return E(`filter-list`, AP(`class`, `game-grid`),
-		self.Placeholder(AttrsHidden(gg.IsNotEmpty(src))...),
+		self.PlaceholderNothingFound().AttrSet(`hidden`, `true`),
 		gg.Map(src, self.GameGridItem),
 	)
 }
@@ -316,11 +316,23 @@ func (self PageGames) GameGridItem(src Game) x.Ren {
 	)
 }
 
-func (self PageGames) Placeholder(src ...x.Attr) x.Ren {
+func (self PageGames) PlaceholderEmpty(src ...x.Attr) x.Elem {
+	return self.Placeholder(
+		`Oops! It appears there are no game recommendations yet.`,
+	)
+}
+
+func (self PageGames) PlaceholderNothingFound(src ...x.Attr) x.Elem {
+	return self.Placeholder(
+		`Nothing found. Try changing the filters.`,
+	)
+}
+
+func (self PageGames) Placeholder(text string) x.Elem {
 	return E(
 		`p`,
-		AP(`is`, `filter-placeholder`, `class`, `filter-placeholder`).A(src...),
-		`Oops! It appears there are no game recommendations yet.`,
+		AP(`is`, `filter-placeholder`, `class`, `filter-placeholder`),
+		text,
 	)
 }
 

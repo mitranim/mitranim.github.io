@@ -163,17 +163,7 @@ class FilterItem extends d.MixNode(HTMLElement) {
 customElements.define(`filter-item`, FilterItem)
 
 class FilterPlaceholder extends d.MixNode(HTMLParagraphElement) {
-  refresh(found) {
-    l.reqBool(found)
-
-    if (found) {
-      this.hidden = true
-      return
-    }
-
-    this.textContent = `Nothing found. Try changing the filters.`
-    this.hidden = false
-  }
+  refresh(found) {this.hidden = l.reqBool(found)}
 }
 customElements.define(`filter-placeholder`, FilterPlaceholder, {extends: `p`})
 
