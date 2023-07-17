@@ -207,7 +207,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Talos Principle`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/257510`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/257510/header.jpg`),
-			Desc:     `Well-designed puzzle game with amazingly deep and thought-provoking monologues and dialogues. Excellent relaxing music. Take your time, play it slow, and _think_. (And DLC too!)`,
+			Desc:     `Well-designed puzzle game with amazingly deep and thought-provoking writing. Excellent relaxing music. Take your time, play it slow, and _think_. (DLC too!)`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagWindows, TagMac, TagConsole, TagMobile,
@@ -250,7 +250,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Darkest Dungeon`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/262060`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/262060/header.jpg`),
-			Desc:     `Turn-based, party-based dungeon crawler inspired by Lovecraftian horror stories, with fairly unique mechanics and an over-arching narration for _everything_, especially your blunders.`,
+			Desc:     `Turn-based, party-based dungeon crawler inspired by Lovecraftian horror stories, with fairly unique mechanics and a colorful overarching narration for _everything_, especially your blunders.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagWindows, TagMac, TagConsole, TagMobile,

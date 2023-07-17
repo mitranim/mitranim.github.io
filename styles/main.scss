@@ -301,7 +301,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle}
   h1, h2, h3, h4, h5, h6 {@extend .target-flash}
   ul, ol {@extend .fancy-list}
   p, ul, ol {@extend .line-comfy}
-  hr:not(.--ungap) {@extend .hr}
+  hr:not(.--gap-none) {@extend .hr}
   a {@extend .link-deco}
   pre {@extend .pad-1}
 }
@@ -332,7 +332,7 @@ ul.fancy-list ul.fancy-list {list-style-type: circle}
 
   ul, ol {li {@extend .mar-top-0x5}}
 
-  > hr:not(.--ungap) {@extend .mar-ver-2}
+  > hr:not(.--gap-none) {@extend .mar-ver-2}
 }
 
 %article-headings {
