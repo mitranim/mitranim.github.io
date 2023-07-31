@@ -28,14 +28,19 @@ type Server struct {
 	Dir string
 }
 
+/*
+Implementation note: technically it would be preferable to use watcher library
+"github.com/rjeczalik/notify" which uses various OS-specific APIs that allow
+to listen for FS events and avoid polling. However, in this codebase, we use
+"github.com/fsnotify/fsnotify" because the "better" watcher mentioned earlier
+depends on CGo and slows down compilation, which can be slightly annoying here.
+*/
 func (self *Server) Watch() {
 	watcher := gg.Try1(fsnotify.NewWatcher())
 	defer watcher.Close()
 
 	dir := self.Dir
-	walkDirs(dir, func(path string, ent fs.DirEntry) {
-		gg.Try(watcher.Add(path))
-	})
+	walkDirs(dir, func(path string, ent fs.DirEntry) { gg.Try(watcher.Add(path)) })
 
 	for {
 		select {
