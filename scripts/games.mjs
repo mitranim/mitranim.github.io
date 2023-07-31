@@ -67,12 +67,15 @@ function findAll(cls) {return d.descendants(document.body, cls)}
 class Loc extends u.Loc {
   // TODO consider adding to `@mitranim/js/url.mjs`→`Query`.
   queryToggle(key, val) {
-    let vals = this.query.getAll(key)
-    if (vals?.includes(val)) vals = i.remove(vals, val)
-    else vals = i.append(vals, val)
-    this.query.setAll(key, vals)
+    this.query.setAll(key, toggle(this.query.getAll(key), val))
     return this
   }
+}
+
+// TODO consider adding to `@mitranim/js/iter.mjs`.
+function toggle(tar, val) {
+  tar = l.laxArr(tar)
+  return tar.includes(val) ? i.remove(tar, val) : i.append(tar, val)
 }
 
 class TimeSink extends TagLike {
