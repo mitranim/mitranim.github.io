@@ -5,8 +5,8 @@ import "github.com/mitranim/gt"
 func initSiteGames() GameColl {
 	return makeSiteGames().SortedByKeys(
 		`hades`,
-		`ftl`,
 		`slay_the_spire`,
+		`ftl`,
 		`astroneer`,
 		`subnautica`,
 		`subnautica_below_zero`,
@@ -347,7 +347,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Nier Automata`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/524220`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/524220/header.jpg`),
-			Desc:     `Post-apocalyptic story of androids and alien machine lifeforms. Thought-provoking and touching. Brought me to tears. _Avoid external spoilers!_ Go for "true ending". Use original Japanese voiceovers. Requires external tools, check [PCGW](https://www.pcgamingwiki.com/wiki/Nier_Automata). Requires a gamepad.`,
+			Desc:     `Post-apocalyptic story of androids and alien machine lifeforms. Thought-provoking and touching. Brought me to tears. _Avoid spoilers!_ Go for "true ending"! Use original Japanese voiceovers. Requires external tools, check [PCGW](https://www.pcgamingwiki.com/wiki/Nier_Automata). Requires a gamepad.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagWindows, TagConsole,
