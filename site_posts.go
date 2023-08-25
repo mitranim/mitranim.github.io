@@ -77,8 +77,8 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/hades.html`,
-				Title:       `Hades: impressions and recommendations`,
-				Description: `Impressions and suggestions on Hades, an excellent single-player roguelike game.`,
+				Title:       `Hades: tweak recommendations`,
+				Description: `Suggestions for how to play Hades, an excellent single-player roguelike game.`,
 				MdTpl:       readTemplate(`posts/hades.md`),
 			},
 			PublishedAt: timeParse(`2023-08-25T15:42:29Z`),
