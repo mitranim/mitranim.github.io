@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2023-08-09T12:00:48Z</updated>
+  <updated>2023-08-25T15:47:54Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -10,8 +10,165 @@
   </author>
   <link rel="alternate" type="text/html" href="https://mitranim.com/posts"></link>
   <link rel="self" type="application/atom+xml" href="https://mitranim.com/feed.xml"></link>
+  <entry xml:base="https://mitranim.com/posts/hades">
+    <title>Hades: impressions and recommendations</title>
+    <id>https://mitranim.com/posts/hades</id>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>This post is about the game <em>Hades</em> by Superguant Games, and how to enjoy it better. Link: <a href="https://store.steampowered.com/app/1145360" target="_blank" rel="noopener noreferrer">on Steam<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
+
+<ul>
+<li><a href="#things-to-know"><span class="hash-prefix noprint" aria-hidden="true">#</span>Things to Know</a></li>
+<li><a href="#guides"><span class="hash-prefix noprint" aria-hidden="true">#</span>Guides</a></li>
+<li><a href="#speedhacks"><span class="hash-prefix noprint" aria-hidden="true">#</span>Speedhacks</a></li>
+<li><a href="#macros"><span class="hash-prefix noprint" aria-hidden="true">#</span>Macros</a>
+
+<ul>
+<li><a href="#macro-auto-dash"><span class="hash-prefix noprint" aria-hidden="true">#</span>Macro: Auto Dash</a></li>
+<li><a href="#macro-auto-attack"><span class="hash-prefix noprint" aria-hidden="true">#</span>Macro: Auto Attack</a></li>
+<li><a href="#macro-attack-reload"><span class="hash-prefix noprint" aria-hidden="true">#</span>Macro: Attack Reload</a></li>
+<li><a href="#macro-dash-attack"><span class="hash-prefix noprint" aria-hidden="true">#</span>Macro: Dash Attack</a></li>
+<li><a href="#macro-attack-dash"><span class="hash-prefix noprint" aria-hidden="true">#</span>Macro: Attack Dash</a></li>
+<li><a href="#macro-dash-attack-reload-dash"><span class="hash-prefix noprint" aria-hidden="true">#</span>Macro: Dash Attack Reload Dash</a></li>
+</ul></li>
+</ul>
+<h2 id="things-to-know"><span class="heading-prefix" aria-hidden="true"></span>Things to Know<a href="#things-to-know" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Hades can be hard. Believe in yourself. You&rsquo;ll get better, and then a lot better.</p>
+
+<p>Failing is okay. Failing is good. Failure is success.</p>
+
+<p>Seemingly-insurmountable bosses become easier with experience and practice.</p>
+
+<p>An incomplete run is still a successful run. It rewards you with various forms of progress:</p>
+
+<ul>
+<li>Progress on NPC dialogs.</li>
+<li>Ability to progress NPC relations (via gifts).</li>
+<li>Resources obtained during the run.
+
+<ul>
+<li>Especially Darkness, which unlocks more talents in the Mirror.</li>
+</ul></li>
+<li>Your own experience.</li>
+</ul>
+<h2 id="guides"><span class="heading-prefix" aria-hidden="true"></span>Guides<a href="#guides" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>First off, I recommend the official Discord server for Hades / Supergiant Games. The link is available in the game&rsquo;s main menu! There are dedicated channels for Hades discussion, with many helpful people, and useful pinned guides.</p>
+
+<p>I found the following extremely informative and helpful: <a href="https://www.leereamsnyder.com/blog/hades-build-guide" target="_blank" rel="noopener noreferrer">link<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Advanced players should also read the following: <a href="https://docs.google.com/document/d/16_JXPaAt8fegie6Ss2x5tVeaR-FzoFlIgp0etd3yLHI" target="_blank" rel="noopener noreferrer">link<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
+<h2 id="speedhacks"><span class="heading-prefix" aria-hidden="true"></span>Speedhacks<a href="#speedhacks" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Hades can be very fast-paced. When you&rsquo;re uncomfortable with its speed, or simply want a closer look at the movements for training purposes, it&rsquo;s useful to slow the game down via slowhacks. Hades also has some unskippable sequences which you can fast-forward by speedhacking. Read my <a href="/posts/speed">post on speedhacking</a> for how-to.</p>
+<h2 id="macros"><span class="heading-prefix" aria-hidden="true"></span>Macros<a href="#macros" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Some weapons and aspects are significantly easier with macros. All suggestions below are for gamepads. You can also adapt this for KBM.</p>
+
+<p>I suggest using Steam Input to reconfigure your gamepad for Hades. Steam automatically &ldquo;hooks up&rdquo; to any gamepad, enabling additional functionality: global for desktop control, local for any given game. It allows to remap arbitrary keys, create button chords, macros, and more. Some gamepad manufacturers also provide their own software which can do similar things.</p>
+
+<p>Different macros are suited for different weapons and builds. I recommend creating different profiles for different weapons. In Steam Input, this can be done via Action Set Layers or Action Sets. Configure hotkeys for switching between those.</p>
+<h3 id="macro-auto-dash"><span class="heading-prefix" aria-hidden="true"></span>Macro: Auto Dash<a href="#macro-auto-dash" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>While held, repeat Dash. Suggested interval: 300ms. Can safely replace the normal Dash key.</p>
+
+<p>Reduces button wear and tear. Reduces finger strain. Makes Dash-Attack spam easier and more consistent. Makes general movement easier.</p>
+
+<p>In my testing, delays above 300ms cause issues with the hidden aspect of Twin Fists, causing it to sometimes burst out multiple dashes instead of one, like you were holding the normal Dash key. I suspect this might be caused by artificial delays between virtual button press and release generated by Steam Input. This may change in future Steam Input versions.</p>
+<h3 id="macro-auto-attack"><span class="heading-prefix" aria-hidden="true"></span>Macro: Auto Attack<a href="#macro-auto-attack" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>While held, repeat Attack. Suggested interval: 32ms. Can be combined with <a href="#macro-attack-reload"><span class="hash-prefix noprint" aria-hidden="true">#</span>Attack Reload</a> on the same key.</p>
+
+<p>Useful for Stygius (sword), Varatha (spear), Aegis (shield). On Stygius, this is like Flurry Slash. On Varatha, this is like Flurry Jab. These Daedalus Hammers are still useful because they also make your Attack faster.</p>
+<h3 id="macro-attack-reload"><span class="heading-prefix" aria-hidden="true"></span>Macro: Attack Reload<a href="#macro-attack-reload" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>Attack, tiny delay, Reload. Suggested delay: 64ms. Can be combined with <a href="#macro-auto-attack"><span class="hash-prefix noprint" aria-hidden="true">#</span>Auto Attack</a> on the same key.</p>
+
+<p>Useful for Aspect of Hestia, without requiring an additional key if you already have <a href="#macro-auto-attack"><span class="hash-prefix noprint" aria-hidden="true">#</span>Auto Attack</a>. The delay is chosen to allow one non-Empowered shot before the Reload, if the weapon was not already Empowered. Feel free to reduce it. Empowered Shot executes regardless of delay.</p>
+
+<p>See <a href="#macro-dash-attack-reload-dash"><span class="hash-prefix noprint" aria-hidden="true">#</span>Dash Attack Reload Dash</a> for even more powerful Hestia action.</p>
+<h3 id="macro-dash-attack"><span class="heading-prefix" aria-hidden="true"></span>Macro: Dash Attack<a href="#macro-dash-attack" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>Dash, tiny delay, Attack. Suggested delay: 50ms.</p>
+
+<p>Useful for Coronacht (bow) and Aspect of Nemesis. Allows to consistently execute Dash-Attacks with one key. Significantly easier than timing two keys together. On other weapons, I prefer to combine <a href="#macro-auto-dash"><span class="hash-prefix noprint" aria-hidden="true">#</span>Auto Dash</a> with <a href="#macro-auto-attack"><span class="hash-prefix noprint" aria-hidden="true">#</span>Auto Attack</a>.</p>
+
+<p>Set Dash activation to &ldquo;start press&rdquo; rather than &ldquo;regular press&rdquo;, which allows to dash-out early by hitting the normal Dash key.</p>
+<h3 id="macro-attack-dash"><span class="heading-prefix" aria-hidden="true"></span>Macro: Attack Dash<a href="#macro-attack-dash" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>Attack, tiny delay, Dash. Suggested delay: somewhere between 50ms and 200ms, depending on the weapon. Enough to avoid a Dash-Attack.</p>
+
+<p>Can be useful for Merciful End on weapons where a single Dash-Attack only applies Doom and fails to trigger Merciful End via Divine Dash. In my experience, Stygius tends to behave this way. On weapons where a single Dash-Attack applies Doom <em>and</em> triggers ME, spamming Dash-Attacks is better. See <a href="#macro-auto-dash"><span class="hash-prefix noprint" aria-hidden="true">#</span>Auto Dash</a> and <a href="#macro-auto-attack"><span class="hash-prefix noprint" aria-hidden="true">#</span>Auto Attack</a>.</p>
+<h3 id="macro-dash-attack-reload-dash"><span class="heading-prefix" aria-hidden="true"></span>Macro: Dash Attack Reload Dash<a href="#macro-dash-attack-reload-dash" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>Dash, delay, Attack, delay, Reload, delay, Dash. Suggested delay: 50ms between each action. In Steam Input, this means increasing &ldquo;fire delays&rdquo;: 50ms, 100ms, and so on.</p>
+
+<p>Improved version of <a href="#macro-attack-reload"><span class="hash-prefix noprint" aria-hidden="true">#</span>Attack Reload</a>, specialized for Aspect of Hestia. Ensures that each shot is a Dash-Attack, triggering Hyper Sprint for Rush Delivery, and benefitting from Chaos Lunge boons. Ensures that you always cancel the Reload animation by dashing, keeping you safer.</p>
+
+<p>Because macro execution takes time, you can turn towards an enemy for the shot, then quickly turn away for the subsequent dash.</p>
+</article>]]></content>
+    <published>2023-08-25T15:42:29Z</published>
+    <updated>2023-08-25T15:42:29Z</updated>
+    <link rel="alternate" href="https://mitranim.com/posts/hades"></link>
+    <summary type="html"><![CDATA[Impressions and suggestions on Hades, an excellent single-player roguelike game.]]></summary>
+    <author>
+      <name>Nelo Mitranim</name>
+      <email>me@mitranim.com</email>
+    </author>
+  </entry>
+  <entry xml:base="https://mitranim.com/posts/speed">
+    <title>Using speedhacks in single player games</title>
+    <id>https://mitranim.com/posts/speed</id>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><ul>
+<li><a href="#definitions"><span class="hash-prefix noprint" aria-hidden="true">#</span>Definitions</a></li>
+<li><a href="#why"><span class="hash-prefix noprint" aria-hidden="true">#</span>Why</a></li>
+<li><a href="#how"><span class="hash-prefix noprint" aria-hidden="true">#</span>How</a></li>
+<li><a href="#gamepads"><span class="hash-prefix noprint" aria-hidden="true">#</span>Gamepads</a></li>
+</ul>
+<h2 id="definitions"><span class="heading-prefix" aria-hidden="true"></span>Definitions<a href="#definitions" class="heading-anchor" aria-hidden="true"></a></h2>
+<p><em>Speedhack</em>: one of:</p>
+
+<ul>
+<li>Making the game as a whole run faster.</li>
+<li>Performing some actions much faster or sooner than normally allowed.</li>
+</ul>
+
+<p><em>Slowhack</em>: inverse of speedhack. Typically makes the game as a whole run slower.</p>
+
+<p>I recommend this <strong>for single-player games only</strong>. Do not cheat in multi-player games. Don&rsquo;t be a nuisance to your partners/opponents.</p>
+<h2 id="why"><span class="heading-prefix" aria-hidden="true"></span>Why<a href="#why" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Many games are generally sluggish, or have sluggish segments such as unskippable cutscenes, forced walking sequences, and more. Whenever you feel bored and wish you could fast-forward, speedhacks are for you.</p>
+
+<p>Some games, for some players, can be so challenging that the player is unable to progress without cheats. Slowhacking can make this easier in a way that doesn&rsquo;t circumvent any mechanics, merely compensating for reaction time. Slowhacking can be useful for learning and training, before upgrading to &ldquo;proper&rdquo; speed.</p>
+<h2 id="how"><span class="heading-prefix" aria-hidden="true"></span>How<a href="#how" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>There are probably many different ways. At the time of writing, I use and recommend <em>Cheat Engine</em>. Official site: <a href="https://cheatengine.org" target="_blank" rel="noopener noreferrer">https://cheatengine.org<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. CE runs as its own app that &ldquo;attaches&rdquo; to another app, such as a game, to perform arbitrary hacks on it. CE has many features. Speedhacking is just one of them. I suggest reading CE docs/guides.</p>
+
+<p><em><strong>Kill Cheat Engine</strong></em> before launching any multi-player game, otherwise you <em><strong>might get banned</strong></em>. Many multi-player games have their own &ldquo;cheat detection&rdquo; which can produce false positives.</p>
+
+<p>For convenience, you want CE global hotkeys, which can be used without alt-tabbing. At the minimum, I suggest the following:</p>
+
+<ul>
+<li>Attach to current foreground process (example key: <code>numpad 0</code>).</li>
+<li>Toggle speedhack (example key: <code>numpad 1</code>).</li>
+<li>Various speed increments, such as:
+
+<ul>
+<li>Speed: 0.5 (example key: <code>numpad 2</code>).</li>
+<li>Speed: 1.5 (example key: <code>numpad 3</code>).</li>
+<li>Speed: 2 (example key: <code>numpad 4</code>).</li>
+<li>Speed: 4 (example key: <code>numpad 5</code>).</li>
+<li>Speed: 6 (example key: <code>numpad 6</code>).</li>
+<li>Speed increase (example key: <code>numpad +</code>).</li>
+<li>Speed decrease (example key: <code>numpad -</code>).</li>
+</ul></li>
+</ul>
+
+<p>After launching both CE and the target game (or another app you want to hack), hit the key to &ldquo;attach to current process&rdquo;, then use the appropriate speed keys, and enjoy.</p>
+<h2 id="gamepads"><span class="heading-prefix" aria-hidden="true"></span>Gamepads<a href="#gamepads" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>This section is out of scope for speedhacking, and might eventually be expanded into its own post.</p>
+
+<p>When using a gamepad, it can be inconvenient to reach for the keyboard to use CE hotkeys, or other global hotkeys. This is fixable by emulating keyboard keys on the gamepad, for example via <em>Steam Input</em> or <em>DS4Windows</em>.</p>
+
+<p>Compared to KBM, gamepads have very few keys. You can&rsquo;t spare them for additional global hotkeys. However, you can find <em>combinations</em> which are normally unused. For example, pressing or tilting the right analog stick and simultaneously pressing one of the face buttons. Or similar on the left side. Such combinations never occur in normal gameplay because a thumb can&rsquo;t be in two places at once. In Steam Input, pressing any button, or tilting an analog stick, or performing another action of your choice, can overlay a different configuration (called &ldquo;<em>action set layer</em>&rdquo;) over existing keys, allowing you to configure a large number of additional actions, some of which can be used for CE and speedhacking.</p>
+</article>]]></content>
+    <published>2023-08-25T14:00:44Z</published>
+    <updated>2023-08-25T14:00:44Z</updated>
+    <link rel="alternate" href="https://mitranim.com/posts/speed"></link>
+    <summary type="html"><![CDATA[Explanation and instructions on speedhacking, a surprisingly handy tool in gaming.]]></summary>
+    <author>
+      <name>Nelo Mitranim</name>
+      <email>me@mitranim.com</email>
+    </author>
+  </entry>
   <entry xml:base="https://mitranim.com/posts/witcher">
-    <title>Witcher Franchise: How to Enjoy</title>
+    <title>Witcher franchise: how to enjoy</title>
     <id>https://mitranim.com/posts/witcher</id>
     <content type="html"><![CDATA[<article role="main article" class="typography"><ul>
 <li><a href="#order"><span class="hash-prefix noprint" aria-hidden="true">#</span>Order</a></li>
@@ -318,14 +475,7 @@ DBGConsoleOn=true
 <pre><code>setbeard(1)
 </code></pre>
 <h2 id="speedhacks"><span class="heading-prefix" aria-hidden="true"></span>Speedhacks<a href="#speedhacks" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>Witcher 1 and Witcher 2 can feel like a slog when backtracking or otherwise running around, with no ingame way to speed that up. Speedhacks are highly recommended.</p>
-
-<ul>
-<li>Install <a href="https://cheatengine.org" target="_blank" rel="noopener noreferrer">Cheat Engine<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
-<li>Configure hotkeys for various speeds, such as x1 x1.5 x2 x3 or whatever you prefer.</li>
-</ul>
-
-<p>Important: kill Cheat Engine before starting any multiplayer game. Some of them spy on your system to detect programs such as Cheat Engine, and may ban you merely for running it. However, Witcher games are purely single-player and don&rsquo;t have such issues.</p>
+<p>Witcher 1 and Witcher 2 can feel like a slog when backtracking or otherwise running around, with no ingame way to speed that up. Speedhacks are highly recommended. See my <a href="/posts/speed">post on speedhacking</a>.</p>
 </article>]]></content>
     <published>2023-03-20T23:40:42Z</published>
     <updated>2023-03-20T23:40:42Z</updated>
@@ -337,7 +487,7 @@ DBGConsoleOn=true
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/divinity-original-sin-2">
-    <title>Divinity Original Sin 2: How to Play and Enjoy</title>
+    <title>Divinity Original Sin 2: how to play and enjoy</title>
     <id>https://mitranim.com/posts/divinity-original-sin-2</id>
     <content type="html"><![CDATA[<article role="main article" class="typography"><p>This post is about the game <em>Divinity Original Sin 2</em> by Larian Studios, and how to customize it for maximum enjoyment. Links: <a href="https://store.steampowered.com/app/435150/Divinity_Original_Sin_2__Definitive_Edition/" target="_blank" rel="noopener noreferrer">on Steam<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <a href="https://www.gog.com/en/game/divinity_original_sin_2" target="_blank" rel="noopener noreferrer">on GoG<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
 
@@ -456,19 +606,7 @@ DBGConsoleOn=true
 <li>Can be used without restarting the game. Simply wait for a save file to be fully generated, then load that save.</li>
 </ul>
 <h2 id="speedhacks"><span class="heading-prefix" aria-hidden="true"></span>Speedhacks<a href="#speedhacks" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>Characters run extremely slowly and have extremely long casting animations. Speedhacks are practically required.</p>
-
-<ul>
-<li>Use <a href="https://cheatengine.org" target="_blank" rel="noopener noreferrer">Cheat Engine<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</li>
-<li>Setup hotkeys for speed increments. The effort pays off very quickly.
-
-<ul>
-<li>Suggested increments: x1, x1.5, x2, x3, x4.</li>
-</ul></li>
-<li>I mostly use x1.5 or x2.</li>
-</ul>
-
-<p>Make sure to kill Cheat Engine before launching any multiplayer game, otherwise you might get unfairly banned.</p>
+<p>Characters run extremely slowly and have extremely long casting animations. Speedhacks are practically required. See my <a href="/posts/speed">post on speedhacking</a>.</p>
 <h2 id="strats"><span class="heading-prefix" aria-hidden="true"></span>Strats<a href="#strats" class="heading-anchor" aria-hidden="true"></a></h2><h3 id="try-different-party-sizes"><span class="heading-prefix" aria-hidden="true"></span>Try different party sizes<a href="#try-different-party-sizes" class="heading-anchor" aria-hidden="true"></a></h3>
 <ul>
 <li>The game is perfectly suited for party sizes of 4, 2, and 1.</li>
@@ -771,7 +909,7 @@ DBGConsoleOn=true
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/andromeda">
-    <title>Game impressions: Mass Effect Andromeda</title>
+    <title>Game impressions: Mass Effect Andromeda.</title>
     <id>https://mitranim.com/posts/andromeda</id>
     <content type="html"><![CDATA[<article role="main article" class="typography"><p>Very good. Solid sequel. Worthy successor. Got patched, addressing many release problems such as faces. Requires additional <a href="#mods"><span class="hash-prefix noprint" aria-hidden="true">#</span>mods</a> to unfuck.</p>
 
@@ -1723,9 +1861,9 @@ Generating the ASCII figure:
 <li><a href="#treasurers-are-impostors-and-thieves"><span class="hash-prefix noprint" aria-hidden="true">#</span>Treasurers are impostors and thieves</a></li>
 </ul>
 <h2 id="non-primes"><span class="heading-prefix" aria-hidden="true"></span>Non-primes existed in Orokin times<a href="#non-primes" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(342/512*100%)" href="https://warframe.fandom.com/wiki/Braton" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/braton.png" alt="Braton" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Braton</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Braton" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/braton.png" alt="Braton" class="img-box-img" style="aspect-ratio: 512/342"></a><span class="img-box-caption" aria-hidden="true">Braton</span></div>
 
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(342/512*100%)" href="https://warframe.fandom.com/wiki/Braton_Prime" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/braton_prime.png" alt="Braton Prime" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Braton Prime</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Braton_Prime" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/braton_prime.png" alt="Braton Prime" class="img-box-img" style="aspect-ratio: 512/342"></a><span class="img-box-caption" aria-hidden="true">Braton Prime</span></div>
 
 <p>Prime warframes and weapons were made exclusively in the Orokin times, while non-primes can be manufactured from scratch right now. Non-primes could be cheap knock-offs of the originals, but they could also <em>be</em> the originals, the prototypes, later refined with superior materials and designs <span aria-hidden="true">✨</span>.</p>
 
@@ -1739,7 +1877,7 @@ Generating the ASCII figure:
 
 <p>However, if Tenno found this out, cover would be blown. They would start going after real reactors. Corpus and Grineer would be back to square 1. To prevent this, it makes sense to explode ships for real if any Tenno are still present when the fake timer runs out. They even encourage this, by using the oh-so-special caches to bait Tenno into staying until the explosion. By sacrificing a few ships, they spread the word, and then the other Tenno are less motivated to stick around and find out what really happens, which is&hellip; nothing.</p>
 <h2 id="mass-ignorance"><span class="heading-prefix" aria-hidden="true"></span>Mass-produced enemy units are ignorant about the Tenno threat level<a href="#mass-ignorance" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(417/640*100%)" href="https://warframe.fandom.com/wiki/Jackal" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/jackal.jpg" alt="Jackal" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Jackal</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Jackal" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/jackal.jpg" alt="Jackal" class="img-box-img" style="aspect-ratio: 640/417"></a><span class="img-box-caption" aria-hidden="true">Jackal</span></div>
 
 <p>Corpus and Grineer infantry, as well as mass-produced bosses such as the Jackal, seem suicidally brave when facing Tenno.</p>
 
@@ -1796,7 +1934,7 @@ Generating the ASCII figure:
 
 <p>What about the robots, such as the Jackal and the Raptors? One possibility is that their artificial intelligence is too complicated and lifelike; Corpus couldn&rsquo;t separate the combat data from the emotional trauma caused by the Tenno raids. Or even better, after analyzing the combat data, the onboard intelligence correctly concludes that the probability of victory against Tenno is around 0.0001%, and the most effective combat tactic is to play dead until the Tenno leave, nullifying its combat effectiveness. Leaving Corpus with no choice but to reset the data every time.</p>
 <h2 id="kavats"><span class="heading-prefix" aria-hidden="true"></span>Feral kavats and Tenno kavats are the animal equivalent of warframes<a href="#kavats" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(256/256*100%)" href="https://warframe.fandom.com/wiki/Feral_Kavat" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/feral_kavat.png" alt="Feral Kavat" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Feral Kavat</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Feral_Kavat" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/feral_kavat.png" alt="Feral Kavat" class="img-box-img" style="aspect-ratio: 256/256"></a><span class="img-box-caption" aria-hidden="true">Feral Kavat</span></div>
 
 <p>On the Orokin Derelict, feral kavats have lived alongside the Infestation for hundreds of years. By now, all organic materials aboard, along with many inorganics, have been converted to Infested biomass. The kavats survive by feeding on it. There have to be repercussions. Their supposed &ldquo;immunity&rdquo; is not absolute; they&rsquo;ve been gradually altered, fur being replaced by scales, tails and shoulders forming something resembling cysts, and so on. In Ballas&rsquo;s words: &ldquo;Transformed, but only just&rdquo;.</p>
 
@@ -1806,7 +1944,7 @@ Generating the ASCII figure:
 
 <p>Oh and consider the astronomical 120k Alloy Plate spent on the Incubator kavat module. Where exactly did that Alloy Plate go? Perhaps it&rsquo;s being used to reinforce the kavats.</p>
 <h2 id="vauban"><span class="heading-prefix" aria-hidden="true"></span>Vauban is some Corpus guy pretending to be a warframe<a href="#vauban" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(320/320*100%)" href="https://warframe.fandom.com/wiki/Vauban/Prime" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/vauban_prime.png" alt="Vauban Prime" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Vauban Prime</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Vauban/Prime" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/vauban_prime.png" alt="Vauban Prime" class="img-box-img" style="aspect-ratio: 320/320"></a><span class="img-box-caption" aria-hidden="true">Vauban Prime</span></div>
 
 <p>Every Vauban ability involves deploying small gear such as grenades. In contrast, most warframe abilities involve conjuring things out of nothing; think Ember, Frost, Nova, Saryn, and more. Some do have integrated gear, such as exalted weapons and Protea&rsquo;s deployables. However, Vauban&rsquo;s 100% reliance on deployables should raise suspicion. If Corpus were to create a warframe-alike, this is <em>exactly</em> how it would function!</p>
 
@@ -1830,7 +1968,7 @@ Generating the ASCII figure:
 
 <p>If these guys are remote-controlled like regular warframes, their operators might still be sleeping through the Second Dream. They might even believe themselves to be human!</p>
 <h2 id="operator-peaceframes"><span class="heading-prefix" aria-hidden="true"></span>Hypothesis: operators are &ldquo;peaceframes&rdquo;<a href="#operator-peaceframes" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><div class="img-box-padder" style="padding-top: calc(680/680*100%)"><img src="/images/warframe/somatic_link.jpg" alt="Somatic Link" class="img-box-img"></div><span class="img-box-caption" aria-hidden="true">Somatic Link</span></div>
+<div class="img-box"><div class="img-box-link"><img src="/images/warframe/somatic_link.jpg" alt="Somatic Link" class="img-box-img" style="aspect-ratio: 680/680"></div><span class="img-box-caption" aria-hidden="true">Somatic Link</span></div>
 
 <p>See the above on Tenno associates and peaceframes. If operators were also peaceframes, this would explain a lot!</p>
 
@@ -1850,7 +1988,7 @@ Generating the ASCII figure:
 
 <p>Our Operator never makes any statements contradicting any of this, but even if they did, their memory can&rsquo;t be trusted anyway!</p>
 <h2 id="tenno-digital"><span class="heading-prefix" aria-hidden="true"></span>Hypothesis: Tenno are digital minds (busted)<a href="#tenno-digital" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(256/256*100%)" href="https://warframe.fandom.com/wiki/Cephalon" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/ordis.png" alt="Cephalon" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Cephalon</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Cephalon" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/ordis.png" alt="Cephalon" class="img-box-img" style="aspect-ratio: 256/256"></a><span class="img-box-caption" aria-hidden="true">Cephalon</span></div>
 
 <p>This was my original headcanon about Tenno before playing the Second Dream.</p>
 
@@ -1862,7 +2000,7 @@ Generating the ASCII figure:
 
 <p>This more or less gets busted by the Second Dream. See <a href="#operator-peaceframes"><span class="hash-prefix noprint" aria-hidden="true">#</span>operator peaceframes</a> for an alternate interpretation.</p>
 <h2 id="tenno-children"><span class="heading-prefix" aria-hidden="true"></span>Hypotheses about the Zariman children<a href="#tenno-children" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(640/640*100%)" href="https://warframe.fandom.com/wiki/Zariman_Ten_Zero" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/vitruvian_zariman.jpg" alt="Zariman in the Vitruvian" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Zariman in the Vitruvian</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Zariman_Ten_Zero" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/vitruvian_zariman.jpg" alt="Zariman in the Vitruvian" class="img-box-img" style="aspect-ratio: 640/640"></a><span class="img-box-caption" aria-hidden="true">Zariman in the Vitruvian</span></div>
 
 <p><strong>Basis</strong>. Ember&rsquo;s Codex entry: &ldquo;Why would you put children on a military ship? — We didn&rsquo;t.&rdquo;</p>
 
@@ -1895,7 +2033,7 @@ Generating the ASCII figure:
 <h3 id="hypothesis-the-void-made-them"><span class="heading-prefix" aria-hidden="true"></span>Hypothesis: the Void made them<a href="#hypothesis-the-void-made-them" class="heading-anchor" aria-hidden="true"></a></h3>
 <p>Perhaps everything was according to procedure. The Zariman&rsquo;s crew consisted of only human adults, they didn&rsquo;t reproduce, didn&rsquo;t reverse-age. Instead, creatures indistinguishable from human children appeared out of the Void, and the rest is history.</p>
 <h2 id="void-entity"><span class="heading-prefix" aria-hidden="true"></span>Void entity hypotheses<a href="#void-entity" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(260/320*100%)" href="https://warframe.fandom.com/wiki/The_Man_in_The_Wall" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/wall_hand.jpg" alt="Reaching out" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Reaching out</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/The_Man_in_The_Wall" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/wall_hand.jpg" alt="Reaching out" class="img-box-img" style="aspect-ratio: 320/260"></a><span class="img-box-caption" aria-hidden="true">Reaching out</span></div>
 
 <p>&ldquo;Void entity&rdquo; refers to any of:</p>
 
@@ -1921,7 +2059,7 @@ Generating the ASCII figure:
 <h3 id="there-is-not-one-man-in-the-wall-but-many"><span class="heading-prefix" aria-hidden="true"></span>There is not one man-in-the-wall but many<a href="#there-is-not-one-man-in-the-wall-but-many" class="heading-anchor" aria-hidden="true"></a></h3>
 <p>Let&rsquo;s say the Void has no &ldquo;will&rdquo; or &ldquo;representative&rdquo; of its own, but is able to &ldquo;split&rdquo;/duplicate people, where one &ldquo;half&rdquo;/copy stays in the Void, powering your powers. There is not a <em>single</em> MITW but many. Albrecht Entrati had his own. We have our own. At the end of New War, the MITW we &ldquo;saw&rdquo; was merely an illusion created by the limits of what our mind could comprehend. A small facet of the whole.</p>
 <h2 id="stalker"><span class="heading-prefix" aria-hidden="true"></span>Stalker hypotheses<a href="#stalker" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(320/320*100%)" href="https://warframe.fandom.com/wiki/Stalker" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/stalker.png" alt="Stalker" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Stalker</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Stalker" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/stalker.png" alt="Stalker" class="img-box-img" style="aspect-ratio: 320/320"></a><span class="img-box-caption" aria-hidden="true">Stalker</span></div>
 
 <p>Known Stalker canon:</p>
 
@@ -2013,7 +2151,7 @@ Generating the ASCII figure:
 
 <p>But what if Inaros is made of fast-moving, fast-replicating nano- or micro-bots? This simultaneously explains the high health pool (no vulnerable organs) and the ease of transfering that health around.</p>
 <h2 id="orokin-drones-are-indoctrination-devices"><span class="heading-prefix" aria-hidden="true"></span>Orokin Drones are indoctrination devices<a href="#orokin-drones-are-indoctrination-devices" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-padder" style="padding-top: calc(256/256*100%)" href="https://warframe.fandom.com/wiki/Orokin_Drone" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/orokin_drone.png" alt="Orokin Drone" class="img-box-img"></a><span class="img-box-caption" aria-hidden="true">Orokin Drone</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Orokin_Drone" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/orokin_drone.png" alt="Orokin Drone" class="img-box-img" style="aspect-ratio: 256/256"></a><span class="img-box-caption" aria-hidden="true">Orokin Drone</span></div>
 
 <p>In the Corrupted faction, all units are named &ldquo;Corrupted X&rdquo;, except for these drones. Now consider, how exactly does an Orokin Tower&rsquo;s &ldquo;neural sentry&rdquo;, likely a Cephalon, maintain the towers? How does it corrupt those who visit its domain? How does it maintain the state of corruption?</p>
 
@@ -2057,7 +2195,7 @@ Generating the ASCII figure:
     </author>
   </entry>
   <entry xml:base="https://mitranim.com/posts/thoughts-on-the-egg">
-    <title>Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt</title>
+    <title>Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt.</title>
     <id>https://mitranim.com/posts/thoughts-on-the-egg</id>
     <content type="html"><![CDATA[<article role="main article" class="typography"><iframe width="560" height="315" src="https://www.youtube.com/embed/h6fcK_fRYaI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
