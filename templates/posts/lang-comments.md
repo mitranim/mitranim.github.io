@@ -26,3 +26,7 @@
 Inherent tradeoffs:
 
 * For any large comment with multiple line breaks: single-line is easier to read without special support, harder to write without special support; multi-line is easier to write without special support, harder to read without special support.
+
+Observations:
+
+* Popular, long-lived languages eventually acquire both comment types. Committing to just single-line or just multi-line comments always proves impossible in the long run. For example, Python officially has only single-line comments, but in practice, multi-line strings are used for large comments, mostly docstrings. Conversely, some people prefer having a comment prefix on every line, and when given only a multi-line comment format, they invent a prefix convention that emulates single-line comments inside of multi-line comments.

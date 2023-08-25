@@ -77,7 +77,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/witcher.html`,
-				Title:       `Witcher Franchise: How to Enjoy`,
+				Title:       `Witcher franchise: how to enjoy`,
 				Description: `Essential tips and tricks for Witcher games. Spoiler-free!`,
 				MdTpl:       readTemplate(`posts/witcher.md`),
 			},
@@ -88,17 +88,18 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/divinity-original-sin-2.html`,
-				Title:       `Divinity Original Sin 2: How to Play and Enjoy`,
+				Title:       `Divinity Original Sin 2: how to play and enjoy`,
 				Description: `Mod recommendations and gameplay suggestions. Spoiler-free!`,
 				MdTpl:       readTemplate(`posts/divinity-original-sin-2.md`),
 			},
 			PublishedAt: timeParse(`2023-03-17T12:01:03Z`),
+			UpdatedAt:   timeParse(`2023-08-09T16:00:00Z`),
 			IsListed:    true,
 		},
 		PagePost{
 			Page: Page{
 				Path:  `posts/steins-gate.html`,
-				Title: `[Draft] Impressions: Steins Gate series (games and anime)`,
+				Title: `[Draft] Impressions: Steins Gate series (games and anime).`,
 				MdTpl: readTemplate(`posts/steins-gate.md`),
 			},
 		},
@@ -136,7 +137,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/andromeda.html`,
-				Title:       `Game impressions: Mass Effect Andromeda`,
+				Title:       `Game impressions: Mass Effect Andromeda.`,
 				Description: `Enjoyed, highly recommended.`,
 				MdTpl:       readTemplate(`posts/andromeda.md`),
 			},
@@ -221,7 +222,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:  `posts/thoughts-on-the-egg.html`,
-				Title: `Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt`,
+				Title: `Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt.`,
 				MdTpl: readTemplate(`posts/thoughts-on-the-egg.md`),
 			},
 			PublishedAt: timeParse(`2020-04-30T08:25:16Z`),

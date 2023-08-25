@@ -758,7 +758,7 @@ func makeSiteGames() (out GameColl) {
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows, TagMac,
-				Tag3d, TagIsometric,
+				Tag2d, Tag3d, TagIsometric,
 				TagSolo, TagPve,
 				TagShooter, TagMelee, TagMagic, TagFantasy,
 				TagStory, TagRoguelike, TagGrind,
