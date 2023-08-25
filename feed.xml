@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2023-08-25T15:47:54Z</updated>
+  <updated>2023-08-25T16:06:23Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -11,7 +11,7 @@
   <link rel="alternate" type="text/html" href="https://mitranim.com/posts"></link>
   <link rel="self" type="application/atom+xml" href="https://mitranim.com/feed.xml"></link>
   <entry xml:base="https://mitranim.com/posts/hades">
-    <title>Hades: impressions and recommendations</title>
+    <title>Hades: tweak recommendations</title>
     <id>https://mitranim.com/posts/hades</id>
     <content type="html"><![CDATA[<article role="main article" class="typography"><p>This post is about the game <em>Hades</em> by Superguant Games, and how to enjoy it better. Link: <a href="https://store.steampowered.com/app/1145360" target="_blank" rel="noopener noreferrer">on Steam<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
 
@@ -97,7 +97,7 @@
     <published>2023-08-25T15:42:29Z</published>
     <updated>2023-08-25T15:42:29Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/hades"></link>
-    <summary type="html"><![CDATA[Impressions and suggestions on Hades, an excellent single-player roguelike game.]]></summary>
+    <summary type="html"><![CDATA[Suggestions for how to play Hades, an excellent single-player roguelike game.]]></summary>
     <author>
       <name>Nelo Mitranim</name>
       <email>me@mitranim.com</email>
