@@ -213,9 +213,4 @@ Maximum beard:
 
 ## Speedhacks
 
-Witcher 1 and Witcher 2 can feel like a slog when backtracking or otherwise running around, with no ingame way to speed that up. Speedhacks are highly recommended.
-
-* Install [Cheat Engine](https://cheatengine.org).
-* Configure hotkeys for various speeds, such as x1 x1.5 x2 x3 or whatever you prefer.
-
-Important: kill Cheat Engine before starting any multiplayer game. Some of them spy on your system to detect programs such as Cheat Engine, and may ban you merely for running it. However, Witcher games are purely single-player and don't have such issues.
+Witcher 1 and Witcher 2 can feel like a slog when backtracking or otherwise running around, with no ingame way to speed that up. Speedhacks are highly recommended. See my [post on speedhacking](/posts/speed).

@@ -67,14 +67,7 @@ Link: https://github.com/NovFR/DoS-2-Savegame-Editor.
 
 ## Speedhacks
 
-Characters run extremely slowly and have extremely long casting animations. Speedhacks are practically required.
-
-* Use [Cheat Engine](https://cheatengine.org).
-* Setup hotkeys for speed increments. The effort pays off very quickly.
-  * Suggested increments: x1, x1.5, x2, x3, x4.
-* I mostly use x1.5 or x2.
-
-Make sure to kill Cheat Engine before launching any multiplayer game, otherwise you might get unfairly banned.
+Characters run extremely slowly and have extremely long casting animations. Speedhacks are practically required. See my [post on speedhacking](/posts/speed).
 
 ## Strats
 

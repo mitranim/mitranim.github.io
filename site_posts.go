@@ -76,6 +76,16 @@ func initSitePosts() []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Path:        `posts/speed.html`,
+				Title:       `Using speedhacks in single player games`,
+				Description: `Explanation and instructions on speedhacking, a surprisingly handy tool in gaming.`,
+				MdTpl:       readTemplate(`posts/speed.md`),
+			},
+			PublishedAt: timeParse(`2023-08-25T14:00:44Z`),
+			IsListed:    true,
+		},
+		PagePost{
+			Page: Page{
 				Path:        `posts/witcher.html`,
 				Title:       `Witcher franchise: how to enjoy`,
 				Description: `Essential tips and tricks for Witcher games. Spoiler-free!`,
