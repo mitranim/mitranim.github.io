@@ -76,6 +76,16 @@ func initSitePosts() []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Path:        `posts/hades.html`,
+				Title:       `Hades: impressions and recommendations`,
+				Description: `Impressions and suggestions on Hades, an excellent single-player roguelike game.`,
+				MdTpl:       readTemplate(`posts/hades.md`),
+			},
+			PublishedAt: timeParse(`2023-08-25T15:42:29Z`),
+			IsListed:    true,
+		},
+		PagePost{
+			Page: Page{
 				Path:        `posts/speed.html`,
 				Title:       `Using speedhacks in single player games`,
 				Description: `Explanation and instructions on speedhacking, a surprisingly handy tool in gaming.`,
