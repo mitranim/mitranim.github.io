@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"path"
 
 	x "github.com/mitranim/gax"
@@ -208,22 +207,20 @@ func ImgBox(meta ImgMeta) x.Elem {
 		meta.Caption = baseName(meta.Src)
 	}
 
-	padderAttrs := AP(
-		`class`, `img-box-padder`,
-		`style`, fmt.Sprintf(`padding-top: calc(%v/%v*100%%)`, meta.Height, meta.Width),
-	)
+	linkAttrs := AP(`class`, `img-box-link`)
 
 	inner := E(`img`, AP(
 		`src`, meta.Src,
 		`alt`, meta.Caption,
 		`class`, `img-box-img`,
+		`style`, gg.Str(`aspect-ratio: `, meta.Width, `/`, meta.Height),
 	))
 
 	return E(`div`, AP(`class`, `img-box`), func(bui B) {
 		if meta.Href != `` {
-			bui.E(`a`, padderAttrs.AP(`href`, meta.Href).A(ABLAN...), inner)
+			bui.E(`a`, linkAttrs.AP(`href`, meta.Href).A(ABLAN...), inner)
 		} else {
-			bui.E(`div`, padderAttrs, inner)
+			bui.E(`div`, linkAttrs, inner)
 		}
 		bui.E(`span`, AP(`class`, `img-box-caption`, `aria-hidden`, `true`), meta.Caption)
 	})

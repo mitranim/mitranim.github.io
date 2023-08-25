@@ -527,7 +527,7 @@ large.
   }
 }
 
-.img-box-padder {
+.img-box-link {
   @extend .block;
   border-radius: inherit;
 
@@ -536,22 +536,11 @@ large.
 }
 
 /*
-TODO: use fixed image dimensions or place them to the side from article content,
-rather than in the middle. If image height influences the article layout, the
-content jumps around when images load.
-
-Possible solutions:
-
-  * Place images to the side: not viable for narrow displays or very large
-    images.
-  * Convert all images to squares and set fixed width and height on `<img>`.
-  * Scan image files at compile time and interpolate the vertical proportion
-    into the markup, using the vertical padding trick to reserve the space.
+Note: dimensions must be set in the markup. We scan width/height from image
+file metadata to set `aspect-ratio` for each `img`.
 */
 .img-box-img {
   @extend .block;
-  @extend .abs-fit-top;
-  height: auto;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
 }
