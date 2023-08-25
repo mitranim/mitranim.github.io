@@ -55,7 +55,7 @@ func (self PagePost) MakeMd() []byte {
 }
 
 func (self PagePost) FeedItem() FeedItem {
-	href := siteBase().WithPath(self.GetLink()).String()
+	href := siteBaseUrl.Get().WithPath(self.GetLink()).String()
 
 	return FeedItem{
 		XmlBase:     href,

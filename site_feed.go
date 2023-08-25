@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/mitranim/gg"
@@ -14,15 +13,19 @@ var (
 	}
 )
 
-func siteBase() Url {
+var siteBaseUrl = gg.NewLazy(func() (out Url) {
 	if FLAGS.PROD {
-		return urlParse(`https://mitranim.com`)
+		out.Scheme = `https`
+		out.Host = `mitranim.com`
+	} else {
+		out.Scheme = `http`
+		out.Host = gg.Str(`localhost:`, SERVER_PORT)
 	}
-	return urlParse(fmt.Sprintf(`http://localhost:%v`, SERVER_PORT))
-}
+	return
+})
 
 func siteFeed() Feed {
-	base := siteBase()
+	base := siteBaseUrl.Get()
 
 	return Feed{
 		Title:   `Software, Tech, Philosophy, Games`,

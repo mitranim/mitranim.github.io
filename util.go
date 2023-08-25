@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/xml"
-	"fmt"
 	"image"
 	"io"
 	"io/fs"
@@ -84,9 +83,9 @@ func yearsElapsed() string {
 	start := 2014
 	now := time.Now().UTC().Year()
 	if now > start {
-		return fmt.Sprintf(`%v—%v`, start, now)
+		return gg.Str(start, `-`, now)
 	}
-	return fmt.Sprint(start)
+	return gg.String(start)
 }
 
 func imgConfig(path string) image.Config {
