@@ -754,7 +754,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Hades`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/1145360`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/header.jpg`),
-			Desc:     `Masterpiece roguelike. Excellent game design and implementation, writing and voicing, music, sounds, UI, and more. Requires good reflexes. Gamepad recommended.`,
+			Desc:     `Masterpiece roguelike. Excellent game design and implementation, writing and voicing, music, sounds, UI, and more. Requires good reflexes. Gamepad recommended. Read my [tips & tricks](/posts/hades)!`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows, TagMac,

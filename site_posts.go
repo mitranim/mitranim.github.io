@@ -102,7 +102,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/witcher.md`),
 			},
 			PublishedAt: timeParse(`2023-03-20T23:40:42Z`),
-			UpdatedAt:   timeParse(`2023-06-19T15:59:46Z`),
+			UpdatedAt:   timeParse(`2023-08-25T14:00:44Z`),
 			IsListed:    true,
 		},
 		PagePost{
@@ -113,7 +113,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/divinity-original-sin-2.md`),
 			},
 			PublishedAt: timeParse(`2023-03-17T12:01:03Z`),
-			UpdatedAt:   timeParse(`2023-08-09T16:00:00Z`),
+			UpdatedAt:   timeParse(`2023-08-25T14:00:44Z`),
 			IsListed:    true,
 		},
 		PagePost{
