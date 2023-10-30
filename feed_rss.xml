@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Mon, 30 Oct 2023 08:41:27 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Oct 2023 11:10:23 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/hades">
       <title>Hades: tweak recommendations</title>
       <link>https://mitranim.com/posts/hades</link>
@@ -1135,9 +1135,7 @@ DBGConsoleOn=true
 }
 </pre>
 <p>Same without panics:</p>
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/mitranim/gg&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">outer</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">outer</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
   <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ErrWrapf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">err</span>, <span style="color:#e6db74">`</span><span style="color:#e6db74">failed to do X</span><span style="color:#e6db74">`</span>)
 
   <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">someFunc</span>()
@@ -1158,8 +1156,11 @@ DBGConsoleOn=true
   <span style="color:#66d9ef">return</span>
 }
 
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ErrWrapf</span>(<span style="color:#a6e22e">out</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">pat</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">msg</span> <span style="color:#f92672">...</span><span style="color:#a6e22e">any</span>) {
-  <span style="color:#f92672">*</span><span style="color:#a6e22e">out</span> = <span style="color:#a6e22e">gg</span>.<span style="color:#a6e22e">Wrapf</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">out</span>, <span style="color:#a6e22e">pat</span>, <span style="color:#a6e22e">msg</span><span style="color:#f92672">...</span>)
+<span style="color:#75715e">// Suboptimal implementation, only for example purposes.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ErrWrapf</span>(<span style="color:#a6e22e">out</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">pat</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">msg</span> <span style="color:#f92672">...</span><span style="color:#a6e22e">any</span>) {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">out</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">out</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#f92672">*</span><span style="color:#a6e22e">out</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#a6e22e">pat</span>, <span style="color:#a6e22e">msg</span><span style="color:#f92672">...</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">`</span><span style="color:#e6db74">: %w</span><span style="color:#e6db74">`</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">out</span>)
+  }
 }
 </pre><h2 id="performance"><span class="heading-prefix" aria-hidden="true"></span>Performance<a href="#performance" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>In modern Go (1.17 and higher), there is barely any difference. Defer/panic/recover is usable even in CPU-heavy hotspot code.</p>
@@ -1196,9 +1197,7 @@ DBGConsoleOn=true
 }
 </pre>
 <p>You can simplify this with <code>defer</code>:</p>
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/mitranim/gg&#34;</span>
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">someFunc</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">someFunc</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
   <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ErrWrapf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">err</span>, <span style="color:#e6db74">`</span><span style="color:#e6db74">someFunc</span><span style="color:#e6db74">`</span>)
 
   <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">anotherFunc</span>()
@@ -1224,8 +1223,11 @@ DBGConsoleOn=true
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">anotherErroringOperation</span>()
 }
 
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ErrWrapf</span>(<span style="color:#a6e22e">out</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">pat</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">msg</span> <span style="color:#f92672">...</span><span style="color:#a6e22e">any</span>) {
-  <span style="color:#f92672">*</span><span style="color:#a6e22e">out</span> = <span style="color:#a6e22e">gg</span>.<span style="color:#a6e22e">Wrapf</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">out</span>, <span style="color:#a6e22e">pat</span>, <span style="color:#a6e22e">msg</span><span style="color:#f92672">...</span>)
+<span style="color:#75715e">// Suboptimal implementation, only for example purposes.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ErrWrapf</span>(<span style="color:#a6e22e">out</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">pat</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">msg</span> <span style="color:#f92672">...</span><span style="color:#a6e22e">any</span>) {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">out</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">out</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#f92672">*</span><span style="color:#a6e22e">out</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#a6e22e">pat</span>, <span style="color:#a6e22e">msg</span><span style="color:#f92672">...</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">`</span><span style="color:#e6db74">: %w</span><span style="color:#e6db74">`</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">out</span>)
+  }
 }
 </pre>
 <p>🔔 Alarm bells should be ringing in your head. This emulates a stack trace, doing manually what other languages have automated decades ago.</p>
