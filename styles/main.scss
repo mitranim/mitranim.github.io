@@ -103,6 +103,13 @@ $pad-body: 1rem;
 
   /* Misc */
 
+  // Personally I hate and despise UI animations, but most people seem to love
+  // them. In the browsers I've tested, this property seems to respect OS-level
+  // setting to disable smooth scrolling or minimize UI animations (sometimes
+  // called "motions"). As a result, for users who tend to minimize animations,
+  // this has no effect. For other users, this typically affects mousewheel
+  // scroll, programmatic scroll, and scroll resulting from hash-links. This
+  // has no effect on touch-scroll, which is always "smooth".
   scroll-behavior: smooth;
 }
 
@@ -261,7 +268,7 @@ supported in Safari/iOS at the time of writing.
 
 .header {@extend .flex, .row-sta-str, .mar-bot-1, .gap-hor-1}
 .main {@extend .pad-hor-body}
-.footer {@extend .mar-top-auto, .pad-top-2, .flex, .row-bet-cen}
+.footer {@extend .mar-top-auto, .pad-top-1, .flex, .row-bet-cen}
 
 .header-link {
   @extend .size-large, .flex, .row-cen-cen, .fg-link, .pad-body;
@@ -617,6 +624,7 @@ file metadata to set `aspect-ratio` for each `img`.
 .img-preview {@extend .flex, .obj-cov, .aspect-common}
 
 .game-grid {
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/grid
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
   gap: 1rem;
@@ -661,3 +669,4 @@ file metadata to set `aspect-ratio` for each `img`.
 
 .post-previews {@extend .flex, .col, .gap-2, .typography}
 .post-preview {@extend .article}
+.feed-links {@extend .inl-flex, .row-sta-sta, .gap-hor-0x5}

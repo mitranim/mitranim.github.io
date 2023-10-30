@@ -134,7 +134,7 @@ func (self PagePosts) Make(site Site) {
 			},
 
 			E(`h1`, nil, `Feed Links`),
-			FeedLinks,
+			FeedLinks(),
 		),
 	))
 }
@@ -380,8 +380,8 @@ func (self PagePost) Render(_ Site) x.Bui {
 		),
 		// TODO avoid spamming horizontal padding classes.
 		E(`hr`, AP(`class`, `hr mar-ver-1 pad-hor-body`)),
-		PostsFooterLess.AttrAdd(`class`, `pad-hor-body`),
-		FeedLinks.AttrAdd(`class`, `pad-hor-body`),
+		PostsFooterLess().AttrAdd(`class`, `pad-hor-body`),
+		FeedLinks().AttrAdd(`class`, `pad-hor-body`),
 	)
 }
 
@@ -398,8 +398,10 @@ func PostsFooterMore(page Ipage) x.Elem {
 	)
 }
 
-var PostsFooterLess = E(`p`, nil,
-	`This blog currently doesn't support comments. Write to me via `,
-	E(`a`, AP(`href`, `/#contacts`), `contacts`),
-	`.`,
-)
+func PostsFooterLess() x.Elem {
+	return E(`p`, nil,
+		`This blog currently doesn't support comments. Write to me via `,
+		E(`a`, AP(`href`, `/#contacts`, `class`, `link-deco`), `contacts`),
+		`.`,
+	)
+}

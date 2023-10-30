@@ -178,8 +178,8 @@ function main() {
 }
 
 /*
-This detection and delay are hacks for Safari, where custom element classes that
-extend built-in classes other than `HTMLElement` seem to be registered
+This detection and delay are hacks for Safari, where custom element classes
+that extend built-in classes other than `HTMLElement` seem to be registered
 asynchronously by the polyfill we're using. In browsers with full custom
 element v1 support, such as Chrome, we can run this synchronously.
 */

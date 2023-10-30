@@ -8,7 +8,7 @@ WATCH := watchexec -c -r -d=0 -n
 W_CMD := --no-ignore -w=$(CMD)
 W_GO := -e=go,mod
 
-ifeq ($(PROD), true)
+ifeq ($(PROD),true)
 	SASS_STYLE := compressed
 else
 	SASS_STYLE := expanded
@@ -16,19 +16,19 @@ endif
 
 SASS := sass --no-source-map -I $(MOD) --style=$(SASS_STYLE) styles/main.scss:$(TAR)/styles/main.css
 
-ifeq ($(OS), Windows_NT)
+ifeq ($(OS),Windows_NT)
 	RM = if exist "$(1)" rmdir /s /q "$(1)"
 else
 	RM = rm -rf "$(1)"
 endif
 
-ifeq ($(OS), Windows_NT)
+ifeq ($(OS),Windows_NT)
 	MKDIR = if not exist "$(1)" mkdir "$(1)"
 else
 	MKDIR = mkdir -p "$(1)"
 endif
 
-ifeq ($(OS), Windows_NT)
+ifeq ($(OS),Windows_NT)
 	CP = copy "$(1)"\* "$(2)" >nul
 else
 	CP = cp -r "$(1)"/* "$(2)"
@@ -124,7 +124,7 @@ mod_set:
 
 .PHONY: deps
 deps:
-ifeq ($(OS), Windows_NT)
+ifeq ($(OS),Windows_NT)
 	scoop install sass go watchexec
 else
 	brew install -q sass/sass/sass go watchexec

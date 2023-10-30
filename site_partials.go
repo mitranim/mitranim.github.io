@@ -128,12 +128,14 @@ func Footer[A Ipage](page A) x.Elem {
 	)
 }
 
-var FeedLinks = E(`p`, AP(`class`, `inl-flex row-sta-sta gap-hor-0x5`),
-	E(`span`, nil, `Subscribe using one of:`),
-	LinkExt(`/feed.xml`, `Atom`),
-	LinkExt(`/feed_rss.xml`, `RSS`),
-	LinkExt(`https://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml`, `Feedly`),
-)
+func FeedLinks() x.Elem {
+	return E(`p`, AP(`class`, `feed-links`),
+		E(`span`, nil, `Subscribe using one of:`),
+		LinkExt(`/feed.xml`, `Atom`),
+		LinkExt(`/feed_rss.xml`, `RSS`),
+		LinkExt(`https://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml`, `Feedly`),
+	)
+}
 
 func FeedPost(page PagePost) x.Elem {
 	return E(`article`, AP(`role`, `main article`, `class`, `typography`),
