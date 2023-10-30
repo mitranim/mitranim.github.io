@@ -59,8 +59,6 @@ func outer() {
 Same without panics:
 
 ```golang
-import "github.com/mitranim/gg"
-
 func outer() (err error) {
   defer ErrWrapf(&err, `failed to do X`)
 
@@ -82,8 +80,11 @@ func outer() (err error) {
   return
 }
 
+// Suboptimal implementation, only for example purposes.
 func ErrWrapf(out *error, pat string, msg ...any) {
-  *out = gg.Wrapf(*out, pat, msg...)
+  if out != nil && *out != nil {
+    *out = fmt.Errorf(fmt.Sprintf(pat, msg...)+`: %w`, *out)
+  }
 }
 ```
 
@@ -125,8 +126,6 @@ func someFunc() error {
 You can simplify this with `defer`:
 
 ```golang
-import "github.com/mitranim/gg"
-
 func someFunc() (err error) {
   defer ErrWrapf(&err, `someFunc`)
 
@@ -153,8 +152,11 @@ func moreFunc() (err error) {
   return anotherErroringOperation()
 }
 
+// Suboptimal implementation, only for example purposes.
 func ErrWrapf(out *error, pat string, msg ...any) {
-  *out = gg.Wrapf(*out, pat, msg...)
+  if out != nil && *out != nil {
+    *out = fmt.Errorf(fmt.Sprintf(pat, msg...)+`: %w`, *out)
+  }
 }
 ```
 
