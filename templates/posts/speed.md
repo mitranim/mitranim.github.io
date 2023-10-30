@@ -21,7 +21,7 @@ Some games, for some players, can be so challenging that the player is unable to
 
 There are probably many different ways. At the time of writing, I use and recommend _Cheat Engine_. Official site: https://cheatengine.org. CE runs as its own app that "attaches" to another app, such as a game, to perform arbitrary hacks on it. CE has many features. Speedhacking is just one of them. I suggest reading CE docs/guides.
 
-_**Kill Cheat Engine**_ before launching any multi-player game, otherwise you _**might get banned**_. Many multi-player games have their own "cheat detection" which can produce false positives.
+_**Kill Cheat Engine**_ before launching any multi-player game, otherwise you _**might get banned**_ from it. Many multi-player games have their own "cheat detection" which can produce false positives.
 
 For convenience, you want CE global hotkeys, which can be used without alt-tabbing. At the minimum, I suggest the following:
 

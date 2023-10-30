@@ -680,7 +680,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Neverwinter Nights`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/704450`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/704450/header.jpg`),
-			Desc:     `Classic RPG using D&D 3.5 rules in pseudo real time. Don't be deterred by boring OG campaign; expansions get better, and there's fun in the mechanics. Use console commands to un-slog.`,
+			Desc:     `Classic RPG using D&D 3.5 rules in pseudo real time. Don't be deterred by the boring OG campaign; expansions get better, and there's fun in the mechanics. Use console commands to un-slog.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagWindows,

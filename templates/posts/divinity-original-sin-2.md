@@ -158,8 +158,8 @@ Note: avatar dialogs and story choices are different from companion dialogs and 
   * Interesting story options and additional context related to elves.
   * Personal preference: I like the voice acting, the attitude.
 * Custom:
-  * Subjective: female lizard = best fashion and animations.
-  * Undead = interesting mechanics; Fane is a good pick, but custom lets you choose another species and gender for alternative fashion and animations.
+  * Subjective: lizard female = best fashion and animations.
+  * Undead = interesting mechanics. Fane has good story integration. Custom lets you choose another species and gender for alternative fashion and animations.
 * Red Prince:
   * Aplomb, attitude.
 * Ifan: never tried.
@@ -167,9 +167,9 @@ Note: avatar dialogs and story choices are different from companion dialogs and 
 
 ### Character tag tier list
 
-  * Scholar: most useful, just like IRL.
-  * Jester: most fun.
-  * Mystic: useful once or twice.
+* Scholar: most useful, just like IRL.
+* Jester: most fun.
+* Mystic: useful once or twice.
 
 ### Profiles
 
