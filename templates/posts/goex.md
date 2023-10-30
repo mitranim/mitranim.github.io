@@ -1,12 +1,12 @@
-<!-- TODO: switch to `gg` -->
-
 This post is informed by many years of Go, and months of Go with exceptions. **I am well aware** of many arguments for error values. Some of them are addressed below.
 
 Reddit discussion: https://www.reddit.com/r/golang/comments/r2h31i/shorten_your_go_code_by_using_exceptions/
 
+**Update 2023-10-23.** The original version of this post referred to https://github.com/mitranim/try. The updated post refers to https://github.com/mitranim/gg, which subsumes the previous library and offers more features.
+
 {{mdToToc .MdTpl}}
 
-## Myths to Debunk
+## Myths to debunk
 
 > "Go doesn't have exceptions".
 
@@ -30,7 +30,7 @@ Decent argument that doesn't apply to Go. Go has panics. Reliable code _must_ ha
 
 > "Panics are expensive".
 
-Actually they're cheap enough.
+Panics are cheap. Stack traces have a minor cost.
 
 ## Observations
 
@@ -39,17 +39,17 @@ Actually they're cheap enough.
 * Requires some un-doctrination, after years of trying to believe in error values.
 * Performance is nearly the same.
 * Avoids mishandling of `err` variables.
-* Exceptions and stacktraces are orthogonal. You want both.
+* Exceptions and stack traces are orthogonal. You want both.
 
 Combination of `defer` `panic` `recover` allows terse and flexible exception handling.
 
 Brevity:
 
 ```golang
-import "github.com/mitranim/try"
+import "github.com/mitranim/gg"
 
 func outer() {
-  defer try.Detail(`failed to do X`)
+  defer gg.Detail(`failed to do X`)
   someFunc()
   anotherFunc()
   moreFunc()
@@ -59,10 +59,10 @@ func outer() {
 Same without panics:
 
 ```golang
-import "github.com/mitranim/try"
+import "github.com/mitranim/gg"
 
 func outer() (err error) {
-  defer try.WithMessage(&err, `failed to do X`)
+  defer ErrWrapf(&err, `failed to do X`)
 
   err = someFunc()
   if err != nil {
@@ -81,24 +81,28 @@ func outer() (err error) {
 
   return
 }
+
+func ErrWrapf(out *error, pat string, msg ...any) {
+  *out = gg.Wrapf(*out, pat, msg...)
+}
 ```
 
 ## Performance
 
 In modern Go (1.17 and higher), there is barely any difference. Defer/panic/recover is usable even in CPU-heavy hotspot code.
 
-Generating stacktraces has a far larger cost. The examples in this post use `github.com/mitranim/try` which automatically adds stacktraces by using `github.com/pkg/errors`. If you're using stacktraces with error values, that cost is already dominant, compared to the cost of defer/panic/recover.
+Generating stack traces has a far larger cost. The examples in this post use `github.com/mitranim/gg` which automatically adds stack traces. If you're using stack traces with error values, that cost is already dominant, compared to the cost of defer/panic/recover.
 
-## Stacktraces
+## Stack traces
 
-Stacktraces are essential to debugging, with or without exceptions.
+Stack traces are essential to debugging, with or without exceptions.
 
-* Exceptions and stacktraces are orthogonal.
-* Exceptions don't require stacktraces.
-* You _always_ want stacktraces for debugging.
+* Exceptions and stack traces are orthogonal.
+* Exceptions don't require stack traces.
+* You _always_ want stack traces for debugging.
   * Many languages elide them for performance, but you still want them.
-  * Don't show stacktraces to your users. They should be printed only in debug logging.
-* Lack of stacktraces causes developers to _manually emulate stacktraces_.
+  * Don't show stack traces to your users. They should be printed only in debug logging.
+* Lack of stack traces causes developers to _manually emulate stack traces_.
 
 Some real Go code, written by experienced developers, has errors annotated with function names, like this:
 
@@ -121,10 +125,10 @@ func someFunc() error {
 You can simplify this with `defer`:
 
 ```golang
-import "github.com/mitranim/try"
+import "github.com/mitranim/gg"
 
 func someFunc() (err error) {
-  defer try.WithMessage(&err, `someFunc`)
+  defer ErrWrapf(&err, `someFunc`)
 
   err = anotherFunc()
   if err != nil {
@@ -140,34 +144,38 @@ func someFunc() (err error) {
 }
 
 func anotherFunc() (err error) {
-  defer try.WithMessage(&err, `anotherFunc`)
+  defer ErrWrapf(&err, `anotherFunc`)
   return someErroringOperation()
 }
 
 func moreFunc() (err error) {
-  defer try.WithMessage(&err, `moreFunc`)
+  defer ErrWrapf(&err, `moreFunc`)
   return anotherErroringOperation()
+}
+
+func ErrWrapf(out *error, pat string, msg ...any) {
+  *out = gg.Wrapf(*out, pat, msg...)
 }
 ```
 
-🔔 Alarm bells should be ringing in your head. This emulates a stacktrace, doing manually what other languages have automated decades ago.
+🔔 Alarm bells should be ringing in your head. This emulates a stack trace, doing manually what other languages have automated decades ago.
 
-So stop doing that. Automate your stacktraces, and shorten your code:
+So stop doing that. Automate your stack traces, and shorten your code:
 
 ```golang
-import "github.com/mitranim/try"
+import "github.com/mitranim/gg"
 
 func someFunc() {
-  defer try.Detail(`failed to do X`)
+  defer gg.Detail(`failed to do X`)
   anotherFunc()
   moreFunc()
 }
 
 func anotherFunc() {
-  try.To(someErroringOperation())
+  gg.Try(someErroringOperation())
 }
 
 func moreFunc() {
-  try.To(anothrErroringOperation())
+  gg.Try(anothrErroringOperation())
 }
 ```
