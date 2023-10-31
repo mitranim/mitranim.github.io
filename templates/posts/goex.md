@@ -111,19 +111,19 @@ Some real Go code, written by experienced developers, has errors annotated with 
 func someFunc() error {
   err := anotherFunc()
   if err != nil {
-    return fmt.Errorf(`someFunc: %w`, err)
+    return fmt.Errorf(`someFunc: anotherFunc: %w`, err)
   }
 
   err = moreFunc()
   if err != nil {
-    return fmt.Errorf(`someFunc: %w`, err)
+    return fmt.Errorf(`someFunc: moreFunc: %w`, err)
   }
 
   return nil
 }
 ```
 
-You can simplify this with `defer`:
+You can simplify this with `defer`, as shown above:
 
 ```golang
 func someFunc() (err error) {
@@ -131,15 +131,15 @@ func someFunc() (err error) {
 
   err = anotherFunc()
   if err != nil {
-    return err
+    return
   }
 
   err = moreFunc()
   if err != nil {
-    return err
+    return
   }
 
-  return nil
+  return
 }
 
 func anotherFunc() (err error) {
