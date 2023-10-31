@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Mon, 30 Oct 2023 11:10:23 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 31 Oct 2023 11:57:34 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/hades">
       <title>Hades: tweak recommendations</title>
       <link>https://mitranim.com/posts/hades</link>
@@ -1185,32 +1185,32 @@ DBGConsoleOn=true
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">someFunc</span>() <span style="color:#66d9ef">error</span> {
   <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">anotherFunc</span>()
   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">someFunc: %w</span><span style="color:#e6db74">`</span>, <span style="color:#a6e22e">err</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">someFunc: anotherFunc: %w</span><span style="color:#e6db74">`</span>, <span style="color:#a6e22e">err</span>)
   }
 
   <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">moreFunc</span>()
   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">someFunc: %w</span><span style="color:#e6db74">`</span>, <span style="color:#a6e22e">err</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">someFunc: moreFunc: %w</span><span style="color:#e6db74">`</span>, <span style="color:#a6e22e">err</span>)
   }
 
   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 }
 </pre>
-<p>You can simplify this with <code>defer</code>:</p>
+<p>You can simplify this with <code>defer</code>, as shown above:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">someFunc</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
   <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ErrWrapf</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">err</span>, <span style="color:#e6db74">`</span><span style="color:#e6db74">someFunc</span><span style="color:#e6db74">`</span>)
 
   <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">anotherFunc</span>()
   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+    <span style="color:#66d9ef">return</span>
   }
 
   <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">moreFunc</span>()
   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+    <span style="color:#66d9ef">return</span>
   }
 
-  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+  <span style="color:#66d9ef">return</span>
 }
 
 <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">anotherFunc</span>() (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
