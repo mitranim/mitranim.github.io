@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"sync/atomic"
 	tt "text/template"
 	"time"
 
@@ -203,6 +204,5 @@ func errUnrecognized[A any](val A) error {
 type Ord uint64
 
 func (self *Ord) Next() uint64 {
-	*self = gg.Inc(*self)
-	return uint64(*self)
+	return atomic.AddUint64((*uint64)(self), 1)
 }

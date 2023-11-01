@@ -173,7 +173,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/goex.md`),
 			},
 			PublishedAt: timeParse(`2021-11-20T11:47:36Z`),
-			UpdatedAt:   timeParse(`2023-10-30T08:40:25Z`),
+			UpdatedAt:   timeParse(`2023-10-31T11:55:26Z`),
 			IsListed:    true,
 		},
 		PagePost{
