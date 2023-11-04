@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2023-11-04T11:03:42Z</updated>
+  <updated>2023-11-04T11:31:21Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -474,7 +474,7 @@ DBGConsoleOn=true
 <p>Witcher 1 and Witcher 2 can feel like a slog when backtracking or otherwise running around, with no ingame way to speed that up. Speedhacks are highly recommended. See my <a href="/posts/speed">post on speedhacking</a>.</p>
 </article>]]></content>
     <published>2023-03-20T23:40:42Z</published>
-    <updated>2023-03-20T23:40:42Z</updated>
+    <updated>2023-08-25T14:00:44Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/witcher"></link>
     <summary type="html"><![CDATA[Essential tips and tricks for Witcher games. Spoiler-free!]]></summary>
     <author>
@@ -746,7 +746,7 @@ DBGConsoleOn=true
 </ul>
 </article>]]></content>
     <published>2023-03-17T12:01:03Z</published>
-    <updated>2023-03-17T12:01:03Z</updated>
+    <updated>2023-08-25T14:00:44Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/divinity-original-sin-2"></link>
     <summary type="html"><![CDATA[Mod recommendations and gameplay suggestions. Spoiler-free!]]></summary>
     <author>
@@ -804,7 +804,7 @@ DBGConsoleOn=true
 <p>Conclusion: watch Parasyte. Do it slowly, taking the time to think.</p>
 </article>]]></content>
     <published>2022-03-08T07:02:11Z</published>
-    <updated>2022-03-08T07:02:11Z</updated>
+    <updated>2022-09-05T11:40:59Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/anime-impressions-parasyte"></link>
     <summary type="html"><![CDATA[Thoughts and analysis on this surprisingly deep anime. Spoilers!]]></summary>
     <author>
@@ -1099,7 +1099,7 @@ DBGConsoleOn=true
 </ul>
 </article>]]></content>
     <published>2022-01-23T07:43:31Z</published>
-    <updated>2022-01-23T07:43:31Z</updated>
+    <updated>2022-06-19T11:03:04Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/andromeda"></link>
     <summary type="html"><![CDATA[Enjoyed, highly recommended.]]></summary>
     <author>
@@ -1284,7 +1284,7 @@ DBGConsoleOn=true
 }
 </pre></article>]]></content>
     <published>2021-11-20T11:47:36Z</published>
-    <updated>2021-11-20T11:47:36Z</updated>
+    <updated>2023-10-31T11:55:26Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/goex"></link>
     <summary type="html"><![CDATA[Go secretly favors exceptions. Use them.]]></summary>
     <author>
@@ -1461,7 +1461,7 @@ value.method
 <p>If Lisp people haven&rsquo;t been able to stick with pure S-expressions, nobody will. Languages designed for practical use must include common prefix and infix shortcuts. To me, everything above seems hacky or complicated. Elegant approaches are topics for other posts.</p>
 </article>]]></content>
     <published>2020-10-21T06:34:24Z</published>
-    <updated>2020-10-21T06:34:24Z</updated>
+    <updated>2021-08-20T07:16:38Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/lisp-sexpr-hacks"></link>
     <summary type="html"><![CDATA[How far people are willing to go to get prefix and infix in a Lisp syntax.]]></summary>
     <author>
@@ -1659,7 +1659,7 @@ One123Two   &lt;-&gt; one 123 two
 <p>When making a language, follow the conventions listed at the top. Let&rsquo;s solve this forever and move on.</p>
 </article>]]></content>
     <published>2020-10-16T15:30:41Z</published>
-    <updated>2020-10-16T15:30:41Z</updated>
+    <updated>2023-03-17T11:58:53Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/lang-case-conventions"></link>
     <summary type="html"><![CDATA[Objective arguments to solve case conventions and move on.]]></summary>
     <author>
@@ -2192,7 +2192,7 @@ Generating the ASCII figure:
 <p>Treasurers scurry away, pretending to safeguard Granum Crowns from us, while showering us with tasteful insults and accusations of Crown thievery. Tenno <strong>rob</strong> rather than steal. Treasurers&rsquo; words seem like projection. If they were really trying to safeguard Crowns from us, they only needed to&hellip; not show up. Yet they come with alarming regularity. One possible conclusion is that they steal Granum Crowns from Nef Anyo&rsquo;s ships on behalf of Parvos, while trying to frame Tenno for it.</p>
 </article>]]></content>
     <published>2020-10-10T12:25:32Z</published>
-    <updated>2020-10-10T12:25:32Z</updated>
+    <updated>2023-04-11T15:43:24Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/warframe-headcanon"></link>
     <summary type="html"><![CDATA[Collection of Warframe headcanon co-authored with friends.]]></summary>
     <author>
