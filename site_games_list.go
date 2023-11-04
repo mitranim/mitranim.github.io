@@ -83,7 +83,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Slay the Spire`,
 			Link:     gt.ParseNullUrl(`https://store.steampowered.com/app/646570`),
 			Img:      gt.ParseNullUrl(`https://cdn.cloudflare.steamstatic.com/steam/apps/646570/header.jpg`),
-			Desc:     `Strategic roguelike deck building dungeon crawler. One run ≈ 2-3 hours.`,
+			Desc:     `Strategic roguelike deck building dungeon crawler. Incredibly well designed. One run ≈ 2-3 hours.`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows, TagMac, TagMobile,
