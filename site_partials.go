@@ -119,7 +119,7 @@ func Footer[A Ipage](page A) x.Elem {
 				`a`,
 				AP(
 					`href`, idToHash(ID_TOP),
-					`class`, `fill-gray-fg-near pad-body bg-gray-near-busy`,
+					`class`, `fill-gray-fg-near pad-body theme-plain-bg-gray`,
 					`onclick`, `event.preventDefault(); window.scrollTo(0, 0)`,
 				),
 				SvgArrowUp,

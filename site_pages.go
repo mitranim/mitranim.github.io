@@ -223,7 +223,9 @@ func (self PageGames) Make(site Site) {
 func (self PageGames) Head() x.Ren {
 	return F(
 		E(`h1`, nil, self.Title),
-		MdToHtmlStr(`
+		E(`details`, AP(`class`, `details-spaced`),
+			E(`summary`, AP(`class`, `summary`), `Click for additional notes.`),
+			MdToHtmlStr(`
 
 This list is carefully selected. There are many other games I've greatly
 enjoyed, which I would not recommend right now, either because they're too
@@ -241,6 +243,7 @@ tweaks and mods for any given game. For many games, it's also worth using
 [Nexus Mods](https://nexusmods.com) for mods, but beware of spoilers.
 
 `),
+		),
 	)
 }
 
