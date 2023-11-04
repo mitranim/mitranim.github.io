@@ -59,7 +59,12 @@ func timeParse(src string) (val Time) {
 	return
 }
 
-func timeFmtHuman(date Time) string { return date.Format(`2006-Jan-02`) }
+func timeFmtHuman(src Time) (_ string) {
+	if gg.IsZero(src) {
+		return
+	}
+	return src.Format(`2006-Jan-02`)
+}
 
 func trimLeadingSlash(val string) string   { return strings.TrimPrefix(val, `/`) }
 func ensureLeadingSlash(val string) string { return ensurePrefix(val, `/`) }

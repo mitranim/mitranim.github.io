@@ -87,7 +87,11 @@ func Header[A Ipage](page A) x.Elem {
 
 		E(`span`, AP(`class`, `flex-1`)),
 
-		E(`span`, AP(`class`, `fg-blue flex row-cen-cen pad-body sm-hide`),
+		E(`span`,
+			AP(
+				`class`, `header-update`,
+				`aria-label`, `Last update somewhere on the site.`,
+			),
 			`Updated: `+today(),
 		),
 	)

@@ -286,6 +286,26 @@ supported in Safari/iOS at the time of writing.
   }
 }
 
+.header-update {
+  @extend .fg-blue, .flex, .row-cen-cen, .pad-body, .sm-hide;
+
+  &[aria-label] {
+    @extend .help;
+
+    // Similar to `@extend .tooltip-bot, .tooltip-rig`, but with the appropriate
+    // horizontal position to match the header padding. A "cleaner" solution
+    // would be to position the tooltip relative to the inner box (text box,
+    // excluding the padding) of the parent, but there's no CSS support for
+    // that.
+    &:hover::after {
+      bottom: unset;
+      top: 100%;
+      left: unset;
+      right: $pad-body;
+    }
+  }
+}
+
 .underline-busy {
   @include underline(dashed);
   text-underline-offset: calc(1ex / 2);
@@ -672,7 +692,8 @@ file metadata to set `aspect-ratio` for each `img`.
   }
 
   &::after {bottom: 100%; left: 0}
-  &.aria-label-top-rig::after {bottom: 100%; left: unset; right: 0}
+  &.tooltip-rig::after {left: unset; right: 0}
+  &.tooltip-bot::after {bottom: unset; top: 100%}
 }
 
 .post-previews {@extend .flex, .col, .gap-2, .typography}

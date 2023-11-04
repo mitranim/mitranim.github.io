@@ -65,12 +65,16 @@ func (self PagePost) FeedItem() FeedItem {
 		Description: self.Page.Description,
 		Id:          href,
 		Published:   self.PublishedAt.MaybeTime(),
-		Updated:     gg.Or(self.PublishedAt, self.UpdatedAt, timeNow()).MaybeTime(),
+		Updated:     self.GetUpdatedAt().MaybeTime(),
 		Content:     FeedPost(self).String(),
 	}
 }
 
 func (self PagePost) GetIsListed() bool { return self.IsListed }
+
+func (self PagePost) GetUpdatedAt() Time {
+	return gg.Or(self.UpdatedAt, self.PublishedAt, timeNow())
+}
 
 func initSitePosts() []PagePost {
 	return []PagePost{
