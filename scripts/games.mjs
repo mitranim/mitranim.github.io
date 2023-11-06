@@ -1,7 +1,6 @@
 import 'https://cdn.jsdelivr.net/npm/@ungap/custom-elements@1.0.0/es.js'
 import * as l from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/lang.mjs'
 import * as d from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/dom.mjs'
-import * as u from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/url.mjs'
 import * as i from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.44/iter.mjs'
 
 class TagLike extends d.MixNode(HTMLButtonElement) {
@@ -14,17 +13,17 @@ class TagLike extends d.MixNode(HTMLButtonElement) {
     d.eventKill(eve)
     this.toggle()
 
-    const loc = Loc.current()
-    this.mutUrl(loc)
+    const url = urlCurrent()
+    this.mutUrl(url)
 
     // Push would be better for desktop, but replace seems nicer for mobile,
     // particularly when this page is opened in a webview from another app.
     // When using push, after modifying filters, it may take multiple
     // slide-left attempts to back out of the webview.
-    loc.replace()
+    history.replaceState(history.state, ``, url)
 
-    this.constructor.refresh(loc)
-    FilterList.refresh(loc)
+    this.constructor.refresh(url)
+    FilterList.refresh(url)
   }
 
   queryKey() {return this.constructor.queryKey()}
@@ -33,7 +32,7 @@ class TagLike extends d.MixNode(HTMLButtonElement) {
   check() {this.setChecked(true)}
   uncheck() {this.setChecked()}
   toggle() {this.setChecked(!this.isChecked())}
-  mutUrl(url) {url.queryToggle(this.queryKey(), this.val())}
+  mutUrl(url) {urlQueryToggle(url, this.queryKey(), this.val())}
   val() {return this.textContent}
 
   setChecked(val) {
@@ -53,7 +52,7 @@ class TagLike extends d.MixNode(HTMLButtonElement) {
   static val(val) {return val.val()}
 
   refresh(url) {
-    this.setChecked(url.query.getAll(this.queryKey())?.includes(this.val()))
+    this.setChecked(url.searchParams.getAll(this.queryKey())?.includes(this.val()))
   }
 
   static refresh(url) {
@@ -63,20 +62,6 @@ class TagLike extends d.MixNode(HTMLButtonElement) {
 
 function find(cls) {return d.descendant(document.body, cls)}
 function findAll(cls) {return d.descendants(document.body, cls)}
-
-class Loc extends u.Loc {
-  // TODO consider adding to `@mitranim/js/url.mjs`→`Query`.
-  queryToggle(key, val) {
-    this.query.setAll(key, toggle(this.query.getAll(key), val))
-    return this
-  }
-}
-
-// TODO consider adding to `@mitranim/js/iter.mjs`.
-function toggle(tar, val) {
-  tar = l.laxArr(tar)
-  return tar.includes(val) ? i.remove(tar, val) : i.append(tar, val)
-}
 
 class TimeSink extends TagLike {
   static queryKey() {return `time_sinks`}
@@ -102,7 +87,7 @@ class FilterList extends d.MixNode(HTMLElement) {
   placeholder() {return this.desc(FilterPlaceholder)}
 
   refresh(url) {
-    l.reqInst(url, u.Url)
+    l.reqInst(url, URL)
 
     const items = i.arr(this.items())
     if (l.isEmpty(items)) return
@@ -124,7 +109,7 @@ class FilterItem extends d.MixNode(HTMLElement) {
   tags() {return this.descs(Tag)}
 
   refresh(url) {
-    l.reqInst(url, u.Url)
+    l.reqInst(url, URL)
     this.hidden = false
 
     this.refreshTimeSinks(url)
@@ -132,11 +117,11 @@ class FilterItem extends d.MixNode(HTMLElement) {
   }
 
   refreshTimeSinks(url) {
-    this.refreshWith(i.some, this.timeSinks(), url.query.getAll(TimeSink.queryKey()))
+    this.refreshWith(i.some, this.timeSinks(), url.searchParams.getAll(TimeSink.queryKey()))
   }
 
   refreshTags(url) {
-    this.refreshWith(i.every, this.tags(), url.query.getAll(Tag.queryKey()))
+    this.refreshWith(i.every, this.tags(), url.searchParams.getAll(Tag.queryKey()))
   }
 
   // TODO simplify.
@@ -170,11 +155,30 @@ class FilterPlaceholder extends d.MixNode(HTMLParagraphElement) {
 }
 customElements.define(`filter-placeholder`, FilterPlaceholder, {extends: `p`})
 
+function urlCurrent() {return new URL(window.location)}
+
+function urlQueryToggle(url, key, val) {
+  l.reqValidStr(key)
+  urlQuerySetAll(url, key, arrToggle(url.searchParams.getAll(key), l.render(val)))
+}
+
+function urlQuerySetAll(url, key, vals) {
+  l.reqValidStr(key)
+  url.searchParams.delete(key)
+  for (const val of i.values(vals)) url.searchParams.append(key, l.render(val))
+}
+
+// TODO consider adding to `@mitranim/js/iter.mjs`.
+function arrToggle(tar, val) {
+  tar = i.arr(tar)
+  return tar.includes(val) ? i.remove(tar, val) : i.append(tar, val)
+}
+
 function main() {
-  const loc = Loc.current()
-  TimeSink.refresh(loc)
-  Tag.refresh(loc)
-  FilterList.refresh(loc)
+  const url = urlCurrent()
+  TimeSink.refresh(url)
+  Tag.refresh(url)
+  FilterList.refresh(url)
 }
 
 /*

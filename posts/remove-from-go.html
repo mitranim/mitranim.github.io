@@ -1,47 +1,47 @@
-<!doctype html><html class=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes"><link rel="icon" href="data:;base64,="><link rel="stylesheet" type="text/css" href="/styles/main.css"><title>Things I would remove from Go</title><link rel="alternate" type="application/atom+xml" title="Mitranim's Posts (Atom)" href="/feed.xml"><link rel="alternate" type="application/rss+xml" title="Mitranim's Posts (RSS)" href="/feed_rss.xml"><meta name="author" content="Nelo Mitranim"><meta property="og:title" content="Things I would remove from Go"><meta name="description" content="If less is more, Go could gain by losing weight."><meta property="og:site_name" content="about:mitranim"></head><body id="top"><header class="header"><nav class="flex row-sta-str"><a class="header-link --busy" href="/">home</a><a class="header-link --busy" href="/works">works</a><a class="header-link --busy" href="/posts">posts</a><a class="header-link --busy" href="/games">games</a></nav><span class="flex-1"></span><span class="header-update" aria-label="Last update somewhere on the site.">Updated: 2023-Nov-04</span></header><article role="main" id="main" class="main article"><h1><span class="heading-prefix" aria-hidden="true"></span>Things I would remove from Go</h1><p role="doc-subtitle" class="size-large italic">If less is more, Go could gain by losing weight.</p><p class="fg-gray-near size-small">published 2019-Jan-15</p><p>The <a href="https://golang.org" target="_blank" rel="noopener noreferrer">Go programming language<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> espouses <a href="https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html" target="_blank" rel="noopener noreferrer">&ldquo;less is more&rdquo;<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. It prefers fewer features and &ldquo;one way of doing things&rdquo;. However, it still has some fat to lose! This article highlights what I consider unnecessary, and suggests the path to gradual deprecation and removal.</p>
+<!doctype html><html class=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes"><link rel="icon" href="data:;base64,="><link rel="stylesheet" type="text/css" href="/styles/main.css"><title>Things I would remove from Go</title><link rel="alternate" type="application/atom+xml" title="Mitranim's Posts (Atom)" href="/feed.xml"><link rel="alternate" type="application/rss+xml" title="Mitranim's Posts (RSS)" href="/feed_rss.xml"><meta name="author" content="Nelo Mitranim"><meta property="og:title" content="Things I would remove from Go"><meta name="description" content="If less is more, Go could gain by losing weight."><meta property="og:site_name" content="about:mitranim"></head><body id="top"><header class="header"><nav class="flex row-sta-str"><a class="header-link --busy" href="/">home</a><a class="header-link --busy" href="/works">works</a><a class="header-link --busy" href="/posts">posts</a><a class="header-link --busy" href="/games">games</a></nav><span class="flex-1"></span><span class="header-update" aria-label="Last update somewhere on the site.">Updated: 2023-Nov-06</span></header><article role="main" id="main" class="main article"><h1><span class="heading-prefix" aria-hidden="true"></span>Things I would remove from Go</h1><p role="doc-subtitle" class="size-large italic">If less is more, Go could gain by losing weight.</p><p class="fg-gray-near size-small">published 2019-Jan-15</p><p>The <a href="https://golang.org" target="_blank" rel="noopener noreferrer">Go programming language<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> espouses <a href="https://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html" target="_blank" rel="noopener noreferrer">&quot;less is more&quot;<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. It prefers fewer features and &quot;one way of doing things&quot;. However, it still has some fat to lose! This article highlights what I consider unnecessary, and suggests the path to gradual deprecation and removal.</p>
 
-<p>Goes without saying: <strong>this is an opinion piece</strong>. If we disagree, that&rsquo;s cool!</p>
+<p>Goes without saying: <strong>this is an opinion piece</strong>. If we disagree, that's cool!</p>
 
-<p>This is just what I consider <em>relatively easy to remove</em>. I have other complaints about Go, mostly related to its deep fundamentals that would be very hard or impossible to change. They&rsquo;re not mentioned in this piece.</p>
+<p>This is just what I consider <em>relatively easy to remove</em>. I have other complaints about Go, mostly related to its deep fundamentals that would be very hard or impossible to change. They're not mentioned in this piece.</p>
 
-<p>We&rsquo;re not allowed to break existing code under Go1. However, it seems plausible to migrate most existing code in advance, preparing it for the hypothetical Go2 that removes the deprecated features, alongside other breaking changes it&rsquo;s expected to make. The following migration strategy seems realistic:</p>
+<p>We're not allowed to break existing code under Go1. However, it seems plausible to migrate most existing code in advance, preparing it for the hypothetical Go2 that removes the deprecated features, alongside other breaking changes it's expected to make. The following migration strategy seems realistic:</p>
 
 <ul>
 <li>Go1 adds two minor syntactic features (see below)</li>
-<li>A tool like <code>go fix</code> converts existing code to the &ldquo;new&rdquo; style, avoiding the &ldquo;deprecated&rdquo; features</li>
-<li>Both &ldquo;old&rdquo; and &ldquo;new&rdquo; code continues to run under Go1</li>
+<li>A tool like <code>go fix</code> converts existing code to the &quot;new&quot; style, avoiding the &quot;deprecated&quot; features</li>
+<li>Both &quot;old&quot; and &quot;new&quot; code continues to run under Go1</li>
 <li>Go2 drops the unnecessary features</li>
 </ul>
 <h2 id="table-of-contents"><span class="heading-prefix" aria-hidden="true"></span>Table of Contents<a href="#table-of-contents" class="heading-anchor" aria-hidden="true"></a></h2>
 <ul>
-<li><a href="#language"><span class="hash-prefix noprint" aria-hidden="true">#</span>Language</a>
+<li><a href="#language"><span class="hash-prefix" aria-hidden="true">#</span>Language</a>
 
 <ul>
-<li><a href="#prefer-var"><span class="hash-prefix noprint" aria-hidden="true">#</span>Remove <code>:=</code> in favor of <code>var</code></a></li>
-<li><a href="#remove-paren-lists"><span class="hash-prefix noprint" aria-hidden="true">#</span>Remove parenthesized lists</a></li>
-<li><a href="#remove-iota"><span class="hash-prefix noprint" aria-hidden="true">#</span>Maybe remove <code>iota</code></a></li>
-<li><a href="#remove-new"><span class="hash-prefix noprint" aria-hidden="true">#</span>Remove <code>new</code> in favor of <code>&amp;</code></a></li>
-<li><a href="#remove-dot-import"><span class="hash-prefix noprint" aria-hidden="true">#</span>Remove dot-import</a></li>
-<li><a href="#remove-if-assignment"><span class="hash-prefix noprint" aria-hidden="true">#</span>Remove if-assignment</a></li>
-<li><a href="#remove-short-float-syntax"><span class="hash-prefix noprint" aria-hidden="true">#</span>Remove short float syntax</a></li>
+<li><a href="#prefer-var"><span class="hash-prefix" aria-hidden="true">#</span>Remove <code>:=</code> in favor of <code>var</code></a></li>
+<li><a href="#remove-paren-lists"><span class="hash-prefix" aria-hidden="true">#</span>Remove parenthesized lists</a></li>
+<li><a href="#remove-iota"><span class="hash-prefix" aria-hidden="true">#</span>Maybe remove <code>iota</code></a></li>
+<li><a href="#remove-new"><span class="hash-prefix" aria-hidden="true">#</span>Remove <code>new</code> in favor of <code>&amp;</code></a></li>
+<li><a href="#remove-dot-import"><span class="hash-prefix" aria-hidden="true">#</span>Remove dot-import</a></li>
+<li><a href="#remove-if-assignment"><span class="hash-prefix" aria-hidden="true">#</span>Remove if-assignment</a></li>
+<li><a href="#remove-short-float-syntax"><span class="hash-prefix" aria-hidden="true">#</span>Remove short float syntax</a></li>
 </ul></li>
-<li><a href="#tools"><span class="hash-prefix noprint" aria-hidden="true">#</span>Tools</a>
+<li><a href="#tools"><span class="hash-prefix" aria-hidden="true">#</span>Tools</a>
 
 <ul>
-<li><a href="#gofmt-declarations"><span class="hash-prefix noprint" aria-hidden="true">#</span>Gofmt: align adjacent assignments</a></li>
+<li><a href="#gofmt-declarations"><span class="hash-prefix" aria-hidden="true">#</span>Gofmt: align adjacent assignments</a></li>
 </ul></li>
-<li><a href="#misc"><span class="hash-prefix noprint" aria-hidden="true">#</span>Misc</a></li>
+<li><a href="#misc"><span class="hash-prefix" aria-hidden="true">#</span>Misc</a></li>
 </ul>
 <h2 id="language"><span class="heading-prefix" aria-hidden="true"></span>Language Changes<a href="#language" class="heading-anchor" aria-hidden="true"></a></h2><h3 id="prefer-var"><span class="heading-prefix" aria-hidden="true"></span>Remove <code>:=</code> in favor of <code>var</code><a href="#prefer-var" class="heading-anchor" aria-hidden="true"></a></h3><h4 id="arguments"><span class="heading-prefix" aria-hidden="true"></span>Arguments<a href="#arguments" class="heading-anchor" aria-hidden="true"></a></h4>
 <p>1. Having two equivalent assignment forms is redundant.</p>
 
-<p>2. <code>:=</code> can&rsquo;t justify itself with brevity. Compared to <code>var</code>, it requires one or two fewer keystrokes to type, but involves <code>Shift</code> and an awkward movement between <code>:</code> and <code>=</code>. Subjectively, I find <code>var</code> easier and faster to type.</p>
+<p>2. <code>:=</code> can't justify itself with brevity. Compared to <code>var</code>, it requires one or two fewer keystrokes to type, but involves <code>Shift</code> and an awkward movement between <code>:</code> and <code>=</code>. Subjectively, I find <code>var</code> easier and faster to type.</p>
 
-<p>3. Code sometimes needs to be converted between <code>:=</code>, <code>var</code> and <code>const</code>. For example, you have a string that&rsquo;s initially produced by <code>fmt.Sprintf</code>, but as you edit the code, it becomes a <code>const</code>. Or vice versa. I find these conversions fiddly and awkward. Converting between <code>var</code> and <code>const</code> is noticeably easier.</p>
+<p>3. Code sometimes needs to be converted between <code>:=</code>, <code>var</code> and <code>const</code>. For example, you have a string that's initially produced by <code>fmt.Sprintf</code>, but as you edit the code, it becomes a <code>const</code>. Or vice versa. I find these conversions fiddly and awkward. Converting between <code>var</code> and <code>const</code> is noticeably easier.</p>
 
 <p>Moving a declaration between local and global scopes also involves converting between <code>:=</code> and <code>var</code>. This should be unnecessary.</p>
 
-<p>4. Some idiomatic code already prefers <code>var</code>. For example, it&rsquo;s commonly used for zero values:</p>
+<p>4. Some idiomatic code already prefers <code>var</code>. For example, it's commonly used for zero values:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
 <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#e6db74">&#34;hello world!&#34;</span>)
 <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">Bytes</span>()
@@ -55,13 +55,13 @@
 
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">num</span> = float64(<span style="color:#ae81ff">10</span>)
 </pre>
-<p>Without <code>:=</code>, you&rsquo;d have less choice, which is good.</p>
+<p>Without <code>:=</code>, you'd have less choice, which is good.</p>
 
 <p>6. <code>var</code> also allows the blank identifier:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#ae81ff">123</span> <span style="color:#75715e">// compiles
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">123</span>    <span style="color:#75715e">// doesn&#39;t compile
 </span></pre>
-<p>7. <code>var</code> is also better for code highlighting. While writing a Go <a href="https://github.com/mitranim/sublime-gox" target="_blank" rel="noopener noreferrer">syntax definition<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> for Sublime Text, I found that it&rsquo;s impossible to correctly scope the following:</p>
+<p>7. <code>var</code> is also better for code highlighting. While writing a Go <a href="https://github.com/mitranim/sublime-gox" target="_blank" rel="noopener noreferrer">syntax definition<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> for Sublime Text, I found that it's impossible to correctly scope the following:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#a6e22e">one</span>,
   <span style="color:#a6e22e">two</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">someExpression</span>
 </pre>
@@ -86,13 +86,13 @@
 </pre>
 <p>For Go1, adding the missing <code>var</code> support would be a safe, backwards-compatible change.</p>
 
-<p>See the related <a href="#gofmt-declarations"><span class="hash-prefix noprint" aria-hidden="true">#</span>gofmt change</a>.</p>
+<p>See the related <a href="#gofmt-declarations"><span class="hash-prefix" aria-hidden="true">#</span>gofmt change</a>.</p>
 <h3 id="remove-paren-lists"><span class="heading-prefix" aria-hidden="true"></span>Remove parenthesized lists from <code>var</code>, <code>const</code>, <code>type</code>, <code>import</code><a href="#remove-paren-lists" class="heading-anchor" aria-hidden="true"></a></h3>
-<p>Let&rsquo;s start with arguments in favor of the feature.</p>
+<p>Let's start with arguments in favor of the feature.</p>
 
 <p>Currently, parenthesized lists have exactly <em>one</em> non-aesthetic reason to exist: <code>const (...)</code> enables the use of <code>iota</code>, acting as its scope.</p>
 
-<p><code>import</code> is traditionally listed, so the keyword doesn&rsquo;t repeat:</p>
+<p><code>import</code> is traditionally listed, so the keyword doesn't repeat:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#f92672">import</span> (
   <span style="color:#e6db74">&#34;bytes&#34;</span>
   <span style="color:#e6db74">&#34;encoding&#34;</span>
@@ -102,7 +102,7 @@
 <span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;encoding&#34;</span>
 <span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;encoding/base64&#34;</span>
 </pre>
-<p>That&rsquo;s a weak-ass justification for an entire language feature, made even weaker by <a href="https://godoc.org/golang.org/x/tools/cmd/goimports" target="_blank" rel="noopener noreferrer">goimports<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> which edits your <code>imports</code> automatically.</p>
+<p>That's a weak-ass justification for an entire language feature, made even weaker by <a href="https://godoc.org/golang.org/x/tools/cmd/goimports" target="_blank" rel="noopener noreferrer">goimports<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> which edits your <code>imports</code> automatically.</p>
 
 <p>Now, arguments against the feature.</p>
 
@@ -116,10 +116,10 @@
   <span style="color:#a6e22e">two</span> = <span style="color:#a6e22e">_</span>
 )
 </pre>
-<p>Worse, it occasionally leads to menial conversions between the two. That&rsquo;s a waste of brainpower and typing. Let&rsquo;s say you have a single var:</p>
+<p>Worse, it occasionally leads to menial conversions between the two. That's a waste of brainpower and typing. Let's say you have a single var:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">one</span> = <span style="color:#ae81ff">10</span>
 </pre>
-<p>Now you&rsquo;re adding another:</p>
+<p>Now you're adding another:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">one</span> = <span style="color:#ae81ff">10</span>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">two</span> = <span style="color:#ae81ff">20</span>
 </pre>
@@ -129,15 +129,15 @@
   <span style="color:#a6e22e">two</span> = <span style="color:#ae81ff">20</span>
 )
 </pre>
-<p>We&rsquo;ve now wasted some brainpower and typing. Without lists, this would not have happened.</p>
+<p>We've now wasted some brainpower and typing. Without lists, this would not have happened.</p>
 
 <p>For consistency, the <code>go.mod</code> syntax should also remove lists.</p>
 <h3 id="remove-iota"><span class="heading-prefix" aria-hidden="true"></span>Maybe remove <code>iota</code> due to removing lists<a href="#remove-iota" class="heading-anchor" aria-hidden="true"></a></h3>
 <p><code>iota</code> requires parenthesized <code>const (...)</code> for scoping. Removing lists also leads to removing <code>iota</code>.</p>
 
-<p>While I tend to avoid <code>iota</code>, I don&rsquo;t have a strong argument against it. If keeping <code>iota</code> in the language is important, then instead of removing lists entirely, we could just consider them non-idiomatic <em>unless</em> <code>iota</code> is used.</p>
+<p>While I tend to avoid <code>iota</code>, I don't have a strong argument against it. If keeping <code>iota</code> in the language is important, then instead of removing lists entirely, we could just consider them non-idiomatic <em>unless</em> <code>iota</code> is used.</p>
 <h3 id="remove-new"><span class="heading-prefix" aria-hidden="true"></span>Remove <code>new</code> in favor of <code>&amp;</code><a href="#remove-new" class="heading-anchor" aria-hidden="true"></a></h3>
-<p><code>new</code> was relevant when <code>&amp;</code> was allowed only on &ldquo;storage locations&rdquo; such as variables and inner fields. Now that <code>&amp;</code> is allowed on <a href="https://golang.org/ref/spec#Composite_literals" target="_blank" rel="noopener noreferrer">composite literals<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <code>new</code> is close to obsolete.</p>
+<p><code>new</code> was relevant when <code>&amp;</code> was allowed only on &quot;storage locations&quot; such as variables and inner fields. Now that <code>&amp;</code> is allowed on <a href="https://golang.org/ref/spec#Composite_literals" target="_blank" rel="noopener noreferrer">composite literals<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <code>new</code> is close to obsolete.</p>
 
 <p><code>new</code> is limited to a zero value, while <code>&amp;</code> allows content:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#a6e22e">client</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Client</span>)
@@ -145,11 +145,11 @@
 
 <span style="color:#a6e22e">client</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Client</span>{<span style="color:#a6e22e">Timeout</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>}
 </pre>
-<p>Currently, <code>&amp;</code> doesn&rsquo;t work with non-composite literals:</p>
+<p>Currently, <code>&amp;</code> doesn't work with non-composite literals:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#75715e">// doesn&#39;t compile
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span> = <span style="color:#f92672">&amp;</span><span style="color:#e6db74">&#34;hello world!&#34;</span>
 </pre>
-<p>Before <code>new</code> can be removed, <code>&amp;</code> needs to be extended to support primitive literals. That would make it strictly more powerful than <code>new</code>. (<strong>Edit 2020-10-19</strong>: some types, such as interfaces, don&rsquo;t have literals and can never be instantiated with <code>&amp;</code>, but can with <code>new</code>.)</p>
+<p>Before <code>new</code> can be removed, <code>&amp;</code> needs to be extended to support primitive literals. That would make it strictly more powerful than <code>new</code>. (<strong>Edit 2020-10-19</strong>: some types, such as interfaces, don't have literals and can never be instantiated with <code>&amp;</code>, but can with <code>new</code>.)</p>
 
 <p>Allowing <code>&amp;</code> on primitives would also make it easier to print Go data structures as code. Currently, pretty-printing libraries have to resort to ugly workarounds to support those types.</p>
 
@@ -164,9 +164,9 @@
   <span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;hello world!&#34;</span>)
 }
 </pre>
-<p>Having read a considerable amount of code in multiple languages with this import style, I&rsquo;m convinced that it&rsquo;s always a bad idea. Subjectively, it makes the code harder to understand and harder to track down the definitions. Objectively, it makes the code more fragile against changes.</p>
+<p>Having read a considerable amount of code in multiple languages with this import style, I'm convinced that it's always a bad idea. Subjectively, it makes the code harder to understand and harder to track down the definitions. Objectively, it makes the code more fragile against changes.</p>
 <h3 id="remove-if-assignment"><span class="heading-prefix" aria-hidden="true"></span>Remove if-assignment and derivatives: <code>if _ := _ ; _ {}</code><a href="#remove-if-assignment" class="heading-anchor" aria-hidden="true"></a></h3>
-<p>Subjectively, I find this form annoying to type and annoying to read. Objectively, it&rsquo;s a choice, and this post is predicated on &ldquo;choice is bad&rdquo;. This wastes everyone&rsquo;s brainpower; anyone reading the code has to be aware of both syntactic forms.</p>
+<p>Subjectively, I find this form annoying to type and annoying to read. Objectively, it's a choice, and this post is predicated on &quot;choice is bad&quot;. This wastes everyone's brainpower; anyone reading the code has to be aware of both syntactic forms.</p>
 
 <p>Instead of two options:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">_</span>; <span style="color:#a6e22e">ok</span> { <span style="color:#a6e22e">_</span> }
@@ -174,7 +174,7 @@
 <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">_</span>
 <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> { <span style="color:#a6e22e">_</span> }
 </pre>
-<p>Let&rsquo;s leave just <em>one</em> option:</p>
+<p>Let's leave just <em>one</em> option:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">_</span>
 <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> { <span style="color:#a6e22e">_</span> }
 </pre>
@@ -190,7 +190,7 @@
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#ae81ff">0.123</span>
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#ae81ff">.123</span>
 </pre>
-<p>The short form works only for numbers below <code>0</code> and is not essential. The long form is essential and more general. Subjectively, I find the short form slightly harder to read; my brain starts thinking about typos and other syntactic forms involving dots. Objectively, it creates an unnecessary choice. Let&rsquo;s leave just one option: the &ldquo;long&rdquo; form.</p>
+<p>The short form works only for numbers below <code>0</code> and is not essential. The long form is essential and more general. Subjectively, I find the short form slightly harder to read; my brain starts thinking about typos and other syntactic forms involving dots. Objectively, it creates an unnecessary choice. Let's leave just one option: the &quot;long&quot; form.</p>
 <h2 id="tools"><span class="heading-prefix" aria-hidden="true"></span>Tool Changes<a href="#tools" class="heading-anchor" aria-hidden="true"></a></h2><h3 id="gofmt-declarations"><span class="heading-prefix" aria-hidden="true"></span>Gofmt: align adjacent non-listed <code>var</code>, <code>const</code>, <code>type</code>, <code>import</code><a href="#gofmt-declarations" class="heading-anchor" aria-hidden="true"></a></h3>
 <p>Currently, <code>gofmt</code> aligns adjacent assignments only in parenthesized lists:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> (
@@ -203,7 +203,7 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">two</span> = <span style="color:#ae81ff">20</span>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">three</span> = <span style="color:#ae81ff">30</span>
 </pre>
-<p>After <a href="#remove-paren-lists"><span class="hash-prefix noprint" aria-hidden="true">#</span>removing parenthesized lists</a>, we probably want <code>gofmt</code> to align adjacent non-parenthesized assignments:</p>
+<p>After <a href="#remove-paren-lists"><span class="hash-prefix" aria-hidden="true">#</span>removing parenthesized lists</a>, we probably want <code>gofmt</code> to align adjacent non-parenthesized assignments:</p>
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">one</span> = <span style="color:#ae81ff">10</span>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">two</span> = <span style="color:#ae81ff">20</span>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">three</span> = <span style="color:#ae81ff">30</span>
@@ -226,9 +226,9 @@
 <li>support for encoding and decoding can be added to the corresponding packages: <code>strconv</code>, <code>fmt</code>, <code>encoding/json</code>, <code>encoding/xml</code>, etc.</li>
 </ul>
 
-<p>In the end, I&rsquo;m not convinced that it&rsquo;s worthwhile.</p>
+<p>In the end, I'm not convinced that it's worthwhile.</p>
 
 <hr />
 
 <p>Have any thoughts? Let me know!</p>
-</article><hr class="hr mar-ver-1 pad-hor-body"><p class="pad-hor-body">This blog currently doesn't support comments. Write to me via <a href="/#contacts" class="link-deco">contacts</a>.</p><p class="feed-links pad-hor-body"><span>Subscribe using one of:</span><a href="/feed.xml" class="link-deco" target="_blank" rel="noopener noreferrer">Atom<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a><a href="/feed_rss.xml" class="link-deco" target="_blank" rel="noopener noreferrer">RSS<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a><a href="https://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml" class="link-deco" target="_blank" rel="noopener noreferrer">Feedly<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p><footer class="footer pad-bot-body"><span class="flex-1 flex row-sta-cen gap-hor-0x5 pad-lef-body"><span class="text-lef">2014-2023</span><a href="https://github.com/mitranim/mitranim.github.io" class="link-deco wspace-nowrap" target="_blank" rel="noopener noreferrer">code<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></span><span class="flex-1 text-cen"><a href="/#contacts" class="link-deco">touch me</a></span><span class="flex-1 flex row-end-cen"><a href="#top" class="fill-gray-fg-near pad-body theme-plain-bg-gray" onclick="event.preventDefault(); window.scrollTo(0, 0)"><svg class="svg-icon fill-fg" viewBox="0 0 448 512" width="1em" height="1em"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a></span></footer></body></html>
+</article><hr class="hr mar-ver-1 pad-hor-body"><p class="pad-hor-body">This blog currently doesn't support comments. Write to me via <a href="/#contacts" class="link-deco">contacts</a>.</p><p class="feed-links pad-hor-body"><span>Subscribe using one of:</span><a href="/feed.xml" class="link-deco" target="_blank" rel="noopener noreferrer">Atom<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a><a href="/feed_rss.xml" class="link-deco" target="_blank" rel="noopener noreferrer">RSS<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a><a href="https://feedly.com/i/subscription/feed/https://mitranim.com/feed.xml" class="link-deco" target="_blank" rel="noopener noreferrer">Feedly<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p><footer class="footer"><span class="flex-1 flex row-sta-cen gap-hor-0x5 pad-lef-body"><span class="text-lef">2014-2023</span><a href="https://github.com/mitranim/mitranim.github.io" class="link-deco wspace-nowrap" target="_blank" rel="noopener noreferrer">code<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></span><span class="flex-1 text-cen"><a href="/#contacts" class="link-deco">touch me</a></span><span class="flex-1 flex row-end-cen"><a href="#top" class="fill-gray-fg-near pad-body theme-plain-bg-gray" onclick="event.preventDefault(); window.scrollTo(0, 0)"><svg class="svg-icon fill-fg" viewBox="0 0 448 512" width="1em" height="1em"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a></span></footer></body></html>
