@@ -227,10 +227,10 @@ func (self PageGames) Head() x.Ren {
 			E(`summary`, AP(`class`, `summary`), `Click for additional notes.`),
 			MdToHtmlStr(`
 
-This list is carefully selected. There are many other games I've greatly
-enjoyed, which I would not recommend right now, either because they're too
-outdated (e.g. Etherlords 2), or because the online community that made them
-great no longer exists (e.g. WoW).
+These are my current, modern recommendations. There are many other games I've
+greatly enjoyed, which I would not recommend right now, either because they're
+too outdated (e.g. Etherlords 2), or because the online community that made
+them great no longer exists (e.g. WoW).
 
 Even if you prefer MacOS or Linux for general use, you should use a dedicated
 Windows system for games. Many games don't exist on other platforms, or take
@@ -239,8 +239,8 @@ performance. Many games have essential mods only available on Windows. Windows
 also allows a much better selection of hardware.
 
 Always, _always_ check [PC Gaming Wiki](https://pcgamingwiki.com) for essential
-tweaks and mods for any given game. For many games, it's also worth using
-[Nexus Mods](https://nexusmods.com) for mods, but beware of spoilers.
+tweaks and mods for any given game. For many games, it's also worth using mods
+from [Nexus Mods](https://nexusmods.com), but beware of spoilers.
 
 `),
 		),
@@ -256,7 +256,6 @@ func (self PageGames) Content(site Site) x.Ren {
 
 	return F(
 		NoscriptInteractivity().AttrAdd(`class`, `mar-bot-1`),
-		// self.Glossary(),
 		self.TimeSinks(src),
 		self.Tags(src),
 		self.GameGrid(src),
@@ -264,7 +263,7 @@ func (self PageGames) Content(site Site) x.Ren {
 	)
 }
 
-func (self PageGames) TimeSinks(src Games) x.Ren {
+func (PageGames) TimeSinks(src Games) x.Ren {
 	vals := src.TimeSinks()
 	if gg.IsEmpty(vals) {
 		return nil
@@ -279,7 +278,7 @@ func (self PageGames) TimeSinks(src Games) x.Ren {
 	)
 }
 
-func (self PageGames) Tags(src Games) x.Ren {
+func (PageGames) Tags(src Games) x.Ren {
 	vals := src.Tags()
 	if gg.IsEmpty(vals) {
 		return nil
@@ -301,7 +300,7 @@ func (self PageGames) GameGrid(src Games) x.Ren {
 	)
 }
 
-func (self PageGames) GameGridItem(src Game) x.Ren {
+func (PageGames) GameGridItem(src Game) x.Ren {
 	return E(`filter-item`, AP(`class`, `game-grid-item`),
 		func(bui B) {
 			bui.E(`img`, AP(`src`, src.Img.String()))
