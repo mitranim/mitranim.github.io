@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"io"
 	"regexp"
 	"strings"
@@ -96,7 +97,7 @@ func mdOpts(opt *MdOpt) []bf.Option {
 		opt = &MdOpt{}
 	}
 	if opt.Flags == 0 {
-		opt.Flags = bf.CommonHTMLFlags
+		opt.Flags = bf.CommonHTMLFlags &^ bf.Smartypants
 	}
 
 	return []bf.Option{
@@ -124,7 +125,7 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 	}
 }
 
-/**
+/*
 Differences from default:
 
 	* external links get attributes like `target="_blank"` and an external
@@ -152,7 +153,7 @@ func (self *MdRen) RenderLink(out io.Writer, node *bf.Node, entering bool) bf.Wa
 		var bui x.Bui
 		bui.Begin(`a`, attrs)
 		if isLinkHash(href) {
-			bui.E(`span`, AP(`class`, `hash-prefix noprint`, `aria-hidden`, `true`), `#`)
+			bui.E(`span`, AP(`class`, `hash-prefix`, `aria-hidden`, `true`), `#`)
 		}
 		ioWrite(out, bui)
 	} else {
@@ -176,7 +177,7 @@ func isLinkExternal(val string) bool  { return hasLinkProtocol(val) }
 func hasLinkProtocol(val string) bool { return RE_PROTOCOL.MatchString(val) }
 func isLinkHash(val string) bool      { return strings.HasPrefix(val, `#`) }
 
-/**
+/*
 Differences from default:
 
 	* code highlighting
@@ -194,7 +195,7 @@ func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) 
 	return self.RenderCodeBlockHighlighted(out, node, entering)
 }
 
-/**
+/*
 Special magic for code blocks like these:
 
 ```details | lang | summary
@@ -212,7 +213,8 @@ func (self *MdRen) RenderCodeBlockDetails(out io.Writer, node *bf.Node, entering
 		panic(gg.Errf(`invalid code block tag %q`, tag))
 	}
 
-	lang, summary := match[1], match[2]
+	lang := bytes.TrimSpace(match[1])
+	summary := bytes.TrimSpace(match[2])
 	if len(summary) == 0 {
 		summary = DETAIL_SUMMARY_FALLBACK
 	}
@@ -254,7 +256,7 @@ func (self *MdRen) RenderCodeBlockHighlighted(out io.Writer, node *bf.Node, ente
 	return bf.SkipChildren
 }
 
-/**
+/*
 Differences from default:
 
 	* Fancy prefix indicating heading level, hidden from screen readers;

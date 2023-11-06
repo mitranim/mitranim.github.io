@@ -106,7 +106,7 @@ func AttrsMain() x.Attrs {
 func AttrsMainArticleMd() x.Attrs { return AttrsMain().Add(`class`, `article`) }
 
 func Footer[A Ipage](page A) x.Elem {
-	return E(`footer`, AP(`class`, `footer pad-bot-body`),
+	return E(`footer`, AP(`class`, `footer`),
 		E(`span`, AP(`class`, `flex-1 flex row-sta-cen gap-hor-0x5 pad-lef-body`),
 			E(`span`, AP(`class`, `text-lef`), yearsElapsed()),
 			LinkExt(`https://github.com/mitranim/mitranim.github.io`, `code`).AttrAdd(`class`, `wspace-nowrap`),
@@ -163,7 +163,7 @@ func FeedPostDesc(page PagePost) any {
 	)
 }
 
-/**
+/*
 Must be revised. This should not be accidentally read by voiceover utils, and on
 click, it must skip to the content without changing the URL or polluting the
 browser history. Previously, it seemed to work with the MacOS VoiceOver, but
@@ -204,7 +204,7 @@ type ImgMeta struct {
 	Height  int
 }
 
-/**
+/*
 Note: using <figure> and <figcaption> would cause the MacOS VoiceOver to read
 the caption twice when reading the content sequentially.
 */

@@ -223,7 +223,7 @@ func (self PageGames) Make(site Site) {
 func (self PageGames) Head() x.Ren {
 	return F(
 		E(`h1`, nil, self.Title),
-		E(`details`, AP(`class`, `details-spaced`),
+		E(`details`, AP(`class`, `details details-spaced`),
 			E(`summary`, AP(`class`, `summary`), `Click for additional notes.`),
 			MdToHtmlStr(`
 
@@ -260,7 +260,7 @@ func (self PageGames) Content(site Site) x.Ren {
 		self.TimeSinks(src),
 		self.Tags(src),
 		self.GameGrid(src),
-		Script(`scripts/games.mjs`),
+		Script(`/scripts/games.mjs`),
 	)
 }
 

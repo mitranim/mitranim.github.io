@@ -202,8 +202,8 @@ supported in Safari/iOS at the time of writing.
 
 .hr {color: var(--c-hr)} // TODO consolidate with default border color.
 
-// Lexicon: "plain" in theme names means "looks like plain text until interacted
-// with". TODO better naming.
+// Lexicon: "plain" in theme names means "like plain text until interation".
+// TODO better naming.
 .theme-plain-bg-gray {
   &:hover {@extend .bg-gray-near}
 }
@@ -316,22 +316,11 @@ supported in Safari/iOS at the time of writing.
 
 .hash-prefix {opacity: 0.5}
 
-.unstyled-list, .typography .unstyled-list {
-  padding: 0;
-  list-style-type: none;
-  list-style-position: unset;
-}
-
-.fancy-list {padding-left: 1rem}
-ul.fancy-list {list-style-type: disc}
-ul.fancy-list ul.fancy-list {list-style-type: circle}
-
 .typography {
   h1 {font-size: var(--font-size-h1)}
   h2 {font-size: var(--font-size-h2)}
   h3 {font-size: var(--font-size-h3)}
   h1, h2, h3, h4, h5, h6 {@extend .target-flash}
-  ul, ol {@extend .fancy-list}
   p, ul, ol {@extend .line-comfy}
   hr:not(.--gap-none) {@extend .hr}
   a {@extend .link-deco}
@@ -391,6 +380,18 @@ ul.fancy-list ul.fancy-list {list-style-type: circle}
   }
 }
 
+.details {
+  @extend %bord-details;
+  &[open] {@extend %bord-details-open}
+  > * {@extend .pad-hor-1}
+  > :first-child {@extend .pad-top-1}
+  > :last-child {@extend .pad-bot-1}
+}
+
+// Color needs to be consistent with `.summary`.
+%bord-details {border: 1px solid var(--c-bg-tag)}
+%bord-details-open {border: 1px solid var(--c-bg-tag-active)}
+
 .details-spaced[open] {@extend %article-spacing}
 
 /*
@@ -402,6 +403,7 @@ usable.
 }
 
 // Needs a better interactive theme.
+// Color needs to be consistent with `.details`.
 .summary {
   @extend .summary-text, .cur-point, .pad-1;
   @extend .theme-bg-gray, .--busy;
@@ -659,7 +661,10 @@ file metadata to set `aspect-ratio` for each `img`.
 }
 
 .game-grid-item {
-  @extend .flex, .col, .bord;
+  @extend .flex, .col;
+
+  // This border color is used for consistency with `<details>` on the same page.
+  @extend %bord-details-open;
 
   --space: 0.5rem;
   gap: var(--space);

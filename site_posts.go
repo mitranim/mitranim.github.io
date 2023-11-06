@@ -161,7 +161,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:        `posts/andromeda.html`,
-				Title:       `Game impressions: Mass Effect Andromeda.`,
+				Title:       `Game impressions: Mass Effect Andromeda`,
 				Description: `Enjoyed, highly recommended.`,
 				MdTpl:       readTemplate(`posts/andromeda.md`),
 			},
@@ -246,7 +246,7 @@ func initSitePosts() []PagePost {
 		PagePost{
 			Page: Page{
 				Path:  `posts/thoughts-on-the-egg.html`,
-				Title: `Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt.`,
+				Title: `Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt`,
 				MdTpl: readTemplate(`posts/thoughts-on-the-egg.md`),
 			},
 			PublishedAt: timeParse(`2020-04-30T08:25:16Z`),
