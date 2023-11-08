@@ -302,9 +302,12 @@ func (self PageGames) GameGrid(src Games) x.Ren {
 
 func (PageGames) GameGridItem(src Game) x.Ren {
 	return E(`filter-item`, AP(`class`, `game-grid-item`),
+		E(`img`, AP(
+			`src`, src.Img.String(),
+			`class`, `game-grid-item-img`,
+		)),
+		E(`h3`, nil, src.RenderName()),
 		func(bui B) {
-			bui.E(`img`, AP(`src`, src.Img.String()))
-			bui.E(`h3`, nil, src.RenderName())
 			if gg.IsNotZero(src.Desc) {
 				bui.Child(MdToHtmlStr(src.Desc))
 			}

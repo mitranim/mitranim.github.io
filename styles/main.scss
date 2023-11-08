@@ -660,18 +660,15 @@ file metadata to set `aspect-ratio` for each `img`.
   gap: 1rem;
 }
 
-.game-grid-item {
-  @extend .flex, .col;
+.game-grid-item {@extend .flex, .col, .gap-0x5}
 
-  // This border color is used for consistency with `<details>` on the same page.
-  @extend %bord-details-open;
+.game-grid-item-img {
+  @extend .wid-100p, .obj-cov, .aspect-steam-img, .pad-0;
 
-  --space: 0.5rem;
-  gap: var(--space);
-  padding-bottom: var(--space);
-
-  > * {@include sb.pad-hor(var(--space))}
-  > img:first-child {@extend .wid-100p, .obj-cov, .aspect-steam-img, .pad-0}
+  // This ensures that all images have a distinctive box regardless of contrast
+  // (or lack thereof) between the page background and the image, or when they
+  // fail to load. This helps to differentiate grid items from each other.
+  @extend .bord;
 }
 
 .filter-placeholder {
