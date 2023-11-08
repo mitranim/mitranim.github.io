@@ -90,7 +90,7 @@ func Header[A Ipage](page A) x.Elem {
 		E(`span`,
 			AP(
 				`class`, `header-update`,
-				`aria-label`, `Last update somewhere on the site.`,
+				`aria-label`, `Last update somewhere on the site`,
 			),
 			`Updated: `+today(),
 		),
