@@ -372,7 +372,7 @@ func (self PagePost) Render(_ Site) x.Bui {
 		self,
 		E(`article`, AttrsMainArticleMd(),
 			// Should be kept in sync with `MdRen.RenderNode` logic for headings.
-			E(`h1`, nil, HEADING_PREFIX, self.Title),
+			E(`h1`, A(HEADING_PREFIX), self.Title),
 			func(bui B) {
 				if self.Description != `` {
 					bui.E(`p`, AP(`role`, `doc-subtitle`, `class`, `size-large italic`), self.Description)

@@ -42,7 +42,7 @@ var (
 
 	MD_INDENT               = `  `
 	HEADING_TAGS            = [...]string{1: `h1`, 2: `h2`, 3: `h3`, 4: `h4`, 5: `h5`, 6: `h6`}
-	HEADING_PREFIX          = F(E(`span`, AP(`class`, `heading-prefix`, `aria-hidden`, `true`)))
+	HEADING_PREFIX          = x.Attr{`class`, `heading-prefix`}
 	RE_DETAIL_TAG_PREFIX    = regexp.MustCompile(`^details\b`)
 	RE_DETAIL_TAG           = regexp.MustCompile(`^details(?:\s*[|]\s*(\w*)\s*[|]\s*(.*))?`)
 	RE_PROTOCOL             = regexp.MustCompile(`^\w+://`)
@@ -275,8 +275,7 @@ func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf
 
 	if entering {
 		var bui x.Bui
-		bui.Begin(tag, A(aId(node.HeadingID)))
-		bui.F(HEADING_PREFIX)
+		bui.Begin(tag, A(aId(node.HeadingID), HEADING_PREFIX))
 		ioWrite(out, bui)
 	} else {
 		var bui x.Bui

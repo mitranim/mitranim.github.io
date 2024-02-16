@@ -86,6 +86,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/hades.md`),
 			},
 			PublishedAt: timeParse(`2023-08-25T15:42:29Z`),
+			UpdatedAt:   timeParse(`2024-02-16T13:22:47Z`),
 			IsListed:    true,
 		},
 		PagePost{
@@ -188,6 +189,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/spaces-tabs.md`),
 			},
 			PublishedAt: timeParse(`2020-10-23T06:48:15Z`),
+			UpdatedAt:   timeParse(`2024-02-16T13:23:19Z`),
 			IsListed:    true,
 		},
 		PagePost{

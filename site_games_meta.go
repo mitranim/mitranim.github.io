@@ -93,9 +93,9 @@ func (self TimeSink) Less(val TimeSink) bool { return self.Ord < val.Ord }
 func (self TimeSink) Mode() string {
 	switch self {
 	case TimeSinkSafe, TimeSinkModerate:
-		return `--safe`
+		return `⏳`
 	case TimeSinkDanger, TimeSinkExtreme, TimeSinkSuicide:
-		return `--danger`
+		return `⌛️`
 	default:
 		panic(errUnrecognized(self))
 	}
@@ -105,11 +105,8 @@ func (self TimeSink) Mode() string {
 func (self TimeSink) Render(bui B) {
 	bui.E(
 		`button`,
-		AP(
-			`is`, `time-sink`,
-			`type`, `button`,
-			`class`, gg.SpacedOpt(`time-sink`, self.Mode()),
-		),
+		AP(`is`, `time-sink`, `type`, `button`, `class`, `tag-like`),
+		E(`span`, AP(`class`, `tag-prefix`), self.Mode()),
 		self.String(),
 	)
 }
@@ -181,7 +178,8 @@ func (self Tag) Render(bui B) {
 	}
 	bui.E(
 		`button`,
-		AP(`is`, `a-tag`, `type`, `button`, `class`, `tag`),
+		AP(`is`, `a-tag`, `type`, `button`, `class`, `tag-like`),
+		E(`span`, AP(`class`, `tag-prefix`), `#`),
 		self.String(),
 	)
 }

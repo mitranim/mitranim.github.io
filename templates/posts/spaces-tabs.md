@@ -4,10 +4,10 @@
 
 _Objective_ arguments in favor of spaces over tabs:
 
+* Spaces are both necessary and sufficient. Tabs are not necessary and not sufficient (imagine separating words with tabs). Adding them adds complexity.
 * Tabs break when copy-pasting. For example, some terminals and websites render tabs as spaces, usually as 8.
-* Mixing tabs with spaces causes indentation to break in different editors. People _will_ mix them. Plenty of languages and editors don't have autoformatters. It will always stay this way.
 * Distinguishing tabs from spaces requires special editor support. (Rendering special whitespace symbols.)
-* Spaces are both necessary and sufficient. Tabs are not necessary and not sufficient (we don't use them for separating words). Adding them adds complexity.
+* Mixing tabs with spaces causes indentation to break in different editors. People _will_ mix them. Plenty of languages and editors don't have autoformatters. It will always stay this way.
 
 _Objective_ arguments in favor of tabs:
 

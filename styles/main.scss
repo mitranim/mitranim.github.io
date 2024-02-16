@@ -14,7 +14,7 @@ $bord: 1px solid var(--c-bord);
 $pad-body: 1rem;
 
 %vars-misc {
-  --max-page-width:     #{$breakpoint-lg};
+  --max-page-width:     #{$breakpoint-md};
   --font-size-h1:       1.6rem;
   --font-size-h2:       1.4rem;
   --font-size-h3:       1.2rem;
@@ -52,7 +52,6 @@ $pad-body: 1rem;
   --c-link-visited:   hsl(260deg 45% 65%);
   --c-code-bg:        hsl(70deg 8% 15%); // Same as chroma's Monokai background
   --c-hr:             hsl(0deg 0% 63%);
-  --c-fg-tag:         var(--c-fg);
   --c-bg-tag:         hsl(220deg 20% 20%);
   --c-bg-tag-active:  hsl(220deg 30% 25%);
   --c-bg-tag-checked: hsl(150deg 30% 25%);
@@ -72,7 +71,6 @@ $pad-body: 1rem;
   --c-link-visited:   hsl(260deg 60% 25%);
   --c-code-bg:        hsl(60deg 33% 97%);
   --c-hr:             hsl(0deg 0% 63%);
-  --c-fg-tag:         var(--c-fg);
   --c-bg-tag:         hsl(250deg 60% 96%);
   --c-bg-tag-active:  hsl(250deg 20% 90%);
   --c-bg-tag-checked: hsl(150deg 70% 85%);
@@ -123,15 +121,6 @@ body {
 code, key, pre {@extend .code}
 
 /* Mixins */
-
-@mixin aria-checked {
-  // Causes precedence issues.
-  // It's better to avoid `[aria-checked=false]` in markup.
-  //
-  // &[aria-checked]:not([aria-checked=false]) {@content}
-
-  &[aria-checked] {@content}
-}
 
 @mixin shad($wid, $col) {box-shadow: 0 0 0 $wid $col}
 
@@ -202,32 +191,29 @@ supported in Safari/iOS at the time of writing.
 
 .hr {color: var(--c-hr)} // TODO consolidate with default border color.
 
-// Lexicon: "plain" in theme names means "like plain text until interation".
-// TODO better naming.
-.theme-plain-bg-gray {
-  &:hover {@extend .bg-gray-near}
-}
+.busy-gray-bg {&:hover {@extend .bg-gray-near}}
 
 .theme-bg-gray {
   @extend .fg;
-  color: var(--c-fg-tag);
+  color: var(--c-fg);
   background-color: var(--c-bg-tag);
-  &.--busy {&:hover {background-color: var(--c-bg-tag-active)}}
+
+  &.--busy {
+    &:hover, &:focus {background-color: var(--c-bg-tag-active)}
+    &:active {@include shad(3px, var(--c-fg-far))}
+  }
 }
 
 // TODO better colors.
 // TODO better name.
 // Note: box-shadow should be compatible with default focus outlines.
 .theme-tag-like {
-  @extend .theme-bg-gray;
-
-  &.--busy {
-    @include aria-checked {
-      background-color: var(--c-bg-tag-checked);
-      @include shad(1px, var(--c-fg-far));
-    }
-    &:active {@include shad(3px, var(--c-fg-far))}
+  &:hover, &:focus {background-color: var(--c-bg-tag)}
+  &[aria-checked] {
+    background-color: var(--c-bg-tag-checked);
+    @include shad(1px, var(--c-fg-far));
   }
+  &:active {@include shad(3px, var(--c-fg-far))}
 }
 
 /* Typography */
@@ -279,7 +265,7 @@ supported in Safari/iOS at the time of writing.
   @extend .size-large, .flex, .row-cen-cen, .fg-link, .pad-body;
 
   &.--busy {
-    @extend .theme-plain-bg-gray;
+    @extend .busy-gray-bg;
     &[aria-current=true], &[aria-current=page] {
       box-shadow: inset 0 calc(-1 * var(--thick-border-width)) 0 0;
     }
@@ -287,7 +273,7 @@ supported in Safari/iOS at the time of writing.
 }
 
 .header-update {
-  @extend .fg-blue, .flex, .row-cen-cen, .pad-body, .sm-hide;
+  @extend .flex, .row-cen-cen, .pad-body, .sm-hide;
 
   &[aria-label] {
     @extend .help;
@@ -314,6 +300,27 @@ supported in Safari/iOS at the time of writing.
 
 .link-deco[href] {@extend .fg-link, .underline-busy}
 
+/*
+.link-ext::after {
+  @extend .inl-block, .bg-cov;
+  content: '';
+  margin-left: 0.3ch;
+  width: 1.5ex;
+  height: 1.5ex;
+  color: inherit;
+
+  // Known issue: doesn't inherit color. TODO remove.
+  background-image: url(
+    'data:image/svg+xml;utf8,' +
+    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: none; stroke: var(--c-link)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />' +
+      '<polyline points="15 3 21 3 21 9" />' +
+      '<line x1="10" y1="14" x2="21" y2="3" />' +
+    '</svg>'
+  );
+}
+*/
+
 .hash-prefix {opacity: 0.5}
 
 .typography {
@@ -330,7 +337,7 @@ supported in Safari/iOS at the time of writing.
 // Variant of `typography` intended for articles, with support for vertical
 // spacing.
 .article {
-  @extend .typography, %article-spacing, %article-headings;
+  @extend .typography, %article-spacing;
 
   // Required for floating images.
   @extend .block;
@@ -346,37 +353,35 @@ supported in Safari/iOS at the time of writing.
 
   > :not(:last-child) {@extend .mar-bot-1}
 
-  > h1, > h2, > h3, > h4, > h5, > h6 {
+  > :where(h1, h2, h3, h4, h5, h6) {
     &:not(:first-child) {@extend .mar-top-2}
     @extend .mar-bot-1;
   }
 
-  ul, ol {li {@extend .mar-top-0x5}}
+  :where(ul, ol) li {@extend .mar-top-0x5}
 
   > hr:not(.--gap-none) {@extend .mar-ver-2}
 }
 
-%article-headings {
-  .heading-prefix {display: none}
+// TODO: this must use a breakpoint slightly wider than `--max-page-width`,
+// by about the width expected of header prefixes.
+@media (min-width: $breakpoint-lg + 1px) {
+  :where(h1, h2, h3, h4, h5, h6).heading-prefix {
+    position: relative;
 
-  // TODO: this must use a breakpoint slightly wider than `--max-page-width`,
-  // by about the width expected of header prefixes.
-  @media (min-width: $breakpoint-lg + 1px) {
-    h1, h2, h3, h4, h5, h6 {position: relative}
-
-    .heading-prefix {
+    &::before {
       position: absolute;
       display: inline;
       right: calc(100% + 1ch);
       color: var(--c-fg-near);
     }
 
-    h1 > .heading-prefix::before {content: '# '}
-    h2 > .heading-prefix::before {content: '## '}
-    h3 > .heading-prefix::before {content: '### '}
-    h4 > .heading-prefix::before {content: '#### '}
-    h5 > .heading-prefix::before {content: '##### '}
-    h6 > .heading-prefix::before {content: '###### '}
+    &:where(h1)::before {content: '# '}
+    &:where(h2)::before {content: '## '}
+    &:where(h3)::before {content: '### '}
+    &:where(h4)::before {content: '#### '}
+    &:where(h5)::before {content: '##### '}
+    &:where(h6)::before {content: '###### '}
   }
 }
 
@@ -398,9 +403,7 @@ supported in Safari/iOS at the time of writing.
 Incomplete. Requires additional indications of interactivity before this can be
 usable.
 */
-.summary-text {
-  &::marker {@extend .fg-link}
-}
+.summary-text {&::marker {@extend .fg-link}}
 
 // Needs a better interactive theme.
 // Color needs to be consistent with `.details`.
@@ -610,44 +613,18 @@ file metadata to set `aspect-ratio` for each `img`.
 
 .line-1 {line-height: 1}
 .line-comfy {line-height: 1.4}
+%cen {@extend .flex, .row-cen-cen, .line-1}
 
 // TODO better name.
 .tag-like {
-  @extend .wspace-pre, .line-1, .pad-tiny, .cur-auto, .theme-tag-like;
-  line-height: 1;
+  @extend %cen, .wspace-pre, .pad-tiny, .cur-auto, .theme-tag-like;
   &.--busy {@extend .cur-point}
 }
 
+.tag-prefix {@extend %cen, .fg-gray-far}
+
 // TODO better name.
-.tag-likes {@extend .flex, .row, .wrap, .gap-tiny}
-
-.tag {
-  @extend .tag-like;
-
-  // TODO consider making this part of the content for copy/paste compat.
-  &::before {
-    content: '#';
-    @extend .fg-gray-near;
-  }
-}
-
-.time-sink {
-  @extend .tag-like;
-
-  &.--safe {
-    // @extend .fg-blue;
-
-    // TODO consider making this part of the content for copy/paste compat.
-    &::before {content: '⏳'}
-  }
-
-  &.--danger {
-    // @extend .fg-red;
-
-    // TODO consider making this part of the content for copy/paste compat.
-    &::before {content: '⌛️'}
-  }
-}
+.tag-likes {@extend .flex, .row-sta-cen, .wrap, .gap-tiny}
 
 .aspect-common {aspect-ratio: 16/9}
 
