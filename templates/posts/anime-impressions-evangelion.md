@@ -1,4 +1,4 @@
-> By psycho, of psychos, for psychos
+> "By psycho, of psychos, for psychos"
 
 Evangelion requires special preparation for full enjoyment.
 
@@ -14,4 +14,4 @@ The main protagonist is the most useless, cowardly wimp. Evangelion inverts the 
 
 The original series fails to conclude the plot. The last two episodes leave it mysterious, open to speculation and interpretation, and focus exclusively on inner psyche. This can be enjoyable if the viewer is prepared in advance. Otherwise, it can be frustrating. The actual conclusion is "End of Evangelion", a "movie" released many years after, that continues directly from the third-last episode and concludes the "real world" action, with a healthy dose of psychic puzzles.
 
-Many important details are only briefly alluded to, and need to be deciphered. The series rewards watching carefully, paying attention to details, thinking back, and thinking ahead. There's plenty of fun to be had by thinking about the implications of many plot details, events, technologies, and more, that are left unexplored on-screen. The show on the screen is like a compressed archive that can be decompressed in your head into a greater sum total of information, getting the most out of it.
+Many important details are only briefly alluded to, and need to be deciphered. The series rewards watching carefully, paying attention to details, thinking back, and thinking ahead. There's plenty of fun to be had by thinking about the implications of many plot details, events, technologies, and more, that are left unexplored on-screen. The show on the screen is like a compressed archive that can be decompressed in your head into a greater sum total of information, to get the most out of it.
