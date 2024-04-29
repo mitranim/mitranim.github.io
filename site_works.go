@@ -713,10 +713,10 @@ func initWorks() []Work {
 		{
 			Name:      `jisp`,
 			Link:      `https://mitranim.com/jisp/`,
-			Desc:      `Lisp-style language that compiles to JavaScript. Currently on pause.`,
+			Desc:      `Lisp-style language that compiles to JavaScript.`,
 			Role:      `author`,
 			Tech:      `JS, Jisp`,
-			Lifecycle: Lifecycle{Start: `2014`, End: `2015`},
+			Lifecycle: Lifecycle{Start: `2014`, Status: `update upcoming`},
 		},
 	}
 }

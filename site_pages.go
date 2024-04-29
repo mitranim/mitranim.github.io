@@ -303,7 +303,7 @@ func (self PageGames) GameGrid(src Games) x.Ren {
 func (PageGames) GameGridItem(src Game) x.Ren {
 	return E(`filter-item`, AP(`class`, `game-grid-item`),
 		E(`img`, AP(
-			`src`, src.Img.String(),
+			`src`, src.Img,
 			`class`, `game-grid-item-img`,
 		)),
 		E(`h3`, nil, src.RenderName()),

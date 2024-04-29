@@ -17,8 +17,8 @@ type SteamApp struct {
 func (self SteamApp) Game() (out Game) {
 	id := gg.String(self.Appid)
 	out.Name = self.Name
-	out.Link = steamAppUrlBase.AddPath(id)
-	out.Img = steamAppImgUrlBase.AddPath(id, steamAppImgUrlSuffix)
+	out.Link = steamAppUrlBase.AddPath(id).String()
+	out.Img = steamAppImgUrlBase.AddPath(id, steamAppImgUrlSuffix).String()
 	return
 }
 

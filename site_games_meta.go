@@ -42,8 +42,8 @@ func (self Games) Tags() []Tag {
 type Game struct {
 	Id       string
 	Name     string
-	Link     Url
-	Img      Url
+	Link     string
+	Img      string
 	Desc     string
 	TimeSink TimeSink
 	Tags     []Tag
@@ -61,11 +61,11 @@ func (self Game) Pk() string {
 func (self Game) GetIsListed() bool { return self.IsListed }
 
 func (self Game) RenderName() any {
-	link := self.Link.String()
-	if link == `` {
-		return self.Name
+	link := self.Link
+	if gg.IsNotZero(link) {
+		return LinkExt(link, self.Name)
 	}
-	return LinkExt(link, self.Name)
+	return self.Name
 }
 
 func (self Game) GetTags() []Tag        { return self.Tags }
@@ -106,7 +106,7 @@ func (self TimeSink) Render(bui B) {
 	bui.E(
 		`button`,
 		AP(`is`, `time-sink`, `type`, `button`, `class`, `tag-like`),
-		E(`span`, AP(`class`, `tag-prefix`), self.Mode()),
+		E(`span`, nil, self.Mode()),
 		self.String(),
 	)
 }
@@ -179,7 +179,7 @@ func (self Tag) Render(bui B) {
 	bui.E(
 		`button`,
 		AP(`is`, `a-tag`, `type`, `button`, `class`, `tag-like`),
-		E(`span`, AP(`class`, `tag-prefix`), `#`),
+		E(`span`, nil, `#`),
 		self.String(),
 	)
 }

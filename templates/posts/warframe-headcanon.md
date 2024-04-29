@@ -1,19 +1,23 @@
+Also see discussion [on Reddit](https://old.reddit.com/r/Warframe/comments/j95ptr/collection_of_warframe_headcanon_spoilers/).
+
 Collection of headcanon for [Warframe](https://warframe.com), **co-authored by friends** and myself. This post contains **massive unmarked spoilers**. By the nature of headcanon, this should only be read by someone who's completed all story quests. If you haven't, **get out now** and return once you have. {{Emoji "🙂" ""}}
 
-<!--
+{{/*
 Generating the ASCII figure:
 
-    import "github.com/common-nighthawk/go-figure"
+```go
+import "github.com/common-nighthawk/go-figure"
 
-    fmt.Println(fig("SP"))
-    fmt.Println(fig("OI"))
-    fmt.Println(fig("LE"))
-    fmt.Println(fig("RS"))
+fmt.Println(fig("SP"))
+fmt.Println(fig("OI"))
+fmt.Println(fig("LE"))
+fmt.Println(fig("RS"))
 
-    func fig(str string) string {
-      return figure.NewFigure(str, "", true).String()
-    }
--->
+func fig(str string) string {
+  return figure.NewFigure(str, "", true).String()
+}
+```
+*/}}
 <pre aria-hidden="true">
  ____    ____
 / ___|  |  _ \

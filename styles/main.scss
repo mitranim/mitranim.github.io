@@ -7,14 +7,13 @@
 
 // Note: CSS variables can't be used for media queries.
 $breakpoint-xs: 320px;
-$breakpoint-sm: 600px;
-$breakpoint-md: 960px;
+$breakpoint-sm: 640px;
 $breakpoint-lg: 1024px;
 $bord: 1px solid var(--c-bord);
 $pad-body: 1rem;
 
 %vars-misc {
-  --max-page-width:     #{$breakpoint-md};
+  --max-page-width:     #{$breakpoint-lg};
   --font-size-h1:       1.6rem;
   --font-size-h2:       1.4rem;
   --font-size-h3:       1.2rem;
@@ -619,9 +618,8 @@ file metadata to set `aspect-ratio` for each `img`.
 .tag-like {
   @extend %cen, .wspace-pre, .pad-tiny, .cur-auto, .theme-tag-like;
   &.--busy {@extend .cur-point}
+  > :first-child {@extend %cen, .fg-gray-far}
 }
-
-.tag-prefix {@extend %cen, .fg-gray-far}
 
 // TODO better name.
 .tag-likes {@extend .flex, .row-sta-cen, .wrap, .gap-tiny}

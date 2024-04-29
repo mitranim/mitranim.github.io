@@ -120,7 +120,7 @@ Characters run extremely slowly and have extremely long casting animations. Spee
 
 * Adding Fire damage to any weapon, even to a wand or staff with another element, allows it to ignite surfaces. Useful for clearing poison and oil.
 * Broken strats:
-  * Shooting from farther away than enemy engagement range.
+  * Shooting from beyond enemy engagement range.
   * Radial projectile spells: Pyroclastic Eruption, Dust Blast, Superconductor. _Especially_ Pyroclastic Eruption.
   * Telekinesis + superheavy object. Damage scales with weight. Find an indestructible chest and fill it with everything heavy that you find along the way: elemental barrels, useless packages and boxes, other chests, and so on. Don't forget to move your chest to your ship when progressing to the next act!
   * Soul Mate on undead or decaying targets, followed by healing yourself. Damage can crit with the Savage Sortilege talent. Soul Mate scroll can be crafted to avoid investing into Summoning.
@@ -135,7 +135,7 @@ SAVE A LOT. Keep named manual saves in addition to quick and auto saves.
 
 Don't be shy about disabling music when you find it grating.
 
-Ability to talk to animals is _essential_. They have amazingly written and voiced dialogs. Start with the Pet Pal talent, or enable the built-in mod ("gift bag") Animal Empathy.
+Ability to talk to animals is _essential_. They have amazingly written and voiced dialogs. Start with the Pet Pal talent, or enable the [built-in mod](#built-in-mods) Animal Empathy.
 
 Useful external resources:
 
