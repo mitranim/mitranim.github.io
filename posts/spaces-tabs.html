@@ -1,4 +1,4 @@
-<!doctype html><html class=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes"><link rel="icon" href="data:;base64,="><link rel="stylesheet" type="text/css" href="/styles/main.css"><title>Always spaces, never tabs</title><link rel="alternate" type="application/atom+xml" title="Mitranim's Posts (Atom)" href="/feed.xml"><link rel="alternate" type="application/rss+xml" title="Mitranim's Posts (RSS)" href="/feed_rss.xml"><meta name="author" content="Nelo Mitranim"><meta property="og:title" content="Always spaces, never tabs"><meta name="description" content="Objective arguments that decided my personal preference."><meta property="og:site_name" content="about:mitranim"></head><body id="top"><header class="header"><nav class="flex row-sta-str"><a class="header-link --busy" href="/">home</a><a class="header-link --busy" href="/works">works</a><a class="header-link --busy" href="/posts">posts</a><a class="header-link --busy" href="/games">games</a></nav><span class="flex-1"></span><span class="header-update" aria-label="Last update somewhere on the site">Updated: 2024-Feb-26</span></header><article role="main" id="main" class="main article"><h1 class="heading-prefix">Always spaces, never tabs</h1><p role="doc-subtitle" class="size-large italic">Objective arguments that decided my personal preference.</p><p class="fg-gray-near size-small">published 2020-Oct-23, updated 2024-Feb-16</p><p><strong>TLDR</strong>: always spaces, never tabs; 2 spaces rather than 4.</p>
+<!doctype html><html class=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes"><link rel="icon" href="data:;base64,="><link rel="stylesheet" type="text/css" href="/styles/main.css"><title>Always spaces, never tabs</title><link rel="alternate" type="application/atom+xml" title="Mitranim's Posts (Atom)" href="/feed.xml"><link rel="alternate" type="application/rss+xml" title="Mitranim's Posts (RSS)" href="/feed_rss.xml"><meta name="author" content="Nelo Mitranim"><meta property="og:title" content="Always spaces, never tabs"><meta name="description" content="Objective arguments that decided my personal preference."><meta property="og:site_name" content="about:mitranim"></head><body id="top"><header class="header"><nav class="flex row-sta-str"><a class="header-link --busy" href="/">home</a><a class="header-link --busy" href="/works">works</a><a class="header-link --busy" href="/posts">posts</a><a class="header-link --busy" href="/games">games</a></nav><span class="flex-1"></span><span class="header-update" aria-label="Last update somewhere on the site">Updated: 2024-Apr-29</span></header><article role="main" id="main" class="main article"><h1 class="heading-prefix">Always spaces, never tabs</h1><p role="doc-subtitle" class="size-large italic">Objective arguments that decided my personal preference.</p><p class="fg-gray-near size-small">published 2020-Oct-23, updated 2024-Feb-16</p><p><strong>TLDR</strong>: always spaces, never tabs; 2 spaces rather than 4.</p>
 <h2 id="arguments" class="heading-prefix">Arguments<a href="#arguments" class="heading-anchor" aria-hidden="true"></a></h2>
 <p><em>Objective</em> arguments in favor of spaces over tabs:</p>
 
@@ -7,13 +7,21 @@
 <li>Tabs break when copy-pasting. For example, some terminals and websites render tabs as spaces, usually as 8.</li>
 <li>Distinguishing tabs from spaces requires special editor support. (Rendering special whitespace symbols.)</li>
 <li>Mixing tabs with spaces causes indentation to break in different editors. People <em>will</em> mix them. Plenty of languages and editors don't have autoformatters. It will always stay this way.</li>
+<li>Many environments, such as browsers, use Tab for navigation and don't support insertion of the tab character.</li>
 </ul>
 
 <p><em>Objective</em> arguments in favor of tabs:</p>
 
 <ul>
 <li>Configurable visual indentation level.</li>
-<li>Fewer characters. Sometimes fewer keystrokes. (Note: in decent code editors, using spaces takes just as many keystrokes.)</li>
+<li>Fewer characters. Sometimes fewer keystrokes. (Note: in decent code editors, using spaces takes just as few keystrokes.)</li>
+</ul>
+
+<p><em>Objective</em> arguments against tabs:</p>
+
+<ul>
+<li>When copy-pasting code, tabs often get converted to spaces, causing breakage and busywork.</li>
+<li>When copy-pasting code with tabs, some REPLs interpret tabs as completion requests rather than indentation.</li>
 </ul>
 
 <p><em>Objective</em> arguments in favor of 2 spaces over 4 spaces:</p>
@@ -21,13 +29,13 @@
 <ul>
 <li>Fewer characters and keystrokes.</li>
 <li>Easier to type in non-specialized editors, such as chat input boxes, which don't have indentation shortcuts.</li>
-<li>Highly-nested code fits better on the screen. Relevant for markup such as XML.</li>
+<li>Highly-nested code fits better on the screen. Relevant for markup such as XML. Relevant for side-by-side file viewing and diffing.</li>
 </ul>
 
 <p><em>Objective</em> arguments in favor of 2 spaces over 1 space:</p>
 
 <ul>
-<li>Easier to distinguish from line wrapping. In some editors, when line wrapping is enabled, the secondary lines are intended by 1. With 2-space indentation, you can tell them apart.</li>
+<li>Can distinguish from line wrapping. In some editors, when line wrapping is enabled, the secondary lines are intended by 1. With 2-space indentation, you can tell them apart.</li>
 </ul>
 <h2 id="bias" class="heading-prefix">Bias<a href="#bias" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>Your preference is influenced by your display pixel density, resolution, OS, font family, font size, eyesight, and habits. Someone with a very large but low-DPI display is likely to prefer 4 spaces. Someone who writes code on a small display, in an IDE that uses 20% of the screen area for the actual code, is likely to prefer 2 spaces.</p>

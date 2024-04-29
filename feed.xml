@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2024-02-26T13:42:52Z</updated>
+  <updated>2024-04-29T10:59:38Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -672,7 +672,7 @@ DBGConsoleOn=true
 <li>Broken strats:
 
 <ul>
-<li>Shooting from farther away than enemy engagement range.</li>
+<li>Shooting from beyond enemy engagement range.</li>
 <li>Radial projectile spells: Pyroclastic Eruption, Dust Blast, Superconductor. <em>Especially</em> Pyroclastic Eruption.</li>
 <li>Telekinesis + superheavy object. Damage scales with weight. Find an indestructible chest and fill it with everything heavy that you find along the way: elemental barrels, useless packages and boxes, other chests, and so on. Don't forget to move your chest to your ship when progressing to the next act!</li>
 <li>Soul Mate on undead or decaying targets, followed by healing yourself. Damage can crit with the Savage Sortilege talent. Soul Mate scroll can be crafted to avoid investing into Summoning.</li>
@@ -687,7 +687,7 @@ DBGConsoleOn=true
 
 <p>Don't be shy about disabling music when you find it grating.</p>
 
-<p>Ability to talk to animals is <em>essential</em>. They have amazingly written and voiced dialogs. Start with the Pet Pal talent, or enable the built-in mod (&quot;gift bag&quot;) Animal Empathy.</p>
+<p>Ability to talk to animals is <em>essential</em>. They have amazingly written and voiced dialogs. Start with the Pet Pal talent, or enable the <a href="#built-in-mods"><span class="hash-prefix" aria-hidden="true">#</span>built-in mod</a> Animal Empathy.</p>
 
 <p>Useful external resources:</p>
 
@@ -1310,13 +1310,21 @@ DBGConsoleOn=true
 <li>Tabs break when copy-pasting. For example, some terminals and websites render tabs as spaces, usually as 8.</li>
 <li>Distinguishing tabs from spaces requires special editor support. (Rendering special whitespace symbols.)</li>
 <li>Mixing tabs with spaces causes indentation to break in different editors. People <em>will</em> mix them. Plenty of languages and editors don't have autoformatters. It will always stay this way.</li>
+<li>Many environments, such as browsers, use Tab for navigation and don't support insertion of the tab character.</li>
 </ul>
 
 <p><em>Objective</em> arguments in favor of tabs:</p>
 
 <ul>
 <li>Configurable visual indentation level.</li>
-<li>Fewer characters. Sometimes fewer keystrokes. (Note: in decent code editors, using spaces takes just as many keystrokes.)</li>
+<li>Fewer characters. Sometimes fewer keystrokes. (Note: in decent code editors, using spaces takes just as few keystrokes.)</li>
+</ul>
+
+<p><em>Objective</em> arguments against tabs:</p>
+
+<ul>
+<li>When copy-pasting code, tabs often get converted to spaces, causing breakage and busywork.</li>
+<li>When copy-pasting code with tabs, some REPLs interpret tabs as completion requests rather than indentation.</li>
 </ul>
 
 <p><em>Objective</em> arguments in favor of 2 spaces over 4 spaces:</p>
@@ -1324,13 +1332,13 @@ DBGConsoleOn=true
 <ul>
 <li>Fewer characters and keystrokes.</li>
 <li>Easier to type in non-specialized editors, such as chat input boxes, which don't have indentation shortcuts.</li>
-<li>Highly-nested code fits better on the screen. Relevant for markup such as XML.</li>
+<li>Highly-nested code fits better on the screen. Relevant for markup such as XML. Relevant for side-by-side file viewing and diffing.</li>
 </ul>
 
 <p><em>Objective</em> arguments in favor of 2 spaces over 1 space:</p>
 
 <ul>
-<li>Easier to distinguish from line wrapping. In some editors, when line wrapping is enabled, the secondary lines are intended by 1. With 2-space indentation, you can tell them apart.</li>
+<li>Can distinguish from line wrapping. In some editors, when line wrapping is enabled, the secondary lines are intended by 1. With 2-space indentation, you can tell them apart.</li>
 </ul>
 <h2 id="bias" class="heading-prefix">Bias<a href="#bias" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>Your preference is influenced by your display pixel density, resolution, OS, font family, font size, eyesight, and habits. Someone with a very large but low-DPI display is likely to prefer 4 spaces. Someone who writes code on a small display, in an IDE that uses 20% of the screen area for the actual code, is likely to prefer 2 spaces.</p>
@@ -1773,22 +1781,9 @@ types are too primitive to be able to store that.
   <entry xml:base="https://mitranim.com/posts/warframe-headcanon">
     <title>Warframe headcanon (spoilers)</title>
     <id>https://mitranim.com/posts/warframe-headcanon</id>
-    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Collection of headcanon for <a href="https://warframe.com" target="_blank" rel="noopener noreferrer">Warframe<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <strong>co-authored by friends</strong> and myself. This post contains <strong>massive unmarked spoilers</strong>. By the nature of headcanon, this should only be read by someone who's completed all story quests. If you haven't, <strong>get out now</strong> and return once you have. <span aria-hidden="true">🙂</span></p>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><p>Also see discussion <a href="https://old.reddit.com/r/Warframe/comments/j95ptr/collection_of_warframe_headcanon_spoilers/" target="_blank" rel="noopener noreferrer">on Reddit<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>.</p>
 
-<!--
-Generating the ASCII figure:
-
-    import "github.com/common-nighthawk/go-figure"
-
-    fmt.Println(fig("SP"))
-    fmt.Println(fig("OI"))
-    fmt.Println(fig("LE"))
-    fmt.Println(fig("RS"))
-
-    func fig(str string) string {
-      return figure.NewFigure(str, "", true).String()
-    }
--->
+<p>Collection of headcanon for <a href="https://warframe.com" target="_blank" rel="noopener noreferrer">Warframe<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, <strong>co-authored by friends</strong> and myself. This post contains <strong>massive unmarked spoilers</strong>. By the nature of headcanon, this should only be read by someone who's completed all story quests. If you haven't, <strong>get out now</strong> and return once you have. <span aria-hidden="true">🙂</span></p>
 
 <pre aria-hidden="true">
  ____    ____
