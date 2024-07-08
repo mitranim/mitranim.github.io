@@ -49,7 +49,7 @@ func (self PagePost) Make(site Site) {
 
 func (self PagePost) MakeMd() []byte {
 	if self.MdHtml == nil {
-		self.MdHtml = self.Md(self, nil)
+		self.MdHtml = self.Md(self, MdOpt{})
 	}
 	return self.MdHtml
 }

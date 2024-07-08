@@ -29,12 +29,12 @@ func (self Page) Make(site Site) {
 
 func (self Page) MdOnce(val any) x.Bui {
 	if self.MdTpl != nil && self.MdHtml == nil {
-		self.MdHtml = self.Md(val, nil)
+		self.MdHtml = self.Md(val, MdOpt{})
 	}
 	return self.MdHtml
 }
 
-func (self Page) Md(val any, opt *MdOpt) x.Bui {
+func (self Page) Md(val any, opt MdOpt) x.Bui {
 	defer gg.Detailf(`unable to parse and render %q as Markdown`, self.Path)
 	return MdTplToHtml(self.MdTpl, opt, val)
 }
@@ -351,9 +351,9 @@ func (self PageResume) Make(site Site) {
 		self,
 		E(`article`, AttrsMainArticleMd().Add(`class`, `pad-body`),
 			self.MdOnce(self),
-			index.Md(index, nil),
+			index.Md(index, MdOpt{}),
 			MdToHtmlStr(`# Works`),
-			works.Md(works, &MdOpt{HeadingLevelOffset: 1}),
+			works.Md(works, MdOpt{HeadingLevelOffset: 1}),
 		),
 	))
 }

@@ -50,10 +50,10 @@ var (
 )
 
 func MdToHtmlStr[A gg.Text](src A) x.Str {
-	return gg.ToText[x.Str](MdToHtml(src, nil))
+	return gg.ToText[x.Str](MdToHtml(src, MdOpt{}))
 }
 
-func MdToHtml[A gg.Text](src A, opt *MdOpt) x.Bui {
+func MdToHtml[A gg.Text](src A, opt MdOpt) x.Bui {
 	return bf.Run(gg.ToBytes(src), mdOpts(opt)...)
 }
 
@@ -73,7 +73,7 @@ Known implementation issue. We currently parse and render each Markdown template
 An ideal implementation would parse and render exactly once, but we're not ready
 for that.
 */
-func MdTplToHtml(src []byte, opt *MdOpt, val any) x.Bui {
+func MdTplToHtml(src []byte, opt MdOpt, val any) x.Bui {
 	if len(src) == 0 {
 		return nil
 	}
@@ -92,19 +92,19 @@ stateful and is not meant to be reused between unrelated texts. In particular,
 reusing it between pages causes `bf.AutoHeadingIDs` to suffix heading IDs,
 making them unique across multiple pages. We don't want that.
 */
-func mdOpts(opt *MdOpt) []bf.Option {
-	if opt == nil {
-		opt = &MdOpt{}
-	}
+func mdOpts(opt MdOpt) []bf.Option {
 	if opt.Flags == 0 {
-		opt.Flags = bf.CommonHTMLFlags &^ bf.Smartypants
+		opt.Flags = bf.CommonHTMLFlags
 	}
+
+	// Always disable curly punctuation. Curly apostrophes and quotes need to die.
+	opt.Flags &^= bf.Smartypants
 
 	return []bf.Option{
 		bf.WithExtensions(
 			bf.Autolink | bf.Strikethrough | bf.FencedCode | bf.HeadingIDs | bf.AutoHeadingIDs | bf.Tables,
 		),
-		bf.WithRenderer(&MdRen{bf.NewHTMLRenderer(*opt)}),
+		bf.WithRenderer(&MdRen{bf.NewHTMLRenderer(opt)}),
 	}
 }
 
@@ -223,7 +223,7 @@ func (self *MdRen) RenderCodeBlockDetails(out io.Writer, node *bf.Node, entering
 	bui.E(
 		`details`,
 		AP(`class`, `details typography`),
-		E(`summary`, AP(`class`, `summary`), MdToHtml(summary, nil)),
+		E(`summary`, AP(`class`, `summary`), MdToHtml(summary, MdOpt{})),
 		func() {
 			if len(lang) > 0 {
 				// As code.
@@ -231,7 +231,7 @@ func (self *MdRen) RenderCodeBlockDetails(out io.Writer, node *bf.Node, entering
 				self.RenderCodeBlockHighlighted((*x.NonEscWri)(&bui), node, entering)
 			} else {
 				// As regular markup.
-				bui.NonEscBytes(MdToHtml(node.Literal, nil))
+				bui.NonEscBytes(MdToHtml(node.Literal, MdOpt{}))
 			}
 		},
 	)
@@ -327,7 +327,7 @@ func mdToToc(src []byte) string {
 }
 
 func mdHeadings(src []byte) (out []MdHeading) {
-	bf.New(mdOpts(nil)...).Parse(src).Walk(func(node *bf.Node, entering bool) bf.WalkStatus {
+	bf.New(mdOpts(MdOpt{})...).Parse(src).Walk(func(node *bf.Node, entering bool) bf.WalkStatus {
 		if node.Type == bf.Document {
 			return bf.GoToNext
 		}

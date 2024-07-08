@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/mitranim/gg"
+	"github.com/mitranim/gg/grepr"
 )
 
 type GameColl struct{ gg.Coll[string, Game] }
@@ -13,10 +14,10 @@ func (self GameColl) SortedByKeys(src ...string) GameColl {
 }
 
 func (self GameColl) ValidateOrd(src ...string) {
-	keys := gg.Reject(self.Pks(), gg.SetOf(src...).Has)
+	missing := gg.Reject(self.Pks(), gg.SetOf(src...).Has)
 
-	if gg.IsNotEmpty(keys) {
-		panic(gg.Errf(`entity keys missing from ordering: %q`, keys))
+	if gg.IsNotEmpty(missing) {
+		panic(gg.Errf(`entity keys missing from ordering: %q`, missing))
 	}
 }
 
@@ -52,8 +53,8 @@ type Game struct {
 
 // Implement `gg.Pker`.
 func (self Game) Pk() string {
-	if gg.IsZero(self.Id) && gg.IsNotZero(self.Name) {
-		panic(gg.Errf(`missing id in %q`, self.Name))
+	if gg.IsZero(self.Id) {
+		panic(gg.Errf(`missing id in %v`, grepr.String(self)))
 	}
 	return self.Id
 }
