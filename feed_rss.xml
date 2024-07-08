@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Mon, 29 Apr 2024 10:59:38 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 08 Jul 2024 14:44:19 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/hades">
       <title>Hades: tweak recommendations</title>
       <link>https://mitranim.com/posts/hades</link>
@@ -106,47 +106,47 @@
 <p><em>Speedhack</em>: one of:</p>
 
 <ul>
-<li>Making the game as a whole run faster.</li>
-<li>Performing some actions much faster or sooner than normally allowed.</li>
+<li>Making the game as a whole faster. (Focus of this article.)</li>
+<li>Performing some actions much faster or sooner than normally allowed. (Out of scope for this article.)</li>
 </ul>
 
 <p><em>Slowhack</em>: inverse of speedhack. Typically makes the game as a whole run slower.</p>
 
 <p>I recommend this <strong>for single-player games only</strong>. Do not cheat in multi-player games. Don't be a nuisance to your partners/opponents.</p>
 <h2 id="why" class="heading-prefix">Why<a href="#why" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>Many games are generally sluggish, or have sluggish segments such as unskippable cutscenes, forced walking sequences, and more. Whenever you feel bored and wish you could fast-forward, speedhacks are for you.</p>
+<p>Many games are generally sluggish, or have sluggish segments such as unskippable cutscenes, forced walking sequences, and more. Whenever you feel bored and wish you could fast-forward, use speedhacks.</p>
 
 <p>Some games, for some players, can be so challenging that the player is unable to progress without cheats. Slowhacking can make this easier in a way that doesn't circumvent any mechanics, merely compensating for reaction time. Slowhacking can be useful for learning and training, before upgrading to &quot;proper&quot; speed.</p>
 <h2 id="how" class="heading-prefix">How<a href="#how" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>There are probably many different ways. At the time of writing, I use and recommend <em>Cheat Engine</em>. Official site: <a href="https://cheatengine.org" target="_blank" rel="noopener noreferrer">https://cheatengine.org<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. CE runs as its own app that &quot;attaches&quot; to another app, such as a game, to perform arbitrary hacks on it. CE has many features. Speedhacking is just one of them. I suggest reading CE docs/guides.</p>
+<p>There are probably many different ways. At the time of writing, I use and recommend <em>Cheat Engine</em>. Official site: <a href="https://cheatengine.org" target="_blank" rel="noopener noreferrer">https://cheatengine.org<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. CE &quot;attaches&quot; to another app, such as a game, to perform arbitrary hacks on it. CE has many features. Speedhacking is just one of them. I suggest reading CE docs/guides.</p>
 
 <p><em><strong>Kill Cheat Engine</strong></em> before launching any multi-player game, otherwise you <em><strong>might get banned</strong></em> from it. Many multi-player games have their own &quot;cheat detection&quot; which can produce false positives.</p>
 
-<p>For convenience, you want CE global hotkeys, which can be used without alt-tabbing. At the minimum, I suggest the following:</p>
+<p>For convenience, setup global hotkeys in CE, which can be used without alt-tabbing. At the minimum, I suggest the following:</p>
 
 <ul>
-<li>Attach to current foreground process (example key: <code>numpad 0</code>).</li>
-<li>Toggle speedhack (example key: <code>numpad 1</code>).</li>
+<li>Attach to current foreground process (example key: <code>numpad .</code>).</li>
+<li>Toggle speedhack (example key: <code>numpad 0</code>).</li>
 <li>Various speed increments, such as:
 
 <ul>
-<li>Speed: 0.5 (example key: <code>numpad 2</code>).</li>
-<li>Speed: 1.5 (example key: <code>numpad 3</code>).</li>
-<li>Speed: 2 (example key: <code>numpad 4</code>).</li>
-<li>Speed: 4 (example key: <code>numpad 5</code>).</li>
-<li>Speed: 6 (example key: <code>numpad 6</code>).</li>
+<li>Speed: 0.5 (example key: <code>numpad 1</code>).</li>
+<li>Speed: 1.5 (example key: <code>numpad 2</code>).</li>
+<li>Speed: 2 (example key: <code>numpad 3</code>).</li>
+<li>Speed: 4 (example key: <code>numpad 4</code>).</li>
+<li>Speed: 6 (example key: <code>numpad 5</code>).</li>
 <li>Speed increase (example key: <code>numpad +</code>).</li>
 <li>Speed decrease (example key: <code>numpad -</code>).</li>
 </ul></li>
 </ul>
 
-<p>After launching both CE and the target game (or another app you want to hack), hit the key to &quot;attach to current process&quot;, then use the appropriate speed keys, and enjoy.</p>
+<p>After launching both CE and the target game (or another app you want to hack), hit the key to &quot;attach to current process&quot;, use the appropriate speed key, and enjoy.</p>
 <h2 id="gamepads" class="heading-prefix">Gamepads<a href="#gamepads" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>This section is out of scope for speedhacking, and might eventually be expanded into its own post.</p>
 
 <p>When using a gamepad, it can be inconvenient to reach for the keyboard to use CE hotkeys, or other global hotkeys. This is fixable by emulating keyboard keys on the gamepad, for example via <em>Steam Input</em> or <em>DS4Windows</em>.</p>
 
-<p>Compared to KBM, gamepads have very few keys. You can't spare them for additional global hotkeys. However, you can find <em>combinations</em> which are normally unused. For example, pressing or tilting the right analog stick and simultaneously pressing one of the face buttons. Or similar on the left side. Such combinations never occur in normal gameplay because a thumb can't be in two places at once. In Steam Input, pressing any button, or tilting an analog stick, or performing another action of your choice, can overlay a different configuration (called &quot;<em>action set layer</em>&quot;) over existing keys, allowing you to configure a large number of additional actions, some of which can be used for CE and speedhacking.</p>
+<p>Compared to KBM, gamepads have very few keys. You can't spare them for additional global hotkeys. However, you can find <em>combinations</em> which are normally unused. For example, pressing or tilting the right analog stick and simultaneously pressing one of the face buttons. Or similar on the left side. Such combinations never occur in normal gameplay because a thumb can't be in two places at once. Some gamepads have additional less-useful buttons such as &quot;mute&quot;, which can be recycled as modifiers. In Steam Input, pressing any button, or tilting an analog stick, or performing another action of your choice, can overlay a different configuration (called &quot;<em>action set layer</em>&quot;) over existing keys, allowing you to configure a large number of additional actions, some of which can be used for CE and speedhacking.</p>
 </article>]]></content:encoded>
       <author>me@mitranim.com (Nelo Mitranim)</author>
       <guid>https://mitranim.com/posts/speed</guid>
@@ -1810,9 +1810,9 @@ types are too primitive to be able to store that.
 <li><a href="#treasurers-are-impostors-and-thieves"><span class="hash-prefix" aria-hidden="true">#</span>Treasurers are impostors and thieves</a></li>
 </ul>
 <h2 id="non-primes" class="heading-prefix">Non-primes existed in Orokin times<a href="#non-primes" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Braton" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/braton.png" alt="Braton" class="img-box-img" style="aspect-ratio: 512/342"></a><span class="img-box-caption" aria-hidden="true">Braton</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Braton" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/braton.png" alt="Braton" class="img-box-img" style="aspect-ratio: 512/342" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Braton</span></div>
 
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Braton_Prime" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/braton_prime.png" alt="Braton Prime" class="img-box-img" style="aspect-ratio: 512/342"></a><span class="img-box-caption" aria-hidden="true">Braton Prime</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Braton_Prime" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/braton_prime.png" alt="Braton Prime" class="img-box-img" style="aspect-ratio: 512/342" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Braton Prime</span></div>
 
 <p>Prime warframes and weapons were made exclusively in the Orokin times, while non-primes can be manufactured from scratch right now. Non-primes could be cheap knock-offs of the originals, but they could also <em>be</em> the originals, the prototypes, later refined with superior materials and designs <span aria-hidden="true">✨</span>.</p>
 
@@ -1826,7 +1826,7 @@ types are too primitive to be able to store that.
 
 <p>However, if Tenno found this out, cover would be blown. They would start going after real reactors. Corpus and Grineer would be back to square 1. To prevent this, it makes sense to explode ships for real if any Tenno are still present when the fake timer runs out. They even encourage this, by using the oh-so-special caches to bait Tenno into staying until the explosion. By sacrificing a few ships, they spread the word, and then the other Tenno are less motivated to stick around and find out what really happens, which is... nothing.</p>
 <h2 id="mass-ignorance" class="heading-prefix">Mass-produced enemy units are ignorant about the Tenno threat level<a href="#mass-ignorance" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Jackal" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/jackal.jpg" alt="Jackal" class="img-box-img" style="aspect-ratio: 640/417"></a><span class="img-box-caption" aria-hidden="true">Jackal</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Jackal" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/jackal.jpg" alt="Jackal" class="img-box-img" style="aspect-ratio: 640/417" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Jackal</span></div>
 
 <p>Corpus and Grineer infantry, as well as mass-produced bosses such as the Jackal, seem suicidally brave when facing Tenno.</p>
 
@@ -1883,7 +1883,7 @@ types are too primitive to be able to store that.
 
 <p>What about the robots, such as the Jackal and the Raptors? One possibility is that their artificial intelligence is too complicated and lifelike; Corpus couldn't separate the combat data from the emotional trauma caused by the Tenno raids. Or even better, after analyzing the combat data, the onboard intelligence correctly concludes that the probability of victory against Tenno is around 0.0001%, and the most effective combat tactic is to play dead until the Tenno leave, nullifying its combat effectiveness. Leaving Corpus with no choice but to reset the data every time.</p>
 <h2 id="kavats" class="heading-prefix">Feral kavats and Tenno kavats are the animal equivalent of warframes<a href="#kavats" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Feral_Kavat" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/feral_kavat.png" alt="Feral Kavat" class="img-box-img" style="aspect-ratio: 256/256"></a><span class="img-box-caption" aria-hidden="true">Feral Kavat</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Feral_Kavat" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/feral_kavat.png" alt="Feral Kavat" class="img-box-img" style="aspect-ratio: 256/256" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Feral Kavat</span></div>
 
 <p>On the Orokin Derelict, feral kavats have lived alongside the Infestation for hundreds of years. By now, all organic materials aboard, along with many inorganics, have been converted to Infested biomass. The kavats survive by feeding on it. There have to be repercussions. Their supposed &quot;immunity&quot; is not absolute; they've been gradually altered, fur being replaced by scales, tails and shoulders forming something resembling cysts, and so on. In Ballas's words: &quot;Transformed, but only just&quot;.</p>
 
@@ -1893,7 +1893,7 @@ types are too primitive to be able to store that.
 
 <p>Oh and consider the astronomical 120k Alloy Plate spent on the Incubator kavat module. Where exactly did that Alloy Plate go? Perhaps it's being used to reinforce the kavats.</p>
 <h2 id="vauban" class="heading-prefix">Vauban is some Corpus guy pretending to be a warframe<a href="#vauban" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Vauban/Prime" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/vauban_prime.png" alt="Vauban Prime" class="img-box-img" style="aspect-ratio: 320/320"></a><span class="img-box-caption" aria-hidden="true">Vauban Prime</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Vauban/Prime" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/vauban_prime.png" alt="Vauban Prime" class="img-box-img" style="aspect-ratio: 320/320" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Vauban Prime</span></div>
 
 <p>Every Vauban ability involves deploying small gear such as grenades. In contrast, most warframe abilities involve conjuring things out of nothing; think Ember, Frost, Nova, Saryn, and more. Some do have integrated gear, such as exalted weapons and Protea's deployables. However, Vauban's 100% reliance on deployables should raise suspicion. If Corpus were to create a warframe-alike, this is <em>exactly</em> how it would function!</p>
 
@@ -1917,7 +1917,7 @@ types are too primitive to be able to store that.
 
 <p>If these guys are remote-controlled like regular warframes, their operators might still be sleeping through the Second Dream. They might even believe themselves to be human!</p>
 <h2 id="operator-peaceframes" class="heading-prefix">Hypothesis: operators are &quot;peaceframes&quot;<a href="#operator-peaceframes" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><div class="img-box-link"><img src="/images/warframe/somatic_link.jpg" alt="Somatic Link" class="img-box-img" style="aspect-ratio: 680/680"></div><span class="img-box-caption" aria-hidden="true">Somatic Link</span></div>
+<div class="img-box"><div class="img-box-link"><img src="/images/warframe/somatic_link.jpg" alt="Somatic Link" class="img-box-img" style="aspect-ratio: 680/680" loading="lazy"></div><span class="img-box-caption" aria-hidden="true">Somatic Link</span></div>
 
 <p>See the above on Tenno associates and peaceframes. If operators were also peaceframes, this would explain a lot!</p>
 
@@ -1937,7 +1937,7 @@ types are too primitive to be able to store that.
 
 <p>Our Operator never makes any statements contradicting any of this, but even if they did, their memory can't be trusted anyway!</p>
 <h2 id="tenno-digital" class="heading-prefix">Hypothesis: Tenno are digital minds (busted)<a href="#tenno-digital" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Cephalon" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/ordis.png" alt="Cephalon" class="img-box-img" style="aspect-ratio: 256/256"></a><span class="img-box-caption" aria-hidden="true">Cephalon</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Cephalon" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/ordis.png" alt="Cephalon" class="img-box-img" style="aspect-ratio: 256/256" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Cephalon</span></div>
 
 <p>This was my original headcanon about Tenno before playing the Second Dream.</p>
 
@@ -1949,7 +1949,7 @@ types are too primitive to be able to store that.
 
 <p>This more or less gets busted by the Second Dream. See <a href="#operator-peaceframes"><span class="hash-prefix" aria-hidden="true">#</span>operator peaceframes</a> for an alternate interpretation.</p>
 <h2 id="tenno-children" class="heading-prefix">Hypotheses about the Zariman children<a href="#tenno-children" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Zariman_Ten_Zero" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/vitruvian_zariman.jpg" alt="Zariman in the Vitruvian" class="img-box-img" style="aspect-ratio: 640/640"></a><span class="img-box-caption" aria-hidden="true">Zariman in the Vitruvian</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Zariman_Ten_Zero" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/vitruvian_zariman.jpg" alt="Zariman in the Vitruvian" class="img-box-img" style="aspect-ratio: 640/640" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Zariman in the Vitruvian</span></div>
 
 <p><strong>Basis</strong>. Ember's Codex entry: &quot;Why would you put children on a military ship? — We didn't.&quot;</p>
 
@@ -1982,7 +1982,7 @@ types are too primitive to be able to store that.
 <h3 id="hypothesis-the-void-made-them" class="heading-prefix">Hypothesis: the Void made them<a href="#hypothesis-the-void-made-them" class="heading-anchor" aria-hidden="true"></a></h3>
 <p>Perhaps everything was according to procedure. The Zariman's crew consisted of only human adults, they didn't reproduce, didn't reverse-age. Instead, creatures indistinguishable from human children appeared out of the Void, and the rest is history.</p>
 <h2 id="void-entity" class="heading-prefix">Void entity hypotheses<a href="#void-entity" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/The_Man_in_The_Wall" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/wall_hand.jpg" alt="Reaching out" class="img-box-img" style="aspect-ratio: 320/260"></a><span class="img-box-caption" aria-hidden="true">Reaching out</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/The_Man_in_The_Wall" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/wall_hand.jpg" alt="Reaching out" class="img-box-img" style="aspect-ratio: 320/260" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Reaching out</span></div>
 
 <p>&quot;Void entity&quot; refers to any of:</p>
 
@@ -2008,7 +2008,7 @@ types are too primitive to be able to store that.
 <h3 id="there-is-not-one-man-in-the-wall-but-many" class="heading-prefix">There is not one man-in-the-wall but many<a href="#there-is-not-one-man-in-the-wall-but-many" class="heading-anchor" aria-hidden="true"></a></h3>
 <p>Let's say the Void has no &quot;will&quot; or &quot;representative&quot; of its own, but is able to &quot;split&quot;/duplicate people, where one &quot;half&quot;/copy stays in the Void, powering your powers. There is not a <em>single</em> MITW but many. Albrecht Entrati had his own. We have our own. At the end of New War, the MITW we &quot;saw&quot; was merely an illusion created by the limits of what our mind could comprehend. A small facet of the whole.</p>
 <h2 id="stalker" class="heading-prefix">Stalker hypotheses<a href="#stalker" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Stalker" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/stalker.png" alt="Stalker" class="img-box-img" style="aspect-ratio: 320/320"></a><span class="img-box-caption" aria-hidden="true">Stalker</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Stalker" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/stalker.png" alt="Stalker" class="img-box-img" style="aspect-ratio: 320/320" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Stalker</span></div>
 
 <p>Known Stalker canon:</p>
 
@@ -2100,7 +2100,7 @@ types are too primitive to be able to store that.
 
 <p>But what if Inaros is made of fast-moving, fast-replicating nano- or micro-bots? This simultaneously explains the high health pool (no vulnerable organs) and the ease of transfering that health around.</p>
 <h2 id="orokin-drones-are-indoctrination-devices" class="heading-prefix">Orokin Drones are indoctrination devices<a href="#orokin-drones-are-indoctrination-devices" class="heading-anchor" aria-hidden="true"></a></h2>
-<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Orokin_Drone" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/orokin_drone.png" alt="Orokin Drone" class="img-box-img" style="aspect-ratio: 256/256"></a><span class="img-box-caption" aria-hidden="true">Orokin Drone</span></div>
+<div class="img-box"><a class="img-box-link" href="https://warframe.fandom.com/wiki/Orokin_Drone" target="_blank" rel="noopener noreferrer"><img src="/images/warframe/orokin_drone.png" alt="Orokin Drone" class="img-box-img" style="aspect-ratio: 256/256" loading="lazy"></a><span class="img-box-caption" aria-hidden="true">Orokin Drone</span></div>
 
 <p>In the Corrupted faction, all units are named &quot;Corrupted X&quot;, except for these drones. Now consider, how exactly does an Orokin Tower's &quot;neural sentry&quot;, likely a Cephalon, maintain the towers? How does it corrupt those who visit its domain? How does it maintain the state of corruption?</p>
 
