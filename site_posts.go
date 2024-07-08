@@ -97,6 +97,7 @@ func initSitePosts() []PagePost {
 				MdTpl:       readTemplate(`posts/speed.md`),
 			},
 			PublishedAt: timeParse(`2023-08-25T14:00:44Z`),
+			UpdatedAt:   timeParse(`2024-07-02T14:06:50Z`),
 			IsListed:    true,
 		},
 		PagePost{

@@ -238,6 +238,8 @@ years to release a port, usually with compatibility issues and poor
 performance. Many games have essential mods only available on Windows. Windows
 also allows a much better selection of hardware.
 
+Most games can be improved by [speedhacks](/posts/speed).
+
 Always, _always_ check [PC Gaming Wiki](https://pcgamingwiki.com) for essential
 tweaks and mods for any given game. For many games, it's also worth using mods
 from [Nexus Mods](https://nexusmods.com), but beware of spoilers.
@@ -305,6 +307,7 @@ func (PageGames) GameGridItem(src Game) x.Ren {
 		E(`img`, AP(
 			`src`, src.Img,
 			`class`, `game-grid-item-img`,
+			`loading`, `lazy`,
 		)),
 		E(`h3`, nil, src.RenderName()),
 		func(bui B) {

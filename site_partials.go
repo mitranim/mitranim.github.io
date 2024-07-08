@@ -220,6 +220,7 @@ func ImgBox(meta ImgMeta) x.Elem {
 		`alt`, meta.Caption,
 		`class`, `img-box-img`,
 		`style`, gg.Str(`aspect-ratio: `, meta.Width, `/`, meta.Height),
+		`loading`, `lazy`,
 	))
 
 	return E(`div`, AP(`class`, `img-box`), func(bui B) {
