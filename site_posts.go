@@ -81,6 +81,17 @@ func initSitePosts(site *Site) []PagePost {
 		PagePost{
 			Page: Page{
 				Site:        site,
+				Path:        `posts/hogwarts_legacy.html`,
+				Title:       `Hogwarts Legacy: mod recommendations`,
+				Description: `Suggestions for modding Hogwarts Legacy to make it more enjoyable.`,
+				MdTpl:       readTemplate(`posts/hogwarts_legacy.md`),
+			},
+			PublishedAt: timeParse(`2024-08-16T12:29:12Z`),
+			IsListed:    true,
+		},
+		PagePost{
+			Page: Page{
+				Site:        site,
 				Path:        `posts/hades.html`,
 				Title:       `Hades: tweak recommendations`,
 				Description: `Suggestions for how to play Hades, an excellent single-player roguelike game.`,

@@ -81,6 +81,14 @@ func (self Game) GridImg() x.Elem {
 	))
 }
 
+func (self Game) ImgBox() x.Elem {
+	return E(`img`, AP(
+		`src`, self.Img,
+		`class`, `img-box obj-cov aspect-steam-img`,
+		`loading`, `lazy`,
+	))
+}
+
 var TimeSinkOrd Ord
 
 var (

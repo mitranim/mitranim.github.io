@@ -13,7 +13,7 @@ The in-universe events happen in this order, and should be read and played in th
 
 I can highly recommend the Russian version of the book. The original is in Polish, which should be comparable. I haven't tried the English version, or "Season of Storms" or any later works, and can't vouch for their quality.
 
-Look for an EPUB version and use a decent reader. Avoid unusable formats like PDF.
+Look for an EPUB version and use a decent reader app. Avoid unusable formats like PDF.
 
 ## Witcher 1
 
@@ -83,7 +83,7 @@ DBGConsoleOn=true
 
 This section may seem daunting, but trust me, modding the game is **well worth the effort**!
 
-Most mods can be installed and updated via [Vortex](https://www.nexusmods.com/about/vortex/), the mod manager from [Nexus](https://www.nexusmods.com). I've been using Vortex without issues. However, the authors of Witcher 3 mods tend to recommend against Vortex, and in favor of [the Witcher 3 Mod Manager](https://github.com/stefan3372/The-WItcher-3-Mod-manager), which I haven't tried.
+Most mods can be installed and updated via [Vortex](https://www.nexusmods.com/about/vortex/), the mod manager from [Nexus](https://www.nexusmods.com). I've been using Vortex without issues. However, the authors of Witcher 3 mods tend to recommend against Vortex in favor of [the Witcher 3 Mod Manager](https://github.com/stefan3372/The-WItcher-3-Mod-manager), which I haven't tried.
 
 Some mods require manual install. Some require additional tweaks in `input.settings`. Some require invoking the Menu Filelist Updater which is listed below. Check each mod's description for setup instructions.
 
