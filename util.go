@@ -5,7 +5,6 @@ import (
 	"image"
 	"io"
 	"io/fs"
-	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -127,18 +126,9 @@ func xmlEncode(val any) (buf x.NonEscWri) {
 	return buf
 }
 
-func timing(name string) func() {
-	start := time.Now()
-	log.Printf(`[%v] starting`, name)
-
-	return func() {
-		log.Printf(`[%v] done in %v`, name, time.Since(start))
-	}
-}
-
 //nolint:unused,deadcode
-func withTiming(str string, fun func()) {
-	defer timing(str)()
+func withTiming(name string, fun func()) {
+	defer gg.LogTimeNow(name).LogStart().LogEnd()
 	fun()
 }
 
@@ -182,7 +172,7 @@ func (self SemicolonList) Render(bui B) {
 	has := false
 
 	for _, val := range self {
-		if len(val) == 0 {
+		if !(len(val) > 0) {
 			continue
 		}
 

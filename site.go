@@ -10,6 +10,12 @@ type Site struct {
 	Games GameColl
 }
 
+func (self *Site) Init() {
+	self.Pages = initSitePages(self)
+	self.Posts = initSitePosts(self)
+	self.Games = initSiteGames()
+}
+
 func (self Site) All() (out []Ipage) {
 	out = append(out, self.Pages...)
 	for _, val := range self.Posts {
@@ -20,12 +26,4 @@ func (self Site) All() (out []Ipage) {
 
 func (self Site) ListedPosts() []PagePost {
 	return gg.Filter(self.Posts, PagePost.GetIsListed)
-}
-
-func initSite() Site {
-	return Site{
-		Pages: initSitePages(),
-		Posts: initSitePosts(),
-		Games: initSiteGames(),
-	}
 }

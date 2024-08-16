@@ -14,11 +14,11 @@ type Ipage interface {
 	GetImage() string
 	GetGlobalClass() string
 	GetLink() string
-	Make(Site)
+	Make()
 }
 
-func PageByType[A Ipage](site Site) A {
-	return gg.Find(site.Pages, func(val Ipage) bool {
+func PageByType[A Ipage](src []Ipage) A {
+	return gg.Find(src, func(val Ipage) bool {
 		return r.TypeOf(val) == gg.Type[A]()
 	}).(A)
 }

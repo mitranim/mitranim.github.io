@@ -29,11 +29,12 @@ type Server struct {
 }
 
 /*
-Implementation note: technically it would be preferable to use watcher library
-"github.com/rjeczalik/notify" which uses various OS-specific APIs that allow
-to listen for FS events and avoid polling. However, in this codebase, we use
-"github.com/fsnotify/fsnotify" because the "better" watcher mentioned earlier
-depends on CGo and slows down compilation, which can be slightly annoying here.
+Implementation note: technically it would be preferable to use the FS watching
+library "github.com/rjeczalik/notify" which uses various OS-specific APIs that
+allow to listen for FS events and avoid polling. However, in this codebase, we
+use "github.com/fsnotify/fsnotify" because the "better" watcher mentioned
+earlier depends on CGo and slows down compilation, which can be slightly
+annoying here.
 */
 func (self *Server) Watch() {
 	watcher := gg.Try1(fsnotify.NewWatcher())

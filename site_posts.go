@@ -37,8 +37,8 @@ func (self PagePost) TimeString() string {
 	return strings.Join(out, `, `)
 }
 
-func (self PagePost) Make(site Site) {
-	PageWrite(self, self.Render(site))
+func (self PagePost) Make() {
+	PageWrite(self, self.Render())
 
 	for _, path := range self.RedirFrom {
 		writePublic(path, F(
@@ -76,10 +76,11 @@ func (self PagePost) GetUpdatedAt() Time {
 	return gg.Or(self.UpdatedAt, self.PublishedAt, timeNow())
 }
 
-func initSitePosts() []PagePost {
+func initSitePosts(site *Site) []PagePost {
 	return []PagePost{
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/hades.html`,
 				Title:       `Hades: tweak recommendations`,
 				Description: `Suggestions for how to play Hades, an excellent single-player roguelike game.`,
@@ -91,6 +92,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/speed.html`,
 				Title:       `Using speedhacks in single player games`,
 				Description: `Explanation and instructions on speedhacking, a surprisingly handy tool in gaming.`,
@@ -102,6 +104,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/witcher.html`,
 				Title:       `Witcher franchise: how to enjoy`,
 				Description: `Essential tips and tricks for Witcher games. Spoiler-free!`,
@@ -113,6 +116,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/divinity-original-sin-2.html`,
 				Title:       `Divinity Original Sin 2: how to play and enjoy`,
 				Description: `Mod recommendations and gameplay suggestions. Spoiler-free!`,
@@ -124,6 +128,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:  site,
 				Path:  `posts/steins-gate.html`,
 				Title: `[Draft] Impressions: Steins Gate series (games and anime).`,
 				MdTpl: readTemplate(`posts/steins-gate.md`),
@@ -131,6 +136,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/anime-impressions-parasyte.html`,
 				Title:       `Anime impressions: Parasyte`,
 				Description: `Thoughts and analysis on this surprisingly deep anime. Spoilers!`,
@@ -142,6 +148,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/anime-impressions-evangelion.html`,
 				Title:       `Anime impressions: Evangelion`,
 				Description: `How to watch: Neon Genesis Evangelion, End of Evangelion.`,
@@ -152,6 +159,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/anime.html`,
 				Title:       `Anime impressions and recommendations`,
 				Description: `Periodically-updated gist. Check later for more.`,
@@ -162,6 +170,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/andromeda.html`,
 				Title:       `Game impressions: Mass Effect Andromeda`,
 				Description: `Enjoyed, highly recommended.`,
@@ -173,6 +182,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/goex.html`,
 				Title:       `Shorten your Go code by using exceptions`,
 				Description: `Go secretly favors exceptions. Use them.`,
@@ -184,6 +194,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/spaces-tabs.html`,
 				Title:       `Always spaces, never tabs`,
 				Description: `Objective arguments that decided my personal preference.`,
@@ -195,6 +206,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/lisp-sexpr-hacks.html`,
 				Title:       `Hacks around S-expressions in Lisps`,
 				Description: `How far people are willing to go to get prefix and infix in a Lisp syntax.`,
@@ -206,6 +218,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/lang-var-minus.html`,
 				Title:       `Language design: gotchas with variadic minus`,
 				Description: `Treating the minus operator as a function can be tricky and dangerous.`,
@@ -216,6 +229,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/lang-case-conventions.html`,
 				Title:       `Language design: case conventions`,
 				Description: `Objective arguments to solve case conventions and move on.`,
@@ -227,6 +241,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/lang-homoiconic.html`,
 				Title:       `Language design: homoiconicity`,
 				Description: `Thoughts on homoiconicity, an interesting language quality seen in Lisps.`,
@@ -237,6 +252,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/warframe-headcanon.html`,
 				Title:       `Warframe headcanon (spoilers)`,
 				Description: `Collection of Warframe headcanon co-authored with friends.`,
@@ -248,6 +264,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:  site,
 				Path:  `posts/thoughts-on-the-egg.html`,
 				Title: `Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt`,
 				MdTpl: readTemplate(`posts/thoughts-on-the-egg.md`),
@@ -257,6 +274,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/gameplay-conjecture.html`,
 				Title:       `Gameplay conjecture`,
 				Description: `Amount of gameplay ≈ amount of required decisions.`,
@@ -266,6 +284,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/tips-and-tricks-doom-2016.html`,
 				Title:       `Tips and tricks: Doom 2016`,
 				Description: `General tips, notes on difficulty, enemies, runes, weapons.`,
@@ -276,6 +295,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/game-impressions-doom-2016.html`,
 				Title:       `Game impressions: Doom 2016`,
 				Description: `I really like Doom 2016, here's why.`,
@@ -286,6 +306,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/astrotips.html`,
 				Title:       `Announcing Astrotips: video guides on Astroneer`,
 				Description: `A series of video guides, tips and tricks on Astroneer, an amazing space exploration and building game.`,
@@ -296,6 +317,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/camel-case-abbr.html`,
 				Title:       `Don't abbreviate in camelCase`,
 				Description: "CamelCase identifiers should avoid abbreviations, e.g. `JsonText` rather than `JSONText`.",
@@ -306,6 +328,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/remove-from-go.html`,
 				Title:       `Things I would remove from Go`,
 				Description: `If less is more, Go could gain by losing weight.`,
@@ -316,6 +339,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/back-from-hiatus-2019.html`,
 				Title:       `Back from hiatus (2019)`,
 				Description: `Back to blogging after three and a half years.`,
@@ -326,6 +350,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/cheating-for-performance-pjax.html`,
 				Title:       `Cheating for performance with pjax`,
 				Description: `Faster page transitions, for free.`,
@@ -337,6 +362,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/cheating-for-website-performance.html`,
 				Title:       `Cheating for website performance`,
 				Description: `Frontend tips for speeding up websites.`,
@@ -348,6 +374,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/keeping-things-simple.html`,
 				Title:       `Keeping things simple`,
 				Description: `Musings on simplicity in programming.`,
@@ -359,6 +386,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/next-generation-today.html`,
 				Title:       `Next generation today`,
 				Description: `EcmaScript 2015/2016 workflow with current web frameworks.`,
@@ -370,6 +398,7 @@ func initSitePosts() []PagePost {
 		},
 		PagePost{
 			Page: Page{
+				Site:        site,
 				Path:        `posts/old-posts.html`,
 				Title:       `Old posts`,
 				Description: `Some old stuff from around the net.`,

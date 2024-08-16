@@ -6,6 +6,7 @@ import (
 )
 
 type Page struct {
+	Site        *Site
 	Path        string
 	Title       string
 	Description string
@@ -23,7 +24,7 @@ func (self Page) GetType() string        { return self.Type }
 func (self Page) GetImage() string       { return self.Image }
 func (self Page) GetGlobalClass() string { return self.GlobalClass }
 
-func (self Page) Make(site Site) {
+func (self Page) Make() {
 	panic(gg.Errf(`"Make" is not implemented for page %#v`, self))
 }
 
@@ -43,13 +44,15 @@ func (self Page) GetLink() string {
 	return ensureLeadingSlash(trimExt(self.GetPath()))
 }
 
-func initSitePages() []Ipage {
+func initSitePages(site *Site) []Ipage {
 	return []Ipage{
 		Page404{Page{
+			Site:  site,
 			Path:  `404.html`,
 			Title: `Page Not Found`,
 		}},
 		PageIndex{Page{
+			Site:        site,
 			Path:        `index.html`,
 			Title:       `about:mitranim`,
 			Description: `About me: bio, works, posts`,
@@ -57,6 +60,7 @@ func initSitePages() []Ipage {
 		}},
 		PageWorks{
 			Page: Page{
+				Site:        site,
 				Path:        `works.html`,
 				Title:       `Works`,
 				Description: `Software I'm involved in`,
@@ -65,22 +69,26 @@ func initSitePages() []Ipage {
 			Works: initWorks(),
 		},
 		PagePosts{Page{
+			Site:        site,
 			Path:        `posts.html`,
 			Title:       `Blog Posts`,
 			Description: `Random notes and thoughts`,
 		}},
 		PageGames{Page{
+			Site:        site,
 			Path:        `games.html`,
 			Title:       `Game Recommendations`,
 			Description: `Collection of games I've played, with impressions and recommendations`,
 		}},
 		PageDemos{Page{
+			Site:        site,
 			Path:        `demos.html`,
 			Title:       `Demos`,
 			Description: `Silly little demos`,
 			MdTpl:       readTemplate(`demos.md`),
 		}},
 		PageResume{Page{
+			Site:        site,
 			Path:        `resume.html`,
 			Title:       `Resume`,
 			Description: `Nelo Mitranim's resume`,
@@ -91,7 +99,7 @@ func initSitePages() []Ipage {
 
 type Page404 struct{ Page }
 
-func (self Page404) Make(_ Site) {
+func (self Page404) Make() {
 	PageWrite(self, HtmlCommon(
 		self,
 		E(`div`, AttrsMainArticleMd(),
@@ -106,7 +114,7 @@ type PageIndex struct{ Page }
 
 func (self PageIndex) GetLink() string { return `/` }
 
-func (self PageIndex) Make(_ Site) {
+func (self PageIndex) Make() {
 	PageWrite(self, HtmlCommon(
 		self,
 		E(`article`, AttrsMainArticleMd(), self.MdOnce(self)),
@@ -115,14 +123,14 @@ func (self PageIndex) Make(_ Site) {
 
 type PagePosts struct{ Page }
 
-func (self PagePosts) Make(site Site) {
+func (self PagePosts) Make() {
 	PageWrite(self, HtmlCommon(
 		self,
 		E(`div`, AttrsMain().Add(`class`, `post-previews`),
 			E(`h1`, nil, `Blog Posts`),
 
 			func(bui B) {
-				src := site.ListedPosts()
+				src := self.Site.ListedPosts()
 
 				if len(src) > 0 {
 					for _, post := range src {
@@ -158,7 +166,7 @@ type PageWorks struct {
 	Works []Work
 }
 
-func (self PageWorks) Make(_ Site) {
+func (self PageWorks) Make() {
 	PageWrite(self, HtmlCommon(
 		self,
 		E(`article`, AttrsMainArticleMd(), self.MdOnce(self)),
@@ -210,12 +218,12 @@ func (self PageWorks) List() x.Bui {
 
 type PageGames struct{ Page }
 
-func (self PageGames) Make(site Site) {
+func (self PageGames) Make() {
 	PageWrite(self, HtmlCommon(
 		self,
 		E(`div`, AttrsMain().Add(`class`, `article`),
 			self.Head(),
-			self.Content(site),
+			self.Content(),
 		),
 	))
 }
@@ -249,8 +257,8 @@ from [Nexus Mods](https://nexusmods.com), but beware of spoilers.
 	)
 }
 
-func (self PageGames) Content(site Site) x.Ren {
-	src := site.Games.Listed()
+func (self PageGames) Content() x.Ren {
+	src := self.Site.Games.Listed()
 
 	if gg.IsEmpty(src) {
 		return self.PlaceholderEmpty()
@@ -304,11 +312,7 @@ func (self PageGames) GameGrid(src Games) x.Ren {
 
 func (PageGames) GameGridItem(src Game) x.Ren {
 	return E(`filter-item`, AP(`class`, `game-grid-item`),
-		E(`img`, AP(
-			`src`, src.Img,
-			`class`, `game-grid-item-img`,
-			`loading`, `lazy`,
-		)),
+		src.GridImg(),
 		E(`h3`, nil, src.RenderName()),
 		func(bui B) {
 			if gg.IsNotZero(src.Desc) {
@@ -346,9 +350,9 @@ func (self PageGames) Placeholder(text string) x.Elem {
 
 type PageResume struct{ Page }
 
-func (self PageResume) Make(site Site) {
-	index := PageByType[PageIndex](site)
-	works := PageByType[PageWorks](site)
+func (self PageResume) Make() {
+	index := PageByType[PageIndex](self.Site.Pages)
+	works := PageByType[PageWorks](self.Site.Pages)
 
 	PageWrite(self, Html(
 		self,
@@ -363,14 +367,14 @@ func (self PageResume) Make(site Site) {
 
 type PageDemos struct{ Page }
 
-func (self PageDemos) Make(_ Site) {
+func (self PageDemos) Make() {
 	PageWrite(self, HtmlCommon(
 		self,
 		E(`article`, AttrsMainArticleMd(), self.MdOnce(self)),
 	))
 }
 
-func (self PagePost) Render(_ Site) x.Bui {
+func (self PagePost) Render() x.Bui {
 	return HtmlCommon(
 		self,
 		E(`article`, AttrsMainArticleMd(),

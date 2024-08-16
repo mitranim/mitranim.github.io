@@ -1,18 +1,22 @@
 package main
 
+import "github.com/mitranim/gg"
+
 func init() { commands.Add(`pages`, cmdPages) }
 
 func cmdPages() {
-	defer timing(`pages`)()
+	defer gg.LogTimeNow(`pages`).LogStart().LogEnd()
 
-	site := initSite()
+	var site Site
+	site.Init()
+
 	makePages(site)
 	makeFeeds(site)
 }
 
 func makePages(site Site) {
 	for _, val := range site.All() {
-		val.Make(site)
+		val.Make()
 	}
 }
 

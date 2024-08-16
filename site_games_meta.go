@@ -1,6 +1,7 @@
 package main
 
 import (
+	x "github.com/mitranim/gax"
 	"github.com/mitranim/gg"
 	"github.com/mitranim/gg/grepr"
 )
@@ -71,6 +72,14 @@ func (self Game) RenderName() any {
 
 func (self Game) GetTags() []Tag        { return self.Tags }
 func (self Game) GetTimeSink() TimeSink { return self.TimeSink }
+
+func (self Game) GridImg() x.Elem {
+	return E(`img`, AP(
+		`src`, self.Img,
+		`class`, `game-grid-item-img`,
+		`loading`, `lazy`,
+	))
+}
 
 var TimeSinkOrd Ord
 

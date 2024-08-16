@@ -74,7 +74,7 @@ An ideal implementation would parse and render exactly once, but we're not ready
 for that.
 */
 func MdTplToHtml(src []byte, opt MdOpt, val any) x.Bui {
-	if len(src) == 0 {
+	if !(len(src) > 0) {
 		return nil
 	}
 	return MdToHtml(mdTplExec(gg.ToString(src), val), opt)
@@ -89,8 +89,8 @@ func mdTplExec(src string, val any) x.Bui {
 /*
 Note: we create a new renderer for every page because `bf.HTMLRenderer` is
 stateful and is not meant to be reused between unrelated texts. In particular,
-reusing it between pages causes `bf.AutoHeadingIDs` to suffix heading IDs,
-making them unique across multiple pages. We don't want that.
+when reusing it between pages with `bf.AutoHeadingIDs` enabled, heading indexes
+are unique across multiple pages. We don't want that.
 */
 func mdOpts(opt MdOpt) []bf.Option {
 	if opt.Flags == 0 {
@@ -186,7 +186,7 @@ Differences from default:
 */
 func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	tag := node.CodeBlockData.Info
-	if len(tag) == 0 {
+	if !(len(tag) > 0) {
 		return self.HTMLRenderer.RenderNode(out, node, entering)
 	}
 	if RE_DETAIL_TAG_PREFIX.Match(tag) {
@@ -215,7 +215,7 @@ func (self *MdRen) RenderCodeBlockDetails(out io.Writer, node *bf.Node, entering
 
 	lang := bytes.TrimSpace(match[1])
 	summary := bytes.TrimSpace(match[2])
-	if len(summary) == 0 {
+	if !(len(summary) > 0) {
 		summary = DETAIL_SUMMARY_FALLBACK
 	}
 
@@ -342,7 +342,7 @@ func mdHeadings(src []byte) (out []MdHeading) {
 		}
 
 		textNode := bfNodeFind(node, bf.Text)
-		if textNode != nil && len(heading.Text) == 0 {
+		if textNode != nil && !(len(heading.Text) > 0) {
 			heading.Text = textNode.Literal
 		}
 		if textNode != nil && heading.Id == `` {
@@ -424,7 +424,7 @@ func tplParseMd(tpl *tt.Template, src string) {
 	funs := tt.FuncMap{}
 
 	src = replaceCodeBlocks(src, func(val string) string {
-		id := `id` + gt.RandomUuid().String()
+		id := `id_` + gt.RandomUuid().String()
 		funs[id] = func() string { return val }
 		return `{{` + id + `}}`
 	})
