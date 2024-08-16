@@ -231,8 +231,7 @@ supported in Safari/iOS at the time of writing.
 
 .stretch-to-viewport {
   min-height: 100vh;
-  @extend .flex;
-  @extend .col-sta-str;
+  @extend .flex, .col-sta-str;
 }
 
 .wid-lim {
@@ -244,9 +243,9 @@ supported in Safari/iOS at the time of writing.
 /* Whitespace */
 
 .pad-tiny {padding: 0.3rem}
-.gap-tiny {@include sb.gap(0.3rem)}
-.gap-hor-tiny {@include sb.gap-hor(0.3rem)}
-.gap-ver-tiny {@include sb.gap-ver(0.3rem)}
+.gap-tiny {gap: 0.3rem}
+.gap-hor-tiny {column-gap: 0.3rem}
+.gap-ver-tiny {row-gap: 0.3rem}
 
 /* Misc */
 
@@ -339,7 +338,7 @@ supported in Safari/iOS at the time of writing.
   @extend .typography, %article-spacing;
 
   // Required for floating images.
-  @extend .block;
+  display: block;
 
   // Suspicious, questionable.
   .details summary ~ pre {margin-top: 0}
@@ -348,7 +347,7 @@ supported in Safari/iOS at the time of writing.
 // TODO better name.
 %article-spacing {
   // Required for collapsing vertical margins.
-  @extend .block;
+  display: block;
 
   > :not(:last-child) {@extend .mar-bot-1}
 
@@ -437,7 +436,8 @@ usable.
   clear: both;
 
   footer {
-    @extend .block, .text-rig;
+    display: block;
+    text-align: right;
 
     // Note: MacOS VoiceOver seems to read this emdash as "comma". WTF?
     &::before {
@@ -458,7 +458,8 @@ usable.
 .svg-icon {
   width: 1em;
   height: 1em;
-  @extend .flex-noshrink;
+  vertical-align: text-bottom;
+  flex-shrink: 0;
 
   // Seems unnecessary.
   //
@@ -520,7 +521,7 @@ usable.
 //   }
 // }
 
-.rounded {border-radius: var(--border-radius)}
+// .rounded {border-radius: var(--border-radius)}
 
 .abs-fit-top {
   position: absolute;
@@ -536,25 +537,17 @@ usable.
 .bord-lef {border-left: $bord}
 
 /*
-Small image box positioned to the right. TODO variants: left-sided; centered
-large.
+Small image box positioned to the right. This class can be used either directly
+for `<img>`, or for another element that contains an image with a caption.
+
+TODO variants: left-sided; centered large.
 */
 .img-box {
-  @extend .block, .bord;
+  display: block;
   float: right;
   clear: both;
-  position: relative;
-
-  // Flexible sizing proportional to display width.
-  width: 30vw;
-  min-width: 6em;
-  max-width: 10em;
-  height: auto;
-
+  // Space away from flow content on the left and bottom.
   margin: 0 0 1em 1em;
-
-  // Tentative.
-  // @extend .rounded;
 
   // On extra-small displays, break the text instead of floating.
   @media (max-width: $breakpoint-xs) {
@@ -564,10 +557,21 @@ large.
     max-width: unset;
     margin: 1em 0 1em 0;
   }
+
+  // Flexible sizing proportional to display width.
+  width: 30vw;
+  min-width: 6em;
+  max-width: 10em;
+  height: auto;
+
+  @extend .bord;
+
+  // Tentative.
+  // @extend .rounded;
 }
 
 .img-box-link {
-  @extend .block;
+  display: block;
   border-radius: inherit;
 
   // TODO: choose visual effect.
@@ -579,25 +583,22 @@ Note: dimensions must be set in the markup. We scan width/height from image
 file metadata to set `aspect-ratio` for each `img`.
 */
 .img-box-img {
-  @extend .block;
+  display: block;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
 }
 
 .img-box-caption {
-  @extend .block;
   @include sb.pad-hor(0.5rem);
   @include sb.pad-ver(0.25rem);
-  @extend .text-cen;
+  display: block;
+  text-align: center;
   border-top: 1px solid var(--c-fg-far);
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;
 }
 
-.code {
-  @extend .bg-code;
-  @extend .font-monospace;
-}
+.code {@extend .bg-code, .font-monospace;}
 
 .target-flash:target {
   animation-name: flash;
