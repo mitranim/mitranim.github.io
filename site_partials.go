@@ -57,7 +57,10 @@ func HtmlHead[A Ipage](page A) x.Bui {
 				bui.E(`meta`, AP(`property`, `og:title`, `content`, page.GetTitle()))
 			}
 			if page.GetDescription() != `` {
+				// `<meta name="description">` is standard and should be supported by most clients.
 				bui.E(`meta`, AP(`name`, `description`, `content`, page.GetDescription()))
+				// However, Discord supports only `<meta name="og:description">`, not `<meta name="description">`.
+				bui.E(`meta`, AP(`name`, `og:description`, `content`, page.GetDescription()))
 			}
 			if page.GetImage() != `` {
 				bui.E(`meta`, AP(`property`, `og:image`, `content`, path.Join(`/images`, page.GetImage())))
