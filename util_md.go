@@ -223,7 +223,7 @@ func (self *MdRen) RenderCodeBlockDetails(out io.Writer, node *bf.Node, entering
 	bui.E(
 		`details`,
 		AP(`class`, `details typography`),
-		E(`summary`, AP(`class`, `summary`), MdToHtml(summary, MdOpt{})),
+		E(`summary`, nil, MdToHtml(summary, MdOpt{})),
 		func() {
 			if len(lang) > 0 {
 				// As code.

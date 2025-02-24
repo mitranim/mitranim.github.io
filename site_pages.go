@@ -232,7 +232,7 @@ func (self PageGames) Head() x.Ren {
 	return F(
 		E(`h1`, nil, self.Title),
 		E(`details`, AP(`class`, `details details-spaced`),
-			E(`summary`, AP(`class`, `summary`), `Click for additional notes.`),
+			E(`summary`, nil, `Click for additional notes.`),
 			MdToHtmlStr(`
 
 These are my current, modern recommendations. There are many other games I've
