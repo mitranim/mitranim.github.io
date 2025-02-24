@@ -78,37 +78,34 @@ $pad-body: 1rem;
 /* Global */
 
 :root {
-  /* Typography */
-
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Segoe UI', Verdana, sans-serif;
   font-size: clamp(1rem, 18px, 2rem);
   @media (max-width: $breakpoint-sm) {font-size: initial}
+}
 
-  /* Colors */
+/*
+This must use `include` and not `extend`, in this specific order,
+otherwise the generated CSS will have the wrong precedence order.
+*/
+:root {@include color-scheme-dark}
+@media (prefers-color-scheme: light) {:root {@include color-scheme-light}}
 
-  @extend .bg, .fg;
-
-  /* Vars */
-
+:root {
   @extend %vars-misc;
   @extend %vars-brand-colors;
-
-  // This must use `include` and not `extend`, in this specific order,
-  // otherwise the generated CSS will have the wrong precedence order.
-  @include color-scheme-dark;
-  @media (prefers-color-scheme: light) {@include color-scheme-light}
-
-  /* Misc */
-
-  // Personally I hate and despise UI animations, but most people seem to love
-  // them. In the browsers I've tested, this property seems to respect OS-level
-  // setting to disable smooth scrolling or minimize UI animations (sometimes
-  // called "motions"). As a result, for users who tend to minimize animations,
-  // this has no effect. For other users, this typically affects mousewheel
-  // scroll, programmatic scroll, and scroll resulting from hash-links. This
-  // has no effect on touch-scroll, which is always "smooth".
-  scroll-behavior: smooth;
+  @extend .bg, .fg;
 }
+
+/*
+Personally I hate UI animations as time-wasters, but most people seem to love
+them. In the browsers I've tested, this property seems to respect the OS-level
+setting to disable smooth scrolling or minimize UI animations, often called
+"reduce motion" or similar. As a result, for users who tend to minimize
+animations, this has no effect. For other users, this typically affects
+mousewheel scroll, programmatic scroll, and scroll resulting from hash-links.
+This has no effect on touch-scroll, which is always "smooth".
+*/
+:root {scroll-behavior: smooth}
 
 body {
   overflow-x: auto;
@@ -558,16 +555,18 @@ TODO variants: left-sided; centered large.
     margin: 1em 0 1em 0;
   }
 
-  // Flexible sizing proportional to display width.
-  width: 30vw;
-  min-width: 6em;
-  max-width: 10em;
-  height: auto;
+  & {
+    // Flexible sizing proportional to display width.
+    width: 30vw;
+    min-width: 6em;
+    max-width: 10em;
+    height: auto;
 
-  @extend .bord;
+    @extend .bord;
 
-  // Tentative.
-  // @extend .rounded;
+    // Tentative.
+    // @extend .rounded;
+  }
 }
 
 .img-box-link {
