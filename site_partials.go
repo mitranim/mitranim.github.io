@@ -56,11 +56,12 @@ func HtmlHead[A Ipage](page A) x.Bui {
 			if page.GetTitle() != `` {
 				bui.E(`meta`, AP(`property`, `og:title`, `content`, page.GetTitle()))
 			}
-			if page.GetDescription() != `` {
+			desc := page.GetDescription()
+			if desc != `` {
 				// `<meta name="description">` is standard and should be supported by most clients.
-				bui.E(`meta`, AP(`name`, `description`, `content`, page.GetDescription()))
+				bui.E(`meta`, AP(`name`, `description`, `content`, desc))
 				// However, Discord supports only `<meta name="og:description">`, not `<meta name="description">`.
-				bui.E(`meta`, AP(`name`, `og:description`, `content`, page.GetDescription()))
+				bui.E(`meta`, AP(`name`, `og:description`, `content`, desc))
 			}
 			if page.GetImage() != `` {
 				bui.E(`meta`, AP(`property`, `og:image`, `content`, path.Join(`/images`, page.GetImage())))
@@ -314,4 +315,11 @@ func AttrsHidden(ok bool) x.Attrs {
 		return AP(`hidden`, `true`)
 	}
 	return nil
+}
+
+func Evac(tag string, attrs x.Attrs, chi string) (_ x.Elem) {
+	if chi == `` {
+		return
+	}
+	return E(tag, attrs, chi)
 }

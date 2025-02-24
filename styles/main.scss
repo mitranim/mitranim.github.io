@@ -673,5 +673,8 @@ file metadata to set `aspect-ratio` for each `img`.
 }
 
 .post-previews {@extend .flex, .col, .gap-2, .typography}
-.post-preview {@extend .article}
+.post-preview {@extend .typography}
+.post-preview h2 + * {@extend .mar-top-1}
+.post-time {@extend .size-small, .fg-gray-near}
+.post-desc + .post-time {@extend .mar-top-0}
 .feed-links {@extend .inl-flex, .row-sta-sta, .gap-hor-0x5}

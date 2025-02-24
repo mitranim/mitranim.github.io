@@ -61,14 +61,14 @@ func MdToHtml[A gg.Text](src A, opt MdOpt) x.Bui {
 Known implementation issue. We currently parse and render each Markdown template
 3 or 4 times:
 
-	* Escape code blocks to prevent "text/template" from messing them up
-	  (see `tplParseMd`).
+  - Escape code blocks to prevent "text/template" from messing them up
+    (see `tplParseMd`).
 
-	* Parse and render via "text/template" (see `tplParseMd`).
+  - Parse and render via "text/template" (see `tplParseMd`).
 
-	* (Optional.) Parse as Markdown to extract headings (see `mdToToc`).
+  - (Optional.) Parse as Markdown to extract headings (see `mdToToc`).
 
-	* Parse as Markdown and render to HTML.
+  - Parse as Markdown and render to HTML.
 
 An ideal implementation would parse and render exactly once, but we're not ready
 for that.
@@ -128,11 +128,11 @@ func (self *MdRen) RenderNode(out io.Writer, node *bf.Node, entering bool) bf.Wa
 /*
 Differences from default:
 
-	* external links get attributes like `target="_blank"` and an external
-	  link icon
+  - external links get attributes like `target="_blank"` and an external
+    link icon
 
-	* intra-page hash links, like `href="#blah"`, are prefixed with a hash
-	  symbol hidden from screen readers
+  - intra-page hash links, like `href="#blah"`, are prefixed with a hash
+    symbol hidden from screen readers
 
 "External href" is defined as "starts with a protocol".
 
@@ -180,9 +180,9 @@ func isLinkHash(val string) bool      { return strings.HasPrefix(val, `#`) }
 /*
 Differences from default:
 
-	* code highlighting
+  - code highlighting
 
-	* supports special directives like rendering <details>
+  - supports special directives like rendering <details>
 */
 func (self *MdRen) RenderCodeBlock(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	tag := node.CodeBlockData.Info
@@ -259,12 +259,14 @@ func (self *MdRen) RenderCodeBlockHighlighted(out io.Writer, node *bf.Node, ente
 /*
 Differences from default:
 
-	* Fancy prefix indicating heading level, hidden from screen readers;
-	  speaking it aloud is redundant because screen readers will indicate the
-	  heading level anyway.
+  - Fancy prefix indicating heading level, hidden from screen readers;
+    speaking it aloud is redundant because screen readers will indicate the
+    heading level anyway.
 
-	* ID anchor suffix, hidden from screen readers; hearing it all the time
-	  quickly gets tiring.
+  - ID anchor suffix, hidden from screen readers; hearing it all the time
+    quickly gets tiring.
+
+SYNC[md_heading].
 */
 func (self *MdRen) RenderHeading(out io.Writer, node *bf.Node, entering bool) bf.WalkStatus {
 	headingLevel := self.HTMLRenderer.HTMLRendererParameters.HeadingLevelOffset + node.Level
@@ -435,14 +437,14 @@ func tplParseMd(tpl *tt.Template, src string) {
 /*
 Known limitations:
 
-	* Doesn't support single-backticks.
-	* Doesn't support indented code blocks.
-	* Doesn't support fences other than ```.
-	* Doesn't support escapes.
+  - Doesn't support single-backticks.
+  - Doesn't support indented code blocks.
+  - Doesn't support fences other than ```.
+  - Doesn't support escapes.
 
-Markdown technically allows fences from "``" to any amount of "`". Proper
-matching requires backreferences, which are unsupported by Go regexps. In this
-codebase, only "```" should be used.
+Markdown technically allows fences starting with two backticks to any amount of
+backticks. Proper matching requires backreferences, which are unsupported by Go
+regexps. In this codebase, only "```" should be used.
 */
 var replaceCodeBlocks = reFencedCodeBlock.ReplaceAllStringFunc
 

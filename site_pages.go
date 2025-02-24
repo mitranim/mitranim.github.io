@@ -148,17 +148,13 @@ func (self PagePosts) Make() {
 }
 
 func (self PagePosts) PostPreview(bui B, src PagePost) {
-	bui.E(`div`, AP(`class`, `post-preview`), func() {
-		bui.E(`h2`, nil,
+	bui.E(`div`, AP(`class`, `post-preview`),
+		E(`h2`, nil,
 			E(`a`, AP(`href`, src.GetLink()), src.Title),
-		)
-		if src.Description != `` {
-			bui.E(`p`, nil, src.Description)
-		}
-		if src.TimeString() != `` {
-			bui.E(`p`, AP(`class`, `fg-gray-near size-small`), src.TimeString())
-		}
-	})
+		),
+		Evac(`p`, AP(`class`, `post-desc`), src.Description),
+		Evac(`p`, AP(`class`, `post-time`), src.TimeString()),
+	)
 }
 
 type PageWorks struct {
@@ -378,16 +374,10 @@ func (self PagePost) Render() x.Bui {
 	return HtmlCommon(
 		self,
 		E(`article`, AttrsMainArticleMd(),
-			// Should be kept in sync with `MdRen.RenderNode` logic for headings.
+			// SYNC[md_heading].
 			E(`h1`, A(HEADING_PREFIX), self.Title),
-			func(bui B) {
-				if self.Description != `` {
-					bui.E(`p`, AP(`role`, `doc-subtitle`, `class`, `size-large italic`), self.Description)
-				}
-				if self.TimeString() != `` {
-					bui.E(`p`, AP(`class`, `fg-gray-near size-small`), self.TimeString())
-				}
-			},
+			Evac(`p`, AP(`class`, `post-desc`), self.Description),
+			Evac(`p`, AP(`class`, `post-time`), self.TimeString()),
 			self.MdOnce(self),
 		),
 		// TODO avoid spamming horizontal padding classes.
