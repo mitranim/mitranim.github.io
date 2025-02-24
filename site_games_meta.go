@@ -150,8 +150,8 @@ var (
 
 	TagSolo = Tag{`solo`, TagOrd.Next()}
 	TagCoop = Tag{`coop`, TagOrd.Next()}
-	TagPvp  = Tag{`pvp`, TagOrd.Next()}
 	TagPve  = Tag{`pve`, TagOrd.Next()}
+	TagPvp  = Tag{`pvp`, TagOrd.Next()}
 
 	TagStrategy  = Tag{`strategy`, TagOrd.Next()}
 	TagPuzzle    = Tag{`puzzle`, TagOrd.Next()}

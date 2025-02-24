@@ -92,6 +92,7 @@ func initSitePosts(site *Site) []PagePost {
 				MdTpl:       readTemplate(`posts/hogwarts-legacy.md`),
 			},
 			WrittenAt: timeParse(`2024-08-16T12:29:12Z`),
+			UpdatedAt: timeParse(`2025-02-24T22:20:18Z`),
 			IsListed:  true,
 		},
 		PagePost{
@@ -115,7 +116,7 @@ func initSitePosts(site *Site) []PagePost {
 				MdTpl:       readTemplate(`posts/speed.md`),
 			},
 			WrittenAt: timeParse(`2023-08-25T14:00:44Z`),
-			UpdatedAt: timeParse(`2025-01-27T11:50:10Z`),
+			UpdatedAt: timeParse(`2025-02-24T22:19:42Z`),
 			IsListed:  true,
 		},
 		PagePost{
@@ -127,7 +128,7 @@ func initSitePosts(site *Site) []PagePost {
 				MdTpl:       readTemplate(`posts/witcher.md`),
 			},
 			WrittenAt: timeParse(`2023-03-20T23:40:42Z`),
-			UpdatedAt: timeParse(`2023-08-25T14:00:44Z`),
+			UpdatedAt: timeParse(`2025-02-24T22:19:59Z`),
 			IsListed:  true,
 		},
 		PagePost{

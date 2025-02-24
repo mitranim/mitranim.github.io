@@ -161,8 +161,11 @@ Potentially interesting mods that I haven't tried:
 * [Improved Horse Controls](https://www.nexusmods.com/witcher3/mods/7229)
 * [Sort Everything](https://www.nexusmods.com/witcher3/mods/1710)
   * Has conflicts with Smooth GUI, requires tweaking mod load order.
-* [Fix Ciri Invulnerability](https://www.nexusmods.com/witcher3/mods/7919)
-  * Requires manual install.
+
+<details class="details-spaced" open>
+  <summary class="summary-text">The names of the following mods are potential spoilers. Click to reveal.</summary>
+  <p>[Fix Ciri Invulnerability](https://www.nexusmods.com/witcher3/mods/7919) (requires manual install).</p>
+</details>
 
 ### Misc Tips
 

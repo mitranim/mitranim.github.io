@@ -27,4 +27,7 @@ Nexus mods should generally be installed with [Vortex](https://www.nexusmods.com
 * [Alternate Swift Dodge Sounds](https://www.nexusmods.com/hogwartslegacy/mods/575): pick the "bandu" file for swooshier sound.
 * [Colorful Talent Icons](https://www.nexusmods.com/hogwartslegacy/mods/1320)
 * [Colorful Map Markers](https://www.nexusmods.com/hogwartslegacy/mods/1287)
-* [Talent Reset Potion](https://www.nexusmods.com/hogwartslegacy/mods/220): disable when not using to avoid bugs.
+
+The following mod is obsolete since the 2024-Jun-05 patch:
+
+* [Talent Reset Potion](https://www.nexusmods.com/hogwartslegacy/mods/220). Disable when not using to avoid bugs.

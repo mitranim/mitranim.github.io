@@ -38,6 +38,10 @@ For convenience, setup global hotkeys in CE, which can be used without alt-tabbi
 
 After launching both CE and the target game (or another app you want to hack), hit the key to "attach to current process", use the appropriate speed key, and enjoy.
 
+## Pausing
+
+Speed can be zero! Cheat Engine lets you assign a hotkey to pause the selected process. Useful for pausing games which don't have their own pause built in. This also eliminates the process's CPU and GPU usage, allowing to keep temperature and fan noise down when alt-tabbing for prolonged periods.
+
 ## Gamepads
 
 This section is out of scope for speedhacking, and might eventually be expanded into its own post.

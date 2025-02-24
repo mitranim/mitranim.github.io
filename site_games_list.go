@@ -802,7 +802,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Hogwarts Legacy`,
 			Link:     `https://store.steampowered.com/app/990080`,
 			Img:      `https://cdn.cloudflare.steamstatic.com/steam/apps/990080/header.jpg`,
-			Desc:     `Open-world RPG in the Harry Potter setting, with its own story. Combines student life with open-world exploration and combat, which is well designed and implemented. Saturated with lore. Excellent in most aspects.`,
+			Desc:     `Open-world RPG in the Harry Potter setting, with its own story. Combines student life with exploration and combat. Saturated with lore. Excellent in most aspects. Read my [modding recommendations](/posts/hogwarts-legacy).`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
