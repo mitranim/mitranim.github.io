@@ -81,7 +81,7 @@ $pad-body: 1rem;
   /* Typography */
 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Segoe UI', Verdana, sans-serif;
-  font-size: 18px;
+  font-size: clamp(1rem, 18px, 2rem);
   @media (max-width: $breakpoint-sm) {font-size: initial}
 
   /* Colors */
