@@ -1,40 +1,45 @@
 package main
 
 import (
-	"strings"
-
+	x "github.com/mitranim/gax"
 	"github.com/mitranim/gg"
 )
 
-// TODO: add `.WrittenAt`, which often doesn't match `.PublishedAt`.
 type PagePost struct {
 	Page
-	RedirFrom   []string
-	PublishedAt Time
-	UpdatedAt   Time
-	IsListed    bool
+	RedirFrom []string
+	WrittenAt Time
+	UpdatedAt Time
+	IsListed  bool
 }
 
 func (self PagePost) ExistsAsFile() bool {
-	return !self.PublishedAt.IsZero() || !FLAGS.PROD
+	return !self.WrittenAt.IsZero() || !FLAGS.PROD
 }
 
 func (self PagePost) ExistsInFeeds() bool {
 	return self.ExistsAsFile() && bool(self.IsListed)
 }
 
-// Somewhat inefficient but shouldn't be measurable.
-func (self PagePost) TimeString() string {
-	var out []string
-
-	if !self.PublishedAt.IsZero() {
-		out = append(out, `published `+timeFmtHuman(self.PublishedAt))
-		if !self.UpdatedAt.IsZero() {
-			out = append(out, `updated `+timeFmtHuman(self.UpdatedAt))
-		}
+func (self PagePost) TimeElem() (_ x.Elem) {
+	tar := self.TimeString()
+	if tar == `` {
+		return
 	}
+	return E(`p`, AP(`class`, `fg-gray-near`), tar)
+}
 
-	return strings.Join(out, `, `)
+func (self PagePost) TimeString() (out string) {
+	pub := timeFmtHuman(self.WrittenAt)
+	if pub == `` {
+		return
+	}
+	out += `written ` + pub
+	upd := timeFmtHuman(self.UpdatedAt)
+	if upd == `` {
+		return out
+	}
+	return out + `, updated ` + upd
 }
 
 func (self PagePost) Make() {
@@ -64,7 +69,7 @@ func (self PagePost) FeedItem() FeedItem {
 		Author:      FEED_AUTHOR,
 		Description: self.Page.Description,
 		Id:          href,
-		Published:   self.PublishedAt.MaybeTime(),
+		Published:   self.WrittenAt.MaybeTime(),
 		Updated:     self.GetUpdatedAt().MaybeTime(),
 		Content:     FeedPost(self).String(),
 	}
@@ -73,7 +78,7 @@ func (self PagePost) FeedItem() FeedItem {
 func (self PagePost) GetIsListed() bool { return self.IsListed }
 
 func (self PagePost) GetUpdatedAt() Time {
-	return gg.Or(self.UpdatedAt, self.PublishedAt, timeNow())
+	return gg.Or(self.UpdatedAt, self.WrittenAt, timeNow())
 }
 
 func initSitePosts(site *Site) []PagePost {
@@ -86,8 +91,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Suggestions for modding Hogwarts Legacy to make it more enjoyable.`,
 				MdTpl:       readTemplate(`posts/hogwarts-legacy.md`),
 			},
-			PublishedAt: timeParse(`2024-08-16T12:29:12Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2024-08-16T12:29:12Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -97,9 +102,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Suggestions for how to play Hades, an excellent single-player roguelike game.`,
 				MdTpl:       readTemplate(`posts/hades.md`),
 			},
-			PublishedAt: timeParse(`2023-08-25T15:42:29Z`),
-			UpdatedAt:   timeParse(`2024-02-16T13:22:47Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2023-08-25T15:42:29Z`),
+			UpdatedAt: timeParse(`2024-02-16T13:22:47Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -109,9 +114,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Explanation and instructions on speedhacking, a surprisingly handy tool in gaming.`,
 				MdTpl:       readTemplate(`posts/speed.md`),
 			},
-			PublishedAt: timeParse(`2023-08-25T14:00:44Z`),
-			UpdatedAt:   timeParse(`2024-07-02T14:06:50Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2023-08-25T14:00:44Z`),
+			UpdatedAt: timeParse(`2025-01-27T11:50:10Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -121,9 +126,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Essential tips and tricks for Witcher games. Spoiler-free!`,
 				MdTpl:       readTemplate(`posts/witcher.md`),
 			},
-			PublishedAt: timeParse(`2023-03-20T23:40:42Z`),
-			UpdatedAt:   timeParse(`2023-08-25T14:00:44Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2023-03-20T23:40:42Z`),
+			UpdatedAt: timeParse(`2023-08-25T14:00:44Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -133,9 +138,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Mod recommendations and gameplay suggestions. Spoiler-free!`,
 				MdTpl:       readTemplate(`posts/divinity-original-sin-2.md`),
 			},
-			PublishedAt: timeParse(`2023-03-17T12:01:03Z`),
-			UpdatedAt:   timeParse(`2023-08-25T14:00:44Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2023-03-17T12:01:03Z`),
+			UpdatedAt: timeParse(`2023-08-25T14:00:44Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -153,9 +158,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Thoughts and analysis on this surprisingly deep anime. Spoilers!`,
 				MdTpl:       readTemplate(`posts/anime-impressions-parasyte.md`),
 			},
-			PublishedAt: timeParse(`2022-03-08T07:02:11Z`),
-			UpdatedAt:   timeParse(`2022-09-05T11:40:59Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2022-03-08T07:02:11Z`),
+			UpdatedAt: timeParse(`2022-09-05T11:40:59Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -165,8 +170,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `How to watch: Neon Genesis Evangelion, End of Evangelion.`,
 				MdTpl:       readTemplate(`posts/anime-impressions-evangelion.md`),
 			},
-			PublishedAt: timeParse(`2022-03-08T06:31:41Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2022-03-08T06:31:41Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -176,8 +181,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Periodically-updated gist. Check later for more.`,
 				MdTpl:       readTemplate(`posts/anime.md`),
 			},
-			PublishedAt: timeParse(`2022-03-08T05:48:55Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2022-03-08T05:48:55Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -187,9 +192,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Enjoyed, highly recommended.`,
 				MdTpl:       readTemplate(`posts/andromeda.md`),
 			},
-			PublishedAt: timeParse(`2022-01-23T07:43:31Z`),
-			UpdatedAt:   timeParse(`2022-06-19T11:03:04Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2022-01-23T07:43:31Z`),
+			UpdatedAt: timeParse(`2022-06-19T11:03:04Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -199,9 +204,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Go secretly favors exceptions. Use them.`,
 				MdTpl:       readTemplate(`posts/goex.md`),
 			},
-			PublishedAt: timeParse(`2021-11-20T11:47:36Z`),
-			UpdatedAt:   timeParse(`2023-10-31T11:55:26Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2021-11-20T11:47:36Z`),
+			UpdatedAt: timeParse(`2023-10-31T11:55:26Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -211,9 +216,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Objective arguments that decided my personal preference.`,
 				MdTpl:       readTemplate(`posts/spaces-tabs.md`),
 			},
-			PublishedAt: timeParse(`2020-10-23T06:48:15Z`),
-			UpdatedAt:   timeParse(`2024-02-16T13:23:19Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2020-10-23T06:48:15Z`),
+			UpdatedAt: timeParse(`2024-02-16T13:23:19Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -223,9 +228,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `How far people are willing to go to get prefix and infix in a Lisp syntax.`,
 				MdTpl:       readTemplate(`posts/lisp-sexpr-hacks.md`),
 			},
-			PublishedAt: timeParse(`2020-10-21T06:34:24Z`),
-			UpdatedAt:   timeParse(`2021-08-20T07:16:38Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2020-10-21T06:34:24Z`),
+			UpdatedAt: timeParse(`2021-08-20T07:16:38Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -235,8 +240,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Treating the minus operator as a function can be tricky and dangerous.`,
 				MdTpl:       readTemplate(`posts/lang-var-minus.md`),
 			},
-			PublishedAt: timeParse(`2020-10-17T07:20:06Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2020-10-17T07:20:06Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -246,9 +251,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Objective arguments to solve case conventions and move on.`,
 				MdTpl:       readTemplate(`posts/lang-case-conventions.md`),
 			},
-			PublishedAt: timeParse(`2020-10-16T15:30:41Z`),
-			UpdatedAt:   timeParse(`2023-03-17T11:58:53Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2020-10-16T15:30:41Z`),
+			UpdatedAt: timeParse(`2023-03-17T11:58:53Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -258,8 +263,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Thoughts on homoiconicity, an interesting language quality seen in Lisps.`,
 				MdTpl:       readTemplate(`posts/lang-homoiconic.md`),
 			},
-			PublishedAt: timeParse(`2020-10-16T12:41:58Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2020-10-16T12:41:58Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -269,9 +274,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Collection of Warframe headcanon co-authored with friends.`,
 				MdTpl:       readTemplate(`posts/warframe-headcanon.md`),
 			},
-			PublishedAt: timeParse(`2020-10-10T12:25:32Z`),
-			UpdatedAt:   timeParse(`2023-04-11T15:43:24Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2020-10-10T12:25:32Z`),
+			UpdatedAt: timeParse(`2023-04-11T15:43:24Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -280,8 +285,8 @@ func initSitePosts(site *Site) []PagePost {
 				Title: `Thoughts on The Egg: a short story by Andy Weir, animated by Kurzgesagt`,
 				MdTpl: readTemplate(`posts/thoughts-on-the-egg.md`),
 			},
-			PublishedAt: timeParse(`2020-04-30T08:25:16Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2020-04-30T08:25:16Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -301,8 +306,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `General tips, notes on difficulty, enemies, runes, weapons.`,
 				MdTpl:       readTemplate(`posts/tips-and-tricks-doom-2016.md`),
 			},
-			PublishedAt: timeParse(`2019-04-25T12:00:00Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2019-04-25T12:00:00Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -312,8 +317,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `I really like Doom 2016, here's why.`,
 				MdTpl:       readTemplate(`posts/game-impressions-doom-2016.md`),
 			},
-			PublishedAt: timeParse(`2019-04-25T11:00:00Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2019-04-25T11:00:00Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -323,8 +328,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `A series of video guides, tips and tricks on Astroneer, an amazing space exploration and building game.`,
 				MdTpl:       readTemplate(`posts/astrotips.md`),
 			},
-			PublishedAt: timeParse(`2019-02-22T11:00:00Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2019-02-22T11:00:00Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -334,8 +339,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: "CamelCase identifiers should avoid abbreviations, e.g. `JsonText` rather than `JSONText`.",
 				MdTpl:       readTemplate(`posts/camel-case-abbr.md`),
 			},
-			PublishedAt: timeParse(`2019-01-17T07:00:00Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2019-01-17T07:00:00Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -345,8 +350,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `If less is more, Go could gain by losing weight.`,
 				MdTpl:       readTemplate(`posts/remove-from-go.md`),
 			},
-			PublishedAt: timeParse(`2019-01-15T01:00:00Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2019-01-15T01:00:00Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -356,8 +361,8 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Back to blogging after three and a half years.`,
 				MdTpl:       readTemplate(`posts/back-from-hiatus-2019.md`),
 			},
-			PublishedAt: timeParse(`2019-01-15T00:00:00Z`),
-			IsListed:    true,
+			WrittenAt: timeParse(`2019-01-15T00:00:00Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -367,9 +372,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Faster page transitions, for free.`,
 				MdTpl:       readTemplate(`posts/cheating-for-performance-pjax.md`),
 			},
-			RedirFrom:   []string{`thoughts/cheating-for-performance-pjax.html`},
-			PublishedAt: timeParse(`2015-07-25T00:00:00Z`),
-			IsListed:    true,
+			RedirFrom: []string{`thoughts/cheating-for-performance-pjax.html`},
+			WrittenAt: timeParse(`2015-07-25T00:00:00Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -379,9 +384,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Frontend tips for speeding up websites.`,
 				MdTpl:       readTemplate(`posts/cheating-for-website-performance.md`),
 			},
-			RedirFrom:   []string{`thoughts/cheating-for-website-performance.html`},
-			PublishedAt: timeParse(`2015-03-11T00:00:00Z`),
-			IsListed:    true,
+			RedirFrom: []string{`thoughts/cheating-for-website-performance.html`},
+			WrittenAt: timeParse(`2015-03-11T00:00:00Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -391,9 +396,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Musings on simplicity in programming.`,
 				MdTpl:       readTemplate(`posts/keeping-things-simple.md`),
 			},
-			RedirFrom:   []string{`thoughts/keeping-things-simple.html`},
-			PublishedAt: timeParse(`2015-03-10T00:00:00Z`),
-			IsListed:    true,
+			RedirFrom: []string{`thoughts/keeping-things-simple.html`},
+			WrittenAt: timeParse(`2015-03-10T00:00:00Z`),
+			IsListed:  true,
 		},
 		PagePost{
 			Page: Page{
@@ -403,9 +408,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `EcmaScript 2015/2016 workflow with current web frameworks.`,
 				MdTpl:       readTemplate(`posts/next-generation-today.md`),
 			},
-			RedirFrom:   []string{`thoughts/next-generation-today.html`},
-			PublishedAt: timeParse(`2015-05-18T00:00:00Z`),
-			IsListed:    false,
+			RedirFrom: []string{`thoughts/next-generation-today.html`},
+			WrittenAt: timeParse(`2015-05-18T00:00:00Z`),
+			IsListed:  false,
 		},
 		PagePost{
 			Page: Page{
@@ -415,9 +420,9 @@ func initSitePosts(site *Site) []PagePost {
 				Description: `Some old stuff from around the net.`,
 				MdTpl:       readTemplate(`posts/old-posts.md`),
 			},
-			RedirFrom:   []string{`thoughts/old-posts.html`},
-			PublishedAt: timeParse(`2015-01-01T00:00:00Z`),
-			IsListed:    true,
+			RedirFrom: []string{`thoughts/old-posts.html`},
+			WrittenAt: timeParse(`2015-01-01T00:00:00Z`),
+			IsListed:  true,
 		},
 	}
 }
