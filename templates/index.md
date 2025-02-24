@@ -1,6 +1,6 @@
 # Overview
 
-{{imgBox "/images/portrait_small.jpg" "Nelo"}}
+{{imgBox "/images/photo_small.jpg" "me"}}
 
 Nelo Mitranim.
 
