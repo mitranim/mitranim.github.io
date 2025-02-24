@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Fri, 23 Aug 2024 16:36:20 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Feb 2025 22:22:26 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/hogwarts-legacy">
       <title>Hogwarts Legacy: mod recommendations</title>
       <link>https://mitranim.com/posts/hogwarts-legacy</link>
@@ -34,7 +34,12 @@
 <li><a href="https://www.nexusmods.com/hogwartslegacy/mods/575" target="_blank" rel="noopener noreferrer">Alternate Swift Dodge Sounds<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>: pick the &quot;bandu&quot; file for swooshier sound.</li>
 <li><a href="https://www.nexusmods.com/hogwartslegacy/mods/1320" target="_blank" rel="noopener noreferrer">Colorful Talent Icons<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
 <li><a href="https://www.nexusmods.com/hogwartslegacy/mods/1287" target="_blank" rel="noopener noreferrer">Colorful Map Markers<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
-<li><a href="https://www.nexusmods.com/hogwartslegacy/mods/220" target="_blank" rel="noopener noreferrer">Talent Reset Potion<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>: disable when not using to avoid bugs.</li>
+</ul>
+
+<p>The following mod is obsolete since the 2024-Jun-05 patch:</p>
+
+<ul>
+<li><a href="https://www.nexusmods.com/hogwartslegacy/mods/220" target="_blank" rel="noopener noreferrer">Talent Reset Potion<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. Disable when not using to avoid bugs.</li>
 </ul>
 </article>]]></content:encoded>
       <author>me@mitranim.com (Nelo Mitranim)</author>
@@ -134,6 +139,7 @@
 <li><a href="#definitions"><span class="hash-prefix" aria-hidden="true">#</span>Definitions</a></li>
 <li><a href="#why"><span class="hash-prefix" aria-hidden="true">#</span>Why</a></li>
 <li><a href="#how"><span class="hash-prefix" aria-hidden="true">#</span>How</a></li>
+<li><a href="#pausing"><span class="hash-prefix" aria-hidden="true">#</span>Pausing</a></li>
 <li><a href="#gamepads"><span class="hash-prefix" aria-hidden="true">#</span>Gamepads</a></li>
 </ul>
 <h2 id="definitions" class="heading-prefix">Definitions<a href="#definitions" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -175,6 +181,8 @@
 </ul>
 
 <p>After launching both CE and the target game (or another app you want to hack), hit the key to &quot;attach to current process&quot;, use the appropriate speed key, and enjoy.</p>
+<h2 id="pausing" class="heading-prefix">Pausing<a href="#pausing" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Speed can be zero! Cheat Engine lets you assign a hotkey to pause the selected process. Useful for pausing games which don't have their own pause built in. This also eliminates the process's CPU and GPU usage, allowing to keep temperature and fan noise down when alt-tabbing for prolonged periods.</p>
 <h2 id="gamepads" class="heading-prefix">Gamepads<a href="#gamepads" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>This section is out of scope for speedhacking, and might eventually be expanded into its own post.</p>
 
@@ -446,12 +454,12 @@ DBGConsoleOn=true
 <ul>
 <li>Has conflicts with Smooth GUI, requires tweaking mod load order.</li>
 </ul></li>
-<li><a href="https://www.nexusmods.com/witcher3/mods/7919" target="_blank" rel="noopener noreferrer">Fix Ciri Invulnerability<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
-
-<ul>
-<li>Requires manual install.</li>
-</ul></li>
 </ul>
+
+<p><details class="details-spaced" open>
+  <summary class="summary-text">The names of the following mods are potential spoilers. Click to reveal.</summary>
+  <p><a href="https://www.nexusmods.com/witcher3/mods/7919" target="_blank" rel="noopener noreferrer">Fix Ciri Invulnerability<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> (requires manual install).</p>
+</details></p>
 <h3 id="misc-tips" class="heading-prefix">Misc Tips<a href="#misc-tips" class="heading-anchor" aria-hidden="true"></a></h3>
 <p>When starting a new game, either import a Witcher 2 save (if you've made the right choices), or choose &quot;<em>do</em> simulate Witcher 2 save&quot;. If you choose the latter, at some point in Witcher 3 you will be questioned to determine various Witcher 2 choices that have an effect in Witcher 3.</p>
 
@@ -979,7 +987,7 @@ DBGConsoleOn=true
 <p>Competently done but lack charisma compared to ME1/2/3.</p>
 
 <p>Enjoyed squad banter. Would prefer it not limited to Nomad.</p>
-<details class="details typography"><summary class="summary"><p>Subjective grades: click to expand</p>
+<details class="details typography"><summary><p>Subjective grades: click to expand</p>
 </summary><ul>
 <li>Cora. Writing: neutral; voice acting: neutral; character: <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/Flanderization" target="_blank" rel="noopener noreferrer">flanderized<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> asariboo; appearance: Tumblr diversity hire (unfuck with <a href="#mods"><span class="hash-prefix" aria-hidden="true">#</span>mods</a>).</li>
 <li>Liam. Writing: neutral; voice acting: like; character: dislike. Jacob 3.0, more immature.</li>
