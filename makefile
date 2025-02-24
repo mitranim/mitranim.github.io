@@ -1,11 +1,12 @@
 MAKEFLAGS := --silent
-PAR := $(MAKE) -j 128
+MAKE_CONC := $(MAKE) -j 128
+CLEAR := $(if $(filter false,$(clear)),,$(if $(filter 0,$(MAKELEVEL)),-c,))
 TAR := public
 CMD := ./bin/cmd
 MOD := modules
 GO_FLAGS := -tags=$(tags) -mod=mod
-WATCH := watchexec -c -r -d=0 -n
-W_CMD := --no-ignore -w=$(CMD)
+WATCH := watchexec $(CLEAR) -r -d=1ms -n -q
+W_CMD := --no-vcs-ignore -w=$(CMD)
 W_GO := -e=go,mod
 
 ifeq ($(PROD),true)
@@ -36,11 +37,11 @@ endif
 
 .PHONY: watch
 watch: clean cmd
-	$(PAR) cmd_w srv pages_w styles_w cp_w
+	$(MAKE_CONC) cmd_w srv pages_w styles_w cp_w
 
 .PHONY: build
 build: clean_tar
-	$(PAR) styles pages cp
+	$(MAKE_CONC) styles pages cp
 
 .PHONY: cmd_w
 cmd_w: cmd
