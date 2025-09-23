@@ -835,7 +835,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Tower Dominion`,
 			Link:     `https://store.steampowered.com/app/3226530`,
 			Img:      `https://cdn.cloudflare.steamstatic.com/steam/apps/3226530/header.jpg`,
-			Desc:     `Tower defense game from authors of Beneath Oresa. Check out my [companion app](https://mitranim.com/tabularius/) for it!`,
+			Desc:     `Tower defense game from authors of Beneath Oresa. I contributed some design ideas. Check out my [companion app](https://mitranim.com/tabularius/) for it!`,
 			TimeSink: TimeSinkModerate,
 			Tags: Slice(
 				TagPc, TagMobile, TagWindows,

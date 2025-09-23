@@ -10,20 +10,16 @@ Passionate about open source software. See [works](/works).
 
 # Languages
 
-Preferred: Go.
+Solid experience: Go, JS (DOM/Deno/Node), Python, Clojure.
 
-Solid experience: Go, JS (DOM/Deno/Node), Clojure, Python.
+* My Go "stdlib": [https://github.com/mitranim/gg](https://github.com/mitranim/gg).
+* My JS "stdlib": [https://github.com/mitranim/js](https://github.com/mitranim/js).
 
-* Maintain my own Go stdlib: [https://github.com/mitranim/gg](https://github.com/mitranim/gg).
-* Maintain my own JS stdlib: [https://github.com/mitranim/js](https://github.com/mitranim/js).
+Experience: Rust, Haskell, Swift, Nim, C, Common Lisp, Scheme, Erlang.
 
-Limited experience: Rust, Haskell.
-
-Passing familiarity: Swift, Nim, C, Common Lisp, Scheme, Erlang.
+Highly interested in language design.
 
 # Databases
-
-Preferred: Postgres.
 
 Solid experience:
 
@@ -37,21 +33,23 @@ Experience:
 * Firebase ([https://firebase.google.com](https://firebase.google.com)).
 * Document databases: ArangoDB, CouchDB.
 
+Core data tends to be relational. SQL syntax is evil.
+
 # Applications
 
 Solid experience:
 
-  * API backends (REST/websocket/GRPC).
-  * Hybrid SSR+SPA apps.
-  * Traditional web apps (SSR + forms).
-  * Dynamic web apps (SPA).
-  * Ethereum apps; see [github.com/purelabio/eth](https://github.com/purelabio/eth).
+* API backends (REST / WebSocket / gRPC).
+* Hybrid SSR+SPA apps.
+* Dynamic web apps (SPA).
+* Traditional web apps (SSR + forms).
+* Ethereum apps; see [github.com/purelabio/eth](https://github.com/purelabio/eth).
 
 # Misc
 
-Favorite pastimes: [open source development](/works), computer games, anime.
+Favorite pastimes: [open source code](/works), [games](/games), [anime](/posts/anime).
 
-Enthusiastic about software, physics, biology, philosophy, culture, computer games, anime, science fiction.
+Enthusiastic about software, physics, biology, philosophy, culture, games, anime, science fiction.
 
 Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF.)
 
@@ -61,7 +59,7 @@ Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF
 
 <span>{{include "svg-paper-plane"}} Telegram: [Mitranim](https://telegram.me/Mitranim)</span>
 
-<span>@ Email: [me@mitranim.com](mailto:me@mitranim.com)</span>; I am **slow** on email, please try messengers first.
+<span>@ Email: [me@mitranim.com](mailto:me@mitranim.com)</span>.
 
 # Links
 
