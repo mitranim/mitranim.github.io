@@ -1,3 +1,7 @@
+<p class="theme-red pad-1">
+  <b>Update (early 2025)</b>. After rewriting {{LinkExt "https://github.com/mitranim/jisp" "Jisp"}} twice, first with a non-homoiconic AST, and then with a homoiconic AST, I conclude that the article below is complete nonsense. ASTs can and should be homoiconic. This needs a new article.
+</p>
+
 **TLDR**: Homoiconicity simplifies what was already trivial, while leading to poor design choices.
 
 ## Disclaimer
