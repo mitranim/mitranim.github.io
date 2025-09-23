@@ -12,11 +12,14 @@ Passionate about open source software. See [works](/works).
 
 Preferred: Go.
 
-Solid experience: Go, JS/Deno/Node, Clojure, Python.
+Solid experience: Go, JS (DOM/Deno/Node), Clojure, Python.
+
+* Maintain my own Go stdlib: [https://github.com/mitranim/gg](https://github.com/mitranim/gg).
+* Maintain my own JS stdlib: [https://github.com/mitranim/js](https://github.com/mitranim/js).
 
 Limited experience: Rust, Haskell.
 
-Passing familiarity: Swift, C, Common Lisp, Scheme, Erlang.
+Passing familiarity: Swift, Nim, C, Common Lisp, Scheme, Erlang.
 
 # Databases
 
@@ -24,13 +27,15 @@ Preferred: Postgres.
 
 Solid experience:
 
-  * SQL databases: Postgres ([http://postgresql.org](http://postgresql.org)).
+* SQL databases:
+  * Postgres ([http://postgresql.org](http://postgresql.org)).
+  * DuckDB ([https://duckdb.org](https://duckdb.org)).
 
 Experience:
 
-  * Datomic ([https://www.datomic.com](https://www.datomic.com)).
-  * Firebase ([https://firebase.google.com](https://firebase.google.com)).
-  * Document databases: ArangoDB, CouchDB.
+* Datomic ([https://www.datomic.com](https://www.datomic.com)).
+* Firebase ([https://firebase.google.com](https://firebase.google.com)).
+* Document databases: ArangoDB, CouchDB.
 
 # Applications
 
