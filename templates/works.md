@@ -7,7 +7,7 @@
 
 # Chronological
 
-Sorted by start time. Some "old" things are actively used and developed. Some private projects are excluded.
+Sorted by start time. Some "old"-looking projects are actively used and continually developed. Some private projects are excluded.
 
 {{.Table}}
 

@@ -56,6 +56,22 @@ func (self Lifecycle) StatusEnd(bui B) {
 func initWorks() []Work {
 	return []Work{
 		{
+			Name:      `Tabularius`,
+			Link:      `https://mitranim.com/tabularius/`,
+			Desc:      `Browser-based companion app and toolkit for [Tower Dominion](https://store.steampowered.com/app/3226530).`,
+			Role:      `author`,
+			Tech:      `JS`,
+			Lifecycle: Lifecycle{Start: `2025`},
+		},
+		{
+			Name:      `dock_hotkeys`,
+			Link:      `https://github.com/mitranim/dock_hotkeys/`,
+			Desc:      `MacOS app for activating Dock apps by ordinal hotkeys.`,
+			Role:      `bot-prompter`,
+			Tech:      `Swift`,
+			Lifecycle: Lifecycle{Start: `2025`, Status: `done`},
+		},
+		{
 			Name:      `gg`,
 			Link:      `https://github.com/mitranim/gg`,
 			Desc:      `Essential tools missing from the Go standard library.`,
@@ -66,7 +82,7 @@ func initWorks() []Work {
 		{
 			Name:      `js`,
 			Link:      `https://github.com/mitranim/js`,
-			Desc:      `Kinda "JS standard library" that doesn't suck. Also a tiny framework for JS apps.`,
+			Desc:      `"JS standard library" that doesn't suck. Foundation for JS apps.`,
 			Role:      `author`,
 			Tech:      `JS`,
 			Lifecycle: Lifecycle{Start: `2022`},
@@ -128,12 +144,16 @@ func initWorks() []Work {
 			Lifecycle: Lifecycle{Start: `2021`},
 		},
 		{
-			Name:      `cc`,
-			Link:      `https://github.com/mitranim/cc`,
-			Desc:      `Tiny Go tool for running multiple functions concurrently and collecting their results into an error slice.`,
-			Role:      `author`,
-			Tech:      `Go`,
-			Lifecycle: Lifecycle{Start: `2021`},
+			Name: `cc`,
+			Link: `https://github.com/mitranim/cc`,
+			Desc: `Tiny Go tool for running multiple functions concurrently and collecting their results into an error slice.`,
+			Role: `author`,
+			Tech: `Go`,
+			Lifecycle: Lifecycle{
+				Start:  `2022`,
+				Status: `subsumed`,
+				Link:   `https://github.com/mitranim/gg`,
+			},
 		},
 		{
 			Name:      `cmd`,
@@ -244,12 +264,16 @@ func initWorks() []Work {
 			Lifecycle: Lifecycle{Start: `2021`},
 		},
 		{
-			Name:      `try`,
-			Link:      `https://github.com/mitranim/try`,
-			Desc:      "Shorter error handling in Go. Supports two styles: explicit `try` and exceptions.",
-			Role:      `author`,
-			Tech:      `Go`,
-			Lifecycle: Lifecycle{Start: `2021`},
+			Name: `try`,
+			Link: `https://github.com/mitranim/try`,
+			Desc: "Shorter error handling in Go. Supports two styles: explicit `try` and exceptions.",
+			Role: `author`,
+			Tech: `Go`,
+			Lifecycle: Lifecycle{
+				Start:  `2022`,
+				Status: `subsumed`,
+				Link:   `https://github.com/mitranim/gg`,
+			},
 		},
 		{
 			Name:      `srv`,
