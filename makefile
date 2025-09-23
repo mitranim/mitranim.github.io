@@ -118,7 +118,7 @@ clean: clean_tar
 mod:
 	git submodule update --init --recursive --quiet
 
-# Usage: `mod set commit=<hash>`.
+# Usage: `make mod_set commit=<hash>`.
 .PHONY: mod_set
 mod_set:
 	cd $(MOD)/sb && git checkout $(commit)

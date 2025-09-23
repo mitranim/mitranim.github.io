@@ -19,7 +19,7 @@ func HtmlCommon[A Ipage](page A, chi ...any) x.Bui {
 func Html[A Ipage](page A, chi ...any) x.Bui {
 	return F(
 		x.Str(x.Doctype),
-		E(`html`, AP(`class`, page.GetGlobalClass()),
+		E(`html`, AP(`lang`, `en`, `class`, page.GetGlobalClass()),
 			E(`head`, nil, HtmlHead(page)),
 			E(`body`, AP(`id`, ID_TOP),
 				// SkipToContent,
@@ -33,7 +33,7 @@ func HtmlHead[A Ipage](page A) x.Bui {
 	return F(
 		E(`meta`, AP(`charset`, `utf-8`)),
 		E(`meta`, AP(`http-equiv`, `X-UA-Compatible`, `content`, `IE=edge,chrome=1`)),
-		E(`meta`, AP(`name`, `viewport`, `content`, `width=device-width, minimum-scale=1, maximum-scale=2, initial-scale=1, user-scalable=yes`)),
+		E(`meta`, AP(`name`, `viewport`, `content`, `width=device-width, initial-scale=1`)),
 		E(`link`, AP(`rel`, `icon`, `href`, `data:;base64,=`)),
 		E(`link`, AP(`rel`, `stylesheet`, `type`, `text/css`, `href`, `/styles/main.css`)),
 
@@ -193,6 +193,8 @@ func LinkExt(href, text string) x.Elem {
 		`a`,
 		AP(`href`, href, `class`, `link-deco`).A(ABLAN...),
 		gg.Or(text, href),
+		// Zero-width joiner.
+		"\u200d",
 		// We would prefer to use CSS `::after` with SVG as `background-image`, but
 		// it doesn't seem to be able to inherit `currentColor`. Inline SVG avoids
 		// that issue.
