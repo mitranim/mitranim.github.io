@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Mon, 24 Feb 2025 22:22:26 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 23 Sep 2025 17:59:28 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/hogwarts-legacy">
       <title>Hogwarts Legacy: mod recommendations</title>
       <link>https://mitranim.com/posts/hogwarts-legacy</link>
@@ -1672,7 +1672,11 @@ One123Two   &lt;-&gt; one 123 two
       <title>Language design: homoiconicity</title>
       <link>https://mitranim.com/posts/lang-homoiconic</link>
       <description>Thoughts on homoiconicity, an interesting language quality seen in Lisps.</description>
-      <content:encoded><![CDATA[<article role="main article" class="typography"><p><strong>TLDR</strong>: Homoiconicity simplifies what was already trivial, while leading to poor design choices.</p>
+      <content:encoded><![CDATA[<article role="main article" class="typography"><p class="theme-red pad-1">
+  <b>Update (early 2025)</b>. After rewriting <a href="https://github.com/mitranim/jisp" class="link-deco" target="_blank" rel="noopener noreferrer">Jisp‍<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> twice, first with a non-homoiconic AST, and then with a homoiconic AST, I conclude that the article below is complete nonsense. ASTs can and should be homoiconic. This needs a new article.
+</p>
+
+<p><strong>TLDR</strong>: Homoiconicity simplifies what was already trivial, while leading to poor design choices.</p>
 <h2 id="disclaimer" class="heading-prefix">Disclaimer<a href="#disclaimer" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>While this post is highly critical, it comes from a fan. I used Clojure for years, dabbled in other Lisps, wrote a few parsers and compilers. Even if this concept is not good language design, it's still pretty cool.</p>
 <h2 id="definition" class="heading-prefix">Definition<a href="#definition" class="heading-anchor" aria-hidden="true"></a></h2>
@@ -2808,7 +2812,7 @@ ONE-TWO      -- upper kebab case
 <li>game design from player perspective</li>
 </ul>
 
-<p>Subscribe via <a href="/feed.xml" class="link-deco" target="_blank" rel="noopener noreferrer">Atom<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> or <a href="/feed_rss.xml" class="link-deco" target="_blank" rel="noopener noreferrer">RSS<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> and enjoy!</p>
+<p>Subscribe via <a href="/feed.xml" class="link-deco" target="_blank" rel="noopener noreferrer">Atom‍<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> or <a href="/feed_rss.xml" class="link-deco" target="_blank" rel="noopener noreferrer">RSS‍<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> and enjoy!</p>
 </article>]]></content:encoded>
       <author>me@mitranim.com (Nelo Mitranim)</author>
       <guid>https://mitranim.com/posts/back-from-hiatus-2019</guid>
@@ -2824,7 +2828,7 @@ ONE-TWO      -- upper kebab case
 
 <p class="size-large">
     <span>Demo time!</span>
-    <a href="https://mitranim.com/simple-pjax/" class="link-deco" target="_blank" rel="noopener noreferrer">https://mitranim.com/simple-pjax/<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
+    <a href="https://mitranim.com/simple-pjax/" class="link-deco" target="_blank" rel="noopener noreferrer">https://mitranim.com/simple-pjax/‍<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>
 </p>
 
 <p>Who benefits from this?</p>
