@@ -4,6 +4,7 @@ func initSiteGames() GameColl {
 	return makeSiteGames().SortedByKeys(
 		`slay_the_spire`,
 		`beneath_oresa`,
+		`tower_dominion`,
 		`hades`,
 		`ftl`,
 		`subnautica`,
@@ -13,6 +14,7 @@ func initSiteGames() GameColl {
 		`talos_principle`,
 		`talos_principle_2`,
 		`hogwarts_legacy`,
+		`elden_ring`,
 		`steins_gate`,
 		`darkest_dungeon`,
 		`divinity_original_sin_2`,
@@ -57,10 +59,10 @@ func initSiteGames() GameColl {
 /*
 TODO:
 
-	* Automate downloading of images. We should serve them ourselves to avoid
-	  content breakage due to future changes on other web services. However, for
-	  frequently-updated games, banner images change over time, so we should
-	  prioritize external images when they exist.
+  - Automate downloading of images. We should serve them ourselves to avoid
+    content breakage due to future changes on other web services. However, for
+    frequently-updated games, banner images change over time, so we should
+    prioritize external images when they exist.
 */
 func makeSiteGames() (out GameColl) {
 	out.AddUniq(Games{
@@ -698,7 +700,7 @@ func makeSiteGames() (out GameColl) {
 			Name:     `Doom Eternal`,
 			Link:     `https://store.steampowered.com/app/782330`,
 			Img:      `https://cdn.cloudflare.steamstatic.com/steam/apps/782330/header.jpg`,
-			Desc:     `Competent sequel to _Doom (2016)_. More of the same, with refined mechanics, improved UI, excellent new environments, and various retcons in the plot.`,
+			Desc:     `Competent sequel to _Doom (2016)_. More of the same, with refined mechanics, improved UI, excellent new environments, great ambience, and various retcons in the plot.`,
 			TimeSink: TimeSinkSafe,
 			Tags: Slice(
 				TagPc, TagConsole, TagWindows,
@@ -810,6 +812,37 @@ func makeSiteGames() (out GameColl) {
 				TagSolo, TagPve, TagMagic, TagFantasy,
 				TagExploration, TagCrafting, TagBuilding, TagOpenWorld,
 				TagRolePlay, TagStory, TagStealth,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `elden_ring`,
+			Name:     `Elden Ring`,
+			Link:     `https://store.steampowered.com/app/1245620`,
+			Img:      `https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg`,
+			Desc:     `Open-world melee / magic game full of exploration, combat, and secret hunting, from a long lineage of quality games. Huge toybox. Encourages multiple playthroughs. Badly needs [mods](https://www.nexusmods.com/games/eldenring).`,
+			TimeSink: TimeSinkModerate,
+			Tags: Slice(
+				TagPc, TagConsole, TagWindows,
+				Tag3d, TagThirdPerson,
+				TagSolo, TagCoop, TagPve, TagPvp, TagMelee, TagMagic, TagFantasy,
+				TagExploration, TagOpenWorld,
+			),
+			IsListed: true,
+		},
+		{
+			Id:       `tower_dominion`,
+			Name:     `Tower Dominion`,
+			Link:     `https://store.steampowered.com/app/3226530`,
+			Img:      `https://cdn.cloudflare.steamstatic.com/steam/apps/3226530/header.jpg`,
+			Desc:     `Tower defense game from authors of Beneath Oresa. Check out my [companion app](https://mitranim.com/tabularius/) for it!`,
+			TimeSink: TimeSinkModerate,
+			Tags: Slice(
+				TagPc, TagMobile, TagWindows,
+				Tag2d, TagIsometric,
+				TagSolo, TagPve,
+				TagStrategy, TagTurnBased, TagSciFi,
+				TagBuilding, TagRoguelike,
 			),
 			IsListed: true,
 		},
