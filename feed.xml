@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2025-10-08T14:01:47Z</updated>
+  <updated>2025-10-08T19:33:02Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -22,6 +22,8 @@
 <p>Sublime also uses syntaxes for symbol indexing. When you open a directory, it runs the syntax engine on every file and collects the symbols. This is fast enough to index large repositories in seconds. Sublime doesn't even bother to cache symbol indexes to disk. Result? Global symbol search and goto any symbol from anywhere, without an LSP, and goto works across languages (important for me).</p>
 
 <p>Strangely, no other major editor implements this.</p>
+
+<p>(Edit: it's been pointed out to me that Sublime <em>does</em> cache symbol index to disk. It appears that something on my system or in my configuration prevents it from being <em>used</em>. This simply strengthens the point above, that syntax-based symbol indexing is very practical, since even without caching, it works great for me.)</p>
 <h2 id="rant" class="heading-prefix">Rant<a href="#rant" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>Been playing with the <a href="https://zed.dev" target="_blank" rel="noopener noreferrer">Zed editor<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>. It's very nice, very snappy, behind Sublime in some ways, ahead in some other ways. Like every editor which isn't Sublime, it's fatally defective (for me) due to the <a href="https://github.com/zed-industries/zed/issues/13307" target="_blank" rel="noopener noreferrer">lack<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> of syntax-based symbol indexing and goto. It relies on LSPs, which don't exist for many languages and don't support cross-language goto. Like many recent editors, it uses <a href="https://tree-sitter.github.io" target="_blank" rel="noopener noreferrer">Tree-Sitter<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> for syntaxes.</p>
 
@@ -44,7 +46,7 @@
 <p>However, we have an amazing high level solution: <a href="https://github.com/BenjaminSchaaf/sbnf" target="_blank" rel="noopener noreferrer">SBNF<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a>, which produces Sublime syntax files from sources written in a specialized variant of the Backus-Naur form. Those <a href="https://github.com/BenjaminSchaaf/sbnf/blob/master/sbnf/sbnf.sbnf" target="_blank" rel="noopener noreferrer">sources<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> are just as high level as Tree-Sitter, but can also handle heredocs without custom C code. Currently this requires syntax authors to run SBNF and distribute YAML. But SBNF, or something very similar, could be integrated into editors. Syntax authors would just write SBNF files, and editors would interpret them. No JS→C toolchain needed.</p>
 </article>]]></content>
     <published>2025-10-08T10:56:08Z</published>
-    <updated>2025-10-08T14:00:23Z</updated>
+    <updated>2025-10-08T19:32:15Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/rant-tree-sitter-zed"></link>
     <summary type="html"><![CDATA[Impressions after dabbling into Tree-Sitter syntaxes and trying the Zed editor]]></summary>
     <author>
