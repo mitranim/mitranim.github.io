@@ -10,12 +10,14 @@ Passionate about open source software. See [works](/works).
 
 # Languages
 
-Solid experience: Go, JS (DOM/Deno/Node), Python, Clojure.
+Solid experience: Go, JS (DOM/Deno/Bun/Node), Clojure, Python.
 
-* My Go "stdlib": [https://github.com/mitranim/gg](https://github.com/mitranim/gg).
-* My JS "stdlib": [https://github.com/mitranim/js](https://github.com/mitranim/js).
+* My Go stdlib: [https://github.com/mitranim/gg](https://github.com/mitranim/gg).
+* My JS stdlib: [https://github.com/mitranim/js](https://github.com/mitranim/js).
 
-Experience: Rust, Haskell, Swift, Nim, C, Common Lisp, Scheme, Erlang.
+Experience: Rust, Swift.
+
+Familiarity: Nim, Haskell, Erlang, Common Lisp, Scheme, Java, C, Forth.
 
 Highly interested in language design.
 
@@ -33,7 +35,10 @@ Experience:
 * Firebase ([https://firebase.google.com](https://firebase.google.com)).
 * Document databases: ArangoDB, CouchDB.
 
-Core data tends to be relational. SQL syntax is evil.
+Additional notes:
+
+* Core data is always relational.
+* SQL syntax is evil.
 
 # Applications
 
