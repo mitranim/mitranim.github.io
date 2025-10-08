@@ -92,6 +92,7 @@ func initSitePosts(site *Site) []PagePost {
 				MdTpl:       readTemplate(`posts/rant-tree-sitter-zed.md`),
 			},
 			WrittenAt: timeParse(`2025-10-08T10:56:08Z`),
+			UpdatedAt: timeParse(`2025-10-08T14:00:23Z`),
 			IsListed:  true,
 		},
 		PagePost{
