@@ -118,11 +118,8 @@ export class MyViewModel {/* ... */};   // named export
 
 To use ES6 modules, you need two pieces:
 
-1. A module loader running in the browser that implements the semantics of ES6
-modules.
-
-2. A transpiler that converts your ES6 import/export statements into calls to
-that loader's API.
+1. A module loader running in the browser that implements the semantics of ES6 modules.
+2. A transpiler that converts your ES6 import/export statements into calls to that loader's API.
 
 That module loader is [SystemJS](https://github.com/systemjs/systemjs). It
 implements the complete semantics of ES6 modules, including circular references.
