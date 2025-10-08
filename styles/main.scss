@@ -389,19 +389,20 @@ Markdown renderers.
   own backgrounds and/or borders, meaning their geometry is visibly indicated,
   this doesn't make their geometry inconsistent.
   */
-  > * {@extend .pad-1}
-
+  > * {padding: 0 1rem 0 1rem}
+  > :last-child {padding-bottom: 1rem}
   > summary {
     @extend %summary-marker, .cur-point;
     @extend .theme-bg-gray, .--busy;
+    padding: 1rem;
   }
 }
+
+.details-spaced[open] {@extend %article-spacing}
 
 %summary-marker::marker {@extend .fg-link}
 
 .summary-text {@extend %summary-marker, .underline-busy}
-
-.details-spaced[open] {@extend %article-spacing}
 
 .table {
   $bord: 1px dashed var(--c-fg-far);

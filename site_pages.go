@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strings"
+
 	x "github.com/mitranim/gax"
 	"github.com/mitranim/gg"
 )
@@ -229,7 +231,7 @@ func (self PageGames) Head() x.Ren {
 		E(`h1`, nil, self.Title),
 		E(`details`, AP(`class`, `details details-spaced`),
 			E(`summary`, nil, `Click for additional notes.`),
-			MdToHtmlStr(`
+			MdToHtmlStr(strings.TrimSpace(`
 
 These are my current, modern recommendations. There are many other games I've
 greatly enjoyed, which I would not recommend right now, either because they're
@@ -248,7 +250,7 @@ Always, _always_ check [PC Gaming Wiki](https://pcgamingwiki.com) for essential
 tweaks and mods for any given game. For many games, it's also worth using mods
 from [Nexus Mods](https://nexusmods.com), but beware of spoilers.
 
-`),
+`)),
 		),
 	)
 }
