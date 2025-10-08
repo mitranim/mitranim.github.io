@@ -86,6 +86,17 @@ func initSitePosts(site *Site) []PagePost {
 		PagePost{
 			Page: Page{
 				Site:        site,
+				Path:        `posts/rant-tree-sitter-zed.html`,
+				Title:       `Rant on Tree-Sitter (and Zed)`,
+				Description: `Impressions after dabbling into Tree-Sitter syntaxes and trying the Zed editor`,
+				MdTpl:       readTemplate(`posts/rant-tree-sitter-zed.md`),
+			},
+			WrittenAt: timeParse(`2025-10-08T10:56:08Z`),
+			IsListed:  true,
+		},
+		PagePost{
+			Page: Page{
+				Site:        site,
 				Path:        `posts/hogwarts-legacy.html`,
 				Title:       `Hogwarts Legacy: mod recommendations`,
 				Description: `Suggestions for modding Hogwarts Legacy to make it more enjoyable.`,
