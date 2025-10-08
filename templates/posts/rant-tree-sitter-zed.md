@@ -10,6 +10,8 @@ Sublime also uses syntaxes for symbol indexing. When you open a directory, it ru
 
 Strangely, no other major editor implements this.
 
+(Edit: it's been pointed out to me that Sublime _does_ cache symbol index to disk. It appears that something on my system or in my configuration prevents it from being _used_. This simply strengthens the point above, that syntax-based symbol indexing is very practical, since even without caching, it works great for me.)
+
 ## Rant
 
 Been playing with the [Zed editor](https://zed.dev). It's very nice, very snappy, behind Sublime in some ways, ahead in some other ways. Like every editor which isn't Sublime, it's fatally defective (for me) due to the [lack](https://github.com/zed-industries/zed/issues/13307) of syntax-based symbol indexing and goto. It relies on LSPs, which don't exist for many languages and don't support cross-language goto. Like many recent editors, it uses [Tree-Sitter](https://tree-sitter.github.io) for syntaxes.
