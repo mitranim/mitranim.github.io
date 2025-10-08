@@ -79,14 +79,18 @@ func HtmlHead[A Ipage](page A) x.Bui {
 }
 
 func Header[A Ipage](page A) x.Elem {
-	const link = `header-link --busy`
-
+	/**
+	This used to be just `<nav><a/><a/><a/></nav>`, but text-only browsers, such
+	as `w3c`, rendered all the links together on one line without whitespace.
+	They do, however, understand lists. Using `<ul><li>` allows them to render
+	this as a vertical list.
+	*/
 	return E(`header`, AP(`class`, `header`),
-		E(`nav`, AP(`class`, `flex row-sta-str`),
-			E(`a`, AP(`class`, link).A(Cur(page, `/`)...), `home`),
-			E(`a`, AP(`class`, link).A(Cur(page, `/works`)...), `works`),
-			E(`a`, AP(`class`, link).A(Cur(page, `/posts`)...), `posts`),
-			E(`a`, AP(`class`, link).A(Cur(page, `/games`)...), `games`),
+		E(`ul`, AP(`class`, `flex row-sta-str`),
+			E(`li`, nil, E(`a`, Cur(page, `/`), `home`)),
+			E(`li`, nil, E(`a`, Cur(page, `/works`), `works`)),
+			E(`li`, nil, E(`a`, Cur(page, `/posts`), `posts`)),
+			E(`li`, nil, E(`a`, Cur(page, `/games`), `games`)),
 		),
 
 		E(`span`, AP(`class`, `flex-1`)),

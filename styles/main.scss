@@ -248,7 +248,12 @@ supported in Safari/iOS at the time of writing.
 .pad-lef-body {padding-left: $pad-body}
 .pad-hor-body {@include sb.pad-hor($pad-body)}
 
-.header {@extend .flex, .row-sta-str, .mar-bot-1, .gap-hor-1}
+.header {
+  @extend .flex, .row-sta-str, .mar-bot-1, .gap-hor-1;
+  li {list-style: none}
+  a {@extend .header-link, .--busy}
+}
+
 .main {@extend .pad-hor-body}
 .footer {@extend .mar-top-auto, .pad-top-1, .flex, .row-bet-cen}
 
