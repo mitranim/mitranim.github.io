@@ -17,7 +17,7 @@ Solid experience: Go, JS (DOM/Deno/Bun/Node), Clojure, Python.
 
 Experience: Rust, Swift.
 
-Familiarity: Nim, Haskell, Erlang, Common Lisp, Scheme, Java, C, Forth.
+Familiarity: Nim, Haskell, Erlang, Common Lisp, Scheme, Java, C, Forth, assembly.
 
 Highly interested in language design.
 
