@@ -86,9 +86,20 @@ func initSitePosts(site *Site) []PagePost {
 		PagePost{
 			Page: Page{
 				Site:        site,
+				Path:        `posts/forkable-story-settings.html`,
+				Title:       `Forkable open story settings`,
+				Description: `The world of fiction storytelling could learn a few lessons from open source software.`,
+				MdTpl:       readTemplate(`posts/forkable-story-settings.md`),
+			},
+			WrittenAt: timeParse(`2025-10-23T09:10:18Z`),
+			IsListed:  true,
+		},
+		PagePost{
+			Page: Page{
+				Site:        site,
 				Path:        `posts/rant-tree-sitter-zed.html`,
 				Title:       `Rant on Tree-Sitter (and Zed)`,
-				Description: `Impressions after dabbling into Tree-Sitter syntaxes and trying the Zed editor`,
+				Description: `Impressions after dabbling into Tree-Sitter syntaxes and trying the Zed editor.`,
 				MdTpl:       readTemplate(`posts/rant-tree-sitter-zed.md`),
 			},
 			WrittenAt: timeParse(`2025-10-08T10:56:08Z`),
