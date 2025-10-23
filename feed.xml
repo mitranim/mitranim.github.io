@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2025-10-09T16:44:49Z</updated>
+  <updated>2025-10-23T09:48:31Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -10,6 +10,89 @@
   </author>
   <link rel="alternate" type="text/html" href="https://mitranim.com/posts"></link>
   <link rel="self" type="application/atom+xml" href="https://mitranim.com/feed.xml"></link>
+  <entry xml:base="https://mitranim.com/posts/forkable-story-settings">
+    <title>Forkable open story settings</title>
+    <id>https://mitranim.com/posts/forkable-story-settings</id>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><ul>
+<li><a href="#intro"><span class="hash-prefix" aria-hidden="true">#</span>Intro</a></li>
+<li><a href="#details"><span class="hash-prefix" aria-hidden="true">#</span>Details</a></li>
+<li><a href="#graphic"><span class="hash-prefix" aria-hidden="true">#</span>Graphic</a></li>
+<li><a href="#notes"><span class="hash-prefix" aria-hidden="true">#</span>Notes</a></li>
+</ul>
+<h2 id="intro" class="heading-prefix">Intro<a href="#intro" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Had two weird dreams tonight. The second went back in time and redid the first, but with many story alterations. Details got erased, but it gave me a brainwave when waking up.</p>
+
+<p>In software, we have free, libre-licensed open source, which many individuals and companies use and collectively improve. What if we applied a similar model to storytelling?</p>
+<h2 id="details" class="heading-prefix">Details<a href="#details" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>What if we had open, libre-licensed, collectively developed story settings, with rich backgrounds <em>and</em> characters, where:</p>
+
+<ul>
+<li>&quot;Canon&quot; does not exactly exist.</li>
+<li>Story forking is officially blessed.</li>
+<li>Original work can be commercialized.</li>
+<li>Original derivatives can be created by anyone from both commercial and non-commercial prior works.</li>
+</ul>
+
+<p>A setting established the background lore, locations, species, technology, rules of magic if any, but it also needs to establish appealing characters, with enough sample stories to give them substance.</p>
+
+<p>Just like in software source control, branches can be named and recognized. Say, a movie producer likes a particular story, writes a derivative, and shoots a live action series. That's a commercial product, sold like any other. But it's also a recognized branch of that setting.</p>
+
+<p>Other individuals and companies are allowed to fork that commercial story, creating their own branches, which may come to be widely recognized too. The only conditions are clear author attribution of preceding branches, and propagation of the licensing terms.</p>
+
+<p>Story branches can be merged, too. That's how many independent branches can actually enrich the lore. An author may pick a few prior stories and bring them together, clearly labeling the starting points (branch names) and continuing from there.</p>
+
+<p>The setting itself can be forked, making arbitrary alterations to the background lore to suit the needs of a particular story. As long as any recognizable locations and characters from the earlier branch appear in the new branch, it's considered part of the setting, and falls under the same licensing conditions.</p>
+
+<p>The setting could be versioned, too. &quot;Breaking changes&quot; such as alterations of background lore would not invalidate the earlier versions of the setting, as there is no &quot;canon&quot;, just branching and versioning.</p>
+<h2 id="graphic" class="heading-prefix">Graphic<a href="#graphic" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Bot-generated graphic for folks unfamiliar with software source control:</p>
+
+<pre><code>  Mythos Flow
+***************
+
+ [Source Tale]
+ (Primordial)
+      |
+      |
+    (Fork)
+      |
+     / \
+    /   \
+[Sequel] [New Lore]
+   |          |
+   |       (Sub-branch)
+   |          |
+   |       +--[Side Tale]
+   |          |
+   |     [Another author]
+   |          |
+   \          |
+    \    [Merging]
+     \  (Joins threads)
+      \ /
+       |
+       |
+  [Synthesis]
+       |
+       V
+  (Ongoing...)
+</code></pre>
+<h2 id="notes" class="heading-prefix">Notes<a href="#notes" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>&quot;Open&quot; settings already exist. Everything in public domain, for starters. But I'm not aware of any settings with the <em>culture</em> described above, and appropriate licensing terms attached. If someone decided to write a sequel to <em>The Call of Cthulhu</em>, they can choose a restrictive license, stopping others from building derivatives and thus enriching the setting.</p>
+
+<p>Additionally, public-domain settings often lack the depth needed to attract writer communities. Large, engaging settings tend to be commercial.</p>
+
+<p>Maybe it's worth trying to change that. The open source model is well-proven in software. What if creators of fictional worlds have more to gain, rather than lose, by inviting others to contribute?</p>
+</article>]]></content>
+    <published>2025-10-23T09:10:18Z</published>
+    <updated>2025-10-23T09:10:18Z</updated>
+    <link rel="alternate" href="https://mitranim.com/posts/forkable-story-settings"></link>
+    <summary type="html"><![CDATA[The world of fiction storytelling could learn a few lessons from open source software.]]></summary>
+    <author>
+      <name>Nelo Mitranim</name>
+      <email>me@mitranim.com</email>
+    </author>
+  </entry>
   <entry xml:base="https://mitranim.com/posts/rant-tree-sitter-zed">
     <title>Rant on Tree-Sitter (and Zed)</title>
     <id>https://mitranim.com/posts/rant-tree-sitter-zed</id>
@@ -48,7 +131,7 @@
     <published>2025-10-08T10:56:08Z</published>
     <updated>2025-10-08T19:32:15Z</updated>
     <link rel="alternate" href="https://mitranim.com/posts/rant-tree-sitter-zed"></link>
-    <summary type="html"><![CDATA[Impressions after dabbling into Tree-Sitter syntaxes and trying the Zed editor]]></summary>
+    <summary type="html"><![CDATA[Impressions after dabbling into Tree-Sitter syntaxes and trying the Zed editor.]]></summary>
     <author>
       <name>Nelo Mitranim</name>
       <email>me@mitranim.com</email>
