@@ -6,7 +6,7 @@
     <description>Random thoughts about technology</description>
     <managingEditor>me@mitranim.com (Nelo Mitranim)</managingEditor>
     <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
-    <lastBuildDate>Thu, 23 Oct 2025 09:48:31 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Nov 2025 23:23:00 +0000</lastBuildDate>
     <item xml:base="https://mitranim.com/posts/forkable-story-settings">
       <title>Forkable open story settings</title>
       <link>https://mitranim.com/posts/forkable-story-settings</link>
@@ -725,7 +725,7 @@ DBGConsoleOn=true
 
 <ul>
 <li>&quot;Cheat Commander&quot;, see <a href="#mods"><span class="hash-prefix" aria-hidden="true">#</span>mods</a></li>
-<li><a href="http://www.cheatengine.org" target="_blank" rel="noopener noreferrer">Cheat Engine<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
+<li><a href="https://cheatengine.org" target="_blank" rel="noopener noreferrer">Cheat Engine<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></li>
 <li><a href="#save-editor"><span class="hash-prefix" aria-hidden="true">#</span>Save editor</a></li>
 </ul></li>
 <li>Cheat inventory capacity by cheating character strength, unless party has a character with high strength.</li>
@@ -2309,7 +2309,7 @@ types are too primitive to be able to store that.
       <description></description>
       <content:encoded><![CDATA[<article role="main article" class="typography"><iframe width="560" height="315" src="https://www.youtube.com/embed/h6fcK_fRYaI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p><a href="http://www.galactanet.com/oneoff/theegg_mod.html" target="_blank" rel="noopener noreferrer">Text link<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p>
+<p><a href="https://www.galactanet.com/oneoff/theegg_mod.html" target="_blank" rel="noopener noreferrer">Text link<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p>
 
 <p><a href="https://www.youtube.com/watch?v=h6fcK_fRYaI" target="_blank" rel="noopener noreferrer">Youtube link<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a></p>
 
