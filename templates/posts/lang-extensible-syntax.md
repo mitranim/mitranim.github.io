@@ -2,7 +2,7 @@
 
 The idea of "extensible syntax" might be foreign to some programmers, so I have to explain it first. In short, it's the ability to write code that looks like the language was designed for that particular program.
 
-Closely related to [bottom-up programming](http://www.paulgraham.com/progbot.html): making smaller building blocks, combining them into larger blocks, then into larger, and so on. A stone castle made of blocks, rather than a sand castle made of assembly.
+Closely related to [bottom-up programming](https://www.paulgraham.com/progbot.html): making smaller building blocks, combining them into larger blocks, then into larger, and so on. A stone castle made of blocks, rather than a sand castle made of assembly.
 
 Bottom-up programming and shaping language syntax for the given problem are both essential foundations of software. It's why we don't usually write assembly, why languages and DSLs exist, why standard libraries exist, why frameworks exist. Segregating common functionality into reusable functions is widely taught and should be a no-brainer to everyone.
 

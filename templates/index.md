@@ -4,9 +4,9 @@
 
 Nelo Mitranim.
 
-Lead software developer and architect. Main expertise: web applications (full stack).
+Lead software developer and architect. Main expertise: web applications (full stack). Decent expertise in some other areas (making tools, libraries, languages).
 
-Passionate about open source software. See [works](/works).
+See [works](/works).
 
 # Languages
 
@@ -15,18 +15,18 @@ Solid experience: Go, JS (DOM/Deno/Bun/Node), Clojure, Python.
 * My Go stdlib: [https://github.com/mitranim/gg](https://github.com/mitranim/gg).
 * My JS stdlib: [https://github.com/mitranim/js](https://github.com/mitranim/js).
 
-Experience: Rust, Swift.
+Experience: C, Rust, Swift.
 
-Familiarity: Nim, Haskell, Erlang, Common Lisp, Scheme, Java, C, Forth, assembly.
+Familiarity: Nim, Haskell, Erlang, Common Lisp, Scheme, Java, Forth, assembly.
 
-Highly interested in language design.
+Enthusiastic about programming language design.
 
 # Databases
 
 Solid experience:
 
 * SQL databases:
-  * Postgres ([http://postgresql.org](http://postgresql.org)).
+  * Postgres ([https://postgresql.org](https://postgresql.org)).
   * DuckDB ([https://duckdb.org](https://duckdb.org)).
 
 Experience:
@@ -49,12 +49,13 @@ Solid experience:
 * Dynamic web apps (SPA).
 * Traditional web apps (SSR + forms).
 * Ethereum apps; see [github.com/purelabio/eth](https://github.com/purelabio/eth).
+* Arbitrary CLI apps.
 
 # Misc
 
-Favorite pastimes: [open source code](/works), [games](/games), [anime](/posts/anime).
+Favorite pastimes: [writing code](/works), [playing games](/games), occasionally watching [anime](/posts/anime).
 
-Enthusiastic about software, physics, biology, philosophy, culture, games, anime, science fiction.
+Diverse interests: software, physics, biology, philosophy, human languages, culture, games, anime, science fiction.
 
 Always up-to-date link to [resume](/resume). (Most browsers let you print to PDF.)
 

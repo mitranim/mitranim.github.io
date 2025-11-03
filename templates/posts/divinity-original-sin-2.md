@@ -46,7 +46,7 @@ Trust me, this is well worth the effort.
 
 * If, like me, you don't enjoy the game's economy, it's easy to opt out by cheating gold, in any of these ways:
   * "Cheat Commander", see [mods](#mods)
-  * [Cheat Engine](http://www.cheatengine.org)
+  * [Cheat Engine](https://cheatengine.org)
   * [Save editor](#save-editor)
 * Cheat inventory capacity by cheating character strength, unless party has a character with high strength.
 * Cheat civil abilities if playing with 2 or 1 characters.

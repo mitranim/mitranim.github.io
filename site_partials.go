@@ -122,7 +122,7 @@ func Footer[A Ipage](page A) x.Elem {
 
 		E(`span`, AP(`class`, `flex-1 text-cen`), func(bui B) {
 			if page.GetLink() != `/` {
-				bui.E(`a`, AP(`href`, `/#contacts`, `class`, `link-deco`), `touch me`)
+				bui.E(`a`, AP(`href`, `/#contacts`, `class`, `link-deco`), `contacts`)
 			}
 		}),
 

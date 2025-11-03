@@ -175,12 +175,12 @@ func (self PageWorks) Table() x.Bui {
 	return F(
 		E(`table`, AP(`class`, `table sm-hide`),
 			E(`thead`, nil,
-				E(`th`, nil, `Name`),
-				E(`th`, nil, `Desc`),
-				E(`th`, nil, `Role`),
-				E(`th`, nil, `Tech`),
-				E(`th`, nil, `Start`),
-				E(`th`, nil, `Status/End`),
+				E(`th`, nil, `name`),
+				E(`th`, nil, `desc`),
+				E(`th`, nil, `role`),
+				E(`th`, nil, `tech`),
+				E(`th`, nil, `start`),
+				E(`th`, nil, `status/end`),
 			),
 			E(`tbody`, nil, func(bui B) {
 				for _, work := range self.Works {

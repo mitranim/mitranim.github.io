@@ -1,6 +1,6 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/h6fcK_fRYaI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-[Text link](http://www.galactanet.com/oneoff/theegg_mod.html)
+[Text link](https://www.galactanet.com/oneoff/theegg_mod.html)
 
 [Youtube link](https://www.youtube.com/watch?v=h6fcK_fRYaI)
 
