@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2025-11-28T17:03:48Z</updated>
+  <updated>2025-11-28T17:17:27Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -123,7 +123,7 @@ Err <span style="color:#a6e22e">some_func</span><span style="color:#f92672">(</s
   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">;</span>
 <span style="color:#f92672">}</span>
 </pre></details><h2 id="numbers" class="heading-prefix">Numbers<a href="#numbers" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>To keep the language portable to weird systems, the standard defines weird integer types. Their names are kind of insane. &quot;Short&quot;? &quot;long&quot;? &quot;double&quot;? &quot;long <em>long</em>&quot;? The words don't mean anything anymore. Is <code>size_t</code> the same width as <code>uintptr</code>? Is <code>off_t</code> same or larger? Is <code>sizeof(void*)</code> same as <code>sizeof(size_t)</code>? The standard has a lot to say, which mostly amounts to &quot;implementation dependent&quot;.</p>
+<p>To keep the language portable to weird systems, the standard defines weird integer types. Their names are kind of insane. &quot;Short&quot;? &quot;long&quot;? &quot;double&quot;? &quot;long <em>long</em>&quot;? The words don't mean anything anymore. Is <code>size_t</code> the same width as <code>uintptr_t</code>? Is <code>off_t</code> same or larger? Is <code>sizeof(void*)</code> same as <code>sizeof(size_t)</code>? The standard has a lot to say, which mostly amounts to &quot;implementation dependent&quot;.</p>
 
 <p>Fortunately, on non-weird architectures, the answer tends to be &quot;it's word-sized&quot;. One can define a small set of sane integer types and stick to those. Also, use <code>-funsigned-char</code>. The aliases below are mostly superfluous, but I find them easier to type than <code>*_t</code>.</p>
 <details class="details typography"><summary><p>num.h — click to expand</p>
@@ -311,7 +311,7 @@ stack_init<span style="color:#f92672">(</span><span style="color:#f92672">&amp;<
 
 <p>One thing I still really miss is semantically meaningful syntax highlighting, like the one I <a href="https://github.com/sublimehq/Packages/pull/1662" target="_blank" rel="noopener noreferrer">wrote<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> for Go, where all declarations and modifiers are usefully scoped without special-casing built-ins. Probably end up rewriting C for Sublime at some point.</p>
 <h2 id="conclusion" class="heading-prefix">Conclusion<a href="#conclusion" class="heading-anchor" aria-hidden="true"></a></h2>
-<p>I picked C for writing a Forth JIT compiler (more on that in another post) because it provides decent control over the ABI (via assembly), and ready access to some OS APIs needed for JIT engines (<code>mmap</code> and more). Plus, I just wanted to learn the language and its patterns.</p>
+<p>I picked C for writing a Forth compiler (more on that in another post) because it provides decent control over the ABI (via assembly), and ready access to some OS APIs needed for JIT engines (<code>mmap</code> and more). Plus, I just wanted to learn the language and its patterns.</p>
 
 <p>Now if someone pointed a gun (or hired me) and told me to write a web server in C, I wouldn't bat an eye. But even without that, I would consider it depending on the use case.</p>
 </article>]]></content>
