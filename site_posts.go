@@ -86,6 +86,17 @@ func initSitePosts(site *Site) []PagePost {
 		PagePost{
 			Page: Page{
 				Site:        site,
+				Path:        `posts/c-experience-report.html`,
+				Title:       `C experience report`,
+				Description: `Impressions after adjusting to C from higher-level languages; tips and tricks for using C.`,
+				MdTpl:       readTemplate(`posts/c-experience-report.md`),
+			},
+			WrittenAt: timeParse(`2025-11-28T16:48:49Z`),
+			IsListed:  true,
+		},
+		PagePost{
+			Page: Page{
+				Site:        site,
 				Path:        `posts/forkable-story-settings.html`,
 				Title:       `Forkable open story settings`,
 				Description: `The world of fiction storytelling could learn a few lessons from open source software.`,

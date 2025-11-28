@@ -36,6 +36,7 @@ func HtmlHead[A Ipage](page A) x.Bui {
 		E(`meta`, AP(`name`, `viewport`, `content`, `width=device-width, initial-scale=1`)),
 		E(`link`, AP(`rel`, `icon`, `href`, `data:;base64,=`)),
 		E(`link`, AP(`rel`, `stylesheet`, `type`, `text/css`, `href`, `/styles/main.css`)),
+		E(`link`, AP(`rel`, `canonical`, `href`, siteBaseUrl.Get().WithPath(page.GetLink()).String())),
 
 		func(bui B) {
 			if page.GetTitle() != `` {
