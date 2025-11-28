@@ -94,7 +94,7 @@ MUST_USE typedef <span style="color:#66d9ef">char</span> <span style="color:#66d
 <span style="color:#f92672">}</span>
 
 <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">backtrace_print</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>BT_BUF_LEN<span style="color:#f92672">)</span> backtrace_symbols_fd<span style="color:#f92672">(</span>BT_BUF<span style="color:#f92672">,</span> BT_BUF_LEN<span style="color:#f92672">,</span> fileno<span style="color:#f92672">(</span>stderr<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>BT_BUF_LEN<span style="color:#f92672">)</span> backtrace_symbols_fd<span style="color:#f92672">(</span>BT_BUF<span style="color:#f92672">,</span> BT_BUF_LEN<span style="color:#f92672">,</span> STDERR_FILENO<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
 <span style="color:#f92672">}</span>
 
 Err <span style="color:#a6e22e">some_func</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">try</span><span style="color:#f92672">(</span>func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#66d9ef">try</span><span style="color:#f92672">(</span>func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#66d9ef">try</span><span style="color:#f92672">(</span>func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#66d9ef">return</span> nullptr<span style="color:#f92672">;</span><span style="color:#f92672">}</span>
@@ -253,7 +253,7 @@ stack_init<span style="color:#f92672">(</span><span style="color:#f92672">&amp;<
 <h2 id="compiler-flags" class="heading-prefix">Compiler flags<a href="#compiler-flags" class="heading-anchor" aria-hidden="true"></a></h2>
 <p>C compilers come with many built-in diagnostics which are disabled by default. Enable them for added safety.</p>
 
-<p>The following should be placed in <code>compiler_flags.txt</code> so that <code>clangd</code> will pick it up. This makes it work out of the box. No fidding with <code>compile_commangs.json</code>; all we need is to slurp this file into compiler flags in our makefile.</p>
+<p>The following should be placed in <code>compile_flags.txt</code> so that <code>clangd</code> will pick it up. This makes it work out of the box. No fidding with <code>compile_commangs.json</code>; all we need is to slurp this file into compiler flags in our makefile.</p>
 
 <p>Here are the flags I currently use. Different projects may prefer different diagnostics. Mind that <code>-fsanitize</code> flags (especially <code>address</code>) have runtime overheads and should only be used in development and debugging.</p>
 <details class="details typography"><summary><p>compile_flags.txt — click to expand</p>
