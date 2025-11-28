@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://mitranim.com">
   <title>Software, Tech, Philosophy, Games | Atom | mitranim</title>
   <id>https://mitranim.com/posts</id>
-  <updated>2025-11-03T23:45:28Z</updated>
+  <updated>2025-11-28T17:03:48Z</updated>
   <subtitle>Random thoughts about technology</subtitle>
   <author>
     <name>Nelo Mitranim</name>
@@ -10,6 +10,320 @@
   </author>
   <link rel="alternate" type="text/html" href="https://mitranim.com/posts"></link>
   <link rel="self" type="application/atom+xml" href="https://mitranim.com/feed.xml"></link>
+  <entry xml:base="https://mitranim.com/posts/c-experience-report">
+    <title>C experience report</title>
+    <id>https://mitranim.com/posts/c-experience-report</id>
+    <content type="html"><![CDATA[<article role="main article" class="typography"><ul>
+<li><a href="#intro"><span class="hash-prefix" aria-hidden="true">#</span>Intro</a></li>
+<li><a href="#modules"><span class="hash-prefix" aria-hidden="true">#</span>Modules</a></li>
+<li><a href="#errors"><span class="hash-prefix" aria-hidden="true">#</span>Errors</a></li>
+<li><a href="#numbers"><span class="hash-prefix" aria-hidden="true">#</span>Numbers</a></li>
+<li><a href="#type-inference"><span class="hash-prefix" aria-hidden="true">#</span>Type inference</a></li>
+<li><a href="#generics"><span class="hash-prefix" aria-hidden="true">#</span>Generics</a></li>
+<li><a href="#resource-management"><span class="hash-prefix" aria-hidden="true">#</span>Resource management</a>
+
+<ul>
+<li><a href="#defer"><span class="hash-prefix" aria-hidden="true">#</span>Defer</a></li>
+<li><a href="#preallocated-buffers"><span class="hash-prefix" aria-hidden="true">#</span>Preallocated buffers</a></li>
+<li><a href="#preallocated-arenas"><span class="hash-prefix" aria-hidden="true">#</span>Preallocated arenas</a></li>
+</ul></li>
+<li><a href="#buffer-overflows-and-guards"><span class="hash-prefix" aria-hidden="true">#</span>Buffer overflows and guards</a></li>
+<li><a href="#compiler-flags"><span class="hash-prefix" aria-hidden="true">#</span>Compiler flags</a></li>
+<li><a href="#debugging"><span class="hash-prefix" aria-hidden="true">#</span>Debugging</a></li>
+<li><a href="#tooling"><span class="hash-prefix" aria-hidden="true">#</span>Tooling</a></li>
+<li><a href="#conclusion"><span class="hash-prefix" aria-hidden="true">#</span>Conclusion</a></li>
+</ul>
+<h2 id="intro" class="heading-prefix">Intro<a href="#intro" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>My coding background is in recent languages such as Go, Rust, Clojure, Python, JS, etc. They come with large standard libraries, automatic memory management, generics, type inference, fancy data structures, and more. Perhaps they are better described as &quot;batteries included&quot; languages.</p>
+
+<p>Always wondered what it's like to program in C, which provides none of that. C does come with a sizable standard library, but it mostly deals with the OS and IO. After a month of adjustment, I got surprisingly comfortable!</p>
+<h2 id="modules" class="heading-prefix">Modules<a href="#modules" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Most C projects have complicated build systems which describe the file dependency graph, instead of having it expressed inside source files. <code>clangd</code> also tends to require external configuration in such codebases.</p>
+
+<p>Turns out there's a better way, at least for small projects. Stick <code>#pragma once</code> into every file, and always explicitly include <code>.c</code> and <code>.h</code> files from each other, starting from the main file:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#75715e">// lib_0.c
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#66d9ef">pragma</span> once
+
+<span style="color:#75715e">// lib_1.c
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#66d9ef">pragma</span> once
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#e6db74">&#34;./lib_0.c&#34;</span>
+
+<span style="color:#75715e">// main.c
+</span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#66d9ef">pragma</span> once
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#e6db74">&#34;./lib_0.c&#34;</span>
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#e6db74">&#34;./lib_1.c&#34;</span>
+</pre>
+<p>Then point the compiler at the main file, without having to fiddle with the build system, list other input files, or configure &quot;include&quot; flags. <code>clangd</code> works out of the box with no configuration. Using relative paths ensures path resolution, without any ambiguities.</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822">cc main.c -o main
+</pre><h2 id="errors" class="heading-prefix">Errors<a href="#errors" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>C seems to suggest that errors should be integers. In reality, we want errors to be strings. But we'd rather not have to <code>free</code> them, which is noisy and easy to forget. Fortunately, there's a simple solution: statically allocated buffers. This lets you return error strings with abandon:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822">typedef <span style="color:#66d9ef">char</span> <span style="color:#66d9ef">const</span> <span style="color:#f92672">*</span>Err<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">char</span> thread_local ERR_BUF<span style="color:#f92672">[</span><span style="color:#ae81ff">4096</span><span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">errf</span><span style="color:#f92672">(</span>fmt<span style="color:#f92672">,</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">)</span>                                      <span style="color:#960050;background-color:#1e0010">\</span>
+  <span style="color:#f92672">(</span>                                                         <span style="color:#960050;background-color:#1e0010">\</span>
+    snprintf<span style="color:#f92672">(</span>ERR_BUF<span style="color:#f92672">,</span> <span style="color:#ae81ff">4096</span><span style="color:#f92672">,</span> fmt <span style="color:#a6e22e">__VA_OPT__</span><span style="color:#f92672">(</span><span style="color:#f92672">,</span><span style="color:#f92672">)</span> __VA_ARGS__<span style="color:#f92672">)</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">\</span>
+    ERR_BUF                                                 <span style="color:#960050;background-color:#1e0010">\</span>
+  <span style="color:#f92672">)</span>
+
+<span style="color:#75715e">// Caller doesn&#39;t need to free!
+</span><span style="color:#75715e"></span>Err <span style="color:#a6e22e">some_func</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">return</span> errf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;some err: %d&#34;</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">123</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span><span style="color:#f92672">}</span>
+</pre>
+<p>Error checking can be tersed with a simple &quot;try&quot; macro:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">try</span><span style="color:#f92672">(</span>expr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>Err err <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>expr<span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>err<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> err<span style="color:#f92672">;</span><span style="color:#f92672">}</span>
+
+Err <span style="color:#a6e22e">some_func</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">try</span><span style="color:#f92672">(</span>other_func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">try</span><span style="color:#f92672">(</span>other_func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">try</span><span style="color:#f92672">(</span>other_func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">return</span> nullptr<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</pre>
+<p>Compiler can remind you to check errors:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#960050;background-color:#1e0010">#</span>define MUST_USE <span style="color:#a6e22e">__attribute</span><span style="color:#f92672">(</span><span style="color:#f92672">(</span>warn_unused_result<span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+
+MUST_USE typedef <span style="color:#66d9ef">char</span> <span style="color:#66d9ef">const</span> <span style="color:#f92672">*</span>Err<span style="color:#f92672">;</span>
+</pre>
+<p>The stdlib supports backtraces. They're not as precise as in &quot;modern&quot; languages; you get only procedure names with instruction offsets, without file / row / col info, but it's often good enough.</p>
+
+<p>Putting it all together:</p>
+<details class="details typography"><summary><p>error stuff — click to expand</p>
+</summary><pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#960050;background-color:#1e0010">#</span>define MUST_USE <span style="color:#a6e22e">__attribute</span><span style="color:#f92672">(</span><span style="color:#f92672">(</span>warn_unused_result<span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+
+MUST_USE typedef <span style="color:#66d9ef">char</span> <span style="color:#66d9ef">const</span> <span style="color:#f92672">*</span>Err<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">char</span> thread_local ERR_BUF<span style="color:#f92672">[</span><span style="color:#ae81ff">4096</span><span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">void</span> thread_local <span style="color:#f92672">*</span>BT_BUF<span style="color:#f92672">[</span><span style="color:#ae81ff">256</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span>  thread_local BT_BUF_LEN   <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">;</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">errf</span><span style="color:#f92672">(</span>fmt<span style="color:#f92672">,</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">)</span>                                      <span style="color:#960050;background-color:#1e0010">\</span>
+  <span style="color:#f92672">(</span>                                                         <span style="color:#960050;background-color:#1e0010">\</span>
+    backtrace_capture<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span>                                    <span style="color:#960050;background-color:#1e0010">\</span>
+    snprintf<span style="color:#f92672">(</span>ERR_BUF<span style="color:#f92672">,</span> <span style="color:#ae81ff">4096</span><span style="color:#f92672">,</span> fmt <span style="color:#a6e22e">__VA_OPT__</span><span style="color:#f92672">(</span><span style="color:#f92672">,</span><span style="color:#f92672">)</span> __VA_ARGS__<span style="color:#f92672">)</span><span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">\</span>
+    ERR_BUF                                                 <span style="color:#960050;background-color:#1e0010">\</span>
+  <span style="color:#f92672">)</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">backtrace_capture</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  BT_BUF_LEN <span style="color:#f92672">=</span> backtrace<span style="color:#f92672">(</span>BT_BUF<span style="color:#f92672">,</span> arr_cap<span style="color:#f92672">(</span>BT_BUF<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">backtrace_print</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>BT_BUF_LEN<span style="color:#f92672">)</span> backtrace_symbols_fd<span style="color:#f92672">(</span>BT_BUF<span style="color:#f92672">,</span> BT_BUF_LEN<span style="color:#f92672">,</span> fileno<span style="color:#f92672">(</span>stderr<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+
+Err <span style="color:#a6e22e">some_func</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">try</span><span style="color:#f92672">(</span>func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#66d9ef">try</span><span style="color:#f92672">(</span>func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#66d9ef">try</span><span style="color:#f92672">(</span>func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#66d9ef">return</span> nullptr<span style="color:#f92672">;</span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  Err err <span style="color:#f92672">=</span> some_func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#f92672">!</span>err<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">;</span>
+
+  fprintf<span style="color:#f92672">(</span>stderr<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;error: %s\n&#34;</span><span style="color:#f92672">,</span> err<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  backtrace_print<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</pre></details><h2 id="numbers" class="heading-prefix">Numbers<a href="#numbers" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>To keep the language portable to weird systems, the standard defines weird integer types. Their names are kind of insane. &quot;Short&quot;? &quot;long&quot;? &quot;double&quot;? &quot;long <em>long</em>&quot;? The words don't mean anything anymore. Is <code>size_t</code> the same width as <code>uintptr</code>? Is <code>off_t</code> same or larger? Is <code>sizeof(void*)</code> same as <code>sizeof(size_t)</code>? The standard has a lot to say, which mostly amounts to &quot;implementation dependent&quot;.</p>
+
+<p>Fortunately, on non-weird architectures, the answer tends to be &quot;it's word-sized&quot;. One can define a small set of sane integer types and stick to those. Also, use <code>-funsigned-char</code>. The aliases below are mostly superfluous, but I find them easier to type than <code>*_t</code>.</p>
+<details class="details typography"><summary><p>num.h — click to expand</p>
+</summary><pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#66d9ef">pragma</span> once
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#f92672">&lt;</span>stddef<span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span>
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#f92672">&lt;</span>stdint<span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span>
+<span style="color:#960050;background-color:#1e0010">#</span>include <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">wchar</span><span style="color:#f92672">.</span><span style="color:#a6e22e">h</span><span style="color:#f92672">&gt;</span>
+
+typedef size_t  Uint<span style="color:#f92672">;</span>
+typedef ssize_t Int<span style="color:#f92672">;</span>
+typedef wchar_t Rune<span style="color:#f92672">;</span>
+
+typedef uint8_t Uint8<span style="color:#f92672">;</span>
+typedef int8_t  Int8<span style="color:#f92672">;</span>
+
+typedef uint16_t Uint16<span style="color:#f92672">;</span>
+typedef int16_t  Int16<span style="color:#f92672">;</span>
+
+typedef uint32_t Uint32<span style="color:#f92672">;</span>
+typedef int32_t  Int32<span style="color:#f92672">;</span>
+
+typedef uint64_t Uint64<span style="color:#f92672">;</span>
+typedef int64_t  Int64<span style="color:#f92672">;</span>
+
+typedef <span style="color:#66d9ef">float</span>  Flo32<span style="color:#f92672">;</span>
+typedef <span style="color:#66d9ef">double</span> Flo64<span style="color:#f92672">;</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span>define FMT_UINT <span style="color:#e6db74">&#34;%zu&#34;</span>
+<span style="color:#960050;background-color:#1e0010">#</span>define FMT_INT <span style="color:#e6db74">&#34;%zd&#34;</span>
+</pre></details><h2 id="type-inference" class="heading-prefix">Type inference<a href="#type-inference" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>C23 adds the <code>auto</code> variable type. Very handy when coming from Go and Rust where local type inference is a norm. You may need to instruct the compiler to enable C23 features. In Sublime Text, I defined a snippet <code>let</code> which expands to <code>auto const</code>, making this easy to type:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">auto</span> <span style="color:#66d9ef">const</span> var0 <span style="color:#f92672">=</span> some_func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">auto</span> <span style="color:#66d9ef">const</span> var1 <span style="color:#f92672">=</span> another_func<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+</pre><h2 id="generics" class="heading-prefix">Generics<a href="#generics" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Even without the <code>_Generic</code> macro, you can go a <em>long</em> way towards generic data structures and operations via carefully written macros, backed by support procedures as necessary. Excerpt from my C replica of Go slices:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">list_of</span><span style="color:#f92672">(</span>Elem<span style="color:#f92672">)</span> <span style="color:#960050;background-color:#1e0010">\</span>
+  <span style="color:#66d9ef">struct</span> <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010"> </span><span style="color:#960050;background-color:#1e0010">\</span>
+    Elem <span style="color:#f92672">*</span>dat<span style="color:#f92672">;</span>        <span style="color:#960050;background-color:#1e0010">\</span>
+    Uint len<span style="color:#f92672">;</span>         <span style="color:#960050;background-color:#1e0010">\</span>
+    Uint cap<span style="color:#f92672">;</span>         <span style="color:#960050;background-color:#1e0010">\</span>
+  <span style="color:#f92672">}</span>
+
+typedef <span style="color:#a6e22e">list_of</span><span style="color:#f92672">(</span>Uint<span style="color:#f92672">)</span> Uint_list<span style="color:#f92672">;</span>
+typedef <span style="color:#a6e22e">list_of</span><span style="color:#f92672">(</span>Int<span style="color:#f92672">)</span> Int_list<span style="color:#f92672">;</span>
+
+<span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">list_append</span><span style="color:#f92672">(</span>tar<span style="color:#f92672">,</span> <span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">)</span>                                <span style="color:#960050;background-color:#1e0010">\</span>
+  <span style="color:#f92672">(</span><span style="color:#f92672">{</span>                                                         <span style="color:#960050;background-color:#1e0010">\</span>
+    <span style="color:#66d9ef">auto</span> <span style="color:#66d9ef">const</span> ptr <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>tar<span style="color:#f92672">)</span><span style="color:#f92672">;</span>                                  <span style="color:#960050;background-color:#1e0010">\</span>
+    list_reserve_more<span style="color:#f92672">(</span><span style="color:#f92672">(</span>List_head<span style="color:#f92672">*</span><span style="color:#f92672">)</span>ptr<span style="color:#f92672">,</span> sizeof<span style="color:#f92672">(</span>ptr<span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>dat<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">]</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#960050;background-color:#1e0010">\</span>
+    ptr<span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>dat<span style="color:#f92672">[</span>ptr<span style="color:#f92672">-</span><span style="color:#f92672">&gt;</span>len<span style="color:#f92672">+</span><span style="color:#f92672">+</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>__VA_ARGS__<span style="color:#f92672">)</span><span style="color:#f92672">;</span>                    <span style="color:#960050;background-color:#1e0010">\</span>
+  <span style="color:#f92672">}</span><span style="color:#f92672">)</span>
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  defer<span style="color:#f92672">(</span>list_deinit<span style="color:#f92672">)</span> Uint_list uints <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span><span style="color:#f92672">;</span>
+  defer<span style="color:#f92672">(</span>list_deinit<span style="color:#f92672">)</span> Int_list ints <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span><span style="color:#f92672">;</span>
+  list_append<span style="color:#f92672">(</span><span style="color:#f92672">&amp;</span>uints<span style="color:#f92672">,</span> <span style="color:#ae81ff">123</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  list_append<span style="color:#f92672">(</span><span style="color:#f92672">&amp;</span>ints<span style="color:#f92672">,</span> <span style="color:#ae81ff">234</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</pre>
+<p><code>*ptr++</code> all over the place may be considered idiomatic, but I'd rather read <em>words</em>. These thin veneers can also check bounds, avoiding buffer overflows.</p>
+
+<p>Not having dicts/maps in the standard library was a bit of a worry, but they turned out easy to implement in a semi-generic fashion (mine is under 200 LoC). Nice open source generic data structure libraries exist, but they're overkill for many apps.</p>
+<h2 id="resource-management" class="heading-prefix">Resource management<a href="#resource-management" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Having to manually allocate and <code>free</code> is often cited as the biggest vice of C after <a href="#buffer-overflows-and-guards"><span class="hash-prefix" aria-hidden="true">#</span>buffer overflows</a>. In practice, I'm finding this a non-issue thanks to handy patterns:</p>
+
+<ul>
+<li>Deferred cleanup.</li>
+<li>Preallocated arenas.</li>
+<li>Inline buffers in structs.</li>
+<li>Statically allocated buffers.</li>
+</ul>
+<h3 id="defer" class="heading-prefix">Defer<a href="#defer" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>GCC and Clang support deferred variable cleanup, which lets you attach cleanup functions to variables. A bit of macro magic makes it look nicer. Write deinit functions for a few types, and you basically have RAII. Example:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">defer</span><span style="color:#f92672">(</span>fun<span style="color:#f92672">)</span> __attribute__<span style="color:#f92672">(</span><span style="color:#f92672">(</span>cleanup<span style="color:#f92672">(</span>fun<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">file_deinit</span><span style="color:#f92672">(</span>FILE <span style="color:#f92672">*</span><span style="color:#f92672">*</span>file<span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>file<span style="color:#f92672">)</span> fclose<span style="color:#f92672">(</span><span style="color:#f92672">*</span>file<span style="color:#f92672">)</span><span style="color:#f92672">;</span><span style="color:#f92672">}</span>
+
+Err <span style="color:#a6e22e">file_read</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>path<span style="color:#f92672">,</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#f92672">*</span>out_body<span style="color:#f92672">,</span> Uint <span style="color:#f92672">*</span>out_len<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  defer<span style="color:#f92672">(</span>file_deinit<span style="color:#f92672">)</span> FILE <span style="color:#f92672">*</span>file <span style="color:#f92672">=</span> fopen<span style="color:#f92672">(</span>path<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;r&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deinit_mem</span><span style="color:#f92672">(</span><span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>ptr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ptr<span style="color:#f92672">)</span> free<span style="color:#f92672">(</span><span style="color:#f92672">*</span><span style="color:#f92672">(</span><span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#f92672">*</span><span style="color:#f92672">)</span>ptr<span style="color:#f92672">)</span><span style="color:#f92672">;</span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  defer<span style="color:#f92672">(</span>deinit_mem<span style="color:#f92672">)</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">body</span><span style="color:#f92672">;</span>
+  size_t len<span style="color:#f92672">;</span>
+  file_read<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;./readme.md&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">body</span><span style="color:#f92672">,</span> <span style="color:#f92672">&amp;</span>len<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</pre>
+<p>Type-specific destructors can be shortened even further, while keeping our deinit macro generic:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#960050;background-color:#1e0010">#</span>define <span style="color:#a6e22e">deinitable</span><span style="color:#f92672">(</span>typ<span style="color:#f92672">)</span> typ <span style="color:#a6e22e">__attribute__</span><span style="color:#f92672">(</span><span style="color:#f92672">(</span>cleanup<span style="color:#f92672">(</span>typ<span style="color:#960050;background-color:#1e0010">#</span><span style="color:#960050;background-color:#1e0010">#</span>_deinit<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">FILE_deinit</span><span style="color:#f92672">(</span>FILE <span style="color:#f92672">*</span><span style="color:#f92672">*</span>file<span style="color:#f92672">)</span> <span style="color:#f92672">{</span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>file<span style="color:#f92672">)</span> fclose<span style="color:#f92672">(</span><span style="color:#f92672">*</span>file<span style="color:#f92672">)</span><span style="color:#f92672">;</span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  deinitable<span style="color:#f92672">(</span>FILE<span style="color:#f92672">)</span> <span style="color:#f92672">*</span>file <span style="color:#f92672">=</span> fopen<span style="color:#f92672">(</span>path<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;r&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</pre>
+<p>(When working with files, mind to check <code>fclose</code> errors after <em>writing</em> though!)</p>
+<h3 id="preallocated-buffers" class="heading-prefix">Preallocated buffers<a href="#preallocated-buffers" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>How much space do you need? Can you get away with a small fixed-size buffer? Then just put it on the stack or inside your structures; freeing is automatic:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822">typedef <span style="color:#66d9ef">struct</span> <span style="color:#960050;background-color:#1e0010">{</span>
+  size_t len<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">char</span>   buf<span style="color:#f92672">[</span><span style="color:#ae81ff">128</span><span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span> Word<span style="color:#f92672">;</span>
+
+typedef <span style="color:#66d9ef">struct</span> <span style="color:#960050;background-color:#1e0010">{</span>
+  size_t len<span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">char</span>   buf<span style="color:#f92672">[</span><span style="color:#ae81ff">4096</span><span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span> Line<span style="color:#f92672">;</span>
+
+typedef <span style="color:#66d9ef">struct</span> <span style="color:#960050;background-color:#1e0010">{</span>
+  Word word<span style="color:#f92672">;</span>
+  Line line<span style="color:#f92672">;</span>
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span> Reader<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+  Reader read <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span><span style="color:#f92672">;</span>
+
+  read_word<span style="color:#f92672">(</span><span style="color:#f92672">&amp;</span>read<span style="color:#f92672">,</span> stdin<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  puts<span style="color:#f92672">(</span>read<span style="color:#f92672">.</span><span style="color:#a6e22e">word</span><span style="color:#f92672">.</span><span style="color:#a6e22e">buf</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+
+  read_line<span style="color:#f92672">(</span><span style="color:#f92672">&amp;</span>read<span style="color:#f92672">,</span> stdin<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+  puts<span style="color:#f92672">(</span>read<span style="color:#f92672">.</span><span style="color:#a6e22e">line</span><span style="color:#f92672">.</span><span style="color:#a6e22e">buf</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</pre>
+<p>Buffers can also be static. Handy when content lifetimes don't overlap. No need to allocate and free:</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822"><span style="color:#66d9ef">char</span> <span style="color:#66d9ef">static</span> thread_local ERR_MSG<span style="color:#f92672">[</span><span style="color:#ae81ff">4096</span><span style="color:#f92672">]</span><span style="color:#f92672">;</span>
+</pre><h3 id="preallocated-arenas" class="heading-prefix">Preallocated arenas<a href="#preallocated-arenas" class="heading-anchor" aria-hidden="true"></a></h3>
+<p>When building an append-only collection of objects, you can sometimes estimate in advance how much space is enough, and allocate it just once. This is especially true if the program imposes artificial limits on object count.  Combined with deferred deinit, this spares you from worrying about freeing individual objects.</p>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822">defer<span style="color:#f92672">(</span>stack_deinit<span style="color:#f92672">)</span> Object_stack stack <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span><span style="color:#f92672">;</span>
+
+stack_init<span style="color:#f92672">(</span><span style="color:#f92672">&amp;</span>stack<span style="color:#f92672">,</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span> <span style="color:#75715e">// how many memory pages
+</span></pre>
+<p>Unlike Go-style resizable buffers which relocate data in memory when they grow, such arenas give you <em>stable object pointers</em>, which can be important when objects cross-reference each other a lot.</p>
+<h2 id="buffer-overflows-and-guards" class="heading-prefix">Buffer overflows and guards<a href="#buffer-overflows-and-guards" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>When allocating large buffers, in the range of memory page size or more (16 KiB on MacOS), you can avoid off-by-small-amount overlows and underflows by, well... crashing your program, which is better than data corruption.</p>
+
+<p>The trick is to <code>mmap</code> / <code>mprotect</code> memory in the shape <code>guard|buffer|guard</code>, where guards are <code>PROT_NONE</code> while the buffer is <code>PROT_READ|PROT_WRITE</code>. Stepping into the guards delivers us a segfault.</p>
+<h2 id="compiler-flags" class="heading-prefix">Compiler flags<a href="#compiler-flags" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>C compilers come with many built-in diagnostics which are disabled by default. Enable them for added safety.</p>
+
+<p>The following should be placed in <code>compiler_flags.txt</code> so that <code>clangd</code> will pick it up. This makes it work out of the box. No fidding with <code>compile_commangs.json</code>; all we need is to slurp this file into compiler flags in our makefile.</p>
+
+<p>Here are the flags I currently use. Different projects may prefer different diagnostics. Mind that <code>-fsanitize</code> flags (especially <code>address</code>) have runtime overheads and should only be used in development and debugging.</p>
+<details class="details typography"><summary><p>compile_flags.txt — click to expand</p>
+</summary><pre tabindex="0" style="color:#f8f8f2;background-color:#272822">-std<span style="color:#f92672">=</span>c23
+-funsigned-char
+-fsanitize<span style="color:#f92672">=</span>undefined,address,integer,nullability
+
+-Weverything
+-Wno-pre-c23-compat
+-Wno-c++98-compat
+-Wno-padded
+-Wno-missing-prototypes
+-Wno-poison-system-directories
+-Wno-pragma-once-outside-header
+-Wno-declaration-after-statement
+-Wno-covered-switch-default
+-Wno-unused-function
+-Wno-unused-macros
+-Wno-extra-semi-stmt
+-Wno-gnu-statement-expression-from-macro-expansion
+-Wno-unsafe-buffer-usage
+-Wno-pre-c11-compat
+-Wno-shadow
+-Wno-unreachable-code-return
+-Wno-gnu-label-as-value
+-Wno-empty-translation-unit
+-Wno-c++-compat
+-Wno-format-pedantic
+-Wno-documentation-html
+-Wno-gnu-empty-struct
+-Werror<span style="color:#f92672">=</span><span style="color:#66d9ef">return</span>-type
+</pre></details><h2 id="debugging" class="heading-prefix">Debugging<a href="#debugging" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>Although we've successfully acquired backtraces for &quot;handled&quot; errors, it's still easy to crash without a trace. (Common experience when writing a slightly buggy JIT compiler 😅.) What to do?</p>
+
+<p>One quick and dirty solution is to fire up <code>lldb</code> (or your preferred debugger) and just run the program until it crashes. The debugger preserves the last state, letting you inspect registers, memory, and the backtrace. Having thus identified the faulty code, we can just <code>printf</code>-debug the hell out of it, which is often faster.</p>
+
+<p>Shopped around for other debuggers and disassemblers, and didn't find anything better than <code>lldb</code> for MacOS, at least among the free offerings. Sometimes it's handier to hop into Xcode for its GUI frontend to <code>lldb</code>, which can show more stuff at once without having to type commands all the time. <code>gdb</code> doesn't seem to work on my system, Ghidra is horrible, and Radare2 uses Capstone whose Arm64 assembler / disassembler is a buggy liar.</p>
+<h2 id="tooling" class="heading-prefix">Tooling<a href="#tooling" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>C is known to need a lot of external tools. Fortunately, it was easy to avoid what I feared the worst: Cmake and convoluted build systems; <a href="#modules"><span class="hash-prefix" aria-hidden="true">#</span><code>include</code></a> does the job just fine.</p>
+
+<p>One thing I still really miss is semantically meaningful syntax highlighting, like the one I <a href="https://github.com/sublimehq/Packages/pull/1662" target="_blank" rel="noopener noreferrer">wrote<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; width: 1.5ex; height: 1.5ex; margin-left: 0.3ch;" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg></a> for Go, where all declarations and modifiers are usefully scoped without special-casing built-ins. Probably end up rewriting C for Sublime at some point.</p>
+<h2 id="conclusion" class="heading-prefix">Conclusion<a href="#conclusion" class="heading-anchor" aria-hidden="true"></a></h2>
+<p>I picked C for writing a Forth JIT compiler (more on that in another post) because it provides decent control over the ABI (via assembly), and ready access to some OS APIs needed for JIT engines (<code>mmap</code> and more). Plus, I just wanted to learn the language and its patterns.</p>
+
+<p>Now if someone pointed a gun (or hired me) and told me to write a web server in C, I wouldn't bat an eye. But even without that, I would consider it depending on the use case.</p>
+</article>]]></content>
+    <published>2025-11-28T16:48:49Z</published>
+    <updated>2025-11-28T16:48:49Z</updated>
+    <link rel="alternate" href="https://mitranim.com/posts/c-experience-report"></link>
+    <summary type="html"><![CDATA[Impressions after adjusting to C from higher-level languages; tips and tricks for using C.]]></summary>
+    <author>
+      <name>Nelo Mitranim</name>
+      <email>me@mitranim.com</email>
+    </author>
+  </entry>
   <entry xml:base="https://mitranim.com/posts/forkable-story-settings">
     <title>Forkable open story settings</title>
     <id>https://mitranim.com/posts/forkable-story-settings</id>
