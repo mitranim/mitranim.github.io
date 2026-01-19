@@ -92,6 +92,7 @@ func initSitePosts(site *Site) []PagePost {
 				MdTpl:       readTemplate(`posts/c-experience-report.md`),
 			},
 			WrittenAt: timeParse(`2025-11-28T16:48:49Z`),
+			UpdatedAt: timeParse(`2026-01-19T08:53:02Z`),
 			IsListed:  true,
 		},
 		PagePost{

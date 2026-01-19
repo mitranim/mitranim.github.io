@@ -125,35 +125,34 @@ Fortunately, on non-weird architectures, the answer tends to be "it's word-sized
 #include <wchar.h>
 
 typedef size_t  Uint;
-typedef ssize_t Int;
-typedef wchar_t Rune;
+typedef ssize_t Sint;
 
-typedef uint8_t Uint8;
-typedef int8_t  Int8;
+typedef uint8_t U8;
+typedef int8_t  S8;
 
-typedef uint16_t Uint16;
-typedef int16_t  Int16;
+typedef uint16_t U16;
+typedef int16_t  S16;
 
-typedef uint32_t Uint32;
-typedef int32_t  Int32;
+typedef uint32_t U32;
+typedef int32_t  S32;
 
-typedef uint64_t Uint64;
-typedef int64_t  Int64;
+typedef uint64_t U64;
+typedef int64_t  S64;
 
-typedef float  Flo32;
-typedef double Flo64;
+typedef float  F32;
+typedef double F64;
 
 #define FMT_UINT "%zu"
-#define FMT_INT "%zd"
+#define FMT_SINT "%zd"
 ```
 
 ## Type inference
 
-C23 adds the `auto` variable type. Very handy when coming from Go and Rust where local type inference is a norm. You may need to instruct the compiler to enable C23 features. In Sublime Text, I defined a snippet `let` which expands to `auto const`, making this easy to type:
+C23 adds the `auto` variable type. Very handy when coming from Go and Rust where local type inference is a norm. You may need to instruct the compiler to enable C23 features. In Sublime Text, I defined a snippet `let` which expands to `const auto`, making this easy to type:
 
 ```d
-auto const var0 = some_func();
-auto const var1 = another_func();
+const auto var0 = some_func();
+const auto var1 = another_func();
 ```
 
 ## Generics
@@ -169,20 +168,20 @@ Even without the `_Generic` macro, you can go a _long_ way towards generic data 
   }
 
 typedef list_of(Uint) Uint_list;
-typedef list_of(Int) Int_list;
+typedef list_of(Sint) Sint_list;
 
 #define list_append(tar, ...)                                \
   ({                                                         \
-    auto const ptr = (tar);                                  \
+    const auto ptr = (tar);                                  \
     list_reserve_more((List_head*)ptr, sizeof(ptr->dat[0])); \
     ptr->dat[ptr->len++] = (__VA_ARGS__);                    \
   })
 
 int main() {
   defer(list_deinit) Uint_list uints = {};
-  defer(list_deinit) Int_list ints = {};
+  defer(list_deinit) Sint_list sints = {};
   list_append(&uints, 123);
-  list_append(&ints, 234);
+  list_append(&sints, 234);
 }
 ```
 
@@ -206,11 +205,13 @@ GCC and Clang support deferred variable cleanup, which lets you attach cleanup f
 ```d
 #define defer(fun) __attribute__((cleanup(fun)))
 
-void file_deinit(FILE **file) {if (file) fclose(*file);}
+void file_deinit(FILE **file) {if (file && *file) fclose(*file);}
 
 Err file_read(char *path, char **out_body, Uint *out_len) {
   defer(file_deinit) FILE *file = fopen(path, "r");
-  // ...
+  // ... malloc a return buffer; read file ...
+  *out_body = buf;
+  *out_len = len;
 }
 
 void deinit_mem(void *ptr) {if (ptr) free(*(void **)ptr);}
@@ -225,16 +226,16 @@ int main() {
 Type-specific destructors can be shortened even further, while keeping our deinit macro generic:
 
 ```d
-#define deinitable(typ) typ __attribute__((cleanup(typ##_deinit)))
+#define defer_deinit(typ) typ __attribute__((cleanup(typ##_deinit)))
 
-void FILE_deinit(FILE **file) {if (file) fclose(*file);}
+void FILE_deinit(FILE **file) {if (file && *file) fclose(*file);}
 
 int main() {
-  deinitable(FILE) *file = fopen(path, "r");
+  defer_deinit(FILE) *file = fopen(path, "r");
 }
 ```
 
-(When working with files, mind to check `fclose` errors after _writing_ though!)
+(But mind to check `fclose` errors after _writing_!)
 
 ### Preallocated buffers
 
@@ -279,9 +280,11 @@ char static thread_local ERR_MSG[4096];
 When building an append-only collection of objects, you can sometimes estimate in advance how much space is enough, and allocate it just once. This is especially true if the program imposes artificial limits on object count.  Combined with deferred deinit, this spares you from worrying about freeing individual objects.
 
 ```d
-defer(stack_deinit) Object_stack stack = {};
-
-stack_init(&stack, 4); // how many memory pages
+void some_func(void) {
+  defer(stack_deinit) Object_stack stack = {};
+  stack_init(&stack);
+  // Use the memory.
+}
 ```
 
 Unlike Go-style resizable buffers which relocate data in memory when they grow, such arenas give you _stable object pointers_, which can be important when objects cross-reference each other a lot.
@@ -341,7 +344,7 @@ Shopped around for other debuggers and disassemblers, and didn't find anything b
 
 ## Tooling
 
-C is known to need a lot of external tools. Fortunately, it was easy to avoid what I feared the worst: Cmake and convoluted build systems; [`include`](#modules) does the job just fine.
+C is known to need a lot of external tools. Fortunately, it was easy to avoid what I feared the worst: convoluted build systems with cmake / autoconf / automake etc.; [`include`](#modules) does the job just fine.
 
 One thing I still really miss is semantically meaningful syntax highlighting, like the one I [wrote](https://github.com/sublimehq/Packages/pull/1662) for Go, where all declarations and modifiers are usefully scoped without special-casing built-ins. Probably end up rewriting C for Sublime at some point.
 

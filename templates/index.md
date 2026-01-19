@@ -4,20 +4,22 @@
 
 Nelo Mitranim.
 
-Lead software developer and architect. Main expertise: web applications (full stack). Decent expertise in some other areas (making tools, libraries, languages).
+Lead software developer and architect. Main expertise: web applications (full stack). Decent expertise in some other areas (making tools, libraries, languages). Prefer greenfield development.
 
 See [works](/works).
 
 # Languages
 
-Solid experience: Go, JS (DOM/Deno/Bun/Node), Clojure, Python.
+Solid experience: Go, C, Rust, JS (DOM/Deno/Bun/Node), Clojure, Python, Forth, assembly.
+
+Wrote a custom JIT compiler for Forth with support for self-assembly.
+
+I maintain my own Go and JS "stdlibs", frameworks, many libraries.
 
 * My Go stdlib: [https://github.com/mitranim/gg](https://github.com/mitranim/gg).
 * My JS stdlib: [https://github.com/mitranim/js](https://github.com/mitranim/js).
 
-Experience: C, Rust, Swift.
-
-Familiarity: Nim, Haskell, Erlang, Common Lisp, Scheme, Java, Forth, assembly.
+Familiarity: C++, Nim, Haskell, Erlang, Common Lisp, Scheme, Java, Swift.
 
 Enthusiastic about programming language design.
 

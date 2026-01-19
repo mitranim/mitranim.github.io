@@ -63,7 +63,7 @@ func initWorks() []Work {
 			Tech: `JS`,
 			Lifecycle: Lifecycle{
 				Start:  `2025`,
-				Status: `broken by game updates, still an awesome experiment`,
+				Status: `slightly broken by game updates, still awesome`,
 			},
 		},
 		{
@@ -72,7 +72,7 @@ func initWorks() []Work {
 			Desc:      `MacOS app for activating Dock apps by ordinal hotkeys.`,
 			Role:      `bot-prompter`,
 			Tech:      `Swift`,
-			Lifecycle: Lifecycle{Start: `2025`, Status: `pretends to work, used all the time`},
+			Lifecycle: Lifecycle{Start: `2025`, Status: `heavily in use`},
 		},
 		{
 			Name:      `gg`,
@@ -80,7 +80,7 @@ func initWorks() []Work {
 			Desc:      `Essential tools missing from the Go standard library.`,
 			Role:      `author`,
 			Tech:      `Go`,
-			Lifecycle: Lifecycle{Start: `2022`, Status: `used all the time`},
+			Lifecycle: Lifecycle{Start: `2022`, Status: `heavily in use`},
 		},
 		{
 			Name:      `js`,
@@ -88,7 +88,7 @@ func initWorks() []Work {
 			Desc:      `"JS standard library" that doesn't suck. Foundation for JS apps.`,
 			Role:      `author`,
 			Tech:      `JS`,
-			Lifecycle: Lifecycle{Start: `2022`, Status: `used all the time`},
+			Lifecycle: Lifecycle{Start: `2022`, Status: `heavily in use`},
 		},
 		{
 			Name: `ur`,
@@ -480,12 +480,16 @@ func initWorks() []Work {
 			},
 		},
 		{
-			Name:      `Core Spirit`,
-			Link:      `https://corespirit.com`,
-			Desc:      `Current employer. Platform for practitioners of spiritual arts. Combines articles, services, and more.`,
-			Role:      `tech lead`,
-			Tech:      `Postgres, Go, JS`,
-			Lifecycle: Lifecycle{Start: `2020`},
+			Name: `Core Spirit`,
+			Link: `https://corespirit.com`,
+			Desc: `Platform for connecting coaches with customers. Articles, services, live calls, books, videos, courses, messaging, advertizing, analytics, and more. Didn't get off the ground due to poor marketing.`,
+			Role: `tech lead`,
+			Tech: `Postgres, Go, JS`,
+			Lifecycle: Lifecycle{
+				Start:  `2020`,
+				End:    `2025`,
+				Status: `taken down`,
+			},
 		},
 		{
 			Name:      `eth`,
@@ -519,9 +523,9 @@ func initWorks() []Work {
 			},
 		},
 		{
-			Name: `sublime-goasm`,
-			Link: `https://github.com/mitranim/sublime-goasm`,
-			Desc: `Syntax definition for Go assembly for Sublime Text.`,
+			Name: `sublime-asm`,
+			Link: `https://github.com/mitranim/sublime-asm`,
+			Desc: `Near-universal assembly syntax definition for Sublime Text. Supports Go assembly too.`,
 			Role: `author`,
 			Tech: `Sublime`,
 			Lifecycle: Lifecycle{
