@@ -56,6 +56,17 @@ func (self Lifecycle) StatusEnd(bui B) {
 func initWorks() []Work {
 	return []Work{
 		{
+			Name: `Astil Forth`,
+			Link: `https://github.com/mitranim/astil_forth`,
+			Desc: `A custom Forth JIT compiler designed for self-assembling and self-bootstrapping.`,
+			Role: `author`,
+			Tech: `Forth, C, machine code`,
+			Lifecycle: Lifecycle{
+				Start:  `2025`,
+				Status: `works`,
+			},
+		},
+		{
 			Name: `Tabularius`,
 			Link: `https://mitranim.com/tabularius/`,
 			Desc: `Browser-based companion app and toolkit for [Tower Dominion](https://store.steampowered.com/app/3226530).`,

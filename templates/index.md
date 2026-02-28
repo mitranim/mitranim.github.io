@@ -4,7 +4,7 @@
 
 Nelo Mitranim.
 
-Lead software developer and architect. Main expertise: web applications (full stack). Decent expertise in some other areas (making tools, libraries, languages). Prefer greenfield development.
+Lead software developer and architect. Main expertise: web applications (full stack), as well as making tools, libraries, languages. Prefer greenfield development.
 
 See [works](/works).
 
@@ -12,9 +12,9 @@ See [works](/works).
 
 Solid experience: Go, C, Rust, JS (DOM/Deno/Bun/Node), Clojure, Python, Forth, assembly.
 
-Wrote a custom JIT compiler for Forth with support for self-assembly.
+Wrote a custom Forth [JIT compiler](https://github.com/mitranim/astil_forth) with support for self-assembling programs.
 
-I maintain my own Go and JS "stdlibs", frameworks, many libraries.
+Maintain my own Go and JS "stdlibs", frameworks, many libraries.
 
 * My Go stdlib: [https://github.com/mitranim/gg](https://github.com/mitranim/gg).
 * My JS stdlib: [https://github.com/mitranim/js](https://github.com/mitranim/js).
@@ -36,11 +36,6 @@ Experience:
 * Datomic ([https://www.datomic.com](https://www.datomic.com)).
 * Firebase ([https://firebase.google.com](https://firebase.google.com)).
 * Document databases: ArangoDB, CouchDB.
-
-Additional notes:
-
-* Core data is always relational.
-* SQL syntax is evil.
 
 # Applications
 
