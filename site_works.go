@@ -58,7 +58,7 @@ func initWorks() []Work {
 		{
 			Name: `Astil Forth`,
 			Link: `https://github.com/mitranim/astil_forth`,
-			Desc: `A custom Forth JIT compiler designed for self-assembling and self-bootstrapping.`,
+			Desc: `A custom Forth JIT & AOT compiler designed for self-assembling and self-bootstrapping.`,
 			Role: `author`,
 			Tech: `Forth, C, machine code`,
 			Lifecycle: Lifecycle{

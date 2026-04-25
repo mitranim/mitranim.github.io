@@ -12,9 +12,9 @@ See [works](/works).
 
 Solid experience: Go, C, Rust, JS (DOM/Deno/Bun/Node), Clojure, Python, Forth, assembly.
 
-Wrote a custom Forth [JIT compiler](https://github.com/mitranim/astil_forth) with support for self-assembling programs.
+Wrote a Forth [JIT & AOT compiler](https://github.com/mitranim/astil_forth) with support for self-assembling programs.
 
-Maintain my own Go and JS "stdlibs", frameworks, many libraries.
+Maintain my own Go/JS/C "stdlibs", frameworks, many libraries.
 
 * My Go stdlib: [https://github.com/mitranim/gg](https://github.com/mitranim/gg).
 * My JS stdlib: [https://github.com/mitranim/js](https://github.com/mitranim/js).
@@ -41,12 +41,23 @@ Experience:
 
 Solid experience:
 
+* [Compilers](https://github.com/mitranim/astil_forth).
 * API backends (REST / WebSocket / gRPC).
 * Hybrid SSR+SPA apps.
 * Dynamic web apps (SPA).
 * Traditional web apps (SSR + forms).
 * Ethereum apps; see [github.com/purelabio/eth](https://github.com/purelabio/eth).
 * Arbitrary CLI apps.
+
+# Organizations
+
+Also see my various [projects](/works).
+
+* CoreSpirit (2020–2025): CTO, web stack.
+* Shanzhai City (2017–2018; with Purelab): web stack; blockchain integrations.
+* Purelab (2017–2019; freelance team with friends): various web projects for various clients.
+* ToBox (2015–2016): web frontend.
+* Paragon Software (sometime around 2014): from tech support to web dev.
 
 # Misc
 

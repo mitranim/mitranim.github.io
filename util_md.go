@@ -308,8 +308,8 @@ func (self *MdRen) RenderBlockQuote(out io.Writer, node *bf.Node, entering bool)
 Scans the given Markdown template and generates a TOC from the headings.
 
 Note: the Markdown library we're using has its own TOC feature, but it's
-unusable for our purposes. Fortunately, it exposes the parser and AST, allowing
-us to extract the heading data.
+unusable for our purposes. Fortunately, it exposes the parser and AST,
+allowing us to extract the heading data.
 */
 func mdToToc(src []byte) string {
 	headings := mdHeadings(src)
